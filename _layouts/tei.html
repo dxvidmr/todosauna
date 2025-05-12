@@ -24,8 +24,11 @@ layout: page
   </div>
 </div>
 
-
-<div><a href="{{site.baseurl}}/assets/tei/{{page.document}}" target="_new">See original TEI.</a></div>
+<div>
+  <a href="{{site.baseurl}}/assets/tei/{{page.document}}" target="_new">
+    See original TEI.
+  </a>
+</div>
 
 <link rel="stylesheet" href="{{site.baseurl}}/assets/tei.css"/>
 
@@ -38,3 +41,12 @@ layout: page
 </script>
 <script src="{{site.baseurl}}/assets/js/tei.js"></script>
 
+<!-- Configuración de Hypothesis para cargar tu grupo -->
+<script type="application/json" class="js-hypothesis-config">
+{
+  "groups": ["nGjPB7E1"],    
+  "openSidebar": false,         
+  "showHighlights": "always"    
+}
+</script>
+<script async src="https://hypothes.is/embed.js"></script>
