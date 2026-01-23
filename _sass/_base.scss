@@ -68,6 +68,14 @@ a {
     max-height: 1.5em;
 }
 
+/* Override default navbar styles for floating effect */
+.navbar {
+    padding: 0;
+    width: auto !important;
+    display: inline-flex !important;
+    flex-direction: column;
+}
+
 /* footer */
 #footer-logo {
     height: 50px;
@@ -80,6 +88,7 @@ a {
     color: #fff;
     border: solid white 1px;
     background: transparent;
+    border-radius: 50px;
   }
 
   #footer-nav .nav-link:hover {

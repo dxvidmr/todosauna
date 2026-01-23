@@ -1,40 +1,88 @@
-<nav class="navbar navbar-expand-lg {{ site.data.theme.navbar-color | default: 'navbar-dark' }} {{ site.data.theme.navbar-background | default: 'bg-dark' }}">
-    <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#page-nav" aria-controls="page-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<div class="nav-wrapper">
+    <div class="nav-backdrop" id="navBackdrop"></div>
+    <nav class="navbar navbar-floating {{ site.data.theme.navbar-color | default: 'navbar-dark' }} {{ site.data.theme.navbar-background | default: 'bg-dark' }}" id="mainNav">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+            
+            <!-- Desktop navigation - visible on large screens -->
+            <div class="d-none d-lg-flex navbar-nav-desktop">
+                <a class="nav-link{% if page.url == '/lectura/' %} active{% endif %}" href="{{ '/lectura/' | relative_url }}">Lectura</a>
+                <a class="nav-link{% if page.url == '/archivo/' %} active{% endif %}" href="{{ '/archivo/' | relative_url }}">Archivo</a>
+                <a class="nav-link{% if page.url == '/participa/' %} active{% endif %}" href="{{ '/participa/' | relative_url }}">Participa</a>
+                <a class="nav-link{% if page.url == '/acerca-de/' %} active{% endif %}" href="{{ '/acerca-de/' | relative_url }}">Acerca de</a>
+            </div>
 
-        {% if site.organization-logo-nav %}<span class="d-lg-none text-end">
-            <a href="{{ site.organization-link }}">
-                <img class="img-fluid" id="mobile-nav-image" src="{{ site.organization-logo-nav | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name | escape }} home" >
-            </a>
-        </span>{% endif %}
-        
-        <div class="collapse navbar-collapse" id="page-nav">
-            <ul class="navbar-nav me-auto">
-                {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.display_name and item.dropdown_parent == nil' -%} 
-                {% for nav in navItems %}
-                {% if nav.stub %}
-                <li class="nav-item">
-                    <a class="nav-link{% if page.url == nav.stub %} active{% endif %}" href="{{ nav.stub | relative_url }}">{{ nav.display_name }}</a>
-                </li>
-                {%- else -%}
-                <li class="nav-item dropdown">
-                    {% assign navChildren = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nav.display_name' %}
-                    {%- assign childStubs = navChildren | map: 'stub' -%}
-                    <a class="nav-link  dropdown-toggle{% if childStubs contains page.url %} active{% endif %}" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ nav.display_name }}</a>
-                    <div class="dropdown-menu">
-                        {% for c in navChildren %}
-                        <a class="dropdown-item {% if page.url == c.stub %}active{% endif %}" href="{{ c.stub | relative_url }}">{{ c.display_name }}</a>
-                        {% endfor %}
-                    </div>
-                </li>
-                {% endif %}
-                {%- endfor -%}
-            </ul>
-            
-            {% include nav-search-lunr.html %}
-            
+            <!-- Hamburger/Close button -->
+            <button class="navbar-toggler" type="button" id="navToggle" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-close-icon">&times;</span>
+            </button>
         </div>
-    </div>
-</nav>
+
+        <!-- Expanded menu content -->
+        <div class="navbar-expanded" id="navExpanded">
+            <div class="navbar-expanded-grid">
+                <div class="navbar-expanded-column">
+                    <a href="{{ '/lectura/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/lectura/' %} active{% endif %}">Lectura</a>
+                    <ul class="navbar-expanded-links">
+                        <li><a href="{{ '/browse.html' | relative_url }}">Explorar colección</a></li>
+                        <li><a href="{{ '/subjects.html' | relative_url }}">Por temas</a></li>
+                        <li><a href="{{ '/timeline.html' | relative_url }}">Línea de tiempo</a></li>
+                    </ul>
+                </div>
+                
+                <div class="navbar-expanded-column">
+                    <a href="{{ '/archivo/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/archivo/' %} active{% endif %}">Archivo</a>
+                    <ul class="navbar-expanded-links">
+                        <li><a href="{{ '/locations.html' | relative_url }}">Por ubicaciones</a></li>
+                        <li><a href="{{ '/data.html' | relative_url }}">Datos y metadatos</a></li>
+                    </ul>
+                </div>
+                
+                <div class="navbar-expanded-column">
+                    <a href="{{ '/participa/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/participa/' %} active{% endif %}">Participa</a>
+                    <ul class="navbar-expanded-links">
+                        <li><a href="#">Contribuye con contenido</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="navbar-expanded-column">
+                    <a href="{{ '/acerca-de/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/acerca-de/' %} active{% endif %}">Acerca de</a>
+                    <ul class="navbar-expanded-links">
+                        <li><a href="{{ '/about.html' | relative_url }}">Sobre el proyecto</a></li>
+                        <li><a href="#">Equipo</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="navbar-expanded-search">
+                {% include nav-search-lunr.html %}
+            </div>
+        </div>
+    </nav>
+</div>
+
+<script>
+    // Toggle expanded menu
+    document.getElementById('navToggle').addEventListener('click', function() {
+        const nav = document.getElementById('mainNav');
+        const backdrop = document.getElementById('navBackdrop');
+        nav.classList.toggle('expanded');
+        backdrop.classList.toggle('active');
+    });
+    
+    // Close on backdrop click
+    document.getElementById('navBackdrop').addEventListener('click', function() {
+        document.getElementById('mainNav').classList.remove('expanded');
+        this.classList.remove('active');
+    });
+    
+    // Close on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.getElementById('mainNav').classList.remove('expanded');
+            document.getElementById('navBackdrop').classList.remove('active');
+        }
+    });
+</script>
