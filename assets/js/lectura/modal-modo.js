@@ -622,10 +622,24 @@ document.addEventListener('DOMContentLoaded', () => {
   window.modalModo = new ModalModo();
   console.log('ModalModo inicializado');
   
-  // Vincular botón en navegación
+  // Vincular botón flotante (desktop)
   const btnModoUsuario = document.getElementById('btn-modo-usuario');
   if (btnModoUsuario) {
     btnModoUsuario.addEventListener('click', () => {
+      window.modalModo.mostrarInfoUsuario();
+    });
+  }
+  
+  // Vincular botón en menú expandido (móvil)
+  const btnModoUsuarioMenu = document.getElementById('btn-modo-usuario-menu');
+  if (btnModoUsuarioMenu) {
+    btnModoUsuarioMenu.addEventListener('click', () => {
+      // Cerrar menú de navegación
+      const mainNav = document.getElementById('mainNav');
+      const backdrop = document.getElementById('navBackdrop');
+      if (mainNav) mainNav.classList.remove('expanded');
+      if (backdrop) backdrop.classList.remove('active');
+      // Mostrar modal
       window.modalModo.mostrarInfoUsuario();
     });
   }
