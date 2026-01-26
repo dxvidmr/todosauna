@@ -722,8 +722,8 @@
   transition: all 0.2s;
   
   &:hover {
-    border-color: $color-light;
-    box-shadow: 0 2px 8px rgba($color-light, 0.2);
+    border-color: $color-dark;
+    //box-shadow: 0 2px 8px rgba($color-light, 0.2);
   }
   
   h3 {
@@ -750,7 +750,7 @@
   
   i {
     font-size: 1.6rem;
-    color: $color-text-secondary;
+    color: $color-dark;
     opacity: 0.95;
   }
 }
@@ -765,7 +765,7 @@
   width: 100%;
   padding: 10px;
   background: $color-light;
-  color: white;
+  color: $color-dark;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -817,7 +817,7 @@
   width: 100%;
   padding: 10px;
   background: $color-light;
-  color: white;
+  color: $color-dark;
   border: none;
   border-radius: 50px;
   cursor: pointer;
