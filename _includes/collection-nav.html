@@ -10,6 +10,11 @@
                 <a class="nav-link{% if page.url == '/archivo/' %} active{% endif %}" href="{{ '/archivo/' | relative_url }}">Archivo</a>
                 <a class="nav-link{% if page.url == '/participa/' %} active{% endif %}" href="{{ '/participa/' | relative_url }}">Participa</a>
                 <a class="nav-link{% if page.url == '/acerca-de/' %} active{% endif %}" href="{{ '/acerca-de/' | relative_url }}">Acerca de</a>
+                {% if page.layout == 'lectura' or page.layout == 'laboratorio' %}
+                <button id="btn-modo-usuario" class="btn-modo-usuario ms-2">
+                    <i class="fa-solid fa-user" aria-hidden="true"></i> Mi participación
+                </button>
+                {% endif %}
             </div>
 
             <!-- Hamburger/Close button -->
@@ -42,6 +47,7 @@
                 <div class="navbar-expanded-column">
                     <a href="{{ '/participa/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/participa/' %} active{% endif %}">Participa</a>
                     <ul class="navbar-expanded-links">
+                        <li><a href="{{ '/participa/laboratorio/' | relative_url }}">Laboratorio de notas</a></li>
                         <li><a href="#">Contribuye con contenido</a></li>
                         <li><a href="#">Contacto</a></li>
                     </ul>

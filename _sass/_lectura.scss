@@ -1,0 +1,787 @@
+// ============================================
+// ESTILOS SALA DE LECTURA
+// Layout principal y estilos TEI
+// ============================================
+
+@use "sass:color";
+@use "lectura-variables" as *;
+
+// ============================================
+// LAYOUT PRINCIPAL LECTURA (2 COLUMNAS)
+// ============================================
+
+.lectura-wrapper {
+  // Eliminar padding del body para layout a pantalla completa
+  margin-top: -5rem; // Compensar padding-top del body
+  padding-top: 5rem;
+  min-height: 100vh;
+}
+
+.main-layout {
+  display: flex;
+  min-height: calc(100vh - 5rem);
+}
+
+// Columna de texto TEI
+.text-column {
+  flex: 1;
+  padding: 50px;
+  overflow-y: auto;
+  max-height: calc(100vh - 5rem);
+  font-family: 'Google Sans Code', 'Oxygen Mono', 'Source Code Pro', monospace;
+  font-weight: 300;
+  font-size: 100%;
+  line-height: 1.6;
+  color: $lectura-text;
+}
+
+// Columna de notas/opciones
+.notes-column {
+  position: relative;
+  width: 25%;
+  min-width: 30%;
+  max-width: 50%;
+  border-left: 2px solid $lectura-border-muted;
+  background-color: $lectura-bg;
+  overflow-y: auto;
+  max-height: calc(100vh - 5rem);
+  display: flex;
+  flex-direction: column;
+}
+
+// ============================================
+// PANEL DE OPCIONES
+// ============================================
+
+.opciones-panel h4,
+.info-panel h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: $lectura-text;
+  border-bottom: 1px solid $lectura-border;
+  padding-bottom: 0.5rem;
+}
+
+.option-group {
+  margin-bottom: 1.5rem;
+}
+
+.option-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+// Toggle switch
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $lectura-muted-light;
+    transition: 0.3s;
+    border-radius: 26px;
+    
+    &::before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+  }
+  
+  input:checked + .slider {
+    background-color: $lectura-primary;
+  }
+  
+  input:checked + .slider::before {
+    transform: translateX(24px);
+  }
+}
+
+// Controles de tamaño de fuente
+.font-size-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.font-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid $lectura-primary;
+  background-color: $lectura-surface;
+  color: $lectura-primary;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: $lectura-primary;
+    color: white;
+  }
+}
+
+#font-size-display {
+  font-weight: 500;
+  color: $lectura-muted-2;
+  min-width: 50px;
+  text-align: center;
+}
+
+// ============================================
+// SISTEMA DE PESTAÑAS
+// ============================================
+
+.button-bar {
+  display: flex;
+  border-bottom: 1px solid $lectura-border;
+  background: $lectura-panel-bg;
+  padding: 0 10px;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: $lectura-muted;
+  transition: all 0.2s;
+  
+  &:hover {
+    color: $lectura-text;
+    background: rgba(0,0,0,0.02);
+  }
+  
+  &.active {
+    color: $lectura-primary;
+    border-bottom-color: $lectura-primary;
+  }
+}
+
+.tab-content {
+  display: none;
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+  
+  &.active {
+    display: block;
+  }
+}
+
+// ============================================
+// PANEL DE NOTAS
+// ============================================
+
+.placeholder-text {
+  color: $lectura-muted;
+  font-style: italic;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+#panelNotas {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#noteContent {
+  font-size: 90%;
+  color: $lectura-text;
+  padding: 20px;
+  border-radius: 8px;
+  min-height: 200px;
+  background: $lectura-surface;
+  box-shadow: $lectura-shadow-elev-1;
+  flex: 1;
+  overflow-y: auto;
+}
+
+#panelNotas h4 {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+// Navegación por actos
+.acts-nav {
+  margin-top: auto;
+  padding: 20px;
+  border-top: 1px solid $lectura-border;
+  
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: $lectura-text;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.acts-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-act {
+  flex: 1;
+  padding: 10px 12px;
+  background: #f5f5f5;
+  border: 1px solid $lectura-border;
+  border-radius: 6px;
+  color: $lectura-text;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: $lectura-primary;
+    color: white;
+    border-color: $lectura-primary;
+    transform: translateY(-1px);
+    box-shadow: $lectura-shadow-elev-1;
+  }
+  
+  &.active {
+    background: $lectura-primary;
+    color: white;
+    border-color: $lectura-primary;
+    box-shadow: $lectura-shadow-elev-1;
+  }
+}
+
+// Estilos para el panel de notas
+.note-display {
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  
+  .note-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  
+  h5 {
+    margin: 0;
+    color: $lectura-primary;
+    font-size: 1.1rem;
+  }
+  
+  .note-badges {
+    display: flex;
+    gap: 0.4rem;
+  }
+  
+  .note-badge {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 12px;
+    text-transform: capitalize;
+  }
+  
+  .note-badge-type {
+    background-color: $lectura-primary-100;
+    color: $lectura-primary-600;
+    border: 1px solid $lectura-primary-border;
+  }
+  
+  .note-badge-subtype {
+    background-color: $lectura-muted-light;
+    color: $lectura-muted-dark;
+    border: 1px solid $lectura-muted-border;
+  }
+  
+  p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+    color: $lectura-text;
+  }
+  
+  .note-id {
+    display: block;
+    margin-top: 0.75rem;
+    color: $lectura-muted;
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+}
+
+.note-footer {
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+// ============================================
+// NAVEGACIÓN DE NOTAS EN PANEL
+// ============================================
+
+.note-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid $lectura-border;
+}
+
+.note-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  .btn-nav-nota {
+    width: 32px;
+    height: 32px;
+    border: 1px solid $lectura-border;
+    border-radius: 50%;
+    background: $lectura-surface;
+    color: $lectura-text;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    padding: 0;
+    
+    &:hover:not(:disabled) {
+      background: $lectura-primary;
+      color: white;
+      border-color: $lectura-primary;
+    }
+    
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+  
+  .nota-posicion {
+    font-size: 0.85rem;
+    color: $lectura-muted;
+    font-weight: 500;
+    min-width: 100px;
+    text-align: center;
+  }
+}
+
+.btn-cerrar-nota {
+  width: 32px;
+  height: 32px;
+  border: 1px solid $lectura-border;
+  border-radius: 50%;
+  background: $lectura-surface;
+  color: $lectura-muted;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+  
+  &:hover {
+    background: $lectura-muted-light;
+    color: $lectura-text;
+    border-color: $lectura-muted-mid;
+  }
+}
+
+// Nota activa en el texto
+.note-wrapper.note-current {
+  background: linear-gradient(transparent 5%, rgba($lectura-primary, 0.25) 5%, rgba($lectura-primary, 0.25) 80%) !important;
+  border-bottom: 2px solid $lectura-primary !important;
+  text-decoration: none !important;
+}
+
+// Estado de nota evaluada
+.nota-ya-evaluada {
+  text-align: center;
+  padding: 12px;
+  background: $lectura-success-100;
+  border-radius: 6px;
+  color: $lectura-success;
+  font-weight: 500;
+  margin-top: 16px;
+  
+  i {
+    margin-right: 8px;
+  }
+}
+
+// ============================================
+// RESIZE HANDLE
+// ============================================
+
+#resize-handle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 8px;
+  height: 100%;
+  cursor: ew-resize;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: $lectura-primary;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 3px;
+    height: 50px;
+    background-color: $lectura-border-muted;
+    border-radius: 2px;
+  }
+  
+  &:hover::after {
+    background-color: $lectura-surface;
+  }
+}
+
+// ============================================
+// ESTILOS TEI (elementos renderizados)
+// ============================================
+
+tei-div {
+  display: block;
+  margin-top: .5em;
+}
+
+tei-p {
+  display: block;
+  margin-top: .5em;
+  text-align: justify;
+  line-height: 1.5em;
+}
+
+tei-hi[rend="italic"] {
+  font-style: italic;
+}
+
+tei-standoff {
+  display: none;
+}
+
+.notes {
+  display: block;
+  margin-top: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
+}
+
+tei-head[type="comedia-head"] {
+  font-size: 300%;
+}
+
+tei-head[type="castList-head"] {
+  font-size: 150%;
+}
+
+tei-head[type="act-head"] {
+  font-size: 200%;
+}
+
+tei-list {
+  display: block;
+}
+
+tei-item {
+  display: block;
+  margin-left: 1em;
+  
+  &::before {
+    content: "→";
+    margin-right: 5px;
+  }
+}
+
+tei-text[type="literary-text"] {
+  text-align: center;
+}
+
+tei-castItem {
+  display: list-item;
+}
+
+// Coma después del role cuando va seguido de roleDesc
+tei-castitem tei-role::after {
+  content: ", ";
+}
+
+tei-roledesc {
+  display: inline;
+}
+
+tei-castList {
+  display: block;
+  list-style-type: none;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 2em;
+}
+
+tei-lg {
+  display: block;
+}
+
+tei-l {
+  display: block;
+  margin-bottom: 0.2em;
+}
+
+tei-l[part="Y"][corresp="2-2"][facs="t-1"] {
+  text-indent: 200px;
+}
+
+// Versos partidos
+tei-l[part="I"],
+tei-l[part="M"],
+tei-l[part="F"] {
+  display: block;
+}
+
+// Layout de parlamentos con CSS Grid
+tei-sp {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  column-gap: 20px;
+  margin-bottom: 1em;
+  text-align: left;
+}
+
+tei-speaker {
+  font-weight: 500;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+tei-sp > tei-l {
+  grid-column: 2;
+  margin-bottom: 0.2em;
+}
+
+tei-sp > tei-l:first-of-type {
+  grid-row: 1;
+}
+
+tei-stage {
+  display: block;
+  font-style: italic;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 170px;
+}
+
+tei-div[type="footnotes"] {
+  display: none;
+}
+
+tei-div[type="editor"],
+tei-div[type="colophon"] {
+  background-color: $lectura-panel-bg;
+  border-radius: 10px;
+  box-shadow: $lectura-shadow-heavy;
+  padding: 20px;
+  margin: 20px;
+}
+
+tei-quote {
+  font-style: italic;
+  text-align: center;
+}
+
+tei-milestone[unit="stanza"]::after {
+  content: "";
+  display: none;
+  border-bottom: 1px dotted $lectura-muted-mid;
+  width: 75%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+tei-milestone[unit="stanza"].show-line::after {
+  display: block;
+}
+
+// ============================================
+// NOTAS (targets y highlights)
+// ============================================
+
+// Estilo base para targets de notas con wrapper
+.note-wrapper.note-target {
+  text-decoration: underline;
+  text-decoration-color: $lectura-muted-mid;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover,
+  &.note-active {
+    text-decoration: none;
+    background: linear-gradient(transparent 5%, rgba($lectura-primary, 0.15) 5%, rgba($lectura-primary, 0.15) 80%);
+    border-bottom: 2px solid $lectura-primary;
+  }
+}
+
+// Cuando las notas están ocultas
+.notes-hidden .note-wrapper.note-target {
+  text-decoration: none;
+  cursor: pointer;
+  
+  &:hover,
+  &.note-active {
+    text-decoration: none;
+    background: linear-gradient(transparent 5%, rgba($lectura-primary, 0.15) 5%, rgba($lectura-primary, 0.15) 80%);
+    border-bottom: 2px solid $lectura-primary;
+  }
+}
+
+// Compatibilidad con elementos sin wrapper (legacy)
+.note-target:not(.note-wrapper),
+tei-l.note-target,
+tei-seg.note-target {
+  border-bottom: 2px solid $lectura-muted-mid;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-image: linear-gradient(transparent 80%, $lectura-muted-mid 80%, $lectura-muted-mid 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: fit-content;
+  display: table;
+  
+  &:hover,
+  &.note-active {
+    background-image: linear-gradient(transparent 65%, rgba($lectura-primary, 0.25) 65%, rgba($lectura-primary, 0.25) 100%);
+    border-bottom-color: $lectura-primary;
+  }
+}
+
+tei-l.note-target:hover,
+tei-seg.note-target:hover,
+tei-l.note-active,
+tei-seg.note-active {
+  background-image: linear-gradient(transparent 65%, rgba($lectura-primary, 0.25) 65%, rgba($lectura-primary, 0.25) 100%);
+  border-bottom-color: $lectura-primary;
+}
+
+// ============================================
+// BOTÓN FIJO (toggles)
+// ============================================
+
+.fixed-button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  border: none;
+  background-color: $lectura-primary;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  
+  &:hover {
+    background-color: $lectura-primary-700;
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+
+@media (max-width: 991.98px) {
+  .main-layout {
+    flex-direction: column;
+  }
+  
+  .text-column {
+    max-height: none;
+    padding: 30px 20px;
+  }
+  
+  .notes-column {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    max-height: none;
+    border-left: none;
+    border-top: 2px solid $lectura-border-muted;
+  }
+  
+  tei-sp {
+    grid-template-columns: 100px 1fr;
+  }
+  
+  tei-stage {
+    margin-left: 120px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .text-column {
+    padding: 20px 15px;
+  }
+  
+  tei-sp {
+    grid-template-columns: 1fr;
+  }
+  
+  tei-speaker {
+    grid-column: 1;
+    margin-bottom: 0.3em;
+  }
+  
+  tei-sp > tei-l {
+    grid-column: 1;
+    margin-left: 1em;
+  }
+  
+  tei-sp > tei-l:first-of-type {
+    grid-row: auto;
+  }
+  
+  tei-stage {
+    margin-left: 1em;
+  }
+}

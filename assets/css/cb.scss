@@ -44,3 +44,9 @@ $theme-link-color: {{ site.data.theme.link-color | default: '""' }};
 
 /* pull in custom styles to override everything else */
 @use "custom-navbar";
+
+/* Estilos para Sala de Lectura y Laboratorio de Notas */
+@use "lectura-variables";
+@use "lectura";
+@use "lectura-components";
+@use "laboratorio";

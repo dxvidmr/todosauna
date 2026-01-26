@@ -1,0 +1,920 @@
+/* ============================================
+   EVALUACIÓN DE NOTAS (componentes reutilizables)
+   ============================================ */
+
+/* Contenedor de evaluación */
+.nota-evaluacion,
+.nota-content .nota-acciones {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--muted-light);
+}
+
+/* Header opcional */
+.evaluacion-header {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* Contenedor de botones */
+.evaluacion-botones {
+  display: flex;
+  gap: 8px;
+}
+
+/* Mensaje "Sé el primero en evaluar" */
+.eval-mensaje-primero {
+  margin: 8px 0 0 0;
+  padding: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+}
+
+/* Botones de evaluación */
+.btn-evaluar,
+.btn-util,
+.btn-mejorable {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Iconos dentro de botones de evaluación */
+.btn-evaluar i,
+.btn-util i,
+.btn-mejorable i {
+  font-size: 0.95em;
+  opacity: 0.85;
+  color: var(--muted-2);
+}
+
+/* Contador en botones */
+.btn-contador {
+  display: inline-block;
+  min-width: 20px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: normal;
+  font-size: 0.85em;
+  color: var(--muted-dark);
+}
+
+/* Cambios de color en hover o cuando ya votado */
+.btn-util:hover i { color: var(--success); }
+.btn-mejorable:hover i { color: var(--warning); }
+.btn-util.votado i { color: var(--success); }
+.btn-mejorable.votado i { color: var(--warning); }
+
+.btn-evaluar:hover {
+  background: var(--muted-light);
+  border-color: var(--muted-mid);
+}
+
+.btn-util:hover {
+  background: var(--success-100);
+  border-color: var(--success);
+}
+
+.btn-mejorable:hover {
+  background: var(--warning-100);
+  border-color: var(--warning);
+}
+
+.btn-util.votado {
+  background: var(--success-100);
+  color: var(--success);
+  border-color: var(--success);
+  cursor: default;
+}
+
+.btn-mejorable.votado {
+  background: var(--warning-100);
+  color: var(--warning);
+  border-color: var(--warning);
+  cursor: default;
+}
+
+/* Área de comentario */
+.evaluacion-comentario,
+.nota-content .nota-comentario {
+  margin-top: 12px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.evaluacion-comentario textarea,
+.nota-content .nota-comentario textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 13px;
+  resize: vertical;
+  margin-bottom: 8px;
+  min-height: 60px;
+}
+
+.evaluacion-comentario textarea:focus,
+.nota-content .nota-comentario textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* Botones de comentario */
+.btn-enviar-comentario,
+.btn-cancelar-comentario {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-right: 6px;
+}
+
+.btn-enviar-comentario {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.btn-enviar-comentario:hover {
+  background: var(--primary-700);
+}
+
+.btn-cancelar-comentario {
+  background: var(--muted-light);
+  color: var(--text);
+}
+
+.btn-cancelar-comentario:hover {
+  background: var(--border);
+}
+
+/* Estado evaluado */
+.evaluacion-feedback,
+.nota-ya-evaluada,
+.nota-content .nota-evaluada {
+  color: var(--success);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px;
+  text-align: center;
+  background: var(--success-100);
+  border-radius: 4px;
+}
+
+.nota-ya-evaluada i,
+.nota-content .nota-evaluada i {
+  margin-right: 8px;
+}
+
+/* Ajustes específicos para laboratorio */
+.nota-content .nota-acciones {
+  display: flex;
+  gap: 10px;
+}
+
+.nota-content .btn-util,
+.nota-content .btn-mejorable {
+  padding: 10px 14px;
+  border-radius: 6px;
+}
+
+.nota-content .nota-comentario-btns {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.nota-content .btn-enviar-comentario {
+  padding: 8px 16px;
+}
+
+.nota-content .btn-cancelar-comentario {
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+}
+
+.nota-content .nota-evaluada {
+  padding: 16px;
+  border-radius: 6px;
+}
+
+/* ============================================
+   SUGERENCIAS DE NOTAS FALTANTES
+   ============================================ */
+
+/* Tooltip flotante */
+.sugerencia-tooltip {
+  position: absolute;
+  z-index: 9000;
+  transform: translateX(-50%);
+  animation: fadeInUp 0.15s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.btn-sugerir-nota {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-elev-2);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-sugerir-nota:hover {
+  background: var(--primary-700);
+  transform: scale(1.02);
+}
+
+.btn-sugerir-nota i {
+  color: var(--warning-300, #fcd34d);
+}
+
+/* Modal de sugerencia */
+.sugerencia-modal-content {
+  max-width: 500px;
+}
+
+.sugerencia-modal-content h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sugerencia-modal-content h2 i {
+  color: var(--warning);
+}
+
+.sugerencia-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sugerencia-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: -8px;
+}
+
+.sugerencia-label .label-opcional {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.sugerencia-texto-seleccionado {
+  padding: 12px 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  line-height: 1.5;
+  max-height: 150px;
+  overflow-y: auto;
+  font-family: 'Google Sans Code', 'Oxygen Mono', monospace;
+  font-size: 14px;
+}
+
+.sugerencia-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.2s;
+}
+
+.sugerencia-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.sugerencia-textarea::placeholder {
+  color: var(--muted);
+}
+
+.sugerencia-botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.btn-cancelar-sugerencia {
+  padding: 10px 18px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancelar-sugerencia:hover {
+  background: var(--muted-light);
+  border-color: var(--muted-mid);
+}
+
+.btn-enviar-sugerencia {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-enviar-sugerencia:hover:not(:disabled) {
+  background: var(--primary-700);
+}
+
+.btn-enviar-sugerencia:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--overlay);
+}
+
+.modal-content {
+  position: relative;
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 32px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-elev-2);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  z-index: 1;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  color: var(--text);
+  background: rgba(0,0,0,0.05);
+  outline: none;
+}
+
+.modal-content h2 {
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.modal-descripcion {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+/* ============================================
+   NAVEGACIÓN SUPERIOR SIMPLE
+   ============================================ */
+.top-nav {
+  padding: 12px 20px;
+  background: var(--nav-bg);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.top-nav a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s;
+}
+
+.top-nav a:hover,
+.top-nav a:focus {
+  background: rgba(0,0,0,0.04);
+  color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb),0.08);
+}
+
+.top-nav .nav-back {
+  margin-right: auto;
+}
+
+.btn-modo-usuario {
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 14px;
+  margin-left: auto;
+  font-family: inherit;
+}
+
+.btn-modo-usuario:hover {
+  background: var(--primary-700);
+}
+
+/* Panel de información del usuario */
+.info-usuario-panel {
+  padding: 20px;
+}
+
+.info-usuario-panel h3 {
+  margin: 0 0 20px 0;
+  color: var(--text);
+  font-size: 20px;
+}
+
+.info-modo {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: var(--panel-bg);
+  border-radius: 6px;
+}
+
+.info-modo p {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.info-stats {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: var(--primary-100);
+  border-radius: 6px;
+  border-left: 4px solid var(--primary);
+}
+
+.info-stats p {
+  margin: 8px 0;
+}
+
+.info-session-id {
+  opacity: 0.7;
+  font-family: monospace;
+}
+
+.info-acciones {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn-cerrar-sesion {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-cerrar-sesion:hover {
+  background-color: var(--primary-700);
+}
+
+.btn-cerrar-info {
+  background-color: var(--muted);
+  color: var(--on-surface);
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-cerrar-info:hover {
+  background-color: var(--muted-dark);
+}
+
+/* Panel de lector existente */
+.lector-info-previa {
+  background-color: var(--primary-100);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--primary);
+}
+
+.lector-info-previa p {
+  margin: 8px 0;
+}
+
+@media (max-width: 640px) {
+  .top-nav {
+    justify-content: center;
+  }
+  .top-nav .nav-back {
+    margin-right: 0;
+  }
+}
+
+
+/* Opciones de modo */
+.modo-opciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.modo-opcion {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.modo-opcion:hover {
+  border-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(var(--primary-rgb),0.2);
+}
+
+.modo-header {
+  margin-bottom: 12px;
+}
+
+.modo-icono {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Estilos para iconos Font Awesome (más discretos) */
+.modo-icono i,
+.opcion-icono i {
+  font-size: 1.6rem;
+  color: var(--muted-2);
+  opacity: 0.95;
+}
+
+.nav-back i {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.btn-modo-usuario i {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.modo-opcion h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.modo-opcion p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  min-height: 40px;
+}
+
+.btn-seleccionar {
+  width: 100%;
+  padding: 10px;
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.btn-seleccionar:hover {
+  background: var(--primary-700);
+}
+
+/* Opciones de colaborador (registro/login) */
+.colaborador-opciones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.opcion-colaborador {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.opcion-colaborador:hover {
+  border-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(var(--primary-rgb),0.2);
+}
+
+.opcion-icono {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.opcion-colaborador h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.opcion-colaborador p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  min-height: 36px;
+}
+
+.btn-opcion-colaborador {
+  width: 100%;
+  padding: 10px;
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.btn-opcion-colaborador:hover {
+  background: var(--primary-700);
+}
+
+/* Formularios */
+.modo-form {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.modo-form h3 {
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+.modo-form label {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.modo-form label small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.modo-form input,
+.modo-form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.modo-form input:focus,
+.modo-form select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.btn-enviar {
+  background: var(--primary);
+  color: var(--on-primary);
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.btn-enviar:hover {
+  background: var(--primary-700);
+}
+
+.btn-volver {
+  background: var(--muted-light);
+  color: var(--text);
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-volver:hover {
+  background: var(--border);
+}
+
+/* ============================================
+   TABS (para panel de notas)
+   ============================================ */
+
+.button-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border-muted);
+  background-color: var(--nav-bg);
+  flex-shrink: 0;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: all 0.2s ease;
+  border-bottom: 3px solid transparent;
+  font-family: inherit;
+}
+
+.tab-button:hover {
+  background-color: var(--border);
+  color: var(--muted-2);
+}
+
+.tab-button.active {
+  background-color: var(--bg);
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.tab-content {
+  display: none;
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ============================================
+   TOGGLE SWITCHES
+   ============================================ */
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--border-muted);
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--primary);
+}

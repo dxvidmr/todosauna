@@ -1,0 +1,5206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="es">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Notas a Fuenteovejuna de Lope de Vega</title>
+        <author>Lope de Vega</author>
+        <editor>David Merino Recalde</editor>
+        <respStmt>
+          <resp>Anotación</resp>
+          <name>David Merino Recalde</name>
+        </respStmt>
+        <respStmt>
+          <resp>Edición base</resp>
+          <name>PROLOPE</name>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>PROLOPE, Universitat Autònoma de Barcelona</publisher>
+        <pubPlace>Bellaterra</pubPlace>
+        <date when="2026">2026</date>
+        <availability status="free">
+          <licence target="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+            Esta obra está bajo una licencia Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional.
+          </licence>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <bibl>
+          <author>Lope de Vega</author>
+          <title>Fuenteovejuna</title>
+          <editor>PROLOPE</editor>
+          <publisher>PPU</publisher>
+          <pubPlace>Barcelona</pubPlace>
+          <date when="2009">2009</date>
+        </bibl>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>Edición digital anotada de Fuenteovejuna de Lope de Vega como parte de un proyecto de edición social participativa. Las notas de este archivo están basadas originalmente en la edición de 2009 de PROLOPE, y se modifican a partir de la participación abierta. Están vinculadas a los pasajes correspondientes del texto en <ref target="fuenteovejuna.xml">Fuenteovejuna</ref>.</p>
+      </projectDesc>
+      <editorialDecl>
+        <p></p>
+      </editorialDecl>
+      <classDecl>
+        <taxonomy xml:id="tipologiaNotas">
+          <category xml:id="lexica">
+            <catDesc>Nota léxica y semántica: explicación de términos, significados literales y contextuales, frases hechas y expresiones idiomáticas.</catDesc>
+          </category>
+          <category xml:id="parafrasis">
+            <catDesc>Nota de paráfrasis o traducción: explicación del sentido global de pasajes complejos, aclaración sintáctica cuando dificulte la comprensión.</catDesc>
+          </category>
+          <category xml:id="realia">
+            <catDesc>Nota de realia (cultural y contextual): referencias a objetos, costumbres, instituciones de la época, prácticas sociales, ceremonias, vestimenta.</catDesc>
+          </category>
+          <category xml:id="historica">
+            <catDesc>Nota histórica: personajes históricos mencionados, acontecimientos y contexto político, referencias cronológicas.</catDesc>
+          </category>
+          <category xml:id="geografica">
+            <catDesc>Nota geográfica: identificación de lugares mencionados, topónimos y su relevancia en la obra.</catDesc>
+          </category>
+          <category xml:id="mitologica">
+            <catDesc>Nota mitológica y bíblica: referencias a la mitología clásica, alusiones bíblicas y hagiográficas, figuras y episodios religiosos.</catDesc>
+          </category>
+          <category xml:id="intertextual">
+            <catDesc>Nota intertextual: fuentes literarias identificables, lugares paralelos en otras obras de Lope o contemporáneas, alusiones a otros textos, autores o tradiciones literarias, tópicos y motivos literarios.</catDesc>
+          </category>
+          <category xml:id="ecdotica">
+            <catDesc>Nota ecdótica o textual: variantes textuales significativas, decisiones editoriales que requieren justificación, problemas métricos o de puntuación, pasajes corruptos o faltantes.</catDesc>
+          </category>
+          <category xml:id="escenica">
+            <catDesc>Nota escénica y de representación: acotaciones implícitas, indicaciones sobre puesta en escena, gestualidad y movimiento, referencias a convenciones teatrales del Siglo de Oro o soluciones escénicas de montajes reales.</catDesc>
+          </category>
+          <category xml:id="estilistica">
+            <catDesc>Nota estilística y retórica: figuras retóricas, recursos estilísticos, juegos de palabras y dobles sentidos con función literaria, observaciones métricas no ecdóticas.</catDesc>
+          </category>
+        </taxonomy>
+      </classDecl>
+    </encodingDesc>
+    <profileDesc>
+      <creation>
+        <date when="2025">2025</date>
+      </creation>
+      <langUsage>
+        <language ident="es">Español</language>
+      </langUsage>
+    </profileDesc>
+    <revisionDesc>
+      <change when="2025-12-21" who="#DMR">Creación del archivo de notas con taxonomía de categorías</change>
+    </revisionDesc>
+  </teiHeader>
+  <text>
+
+
+
+<body>
+<div type="notas">
+
+<!--NOTAS ACTO PRIMERO-->
+
+<note
+  xml:id="n-1-1"
+  target="#seg-1-1"
+  type="realia"
+  n="1.0">
+  1 Maestre era el cargo más alto de una orden militar.
+</note>
+
+<note
+  xml:id="n-2-1"
+  target="#seg-2-1"
+  type="geografica"
+  n="1.0">
+  2 Debe referirse a la villa de Almagro, donde se situaba el convento y palacio de la Orden de Calatrava y el inicio de la acción.
+</note>
+
+<note
+  xml:id="n-3-1"
+  target="#seg-3-1"
+  type="lexica"
+  n="1.0">
+  3 grave: ‘circunspecto’.
+</note>
+
+<note
+  xml:id="n-5-1"
+  target="#seg-5-1"
+  type="historica"
+  n="1.0">
+  4 Fernán Gómez de Guzmán: personaje histórico mencionado en las crónicas históricas en que se basó Lope de Vega para esta obra (􀄺Guía didáctica).
+</note>
+
+<note
+  xml:id="n-7-1"
+  target="#l-7"
+  type="parafrasis"
+  n="1.0">
+  5 ‘Y si no supiera mi nombre’.
+</note>
+
+<note
+  xml:id="n-9-1"
+  target="#seg-9-1"
+  type="realia"
+  n="1.0">
+  6 Comendador Mayor era el segundo cargo más importante de una orden militar.
+</note>
+
+<note
+  xml:id="n-14-1"
+  target="#seg-14-1"
+  type="lexica"
+  n="1.0">
+  7 abrir la voluntad: ‘ganarse el afecto’.
+</note>
+
+<note
+  xml:id="n-20-1"
+  target="#l-20"
+  type="parafrasis"
+  n="1.0">
+  8 Entiéndase ‘la boca del descortés a sus pies’, es decir, ‘hacerle daño’ o ‘afrentarlo’.
+</note>
+
+<note
+  xml:id="n-23-1"
+  target="#l-23"
+  type="parafrasis"
+  n="1.0">
+  9 ‘¡Qué pesado es soportarlo!’.
+</note>
+
+<note
+  xml:id="n-25-1"
+  target="#l-25 #l-26 #l-27 #l-28"
+  type="parafrasis"
+  n="1.0">
+  10 Es decir, si el superior es descortés con un súbdito, es peor que necio, casi un tirano.
+</note>
+
+<note
+  xml:id="n-29-1"
+  target="#l-29 #l-30 #l-31"
+  type="parafrasis"
+  n="1.0">
+  11 Flores aconseja al Comendador no ofenderse, pues el Maestre es muy joven y no sabe aún hacerse amar y respetar por sus inferiores.
+</note>
+
+<note
+  xml:id="n-32-1"
+  target="#l-32 #l-33 #l-34"
+  type="realia"
+  n="1.0">
+  12 El ingreso en la orden (al ceñir su espada y lucir su cruz en el pecho) obliga a sus miembros a mantener un comportamiento cortés. Cada orden tenía una cruz distintiva; la de Calatrava era de color rojo (se alude a ello en vv. 131-137).
+</note>
+
+<note
+  xml:id="n-43-1"
+  target="#seg-43-1"
+  type="lexica"
+  n="1.0">
+  13 agora: forma antigua de ‘ahora’; nueva: ‘noticia’.
+</note>
+
+<note
+  xml:id="n-46-1"
+  target="#seg-46-1"
+  type="lexica"
+  n="1.0">
+  14 el amor y la crïanza: ‘el afecto y la cortesía, el respeto’. La diéresis indica que debe separarse el diptongo: cri | an | za (como en los versos 159: «crïados»; 194: «fïadas»; 273: «fïarse», y otros).
+</note>
+
+<note
+  xml:id="n-52-1"
+  target="#seg-52-1"
+  type="lexica"
+  n="1.0">
+  15 Seguro: ‘ajeno, desprevenido’.
+</note>
+
+<note
+  xml:id="n-56-1"
+  target="#l-56 #l-57 #l-58 #l-59a"
+  type="parafrasis"
+  subtype="historica"
+  n="1.0">
+  16 ‘pues he arriesgado por vos la vida en tantos conflictos hasta que el Papa os permitió acceder al cargo a pesar de vuestra corta edad’. Como se dirá a continuación, Rodrigo Téllez Girón accedió al maestrazgo a los ocho años.
+</note>
+
+<note
+  xml:id="n-72-1"
+  target="#seg-72-1"
+  type="lexica"
+  n="1.0">
+  17 claro: ‘ilustre, insigne’.
+</note>
+
+<note
+  xml:id="n-69-1"
+  target="#l-69 #l-70 #l-71 #l-72 #l-73 #l-74 #l-75 #l-76 #l-77 #l-78 #l-79 #l-80 #l-81 #l-82 #l-83"
+  type="historica"
+  n="1.0">
+  18 Rodrigo Téllez Girón recibe siendo niño el maestrazgo al renunciar su padre, Pedro Girón, en 1464. Para ser efectiva la renuncia del padre y el nombramiento del hijo fueron necesarias las aprobaciones (bulas) de los papas Pío II y Paulo II, que nombró a don Juan Pacheco, Duque de Escalona, tutor de su sobrino Rodrigo desde entonces hasta 1474.
+</note>
+
+<note
+  xml:id="n-88-1"
+  target="#seg-88-1"
+  type="lexica"
+  n="1.0">
+  19 aqueste es forma arcaica de ‘este’.
+</note>
+
+<note
+  xml:id="n-89-2"
+  target="#seg-89-1"
+  type="parafrasis"
+  subtype="historica"
+  n="1.0">
+  19 ‘tomar el mismo partido que tus familiares’, es decir, oponerse a los Reyes Católicos, como se explica a continuación.
+</note>
+
+<note
+  xml:id="n-90-1"
+  target="#l-90 #l-91 #l-92 #l-93 #l-94"
+  type="historica"
+  n="1.0">
+  20 La sucesión de Enrique IV de Castilla fue conflictiva. Se disputaron el trono el rey don Alonso de Portugal , casado con Juana «la Beltraneja» (hija de Enrique IV) y Fernando de Aragón, casado con Isabel (hermanastra del mismo). En 1475 Alonso invade Castilla, al año siguiente es derrotado en la Batalla de Toro y la guerra termina en 1479.
+</note>
+
+<note
+  xml:id="n-98-1"
+  target="#seg-98-99-a #seg-98-99-b"
+  type="parafrasis"
+  n="1.0">
+  21 ‘las pretensiones de Fernando no son tan legítimas para vuestros familiares’.
+</note>
+
+<note
+  xml:id="n-101-1"
+  target="#seg-101-1"
+  type="historica"
+  n="1.0">
+  22 Los partidarios de Isabel y Fernando cuestionaban que Juana fuera efectivamente hija de Enrique IV apodado «el Impotente»; ella era apodada «la Beltraneja» insinuando que en realidad era hija del cortesano Beltrán de la Cueva.
+</note>
+
+<note
+  xml:id="n-102-1"
+  target="#seg-102-1"
+  type="historica"
+  n="1.0">
+  23 vuestro primo hermano alude a Diego López Pacheco, II Marqués de Villena, defensor de los derechos sucesorios de Juana.
+</note>
+
+<note
+  xml:id="n-110-1"
+  target="#seg-110-1"
+  type="lexica"
+  n="1.0">
+  24 mirar en el sentido de ‘vigilar, controlar’ ambos reinos.
+</note>
+
+<note
+  xml:id="n-118-1"
+  target="#seg-118-1"
+  type="lexica"
+  n="1.0">
+  25 niño: ‘joven’; uso medieval, sin sentido despectivo.
+</note>
+
+<note
+  xml:id="n-119-1"
+  target="#seg-119-1"
+  type="estilistica"
+  n="1.0">
+  26 cruz con doble sentido, ‘cruz de Calatrava’ y ‘una gran carga’.
+</note>
+
+<note
+  xml:id="n-122-1"
+  target="#seg-122-1"
+  type="lexica"
+  subtype="historica"
+  n="1.0">
+  27 quien tiene sentido plural, se refiere a los condes de Urueña, linaje de don Rodrigo.
+</note>
+
+<note
+  xml:id="n-125-1"
+  target="#seg-125-1"
+  type="historica"
+  n="1.0">
+  28 Marqueses de Villena: el tío de don Rodrigo, Juan Pacheco, I Marqués de Villena, y el sucesor de éste arriba aludido (v. 102), don Diego.
+</note>
+
+<note
+  xml:id="n-127-1"
+  target="#seg-127-1"
+  type="mitologica"
+  n="1.0">
+  29 La Fama era representada iconográficamente como una dama alada que tocaba una trompeta.
+</note>
+
+<note
+  xml:id="n-138-1"
+  target="#l-138 #l-139 #l-140"
+  type="estilistica"
+  n="1.0">
+  30 Girón juega también con jirón, ‘trozo rasgado de tela’ y capa, que asimismo alude a don Rodrigo como protector de la fama de sus antepasados.
+</note>
+
+<note
+  xml:id="n-142-1"
+  target="#seg-142-1"
+  type="lexica"
+  n="1.0">
+  31 parcialidad: ‘facción, bando’.
+</note>
+
+<note
+  xml:id="n-145-1"
+  target="#l-145 #l-146"
+  type="parafrasis"
+  n="1.0">
+  32 ‘Y si se opone Ciudad Real a mis propósitos, como lugar estratégico que es…’.
+</note>
+
+<note
+  xml:id="n-151-1"
+  target="#seg-151-1"
+  type="ecdotica"
+  n="1.0">
+  33 La lengua del Siglo de Oro vacilaba al representar gráficamente algunos sonidos y grupos consonánticos cultos. Unas veces simplificaba según la pronunciación y otras respetaba el origen etimológico de las palabras: «efeto» (v. 40), «decienden» (v. 255), «ignorante» (v. 297), «satisfación» (v. 440), «esperiencia» (v. 442), «exceso» (v. 719), «accidente» (v. 1098), «desinios» (v. 1458), «solenemente» (v. 2270), etc.
+</note>
+
+<note
+  xml:id="n-155-1"
+  target="#seg-155-1"
+  type="lexica"
+  subtype="ecdotica"
+  n="1.0">
+  34 La palabra color era femenino en la época, como hoy en varias lenguas romances.
+</note>
+
+<note
+  xml:id="n-157-1"
+  target="#seg-157-1"
+  type="lexica"
+  n="1.0">
+  35 a donde: ‘en donde’.
+</note>
+
+<note
+  xml:id="n-159-1"
+  target="#l-159 #l-160 #l-161"
+  type="parafrasis"
+  n="1.0">
+  36 ‘Pocos, pero como criados míos, muy fieles’.
+</note>
+
+<note
+  xml:id="n-160-1"
+  target="#seg-160-1"
+  type="lexica"
+  subtype="ecdotica"
+  n="1.0">
+  37 dellos: ‘de ellos’. La contracción de preposiciones y pronombres o artículos es uno de los rasgos de la lengua del Siglo de Oro (otros casos en v. 186: «desta»; vv. 328 y 602: «esotro/a»; v. 1182: «déste», etc.).
+</note>
+
+<note
+  xml:id="n-166-1"
+  target="#l-166a #l-167 #l-168"
+  type="parafrasis"
+  subtype="realia"
+  n="1.0">
+  38 Es decir, ‘ahí he situado la casa o sede de mi encomienda’. La encomienda era una concesión y dignidad que se otorgaba a algunos caballeros, consistente en determinadas propiedades, territorios y rentas.
+</note>
+
+<note
+  xml:id="n-168-1"
+  target="#seg-168-1"
+  type="lexica"
+  n="1.0">
+   mudanzas: ‘tiempos inestables’. 
+</note>
+
+
+<note
+  xml:id="n-170-1"
+  target="#seg-170-1"
+  type="parafrasis"
+  n="1.0">
+  39 ‘nadie quedará sin ir a luchar a Ciudad Real’.
+</note>
+
+<note
+  xml:id="n-172-1"
+  target="#seg-172-1"
+  type="realia"
+  n="1.0">
+  40 ristre: pieza metálica donde se apoya la lanza verticalmente.
+</note>
+
+<note
+  xml:id="n-172Acot-1"
+  target="#seg-172Acot-1"
+  type="escenica"
+  n="1.0">
+  41 El tablado ha quedado vacío (Vanse y salen…) y debe entenderse que la acción se traslada ahora a Fuenteovejuna.
+</note>
+
+<note
+  xml:id="n-173-1"
+  target="#l-173"
+  type="parafrasis"
+  n="1.0">
+  42 ‘Ojalá nunca hubiera vuelto’.
+</note>
+
+<note
+  xml:id="n-174-1"
+  target="#seg-174-1"
+  type="lexica"
+  subtype="estilistica"
+  n="1.0">
+  43 a la he: ‘a fe mía’; la sustitución de f- inicial por h- aspirada, es uno de los rasgos de habla rústica con que se caracteriza a los labradores (como en vv. 220: «huego»; 600 y 609: «huera»).
+</note>
+
+<note
+  xml:id="n-177-1"
+  target="#seg-177-1"
+  type="lexica"
+  n="1.0">
+  44 Plega: ‘Plazca, guste’.
+</note>
+
+<note
+  xml:id="n-182-1"
+  target="#seg-182-1"
+  type="lexica"
+  subtype="estilistica"
+  n="1.0">
+  45 brando: ‘blando’ (la sustitución l > r es también rasgo de habla rústica).
+</note>
+
+<note
+  xml:id="n-184-1"
+  target="#seg-184-1"
+  type="lexica"
+  n="1.0">
+  46 condición: ‘carácter’.
+</note>
+
+<note
+  xml:id="n-189-1"
+  target="#seg-189-1"
+  type="lexica"
+  n="1.0">
+  47 A qué efeto: ‘A qué efecto, con qué propósito’.
+</note>
+
+<note
+  xml:id="n-192-1"
+  target="#l-192"
+  type="parafrasis"
+  n="1.0">
+  48 ‘Por tanto me niego a aceptar esa deshonra’, es decir, las relaciones con el Comendador fuera del matrimonio.
+</note>
+
+<note
+  xml:id="n-199-1"
+  target="#seg-199-1"
+  type="parafrasis"
+  n="1.0">
+  49 ‘hace un mes que me sigue’.
+</note>
+
+<note
+  xml:id="n-203-1"
+  target="#seg-203-1"
+  type="realia"
+  n="1.0">
+  50 un jubón: ‘un chaleco'.
+</note>
+
+<note
+  xml:id="n-204-1"
+  target="#seg-204-1"
+  type="realia"
+  n="1.0">
+  50 una sarta: ‘un collar’.
+</note>
+
+<note
+  xml:id="n-204-2"
+  target="#seg-204-2"
+  type="realia"
+  n="1.0">
+  50 un copete: ‘un adorno de pelo postizo’.
+</note>
+
+<note
+  xml:id="n-209-1"
+  target="#l-209"
+  type="parafrasis"
+  n="1.0">
+  51 ‘para vencer mi voluntad’.
+</note>
+
+<note
+  xml:id="n-211-1"
+  target="#seg-211-1"
+  type="lexica"
+  n="1.0">
+  52 habrá: ‘hará’.
+</note>
+
+<note
+  xml:id="n-214-1"
+  target="#l-214-b"
+  type="parafrasis"
+  n="1.0">
+  53 ‘a quién, sino a ti’; es una frase coloquial, con sentido irónico o burlesco.
+</note>
+
+<note
+  xml:id="n-215-1"
+  target="#l-215 #l-216"
+  type="lexica"
+  subtype="estilistica"
+  n="1.0">
+  54 polla en doble sentido: ‘niña, joven’, pero también ‘carne de pollo’, demasiado dura (por su fuerte carácter) para el Comendador, al que se alude irónicamente con el trato de reverencia.
+</note>
+
+<note
+  xml:id="n-217-1"
+  target="#seg-217-1"
+  type="lexica"
+  n="1.0">
+  55 precio: ‘me gusta’.
+</note>
+
+<note
+  xml:id="n-219-1"
+  target="#seg-219-1"
+  type="realia"
+  n="1.0">
+  56 lunada: ‘jamón, pata cerdo’.
+</note>
+
+<note
+  xml:id="n-221-1"
+  target="#seg-221-1"
+  type="realia"
+  n="1.0">
+  56 zalacatón: al parecer, ‘trozo grande’.
+</note>
+
+<note
+  xml:id="n-224-1"
+  target="#seg-224-1"
+  type="realia"
+  n="1.0">
+  56 pegado cangilón: jarra de agua impermeabilizada.
+</note>
+
+<note
+  xml:id="n-226-1"
+  target="#l-226 #l-227 #l-228"
+  type="parafrasis"
+  n="1.0">
+  57 Es decir, prefiere comer un espumoso cocido de vaca con verdura.
+</note>
+
+<note
+  xml:id="n-233-1"
+  target="#l-233 #l-234 #l-235"
+  type="parafrasis"
+  n="1.0">
+  58 pasatarde... de una cuerda de mi viña: ‘merienda de un racimo de uvas’.
+</note>
+
+<note
+  xml:id="n-237-1"
+  target="#seg-237-1"
+  type="realia"
+  n="1.0">
+  59 El salpicón es un plato de carne desmenuzada y aliñada.
+</note>
+
+<note
+  xml:id="n-240-1"
+  target="#seg-240-1"
+  type="lexica"
+  n="1.0">
+  60 Inducas tentación: deformación rústica de <hi rend="italic">Et ne nos inducas in tentationem</hi>, palabras finales del Padre nuestro en latín.
+</note>
+
+<note
+  xml:id="n-241-1"
+  target="#seg-241-1"
+  type="lexica"
+  subtype="estilistica"
+  n="1.0">
+  60 rezalle: ‘rezarle’, con asimilación propia de la lengua literaria del Siglo de Oro (otros casos en vv. 1072: «visitalla»; 1214: «guardalla»).
+</note>
+
+<note
+  xml:id="n-242-1"
+  target="#l-242 #l-243 #l-244"
+  type="parafrasis"
+  n="1.0">
+  61 Recuérdese el inicio de este fragmento comparativo (v. 217): Laurencia aprecia más todas las típicas comidas campestres que ha mencionado que las raposerías (‘astucias, engaños’) y porfías (‘insistencias’) amorosas de jóvenes bellacones como el Comendador.
+</note>
+
+<note
+  xml:id="n-245-1"
+  target="#seg-245-1"
+  type="parafrasis"
+  n="1.0">
+  62 todo su cuidado: ‘su única preocupación, su solo interés’.
+</note>
+
+<note
+  xml:id="n-247-1"
+  target="#seg-247-1"
+  type="lexica"
+  n="1.0">
+  63 gusto alude aquí al acto sexual.
+</note>
+
+<note
+  xml:id="n-259-1"
+  target="#seg-259-1"
+  type="lexica"
+  n="1.0">
+  64 luego: ‘en cuanto, inmediatamente’ (es el significado habitual en la época).
+</note>
+
+<note
+  xml:id="n-264-1"
+  target="#seg-264-1"
+  type="parafrasis"
+  subtype="estilistica"
+  n="1.0">
+  65 Los gorriones, interesados, llaman al villano diciéndole afectuosamente tío, tío (por homofonía con «pío, pío»), pero luego, desagradecidos, lo insultan (judío, judío). La comparación del comportamiento del gorrión con el de los desagradecidos amantes es muy oportuna, pues esta ave es símbolo de lujuria; comer (v. 257) también podría tener sentido erótico.
+</note>
+
+<note
+  xml:id="n-269-1"
+  target="#seg-269-1"
+  type="lexica"
+  subtype="estilistica"
+  n="1.0">
+  66 Entiéndase ascuas con doble sentido: ‘incertidumbre’ y ‘apetito sexual’.
+</note>
+
+<note
+  xml:id="n-272-1"
+  target="#seg-272-1"
+  type="lexica"
+  n="1.0">
+  67 el nombre de las Pascuas: ‘el insulto’, es frase hecha; se insulta a las mujeres como a los judíos, del mismo modo que se solía hacer en la celebración de la Pascua.
+</note>
+
+<note
+  xml:id="n-275-1"
+  target="#seg-275-1"
+  type="lexica"
+  n="1.0">
+  68 diferencia: ‘disputa, contienda’.
+</note>
+
+<note
+  xml:id="n-279-1"
+  target="#seg-279-1"
+  type="lexica"
+  n="1.0">
+  69 concierto: ‘acuerdo’.
+</note>
+
+<note
+  xml:id="n-281-1"
+  target="#seg-281-1"
+  type="lexica"
+  n="1.0">
+  70 juzgan por mí: ‘sentencian, deciden a mi favor’.
+</note>
+
+<note
+  xml:id="n-283-1"
+  target="#seg-283-1"
+  type="lexica"
+  n="1.0">
+  71 precio: ‘premio’.
+</note>
+
+<note
+  xml:id="n-286-1"
+  target="#seg-286-1"
+  type="realia"
+  n="1.0">
+  72 rabel: instrumento musical pastoril de tres cuerdas que se hacen sonar con un arco; boj: un tipo de madera.
+</note>
+
+<note
+  xml:id="n-287-1"
+  target="#seg-287-1"
+  type="realia"
+  n="1.0">
+  73 troj: ‘granero’.
+</note>
+
+<note
+  xml:id="n-292-1"
+  target="#seg-292-1"
+  type="lexica"
+  subtype="intertextual"
+  n="1.0">
+  74 al uso: ‘a la moda’. El fragmento que aquí inicia sigue un tópico en que se satiriza la hipocresía, eufemismos, y manipulaciones del lenguaje, así como la inversión y confusión de valores de la corte, frente a los más auténticos de la aldea. Cultivaron este tópico también, por ejemplo, Erasmo y Fray Antonio de Guevara en el siglo XVI (en su tratado Menosprecio de corte y alabanza de aldea) o Quevedo en el siglo XVII.
+</note>
+
+<note
+  xml:id="n-294-1"
+  target="#seg-294-1"
+  type="lexica"
+  n="1.0">
+  75 bisojo: ‘estrábico’.
+</note>
+
+<note
+  xml:id="n-298-1"
+  target="#seg-298-1"
+  type="parafrasis"
+  n="1.0">
+  76 El desaliño y la descortesía se disculpan por el presunto ejercicio de las armas (soldadesca).
+</note>
+
+<note
+  xml:id="n-305-1"
+  target="#seg-305-1"
+  type="lexica"
+  n="1.0">
+  77 parapoco: persona de corto ingenio o apocada.
+</note>
+
+<note
+  xml:id="n-306-1"
+  target="#l-306"
+  type="parafrasis"
+  n="1.0">
+  78 ‘al osado, valiente’.
+</note>
+
+<note
+  xml:id="n-307-1"
+  target="#seg-307-1"
+  type="lexica"
+  n="1.0">
+  79 jarro: ‘necio, grosero’.
+</note>
+
+<note
+  xml:id="n-313-1"
+  target="#l-313"
+  type="realia"
+  n="1.0">
+  80 Las bubas o granos de la sífilis se hacían pasar por síntomas de resfriado.
+</note>
+
+<note
+  xml:id="n-316-1"
+  target="#seg-316-1"
+  type="lexia"
+  n="1.0">
+  81 corcovado: ‘jorobado’.
+</note>
+
+<note
+  xml:id="n-317-1"
+  target="#l-317 #l-318"
+  type="parafrasis"
+  n="1.0">
+  82 Tal vez deba entenderse ‘esto imito, al llamaros damas’.
+</note>
+
+<note
+  xml:id="n-330-1"
+  target="#seg-330-1"
+  type="lexica"
+  n="1.0">
+  83 descompuesto: ‘desventurado, desgraciado, depuesto’.
+</note>
+
+<note
+  xml:id="n-331-1"
+  target="#seg-331-1"
+  type="lexica"
+  n="1.0">
+  84 compuesto: ‘mesurado, circunspecto’
+</note>
+
+<note
+  xml:id="n-334-1"
+  target="#l-334"
+  type="parafrasis"
+  n="1.0">
+  85 ‘generoso al despilfarrador o manirroto’.
+</note>
+
+<note
+  xml:id="n-336-1"
+  target="#seg-336-1"
+  type="lexica"
+  n="1.0">
+  86 madeja: ‘flojo, pusilánime’.
+</note>
+
+<note
+  xml:id="n-349-1"
+  target="#seg-349-1"
+  type="estilistica"
+  subtype="lexica"
+  n="1.0">
+  87 dimuño: ‘demonio’, en la forma propia del sayagués o habla rústica.
+</note>
+
+<note
+  xml:id="n-350-1"
+  target="#seg-350-1"
+  type="estilistica"
+  subtype="lexica"
+  n="1.0">
+  88 Soncas: es una expresión rústica de énfasis, ‘en verdad, ciertamente’.
+</note>
+
+<note
+  xml:id="n-351-1"
+  target="#l-351 #l-352"
+  type="estilistica"
+  n="1.0">
+  89 Juego con el doble sentido de sal (también ‘gracia, agudeza’) y la alusión a la ceremonia del bautizo.
+</note>
+
+<note
+  xml:id="n-359-1"
+  target="#seg-359-1"
+  type="lexica"
+  n="1.0">
+  90 discreción: ‘sabiduría, inteligencia’.
+</note>
+
+<note
+  xml:id="n-364-1"
+  target="#l-364-b #l-365"
+  type="parafrasis"
+  n="1.0">
+  91 ‘Vengo a negarlo, porque es verdad lo que yo digo’.
+</note>
+
+<note
+  xml:id="n-366-1"
+  target="#seg-366-1"
+  type="lexica"
+  n="1.0">
+  92 hay: ‘existe’; así también en los siguientes versos.
+</note>
+
+<note
+  xml:id="n-367-1"
+  target="#l-367"
+  type="parafrasis"
+  n="1.0">
+  93 ‘Afirmarlo así, en general, es excesivo’.
+</note>
+
+<note
+  xml:id="n-369-1"
+  target="#l-369 #l-370"
+  type="intertextual"
+  n="1.0">
+  94 Comienza aquí una discusión sobre el amor, basada principalmente en nociones del pensamiento de Platón, que será mencionado hacia el final. Se trata de una situación típica de la literatura pastoril del siglo XVI, aunque acentuando aquí los rasgos rústicos de los personajes. Barrildo inicia recordando la idea de que el amor es el vínculo del mundo, lo que le da unidad y coherencia al universo.
+</note>
+
+<note
+  xml:id="n-373-1"
+  target="#l-373 #l-374 #l-375 #l-376 #l-377 #l-378"
+  type="intertextual"
+  n="1.0">
+  95 Mengo entiende hacia donde dirige Barrildo el debate, y responde con otras ideas muy importantes de la cosmovisión y la medicina antiguas para afirmar su punto (‘claro está lo que he dicho’): que todo el universo creado se rige por principios de oposición, y que esto influye en cada persona a través de los cuatro humores corporales asociados a los elementos (cólera... sangre).
+</note>
+
+<note
+  xml:id="n-381-1"
+  target="#l-381 #l-382"
+  type="intertextual"
+  n="1.0">
+  96 Una idea también muy difundida en los debates medievales sobre la constitución del mundo: la armonía, el buen orden (concierto) rige ambos mundos, cielo y tierra.
+</note>
+
+<note
+  xml:id="n-383-1"
+  target="#l-383 #l-384 #l-385 #l-386 #l-387 #l-388 #l-389 #l-390 #l-391 #l-392"
+  type="intertextual"
+  n="1.0">
+  97 Mengo acepta la teoría de la armonía universal utilizada por Barrildo (correspondencias), y también la existencia de un tipo de amor, el natural, que a continuación asocia con la teoría de los humores que ya recordó, y que identifica con la necesidad de conservación, el mantenimiento de la propia vida.
+</note>
+
+<note
+  xml:id="n-406-1"
+  target="#seg-406-407-a #seg-406-407-b"
+  type="parafrasis"
+  n="1.0">
+  98 Entiéndase ‘ama a su semejante’.
+</note>
+
+<note
+  xml:id="n-409-1"
+  target="#l-409-a #l-409-b #l-410-a #l-410-b #l-411 #l-412-a"
+  type="intertextual"
+  n="1.0">
+  99 También son de origen clásico las ideas sobre el amor como búsqueda de la belleza, y el placer que ella produce.
+</note>
+
+<note
+  xml:id="n-420-1"
+  target="#l-420"
+  type="parafrasis"
+  n="1.0">
+  100 Es decir, ‘darme gusto en todo’.
+</note>
+
+<note
+  xml:id="n-421-1"
+  target="#l-421 #l-422 #l-423 #l-424 #l-425 #l-426"
+  type="intertextual"
+  n="1.0">
+  101 En esta mención del filósofo, se recuerdan, para terminar el debate, dos conceptos fundamentales de su pensamiento: el alma y la virtud. Es gracioso, por absurdo, suponer que un cura va a citar a Platón en sus sermones.
+</note>
+
+<note
+  xml:id="n-428-1"
+  target="#seg-428-1"
+  type="parafrasis"
+  n="1.0">
+  102 Al decir que esto sucede por ventura, ‘acaso’ ‘casualmente’, Pascuala introduce una ligera burla a las discusiones eruditas.
+</note>
+
+<note
+  xml:id="n-428-2"
+  target="#seg-428-429-a #seg-428-429-b"
+  type="lexica"
+  subtype="estilistica"
+  n="1.0">
+  102 acrisola los caletres: metáfora burlesca, ‘mejora los entendimientos’.
+</note>
+
+<note
+  xml:id="n-430-1"
+  target="#seg-430-1"
+  type="estilistica"
+  subtype="lexica"
+  n="1.0">
+  102 cademias: ‘academias’, forma rústica jocosa.
+</note>
+
+<note
+  xml:id="n-431-1"
+  target="#seg-431-432-a #seg-431-432-b"
+  type="parafrasis"
+  n="1.0">
+  103 ‘No te molestes en disuadirlos de sus insensateces’. Se refiere seguramente a la discusión de los pastores.
+</note>
+
+<note
+  xml:id="n-437-1"
+  target="#seg-437-1"
+  type="estilistica"
+  subtype="lexica"
+  n="1.0">
+  104 quistión: ‘cuestión’ ‘tema’; en la época es forma regular, sin sentido burlesco.
+</note>
+
+<note
+  xml:id="n-444-1"
+  target="#seg-444-1"
+  type="parafrasis"
+  n="1.0">
+  105 Es decir, con ese rechazo (desdén), en realidad Laurencia resuelve que no hay amor.
+</note>
+
+<note
+  xml:id="n-447-1"
+  target="#seg-447-1"
+  type="realia"
+  subtype="estilistica"
+  n="1.0">
+  106 Con lo de azor, Laurencia alude seguramente a la abundancia de plumas en la vestimenta de Flores, que eran un adorno de los trajes de soldado (como se dice también en v. 494). Como es un ave de caza, también puede tratarse de una alusión metafórica al carácter del Comendador, señor de Flores.
+</note>
+
+<note
+  xml:id="n-452-1"
+  target="#seg-452-1"
+  type="lexica"
+  n="1.0">
+  107 puesto que: ‘aunque’.
+</note>
+
+<note
+  xml:id="n-457-1"
+  target="#l-457"
+  type="historica"
+  n="1.0">
+  108 Lope se inspira en la Crónica de Rades y Andrada, incluso en cuestiones de detalle, para describir esta batalla.
+</note>
+
+<note
+  xml:id="n-461-1"
+  target="#seg-461-1"
+  type="lexica"
+  subtype="realia"
+  n="1.0">
+  109 infantes: ‘soldados de a pie, de infantería’.
+</note>
+
+<note
+  xml:id="n-467-1"
+  target="#seg-467-1"
+  type="realia"
+  subtype="lexica"
+  n="1.0">
+  110 Las órdenes militares, como la de Calatrava, acogían en sus filas tanto a seglares como a religiosos. Estos últimos eran llamados freiles. En la época, orden era sustantivo masculino.
+</note>
+
+<note
+  xml:id="n-468-1"
+  target="#l-468"
+  type="parafrasis"
+  subtype="estilistica"
+  n="1.0">
+  111 ‘se entiende que se permita luchar a religiosos cuando se trata de hacerlo contra los moros’. Posible ironía, pues en este caso no se ataca a los musulmanes, sino a otros cristianos.
+</note>
+
+<note
+  xml:id="n-469-1"
+  target="#seg-469-1"
+  type="lexica"
+  n="1.0">
+  112 bizarro: ‘espléndido’, pero también ‘joven’.
+</note>
+
+<note
+  xml:id="n-470-1"
+  target="#seg-470-1"
+  type="realia"
+  n="1.0">
+  113 casaca: tipo de vestidura masculina abierta por los lados.
+</note>
+
+<note
+  xml:id="n-471-1"
+  target="#seg-471-1"
+  type="realia"
+  n="1.0">
+  114 Se trata de un bordado típico de los trajes de gala.
+</note>
+
+<note
+  xml:id="n-472-1"
+  target="#seg-472-1"
+  type="realia"
+  n="1.0">
+  115 brazaletes: armaduras de los brazos.
+</note>
+
+<note
+  xml:id="n-474-1"
+  target="#seg-474-1"
+  type="realia"
+  n="1.0">
+  116 El alamar es una clase de abotonadura hecha a base de trenzas de oro.
+</note>
+
+<note
+  xml:id="n-475-1"
+  target="#seg-475-1"
+  type="realia"
+  n="1.0">
+  117 bridón: caballo con aparejos especiales para entrar en batalla.
+</note>
+
+<note
+  xml:id="n-476-1"
+  target="#seg-476-1"
+  type="lexica"
+  n="1.0">
+  118 rucio: animal, en este caso un caballo, de color pardo claro, blanquecino o canoso.
+</note>
+
+<note
+  xml:id="n-476-2"
+  target="#seg-476-2"
+  type="lexica"
+  n="1.0">
+  118 rodado: que tiene manchas, normalmente redondas, más oscuras que el color general de su pelo.
+</note>
+
+<note
+  xml:id="n-476-3"
+  target="#seg-476-3"
+  type="geografica"
+  n="1.0">
+  119 Betis: ‘el río Guadalquivir’.
+</note>
+
+<note
+  xml:id="n-478-1"
+  target="#seg-478-1"
+  type="lexica"
+  subtype="realia"
+  n="1.0">
+  120 grama: ‘tipo de hierba’. Está describiendo el típico caballo andaluz, reconocido como el superior por antonomasia en cuanto a raza.
+</note>
+
+<note
+  xml:id="n-479-1"
+  target="#seg-479-1"
+  type="realia"
+  subtype="ecdotica"
+  n="1.0">
+  121 codón: especie de bolsa de cuero que sirve para cubrir la cola del caballo. Proviene del italiano codone. La lectura colón de algunas ediciones es un error debido al cruce con la palabra cola.
+</note>
+
+<note
+  xml:id="n-480-1"
+  target="#seg-480-1"
+  type="lexica"
+  n="1.0">
+  122 rizo: 'rizado'.
+</note>
+
+<note
+  xml:id="n-480-2"
+  target="#seg-480-2"
+  type="lexica"
+  n="1.0">
+  122 copete: mechón de crin que cae al caballo sobre la frente.
+</note>
+
+<note
+  xml:id="n-481-1"
+  target="#seg-481-1"
+  type="lexica"
+  n="1.0">
+  122 lazadas: ‘cintas’.
+</note>
+
+<note
+  xml:id="n-482-1"
+  target="#seg-482-1"
+  type="lexica"
+  subtype="estilistica"
+  n="1.0">
+  123 moscas de nieve: literalmente, ‘copos de nieve’; aquí hacen referencia a las manchas de color del caballo. Las cintas del copete que adornan la crin del animal combinan grados de blanco como también sucede en su propia piel.
+</note>
+
+<note
+  xml:id="n-487-1"
+  target="#seg-487-1"
+  type="lexica"
+  n="1.0">
+  124 melado: ‘de color de miel’.
+</note>
+
+<note
+  xml:id="n-487-2"
+  target="#seg-487-2"
+  type="lexica"
+  n="1.0">
+  124 negros cabos: ‘negras patas’.
+</note>
+
+<note
+  xml:id="n-488-1"
+  target="#seg-488-1"
+  type="lexica"
+  subtype="estilistica"
+  n="1.0">
+  125 Es decir, ‘que tiene el labio blanco’. Los caballos con patas negras y labio blanco tenían fama de buenos y leales.
+</note>
+
+<note
+  xml:id="n-489-1"
+  target="#seg-489-1"
+  type="realia"
+  n="1.0">
+  126 jacerina: cota de malla de acero; se trataba de la cota más fina y cara, reservada a los nobles, la cual era de origen árabe.
+</note>
+
+<note
+  xml:id="n-490-1"
+  target="#seg-490-1"
+  type=""
+  n="1.0">
+  127 El peto es la armadura del pecho y el espaldar la de la espalda.
+</note>
+
+<note
+  xml:id="n-493-1"
+  target="#seg-493-1"
+  type=""
+  n="1.0">
+  128 morrión: armadura en forma de casco que en lo alto suele tener un plumaje o adorno.
+</note>
+
+<note
+  xml:id="n-496-1"
+  target="#seg-496-1"
+  type=""
+  n="1.0">
+  129 azares: ‘azahares’, Flores del naranjo, de color blanco.
+</note>
+
+<note
+  xml:id="n-499-1"
+  target="#l-499"
+  type=""
+  n="1.0">
+  130 Hipérbole que compara la lanza a un grueso árbol (fresno).
+</note>
+
+<note
+  xml:id="n-501-1"
+  target="#l-501"
+  type=""
+  n="1.0">
+  131 ‘se preparó para combatir’.
+</note>
+
+<note
+  xml:id="n-502-1"
+  target="#l-502 #l-503"
+  type=""
+  n="1.0">
+  132 ‘no quieren dejar de estar bajo el gobierno de los Reyes Católicos’.
+</note>
+
+<note
+  xml:id="n-505-1"
+  target="#seg-505-1"
+  type=""
+  n="1.0">
+  133 ‘Entró en la ciudad’.
+</note>
+
+<note
+  xml:id="n-510-1"
+  target="#seg-510-1"
+  type=""
+  n="1.0">
+  134 la baja plebe: ‘el pueblo común’; por su baja condición no merecían la muerte.
+</note>
+
+<note
+  xml:id="n-518-1"
+  target="#l-518 #l-519 #l-520"
+  type=""
+  n="1.0">
+  135 rayo del África: ‘azote de los musulmanes’, que conseguirá someter las lunas azules, símbolo de los estandartes árabes, a la roja cruz que representa su orden militar.
+</note>
+
+<note
+  xml:id="n-523-1"
+  target="#seg-523-1"
+  type=""
+  n="1.0">
+  136 saco: ‘botín conseguido del saqueo de la ciudad vencida’.
+</note>
+
+<note
+  xml:id="n-526-1"
+  target="#seg-526-1"
+  type=""
+  n="1.0">
+  137 recebilde: ‘recibidle’. La metátesis -ld- (o cambio del orden regular) y la vacilación vocálica (i / e) son rasgos comunes en la lengua de la época (como en v. 932: «dejaldo», v. 1633: «quitalde», v. 1864: «desatalde», etc.; v. 556: «polidos», 1308: «recebida», v. 1957: «escurece», etc.).
+</note>
+
+<note
+  xml:id="n-527-1"
+  target="#l-527 #l-528"
+  type=""
+  n="1.0">
+  138 ‘que el mejor premio para el triunfador son las muestras de afecto’.
+</note>
+
+<note
+  xml:id="n-528Acot-1"
+  target="#stg-528-2"
+  type=""
+  n="1.0">
+  139 Se trata de un romancillo, romance compuesto por versos de menos de ocho sílabas, con rima en ó-e, gracias a la -e paragógica (la que se añade al final de la palabra) de Comendadore y vendedore (no de Ciudad Reale, porque no está en rima). El uso de esa -e paragógica, típica de los cantares de gesta, dota al poema de un aire arcaizante y rústico.
+</note>
+
+<note
+  xml:id="n-537-1"
+  target="#seg-537-1"
+  type=""
+  n="1.0">
+  140 El diminutivo moricos, típico de la canción tradicional, demuestra la ingenuidad de los aldeanos, una de las razones que influirán más tarde en el juicio de los Reyes. Puede también verse cierto tono irónico, pues en este caso se ha luchado contra otros cristianos.
+</note>
+
+<note
+  xml:id="n-542-1"
+  target="#seg-542-1"
+  type=""
+  n="1.0">
+  141 El pendón es la bandera militar que se usaba para distinguir los regimientos, batallones, etc. El uso de la construcción artículo+posesivo, los sus, también da un aire arcaizante al poema. Para que el verso no sea hipermétrico debemos leer la forma verbal trae con sinéresis, es decir, en una sola sílaba.
+</note>
+
+<note
+  xml:id="n-550-1"
+  target="#seg-550-1"
+  type=""
+  n="1.0">
+  142 Regimiento: conjunto de los regidores, alcaldes; por extensión, ‘ayuntamiento, alcaldía’.
+</note>
+
+<note
+  xml:id="n-554-1"
+  target="#seg-554-1"
+  type=""
+  n="1.0">
+  143 Los árboles solían engalanarse durante las fiestas. Se insiste en la humildad de los aldeanos, y también en su bondad.
+</note>
+
+<note
+  xml:id="n-556-1"
+  target="#seg-556-1"
+  type=""
+  n="1.0">
+  144 barros: ‘vasijas de barro’; normalmente se usaban para guardar conservas.
+</note>
+
+<note
+  xml:id="n-559-1"
+  target="#seg-559-1"
+  type=""
+  n="1.0">
+  145 vueso: forma arcaica de vuestro. La voz del ganso no parece ser la más adecuada para cantar el valor guerrero, por lo que tal vez estemos, de nuevo, frente a una ironía.
+</note>
+
+<note
+  xml:id="n-560-1"
+  target="#seg-560-1"
+  type=""
+  n="1.0">
+  146 El cebón es un ‘animal cebado’, normalmente un cerdo.
+</note>
+
+<note
+  xml:id="n-561-1"
+  target="#seg-561-1"
+  type=""
+  n="1.0">
+  147 Pasaje poco claro, que puede referirse a que los cebones van limpios, sin menudos (vientre, manos y sangre del animal).
+</note>
+
+<note
+  xml:id="n-561-2"
+  target="#seg-561-2"
+  type=""
+  n="1.0">
+  148 La cecina era un tipo de carne salada, secada al aire, al sol o al humo.
+</note>
+
+<note
+  xml:id="n-562-1"
+  target="#seg-562-1"
+  type=""
+  n="1.0">
+  149 Los guantes perfumados con ámbar eran un signo de refinamiento. La comparación parece malintencionada, pues estaban hechos de piel de cerdo, igual que las cortezas. Se insiste en la idea de que aunque no se trate de presentes elegantes ni caros, son buenos y se dan con afecto (véase también vv. 566-568 y 584-585).
+</note>
+
+<note
+  xml:id="n-563-1"
+  target="#seg-563-1"
+  type=""
+  n="1.0">
+  150 El capón es un tipo de pollo que se castra cuando es pequeño para que engorde más fácilmente. Su carne es muy apreciada.
+</note>
+
+<note
+  xml:id="n-567-1"
+  target="#seg-567-1"
+  type=""
+  n="1.0">
+  151 jaeces: adornos de cintas con que se trenzan las crines del caballo.
+</note>
+
+<note
+  xml:id="n-569-1"
+  target="#seg-569-1"
+  type=""
+  n="1.0">
+  152 ‘Y aprovechando la ocasión de haber dicho puro’; juego de palabras basado en la homonimia del puro ya aparecido (‘libre de impureza’) y éste que significa ‘vino puro’.
+</note>
+
+<note
+  xml:id="n-570-1"
+  target="#seg-570-1"
+  type=""
+  n="1.0">
+  153 La palabra cueros se refiere tanto a ‘cueros de vino’ como a la ‘desnudez’. De nuevo, pues, se juega con dos palabras homónimas.
+</note>
+
+<note
+  xml:id="n-571-1"
+  target="#l-571 #l-572 #l-573 #l-574"
+  type=""
+  n="1.0">
+  153 Esteban asegura que el vino da más ánimos (aceros) y calor (por enero) a los guerreros que las armas del metal del mismo nombre. El verbo aforrar significa ‘vestir, abrigar’.
+</note>
+
+<note
+  xml:id="n-572-1"
+  target="#seg-572-1"
+  type=""
+  n="1.0">
+  153 El verbo aforrar significa ‘vestir, abrigar’.
+</note>
+
+<note
+  xml:id="n-576-1"
+  target="#seg-576-1"
+  type=""
+  n="1.0">
+  154 pecho: ‘tributo’.
+</note>
+
+<note
+  xml:id="n-584-1"
+  target="#seg-584-1"
+  type=""
+  n="1.0">
+  155 ‘a vuestros pies’. La espadaña y la juncia son dos tipos de plantas con los que se han adornado las calles para recibir al Comendador.
+</note>
+
+<note
+  xml:id="n-589-1"
+  target="#l-589-a"
+  type=""
+  n="1.0">
+  156 Nótese la sequedad de las respuestas de Fernán Gómez, quien, tal vez, ha entendido la ironía solapada del discurso del alcalde.
+</note>
+
+<note
+  xml:id="n-600-1"
+  target="#seg-600-1"
+  type=""
+  n="1.0">
+  157 Forma rústica de ‘¡tírate afuera!’, es decir, ‘¡anda allá!’. Reafirma la negación.
+</note>
+
+<note
+  xml:id="n-609-1"
+  target="#seg-609-1"
+  type=""
+  n="1.0">
+  158 huera: ‘fuera’; de nuevo, se representa el habla sayaguesa.
+</note>
+
+<note
+  xml:id="n-610-1"
+  target="#l-610-c #l-611"
+  type=""
+  n="1.0">
+  159 ‘¿Qué tardan en hacer lo que les digo?’.
+</note>
+
+<note
+  xml:id="n-612-1"
+  target="#seg-612-1"
+  type=""
+  n="1.0">
+  160 Entrá: ‘¡Entrad!’. Flores usa una forma apocopada, aunque inmediatamente utiliza la forma plena.
+</note>
+
+<note
+  xml:id="n-613-1"
+  target="#l-613-b"
+  type=""
+  n="1.0">
+  161 ¡Harre!: interjección que manifiesta desprecio o enfado, y que se emplea para rechazar a alguien.
+</note>
+
+<note
+  xml:id="n-614-1"
+  target="#l-614"
+  type=""
+  n="1.0">
+  162 ‘que cerraréis la puerta inmediatamente’.
+</note>
+
+<note
+  xml:id="n-619-1"
+  target="#seg-619-1"
+  type=""
+  n="1.0">
+  163 presentadas: ‘incluidas, ofrecidas’.
+</note>
+
+<note
+  xml:id="n-622-1"
+  target="#seg-622-1"
+  type=""
+  n="1.0">
+  164 estremadas: aquí ‘extremadamente tozudas’.
+</note>
+
+<note
+  xml:id="n-627-1"
+  target="#l-627"
+  type=""
+  n="1.0">
+  165 Por ironía, ‘¡mala respuesta, mal mensaje, llevamos!’.
+</note>
+
+<note
+  xml:id="n-628-1"
+  target="#seg-628-1"
+  type=""
+  n="1.0">
+  166 sufrir: ‘soportar’.
+</note>
+
+<note
+  xml:id="n-631-1"
+  target="#l-631"
+  type=""
+  n="1.0">
+  167 Sentencia que imita tantas otras que empiezan por «Quien sirve…» y que normalmente expresan las quejas de los sirvientes respecto a los señores.
+</note>
+
+<note
+  xml:id="n-632-1"
+  target="#seg-632-1"
+  type=""
+  n="1.0">
+  168 medrar: mejorar de situación económica o social.
+</note>
+
+<note
+  xml:id="n-634-1"
+  target="#seg-634-1"
+  type=""
+  n="1.0">
+  169 presto: ‘rápido’.
+</note>
+
+<note
+  xml:id="n-634Acot-1"
+  target="#seg-634Acot-1"
+  type=""
+  n="1.0">
+  170 La escena se traslada al palacio de los Reyes Católicos, Fernando e Isabel, a quienes acompaña el Maestre de Santiago, don Rodrigo Manrique, padre del poeta Jorge Manrique.
+</note>
+
+<note
+  xml:id="n-637-1"
+  target="#l-637 #l-638"
+  type=""
+  n="1.0">
+  172 Es decir, Alfonso V de Portugal tiene el ejército en la frontera (puesto) y prepara (previene) el ataque a los castellanos.
+</note>
+
+<note
+  xml:id="n-637-2"
+  target="#seg-637-1"
+  type=""
+  n="1.0">
+  171 Alfonso, entiéndase ‘a Alfonso’: en la sintaxis de la época la preposición se podía embeber en la vocal siguiente si la palabra empezaba por «a-» (como más adelante, v. 776, «tirando viene algún corzo», ‘a algún corzo’).
+</note>
+
+<note
+  xml:id="n-639-1"
+  target="#l-639 #l-640 #l-641 #l-642"
+  type=""
+  n="1.0">
+  173 La reina Isabel sostiene que conviene adelantarse (ganar por la mano) y atacar primero , de lo contrario, es obvio (está llano) que se seguirá la derrota (daño).
+</note>
+
+<note
+  xml:id="n-645-1"
+  target="#l-645 #l-646 #l-647 #l-648"
+  type=""
+  n="1.0">
+  174 El rey Fernando quiere emprender una reforma política (reformación) para asegurar el triunfo (suceso) de la reina Isabel en la sucesión al trono de Castilla.
+</note>
+
+<note
+  xml:id="n1-l-651-653"
+  target="#l-651 #l-652 #l-653"
+  type=""
+  n="1.0">
+  175 Es decir, dos representantes del gobierno de Ciudad Real (dos regidores) esperan que se les conceda audiencia. La escena tiene raíces históricas como puede verse en la Crónica de Rades.
+</note>
+
+<note
+  xml:id="n-666-1"
+  target="#seg-666-1"
+  type=""
+  n="1.0">
+  176 hado: ‘destino’.
+</note>
+
+<note
+  xml:id="n-669-1"
+  target="#seg-669-1"
+  type=""
+  n="1.0">
+  177 estremado: ‘extremado’, es decir ‘admirable’
+</note>
+
+<note
+  xml:id="n-672-1"
+  target="#l-672 #l-673 #l-674"
+  type=""
+  n="1.0">
+  178 Es decir, para aumentar las posesiones y la honra (ensanchar el honor) de la encomienda, sitió (puso apretado cerco) Ciudad Real.
+</note>
+
+<note
+  xml:id="n-683-1"
+  target="#l-683 #l-684 #l-685 #l-686"
+  type=""
+  n="1.0">
+  179 Esto es, por la victoria de Fernán Gómez, Ciudad Real deja de pertenecer a la Corona de Castilla y pasa a depender de la Orden de Calatrava (sus vasallos seremos). La queja de los regidores pone de manifiesto que el Comendador ha abusado de sus prerrogativas al desafiar el poder de la Reina.
+</note>
+
+<note
+  xml:id="n-694-1"
+  target="#l-694"
+  type=""
+  n="1.0">
+  180 de todo contento ajenos: ‘descontentos’.
+</note>
+
+<note
+  xml:id="n-703-1"
+  target="#l-703 #l-704 #l-705 #l-706"
+  type=""
+  n="1.0">
+  181 La victoria de Fernán Gómez sobre Ciudad Real puede facilitar la entrada (puerta segura) a los ejércitos de Alfonso V de Portugal que están preparados en la frontera.
+</note>
+
+<note
+  xml:id="n-707-1"
+  target="#seg-707-1"
+  type=""
+  n="1.0">
+  182 luego: ‘enseguida’.
+</note>
+
+<note
+  xml:id="n-708-1"
+  target="#seg-708-1"
+  type=""
+  n="1.0">
+  183 compañía: soldados que militan bajo las órdenes de un capitán.
+</note>
+
+<note
+  xml:id="n-709-1"
+  target="#seg-709-1"
+  type=""
+  n="1.0">
+  184 demasías: ‘excesos’.
+</note>
+
+<note
+  xml:id="n-711-1"
+  target="#seg-711-1"
+  type=""
+  n="1.0">
+  185 Se trata del conde de Cabra, Diego Fernández de Córdoba, mariscal de Baena.
+</note>
+
+<note
+  xml:id="n-718-1"
+  target="#l-718"
+  type=""
+  n="1.0">
+  186 como de tan gran valor: ‘digna de vuestro valor’.
+</note>
+
+<note
+  xml:id="n-723-1"
+  target="#l-723"
+  type=""
+  n="1.0">
+  187 A medio torcer los paños: ‘Mientras lavaba la ropa’.
+</note>
+
+<note
+  xml:id="n-724-1"
+  target="#l-724 #l-725 #l-726 #l-727 #l-728 #l-729 #l-730"
+  type=""
+  n="1.0">
+  188 Para evitar que las muchachas que frecuentan el paraje murmuren (dar que decir), Laurencia se aparta del arroyo y le reprocha a Frondoso que todo el pueblo esté al tanto de sus pretensiones (que me miras y te miro) y los vigile (todos nos traen sobre ojo). Los arroyos, como las fuentes y los ríos, ya en la lírica tradicional eran lugares de encuentro amoroso.
+</note>
+
+<note
+  xml:id="n-732-1"
+  target="#seg-732-1"
+  type=""
+  n="1.0">
+  189 brïoso: ‘animoso, airoso’, aquí con valor de adverbio.
+</note>
+
+<note
+  xml:id="n-734-1"
+  target="#l-734"
+  type=""
+  n="1.0">
+  190 vistes bizarro y costoso: ‘vistes de forma vistosa y cara’.
+</note>
+
+<note
+  xml:id="n-738-1"
+  target="#l-738"
+  type=""
+  n="1.0">
+  191 que ya para en uno somos: ‘que ya estamos prometidos’. Que ya para en uno somos es variación de la fórmula legal ‘ser para en uno’, documentada desde antiguo en canciones de boda. Lope la usó, por ejemplo, en la canción de boda de Peribáñez, “pues hoy para en uno son”, vv. 145, 165.
+</note>
+
+<note
+  xml:id="n-739-1"
+  target="#l-739 #l-740 #l-741 #l-742"
+  type=""
+  n="1.0">
+  192 Los versos parecen aludir a las amonestaciones previas al matrimonio que había que anunciar en la iglesia (eche de -o desde- la tribuna). Tal anuncio habría de hacerse después de que dejaran de sonar los piporros, instrumento de viento parecido al órgano.
+</note>
+
+<note
+  xml:id="n-743-1"
+  target="#l-743 #l-744 #l-745 #l-746 #l-747 #l-748 #l-749 #l-750"
+  type=""
+  n="1.0">
+  194 Laurencia, que desconfía de las intenciones de su amante, sostiene que prefiere que una buena cosecha llene las despensas de los labradores (atestadas y colmadas) a que se cumpla lo que el pueblo murmura (imaginación) sobre las intenciones amorosas de Frondoso, pues esa cuestión ni le quita el sueño (ni me desvela ni aflige) ni la preocupa (ni en ella el cuidado pongo).
+</note>
+
+<note
+  xml:id="n-743-2"
+  target="#seg-743-1"
+  type=""
+  n="1.0">
+  193 trojes: ‘graneros’.
+</note>
+
+<note
+  xml:id="n-752-1"
+  target="#seg-752-1 #l-753 #l-754"
+  type=""
+  n="1.0">
+  195 que tomo... la vida: ‘pongo en peligro mi vida’. Frondoso se siente mortalmente herido por los desdenes de Laurencia.
+</note>
+
+<note
+  xml:id="n-760-1"
+  target="#seg-760-1"
+  type=""
+  n="1.0">
+  196 cuidadoso: ‘preocupado, apenado’.
+</note>
+
+<note
+  xml:id="n-761-1"
+  target="#seg-761-1 #l-762"
+  type=""
+  n="1.0">
+  197 Frondoso se autodiagnostica la enfermedad de amor: dominado por el recuerdo de la amada (imaginando en ti), ni bebe ni duerme ni come.
+</note>
+
+<note
+  xml:id="n-764-1"
+  target="#seg-764-1"
+  type=""
+  n="1.0">
+  198 La dama de angélico rostro es tópico petrarquista.
+</note>
+
+<note
+  xml:id="n-766-1"
+  target="#seg-766-1"
+  type=""
+  n="1.0">
+  199 salúdate: ‘cúrate de la rabia’. Es juego de palabras con el rabio del verso anterior.
+</note>
+
+<note
+  xml:id="n-768-1"
+  target="#seg-768-1"
+  type=""
+  n="1.0">
+  200 Los palomos son símbolo de los bien casados.
+</note>
+
+<note
+  xml:id="n-772-1"
+  target="#l-772 #l-773 #l-774"
+  type=""
+  n="1.0">
+  201 Laurencia aconseja a su amante que trate del matrimonio con su tío Juan Rojo, probablemente su padrino. Está claro que las honradas intenciones matrimoniales del enamorado han ablandado a la dama, que admite sentir ya algo de amor (algunos asomos).
+</note>
+
+<note
+  xml:id="n-781-1"
+  target="#seg-781-1"
+  type=""
+  n="1.0">
+  202 La escena de caza adquiere carácter simbólico al comparar el Comendador a Laurencia con una gama. La alegoría de la caza de amor es frecuente en el romancero y en la lírica tradicional.
+</note>
+
+<note
+  xml:id="n-786-1"
+  target="#seg-786-1 #seg-788-1 #seg-790-1"
+  type=""
+  n="1.0">
+  203 monstro o ‘monstruo’ es híbrido de animales de distinta naturaleza. Aquí es metáfora blasfema. El Comendador la usa cínicamente para poner de manifiesto que la resistencia de Laurencia, que él califica de desdenes toscos, no se aviene con su hermosura (gracias), que es don que ha recibido del Cielo, es decir, de Dios.
+</note>
+
+<note
+  xml:id="n-796-1"
+  target="#seg-796-797-a #seg-796-797-b"
+  type=""
+  n="1.0">
+  204 tu rostro huyas: ‘ocultes tu rostro’.
+</note>
+
+<note
+  xml:id="n-804-1"
+  target="#seg-804-1"
+  type=""
+  n="1.0">
+  205 desposorio: ‘compromiso matrimonial’.
+</note>
+
+<note
+  xml:id="n-811-1"
+  target="#l-811 #l-812"
+  type=""
+  n="1.0">
+  206 La cruz es la del hábito de la Orden de Calatrava. Es juego de palabras con el que Laurencia denuncia la hipocresía del Comendador. Probablemente, la muchacha esté también recordando los refranes “Detrás de la cruz está el diablo” y “La cruz en los pechos y el diablo en los hechos”, que también se refieren a la hipocresía.
+</note>
+
+<note
+  xml:id="n-817-1"
+  target="#l-817 #l-818-a"
+  type=""
+  n="1.0">
+  207 Es decir, el Comendador va a usar la fuerza para someter a Laurencia. Reduzgo es forma antigua por ‘reduzco’.
+</note>
+
+<note
+  xml:id="n-826-1"
+  target="#seg-826-1"
+  type=""
+  n="1.0">
+  208 Calificándolo de ‘noble’ (generoso), Frondoso está recordando al Comendador sus deberes de caballero.
+</note>
+
+<note
+  xml:id="n-830-1"
+  target="#seg-830-1"
+  type=""
+  n="1.0">
+  209 me da asombro:‘me atemoriza’.
+</note>
+
+<note
+  xml:id="n-831-1"
+  target="#seg-831-1"
+  type=""
+  n="1.0">
+  210 Perro: ‘descortés’. Es insulto que Frondoso rechaza.
+</note>
+
+<note
+  xml:id="n-834-2"
+  target="#seg-834-1"
+  type=""
+  n="1.0">
+  211 malhaya: ‘maldito sea’.
+</note>
+
+<note
+  xml:id="n-834-1"
+  target="#l-834 #l-835 #l-836 #l-837"
+  type=""
+  n="1.0">
+  212 El Comendador lamenta su comportamiento imprudente (loco) al desarmarse (desceñido la espada) para no espantar a la caza, es decir a Laurencia (véase v. 781).
+</note>
+
+<note
+  xml:id="n-839-1"
+  target="#seg-839-1"
+  type=""
+  n="1.0">
+  213 nuez: parte de la ballesta que se usa para armar la cuerda.
+</note>
+
+<note
+  xml:id="n-839-2"
+  target="#seg-839-2"
+  type=""
+  n="1.0">
+  214 apiolar: ‘matar’ y también ‘atar las patas del animal muerto para colgarlo’.
+</note>
+
+<note
+  xml:id="n-844-1"
+  target="#l-844 #l-845 #l-846"
+  type=""
+  n="1.0">
+  215 Frondoso pondera la tiranía simbólica de Amor o ‘Cupido’ (sordo cuando está en su trono) para oponerla a la tiranía efectiva del Comendador.
+</note>
+
+<note
+  xml:id="n-947-1"
+  target="#l-947 #l-948 #l-949 #l-950 #l-951"
+  type=""
+  n="1.0">
+  216 Las leyes de la caballería prohibían que un noble luchara con un plebeyo y por eso el Comendador no puede dirigir (volver) su espada contra él.
+</note>
+
+<note
+  xml:id="n-852-1"
+  target="#seg-852-853-a #seg-852-853-b"
+  type=""
+  n="1.0">
+  217 me conformo con mi estado, es decir, Frondoso asume su condición de campesino y renuncia a la rebeldía, entre otros motivos, porque sabe que matar a un noble se castiga con la pena capital.
+</note>
+
+<note
+  xml:id="n-859-1"
+  target="#seg-859-1"
+  type=""
+  n="1.0">
+  218 cerrara: ‘hiciera frente’.
+</note>
+
+<note
+  xml:id="n-860-1"
+  target="#seg-860-1"
+  type=""
+  n="1.0">
+  219 corro: ‘avergüenzo’.
+</note>
+
+<!--NOTAS ACTO SEGUNDO-->
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  220 La acción se desarrolla ahora en la plaza de Fuenteovejuna. El Regidor Iº debe de ser el Cuadrado de los vv. 2114-2116.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  221 Esto es, ‘Que yo conserve la salud, como así parece, si atino cuando aconsejo que no se saquee más el granero municipal (pósito)’, donde se almacenaba el grano para hacer frente a los períodos de escasez. La primera parte del enunciado, (Así tenga salud, como parece) es una fórmula enfática.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  222 El año apunta mal o se prevén malas cosechas. No hay unanimidad acerca del significado del sintagma el tiempo crece, que se ha interpretado como ‘el día alarga’ (y por tanto se aproxima el tiempo de la siega), ‘la sequía aumenta’ o ‘el tiempo empeora’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  223 más de trece: ‘muchos’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  224 esta república: ‘este pueblo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  225 Esteban manifiesta su desconfianza hacia los astrólogos que pretenden convencer con argumentos prolijos (largos prólogos) sobre aquello que es por definición ignorado (ignorantes) y cuyo conocimiento compete sólo a Dios. Como se verá en el v. 881 y ss., el motivo del comentario es la práctica, común en la época, de echar mano de pronósticos meteorológicos para tomar decisiones sobre la siembra.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  226 Esteban enfatiza que es intolerable que los astrólogos se hagan los teólogos al identificar el pasado (después) y el futuro (antes), cuando ignoran las urgencias del presente.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  227 ‘y el designio de planetas y estrellas’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  228 ponen tasa: ‘ponen precio’, porque exigen parte de la cosecha como pago de los pronósticos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  229 daca: ‘da acá’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  230 calabazas: aquí ‘ignorantes’. Es juego de palabras con el verso anterior.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  231 Esteban remata su queja denunciando la impostura de los astrólogos. Si fallan, por ejemplo, al pronosticar la muerte de alguien importante (cabeza), se defienden diciendo que esta ha tenido lugar en Transilvania, lugar alejado y entonces muy conflictivo. Si, por el contrario, aciertan, a la postre los pronósticos no son más que lugares comunes, como la abundancia de cerveza en Alemania, los habituales problemas de la cosecha de cerezas en la provincia francesa de Gascuña, o la desde antiguo ponderadísima abundancia de tigres en Hircania, Asia Menor.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  232 A fe que no ganéis la palmatoria, es decir, no sois el primero en llegar. En las escuelas, ganaba la palmatoria, palma con la que se aplicaban los castigos corporales, el muchacho que llegaba el primero a clase.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  233 El mentidero era el lugar de la plaza donde la gente se reunía a charlar.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  234 Por el nombre de Bártulo se conocía a Bartolo de Sassoferrato, un importante jurisconsulto boloñés del siglo XIV, cuyas obras fueron usadas como libros de texto por estudiantes de leyes como Leonelo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  235 barbero: además de afeitar, los barberos trabajaban como practicantes y cirujanos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  236 Leonelo ‘cree’ (siento) que la imprenta ha aumentado el número de los ignorantes, porque los libros ya no se limitan a ser breves compendios (por no se reducir a breve suma) y su lección queda en nada (vana espuma). Incluso el más acostumbrado a leer (que de leer tiene más uso) queda anonadado por los títulos (letreros) de las obras impresas.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  237 Leonelo admite, sin embargo, que la imprenta ha dado a conocer a algunos buenos escritores (ingenios) de origen rústico (de entre la jerga).
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  238 en sagrada parte: ‘en las bibliotecas’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  239 El alemán (tudesco) de la ciudad de Maguncia, Gutenberg (Cutemberga), perfeccionó la imprenta en 1440, con lo que logró que la Fama dejara de difundirse oralmente y pasara a hacerlo por escrito.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  240 que opinión tuvieron grave: ‘que tuvieron fama de serios’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  241 Leonelo se lamenta del abuso que supone utilizar el nombre de un autor conocido para firmar malos libros. Probablemente, la denuncia encierre una alusión autobiográfica, pues con el nombre de Lope se imprimieron algunas comedias que en realidad eran de sus rivales.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  242 la impresión: ‘la imprenta’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  243 Leonelo sostiene que no descuella en el época ningún autor de la talla de san Jerónimo ni de san Agustín, los dos Padres de la Iglesia más admirados por los humanistas
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  244 mohíno: ‘enfadado’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  245 Para el correcto cómputo del verso debe considerarse que la h- de haciendas es aspirada.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  246 Juan Rojo afirma que ni con los bienes de cuatro familias (cuatro haciendas) bastará para el dote matrimonial, si es que los ajuares (vistas) que se intercambian los novios han de ser los acostumbrados (al uso).
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  247 barrio y vulgo son los que viven en los arrabales y la gente del pueblo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  248 El Comendador puso a Laurencia en situación de casarse (en ese campo) al asediarla.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  249 Hay que entender en sentido irónico la frase del Comendador, si suponemos que ha oído lo anterior sin que Rojo y el labrador se dieran cuenta.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  250 ‘¡que se queden sentados!’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  251 Vusiñoría: ‘Vuestra señoría’, forma rústica.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  252 Se inicia aquí un debate sobre la honra. Según el pensamiento de la época, los nobles eran los que podían dar honra a los campesinos que, como categoría social, carecían de ella. En el contexto, el comentario de Esteban parece irónico, dado que sabe que el Comendador ha deshonrado a muchas mujeres de Fuenteovejuna.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  253 Ante lo tenso de la situación, Esteban busca un tema intrascendente de conversación: un galgo que quizá estaba (aunque no se nombra) entre los regalos de los campesinos en la escena de los vv. 552 ss.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  254 El comendador sugiere que hay que poner al galgo a competir (hiciérades pariente) con la liebre que huye (que por pies...se me va). Se prolonga aquí la alegoría de la caza de amor, pues liebre tiene connotaciones eróticas.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  255 para alcanzada de vos: ‘para emparejar con vos’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  256 darme pena: ‘hacerme sufrir’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  257 Es juego de palabras: a la primera señal del Comendador (primera traza), la mujer urde el medio de poder concertar una cita (traza de verme).
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  258 La traducción castellana de la Política de Aristóteles circulaba desde 1584. La recomendación del Comendador está cargada de cinismo, pues supone una interpretación abusiva de la defensa del imperio de la ley contenida en el tratado.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  259 La apostilla de Leonelo es irónica, pues puede referirse tanto a la actitud del Comendador como a la actitud de Esteban.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  260 Entiéndase ‘algunos freiles de Calatrava no son de sangre tan limpia’. Se inicia aquí un debate sobre la limpieza de sangre. Esteban defiende implícitamente la condición de cristiano viejo del hombre del campo frente a la posible ascendencia judía de muchos de los nobles que han ingresado en las órdenes militares.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  261 tiñe: ‘mancha’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  262 El Comendador se jacta de otorgar honra a las mujeres al gozar de sus favores.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  263 Es decir, ‘en las ciudades no está mal visto que las mujeres se entreguen a los nobles’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  264 Esto es, ‘además del castigo de Dios existe el de la Justicia, que es más rápido’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  265 reportes: ‘moderes’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  266 hacer corrillo: ‘reunirse para tramar algo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  267 ‘Eres incapaz de simular que no te interesa el disgusto general’. Las ediciones antiguas aquí leen quieren; enmendamos como otros editores pero el pasaje es algo oscuro.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  268 ‘¿Éstos están a mi misma altura, son de mi clase social?’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  269 aqueso: ‘eso’. Se refiere a que los labradores no aspiran a ser caballeros.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  270 capilla: ‘capucha’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  271 ‘una buena cuchillada’. El beneficio era la ‘renta vitalicia de algunos eclesiásticos’; análogamente, la cicatriz de la cara del que se parecía a Frondoso (su presencia y su capilla imitaba) le quedará para toda la vida, será vitalicia como un beneficio.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  272 tiemblan: ‘temen’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  273 ‘Esto es un desastre, el acabose’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  274 ‘El amor todo lo puede’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  275 ‘Como te dejó vivo, estás en deuda con él’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  276 ‘desde la punta de la espada a la empuñadura’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  277 ‘en dos horas apuñalaría a toda la gente del pueblo (lugar)’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  278 fiarse: ‘fiar, cobrar aplazadamente una deuda’; en este caso, amorosa, cuyo pago aplazará el Comendador hasta que se case.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  279 ‘te manda donde te pagarán amorosamente en el acto’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  280 desposado: ‘prometido’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  281 visitalla: ‘visitarla’. La asimilación rl > ll es arcaísmo propio de la lengua literaria del siglo XVII (más casos en v. 1214: «guardalla»; v. 1390: «acetallo»; v. 1635: «dalle», etc.), aunque alterna con la presencia de formas sin asimilación (vv. 412, 680, 710…).
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  282 ‘podrás tener relaciones sexuales con ella como al principio’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  283 ‘vigila y se mueve con mucha ligereza’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  284 donaires: ‘gracias, ocurrencias’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  285 Flores señala que la resistencia de algunas mujeres es insoportable, que la oponen para hacerse valer y, una vez vencidas, cobrar la recompensa.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  286 En el libro de la Física, desarrolla Aristóteles (el Filósofo del v. 1092) la teoría del hilemorfismo, cuya base teórica es el axioma de que todo lo creado está formado por materia (lo imperfecto o contingente) y forma (lo perfecto o necesario): en el reparto entre el género humano, a la mujer le tocó la materia y al hombre, la forma; así, para sentirse completa, la mujer o materia, ha de buscar una forma, el hombre, que la complete o perfeccione. En el pasaje se oyen claros ecos de La Celestina.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  287 accidente: ‘perturbación, pasión’; en este caso, amorosa o sexual.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  288 El Comendador indica que lo que se consigue con poco esfuerzo se olvida rápidamente.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  289 Le exhorta a que cambie (trueca) el sombrero verde de caza (montera) por el blanco de soldado, y su capote (gabán) por la armadura, a fin de que entre en batalla.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  290 ‘no sería de extrañar que se perdiese’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  291 Describe, respectivamente, las banderas de Castilla, León y Aragón.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  292 ‘Bastante hará el Maestre con volver a Almagro con vida’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  293 tente: ‘detente’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  294 ‘vamos todas juntas, puesto que no hay ningún hombre que nos proteja, para que no nos encontremos (demos con él) al Comendador’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  295 le nombra: ‘llámale’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  296 jara: ‘flecha de ballesta’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  297 garrotillo: ‘difteria, angina maligna que provocaba la muerte por sofocación o ahogo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  298 ‘Juro que, si le tirara una pedrada con la honda que llevo, nada más hacer sonar su cuerdas (el crujidero), ya le habría dado en toda la cabeza (casco)’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  299 ‘no fue nunca tan vicioso’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  300 Heliogábalo fue un emperador romano cuyo nombre se citaba siempre como símbolo de la crueldad extrema; el sábalo, sin embargo, es un pez muy sabroso.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  301 Confunde ahora a Heliogábalo con Galván (por su parecido fonético), un cruel personaje de romancero que raptó, vejó y mató a Moriana.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  302 Su nefasto recuerdo (cativa memoria), es superado por la maldad del Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  303 El motivo de la crianza con leche de tigre parece proceder de la Eneida (IV, 367), de Virgilio, donde Dido atribuye tal crianza a Eneas por la crueldad de haberla dejado abandonada en Cartago. Por otra parte, era una creencia popular que el carácter se transmitía por la leche que mamaba el niño.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  304 libre: aquí vale ‘osado, insolente’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  305 ser: ‘valor’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  306 Se refiere a que, muy probablemente, la honda y las piedras arrojadizas fueron las primeras armas del mundo, pues dice el Génesis (4, 8) que con ellas Caín mató a Abel.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  307 ‘¡Juro al sol que, si me enfado y saco la honda (el cáñamo), venderéis cara la vida’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  308 ‘¿Me tenéis que hacer ocupar de asuntos tan bajos?’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  309 ‘Se atreve a enfrentarse a nosotros’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  310 Soceso: ‘suceso’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  311 ‘¿Así protegéis su honor?’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  312 Jacinta recrimina con ironía al Comendador que sea él quien ataque su honor en vez de protegerlo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  313 Jacinta defiende la idea de que el honor no depende tanto del estrato social como de su comportamiento.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  314 tiemplan: ‘templan’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  315 ‘Has de formar parte del equipaje (bagaje) de los soldados’, es decir, el Comendador la entrega para servir sexualmente al ejército.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  316 Véase cómo tanto Mengo como Jacinta hacen hincapié en el castigo que merece la crueldad del Comendador. Estas apelaciones al juicio divino ayudan a justificar los acontecimientos posteriores.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  317 Seguramente esta escena tenga lugar en casa del padre de Laurencia.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  318 afición: ‘amor’. Frondoso se ha atrevido a bajar al pueblo para saber si Laurencia lo quiere.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  319 recuesto: ‘cuesta’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  320 cuidado: ‘amor’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  321 ‘si mi lealtad a ti ha alcanzado el objetivo de merecer tu amor, de ser correspondido’. Se trata de una metáfora náutica: el amante es un barco en una tormenta y el amor de su amada es el puerto al que quiere llegar.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  322 ‘todo el pueblo cree que nos vamos a casar’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  323 plantas: ‘pies’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  324 confiese: ‘exprese, declare’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  325 ‘confía en que el ser yo tu mujer ha de tener final feliz’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  326 Esteban y el Alcalde son la misma persona; el Regidor es Juan Rojo, tío de Laurencia.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  327 término: ‘comportamiento’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  328 sinrazón: acción fuera de lo razonable.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  329 Anacronismo. Los Reyes Católicos no reciben este sobrenombre hasta 1494, y los hechos de Fuenteovejuna sucedieron en 1476. El uso del título durante la obra, sin embargo, los caracteriza como reyes legítimos cuya autoridad está por encima de la del Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  330 Santiago alude por metonimia a don Rodrigo Manrique, Maestre de Santiago, al frente de la conquista de Ciudad Real para los Reyes Católicos. También hace referencia a Santiago, patrón de España, que según la leyenda se aparecía en los campos de batalla sobre un caballo blanco para ayudar en la Reconquista.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  331 ‘Jacinta era una doncella de bien’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  332 bayeta: tela de lana de baja calidad.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  333 Se refiere a la vara de Alcalde, símbolo de su autoridad, que no le sirve de nada frente al poder del Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  334 Se refiere a Sebastiana, la cual, según el Comendador, se había dejado seducir voluntariamente (vv. 799-800).
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  335 ‘A tu padre le debes la vida y a mí, el cariño que te he dado’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  336 El otro al que se refiere es su padre; Frondoso ha sido osado al pedir la mano de Laurencia puesto que tradicionalmente es el padre del novio quien debería pedirla para su hijo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  337 Esteban teme el acoso del Comendador, puesto que su obligación como padre es proteger el honor de su hija.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  338 ‘Agradezco que defiendas mi honor y que tus intenciones para con Laurencia sean honestas’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  339 presto: ‘dispuesto’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  340 ‘si os interesa’, ‘si os queréis fijar en ello’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  341 maravedís: moneda de escaso valor.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  342 El tío de Laurencia se burla de que Frondoso no quiera ninguna dote, agradeciendo que no la haya pedido desnuda.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  343 Referencia al Comendador, que no respeta la voluntad de las mujeres.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  344 El sujeto de la frase es ‘mi amor’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  345 ‘Mejor hace casándose contigo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  346 voluntad: ‘cariño’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  347 Es decir, le tenía afecto antes pero éste ha crecido desde que la salvó.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  348 ‘pues yo soy quien decido’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  349 compadre: ‘amigo’; se refiere al padre de Frondoso.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  350 traza: ‘plan’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  351 ‘el enamoramiento pasa muy rápido’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  352 Escena en el campo, cerca de Ciudad Real.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  353 despojo: botín del vencedor.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  354 pendones: símbolo del ejército cuya perdida supone un deshonor.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  355 ‘Nuestro pendón de Calatrava, que bastaría para justificar la acción enemiga y que vale tanto como el resto de pendones juntos, no está entre sus despojos’. El Maestre, aunque ha perdido la batalla, celebra conservar el pendón de Calatrava.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  356 desinios: ‘designios, intenciones’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  357 La Fortuna solía representarse inconstante y ciega.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  358 luces: ‘antorchas’, en señal de triunfo y fiesta.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  359 pendones vitoriosos: ‘pendones victoriosos’, en alusión a los pendones de los Reyes Católicos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  360 ‘Bien pudieran entoldar las ventanas con la sangre derramada’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  361 ‘Mientras piensas si vas a defender los intereses de tus familiares (deudos) o vas a someter tu facción (reducir tu parte) al Rey Católico’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  362 ‘Con la edad, verás qué hacer’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  363 El Maestre lamenta su inexperiencia (sus pocos años).
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  364 Escena en algún punto de Fuenteovejuna (acaso en la plaza mayor).
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  365 trovar: ‘componer, hacer versos’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  366 alborotes: ‘alboroces, alegres’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  367 No estamos seguros de que éste sea verso de Lope de Vega (pues aparece sólo en la segunda edición, B); es, en cualquier caso, necesario para completar la estrofa.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  368 ‘Que le hayan practicado una lavativa a un hombre (a uno, es decir, a Mengo) en la que pusieron, para mayor escarnio del humillado, piedras pequeñas (chinas) y tinta’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  369 razonable: ‘aceptable’, refiriéndose a la calidad poética de la copla.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  370 anden en puntos: ‘sean puntillosos, discutan’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  371 ‘Hube de componer la copla (o coplón) muy rápido’, se excusa Barrildo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  372 seta: ‘secta’, en referencia a los poetas que improvisan.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  373 buñolero: ‘buñuelero’, el que hace buñuelos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  374 tuertos: ‘torcidos’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  375 previniendo: ‘preparando’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  376 ‘El tema (la materia) del poema le da al poeta la sustancia (la masa) para componerlo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  377 Miel, en esta comparación, debe de ser la música que acompaña el poema.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  378 poniéndolo en el pecho: ‘poniéndolo delante (de alguien), ofreciéndolo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  379 ‘Danos las manos a besar’: piden, de esta manera, la bendición a Juan Rojo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  380 procuras: ‘pretendes, solicitas’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  381 luego: ‘en seguida’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  382 ‘Ruego que el cielo dé la mano a ella y a su esposo con su generosa (larga) bendición’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  383 ‘Esteban y Juan Rojo (los dos), echad la bendición (la echad) a Laurencia y a mí (a los dos)’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  384 tañed: ‘tocad los instrumentos’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  385 para en uno: ‘casados, desposados’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  386 val: ‘valle’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  387 niña en cabellos: doncella o virgen; en cabello o en cabellos: ‘con los cabellos al descubierto’; la mujer solía llevarlos así, sin toca, ni cofia, hasta que se casaba.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  388 gallarda: ‘valiente’, la llama, tratando de halagar a la que se esconde.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  389 linces deseos: ‘deseos que, como la vista del lince, atraviesan paredes’; la propiedad clásica del lince le confería una visión excepcional, capaz, incluso, de ver a través de cuerpos opacos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  390 celosías: ‘enrejados de listones de madera, que permiten ver sin ser visto’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  391 intricadas: ‘intrincadas, enredadas’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  392 ‘Estése la boda quieta (queda): esténse todos callados’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  393 ‘¿Quieres un sitio en la fiesta?’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  394 belicoso alarde: ‘acompañamiento de soldados’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  395 Puesto que el Comendador considera el delito de Frondoso como competencia de los alcaldes de Fuenteovejuna, debe ser su mismo padre quien dicte sentencia; es probable que Esteban, su futuro suegro, sea el padre (político) al que se refiere el Comendador, según se desprende de los vv. 1609-1610.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  396 ‘¿Qué me impide el hecho de su boda?’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  397 Pascuala apela a su nobleza para obtener su perdón o piedad.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  398 El Comendador pretende hacer creer que su causa contra Frondoso no es entre particulares, sino entre un particular y la Orden de Calatrava, cuyo prestigio (honor) debe restaurarse mediante un castigo ejemplarizante.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  399 ‘Se rebele contra él’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  400 se descomponga: ‘se enemiste’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  401 ‘No puede esperarse otra cosa distinta a que la defienda’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  402 ‘Majadero y alcalde gracias a vos’, con sentido irónico.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  403 sufrir: ‘soportar, tolerar’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  404 lugares: ‘villas o aldeas’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  405 por traer cruces: por una parte, hace referencia a la cruz de Calatrava (grande en su prestigio) y, por otra, hace alusión a la carga (grande en su peso) que supone el mal uso del cargo de comendador al conjunto de la sociedad.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  406 ¡Hola!: exclamación con que se llama a un inferior (para darle una orden).
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  407 norabuena: ‘en hora buena’, expresión de complacencia con sentido irónico.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  408 Mengo juega con dos de los sentidos de cardenal: ‘hematoma o morado’ y ‘dignidad eclesiástica’ que se encuentra en Roma.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  409 ‘Las nalgas (los atabales) coloradas como rodajas (ruedas) de salmón’; el atabal, un tambor militar, es aquí eufemismo de nalgas.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  410 Esta escena se desarrolla en la sala del concejo de Fuenteovejuna.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  411 junta: ‘asamblea, reunión’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  412 apriesa: ‘deprisa’. Esteban reconoce que el tiempo corre en su contra.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  413 lo más: ‘la mayor parte’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  414 con prisiones en la torre: ‘con grilletes en la cárcel’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  415 obsequias: ‘exequias; honras fúnebres’. En el parlamento de Esteban convergen varias vivencias de la honra cuyo entrelazamiento determina la acción dramática, aquí y en tantas comedias del Siglo de Oro. Los labradores se sienten, ante todo y esencialmente, ‘honrados’, pero los excesos del Comendador han ido atentando contra su honra social, cuya pérdida equivale a la muerte. De ahí la amargamente irónica referencia a las honras fúnebres.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  416 la: la honra.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  417 se apresta: ‘está prevista’. Lope altera ligeramente las fechas históricas para modelar el contexto dramático. Los hechos de Fuenteovejuna tuvieron lugar en 1476, y los Reyes Católicos se desplazaron a Córdoba a finales de 1478 y principios de 1479.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  418 la villa: Córdoba.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  419 Echarse a los pies de alguien era signo de respeto y humildad.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  420 ‘Mientras Fernando, el que somete (humilla), tiene tantos enemigos, será mejor buscar otra solución (medio), puesto que está ocupado en la guerra’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  421 desamparar: ‘ausentarse de, dejar’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  422 entiende: ‘oye’. Mengo está convencido de que si el Comendador se entera de los planes de los labradores, alguno de ellos acabará muerto.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  423 árbol: ‘mástil de un navío’
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  424 Metáfora náutica de reminiscencias clásicas. El regidor compara su desesperación, y los efectos que pueden derivar de ella, con un barco destrozado que navega a la deriva.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  425 ‘Por quien es gobernada vuestra patria’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  426 vara: ‘vara de mando’, símbolo de autoridad.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  427 Qué esclavo: ‘a qué esclavo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  428 ‘que vayáis en estas cosas con cuidado’. En la época se admitía el uso de indicativo en la subordinada.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  429 ‘Aunque soy uno de los ingenuos y ofendidos labradores, aquí represento con mayor cordura sus intereses’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  430 ‘Si todos sufrimos lo mismo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  431 La aparición de Laurencia desmelenada implica claramente, para el público de la época, que ha sido violada.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  432 Entiéndase: ‘mi aspecto está tan alterado que dudáis quién soy’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  433 mis ojos: expresión de extremo cariño.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  434 Las leyes del honor prescribían que eran los varones quienes debían guardar y, en su caso, vengar la honra de la mujer. La responsabilidad recaía sobre el padre o los hermanos de la mujer soltera y se traspasaba al marido en cuanto se casaba.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  435 guardas: ‘guardias’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  436 ‘Me raptó ante vuestros ojos’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  437 apetitos torpes: ‘deseos libidinosos, sexuales’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  438 nobles: ‘honrados’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  439 deudos: ‘parientes’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  440 Aquí, oveja se convierte en símbolo de la cobardía.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  441 El jaspe es un tipo de piedra preciosa. La enumeración de Laurencia subraya la imperturbabilidad de los labradores a quienes se dirige.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  442 nacistes: ‘nacisteis’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  443 bárbaros: ‘extranjeros’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  444 sufrís: ‘toleráis’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  445 cinta: ‘cintura’. Después de atacar su cobardía, Laurencia reprocha a los hombres su afeminamiento.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  446 ‘Yo misma me tendré que encargar de que las mujeres venguen su propio honor’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  447 La lapidación era un castigo especialmente degradante dirigido, básicamente, a prostitutas o brujas.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  448 toca: adorno para cubrir la cabeza.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  449 basquiña: falda hasta el suelo con mucho vuelo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  450 solimán: mercurio refinado que se utilizaba como cosmético para afinar la piel y eliminar arrugas.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  451 color: cosmético para colorear el rostro.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  452 Laurencia enfatiza la arbitrariedad del Comendador al afirmar que pretende dar muerte a Frondoso sin seguir los pasos legales establecidos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  453 del almena: era habitual que se utilizase el artículo masculino ante sustantivos que empezaban con a- átona.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  454 me huelgo: ‘me alegro’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  455 Las amazonas eran un pueblo fabuloso formado exclusivamente por mujeres guerreras que sólo admitían a los hombres como sirvientes o esclavos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  456 ‘Eterna admiración del mundo”
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  457 asombre: ‘atemorice’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  458 Descoge: ‘despliega’, a modo de bandera.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  459 inormes: ‘viles’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  460 lanzón: lanza corta y gruesa usada por los campesinos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  461 chuzo: arma blanca de madera rematada por un hierro.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  462 ‘Pues las ofensas de Fernán Gómez a las mujeres no son menos graves que las que cometió contra los hombres’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  463 ‘El gran agravio que has sufrido exige que seas tú, Jacinta, el cabo (oficial) de nuestro ejército’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  464 alférez: oficial encargado de llevar la bandera.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  465 enarbole: ‘despliegue’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  466 espacio: ‘tiempo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  467 Laurencia considera que las tocas son suficiente estandarte de su ejército.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  468 Laurencia se niega a nombrar un capitán porque su valor es equiparable al del Cid y al de Rodamonte, personaje del Orlando furioso de Ariosto dotado de fuerza y osadía sobrehumanas.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  469 La acción se sitúa en una sala en la casa del Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  470 por mayor pena: ‘para aumentar su castigo o sufrimiento’. El Comendador quiere que, para aumentar el sufrimiento de Frondoso, le cuelguen empleando la misma cuerda con la que tiene atadas las manos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  471 almena: una de las torres en la parte superior de los muros antiguos de las fortalezas.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  472 Templa: ‘Calma’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  473 villano tenía el significado tanto de ‘ruin’, como de ‘habitante de una villa’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  474 Por amor se puede entender el sentimiento de solidaridad entre los miembros de la comunidad. Frondoso reconoce la solidaridad que le brindan.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  475 resuelven: ‘se determinan’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  476 rastrillo: verja o reja usada como compuerta en la entrada de una fortificación para defenderla.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  477 acometamos: ‘contraataquemos’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  478 Se entiende que la escena cambia a afuera de la casa del Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  479 En este caso, el puesto de esperanzas corresponde a la casa del Comendador, pues es ahí donde se buscará vengar el honor perdido.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  480 Es decir, que beban su sangre es lo menos que se puede esperar de las mujeres que se vengan. Esto enfatiza el ensañamiento y odio de los labradores hacia el Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  481 Nótese que con la acotación (Dentro) se indica que los personajes no están en el escenario, sino que sus voces provienen del interior. Las acciones sólo son mencionadas por los personajes, no son representadas en el escenario. En este pasaje, el recurso empleado por Lope le permite evitar la representación de escenas violentas.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  482 ‘¡Piedad, Señor, que confío en tu compasión!’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  483 ‘Mi venganza queda incompleta sin su muerte’. De manera similar a la expresión de Pascuala en el v. 1893, Frondoso subraya el estado de enfurecimiento y odio en el que se encuentran y por ello busca una muerte violenta.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  484 ‘¡Entremos!’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  485 marquesotes: forma despectiva para burlarse de la pedantería y la presunción.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  486 alcahuete: persona que concierta, encubre o facilita una relación amorosa. Tanto Flores como Ortuño son alcahuetes del Comendador, pues le ayudan a seducir a las mujeres de Fuenteovejuna.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  487 Aún cuando, en la época, morir a manos de una mujer era deshonroso, Jacinta considera que Flores merece una muerte aún más indigna.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  488 Aqueso: ‘Por esto’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  489 concertador de sus placeres: ‘alcahuete del Comendador’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  490 teñid: ‘manchad’. Laurencia da la orden a las mujeres de teñir sus armas con la sangre de los hombres del Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  491 La acción regresa al palacio de los Reyes Católicos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  492 prevención: ‘planes, preparativos’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  493 contradición: ‘contradicción, resistencia’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  494 Hace alusión a don Diego Fernández de Córdoba quien, junto a Rodrigo Manrique, el Maestre de Santiago, se mantuvo del lado de los Reyes Católicos y reconquistó Ciudad Real.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  495 Se refiere a Ciudad Real. Para el Rey, éste es un sitio estratégico para Alfonso V de Portugal, pues puede usarlo para, desde ahí, atacar Castilla.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  496 discreto: ‘de buen juicio, justo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  497 El Rey considera que el enemigo reúne un ejército.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  498 asistente: presente respaldando militarmente.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  499 ‘Porque con esto evita el daño que tememos’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  500 repórtate: ‘cálmate’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  501 aleves: ‘traidores’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  502 ‘con poca justificación se revelan’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  503 acumula: ‘atribuye’. ‘Que le atribuye el pueblo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  504 Se refiere a la cruz bordada en el pecho del Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  505 picas: ‘lanzas’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  506 a porfía: ‘rivalizando’. Se indica que competían entre sí por injuriar al Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  507 mesa: ‘arranca’. Arrancar las barbas era considerado una grave deshonra. Este castigo remite a la Crónica de Rades, donde se menciona que al comendador Fernán Gómez ‘le arrancaron las barbas y cabellos con grande crueldad’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  508 Esto sugiere que han descuartizado al Comendador, de manera tal que son las orejas la parte más grande que ha quedado de su cuerpo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  509 Las armas hacen referencia a los escudos y emblemas. El pueblo busca borrar las armas que pertenecían a Fernán Gómez y representaban su linaje (pues les ofenden, les avergüenzan), y colocar, en su lugar, las reales armas, es decir, las de los Reyes Católicos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  510 ‘Para que te informase’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  511 rigor: ‘dureza’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  512 luego: ‘inmediatamente’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  513 Se trata de un ‘juez pesquisidor’, el que era enviado a investigar sobre algún delito o reo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  514 Normalmente este tipo de cabezas se hacían con cera o cartón.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  515 La acción, de nuevo, transcurre en la plaza de Fuenteovejuna.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  516 pie: El término puede significar tanto ‘sílaba’ como ‘verso’. Curiosamente, la copla presenta alguna irregularidad, como la rima imperfecta entre los términos manos, años y tiranos. Además, a la copla de Frondoso no le falta, sino que le sobra un verso en comparación con las que a continuación cantan Barrildo y Mengo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  517 curioso: ‘esmerado, cuidadoso’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  518 Se trata de una expresión típica de las canciones de boda (véase v. 738). En esta ocasión se alude a la unión política de los Reyes Católicos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  519 El arcángel san Miguel es el encargado de decidir qué almas serán llevadas ante Dios.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  520 famosos: ‘ilustres’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  521 Gigantes y enanos aparecían habitualmente en los populares libros de caballerías encarnando la maldad.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  522 poeta donado: ‘aficionado, no profesional’. En rigor el donado o ‘lego’ entraba en una orden o congregación religiosa, sin opción a las sagradas órdenes, para dedicarse al servicio de la misma.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  523 Eufemismo con el que se refiere a sus nalgas, donde recibió los latigazos que le dieron los hombres del Comendador. Lo que opina Pascuala es que Mengo debería considerarse más propiamente un ‘poeta azotado en las nalgas’ que un ‘poeta aficionado’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  524 aquél: ‘el Comendador’. Mengo, al decir estos versos, señalaría la cabeza del Comendador que portaban en una lanza.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  525 rabel: metáfora con la que se designa, una vez más, a las nalgas que, probablemente, se equipararían con el dorso abombado y abultado de algunas variedades de estos instrumentos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  526 Verso cuyo significado no queda claro. Podría entenderse en el sentido más recto de curar las heridas causadas por los azotes recibidos con untos o grasas. Sin embargo, y siempre teniendo presente ese castigo, podría estar indicando metafóricamente que ya está listo para probar el buen gobierno de los Reyes Católicos, pues el pringar era antes que el asar y el comer. Por último, podría también referirse a su situación actual, donde él da los azotes y no los recibe.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  527 Cristiánigos: tanto esta palabra como el tiránigos del verso siguiente son términos deformados en boca de Mengo que forman dos versos esdrújulos para cerrar la copla de forma cómica.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  528 Una vez más, se hace referencia a la cabeza del Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  529 Es decir, de malhechor, pues la pena de muerte por ahorcamiento se aplicaba a los villanos, mientras que los nobles eran decapitados.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  530 las armas: hay que entender ‘armas reales’. Juan Rojo saca el escudo de los Reyes Católicos para manifestar la decisión del pueblo de dejar de estar sujeto a la encomienda de la Orden de Calatrava y supeditarse estrictamente al poder real.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  531 las barras de Aragón: el matrimonio de Isabel de Castilla y Fernando de Aragón trajo consigo la unión política de ambos reinos. El escudo de este último, todavía en uso, está formado por cuatro palos o barras de color rojo sobre fondo de oro.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  532 Advertid: ‘prestad atención’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  533 ‘y más teniendo en cuenta que van a pasar cerca de aquí en su viaje’. Al estar próximos a Fuenteovejuna era lógico pensar que quisieran intervenir en el caso del asesinato del Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  534 a una: ‘juntamente’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  535 Qué: ‘Cuál’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  536 ‘Es la forma correcta de actuar’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  537 La alternancia entre el uso de Ahora y agora se debe a cuestiones métricas, ya que mientras el primero debe contarse como bisílabo no permite realizar una sinéresis, el segundo es trisílabo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  538 habemos: ‘hemos’. Era forma habitual en el Siglo de Oro.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  539 Esteban, para preparar la coartada, quiere simular un interrogatorio actuando él como si fuera el juez y Mengo el detenido. Los interrogatorios en este tipo de procesos conllevaban el uso de la tortura contra el reo, que a veces terminaba confesando delitos que no había cometido para librarse del sufrimiento provocado.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  540 Juego con el doble sentido de la palabra flaco. Por una parte, se opone al aspecto físico de Mengo que, como veremos en los vv. 2239-2240, es gordo y, por otra, ha de entenderse en su significado de ‘débil, cobarde’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  541 otra vuelta: la tortura se llevaba a cabo en el denominado potro. En este instrumento formado por un bastidor o una banqueta el preso era atado por todo el cuerpo, incluyendo las extremidades, con fuertes cuerdas que al ser giradas por unos tornos producían opresión en el cuerpo y la dislocación de las extremidades.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  542 Es ninguna: ‘No me hace ningún efecto’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  543 ‘¡A la mierda el proceso criminal!’. Cagajón: es el estiércol de caballos, burros y otros animales.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  544 El Regidor estaba ya en escena. Quizás saliera tras su intervención del v. 2076 y Lope no lo señalara por descuido.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  545 ‘Están deteniendo a todos los habitantes del pueblo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  546 La acción ahora transcurre en una sala del castillo de la Orden de Calatrava.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  547 ‘¡Que eso haya sucedido!’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  548 Evocación del recurso literario del asesinato del portador de malas noticias.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  549 intento: ‘intención’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  550 ‘se han declarado súbditos del Rey’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  551 Versos de interpretación dudosa. Es muy probable que el Maestre se esté preguntando en qué momento se ha hecho pleito sobre lo que el Rey ha puesto en manos de la encomienda.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  552 La escena vuelve a Fuenteovejuna.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  553 recelar: ‘temer’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  554 ‘es una gran pena comprobar cómo el temor puede arrebatarle a una el ser amado’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  555 esposo: ‘prometido, amado’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  556 ‘El peligro que presiento me hace temer el daño de mi prometido’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  557 La idea de que la separación del ser amado produce una muerte metafórica es un tópico proveniente del amor cortés.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  558 ‘que sufrirán los demás’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  559 puesto en razón: ‘razonable’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  560 ‘que me porte con los míos como si me fueran ajenos, como si no los conociera’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  561 La escena se presenta en un doble plano, situándose dentro los hechos más violentos de tortura, y sobre el escenario Laurencia y Frondoso que comentan lo que el público oye pero no ve. Lo mismo sucedió en la escena del asesinato del Comendador (vv. 1896-1900).
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  562 buen viejo: hay que entender la expresión con un valor despectivo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  563 El Juez se dirige al verdugo que está encargado de realizar la tortura para que gire el torno del potro. Más adelante le llamará borracho e infame porque, aunque la profesión de verdugo era necesaria, se consideraba despreciable.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  564 ‘atadla al potro’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  565 luego: ‘ya, inmediatamente’. Dar mancuerda: mientras el torturado estaba inmovilizado en el potro, el verdugo hacía girar unos tornos que apretaban las ligaduras que el prisionero tenía atadas alrededor de su cuerpo y le estiraban sus miembros en sentido opuesto.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  566 espantas: ‘admiras’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  567 encantas: ‘deleitas, embelesas’. Una vez más, el Juez se dirige al verdugo y muestra su extrañeza ante la falta de exteriorización de dolor por parte de los torturados.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  568 desnudo: ‘en paños menores, mal vestido’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  569 El Juez ordena a su ayudante que haga girar el torno para dislocar los hombros de Mengo.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  570 Quedo: ‘Quieto’. Mengo se dirige al verdugo para que pare el tormento pues supuestamente se ha decidido a confesar.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  571 ‘Tu poco miedo me ha quitado el que yo tenía por dos personas’. No queda claro si esas dos personas son él y Laurencia o las que acaban de ser torturadas.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  572 Vítor: interjección de alegría.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  573 Diacitrón: confitura muy apreciada en la época hecha a partir de un fruto muy similar al limón llamado cidra.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  574 ‘Bebe el vino en abundancia’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  575 Refrán inventado sobre el modelo habitual «El que...» o «Quien...».
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  576 Esto es, ‘Bebe una vez por cada vuelta que le aplicaron en el potro’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  577 Arrópale: juego de palabras en el sentido ‘Échale arrope, sírvele vino’, por un lado, y ‘Abrígale’, por otro.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  578 Nuevo juego de palabras, en esta ocasión entre la interjección de dolor y la forma del verbo haber.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  579 Se refiere al vino. Barrildo hace la pregunta al ver los gestos que hace Mengo al beber.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  580 ‘Un ligero sabor agrio o avinagrado’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  581 me arromadizo: ‘me resfrío, me acatarro’. Mengo sigue la broma que había hecho Frondoso en su intervención del v. 2275.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  582 La escena tiene lugar en el Palacio Real.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  583 entendí: ‘pensé’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  584 gloria: ‘gozo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  585 le tuerza: ‘lo tuerza’, el paso.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  586 Realmente, los Reyes Católicos no lograron la pacificación de Castilla hasta 1477, un año después.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  587 ‘Mi palabra, señora, os doy’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  588 Para dar mayor cohesión dramática a la obra, Lope altera la cronología histórica, puesto que realmente don Rodrigo, según la Crónica de Rades, se reconcilió con los Reyes Católicos varios años después.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  589 Fernando: ‘Fernán Gómez’, el Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  590 injusto fiel: parece referirse a que la ambición hizo que el fiel (aguja de la balanza que indica el peso) se desequilibrase en la balanza de la conducta.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  591 demando: ‘pido’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  592 me certifico: ‘os aseguro, declaro formalmente’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  593 sacándola apenas: ‘nada más la haya sacado’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  594 Es decir, ‘con el compromiso y la esperanza de no disgustaros nunca’. Nótese que disgustaros es un caso de rima imperfecta con soldados. El Maestre murió en 1482, sirviendo a los Reyes Católicos en la Guerra de Granada.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  595 peregrino: ‘especial, fuera de lo común’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  596 El Maestre compara a los Reyes Católicos con estos dos personajes bíblicos. Jerjes I fue rey de Persia en el siglo V a. C. y un célebre guerrero, y su esposa Ester salvó al pueblo judío de la persecución del visir Amán.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  597 despacho: ‘encargo’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  598 Estas palabras del Maestre deben entenderse en clave irónica.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  599 suerte: ‘forma’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  600 asistí: ‘cumplí con mi cometido’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  601 en pidiendo: ‘cuando se les pregunta’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  602 inquirido: ‘averiguado’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  603 certificarte: ‘confirmarte que es cierto’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  604 les di: ‘diles’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  605 siendo de piedad extraño: ‘no teniendo compasión’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  606 Frondoso sostiene que Laurencia logró evitar la violación del Comendador y sus criados, aunque resulta inverosímil que ella sola pudiese hacer frente al asalto de varios hombres. Probablemente, Frondoso mienta porque continúa considerando a su esposa tan pura moral y espiritualmente como antes de sufrir el agravio, puesto que la joven siempre se había resistido a cualquier proposición deshonesta.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  607 El emperador romano Nerón (siglo I d. C.), como paradigma de hombre cruel, lascivo y tirano por antonomasia, es equiparado al Comendador.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  608 el reverso: aquí, eufemismo que equivale a ‘el trasero’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  609 rueda de salmón: ‘rodaja de salmón’. Es decir, los azotes que le propinaron le han dejado el trasero enrojecido.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  610 atabales: ‘nalgas’, jocosamente.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  611 prolijo: ‘duradero’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  612 cuero: ‘piel’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  613 El arrayán y la murta (arrayán pequeño) son plantas que por sus propiedades curativas se empleaban para elaborar medicamentos.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  614 cortijo: es la casa de labradores humildes.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  615 abono: ‘garantía, fianza’.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  616 El Rey, como antes había hecho el juez encargado (vv. 2381-2384), condena absolutamente el crimen. Si perdona al pueblo es simplemente por la falta de pruebas que permitan identificar a los verdaderos responsables.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  617 En realidad, según la Crónica de Rades, la villa pasó a estar bajo la jurisdicción de la ciudad de Córdoba.
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  618 senado: término con el que se hacía referencia al público al final de las comedias
+</note>
+
+<note
+  xml:id=""
+  target="#"
+  type=""
+  n="1.0">
+  619 Era habitual que las piezas teatrales terminasen apelando directamente al público y citando el título de la obra.
+</note>
+
+</div>
+</body>
+  </text>
+</TEI>
