@@ -1,0 +1,200 @@
+
+@use "variables" as *;
+
+
+/* ============================================
+   HERO SECTION - HOME
+   ============================================ */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: linear-gradient(135deg, $primary-100 0%, $neutral-50 100%);
+  padding: 80px 20px 60px;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  width: 100%;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Badge superior */
+.hero-badge {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--on-primary);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+}
+
+/* Título principal */
+.hero-title {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Subtítulo con cursiva */
+.hero-subtitle {
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.hero-subtitle i {
+  font-style: italic;
+  color: var(--primary-700);
+}
+
+/* Descripción más detallada */
+.hero-description {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 40px;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Botones principales del hero */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-hero-primary,
+.btn-hero-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.btn-hero-primary {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.btn-hero-primary:hover {
+  background: var(--primary-700);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.4);
+}
+
+.btn-hero-secondary {
+  background: var(--secondary);
+  color: var(--on-primary);
+}
+
+.btn-hero-secondary:hover {
+  background: var(--secondary-700);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(var(--secondary-rgb), 0.4);
+}
+
+/* Indicador de scroll (opcional) */
+.hero-scroll {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  animation: bounce 2s infinite;
+  cursor: pointer;
+}
+
+.hero-scroll i {
+  font-size: 1.2rem;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    padding: 60px 20px 40px;
+  }
+
+  .hero-badge {
+    font-size: 0.8rem;
+    padding: 6px 16px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 28px;
+  }
+
+  .hero-scroll {
+    display: none; /* Ocultar en móviles */
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .hero-description {
+    font-size: 0.95rem;
+  }
+  
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    font-size: 1rem;
+  }
+}

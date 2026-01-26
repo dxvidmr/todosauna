@@ -35,22 +35,20 @@ permalink: /participa/laboratorio/
     
     <!-- Lado derecho: Opciones de entrada -->
     <div class="bienvenida-opciones">
-      <div class="opcion-modo">
-        <div class="opcion-icono"></div>
-        <h3>Modo secuencial</h3>
-        <p>Recorre los pasajes en orden cronológico de la obra</p>
-        <button id="btn-modo-secuencial" class="btn-modo-entrada">
-          <i class="fa-solid fa-list-ol" aria-hidden="true"></i> Comenzar en orden
-        </button>
+      <div class="opcion-modo" data-modo="secuencial" role="button" tabindex="0">
+        <div class="opcion-icono"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></div>
+        <div class="opcion-contenido">
+          <h3>Modo secuencial</h3>
+          <p>Recorre los pasajes en orden cronológico de la obra</p>
+        </div>
       </div>
       
-      <div class="opcion-modo">
-        <div class="opcion-icono"></div>
-        <h3>Modo aleatorio</h3>
-        <p>Sorpréndete con un pasaje al azar de la obra</p>
-        <button id="btn-modo-aleatorio" class="btn-modo-entrada">
-          <i class="fa-solid fa-shuffle" aria-hidden="true"></i> Sorpréndeme
-        </button>
+      <div class="opcion-modo" data-modo="aleatorio" role="button" tabindex="0">
+        <div class="opcion-icono"><i class="fa-solid fa-shuffle" aria-hidden="true"></i></div>
+        <div class="opcion-contenido">
+          <h3>Modo aleatorio</h3>
+          <p>Sorpréndete con un pasaje al azar de la obra</p>
+        </div>
       </div>
       
       <div class="stats-globales">

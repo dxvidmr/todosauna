@@ -19,23 +19,21 @@ class ModalModo {
           <div class="modo-opciones">
             
             <!-- Opción 1: Anónimo -->
-            <div class="modo-opcion" data-modo="anonimo">
+            <div class="modo-opcion" data-modo="anonimo" role="button" tabindex="0">
               <div class="modo-header">
                 <span class="modo-icono"><i class="fa-solid fa-user-secret" aria-hidden="true"></i></span>
                 <h3>Editor anónimo</h3>
               </div>
               <p>Sin registro. Privacidad total.</p>
-              <button class="btn-seleccionar" data-modo="anonimo">Participar anónimamente</button>
             </div>
             
             <!-- Opción 2: Colaborador -->
-            <div class="modo-opcion" data-modo="colaborador">
+            <div class="modo-opcion" data-modo="colaborador" role="button" tabindex="0">
               <div class="modo-header">
                 <span class="modo-icono"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
                 <h3>Colaborador</h3>
               </div>
               <p>Identificado por email. Contribuciones reconocidas.</p>
-              <button class="btn-seleccionar" data-modo="colaborador">Continuar como colaborador/a</button>
             </div>
             
           </div>
@@ -188,11 +186,20 @@ class ModalModo {
   }
   
   attachEventListeners() {
-    // Botones de selección de modo
-    document.querySelectorAll('.btn-seleccionar').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const modo = e.target.dataset.modo;
+    // Divs de selección de modo
+    document.querySelectorAll('.modo-opcion').forEach(opcion => {
+      opcion.addEventListener('click', (e) => {
+        const modo = opcion.dataset.modo;
         this.seleccionarModo(modo);
+      });
+      
+      // Accesibilidad: permitir Enter y Space para activar
+      opcion.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const modo = opcion.dataset.modo;
+          this.seleccionarModo(modo);
+        }
       });
     });
     

@@ -165,15 +165,30 @@ class EditorSocial {
    * Setup listeners para botones de modo
    */
   setupBienvenidaListeners() {
-    const btnSecuencial = document.getElementById('btn-modo-secuencial');
-    const btnAleatorio = document.getElementById('btn-modo-aleatorio');
-
-    btnSecuencial?.addEventListener('click', () => {
-      this.iniciarModoSecuencial();
-    });
-
-    btnAleatorio?.addEventListener('click', () => {
-      this.iniciarModoAleatorio();
+    const opcionesModo = document.querySelectorAll('.opcion-modo');
+    
+    opcionesModo.forEach(opcion => {
+      opcion.addEventListener('click', () => {
+        const modo = opcion.dataset.modo;
+        if (modo === 'secuencial') {
+          this.iniciarModoSecuencial();
+        } else if (modo === 'aleatorio') {
+          this.iniciarModoAleatorio();
+        }
+      });
+      
+      // Accesibilidad: permitir Enter y Space para activar
+      opcion.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const modo = opcion.dataset.modo;
+          if (modo === 'secuencial') {
+            this.iniciarModoSecuencial();
+          } else if (modo === 'aleatorio') {
+            this.iniciarModoAleatorio();
+          }
+        }
+      });
     });
   }
 

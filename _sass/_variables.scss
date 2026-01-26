@@ -16,6 +16,7 @@ $color-danger: #8b3a33;
 $color-dark-dark: darken($color-dark, 15%);
 $color-dark-light: lighten($color-dark, 20%);
 $color-light-dark: darken($color-light, 15%);
+$color-light-light: lighten($color-light, 20%);
 
 $color-success-light: lighten($color-success, 35%);
 $color-success-100: #eef3ed;
@@ -34,7 +35,7 @@ $color-panel-bg: #f7f6f5;
 // Textos
 $color-text: #333333;
 $color-text-secondary: #5f5a56;
-$color-text-muted: #7d7870;
+$color-text-muted: #989898;
 $color-text-muted-dark: #555555;
 
 // Bordes
