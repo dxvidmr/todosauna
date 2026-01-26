@@ -1,0 +1,267 @@
+/* 
+    Put your custom SCSS here! 
+    This allows you to override any CollectionBuilder or Bootstrap CSS without modifying the base theme files directly.
+*/
+
+@use "variables" as *;
+
+/* Navigation Wrapper */
+.nav-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem 1rem 0;
+    z-index: 1000;
+    pointer-events: none;
+    
+    @media (max-width: 991.98px) {
+        padding: 1rem;
+    }
+}
+
+/* Floating Navbar */
+.navbar-floating {
+    width: auto;
+    max-width: none;
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);*/
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+    overflow: hidden;
+    pointer-events: auto;
+    flex-shrink: 0;
+    
+    @media (max-width: 991.98px) {
+        width: calc(100% - 2rem);
+        max-width: 100%;
+        border-radius: 25px;
+    }
+    
+    &.expanded {
+        width: auto;
+        max-width: calc(100vw - 2rem);
+        border-radius: 25px;
+        padding: 1.5rem 2rem;
+        
+        .navbar-nav-desktop {
+            display: none !important;
+        }
+        
+        @media (max-width: 991.98px) {
+            width: calc(100vw - 2rem);
+            max-width: none;
+            padding: 1.5rem;
+        }
+        
+        .navbar-toggler-icon {
+            display: none;
+        }
+        
+        .navbar-close-icon {
+            display: block;
+        }
+        
+        .navbar-expanded {
+            max-height: 80vh;
+            opacity: 1;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba($color-dark, 0.1);
+        }
+    }
+}
+
+/* Body padding to compensate for fixed navbar */
+body {
+    padding-top: 5rem;
+}
+
+.navbar-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    
+    @media (max-width: 991.98px) {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* Navigation Desktop */
+.navbar-nav-desktop {
+    gap: 2rem;
+    align-items: center;
+    
+    .nav-link {
+        color: $color-dark;
+        font-size: 1rem;
+        padding: 0.5rem 0;
+        transition: opacity 0.2s;
+        
+        &:hover {
+            opacity: 0.7;
+        }
+        
+        &.active {
+            color: $color-dark;
+            font-weight: 500;
+        }
+    }
+}
+
+/* Expanded Content */
+.navbar-expanded {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.4s ease, padding-top 0.4s ease;
+    width: 100%;
+}
+
+.navbar-expanded-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.navbar-expanded-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-expanded-title {
+    color: $color-dark;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 0.75rem;
+    display: block;
+    transition: opacity 0.2s;
+    
+    &:hover {
+        opacity: 0.7;
+        color: $color-dark;
+    }
+    
+    &.active {
+        font-weight: 600;
+    }
+}
+
+.navbar-expanded-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li {
+        margin-bottom: 0.4rem;
+    }
+    
+    a {
+        color: rgba($color-dark, 0.7);
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: color 0.2s;
+        
+        &:hover {
+            color: $color-dark;
+        }
+    }
+}
+
+.navbar-expanded-search {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba($color-dark, 0.1);
+    
+    form {
+        display: flex;
+        background: rgba($color-dark, 0.05);
+        border-radius: 25px;
+        padding: 0.5rem 1rem;
+        max-width: 400px;
+    }
+    
+    input {
+        background: transparent;
+        border: none;
+        color: $color-dark;
+        flex: 1;
+        
+        &::placeholder {
+            color: rgba($color-dark, 0.5);
+        }
+        
+        &:focus {
+            background: transparent;
+            color: $color-dark;
+            outline: none;
+            box-shadow: none;
+        }
+    }
+    
+    button {
+        background: transparent;
+        border: none;
+        color: rgba($color-dark, 0.7);
+        padding: 0 0.5rem;
+        
+        &:hover {
+            color: $color-dark;
+        }
+    }
+}
+
+/* Navbar brand */
+.navbar-brand {
+    color: $color-dark;
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-right: 0;
+    white-space: nowrap;
+}
+
+/* Toggler button */
+.navbar-toggler {
+    border-color: rgba($color-dark, 0.3);
+    border: 0px;
+    padding: 0.25rem 0.5rem;
+    margin: 0;
+    position: relative;
+    display: block;
+    
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba($color-dark, 0.25);
+    }
+}
+
+.navbar-close-icon {
+    display: none;
+    font-size: 2rem;
+    line-height: 1;
+    color: $color-dark;
+}
+
+/* Backdrop */
+.nav-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+    
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+}
