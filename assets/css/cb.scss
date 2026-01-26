@@ -39,5 +39,8 @@ $theme-link-color: {{ site.data.theme.link-color | default: '""' }};
 );
 {% endif %}
 
+/* pull in custom variables */
+@use "variables";
+
 /* pull in custom styles to override everything else */
-@use "custom";
+@use "custom-navbar";
