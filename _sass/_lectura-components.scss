@@ -3,7 +3,7 @@
 // Modal, evaluaciones, sugerencias, etc.
 // ============================================
 
-@use "lectura-variables" as *;
+@use "variables" as *;
 
 // ============================================
 // TOAST NOTIFICATIONS
@@ -36,7 +36,7 @@
 .loading {
   text-align: center;
   padding: 40px;
-  color: $lectura-muted;
+  color: $color-text-muted;
   
   &::before {
     content: '⏳';
@@ -54,12 +54,12 @@
 .nota-content .nota-acciones {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid $lectura-muted-light;
+  border-top: 1px solid $color-border-light;
 }
 
 .evaluacion-header {
   font-size: 13px;
-  color: $lectura-muted;
+  color: $color-text-muted;
   margin-bottom: 8px;
 }
 
@@ -72,7 +72,7 @@
   margin: 8px 0 0 0;
   padding: 0;
   font-size: 0.85rem;
-  color: $lectura-muted;
+  color: $color-text-muted;
   font-style: italic;
   text-align: center;
 }
@@ -83,9 +83,9 @@
 .btn-mejorable {
   flex: 1;
   padding: 8px 12px;
-  border: 1px solid $lectura-border;
+  border: 1px solid $color-border;
   border-radius: 4px;
-  background: $lectura-surface;
+  background: $color-surface;
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s;
@@ -97,7 +97,7 @@
   i {
     font-size: 0.95em;
     opacity: 0.85;
-    color: $lectura-muted-2;
+    color: $color-text-secondary;
   }
 }
 
@@ -108,41 +108,41 @@
   border-radius: 10px;
   font-weight: normal;
   font-size: 0.85em;
-  color: $lectura-muted-dark;
+  color: $color-text-muted-dark;
 }
 
 // Cambios de color en hover o cuando ya votado
-.btn-util:hover i { color: $lectura-success; }
-.btn-mejorable:hover i { color: $lectura-warning; }
-.btn-util.votado i { color: $lectura-success; }
-.btn-mejorable.votado i { color: $lectura-warning; }
+.btn-util:hover i { color: $color-success; }
+.btn-mejorable:hover i { color: $color-danger; }
+.btn-util.votado i { color: $color-success; }
+.btn-mejorable.votado i { color: $color-danger; }
 
 .btn-evaluar:hover {
-  background: $lectura-muted-light;
-  border-color: $lectura-muted-mid;
+  background: $color-border-light;
+  border-color: #999;
 }
 
 .btn-util:hover {
-  background: $lectura-success-100;
-  border-color: $lectura-success;
+  background: $color-border-light;
+  border-color: $color-success;
 }
 
 .btn-mejorable:hover {
-  background: $lectura-warning-100;
-  border-color: $lectura-warning;
+  background: $color-danger-100;
+  border-color: $color-danger;
 }
 
 .btn-util.votado {
-  background: $lectura-success-100;
-  color: $lectura-success;
-  border-color: $lectura-success;
+  background: $color-success-light;
+  color: $color-success;
+  border-color: $color-success;
   cursor: default;
 }
 
 .btn-mejorable.votado {
-  background: $lectura-warning-100;
-  color: $lectura-warning;
-  border-color: $lectura-warning;
+  background: $color-danger-100;
+  color: $color-danger;
+  border-color: $color-danger;
   cursor: default;
 }
 
@@ -155,7 +155,7 @@
   textarea {
     width: 100%;
     padding: 8px;
-    border: 1px solid $lectura-border;
+    border: 1px solid $color-border;
     border-radius: 4px;
     font-family: inherit;
     font-size: 13px;
@@ -165,7 +165,7 @@
     
     &:focus {
       outline: none;
-      border-color: $lectura-primary;
+      border-color: $color-light;
     }
   }
 }
@@ -193,20 +193,20 @@
 }
 
 .btn-enviar-comentario {
-  background: $lectura-primary;
+  background: $color-light;
   color: white;
   
   &:hover {
-    background: $lectura-primary-700;
+    background: $color-light-dark;
   }
 }
 
 .btn-cancelar-comentario {
-  background: $lectura-muted-light;
-  color: $lectura-text;
+  background: $color-border-light;
+  color: $color-text;
   
   &:hover {
-    background: $lectura-border;
+    background: $color-border;
   }
 }
 
@@ -214,12 +214,12 @@
 .evaluacion-feedback,
 .nota-ya-evaluada,
 .nota-content .nota-evaluada {
-  color: $lectura-success;
+  color: $color-dark;
   font-size: 14px;
   font-weight: 500;
   padding: 8px;
   text-align: center;
-  background: $lectura-success-100;
+  background: $color-border-light;
   border-radius: 4px;
   
   i {
@@ -252,7 +252,7 @@
   
   .btn-cancelar-comentario {
     padding: 8px 16px;
-    border: 1px solid $lectura-border;
+    border: 1px solid $color-border;
   }
   
   .nota-evaluada {
@@ -288,24 +288,24 @@
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
-  background: $lectura-primary;
+  background: $color-light;
   color: white;
   border: none;
   border-radius: 50px;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  box-shadow: $lectura-shadow-elev-2;
+  box-shadow: $shadow-md;
   transition: all 0.2s;
   white-space: nowrap;
   
   &:hover {
-    background: $lectura-primary-700;
+    background: $color-light-dark;
     transform: scale(1.02);
   }
   
   i {
-    color: $lectura-warning-300;
+    color: $color-dark-light;
   }
 }
 
@@ -319,7 +319,7 @@
     gap: 10px;
     
     i {
-      color: $lectura-warning;
+      color: $color-dark;
     }
   }
 }
@@ -333,21 +333,21 @@
 .sugerencia-label {
   font-size: 13px;
   font-weight: 600;
-  color: $lectura-text;
+  color: $color-text;
   margin-bottom: -8px;
   
   .label-opcional {
     font-weight: 400;
-    color: $lectura-muted;
+    color: $color-text-muted;
   }
 }
 
 .sugerencia-texto-seleccionado {
   padding: 12px 16px;
-  background: $lectura-bg;
-  border: 1px solid $lectura-border;
+  background: $color-bg;
+  border: 1px solid $color-border;
   border-radius: 6px;
-  color: $lectura-text;
+  color: $color-text;
   line-height: 1.5;
   max-height: 150px;
   overflow-y: auto;
@@ -358,7 +358,7 @@
 .sugerencia-textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid $lectura-border;
+  border: 1px solid $color-border;
   border-radius: 6px;
   font-family: inherit;
   font-size: 14px;
@@ -368,11 +368,11 @@
   
   &:focus {
     outline: none;
-    border-color: $lectura-primary;
+    border-color: $color-light;
   }
   
   &::placeholder {
-    color: $lectura-muted;
+    color: $color-text-muted;
   }
 }
 
@@ -385,17 +385,17 @@
 
 .btn-cancelar-sugerencia {
   padding: 10px 18px;
-  background: $lectura-surface;
-  color: $lectura-text;
-  border: 1px solid $lectura-border;
+  background: $color-surface;
+  color: $color-text;
+  border: 1px solid $color-border;
   border-radius: 50px;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s;
   
   &:hover {
-    background: $lectura-muted-light;
-    border-color: $lectura-muted-mid;
+    background: $color-border-light;
+    border-color: #999;
   }
 }
 
@@ -404,7 +404,7 @@
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  background: $lectura-primary;
+  background: $color-light;
   color: white;
   border: none;
   border-radius: 50px;
@@ -414,7 +414,7 @@
   transition: all 0.2s;
   
   &:hover:not(:disabled) {
-    background: $lectura-primary-700;
+    background: $color-light-dark;
   }
   
   &:disabled {
@@ -445,23 +445,23 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: $lectura-overlay;
+  background: $color-overlay;
 }
 
 .modal-content {
   position: relative;
-  background: $lectura-surface;
+  background: $color-surface;
   border-radius: 8px;
   padding: 32px;
   max-width: 800px;
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: $lectura-shadow-elev-2;
+  box-shadow: $shadow-md;
   
   h2 {
     margin-bottom: 8px;
-    color: $lectura-text;
+    color: $color-text;
   }
 }
 
@@ -473,7 +473,7 @@
   border: none;
   font-size: 28px;
   line-height: 1;
-  color: $lectura-muted;
+  color: $color-text-muted;
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 4px;
@@ -482,14 +482,14 @@
   
   &:hover,
   &:focus {
-    color: $lectura-text;
+    color: $color-text;
     background: rgba(0,0,0,0.05);
     outline: none;
   }
 }
 
 .modal-descripcion {
-  color: $lectura-muted;
+  color: $color-text-muted;
   margin-bottom: 24px;
 }
 
@@ -498,6 +498,13 @@
 // Flota a la derecha, fuera de la navbar
 // Solo icono, se expande hacia la izquierda en hover
 // ============================================
+
+// Ocultar botón flotante cuando el menú está expandido
+.btn-participacion-flotante.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100px);
+}
 
 .btn-participacion-flotante {
   position: fixed;
@@ -512,17 +519,16 @@
   flex-direction: row-reverse; // Icono a la derecha, texto a la izquierda
   gap: 0;
   
-  background: $lectura-primary;
-  color: white;
+  background: $color-light;
+  color: $color-dark;
   border: none;
-  padding: 12px;
+  padding: 1rem 1.25rem;
   border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
   font-size: 15px;
   font-family: inherit;
   
-  box-shadow: $lectura-shadow-elev-2;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   white-space: nowrap;
@@ -547,14 +553,19 @@
   
   // En hover: expande hacia la izquierda mostrando el texto
   &:hover {
-    background: $lectura-primary-700;
-    padding: 12px 18px;
+    background: $color-dark;
+    //padding: 12px 18px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     
     .btn-participacion-texto {
       max-width: 150px;
       opacity: 1;
       margin-right: 10px;
+      color: $color-light
+    }
+
+    i {
+      color: $color-light;
     }
   }
   
@@ -570,29 +581,32 @@
   }
 }
 
-// Botón dentro del menú expandido (móvil)
+// Botón dentro del menú expandido
 .navbar-expanded-participacion {
-  padding: 20px 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
 }
 
 .btn-participacion-menu {
-  background: $lectura-primary;
+  background: $color-light;
   color: white;
   border: none;
-  padding: 14px 24px;
+  padding: 12px 20px;
   border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
   font-size: 15px;
   font-family: inherit;
   transition: background 0.2s;
+  white-space: nowrap;
+  
+  i {
+    margin-right: 6px;
+  }
   
   &:hover {
-    background: $lectura-primary-700;
+    background: $color-light-dark;
   }
   
   i {
@@ -606,7 +620,7 @@
   
   h3 {
     margin: 0 0 20px 0;
-    color: $lectura-text;
+    color: $color-text;
     font-size: 20px;
   }
 }
@@ -614,7 +628,7 @@
 .info-modo {
   margin-bottom: 20px;
   padding: 15px;
-  background-color: $lectura-panel-bg;
+  background-color: $color-panel-bg;
   border-radius: 6px;
   
   p {
@@ -626,9 +640,9 @@
 .info-stats {
   margin-bottom: 20px;
   padding: 15px;
-  background-color: $lectura-primary-100;
+  background-color: $color-bg-subtle;
   border-radius: 6px;
-  border-left: 4px solid $lectura-primary;
+  border-left: 4px solid $color-dark;
   
   p {
     margin: 8px 0;
@@ -647,7 +661,7 @@
 }
 
 .btn-cerrar-sesion {
-  background-color: $lectura-primary;
+  background-color: $color-light;
   color: white;
   padding: 10px 20px;
   border-radius: 50px;
@@ -657,12 +671,12 @@
   transition: background-color 0.2s;
   
   &:hover {
-    background-color: $lectura-primary-700;
+    background-color: $color-light-dark;
   }
 }
 
 .btn-cerrar-info {
-  background-color: $lectura-muted;
+  background-color: $color-text-muted;
   color: white;
   padding: 10px 20px;
   border-radius: 50px;
@@ -672,17 +686,17 @@
   transition: background-color 0.2s;
   
   &:hover {
-    background-color: $lectura-muted-dark;
+    background-color: $color-text-muted-dark;
   }
 }
 
 // Panel de lector existente
 .lector-info-previa {
-  background-color: $lectura-primary-100;
+  background-color: $color-bg-subtle;
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 20px;
-  border-left: 4px solid $lectura-primary;
+  border-left: 4px solid $color-dark;
   
   p {
     margin: 8px 0;
@@ -701,15 +715,15 @@
 }
 
 .modo-opcion {
-  border: 2px solid $lectura-border;
+  border: 2px solid $color-border;
   border-radius: 8px;
   padding: 20px;
   text-align: center;
   transition: all 0.2s;
   
   &:hover {
-    border-color: $lectura-primary;
-    box-shadow: 0 2px 8px rgba($lectura-primary, 0.2);
+    border-color: $color-light;
+    box-shadow: 0 2px 8px rgba($color-light, 0.2);
   }
   
   h3 {
@@ -719,7 +733,7 @@
   
   p {
     font-size: 14px;
-    color: $lectura-muted;
+    color: $color-text-muted;
     margin-bottom: 16px;
     min-height: 40px;
   }
@@ -736,21 +750,21 @@
   
   i {
     font-size: 1.6rem;
-    color: $lectura-muted-2;
+    color: $color-text-secondary;
     opacity: 0.95;
   }
 }
 
 .opcion-icono i {
   font-size: 1.6rem;
-  color: $lectura-muted-2;
+  color: $color-text-secondary;
   opacity: 0.95;
 }
 
 .btn-seleccionar {
   width: 100%;
   padding: 10px;
-  background: $lectura-primary;
+  background: $color-light;
   color: white;
   border: none;
   border-radius: 50px;
@@ -759,7 +773,7 @@
   transition: background 0.2s;
   
   &:hover {
-    background: $lectura-primary-700;
+    background: $color-light-dark;
   }
 }
 
@@ -772,15 +786,15 @@
 }
 
 .opcion-colaborador {
-  border: 2px solid $lectura-border;
+  border: 2px solid $color-border;
   border-radius: 8px;
   padding: 20px;
   text-align: center;
   transition: all 0.2s;
   
   &:hover {
-    border-color: $lectura-primary;
-    box-shadow: 0 2px 8px rgba($lectura-primary, 0.2);
+    border-color: $color-light;
+    box-shadow: 0 2px 8px rgba($color-light, 0.2);
   }
   
   h4 {
@@ -790,7 +804,7 @@
   
   p {
     font-size: 13px;
-    color: $lectura-muted;
+    color: $color-text-muted;
     margin-bottom: 16px;
   }
 }
@@ -802,7 +816,7 @@
 .btn-opcion-colaborador {
   width: 100%;
   padding: 10px;
-  background: $lectura-primary;
+  background: $color-light;
   color: white;
   border: none;
   border-radius: 50px;
@@ -811,7 +825,7 @@
   transition: background 0.2s;
   
   &:hover {
-    background: $lectura-primary-700;
+    background: $color-light-dark;
   }
 }
 
@@ -829,7 +843,7 @@
     small {
       display: block;
       margin-top: 4px;
-      color: $lectura-muted;
+      color: $color-text-muted;
       font-size: 12px;
     }
   }
@@ -839,14 +853,14 @@
   input[type="text"] {
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid $lectura-border;
+    border: 1px solid $color-border;
     border-radius: 4px;
     font-size: 14px;
     font-family: inherit;
     
     &:focus {
       outline: none;
-      border-color: $lectura-primary;
+      border-color: $color-light;
     }
   }
   
@@ -855,7 +869,7 @@
   }
   
   p {
-    color: $lectura-muted;
+    color: $color-text-muted;
     margin-bottom: 16px;
   }
 }
@@ -863,7 +877,7 @@
 .btn-enviar {
   width: 100%;
   padding: 12px;
-  background: $lectura-primary;
+  background: $color-light;
   color: white;
   border: none;
   border-radius: 4px;
@@ -874,7 +888,7 @@
   margin-bottom: 10px;
   
   &:hover {
-    background: $lectura-primary-700;
+    background: $color-light-dark;
   }
 }
 
@@ -882,16 +896,16 @@
   width: 100%;
   padding: 10px;
   background: transparent;
-  color: $lectura-muted;
-  border: 1px solid $lectura-border;
+  color: $color-text-muted;
+  border: 1px solid $color-border;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s;
   
   &:hover {
-    background: $lectura-muted-light;
-    color: $lectura-text;
+    background: $color-border-light;
+    color: $color-text;
   }
   
   i {
@@ -903,9 +917,9 @@
 .info-identificacion,
 .info-registro {
   font-size: 14px;
-  color: $lectura-muted;
+  color: $color-text-muted;
   padding: 12px;
-  background: $lectura-muted-light;
+  background: $color-border-light;
   border-radius: 6px;
   margin-bottom: 16px;
 }

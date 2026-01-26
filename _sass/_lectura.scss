@@ -4,7 +4,7 @@
 // ============================================
 
 @use "sass:color";
-@use "lectura-variables" as *;
+@use "variables" as *;
 
 // ============================================
 // LAYOUT PRINCIPAL LECTURA (2 COLUMNAS)
@@ -32,7 +32,7 @@
   font-weight: 300;
   font-size: 100%;
   line-height: 1.6;
-  color: $lectura-text;
+  color: $color-text;
 }
 
 // Columna de notas/opciones
@@ -41,8 +41,8 @@
   width: 25%;
   min-width: 30%;
   max-width: 50%;
-  border-left: 2px solid $lectura-border-muted;
-  background-color: $lectura-bg;
+  border-left: 2px solid $color-border-muted;
+  background-color: $color-bg;
   overflow-y: auto;
   max-height: calc(100vh - 5rem);
   display: flex;
@@ -57,8 +57,8 @@
 .info-panel h4 {
   margin: 0 0 1rem 0;
   font-size: 1.1rem;
-  color: $lectura-text;
-  border-bottom: 1px solid $lectura-border;
+  color: $color-text;
+  border-bottom: 1px solid $color-border;
   padding-bottom: 0.5rem;
 }
 
@@ -93,7 +93,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: $lectura-muted-light;
+    background-color: $color-border-light;
     transition: 0.3s;
     border-radius: 26px;
     
@@ -112,7 +112,7 @@
   }
   
   input:checked + .slider {
-    background-color: $lectura-primary;
+    background-color: $color-dark;
   }
   
   input:checked + .slider::before {
@@ -130,9 +130,9 @@
 
 .font-btn {
   padding: 0.5rem 1rem;
-  border: 1px solid $lectura-primary;
-  background-color: $lectura-surface;
-  color: $lectura-primary;
+  border: 1px solid $color-dark;
+  background-color: $color-surface;
+  color: $color-dark;
   cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
@@ -140,14 +140,14 @@
   transition: all 0.2s ease;
   
   &:hover {
-    background-color: $lectura-primary;
+    background-color: $color-dark;
     color: white;
   }
 }
 
 #font-size-display {
   font-weight: 500;
-  color: $lectura-muted-2;
+  color: $color-text-secondary;
   min-width: 50px;
   text-align: center;
 }
@@ -158,8 +158,8 @@
 
 .button-bar {
   display: flex;
-  border-bottom: 1px solid $lectura-border;
-  background: $lectura-panel-bg;
+  border-bottom: 1px solid $color-border;
+  background: $color-panel-bg;
   padding: 0 10px;
 }
 
@@ -172,17 +172,17 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  color: $lectura-muted;
+  color: $color-text-muted;
   transition: all 0.2s;
   
   &:hover {
-    color: $lectura-text;
+    color: $color-text;
     background: rgba(0,0,0,0.02);
   }
   
   &.active {
-    color: $lectura-primary;
-    border-bottom-color: $lectura-primary;
+    color: $color-dark;
+    border-bottom-color: $color-dark;
   }
 }
 
@@ -202,7 +202,7 @@
 // ============================================
 
 .placeholder-text {
-  color: $lectura-muted;
+  color: $color-text-muted;
   font-style: italic;
   text-align: center;
   padding: 2rem 1rem;
@@ -216,12 +216,12 @@
 
 #noteContent {
   font-size: 90%;
-  color: $lectura-text;
+  color: $color-text;
   padding: 20px;
   border-radius: 8px;
   min-height: 200px;
-  background: $lectura-surface;
-  box-shadow: $lectura-shadow-elev-1;
+  background: $color-surface;
+  box-shadow: $shadow-sm;
   flex: 1;
   overflow-y: auto;
 }
@@ -235,12 +235,12 @@
 .acts-nav {
   margin-top: auto;
   padding: 20px;
-  border-top: 1px solid $lectura-border;
+  border-top: 1px solid $color-border;
   
   h4 {
     font-size: 14px;
     font-weight: 600;
-    color: $lectura-text;
+    color: $color-text;
     margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -256,27 +256,27 @@
   flex: 1;
   padding: 10px 12px;
   background: #f5f5f5;
-  border: 1px solid $lectura-border;
+  border: 1px solid $color-border;
   border-radius: 6px;
-  color: $lectura-text;
+  color: $color-text;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   
   &:hover {
-    background: $lectura-primary;
+    background: $color-dark;
     color: white;
-    border-color: $lectura-primary;
+    border-color: $color-dark;
     transform: translateY(-1px);
-    box-shadow: $lectura-shadow-elev-1;
+    box-shadow: $shadow-sm;
   }
   
   &.active {
-    background: $lectura-primary;
+    background: $color-dark;
     color: white;
-    border-color: $lectura-primary;
-    box-shadow: $lectura-shadow-elev-1;
+    border-color: $color-dark;
+    box-shadow: $shadow-sm;
   }
 }
 
@@ -295,7 +295,7 @@
   
   h5 {
     margin: 0;
-    color: $lectura-primary;
+    color: $color-dark;
     font-size: 1.1rem;
   }
   
@@ -314,27 +314,27 @@
   }
   
   .note-badge-type {
-    background-color: $lectura-primary-100;
-    color: $lectura-primary-600;
-    border: 1px solid $lectura-primary-border;
+    background-color: $color-border-light;
+    color: $color-dark-dark;
+    border: 1px solid $color-border;
   }
   
   .note-badge-subtype {
-    background-color: $lectura-muted-light;
-    color: $lectura-muted-dark;
-    border: 1px solid $lectura-muted-border;
+    background-color: $color-border-light;
+    color: $color-text-muted-dark;
+    border: 1px solid $color-border-muted;
   }
   
   p {
     margin: 0.5rem 0;
     line-height: 1.6;
-    color: $lectura-text;
+    color: $color-text;
   }
   
   .note-id {
     display: block;
     margin-top: 0.75rem;
-    color: $lectura-muted;
+    color: $color-text-muted;
     font-size: 0.8rem;
     font-style: italic;
   }
@@ -355,7 +355,7 @@
   align-items: center;
   margin-bottom: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid $lectura-border;
+  border-bottom: 1px solid $color-border;
 }
 
 .note-nav-controls {
@@ -366,10 +366,10 @@
   .btn-nav-nota {
     width: 32px;
     height: 32px;
-    border: 1px solid $lectura-border;
+    border: 1px solid $color-border;
     border-radius: 50%;
-    background: $lectura-surface;
-    color: $lectura-text;
+    background: $color-surface;
+    color: $color-text;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -378,9 +378,9 @@
     padding: 0;
     
     &:hover:not(:disabled) {
-      background: $lectura-primary;
+      background: $color-dark;
       color: white;
-      border-color: $lectura-primary;
+      border-color: $color-dark;
     }
     
     &:disabled {
@@ -391,7 +391,7 @@
   
   .nota-posicion {
     font-size: 0.85rem;
-    color: $lectura-muted;
+    color: $color-text-muted;
     font-weight: 500;
     min-width: 100px;
     text-align: center;
@@ -401,10 +401,10 @@
 .btn-cerrar-nota {
   width: 32px;
   height: 32px;
-  border: 1px solid $lectura-border;
+  border: 1px solid $color-border;
   border-radius: 50%;
-  background: $lectura-surface;
-  color: $lectura-muted;
+  background: $color-surface;
+  color: $color-text-muted;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -413,16 +413,16 @@
   padding: 0;
   
   &:hover {
-    background: $lectura-muted-light;
-    color: $lectura-text;
-    border-color: $lectura-muted-mid;
+    background: $color-border-light;
+    color: $color-text;
+    border-color: #999;
   }
 }
 
 // Nota activa en el texto
 .note-wrapper.note-current {
-  background: linear-gradient(transparent 5%, rgba($lectura-primary, 0.25) 5%, rgba($lectura-primary, 0.25) 80%) !important;
-  border-bottom: 2px solid $lectura-primary !important;
+  background: linear-gradient(transparent 5%, rgba($color-dark-light, 0.25) 5%, rgba($color-dark-light, 0.25) 80%) !important;
+  border-bottom: 2px solid $color-dark !important;
   text-decoration: none !important;
 }
 
@@ -430,9 +430,9 @@
 .nota-ya-evaluada {
   text-align: center;
   padding: 12px;
-  background: $lectura-success-100;
+  background: $color-border-light;
   border-radius: 6px;
-  color: $lectura-success;
+  color: $color-dark;
   font-weight: 500;
   margin-top: 16px;
   
@@ -456,7 +456,7 @@
   transition: background-color 0.2s ease;
   
   &:hover {
-    background-color: $lectura-primary;
+    background-color: $color-dark;
   }
   
   &::after {
@@ -467,12 +467,12 @@
     transform: translate(-50%, -50%);
     width: 3px;
     height: 50px;
-    background-color: $lectura-border-muted;
+    background-color: $color-border-muted;
     border-radius: 2px;
   }
   
   &:hover::after {
-    background-color: $lectura-surface;
+    background-color: $color-surface;
   }
 }
 
@@ -617,9 +617,9 @@ tei-div[type="footnotes"] {
 
 tei-div[type="editor"],
 tei-div[type="colophon"] {
-  background-color: $lectura-panel-bg;
+  background-color: $color-panel-bg;
   border-radius: 10px;
-  box-shadow: $lectura-shadow-heavy;
+  box-shadow: $shadow-heavy;
   padding: 20px;
   margin: 20px;
 }
@@ -632,7 +632,7 @@ tei-quote {
 tei-milestone[unit="stanza"]::after {
   content: "";
   display: none;
-  border-bottom: 1px dotted $lectura-muted-mid;
+  border-bottom: 1px dotted #999;
   width: 75%;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -649,7 +649,7 @@ tei-milestone[unit="stanza"].show-line::after {
 // Estilo base para targets de notas con wrapper
 .note-wrapper.note-target {
   text-decoration: underline;
-  text-decoration-color: $lectura-muted-mid;
+  text-decoration-color: #999;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
   cursor: pointer;
@@ -658,8 +658,8 @@ tei-milestone[unit="stanza"].show-line::after {
   &:hover,
   &.note-active {
     text-decoration: none;
-    background: linear-gradient(transparent 5%, rgba($lectura-primary, 0.15) 5%, rgba($lectura-primary, 0.15) 80%);
-    border-bottom: 2px solid $lectura-primary;
+    background: linear-gradient(transparent 5%, rgba($color-success, 0.15) 5%, rgba($color-success, 0.15) 80%);
+    border-bottom: 2px solid $color-success;
   }
 }
 
@@ -671,8 +671,8 @@ tei-milestone[unit="stanza"].show-line::after {
   &:hover,
   &.note-active {
     text-decoration: none;
-    background: linear-gradient(transparent 5%, rgba($lectura-primary, 0.15) 5%, rgba($lectura-primary, 0.15) 80%);
-    border-bottom: 2px solid $lectura-primary;
+    background: linear-gradient(transparent 5%, rgba($color-success, 0.15) 5%, rgba($color-success, 0.15) 80%);
+    border-bottom: 2px solid $color-success;
   }
 }
 
@@ -680,10 +680,10 @@ tei-milestone[unit="stanza"].show-line::after {
 .note-target:not(.note-wrapper),
 tei-l.note-target,
 tei-seg.note-target {
-  border-bottom: 2px solid $lectura-muted-mid;
+  border-bottom: 2px solid #999;
   cursor: pointer;
   transition: all 0.2s ease;
-  background-image: linear-gradient(transparent 80%, $lectura-muted-mid 80%, $lectura-muted-mid 100%);
+  background-image: linear-gradient(transparent 80%, #999 80%, #999 100%);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   width: fit-content;
@@ -691,8 +691,8 @@ tei-seg.note-target {
   
   &:hover,
   &.note-active {
-    background-image: linear-gradient(transparent 65%, rgba($lectura-primary, 0.25) 65%, rgba($lectura-primary, 0.25) 100%);
-    border-bottom-color: $lectura-primary;
+    background-image: linear-gradient(transparent 65%, rgba($color-success, 0.25) 65%, rgba($color-success, 0.25) 100%);
+    border-bottom-color: $color-success;
   }
 }
 
@@ -700,8 +700,8 @@ tei-l.note-target:hover,
 tei-seg.note-target:hover,
 tei-l.note-active,
 tei-seg.note-active {
-  background-image: linear-gradient(transparent 65%, rgba($lectura-primary, 0.25) 65%, rgba($lectura-primary, 0.25) 100%);
-  border-bottom-color: $lectura-primary;
+  background-image: linear-gradient(transparent 65%, rgba($color-success, 0.25) 65%, rgba($color-success, 0.25) 100%);
+  border-bottom-color: $color-success;
 }
 
 // ============================================
@@ -716,13 +716,13 @@ tei-seg.note-active {
   margin-top: 1rem;
   cursor: pointer;
   border: none;
-  background-color: $lectura-primary;
+  background-color: $color-dark;
   color: white;
   border-radius: 5px;
   text-align: center;
   
   &:hover {
-    background-color: $lectura-primary-700;
+    background-color: $color-dark-dark;
   }
 }
 
@@ -746,7 +746,7 @@ tei-seg.note-active {
     max-width: 100%;
     max-height: none;
     border-left: none;
-    border-top: 2px solid $lectura-border-muted;
+    border-top: 2px solid $color-border-muted;
   }
   
   tei-sp {

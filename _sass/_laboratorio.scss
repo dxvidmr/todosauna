@@ -3,7 +3,7 @@
 // Pantalla de bienvenida, layout y controles
 // ============================================
 
-@use "lectura-variables" as *;
+@use "variables" as *;
 
 // ============================================
 // WRAPPER LABORATORIO
@@ -25,7 +25,7 @@
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  background: linear-gradient(135deg, $lectura-bg 0%, $lectura-surface 100%);
+  background: linear-gradient(135deg, $color-bg 0%, $color-surface 100%);
 }
 
 .bienvenida-container {
@@ -44,7 +44,7 @@
 .bienvenida-titulo {
   grid-area: titulo;
   font-size: 2.5rem;
-  color: $lectura-text;
+  color: $color-text;
   margin: 0 0 20px 0;
   display: flex;
   align-items: center;
@@ -52,7 +52,7 @@
   gap: 16px;
   
   i {
-    color: $lectura-primary;
+    color: $color-dark;
     font-size: 2.2rem;
   }
 }
@@ -66,14 +66,14 @@
   
   h1 {
     font-size: 2.5rem;
-    color: $lectura-text;
+    color: $color-text;
     margin-bottom: 16px;
     display: flex;
     align-items: center;
     gap: 16px;
     
     i {
-      color: $lectura-primary;
+      color: $color-dark;
       font-size: 2.2rem;
     }
   }
@@ -85,7 +85,7 @@
   
   h3 {
     font-size: 1.3rem;
-    color: $lectura-primary;
+    color: $color-dark;
     margin-bottom: 12px;
     display: flex;
     align-items: center;
@@ -95,13 +95,13 @@
   p {
     font-size: 1.05rem;
     line-height: 1.7;
-    color: $lectura-text-secondary;
+    color: $color-text-secondary;
   }
   
   ol {
     margin-left: 20px;
     line-height: 1.8;
-    color: $lectura-text-secondary;
+    color: $color-text-secondary;
   }
   
   li {
@@ -119,35 +119,35 @@
 }
 
 .opcion-modo {
-  background: $lectura-surface;
+  background: $color-surface;
   padding: 32px;
   border-radius: 16px;
-  box-shadow: $lectura-shadow-elev-2;
+  box-shadow: $shadow-md;
   text-align: center;
   transition: all 0.3s ease;
   border: 2px solid transparent;
   
   &:hover {
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    border-color: $lectura-primary;
+    border-color: $color-dark;
   }
   
   h3 {
     font-size: 1.5rem;
-    color: $lectura-text;
+    color: $color-text;
     margin-bottom: 12px;
   }
   
   p {
     font-size: 1rem;
-    color: $lectura-muted;
+    color: $color-text-muted;
     margin-bottom: 24px;
     line-height: 1.6;
   }
 }
 
 .btn-modo-entrada {
-  background: $lectura-primary;
+  background: $color-dark;
   color: white;
   padding: 16px 32px;
   font-size: 1.1rem;
@@ -163,7 +163,7 @@
   gap: 12px;
   
   &:hover {
-    background: $lectura-primary-700;
+    background: $color-dark-dark;
     transform: scale(1.02);
   }
   
@@ -174,11 +174,11 @@
 
 // Estadísticas globales
 .stats-globales {
-  background: $lectura-surface;
+  background: $color-surface;
   padding: 24px;
   border-radius: 12px;
-  border: 1px solid $lectura-border;
-  box-shadow: $lectura-shadow-elev-1;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-sm;
 }
 
 .stats-header {
@@ -187,12 +187,12 @@
   gap: 10px;
   margin-bottom: 24px;
   padding-bottom: 16px;
-  border-bottom: 1px solid $lectura-border;
+  border-bottom: 1px solid $color-border;
   font-size: 1.1rem;
-  color: $lectura-text;
+  color: $color-text;
   
   i {
-    color: $lectura-primary;
+    color: $color-dark;
     font-size: 1.3rem;
   }
 }
@@ -200,7 +200,7 @@
 .loading-stats-container {
   text-align: center;
   padding: 20px;
-  color: $lectura-muted;
+  color: $color-text-muted;
   font-style: italic;
 }
 
@@ -213,20 +213,20 @@
 .stat-item {
   text-align: center;
   padding: 16px;
-  background: $lectura-panel-bg;
+  background: $color-panel-bg;
   border-radius: 8px;
   
   .stat-number {
     font-size: 2rem;
     font-weight: bold;
-    color: $lectura-primary;
+    color: $color-dark;
     display: block;
     margin-bottom: 4px;
   }
   
   .stat-label {
     font-size: 0.9rem;
-    color: $lectura-muted;
+    color: $color-text-muted;
   }
 }
 
@@ -256,8 +256,8 @@
   width: 350px;
   min-width: 300px;
   max-width: 450px;
-  border-left: 2px solid $lectura-border-muted;
-  background-color: $lectura-bg;
+  border-left: 2px solid $color-border-muted;
+  background-color: $color-bg;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -270,12 +270,12 @@
   
   h1 {
     font-size: 1.8rem;
-    color: $lectura-text;
+    color: $color-text;
     margin-bottom: 8px;
   }
   
   p {
-    color: $lectura-muted;
+    color: $color-text-muted;
     margin-bottom: 16px;
   }
 }
@@ -287,21 +287,21 @@
 
 .barra-progreso {
   height: 8px;
-  background: $lectura-muted-light;
+  background: $color-border-light;
   border-radius: 4px;
   overflow: hidden;
 }
 
 .barra-progreso-fill {
   height: 100%;
-  background: $lectura-primary;
+  background: $color-dark;
   border-radius: 4px;
   transition: width 0.3s ease;
 }
 
 .laboratorio-progreso {
   font-size: 0.9rem;
-  color: $lectura-muted;
+  color: $color-text-muted;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -313,17 +313,17 @@
   font-size: 0.75rem;
   font-weight: 500;
   border-radius: 12px;
-  background: $lectura-primary-100;
-  color: $lectura-primary-600;
+  background: $color-border-light;
+  color: $color-dark-dark;
 }
 
 // Contenedor de pasaje
 .pasaje-container {
   flex: 1;
-  background: $lectura-surface;
+  background: $color-surface;
   border-radius: 12px;
   padding: 30px;
-  box-shadow: $lectura-shadow-elev-1;
+  box-shadow: $shadow-sm;
   overflow-y: auto;
   font-family: 'Google Sans Code', 'Oxygen Mono', 'Source Code Pro', monospace;
   font-weight: 300;
@@ -344,9 +344,9 @@
 
 .btn-navegacion {
   padding: 12px 24px;
-  background: $lectura-surface;
-  color: $lectura-text;
-  border: 1px solid $lectura-border;
+  background: $color-surface;
+  color: $color-text;
+  border: 1px solid $color-border;
   border-radius: 50px;
   cursor: pointer;
   font-size: 14px;
@@ -357,8 +357,8 @@
   gap: 8px;
   
   &:hover {
-    background: $lectura-muted-light;
-    border-color: $lectura-muted-mid;
+    background: $color-border-light;
+    border-color: #999;
   }
   
   i {
@@ -368,7 +368,7 @@
 
 .btn-siguiente {
   padding: 12px 24px;
-  background: $lectura-primary;
+  background: $color-dark;
   color: white;
   border: none;
   border-radius: 50px;
@@ -381,7 +381,7 @@
   gap: 8px;
   
   &:hover {
-    background: $lectura-primary-700;
+    background: $color-dark-dark;
   }
   
   i {
@@ -392,24 +392,24 @@
 .btn-saltar {
   padding: 12px 24px;
   background: transparent;
-  color: $lectura-muted;
-  border: 1px solid $lectura-border;
+  color: $color-text-muted;
+  border: 1px solid $color-border;
   border-radius: 50px;
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s;
   
   &:hover {
-    background: $lectura-muted-light;
-    color: $lectura-text;
+    background: $color-border-light;
+    color: $color-text;
   }
 }
 
 .btn-cambiar-modo {
   padding: 12px 16px;
   background: transparent;
-  color: $lectura-muted;
-  border: 1px solid $lectura-border;
+  color: $color-text-muted;
+  border: 1px solid $color-border;
   border-radius: 50px;
   cursor: pointer;
   font-size: 14px;
@@ -417,8 +417,8 @@
   margin-left: auto;
   
   &:hover {
-    background: $lectura-muted-light;
-    color: $lectura-text;
+    background: $color-border-light;
+    color: $color-text;
   }
   
   i {
@@ -432,18 +432,18 @@
 
 .notas-panel-header {
   padding: 20px;
-  border-bottom: 1px solid $lectura-border;
+  border-bottom: 1px solid $color-border;
   
   h3 {
     margin: 0 0 8px 0;
     font-size: 1.2rem;
-    color: $lectura-text;
+    color: $color-text;
   }
 }
 
 .notas-contador {
   font-size: 0.9rem;
-  color: $lectura-muted;
+  color: $color-text-muted;
 }
 
 .notas-navegacion {
@@ -452,17 +452,17 @@
   justify-content: center;
   gap: 16px;
   padding: 16px 20px;
-  border-bottom: 1px solid $lectura-border;
-  background: $lectura-panel-bg;
+  border-bottom: 1px solid $color-border;
+  background: $color-panel-bg;
 }
 
 .btn-nav-nota {
   width: 36px;
   height: 36px;
-  border: 1px solid $lectura-border;
+  border: 1px solid $color-border;
   border-radius: 50%;
-  background: $lectura-surface;
-  color: $lectura-text;
+  background: $color-surface;
+  color: $color-text;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -470,9 +470,9 @@
   transition: all 0.2s;
   
   &:hover:not(:disabled) {
-    background: $lectura-primary;
+    background: $color-dark;
     color: white;
-    border-color: $lectura-primary;
+    border-color: $color-dark;
   }
   
   &:disabled {
@@ -483,7 +483,7 @@
 
 .nota-posicion {
   font-size: 0.9rem;
-  color: $lectura-muted;
+  color: $color-text-muted;
   font-weight: 500;
 }
 
@@ -495,17 +495,17 @@
 
 .notas-instrucciones {
   padding: 16px 20px;
-  border-top: 1px solid $lectura-border;
-  background: $lectura-panel-bg;
+  border-top: 1px solid $color-border;
+  background: $color-panel-bg;
   
   p {
     margin: 0;
     font-size: 0.85rem;
-    color: $lectura-muted;
+    color: $color-text-muted;
     
     i {
       margin-right: 6px;
-      color: $lectura-primary;
+      color: $color-dark;
     }
   }
 }
@@ -544,7 +544,7 @@
     max-width: 100%;
     max-height: none;
     border-left: none;
-    border-top: 2px solid $lectura-border-muted;
+    border-top: 2px solid $color-border-muted;
   }
 }
 

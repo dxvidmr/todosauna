@@ -1,7 +1,55 @@
+// ============================================
+// VARIABLES GLOBALES DEL SITIO
+// ============================================
+
+// Colores base (coinciden con config-theme-colors.csv)
 $color-dark: #2d303a;
 $color-light: #d5dbcf;
 $color-primary: #2d303a;
 $color-secondary: #d5dbcf;
+$color-success: #7a9e7e;
+$color-info: #8298aa;
+$color-warning: #d4a574;
+$color-danger: #8b3a33;
+
+// Variaciones de color
+$color-dark-dark: darken($color-dark, 15%);
+$color-dark-light: lighten($color-dark, 20%);
+$color-light-dark: darken($color-light, 15%);
+
+$color-success-light: lighten($color-success, 35%);
+$color-success-100: #eef3ed;
+$color-success-border: #c8d6c5;
+
+// Variaciones de danger (rojo)
+$color-danger-light: lighten($color-danger, 45%);
+$color-danger-100: #fbeae9;
+
+// Superficies y fondos
+$color-surface: #ffffff;
+$color-bg: #fafaf9;
+$color-bg-subtle: #f7f6f5;
+$color-panel-bg: #f7f6f5;
+
+// Textos
+$color-text: #333333;
+$color-text-secondary: #5f5a56;
+$color-text-muted: #7d7870;
+$color-text-muted-dark: #555555;
+
+// Bordes
+$color-border: #d8d5d2;
+$color-border-light: #f0efee;
+$color-border-muted: #c5c1bd;
+
+// Sombras
+$shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+$shadow-md: 0 6px 20px rgba(0,0,0,0.15);
+$shadow-lg: 0 10px 30px rgba(0,0,0,0.2);
+$shadow-heavy: 0 0 10px rgba(0,0,0,0.5);
+
+// Overlay
+$color-overlay: rgba(0,0,0,0.7);
 
 // Clases para texto pequeño
 .fs-small {
