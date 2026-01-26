@@ -3,6 +3,16 @@
     This allows you to override any CollectionBuilder or Bootstrap CSS without modifying the base theme files directly.
 */
 
+$color-dark: #2d303a;
+$color-light: #d5dbcf;
+$color-primary: #2d303a;
+$color-secondary: #d5dbcf;
+
+// Clases para texto pequeño
+.fs-small {
+    font-size: 0.875rem !important;  // 14px
+}
+
 /* Navigation Wrapper */
 .nav-wrapper {
     position: fixed;
@@ -26,7 +36,7 @@
     max-width: none;
     border-radius: 50px;
     padding: 0.5rem 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);*/
     backdrop-filter: blur(10px);
     transition: all 0.4s ease;
     overflow: hidden;
@@ -68,7 +78,7 @@
             opacity: 1;
             margin-top: 1.5rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba($color-dark, 0.1);
         }
     }
 }
@@ -95,17 +105,17 @@ body {
     align-items: center;
     
     .nav-link {
-        color: rgba(255, 255, 255, 0.9);
+        color: $color-dark;
         font-size: 1rem;
         padding: 0.5rem 0;
-        transition: color 0.2s;
+        transition: opacity 0.2s;
         
         &:hover {
-            color: #fff;
+            opacity: 0.7;
         }
         
         &.active {
-            color: #fff;
+            color: $color-dark;
             font-weight: 500;
         }
     }
@@ -132,7 +142,7 @@ body {
 }
 
 .navbar-expanded-title {
-    color: #fff;
+    color: $color-dark;
     font-size: 1.1rem;
     font-weight: 500;
     text-decoration: none;
@@ -142,7 +152,7 @@ body {
     
     &:hover {
         opacity: 0.7;
-        color: #fff;
+        color: $color-dark;
     }
     
     &.active {
@@ -160,13 +170,13 @@ body {
     }
     
     a {
-        color: rgba(255, 255, 255, 0.7);
+        color: rgba($color-dark, 0.7);
         font-size: 0.9rem;
         text-decoration: none;
         transition: color 0.2s;
         
         &:hover {
-            color: #fff;
+            color: $color-dark;
         }
     }
 }
@@ -174,11 +184,11 @@ body {
 .navbar-expanded-search {
     margin-top: 1.5rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba($color-dark, 0.1);
     
     form {
         display: flex;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba($color-dark, 0.05);
         border-radius: 25px;
         padding: 0.5rem 1rem;
         max-width: 400px;
@@ -187,16 +197,16 @@ body {
     input {
         background: transparent;
         border: none;
-        color: #fff;
+        color: $color-dark;
         flex: 1;
         
         &::placeholder {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba($color-dark, 0.5);
         }
         
         &:focus {
             background: transparent;
-            color: #fff;
+            color: $color-dark;
             outline: none;
             box-shadow: none;
         }
@@ -205,19 +215,19 @@ body {
     button {
         background: transparent;
         border: none;
-        color: rgba(255, 255, 255, 0.7);
+        color: rgba($color-dark, 0.7);
         padding: 0 0.5rem;
         
         &:hover {
-            color: #fff;
+            color: $color-dark;
         }
     }
 }
 
 /* Navbar brand */
 .navbar-brand {
-    color: #fff !important;
-    font-weight: 500;
+    color: $color-dark;
+    font-weight: 600;
     font-size: 1.25rem;
     margin-right: 0;
     white-space: nowrap;
@@ -225,14 +235,15 @@ body {
 
 /* Toggler button */
 .navbar-toggler {
-    border-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba($color-dark, 0.3);
+    border: 0px;
     padding: 0.25rem 0.5rem;
     margin: 0;
     position: relative;
     display: block;
     
     &:focus {
-        box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+        box-shadow: 0 0 0 0.2rem rgba($color-dark, 0.25);
     }
 }
 
@@ -240,7 +251,7 @@ body {
     display: none;
     font-size: 2rem;
     line-height: 1;
-    color: #fff;
+    color: $color-dark;
 }
 
 /* Backdrop */

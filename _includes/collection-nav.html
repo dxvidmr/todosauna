@@ -1,4 +1,4 @@
-<div class="nav-wrapper">
+<div class="nav-wrapper text-dark">
     <div class="nav-backdrop" id="navBackdrop"></div>
     <nav class="navbar navbar-floating {{ site.data.theme.navbar-color | default: 'navbar-dark' }} {{ site.data.theme.navbar-background | default: 'bg-dark' }}" id="mainNav">
         <div class="navbar-header">
@@ -20,7 +20,7 @@
         </div>
 
         <!-- Expanded menu content -->
-        <div class="navbar-expanded" id="navExpanded">
+        <div class="navbar-expanded text-dark" id="navExpanded">
             <div class="navbar-expanded-grid">
                 <div class="navbar-expanded-column">
                     <a href="{{ '/lectura/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/lectura/' %} active{% endif %}">Lectura</a>

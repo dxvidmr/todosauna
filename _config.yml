@@ -53,8 +53,8 @@ metadata: demo-compoundobjects-metadata
 organization-name: "PROLOPE, Grupo de investigación. Universitat Autònoma de Barcelona"
 organization-link: https://prolope.uab.cat/
 # Add logo image links if you would like them to appear in banner and footer. Delete or leave blank to remove logos.
-organization-logo-banner: https://www.lib.uidaho.edu/collectionbuilder/cdil-black.png
-organization-logo-nav: https://www.lib.uidaho.edu/collectionbuilder/cdil-white.png
+organization-logo-banner: 
+organization-logo-nav: 
 
 ##########
 # ROBOTS EXCLUDE
