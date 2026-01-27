@@ -21,13 +21,14 @@
 }
 
 .hero {
-  min-height: 100vh;
+  height: 100vh; /* Cambio de min-height a height */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
   padding: 120px 20px 40px; /* Más padding-top para el navbar */
   text-align: left;
+  overflow: hidden; /* Evitar desbordamiento */
 }
 
 .hero-content {
@@ -40,6 +41,7 @@
   max-width: 1400px;
   padding: 0 40px;
   animation: fadeInUp 0.8s ease-out;
+  min-height: 0; /* Permite que se comprima */
 }
 
 /* Título principal */
@@ -49,7 +51,7 @@
   color: $color-dark;
   text-transform: uppercase;
   letter-spacing: -0.03em;
-  margin-bottom: 40px;
+  margin-bottom: clamp(20px, 4vh, 40px); /* Margen flexible según altura */
   line-height: 0.9;
   text-align: left;
 }
@@ -59,39 +61,34 @@
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
   position: relative;
-  width: 100vw;
-  max-height: 500px;
+  width: calc(100vw - 80px);
+  max-width: 1400px;
+  height: clamp(250px, 35vh, 500px); /* Altura flexible entre 250px y 500px */
   margin-left: calc(-50vw + 50%);
   overflow: hidden;
+  flex-shrink: 0; /* No se comprime más de su altura mínima */
 
   img {
     width: 100%;
     height: 100%;
-    max-height: 500px;
     object-fit: cover;
     object-position: center;
     display: block;
   }
 
   @media (max-width: 768px) {
-    max-height: 350px;
-    
-    img {
-      max-height: 350px;
-    }
+    width: calc(100vw - 40px);
+    height: clamp(200px, 30vh, 350px);
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+
+  @media (max-width: 480px) {
+    width: calc(100vw - 20px);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
 }
-
-/* Botones principales del hero */
-.hero-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-  align-items: center;
-}
-
-
 
 /* Indicador de scroll */
 .hero-scroll {
@@ -103,7 +100,8 @@
   font-size: 0.9rem;
   animation: bounce 2s infinite;
   cursor: pointer;
-  margin-top: auto;
+  padding: 20px 0;
+  flex-shrink: 0; /* No se comprime */
 }
 
 .hero-scroll i {
@@ -131,7 +129,53 @@
   }
 }
 
-/* Responsive */
+/* Responsive para pantallas con POCA ALTURA */
+@media (max-height: 800px) {
+  .hero {
+    padding: 80px 20px 20px; /* Menos padding vertical */
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 7rem); /* Título más pequeño */
+    margin-bottom: 20px;
+  }
+
+  .hero-image {
+    height: clamp(200px, 50vh, 400px); /* Imagen más pequeña */
+  }
+
+  .hero-scroll {
+    padding: 10px 0;
+    font-size: 0.85rem;
+    gap: 4px;
+  }
+}
+
+@media (max-height: 650px) {
+  .hero {
+    padding: 60px 20px 15px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    margin-bottom: 15px;
+  }
+
+  .hero-image {
+    height: clamp(180px, 25vh, 300px);
+  }
+
+  .hero-scroll {
+    padding: 8px 0;
+    font-size: 0.8rem;
+    
+    span {
+      display: none; /* Ocultar texto, solo mostrar icono */
+    }
+  }
+}
+
+/* Responsive para pantallas con poco ancho */
 @media (max-width: 768px) {
   .hero {
     padding: 60px 20px 20px;
@@ -142,11 +186,31 @@
   }
 
   .hero-title {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   .hero-scroll {
-    margin-top: 20px;
+    margin-top: 15px;
+  }
+}
+
+/* Combinación: pantallas pequeñas y bajas (móvil horizontal) */
+@media (max-width: 768px) and (max-height: 500px) {
+  .hero {
+    padding: 40px 20px 10px;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 6vw, 4rem);
+    margin-bottom: 10px;
+  }
+
+  .hero-image {
+    height: clamp(150px, 35vh, 250px);
+  }
+
+  .hero-scroll {
+    display: none; /* Ocultar completamente en pantallas muy bajas */
   }
 }
 
@@ -194,10 +258,10 @@
 
 .explore-carousel {
   position: relative;
-  padding: 0 60px;
+  padding: 0 20px;
 
   @media (max-width: 768px) {
-    padding: 0 20px;
+    padding: 0;
   }
 }
 
@@ -207,12 +271,12 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   padding: 20px 0;
-  scrollbar-width: thin;
+  scrollbar-width: auto; /* Cambiar de thin a auto para más visibilidad */
   scrollbar-color: $color-light transparent;
 
-  // Ocultar scrollbar en Webkit
+  // Hacer scrollbar más ancho en Webkit
   &::-webkit-scrollbar {
-    height: 8px;
+    height: 16px; /* Aumentado de 8px a 16px para mayor visibilidad */
   }
 
   &::-webkit-scrollbar-track {
@@ -291,60 +355,5 @@
     margin: 0;
     opacity: 0.9;
     color: #fff;
-  }
-}
-
-/* ============================================
-   BOTONES DE NAVEGACIÓN DEL CARRUSEL
-   ============================================ */
-
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: $color-primary;
-  color: white;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  z-index: 10;
-
-  &:hover {
-    background: darken($color-primary, 10%);
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-  }
-
-  &:active {
-    transform: translateY(-50%) scale(0.95);
-  }
-
-  @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-  }
-}
-
-.carousel-btn-prev {
-  left: 10px;
-}
-
-.carousel-btn-next {
-  right: 10px;
-}
-
-/* Responsive: ocultar botones en móvil si prefieres scroll táctil puro */
-@media (max-width: 576px) {
-  .carousel-btn {
-    display: none; // O déjalos si prefieres
   }
 }

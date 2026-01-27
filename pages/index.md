@@ -1,5 +1,5 @@
 ---
-layout: page-full-width
+layout: default
 title: Inicio
 permalink: /
 ---
@@ -77,13 +77,6 @@ permalink: /
                 </div>
             </div>
         </div>
-        <!-- Controles del carrusel (opcional) -->
-        <button class="carousel-btn carousel-btn-prev" id="btnPrev" aria-label="Anterior">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button class="carousel-btn carousel-btn-next" id="btnNext" aria-label="Siguiente">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
     </div>
 </section>
 
@@ -106,57 +99,4 @@ if (document.body.classList.contains('home-page')) {
         lastScrollTop = scrollTop;
     });
 }
-// Carrusel de exploración
-document.addEventListener('DOMContentLoaded', function() {
-    const track = document.getElementById('carouselTrack');
-    const btnPrev = document.getElementById('btnPrev');
-    const btnNext = document.getElementById('btnNext');
-    
-    if (!track || !btnPrev || !btnNext) return;
-
-    const cardWidth = 320 + 24; // ancho de card + gap
-    const scrollAmount = cardWidth * 2; // Scroll de 2 cards a la vez
-
-    // Navegación con botones
-    btnNext.addEventListener('click', () => {
-        track.scrollBy({
-            left: scrollAmount,
-            behavior: 'smooth'
-        });
-    });
-
-    btnPrev.addEventListener('click', () => {
-        track.scrollBy({
-            left: -scrollAmount,
-            behavior: 'smooth'
-        });
-    });
-
-    // Opcional: Ocultar botones cuando no hay más scroll
-    track.addEventListener('scroll', () => {
-        const maxScroll = track.scrollWidth - track.clientWidth;
-        
-        // Ocultar botón prev si estamos al inicio
-        if (track.scrollLeft <= 10) {
-            btnPrev.style.opacity = '0.3';
-            btnPrev.style.pointerEvents = 'none';
-        } else {
-            btnPrev.style.opacity = '1';
-            btnPrev.style.pointerEvents = 'auto';
-        }
-
-        // Ocultar botón next si estamos al final
-        if (track.scrollLeft >= maxScroll - 10) {
-            btnNext.style.opacity = '0.3';
-            btnNext.style.pointerEvents = 'none';
-        } else {
-            btnNext.style.opacity = '1';
-            btnNext.style.pointerEvents = 'auto';
-        }
-    });
-
-    // Trigger inicial para configurar botones correctamente
-    track.dispatchEvent(new Event('scroll'));
-});
-
 </script>
