@@ -27,7 +27,7 @@
   justify-content: space-between;
   position: relative;
   padding: 120px 20px 40px; /* Más padding-top para el navbar */
-  text-align: center;
+  text-align: left;
 }
 
 .hero-content {
@@ -35,42 +35,51 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
+  max-width: 1400px;
+  padding: 0 40px;
   animation: fadeInUp 0.8s ease-out;
 }
 
 /* Título principal */
 .hero-title {
-  font-size: clamp(3rem, 6vw, 7rem);
-  font-weight: 700;
+  font-size: clamp(4rem, 10vw, 10rem);
+  font-weight: 900;
   color: $color-dark;
   text-transform: uppercase;
-  margin-bottom: 16px;
-}
-
-/* Subtítulo con cursiva */
-.hero-subtitle {
-  font-size: clamp(1.25rem, 4vw, 1.75rem);
-  color: $color-text-secondary;
-  margin-bottom: 20px;
-  line-height: 1.4;
-}
-
-.hero-subtitle i {
-  font-style: italic;
-  color: darken($color-primary, 20%);
-}
-
-/* Descripción más detallada */
-.hero-description {
-  font-size: clamp(1rem, 2.5vw, 1.15rem);
-  color: $color-text-muted;
-  line-height: 1.7;
+  letter-spacing: -0.03em;
   margin-bottom: 40px;
-  max-width: 650px;
-  margin-left: auto;
-  margin-right: auto;
+  line-height: 0.9;
+  text-align: left;
+}
+
+/* Imagen hero */
+.hero-image {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  position: relative;
+  width: 100vw;
+  max-height: 500px;
+  margin-left: calc(-50vw + 50%);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    max-height: 350px;
+    
+    img {
+      max-height: 350px;
+    }
+  }
 }
 
 /* Botones principales del hero */
@@ -128,49 +137,214 @@
     padding: 60px 20px 20px;
   }
 
-  .hero-badge {
-    font-size: 0.8rem;
-    padding: 6px 16px;
+  .hero-content {
+    padding: 0 20px;
   }
 
-  .hero-buttons {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .btn-primary,
-  .btn-secondary {
-    width: 100%;
-    justify-content: center;
-    padding: 14px 28px;
+  .hero-title {
+    margin-bottom: 30px;
   }
 
   .hero-scroll {
-    display: none; /* Ocultar en móviles */
-  }
-}
-
-/* Para pantallas muy pequeñas */
-@media (max-width: 480px) {
-  .hero-description {
-    font-size: 0.95rem;
-  }
-  
-  .btn-primary,
-  .btn-secondary {
-    font-size: 1rem;
+    margin-top: 20px;
   }
 }
 
 /* ============================================
-   SITE GRID - BENTO BOXES
+   EXPLORE SECTION - Sección de exploración
    ============================================ */
 
-/* Usando clases nativas de Bootstrap: .container, .row, .col-*, .card, etc. */
-/* CSS mínimo para efectos hover personalizados */
+.explore-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  overflow: hidden;
+}
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-  border-color: $color-primary;
+.explore-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.explore-badge {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: $color-text-muted;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.explore-title {
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: $color-dark;
+  margin-bottom: 0;
+}
+
+/* ============================================
+   CARRUSEL DE IMÁGENES
+   ============================================ */
+
+.explore-carousel {
+  position: relative;
+  padding: 0 60px;
+
+  @media (max-width: 768px) {
+    padding: 0 20px;
+  }
+}
+
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 20px 0;
+  scrollbar-width: thin;
+  scrollbar-color: $color-light transparent;
+
+  // Ocultar scrollbar en Webkit
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-light;
+    border-radius: 10px;
+  }
+
+  // Efecto de scroll snap (opcional)
+  scroll-snap-type: x mandatory;
+
+  @media (max-width: 768px) {
+    gap: 16px;
+  }
+}
+
+/* ============================================
+   CARDS DEL CARRUSEL
+   ============================================ */
+
+.explore-card {
+  position: relative;
+  flex: 0 0 320px; // Ancho fijo de cada card
+  height: 320px; // Cambiado a cuadrado
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  scroll-snap-align: center;
+
+  @media (max-width: 768px) {
+    flex: 0 0 280px;
+    height: 280px; // Mantener cuadrado en móvil
+  }
+
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+    img {
+      transform: scale(1.1);
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+}
+
+/* Overlay con texto sobre la imagen */
+.explore-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  color: #fff;
+  transition: background 0.3s ease;
+
+  h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+
+  p {
+    font-size: 0.95rem;
+    margin: 0;
+    opacity: 0.9;
+    color: #fff;
+  }
+}
+
+/* ============================================
+   BOTONES DE NAVEGACIÓN DEL CARRUSEL
+   ============================================ */
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: $color-primary;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 10;
+
+  &:hover {
+    background: darken($color-primary, 10%);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+.carousel-btn-prev {
+  left: 10px;
+}
+
+.carousel-btn-next {
+  right: 10px;
+}
+
+/* Responsive: ocultar botones en móvil si prefieres scroll táctil puro */
+@media (max-width: 576px) {
+  .carousel-btn {
+    display: none; // O déjalos si prefieres
+  }
 }
