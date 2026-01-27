@@ -13,13 +13,6 @@ permalink: /lectura/
     <div id="col-opciones" class="notes-column">
         <div id="resize-handle"></div>
         
-        <!-- Barra de botones (pestañas) -->
-        <div class="button-bar">
-            <button class="tab-button active" data-tab="notas">Notas</button>
-            <button class="tab-button" data-tab="opciones">Opciones</button>
-            <button class="tab-button" data-tab="info">Acerca de</button>
-        </div>
-        
         <!-- Contenido de las pestañas -->
         <div class="tab-content active" id="tab-notas">
             <div id="panelNotas">
@@ -76,14 +69,21 @@ permalink: /lectura/
         <div class="tab-content" id="tab-info">
             <div class="info-panel">
                 <h4>Sobre la edición</h4>
-                <p style="line-height: 1.6; color: #555;">
+                <p>
                     Esta es una edición digital divulgativa de <em>Fuenteovejuna</em> 
                     con notas explicativas que puedes evaluar para ayudar a mejorarlas.
                 </p>
-                <p style="margin-top: 16px; line-height: 1.6; color: #555;">
+                <p>
                     Haz clic en las notas del panel y evalúalas con <i class="fa-solid fa-heart"></i> (útil) o <i class="fa-solid fa-heart-crack"></i> (mejorable).
                 </p>
             </div>
+        </div>
+        
+        <!-- Barra de botones (pestañas) al final -->
+        <div class="button-bar">
+            <button class="tab-button active" data-tab="notas">Notas</button>
+            <button class="tab-button" data-tab="opciones">Opciones</button>
+            <button class="tab-button" data-tab="info">Acerca de</button>
         </div>
     </div>
 </div>

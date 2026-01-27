@@ -3,7 +3,7 @@
   <head prefix="og: http://ogp.me/ns#">
     {% include head/head.html %}
   </head>
-  <body class="d-flex flex-column h-100{% if page.url == '/' %} home-page{% endif %}">
+  <body class="d-flex flex-column h-100{% if page.url == '/' %} home-page{% endif %}" {% if page.url == '/' %}data-navbar-behavior="hidden-on-load"{% endif %}>
     <div id="skip-to-content"><a href="#maincontent">Skip to main content</a></div>
     <!--{% include collection-banner.html %}-->
     {% include collection-nav.html %}
@@ -13,5 +13,6 @@
     {% include footer.html %}
     {% include foot.html %}
     {% include scroll-to-top.html %}
+    <script src="{{ '/assets/js/navbar-behavior.js' | relative_url }}"></script>
   </body>
 </html>

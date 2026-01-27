@@ -10,9 +10,14 @@
 // ============================================
 
 .laboratorio-wrapper {
-  margin-top: -5rem;
-  padding-top: 5rem;
+  margin-top: 0;
+  padding-top: 0;
   min-height: 100vh;
+  
+  // Navbar auto-hide
+  .nav-wrapper {
+    will-change: transform;
+  }
 }
 
 // ============================================
@@ -20,11 +25,11 @@
 // ============================================
 
 .laboratorio-bienvenida {
-  min-height: calc(100vh - 5rem);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 80px 20px 40px; // Padding-top para el navbar inicial
   background: linear-gradient(135deg, $color-bg 0%, $color-surface 100%);
 }
 

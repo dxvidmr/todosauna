@@ -76,8 +76,8 @@
 }
 
 /* Body padding to compensate for fixed navbar */
-/* Removido para permitir hero a pantalla completa */
-body:not(.home-page) {
+/* Solo para páginas con navbar fixed (sin comportamiento especial) */
+body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
     padding-top: 5rem;
 }
 

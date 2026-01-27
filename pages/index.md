@@ -14,7 +14,7 @@ permalink: /
         </div>
     </div>
     <!-- Scroll indicator -->
-    <div class="hero-scroll" onclick="document.querySelector('.nav-wrapper').classList.add('visible'); document.getElementById('explore-section').scrollIntoView({behavior: 'smooth'});">
+    <div class="hero-scroll" onclick="if(window.NavbarBehavior) window.NavbarBehavior.showNavbar(); document.getElementById('explore-section').scrollIntoView({behavior: 'smooth'});">
         <span>Explorar el sitio</span>
         <i class="fa-solid fa-chevron-down"></i>
     </div>
@@ -80,23 +80,4 @@ permalink: /
     </div>
 </section>
 
-
-<script>
-// Mostrar navbar al hacer scroll en la home
-if (document.body.classList.contains('home-page')) {
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', function() {
-        const navWrapper = document.querySelector('.nav-wrapper');
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Mostrar navbar si se hace scroll hacia abajo más de 100px
-        if (scrollTop > 100) {
-            navWrapper.classList.add('visible');
-        } else {
-            navWrapper.classList.remove('visible');
-        }
-        
-        lastScrollTop = scrollTop;
-    });
-}
-</script>
+<!-- El comportamiento del navbar se maneja centralizadamente en navbar-behavior.js -->
