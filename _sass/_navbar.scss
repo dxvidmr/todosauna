@@ -270,6 +270,7 @@ body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     pointer-events: none;
+    z-index: 999; /* Debajo del nav-wrapper pero encima del contenido */
     
     &.active {
         opacity: 1;
