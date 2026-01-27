@@ -1,7 +1,5 @@
 ---
-# base CSS for collectionbuilder
-# includes some theming options
-# pulled in from "theme.yml" and "config-theme-colors.csv"
+
 ---
 @charset "utf-8";
 
@@ -43,10 +41,14 @@ $theme-link-color: {{ site.data.theme.link-color | default: '""' }};
 @use "variables";
 
 /* pull in custom styles to override everything else */
-@use "custom-navbar";
+@use "main-custom";
+@use "navbar";
 
 /* Estilos para Sala de Lectura y Laboratorio de Notas */
 @use "lectura-variables";
 @use "lectura";
 @use "lectura-components";
 @use "laboratorio";
+
+/* Estilos para la página de inicio */
+@use "home";
