@@ -166,81 +166,11 @@
    SITE GRID - BENTO BOXES
    ============================================ */
 
-.site-grid {
-  padding: 80px 20px;
-  background: $color-bg;
-}
+/* Usando clases nativas de Bootstrap: .container, .row, .col-*, .card, etc. */
+/* CSS mínimo para efectos hover personalizados */
 
-.grid-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.grid-item {
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: 12px;
-  padding: 30px;
-  text-align: center;
-  text-decoration: none;
-  color: $color-text;
-  transition: all 0.3s ease;
-  box-shadow: $shadow-sm;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 200px;
-}
-
-.grid-item:hover {
+.card:hover {
   transform: translateY(-5px);
-  box-shadow: $shadow-md;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   border-color: $color-primary;
-}
-
-.grid-item i {
-  font-size: 2.5rem;
-  color: $color-primary;
-  margin-bottom: 15px;
-}
-
-.grid-item h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: $color-text;
-}
-
-.grid-item p {
-  font-size: 0.9rem;
-  color: $color-text-muted;
-  margin: 0;
-}
-
-.grid-item.large {
-  grid-column: span 2;
-  min-height: 250px;
-}
-
-.grid-item.large i {
-  font-size: 3rem;
-}
-
-.grid-item.large h3 {
-  font-size: 1.5rem;
-}
-
-/* Responsive para grid */
-@media (max-width: 768px) {
-  .grid-container {
-    grid-template-columns: 1fr;
-  }
-  
-  .grid-item.large {
-    grid-column: span 1;
-  }
 }

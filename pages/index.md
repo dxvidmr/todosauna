@@ -25,38 +25,64 @@ permalink: /
 </section>
 
 <!-- Sección de grilla de apartados -->
-<section id="site-grid" class="site-grid">
-    <div class="grid-container">
-        <a href="lectura/" class="grid-item large">
-            <i class="fa-solid fa-book-open"></i>
-            <h3>Sala de lectura</h3>
-            <p>Edición digital interactiva de Fuenteovejuna</p>
-        </a>
-        <a href="laboratorio/" class="grid-item">
-            <i class="fa-solid fa-flask"></i>
-            <h3>Laboratorio de notas</h3>
-            <p>Espacio para anotaciones y colaboraciones</p>
-        </a>
-        <a href="archivo/" class="grid-item">
-            <i class="fa-solid fa-archive"></i>
-            <h3>Archivo</h3>
-            <p>Documentos históricos y materiales relacionados</p>
-        </a>
-        <a href="map/" class="grid-item">
-            <i class="fa-solid fa-map"></i>
-            <h3>Mapa</h3>
-            <p>Explora ubicaciones relacionadas con la obra</p>
-        </a>
-        <a href="timeline/" class="grid-item">
-            <i class="fa-solid fa-timeline"></i>
-            <h3>Línea de tiempo</h3>
-            <p>Cronología de eventos y contexto histórico</p>
-        </a>
-        <a href="acerca-de/" class="grid-item">
-            <i class="fa-solid fa-info-circle"></i>
-            <h3>Acerca de</h3>
-            <p>Información sobre el proyecto</p>
-        </a>
+<section id="site-grid" class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 col-12">
+                <a href="lectura/" class="card h-100 text-decoration-none text-center">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                        <i class="fa-solid fa-book-open fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Sala de lectura</h5>
+                        <p class="card-text text-muted">Edición digital interactiva de Fuenteovejuna</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <a href="laboratorio/" class="card h-100 text-decoration-none text-center">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                        <i class="fa-solid fa-flask fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Laboratorio de notas</h5>
+                        <p class="card-text text-muted">Espacio para anotaciones y colaboraciones</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <a href="archivo/" class="card h-100 text-decoration-none text-center">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                        <i class="fa-solid fa-archive fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Archivo</h5>
+                        <p class="card-text text-muted">Documentos históricos y materiales relacionados</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <a href="map/" class="card h-100 text-decoration-none text-center">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                        <i class="fa-solid fa-map fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Mapa</h5>
+                        <p class="card-text text-muted">Explora ubicaciones relacionadas con la obra</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <a href="timeline/" class="card h-100 text-decoration-none text-center">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                        <i class="fa-solid fa-timeline fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Línea de tiempo</h5>
+                        <p class="card-text text-muted">Cronología de eventos y contexto histórico</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <a href="acerca-de/" class="card h-100 text-decoration-none text-center">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                        <i class="fa-solid fa-info-circle fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Acerca de</h5>
+                        <p class="card-text text-muted">Información sobre el proyecto</p>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 
