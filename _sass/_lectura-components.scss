@@ -77,18 +77,11 @@
   text-align: center;
 }
 
-// Botones de evaluación
+// Botones de evaluación (usan clases Bootstrap base)
 .btn-evaluar,
 .btn-util,
 .btn-mejorable {
   flex: 1;
-  padding: 8px 12px;
-  border: 1px solid $color-border;
-  border-radius: 4px;
-  background: $color-surface;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,8 +89,7 @@
   
   i {
     font-size: 0.95em;
-    opacity: 0.85;
-    color: $color-text-secondary;
+    transition: color 0.2s ease;
   }
 }
 
@@ -108,42 +100,38 @@
   border-radius: 10px;
   font-weight: normal;
   font-size: 0.85em;
-  color: $color-text-muted-dark;
 }
 
-// Cambios de color en hover o cuando ya votado
-.btn-util:hover i { color: $color-success; }
-.btn-mejorable:hover i { color: $color-danger; }
-.btn-util.votado i { color: $color-success; }
-.btn-mejorable.votado i { color: $color-danger; }
-
-.btn-evaluar:hover {
-  background: $color-border-light;
-  border-color: #999;
+// Transiciones de color en iconos
+.btn-util:hover:not(.votado) i { 
+  color: $color-success; 
 }
 
-.btn-util:hover {
-  background: $color-border-light;
-  border-color: $color-success;
+.btn-mejorable:hover:not(.votado) i { 
+  color: $color-danger; 
 }
 
-.btn-mejorable:hover {
-  background: $color-danger-100;
-  border-color: $color-danger;
-}
-
+// Estados votados
 .btn-util.votado {
-  background: $color-success-light;
-  color: $color-success;
-  border-color: $color-success;
+  background-color: $color-success-light !important;
+  border-color: $color-success !important;
+  color: $color-success !important;
   cursor: default;
+  
+  i {
+    color: $color-success;
+  }
 }
 
 .btn-mejorable.votado {
-  background: $color-danger-100;
-  color: $color-danger;
-  border-color: $color-danger;
+  background-color: $color-danger-100 !important;
+  border-color: $color-danger !important;
+  color: $color-danger !important;
   cursor: default;
+  
+  i {
+    color: $color-danger;
+  }
 }
 
 // Área de comentario
@@ -181,34 +169,7 @@
   }
 }
 
-// Botones de comentario
-.btn-enviar-comentario,
-.btn-cancelar-comentario {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 13px;
-  margin-right: 6px;
-}
 
-.btn-enviar-comentario {
-  background: $color-light;
-  color: white;
-  
-  &:hover {
-    background: $color-light-dark;
-  }
-}
-
-.btn-cancelar-comentario {
-  background: $color-border-light;
-  color: $color-text;
-  
-  &:hover {
-    background: $color-border;
-  }
-}
 
 // Estado evaluado
 .evaluacion-feedback,
@@ -234,25 +195,10 @@
     gap: 10px;
   }
   
-  .btn-util,
-  .btn-mejorable {
-    padding: 10px 14px;
-    border-radius: 6px;
-  }
-  
   .nota-comentario-btns {
     margin-top: 10px;
     display: flex;
     gap: 8px;
-  }
-  
-  .btn-enviar-comentario {
-    padding: 8px 16px;
-  }
-  
-  .btn-cancelar-comentario {
-    padding: 8px 16px;
-    border: 1px solid $color-border;
   }
   
   .nota-evaluada {
@@ -660,21 +606,6 @@
   justify-content: flex-end;
 }
 
-.btn-cerrar-sesion {
-  background-color: $color-light;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 50px;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
-  
-  &:hover {
-    background-color: $color-light-dark;
-  }
-}
-
 .btn-cerrar-info {
   background-color: $color-text-muted;
   color: white;
@@ -707,34 +638,42 @@
 // OPCIONES DE MODO (Modal participación)
 // ============================================
 
-.modo-opciones {
+.modo-opciones,
+.colaborador-opciones-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
   margin-bottom: 24px;
 }
 
+// Estilos unificados para todas las opciones clickeables del modal
 .modo-opcion {
   border: 2px solid $color-border;
   border-radius: 8px;
   padding: 20px;
   text-align: center;
+  cursor: pointer;
   transition: all 0.2s;
   
   &:hover {
     border-color: $color-dark;
-    //box-shadow: 0 2px 8px rgba($color-light, 0.2);
+    box-shadow: 0 2px 8px rgba($color-dark, 0.15);
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: $color-dark;
   }
   
   h3 {
     font-size: 18px;
-    margin-bottom: 8px;
+    margin: 12px 0 8px;
   }
   
   p {
     font-size: 14px;
     color: $color-text-muted;
-    margin-bottom: 16px;
+    margin-bottom: 0;
     min-height: 40px;
   }
 }
@@ -743,6 +682,7 @@
   margin-bottom: 12px;
 }
 
+// Iconos unificados
 .modo-icono {
   font-size: 48px;
   display: block;
@@ -752,80 +692,6 @@
     font-size: 1.6rem;
     color: $color-dark;
     opacity: 0.95;
-  }
-}
-
-.opcion-icono i {
-  font-size: 1.6rem;
-  color: $color-text-secondary;
-  opacity: 0.95;
-}
-
-.btn-seleccionar {
-  width: 100%;
-  padding: 10px;
-  background: $color-light;
-  color: $color-dark;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.2s;
-  
-  &:hover {
-    background: $color-light-dark;
-  }
-}
-
-// Opciones de colaborador (registro/login)
-.colaborador-opciones-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.opcion-colaborador {
-  border: 2px solid $color-border;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  transition: all 0.2s;
-  
-  &:hover {
-    border-color: $color-light;
-    box-shadow: 0 2px 8px rgba($color-light, 0.2);
-  }
-  
-  h4 {
-    font-size: 16px;
-    margin: 12px 0 8px;
-  }
-  
-  p {
-    font-size: 13px;
-    color: $color-text-muted;
-    margin-bottom: 16px;
-  }
-}
-
-.opcion-icono {
-  font-size: 2rem;
-}
-
-.btn-opcion-colaborador {
-  width: 100%;
-  padding: 10px;
-  background: $color-light;
-  color: $color-dark;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.2s;
-  
-  &:hover {
-    background: $color-light-dark;
   }
 }
 
@@ -871,45 +737,6 @@
   p {
     color: $color-text-muted;
     margin-bottom: 16px;
-  }
-}
-
-.btn-enviar {
-  width: 100%;
-  padding: 12px;
-  background: $color-light;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 500;
-  transition: background 0.2s;
-  margin-bottom: 10px;
-  
-  &:hover {
-    background: $color-light-dark;
-  }
-}
-
-.btn-volver {
-  width: 100%;
-  padding: 10px;
-  background: transparent;
-  color: $color-text-muted;
-  border: 1px solid $color-border;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s;
-  
-  &:hover {
-    background: $color-border-light;
-    color: $color-text;
-  }
-  
-  i {
-    margin-right: 6px;
   }
 }
 

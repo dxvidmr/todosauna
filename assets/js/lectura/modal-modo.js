@@ -69,8 +69,8 @@ class ModalModo {
                 </select>
               </label>
               
-              <button type="submit" class="btn-enviar">Comenzar</button>
-              <button type="button" class="btn-volver"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Volver</button>
+              <button type="submit" class="btn btn-dark w-100 mb-2">Comenzar</button>
+              <button type="button" class="btn btn-outline-dark w-100"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
             </form>
           </div>
           
@@ -79,20 +79,22 @@ class ModalModo {
             <h3>Identificarse como colaborador/a</h3>
             <p class="info-colaborador">No necesitas contraseña. Solo tu email para reconocerte.</p><br>
             <div class="colaborador-opciones-grid">
-              <div class="opcion-colaborador" data-tipo="login">
-                <span class="opcion-icono"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i></span>
-                <h4>Ya participé antes</h4>
+              <div class="modo-opcion" data-tipo="login" role="button" tabindex="0">
+                <div class="modo-header">
+                  <span class="modo-icono"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i></span>
+                  <h3>Ya participé antes</h3>
+                </div>
                 <p>Identificarme con mi email.</p>
-                <button class="btn-opcion-colaborador" data-tipo="login">Identificarme</button>
               </div>
-              <div class="opcion-colaborador" data-tipo="registro">
-                <span class="opcion-icono"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></span>
-                <h4>Primera vez</h4>
+              <div class="modo-opcion" data-tipo="registro" role="button" tabindex="0">
+                <div class="modo-header">
+                  <span class="modo-icono"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></span>
+                  <h3>Primera vez</h3>
+                </div>
                 <p>Registrar mi email y datos.</p>
-                <button class="btn-opcion-colaborador" data-tipo="registro">Registrarme</button>
               </div>
             </div>
-            <button type="button" class="btn-volver"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Volver</button>
+            <button type="button" class="btn btn-outline-dark w-100 mt-3"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
           </div>
 
           <!-- Formulario LOGIN colaborador -->
@@ -108,8 +110,8 @@ class ModalModo {
                 <input type="email" name="email" required placeholder="tu@email.com">
               </label>
               
-              <button type="submit" class="btn-enviar">Identificarme</button>
-              <button type="button" class="btn-volver"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Volver</button>
+              <button type="submit" class="btn btn-dark w-100 mb-2">Identificarme</button>
+              <button type="button" class="btn btn-outline-dark w-100"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
             </form>
           </div>
 
@@ -157,8 +159,8 @@ class ModalModo {
                 </select>
               </label>
               
-              <button type="submit" class="btn-enviar">Registrarme</button>
-              <button type="button" class="btn-volver"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Volver</button>
+              <button type="submit" class="btn btn-primary w-100 mb-2">Registrarme</button>
+              <button type="button" class="btn btn-outline-secondary w-100"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
             </form>
           </div>
           
@@ -186,11 +188,17 @@ class ModalModo {
   }
   
   attachEventListeners() {
-    // Divs de selección de modo
+    // Divs de selección de modo y opciones colaborador
     document.querySelectorAll('.modo-opcion').forEach(opcion => {
       opcion.addEventListener('click', (e) => {
         const modo = opcion.dataset.modo;
-        this.seleccionarModo(modo);
+        const tipo = opcion.dataset.tipo;
+        
+        if (modo) {
+          this.seleccionarModo(modo);
+        } else if (tipo) {
+          this.mostrarFormColaborador(tipo);
+        }
       });
       
       // Accesibilidad: permitir Enter y Space para activar
@@ -198,7 +206,13 @@ class ModalModo {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           const modo = opcion.dataset.modo;
-          this.seleccionarModo(modo);
+          const tipo = opcion.dataset.tipo;
+          
+          if (modo) {
+            this.seleccionarModo(modo);
+          } else if (tipo) {
+            this.mostrarFormColaborador(tipo);
+          }
         }
       });
     });
@@ -207,14 +221,6 @@ class ModalModo {
     document.getElementById('form-anonimo-datos').addEventListener('submit', (e) => {
       e.preventDefault();
       this.procesarFormAnonimo(e.target);
-    });
-    
-    // Opciones colaborador (login/registro)
-    document.querySelectorAll('.btn-opcion-colaborador').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const tipo = e.target.dataset.tipo;
-        this.mostrarFormColaborador(tipo);
-      });
     });
     
     // Form colaborador LOGIN
@@ -229,8 +235,8 @@ class ModalModo {
       this.procesarFormColaboradorRegistro(e.target);
     });
     
-    // Botones volver
-    document.querySelectorAll('.btn-volver').forEach(btn => {
+    // Botones volver (ahora con clase Bootstrap btn-outline-secondary)
+    document.querySelectorAll('.btn-outline-secondary').forEach(btn => {
       btn.addEventListener('click', () => this.volverOpciones());
     });
 
@@ -569,8 +575,8 @@ class ModalModo {
           ` : ''}
         </div>
         <div class="info-acciones">
-          <button class="btn-cerrar-sesion">
-            <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Cerrar sesión
+          <button class="btn btn-dark btn-cerrar-sesion">
+            <i class="fa-solid fa-right-from-bracket me-2" aria-hidden="true"></i>Cerrar sesión
           </button>
         </div>
       </div>

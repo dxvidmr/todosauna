@@ -134,17 +134,17 @@ class EdicionEvaluacion {
             <span>¿Te resulta útil esta nota?</span>
           </div>
           <div class="evaluacion-botones">
-            <button class="btn-evaluar btn-util" data-nota-id="${notaId}" data-version="${version}">
+            <button class="btn btn-outline-success btn-evaluar btn-util" data-nota-id="${notaId}" data-version="${version}">
               <i class="fa-solid fa-heart" aria-hidden="true"></i> Útil
             </button>
-            <button class="btn-evaluar btn-mejorable" data-nota-id="${notaId}" data-version="${version}">
+            <button class="btn btn-outline-danger btn-evaluar btn-mejorable" data-nota-id="${notaId}" data-version="${version}">
               <i class="fa-solid fa-heart-crack" aria-hidden="true"></i> Mejorable
             </button>
           </div>
           <div class="evaluacion-comentario" style="display:none;">
             <textarea placeholder="¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota (opcional)" rows="3"></textarea>
-            <button class="btn-enviar-comentario">Enviar</button>
-            <button class="btn-cancelar-comentario">Cancelar</button>
+            <button class="btn btn-dark btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
+            <button class="btn btn-outline-dark btn-sm btn-cancelar-comentario">Cancelar</button>
           </div>
         `;
       }

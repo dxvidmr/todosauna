@@ -491,24 +491,6 @@ x
 }
 
 .btn-nav-nota {
-  width: 36px;
-  height: 36px;
-  border: 1px solid $color-border;
-  border-radius: 50%;
-  background: $color-surface;
-  color: $color-text;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  
-  &:hover:not(:disabled) {
-    background: $color-dark;
-    color: white;
-    border-color: $color-dark;
-  }
-  
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;

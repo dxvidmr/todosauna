@@ -418,15 +418,15 @@ document.addEventListener("DOMContentLoaded", function() {
         noteContentDiv.innerHTML = `
             <div class="note-panel-header">
                 <div class="note-nav-controls">
-                    <button class="btn-nav-nota" id="btn-nota-prev" ${!hasPrev ? 'disabled' : ''} title="Nota anterior">
+                    <button class="btn-circular btn-nav-nota" id="btn-nota-prev" ${!hasPrev ? 'disabled' : ''} title="Nota anterior">
                         <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
                     </button>
                     <span class="nota-posicion">Nota ${currentIndex + 1} de ${totalNotas}</span>
-                    <button class="btn-nav-nota" id="btn-nota-next" ${!hasNext ? 'disabled' : ''} title="Nota siguiente">
+                    <button class="btn-circular btn-nav-nota" id="btn-nota-next" ${!hasNext ? 'disabled' : ''} title="Nota siguiente">
                         <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
                     </button>
                 </div>
-                <button class="btn-cerrar-nota" id="btn-cerrar-nota" title="Cerrar nota">
+                <button class="btn-circular btn-cerrar-nota" id="btn-cerrar-nota" title="Cerrar nota">
                     <i class="fa-solid fa-times" aria-hidden="true"></i>
                 </button>
             </div>

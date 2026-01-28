@@ -117,13 +117,13 @@ permalink: /participa/laboratorio/
     
     <!-- Navegación entre notas -->
     <div class="notas-navegacion">
-      <button id="btn-nota-anterior" class="btn-nav-nota" title="Nota anterior">
+      <button id="btn-nota-anterior" class="btn-circular btn-nav-nota" title="Nota anterior">
         <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
       </button>
       <span class="nota-posicion">
         Nota <span id="nota-actual-index">0</span> de <span id="notas-pasaje-total">0</span>
       </span>
-      <button id="btn-nota-siguiente" class="btn-nav-nota" title="Nota siguiente">
+      <button id="btn-nota-siguiente" class="btn-circular btn-nav-nota" title="Nota siguiente">
         <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
       </button>
     </div>

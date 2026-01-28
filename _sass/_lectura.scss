@@ -363,30 +363,11 @@
     text-transform: capitalize;
   }
   
-  .note-badge-type {
+  .note-badge-type,
+  .note-badge-subtype {
     background-color: $color-border-light;
     color: $color-dark-dark;
     border: 1px solid $color-border;
-  }
-  
-  .note-badge-subtype {
-    background-color: $color-border-light;
-    color: $color-text-muted-dark;
-    border: 1px solid $color-border-muted;
-  }
-  
-  p {
-    margin: 0.5rem 0;
-    line-height: 1.6;
-    color: $color-text;
-  }
-  
-  .note-id {
-    display: block;
-    margin-top: 0.75rem;
-    color: $color-text-muted;
-    font-size: 0.8rem;
-    font-style: italic;
   }
 }
 
@@ -414,25 +395,6 @@
   gap: 10px;
   
   .btn-nav-nota {
-    width: 32px;
-    height: 32px;
-    border: 1px solid $color-border;
-    border-radius: 50%;
-    background: $color-surface;
-    color: $color-text;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    padding: 0;
-    
-    &:hover:not(:disabled) {
-      background: $color-dark;
-      color: white;
-      border-color: $color-dark;
-    }
-    
     &:disabled {
       opacity: 0.4;
       cursor: not-allowed;
@@ -448,31 +410,10 @@
   }
 }
 
-.btn-cerrar-nota {
-  width: 32px;
-  height: 32px;
-  border: 1px solid $color-border;
-  border-radius: 50%;
-  background: $color-surface;
-  color: $color-text-muted;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  padding: 0;
-  
-  &:hover {
-    background: $color-border-light;
-    color: $color-text;
-    border-color: #999;
-  }
-}
-
 // Nota activa en el texto
 .note-wrapper.note-current {
-  background: linear-gradient(transparent 5%, rgba($color-dark-light, 0.25) 5%, rgba($color-dark-light, 0.25) 80%) !important;
-  border-bottom: 2px solid $color-dark !important;
+  background: linear-gradient(transparent 5%, rgba($color-light, 0.25) 5%, rgba($color-light, 0.25) 80%) !important;
+  //border-bottom: 2px solid $color-light !important;
   text-decoration: none !important;
 }
 
@@ -708,8 +649,8 @@ tei-milestone[unit="stanza"].show-line::after {
   &:hover,
   &.note-active {
     text-decoration: none;
-    background: linear-gradient(transparent 5%, rgba($color-success, 0.15) 5%, rgba($color-success, 0.15) 80%);
-    border-bottom: 2px solid $color-success;
+    background: linear-gradient(transparent 5%, rgba($color-light, 0.25) 5%, rgba($color-light, 0.25) 80%);
+    //border-bottom: 2px solid $color-light;
   }
 }
 
@@ -721,8 +662,8 @@ tei-milestone[unit="stanza"].show-line::after {
   &:hover,
   &.note-active {
     text-decoration: none;
-    background: linear-gradient(transparent 5%, rgba($color-success, 0.15) 5%, rgba($color-success, 0.15) 80%);
-    border-bottom: 2px solid $color-success;
+    background: linear-gradient(transparent 5%, rgba($color-light, 0.25) 5%, rgba($color-light, 0.25) 80%);
+    //border-bottom: 2px solid $color-light;
   }
 }
 
@@ -741,8 +682,8 @@ tei-seg.note-target {
   
   &:hover,
   &.note-active {
-    background-image: linear-gradient(transparent 65%, rgba($color-success, 0.25) 65%, rgba($color-success, 0.25) 100%);
-    border-bottom-color: $color-success;
+    background-image: linear-gradient(transparent 65%, rgba($color-light, 0.25) 65%, rgba($color-light, 0.25) 100%);
+    border-bottom-color: $color-light;
   }
 }
 
@@ -750,8 +691,8 @@ tei-l.note-target:hover,
 tei-seg.note-target:hover,
 tei-l.note-active,
 tei-seg.note-active {
-  background-image: linear-gradient(transparent 65%, rgba($color-success, 0.25) 65%, rgba($color-success, 0.25) 100%);
-  border-bottom-color: $color-success;
+  background-image: linear-gradient(transparent 65%, rgba($color-light, 0.25) 65%, rgba($color-light, 0.25) 100%);
+  border-bottom-color: $color-light;
 }
 
 // ============================================

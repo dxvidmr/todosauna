@@ -31,3 +31,30 @@
 #scroll-to-top:hover {
   transform: translateY(-6px);
 }
+
+// Botones circulares pequeños reutilizables
+.btn-circular {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: $color-text-muted;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+  
+  &:hover {
+    background: $color-dark;
+    color: $color-light;
+    border: none;
+  }
+}
+
+// Iconos en botones outline al hacer hover (cuando Bootstrap cambia el fondo)
+[class*="btn-outline"]:hover i {
+  color: white !important;
+}

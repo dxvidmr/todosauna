@@ -678,7 +678,7 @@ class EditorSocial {
     
     // Mensaje si no hay evaluaciones
     const mensajePrimero = evaluaciones.total === 0 
-      ? '<p class="eval-mensaje-primero">¡Sé el primero en evaluar esta nota!</p>' 
+      ? '<p class="eval-mensaje-primero">¡Sé el primero en evaluarla!</p>' 
       : '';
 
     // Contenido HTML de la nota
@@ -698,12 +698,12 @@ class EditorSocial {
     } else {
       html += `
         <div class="nota-acciones">
-          <button class="btn-util" data-nota-id="${nota.nota_id}" data-version="${nota.version}">
+          <button class="btn btn-outline-success btn-evaluar btn-util" data-nota-id="${nota.nota_id}" data-version="${nota.version}">
             <span class="btn-contador">${evaluaciones.utiles}</span>
             <i class="fa-solid fa-heart" aria-hidden="true"></i>
             Util
           </button>
-          <button class="btn-mejorable" data-nota-id="${nota.nota_id}" data-version="${nota.version}">
+          <button class="btn btn-outline-danger btn-evaluar btn-mejorable" data-nota-id="${nota.nota_id}" data-version="${nota.version}">
             <span class="btn-contador">${evaluaciones.mejorables}</span>
             <i class="fa-solid fa-heart-crack" aria-hidden="true"></i>
             Mejorable
@@ -713,8 +713,8 @@ class EditorSocial {
         <div class="nota-comentario" style="display: none;">
           <textarea placeholder="¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota (opcional)" rows="3"></textarea>
           <div class="nota-comentario-btns">
-            <button class="btn-enviar-comentario">Enviar</button>
-            <button class="btn-cancelar-comentario">Cancelar</button>
+            <button class="btn btn-dark btn-sm btn-enviar-comentario"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
+            <button class="btn btn-outline-dark btn-sm btn-cancelar-comentario">Cancelar</button>
           </div>
         </div>
       `;
