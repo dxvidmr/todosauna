@@ -432,7 +432,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
             <div class="note-display" data-note-id="${noteXmlId}">
                 <div class="note-header">
-                    <h5>Nota</h5>
+                    
                     ${badgesHTML ? `<div class="note-badges">${badgesHTML}</div>` : ''}
                 </div>
                 <p>${noteToShow.textContent.trim()}</p>
@@ -561,57 +561,139 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+
     
-    // Navegación por actos
-    const actsButtons = document.querySelectorAll('.btn-act');
-    actsButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const actNumber = this.getAttribute('data-act');
-            const actDiv = teiContainer.querySelector(`tei-div[type="act"][n="${actNumber}"]`);
-            
-            if (actDiv) {
-                // Remover clase active de todos los botones
-                actsButtons.forEach(btn => btn.classList.remove('active'));
-                // Agregar clase active al botón clickeado
-                this.classList.add('active');
+    /**
+     * Navegación por índice
+     */
+    function initializeNavigation() {
+        const navButtons = document.querySelectorAll('.btn-nav-item');
+        
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Obtener atributos del botón
+                const targetType = this.getAttribute('data-target-type'); // 'head' o 'div'
+                const targetAttr = this.getAttribute('data-target-attr'); // 'type' o 'n'
+                const targetValue = this.getAttribute('data-target-value'); // valor del atributo
                 
-                // Hacer scroll al acto
-                actDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-                console.log('No se encontró el acto:', actNumber);
-            }
+                // Construir selector
+                let selector;
+                if (targetType === 'div') {
+                    // Para actos: tei-div[type="act"][n="1"]
+                    selector = `tei-div[type="act"][${targetAttr}="${targetValue}"]`;
+                } else if (targetType === 'head') {
+                    // Para título y dramatis: tei-head[type="comedia-head"]
+                    selector = `tei-${targetType}[${targetAttr}="${targetValue}"]`;
+                }
+                
+                // Buscar elemento
+                const targetElement = teiContainer.querySelector(selector);
+                
+                if (targetElement) {
+                    // Remover clase active de todos los botones
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Agregar clase active al botón clickeado
+                    this.classList.add('active');
+                    
+                    // Hacer scroll al elemento
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                    
+                    console.log('✓ Navegado a:', selector);
+                } else {
+                    console.warn('⚠ No se encontró el elemento:', selector);
+                    console.log('Contenedor TEI:', teiContainer);
+                }
+            });
         });
-    });
-    
-    // Inicializar navegación por actos cuando el TEI esté cargado
-    const teiActsObserver = new MutationObserver(() => {
-        if (teiContainer.querySelector('tei-div[type="act"]')) {
-            // Re-inicializar los event listeners
-            const actsButtons = document.querySelectorAll('.btn-act');
-            actsButtons.forEach(button => {
-                const newButton = button.cloneNode(true);
-                button.parentNode.replaceChild(newButton, button);
+        
+        console.log('✓ Navegación por índice inicializada');
+        
+        // Detectar sección actual al scroll
+        const textColumn = document.querySelector('.text-column');
+        const sections = [
+            { type: 'head', attr: 'type', value: 'comedia-head' },
+            { type: 'head', attr: 'type', value: 'castList-head' },
+            { type: 'div', attr: 'n', value: '1' },
+            { type: 'div', attr: 'n', value: '2' },
+            { type: 'div', attr: 'n', value: '3' }
+        ];
+        
+        textColumn.addEventListener('scroll', () => {
+            let currentSection = null;
+            let minDistance = Infinity;
+            
+            sections.forEach(section => {
+                let selector;
+                if (section.type === 'div') {
+                    selector = `tei-div[type="act"][${section.attr}="${section.value}"]`;
+                } else if (section.type === 'head') {
+                    selector = `tei-${section.type}[${section.attr}="${section.value}"]`;
+                }
+                
+                const element = teiContainer.querySelector(selector);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    const textRect = textColumn.getBoundingClientRect();
+                    const distance = Math.abs(rect.top - textRect.top);
+                    
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        currentSection = section;
+                    }
+                }
             });
             
-            const newActsButtons = document.querySelectorAll('.btn-act');
-            newActsButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const actNumber = this.getAttribute('data-act');
-                    const actDiv = teiContainer.querySelector(`tei-div[type="act"][n="${actNumber}"]`);
+            if (currentSection) {
+                navButtons.forEach(btn => {
+                    const btnType = btn.getAttribute('data-target-type');
+                    const btnAttr = btn.getAttribute('data-target-attr');
+                    const btnValue = btn.getAttribute('data-target-value');
                     
-                    if (actDiv) {
-                        newActsButtons.forEach(btn => btn.classList.remove('active'));
-                        this.classList.add('active');
-                        actDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (btnType === currentSection.type && btnAttr === currentSection.attr && btnValue === currentSection.value) {
+                        btn.classList.add('active');
                     } else {
-                        console.log('No se encontró el acto:', actNumber, 'en', teiContainer);
+                        btn.classList.remove('active');
                     }
                 });
-            });
+            }
+        });
+    }
+    
+    /**
+     * Observer para esperar a que el TEI esté completamente cargado
+     * Una vez detecte elementos TEI, inicializa la navegación
+     */
+    const teiObserver = new MutationObserver((mutations, obs) => {
+        // Verificar si ya hay elementos TEI cargados
+        const hasTeiContent = teiContainer.querySelector('tei-div[type="act"]') || 
+                             teiContainer.querySelector('tei-head');
+        
+        if (hasTeiContent) {
+            console.log('✓ Contenido TEI detectado, inicializando navegación...');
             
-            teiActsObserver.disconnect();
+            // Pequeño delay para asegurar que todo el DOM esté renderizado
+            setTimeout(() => {
+                initializeNavigation();
+                obs.disconnect(); // Dejar de observar
+            }, 100);
         }
     });
     
-    teiActsObserver.observe(teiContainer, { childList: true, subtree: true });
+    // Iniciar observación
+    teiObserver.observe(teiContainer, { 
+        childList: true, 
+        subtree: true 
+    });
+    
+    // Fallback: Si el TEI ya está cargado cuando se ejecuta el script
+    if (teiContainer.querySelector('tei-div[type="act"]') || 
+        teiContainer.querySelector('tei-head')) {
+        console.log('✓ TEI ya estaba cargado, inicializando navegación...');
+        setTimeout(initializeNavigation, 100);
+    }
 });
