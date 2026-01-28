@@ -63,6 +63,23 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     
+    // Control de numeración de versos
+    const numeracionSelect = document.getElementById('numeracion-versos');
+    if (numeracionSelect && textColumn) {
+        numeracionSelect.addEventListener('change', function() {
+            aplicarNumeracionVersos(textColumn, this.value);
+        });
+        
+        // Aplicar numeración inicial cuando el TEI esté cargado
+        const numeracionObserver = new MutationObserver(() => {
+            if (textColumn.querySelector('tei-l[n]')) {
+                aplicarNumeracionVersos(textColumn, numeracionSelect.value);
+                numeracionObserver.disconnect();
+            }
+        });
+        numeracionObserver.observe(textColumn, { childList: true, subtree: true });
+    }
+    
     // Botón para mostrar/ocultar estrofas
     const toggleStanzasCheckbox = document.getElementById('toggle-stanzas');
     if (toggleStanzasCheckbox) {

@@ -58,6 +58,14 @@ permalink: /lectura/
                         </label>
                     </label>
                     <label class="option-item">
+                        <span class="flex-shrink-0 me-3">Numeración</span>
+                        <select id="numeracion-versos" class="form-select form-select-sm w-auto">
+                            <option value="cada5" selected>Cada 5 versos</option>
+                            <option value="todos">Todos los versos</option>
+                            <option value="ninguno">Ninguno</option>
+                        </select>
+                    </label>
+                    <label class="option-item">
                         <span>Tamaño del texto</span>
                         <div class="font-size-controls">
                             <button id="decrease-font" class="font-btn"><i class="fa-solid fa-minus"></i></button>
@@ -70,21 +78,42 @@ permalink: /lectura/
         </div>
         <div class="tab-content" id="tab-info">
             <div class="info-panel">
-                <h4>Sobre la edición</h4>
+                <h4 class="fs-5 mt-4">Sobre esta edición</h4>
                 <p>
-                    Esta es una edición digital divulgativa de <em>Fuenteovejuna</em> 
-                    con notas explicativas que puedes evaluar para ayudar a mejorarlas.
+                    Esta es una <strong>edición digital divulgativa</strong> de <em>Fuenteovejuna</em> 
+                    basada en la edición crítica del grupo Prolope (2009, PPU/Universitat Autònoma de Barcelona).
                 </p>
                 <p>
-                    Haz clic en las notas del panel y evalúalas con <i class="fa-solid fa-heart"></i> (útil) o <i class="fa-solid fa-heart-crack"></i> (mejorable).
+                    El texto sigue la edición de Prolope. Las notas, originalmente 
+                    procedentes de esa edición, se van <strong>actualizando y enriqueciendo</strong> 
+                    gracias a la participación de lectores y colaboradores.
                 </p>
+                <div class="info-highlight p-3">
+                    <p>
+                        Puedes evaluar las notas con 
+                        <i class="fa-solid fa-heart"></i> (útil) o <i class="fa-solid fa-heart-crack"></i> (mejorable) 
+                        para ayudar a mejorarlas.
+                    </p>
+                </div>
+                <hr class="info-divider">
+                <div class="info-links">
+                    <a href="../criterios-editoriales.html" class="info-link">
+                        <i class="fa-solid fa-book-open me-2"></i> Criterios editoriales
+                    </a>
+                    <a href="../codificacion-tei.html" class="info-link">
+                        <i class="fa-solid fa-code me-2"></i> Codificación TEI-XML
+                    </a>
+                    <a href="../laboratorio-de-notas/" class="info-link">
+                        <i class="fa-solid fa-flask me-2"></i> Laboratorio de notas
+                    </a>
+                </div>
             </div>
         </div>
         <!-- Barra de botones (pestañas) al final -->
         <div class="button-bar">
             <button class="tab-button active" data-tab="notas">Notas</button>
             <button class="tab-button" data-tab="navegación">Navegación</button>
-            <button class="tab-button" data-tab="info">Acerca de</button>
+            <button class="tab-button" data-tab="info">Info</button>
         </div>
     </div>
 </div>

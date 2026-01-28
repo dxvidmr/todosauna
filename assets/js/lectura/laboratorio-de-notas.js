@@ -415,8 +415,11 @@ class EditorSocial {
 
     this.pasajeContent.appendChild(teiContainer);
 
-    // Aplicar alineacion de versos partidos
-    setTimeout(() => alignSplitVerses(this.pasajeContent), 100);
+    // Aplicar alineacion de versos partidos y numeración de versos
+    setTimeout(() => {
+      alignSplitVerses(this.pasajeContent);
+      aplicarNumeracionVersos(this.pasajeContent, 'cada5');
+    }, 100);
 
     console.log('Pasaje renderizado:', pasaje.titulo);
   }

@@ -80,6 +80,62 @@
   line-height: 1.4;
 }
 
+// Elementos destacados en info-panel
+.info-highlight {
+  background: $color-border-light;
+  border-radius: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  
+  i {
+    color: $color-dark;
+    font-size: 1rem;
+    margin-top: 0.1rem;
+  }
+
+  p {
+    margin: 0;
+  }
+  
+}
+
+// Separador en info-panel
+.info-divider {
+  border: none;
+  border-top: 1px solid $color-border;
+}
+
+// Enlaces en info-panel
+.info-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.info-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  color: $color-text;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  
+  i {
+    color: $color-dark;
+    font-size: 0.9rem;
+  }
+  
+  &:hover {
+    background: $color-border-light;
+    color: $color-dark;
+    text-decoration: none;
+  }
+}
+
 .option-group {
   margin-bottom: 1.5rem;
 }
@@ -557,6 +613,19 @@ tei-lg {
 tei-l {
   display: block;
   margin-bottom: 0.2em;
+  position: relative; 
+}
+
+// Números de verso (alineados a la derecha)
+.numero-verso {
+  position: absolute;
+  right: -20px;
+  top: 0;
+  font-size: 0.75em;
+  color: $color-text-muted;
+  font-weight: 400;
+  user-select: none;
+  pointer-events: none;
 }
 
 tei-l[part="Y"][corresp="2-2"][facs="t-1"] {

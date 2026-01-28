@@ -121,4 +121,42 @@ function alignSplitVerses(container) {
     });
 }
 
+/**
+ * Aplicar numeración de versos
+ * @param {HTMLElement} container - Contenedor con elementos tei-l
+ * @param {string} modo - 'todos' | 'cada5' | 'ninguno'
+ */
+function aplicarNumeracionVersos(container, modo = 'cada5') {
+    if (!container) return;
+    
+    const versos = container.querySelectorAll('tei-l[n]');
+    
+    versos.forEach(verso => {
+        const numeroVerso = parseInt(verso.getAttribute('n'));
+        
+        // Remover número anterior si existe
+        const numeroExistente = verso.querySelector('.numero-verso');
+        if (numeroExistente) {
+            numeroExistente.remove();
+        }
+        
+        // Determinar si mostrar el número
+        let mostrar = false;
+        if (modo === 'todos') {
+            mostrar = true;
+        } else if (modo === 'cada5') {
+            mostrar = numeroVerso % 5 === 0;
+        }
+        
+        if (mostrar && !isNaN(numeroVerso)) {
+            const span = document.createElement('span');
+            span.className = 'numero-verso';
+            span.textContent = numeroVerso;
+            verso.appendChild(span);
+        }
+    });
+    
+    console.log(`Numeración de versos aplicada: modo ${modo}`);
+}
+
 console.log('Utils y rendering utils cargados');
