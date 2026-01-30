@@ -2,6 +2,7 @@
 layout: default
 title: Inicio
 permalink: /
+navbar_behavior: hidden-on-load
 ---
 
 <section class="hero">
