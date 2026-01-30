@@ -97,11 +97,16 @@
     
     /**
      * Comportamiento: fixed
-     * Navbar siempre visible
+     * Navbar siempre visible - LIMPIAR todos los estilos de transformación
      */
     function initFixed() {
-        navbar.style.transform = 'translateY(0)';
+        // Remover cualquier transformación previa
+        navbar.style.transform = 'none';
         navbar.style.transition = 'none';
+        // Asegurar que el navbar es visible
+        navbar.style.opacity = '1';
+        navbar.style.visibility = 'visible';
+        isNavbarVisible = true;
     }
     
     // Inicializar según el comportamiento especificado
@@ -135,10 +140,11 @@
         isMenuExpanded = true;
         
         // Asegurar que el navbar sea visible cuando se abre el menú
-        if (navbarBehavior === 'auto-hide') {
-            navbar.style.transform = 'translateY(0)';
-            isNavbarVisible = true;
-        }
+        // independientemente del modo
+        navbar.style.transform = 'translateY(0)';
+        navbar.style.opacity = '1';
+        navbar.style.visibility = 'visible';
+        isNavbarVisible = true;
     }
     
     function closeMenu() {
