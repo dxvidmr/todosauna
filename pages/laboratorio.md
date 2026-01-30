@@ -64,78 +64,100 @@ permalink: /participa/laboratorio/
 <!-- Contenido principal: Layout de dos columnas -->
 <div class="laboratorio-layout">
   
-  <!-- Columna izquierda: Texto del pasaje -->
-  <div class="laboratorio-text-column">
+  <!-- Header del laboratorio (fuera de las columnas) -->
+  <div class="laboratorio-header">
+    <h1>Laboratorio de notas</h1>
+    <p>Lee los pasajes y evalúa si las notas te resultan útiles</p>
+  </div>
+  
+  <!-- Contenedor de dos columnas -->
+  <div class="laboratorio-content-wrapper">
     
-    <!-- Header del editor social -->
-    <div class="laboratorio-header">
-      <h1>Laboratorio de notas</h1>
-      <p>Lee los pasajes y evalúa si las notas te resultan útiles</p>
+    <!-- Columna izquierda: Pasaje -->
+    <div class="laboratorio-pasaje-column">
       
-      <!-- Barra de progreso (solo modo secuencial) -->
-      <div id="barra-progreso-container" class="barra-progreso-container" style="display: none;">
-        <div class="barra-progreso">
-          <div id="barra-progreso-fill" class="barra-progreso-fill" style="width: 0%"></div>
+      <!-- Contenedor del pasaje -->
+      <div class="pasaje-container bg-gray-100">
+        <div id="pasaje-content">
+          <div class="loading">Cargando pasaje...</div>
         </div>
       </div>
       
-      <div class="laboratorio-progreso">
-        Pasaje <span id="pasaje-actual">1</span> de <span id="pasajes-totales">-</span>
-        <span id="modo-actual-badge" class="modo-badge"></span>
+      <!-- Controles de navegación de pasajes -->
+      <div class="laboratorio-controles">
+        <!-- Información del progreso y barra en la misma línea -->
+        <div class="laboratorio-controles-progreso">
+          <div class="laboratorio-progreso">
+            Pasaje <span id="pasaje-actual">1</span> de <span id="pasajes-totales">-</span>
+            <span id="modo-actual-badge" class="modo-badge"></span>
+          </div>
+          
+          <!-- Barra de progreso (solo modo secuencial) -->
+          <div id="barra-progreso-container" class="barra-progreso-container" style="display: none;">
+            <div class="barra-progreso">
+              <div id="barra-progreso-fill" class="barra-progreso-fill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Botones de navegación -->
+        <div class="laboratorio-controles-botones">
+          <button id="btn-anterior" class="btn-navegacion" style="display: none;"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Pasaje anterior</button>
+          <button id="btn-siguiente" class="btn-siguiente">Siguiente pasaje <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+          <button id="btn-saltar" class="btn-saltar">Saltar sin evaluar</button>
+          <button id="btn-cambiar-modo" class="btn-cambiar-modo" title="Volver a la pantalla de selección de modo">
+            <i class="fa-solid fa-home" aria-hidden="true"></i> Cambiar modo
+          </button>
+        </div>
       </div>
+      
     </div>
     
-    <!-- Pasaje actual -->
-    <div class="pasaje-container bg-gray-100">
-      <div id="pasaje-content">
-        <div class="loading">Cargando pasaje...</div>
+    <!-- Columna derecha: Notas -->
+    <div class="laboratorio-notas-column">
+      
+      <!-- Container de notas (mismo estilo que pasaje-container) -->
+      <div class="notas-container bg-gray-100">
+        
+        <!-- Navegación entre notas (como note-panel-header) -->
+        <div class="notas-navegacion">
+          <div class="note-nav-controls">
+            <button id="btn-nota-anterior" class="btn-circular btn-nav-nota" title="Nota anterior">
+              <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <span class="nota-posicion">
+              Nota <span id="nota-actual-index">0</span> de <span id="notas-pasaje-total">0</span>
+            </span>
+            <button id="btn-nota-siguiente" class="btn-circular btn-nav-nota" title="Nota siguiente">
+              <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Contenido de la nota actual -->
+        <div id="nota-content" class="nota-content">
+          <p class="placeholder-text">Haz clic en un texto subrayado o usa las flechas para ver las notas</p>
+        </div>
+        
+        <!-- Instrucciones -->
+        <div class="notas-instrucciones">
+          <p><i class="fa-solid fa-info-circle" aria-hidden="true"></i> Haz clic en el texto subrayado para ver cada nota, o navega con las flechas.</p>
+        </div>
+        
       </div>
-    </div>
-    
-    <!-- Controles de navegación de pasajes -->
-    <div class="laboratorio-controles">
-      <button id="btn-anterior" class="btn-navegacion" style="display: none;"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Pasaje anterior</button>
-      <button id="btn-siguiente" class="btn-siguiente">Siguiente pasaje <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
-      <button id="btn-saltar" class="btn-saltar">Saltar sin evaluar</button>
-      <button id="btn-cambiar-modo" class="btn-cambiar-modo" title="Volver a la pantalla de selección de modo">
-        <i class="fa-solid fa-home" aria-hidden="true"></i> Cambiar modo
-      </button>
-    </div>
-    
-  </div>
-  
-  <!-- Columna derecha: Panel de notas -->
-  <div class="laboratorio-notes-column">
-    
-    <!-- Header del panel de notas -->
-    <div class="notas-panel-header">
-      <h3>Notas</h3>
-      <div class="notas-contador">
-        <span id="notas-evaluadas">0</span> de <span id="notas-totales">0</span> evaluadas
+      
+      <!-- Barra de progreso y contador de notas (alineados con pasaje) -->
+      <div class="laboratorio-controles-progreso notas-controles-progreso">
+        <div id="barra-progreso-notas-container" class="barra-progreso-container">
+          <div class="barra-progreso">
+            <div id="barra-progreso-notas-fill" class="barra-progreso-fill" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="notas-contador-abajo">
+          <span id="notas-evaluadas">0</span> de <span id="notas-totales">0</span> evaluadas
+        </div>
       </div>
-    </div>
     
-    <!-- Navegación entre notas -->
-    <div class="notas-navegacion">
-      <button id="btn-nota-anterior" class="btn-circular btn-nav-nota" title="Nota anterior">
-        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-      </button>
-      <span class="nota-posicion">
-        Nota <span id="nota-actual-index">0</span> de <span id="notas-pasaje-total">0</span>
-      </span>
-      <button id="btn-nota-siguiente" class="btn-circular btn-nav-nota" title="Nota siguiente">
-        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-      </button>
-    </div>
-    
-    <!-- Contenido de la nota actual -->
-    <div id="nota-content" class="nota-content">
-      <p class="placeholder-text">Haz clic en un texto subrayado o usa las flechas para ver las notas</p>
-    </div>
-    
-    <!-- Instrucciones -->
-    <div class="notas-instrucciones">
-      <p><i class="fa-solid fa-info-circle" aria-hidden="true"></i> Haz clic en el texto subrayado para ver cada nota, o navega con las flechas.</p>
     </div>
     
   </div>

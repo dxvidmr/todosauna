@@ -386,52 +386,6 @@
   margin-bottom: 1.5rem;
 }
 
-// Estilos para el panel de notas
-.note-display {
-  padding: 1rem;
-  border-radius: 4px;
-  margin-top: 0.5rem;
-  
-  .note-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-  }
-  
-  h5 {
-    margin: 0;
-    color: $color-dark;
-    font-size: 1.1rem;
-  }
-  
-  .note-badges {
-    display: flex;
-    gap: 0.4rem;
-  }
-  
-  .note-badge {
-    display: inline-block;
-    padding: 0.25rem 0.6rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    border-radius: 12px;
-    text-transform: capitalize;
-  }
-  
-  .note-badge-type,
-  .note-badge-subtype {
-    background-color: $color-border-light;
-    color: $color-dark-dark;
-    border: 1px solid $color-border;
-  }
-}
-
-.note-footer {
-  margin-top: 1rem;
-  padding-top: 1rem;
-}
-
 // ============================================
 // NAVEGACIÓN DE NOTAS EN PANEL
 // ============================================
@@ -464,13 +418,6 @@
     min-width: 100px;
     text-align: center;
   }
-}
-
-// Nota activa en el texto
-.note-wrapper.note-current {
-  background: linear-gradient(transparent 5%, rgba($color-light, 0.25) 5%, rgba($color-light, 0.25) 80%) !important;
-  //border-bottom: 2px solid $color-light !important;
-  text-decoration: none !important;
 }
 
 // Estado de nota evaluada

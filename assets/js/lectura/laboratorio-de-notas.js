@@ -307,6 +307,17 @@ class EditorSocial {
   }
 
   /**
+   * Actualizar barra de progreso de notas
+   */
+  actualizarBarraProgresoNotas() {
+    const barraFill = document.getElementById('barra-progreso-notas-fill');
+    if (barraFill && this.notasPasaje.length > 0) {
+      const progreso = ((this.notaActualIndex + 1) / this.notasPasaje.length) * 100;
+      barraFill.style.width = `${progreso}%`;
+    }
+  }
+
+  /**
    * Cargar lista de pasajes desde Supabase
    */
   async cargarPasajes() {
@@ -370,6 +381,9 @@ class EditorSocial {
 
     // Cargar notas y aplicar highlights
     await this.cargarYAplicarNotas(fragmento, pasaje);
+
+    // Actualizar barra de progreso de notas
+    this.actualizarBarraProgresoNotas();
   }
 
   /**
@@ -656,6 +670,9 @@ class EditorSocial {
 
     // Renderizar la nota
     this.renderizarNotaActual(nota);
+
+    // Actualizar barra de progreso de notas
+    this.actualizarBarraProgresoNotas();
   }
 
   /**
@@ -665,13 +682,28 @@ class EditorSocial {
     const pasajeId = this.pasajes[this.pasajeActualIndex]?.id;
     const yaEvaluada = this.notasEvaluadas.has(nota.nota_id);
 
-    // Construir badges de tipo
+    // Mapeo de tipologías normalizadas (igual que sala de lectura)
+    const typeMap = {
+      'lexica': 'léxica',
+      'parafrasis': 'paráfrasis',
+      'historica': 'histórica',
+      'geografica': 'geográfica',
+      'mitologica': 'mitológica',
+      'estilistica': 'estilística',
+      'escenica': 'escénica',
+      'ecdotica': 'ecdótica',
+      'realia': 'realia'
+    };
+
+    // Construir badges de tipo/subtipo
     let badgesHTML = '';
     if (nota.type) {
-      badgesHTML += `<span class="nota-badge nota-badge-type">${this.getTipoNotaLabel(nota.type)}</span>`;
+      const normalizedType = typeMap[nota.type] || nota.type;
+      badgesHTML += `<span class="note-badge note-badge-type">${normalizedType}</span>`;
     }
     if (nota.subtype) {
-      badgesHTML += `<span class="nota-badge nota-badge-subtype">${nota.subtype}</span>`;
+      const normalizedSubtype = typeMap[nota.subtype] || nota.subtype;
+      badgesHTML += `<span class="note-badge note-badge-subtype">${normalizedSubtype}</span>`;
     }
 
     // Obtener estadísticas de evaluaciones
@@ -684,42 +716,52 @@ class EditorSocial {
       ? '<p class="eval-mensaje-primero">¡Sé el primero en evaluarla!</p>' 
       : '';
 
-    // Contenido HTML de la nota
+    // Contenido HTML de la nota (estructura igual a sala de lectura)
     let html = `
-      <div class="nota-tipo">${badgesHTML}</div>
-      <div class="nota-texto">${nota.texto_nota}</div>
+      <div class="note-display" data-note-id="${nota.nota_id}">
+        <div class="note-header">
+          ${badgesHTML ? `<div class="note-badges">${badgesHTML}</div>` : ''}
+        </div>
+        <p>${nota.texto_nota}</p>
+        <div class="note-footer">
+        </div>
+      </div>
     `;
 
     // Mostrar botones de evaluacion o estado evaluado
     if (yaEvaluada) {
       html += `
-        <div class="nota-evaluada">
+        <div class="nota-ya-evaluada">
           <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
           Nota evaluada
         </div>
       `;
     } else {
       html += `
-        <div class="nota-acciones">
-          <button class="btn btn-outline-success btn-evaluar btn-util" data-nota-id="${nota.nota_id}" data-version="${nota.version}">
-            <span class="btn-contador">${evaluaciones.utiles}</span>
-            <i class="fa-solid fa-heart" aria-hidden="true"></i>
-            Util
-          </button>
-          <button class="btn btn-outline-danger btn-evaluar btn-mejorable" data-nota-id="${nota.nota_id}" data-version="${nota.version}">
-            <span class="btn-contador">${evaluaciones.mejorables}</span>
-            <i class="fa-solid fa-heart-crack" aria-hidden="true"></i>
-            Mejorable
-          </button>
-        </div>
-        ${mensajePrimero}
-        <div class="nota-comentario" style="display: none;">
-          <textarea placeholder="¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota (opcional)" rows="3"></textarea>
-          <div class="nota-comentario-btns">
-            <button class="btn btn-dark btn-sm btn-enviar-comentario"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
+        <div class="nota-evaluacion">
+          <div class="evaluacion-header">
+            <span>¿Te resulta útil esta nota?</span>
+          </div>
+          <div class="evaluacion-botones">
+            <button class="btn btn-outline-success btn-evaluar btn-util" data-nota-id="${nota.nota_id}" data-version="${nota.version}">
+              <span class="btn-contador">${evaluaciones.utiles}</span>
+              <i class="fa-solid fa-heart" aria-hidden="true"></i>
+              Útil
+            </button>
+            <button class="btn btn-outline-danger btn-evaluar btn-mejorable" data-nota-id="${nota.nota_id}" data-version="${nota.version}">
+              <span class="btn-contador">${evaluaciones.mejorables}</span>
+              <i class="fa-solid fa-heart-crack" aria-hidden="true"></i>
+              Mejorable
+            </button>
+          </div>
+          
+          <div class="evaluacion-comentario" style="display:none;">
+            <textarea placeholder="¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota (opcional)" rows="3"></textarea>
+            <button class="btn btn-dark btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
             <button class="btn btn-outline-dark btn-sm btn-cancelar-comentario">Cancelar</button>
           </div>
         </div>
+        ${mensajePrimero}
       `;
     }
 
@@ -753,7 +795,7 @@ class EditorSocial {
   attachNotaListeners(nota, pasajeId) {
     const btnUtil = this.notaContent.querySelector('.btn-util');
     const btnMejorable = this.notaContent.querySelector('.btn-mejorable');
-    const comentarioDiv = this.notaContent.querySelector('.nota-comentario');
+    const comentarioDiv = this.notaContent.querySelector('.evaluacion-comentario');
     const textarea = comentarioDiv?.querySelector('textarea');
     const btnEnviar = comentarioDiv?.querySelector('.btn-enviar-comentario');
     const btnCancelar = comentarioDiv?.querySelector('.btn-cancelar-comentario');
@@ -938,26 +980,6 @@ class EditorSocial {
       console.log('Evaluacion registrada:', vote, notaId);
       return true;
     }
-
-  /**
-   * Obtener etiqueta legible del tipo de nota
-   */
-  getTipoNotaLabel(tipo) {
-    const labels = {
-      lexica: 'Léxica',
-      parafrasis: 'Paráfrasis',
-      historica: 'Histórica',
-      cultural: 'Cultural',
-      metrica: 'Métrica',
-      literaria: 'Literaria',
-      geografica: 'Geográfica',
-      mitologica: 'Mitológica',
-      escenica: 'Escénica',
-      ecdotica: 'Ecdótica',
-      realia: 'Realia',
-    };
-    return labels[tipo] || tipo;
-  }
 
   /**
    * Configurar event listeners de controles
