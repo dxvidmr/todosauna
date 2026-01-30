@@ -130,7 +130,7 @@
         if (!mainNav) return;
         
         mainNav.classList.add('expanded');
-        navBackdrop.classList.add('active');
+        if (navBackdrop) navBackdrop.classList.add('active');
         if (btnFlotante) btnFlotante.classList.add('hidden');
         isMenuExpanded = true;
         
@@ -145,7 +145,7 @@
         if (!mainNav) return;
         
         mainNav.classList.remove('expanded');
-        navBackdrop.classList.remove('active');
+        if (navBackdrop) navBackdrop.classList.remove('active');
         if (btnFlotante) btnFlotante.classList.remove('hidden');
         isMenuExpanded = false;
     }
@@ -153,7 +153,7 @@
     if (navToggle) {
         navToggle.addEventListener('click', function(e) {
             e.stopPropagation();
-            if (mainNav.classList.contains('expanded')) {
+            if (mainNav && mainNav.classList.contains('expanded')) {
                 closeMenu();
             } else {
                 openMenu();
