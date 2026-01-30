@@ -11,10 +11,11 @@
     
     const navbar = document.querySelector('.nav-wrapper');
     const mainNav = document.querySelector('#mainNav');
-    const body = document.body;
-    const navbarBehavior = body.getAttribute('data-navbar-behavior') || 'fixed';
     
     if (!navbar) return;
+    
+    // Leer el comportamiento desde el nav-wrapper (donde está centralizado)
+    const navbarBehavior = navbar.getAttribute('data-navbar-behavior') || 'fixed';
     
     let lastScrollTop = 0;
     let isNavbarVisible = true;
@@ -49,7 +50,7 @@
     /**
      * Comportamiento: auto-hide
      * Navbar visible al inicio, se oculta al scroll down, aparece al scroll up
-     * Usado en: lectura, laboratorio
+     * Usado en: lectura
      */
     function initAutoHide() {
         navbar.style.transform = 'translateY(0)';
