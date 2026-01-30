@@ -41,10 +41,10 @@ class ModalModo {
           <!-- Formulario anónimo con datos opcionales -->
           <div id="form-anonimo" class="modo-form" style="display:none;">
             <h3>Participación anónima</h3>
-            <p>Opcionalmente, puedes compartir datos demográficos para análisis (100% anónimo):</p><br>
+            <p class="help-modal bg-gray-100 text-gray-500">Opcionalmente, puedes compartir datos demográficos para análisis (100% anónimo).</p>
             <form id="form-anonimo-datos">
               <label>
-                <b>Nivel de estudios</b> (opcional):
+                Nivel de estudios (opcional)
                 <select name="nivel_estudios">
                   <option value="">Prefiero no decirlo</option>
                   <option value="secundaria">Secundaria</option>
@@ -56,7 +56,7 @@ class ModalModo {
               </label>
               
               <label>
-                <b>Disciplina</b> (opcional):
+                Disciplina (opcional)
                 <select name="disciplina">
                   <option value="">Prefiero no decirlo</option>
                   <option value="filologia">Filología/Lengua/Literatura</option>
@@ -69,15 +69,17 @@ class ModalModo {
                 </select>
               </label>
               
-              <button type="submit" class="btn btn-dark w-100 mb-2">Comenzar</button>
-              <button type="button" class="btn btn-outline-dark w-100"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
+              <div class="botones-modal">
+                <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
+                <button type="submit" class="btn btn-dark">Comenzar</button>
+              </div>
             </form>
           </div>
           
           <!-- Opciones colaborador: Iniciar sesión o Registrarse -->
           <div id="colaborador-opciones" class="modo-form" style="display:none;">
             <h3>Identificarse como colaborador/a</h3>
-            <p class="info-colaborador">No necesitas contraseña. Solo tu email para reconocerte.</p><br>
+            <p class="help-modal bg-gray-100 text-gray-500">No necesitas contraseña. Solo tu email para reconocerte.</p>
             <div class="colaborador-opciones-grid">
               <div class="modo-opcion" data-tipo="login" role="button" tabindex="0">
                 <div class="modo-header">
@@ -94,47 +96,52 @@ class ModalModo {
                 <p>Registrar mi email y datos.</p>
               </div>
             </div>
-            <button type="button" class="btn btn-outline-dark w-100 mt-3"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
+            <div class="botones-modal">
+              <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
+            </div>
           </div>
 
           <!-- Formulario LOGIN colaborador -->
           <div id="form-colaborador-login" class="modo-form" style="display:none;">
             <h3>Identificarse</h3>
-            <p class="info-identificacion">
+            <p class="help-modal bg-gray-100 text-gray-500">
               Introduce el mismo email que usaste anteriormente. 
               No guardamos tu email real, solo un código único generado a partir de él.
-            </p><br>
+            </p>
             <form id="form-colaborador-login-datos">
               <label>
                 Email:
                 <input type="email" name="email" required placeholder="tu@email.com">
               </label>
               
-              <button type="submit" class="btn btn-dark w-100 mb-2">Identificarme</button>
-              <button type="button" class="btn btn-outline-dark w-100"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
+              <div class="botones-modal">
+                <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
+                <button type="submit" class="btn btn-dark">Identificarme</button>
+              </div>
             </form>
           </div>
 
           <!-- Formulario REGISTRO colaborador -->
           <div id="form-colaborador-registro" class="modo-form" style="display:none;">
             <h3>Registrarse</h3>
-            <p class="info-registro">
+            <p class="help-modal bg-gray-100 text-gray-500">
+              Rellena el formulario para registrarte como colaborador/a. Solo pedimos tu email (cifrado) y algunos datos demográficos opcionales.
             </p>
             <form id="form-colaborador-registro-datos">
               <label>
-                Email:
+                Email
                 <input type="email" name="email" required placeholder="tu@email.com">
                 <small>Tu email se cifra y se convierte en un código único para identificarte en próximas visitas. No guardamos tu email real.</small>
               </label>
               
               <label>
-                Nombre a mostrar (opcional):
+                Nombre (opcional)
                 <input type="text" name="display_name" placeholder="María G." maxlength="50">
-                <small>Aparecerá en tus contribuciones públicas</small>
+                <small>Para aparecer en lista de colaboradores.</small>
               </label>
               
               <label>
-                Nivel de estudios (opcional):
+                Nivel de estudios (opcional)
                 <select name="nivel_estudios">
                   <option value="">Prefiero no decirlo</option>
                   <option value="secundaria">Secundaria</option>
@@ -146,7 +153,7 @@ class ModalModo {
               </label>
               
               <label>
-                Disciplina (opcional):
+                Disciplina (opcional)
                 <select name="disciplina">
                   <option value="">Prefiero no decirlo</option>
                   <option value="filologia">Filología/Lengua/Literatura</option>
@@ -159,8 +166,10 @@ class ModalModo {
                 </select>
               </label>
               
-              <button type="submit" class="btn btn-primary w-100 mb-2">Registrarme</button>
-              <button type="button" class="btn btn-outline-secondary w-100"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
+              <div class="botones-modal">
+                <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
+                <button type="submit" class="btn btn-primary">Registrarme</button>
+              </div>
             </form>
           </div>
           
@@ -235,8 +244,8 @@ class ModalModo {
       this.procesarFormColaboradorRegistro(e.target);
     });
     
-    // Botones volver (ahora con clase Bootstrap btn-outline-secondary)
-    document.querySelectorAll('.btn-outline-secondary').forEach(btn => {
+    // Botones volver (con clase específica btn-volver)
+    document.querySelectorAll('.btn-volver').forEach(btn => {
       btn.addEventListener('click', () => this.volverOpciones());
     });
 

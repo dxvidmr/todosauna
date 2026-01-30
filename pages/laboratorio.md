@@ -35,23 +35,23 @@ permalink: /participa/laboratorio/
     
     <!-- Lado derecho: Opciones de entrada -->
     <div class="bienvenida-opciones">
-      <div class="opcion-modo" data-modo="secuencial" role="button" tabindex="0">
+      <div class="opcion-modo btn btn-dark" data-modo="secuencial" role="button" tabindex="0">
         <div class="opcion-icono"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></div>
         <div class="opcion-contenido">
           <h3>Modo secuencial</h3>
-          <p>Recorre los pasajes en orden cronológico de la obra</p>
+          <p class="text-gray-500">Recorre los pasajes en orden cronológico de la obra</p>
         </div>
       </div>
       
-      <div class="opcion-modo" data-modo="aleatorio" role="button" tabindex="0">
+      <div class="opcion-modo btn btn-dark" data-modo="aleatorio" role="button" tabindex="0">
         <div class="opcion-icono"><i class="fa-solid fa-shuffle" aria-hidden="true"></i></div>
         <div class="opcion-contenido">
           <h3>Modo aleatorio</h3>
-          <p>Sorpréndete con un pasaje al azar de la obra</p>
+          <p class="text-gray-500">Sorpréndete con un pasaje al azar de la obra</p>
         </div>
       </div>
       
-      <div class="stats-globales">
+      <div class="stats-globales bg-gray-200">
         <div class="loading-stats-container">
           <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
           Cargando estadísticas...
@@ -86,7 +86,7 @@ permalink: /participa/laboratorio/
     </div>
     
     <!-- Pasaje actual -->
-    <div class="pasaje-container">
+    <div class="pasaje-container bg-gray-100">
       <div id="pasaje-content">
         <div class="loading">Cargando pasaje...</div>
       </div>

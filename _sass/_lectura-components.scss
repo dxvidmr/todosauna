@@ -740,13 +740,16 @@
   }
 }
 
-.info-colaborador,
-.info-identificacion,
-.info-registro {
+.botones-modal {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.help-modal {
   font-size: 14px;
-  color: $color-text-muted;
   padding: 12px;
-  background: $color-border-light;
   border-radius: 6px;
   margin-bottom: 16px;
 }
