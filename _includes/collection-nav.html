@@ -83,38 +83,3 @@
         </div>
     </nav>
 </div>
-
-<script>
-    // Toggle expanded menu
-    document.getElementById('navToggle').addEventListener('click', function() {
-        const nav = document.getElementById('mainNav');
-        const backdrop = document.getElementById('navBackdrop');
-        const btnFlotante = document.getElementById('btn-modo-usuario');
-        
-        nav.classList.toggle('expanded');
-        backdrop.classList.toggle('active');
-        
-        // Ocultar/mostrar botón flotante
-        if (btnFlotante) {
-            btnFlotante.classList.toggle('hidden');
-        }
-    });
-    
-    // Close on backdrop click
-    document.getElementById('navBackdrop').addEventListener('click', function() {
-        const btnFlotante = document.getElementById('btn-modo-usuario');
-        document.getElementById('mainNav').classList.remove('expanded');
-        this.classList.remove('active');
-        if (btnFlotante) btnFlotante.classList.remove('hidden');
-    });
-    
-    // Close on escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            const btnFlotante = document.getElementById('btn-modo-usuario');
-            document.getElementById('mainNav').classList.remove('expanded');
-            document.getElementById('navBackdrop').classList.remove('active');
-            if (btnFlotante) btnFlotante.classList.remove('hidden');
-        }
-    });
-</script>
