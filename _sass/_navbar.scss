@@ -75,7 +75,12 @@
     }
 }
 
-/* Body padding to compensate for fixed navbar */
+/* Ajustar padding del navbar expandido en móvil pequeño */
+.navbar-floating.expanded {
+    @media (max-width: 480px) {
+        padding: 1rem;
+    }
+}
 /* Solo para páginas con navbar fixed (sin comportamiento especial) */
 body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
     padding-top: 5rem;
@@ -118,22 +123,70 @@ body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
 .navbar-expanded {
     max-height: 0;
     opacity: 0;
-    overflow: hidden;
+    overflow: hidden; /* Cambiar a auto cuando esté expandido */
     transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.4s ease, padding-top 0.4s ease;
     width: 100%;
 }
 
+/* Grid responsive */
 .navbar-expanded-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
+    
+    /* Tablet - 2 columnas */
+    @media (max-width: 991.98px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    /* Móvil - 1 columna */
+    @media (max-width: 576px) {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
 }
 
+/* Cuando está expandido, permitir scroll */
+.navbar-floating.expanded .navbar-expanded {
+    overflow-y: auto; /* Permitir scroll vertical */
+    overflow-x: hidden;
+    
+    /* Estilos del scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: rgba($color-dark, 0.3) transparent;
+    
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: rgba($color-dark, 0.3);
+        border-radius: 3px;
+    }
+}
+
+/* Ajustes en las columnas para móvil */
 .navbar-expanded-column {
     display: flex;
     flex-direction: column;
+    
+    @media (max-width: 576px) {
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba($color-dark, 0.1);
+        
+        &:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+    }
 }
 
+/* Ajustar títulos en móvil */
 .navbar-expanded-title {
     color: $color-dark;
     font-size: 1.1rem;
@@ -142,6 +195,11 @@ body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
     margin-bottom: 0.75rem;
     display: block;
     transition: opacity 0.2s;
+    
+    @media (max-width: 576px) {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
     
     &:hover {
         opacity: 0.7;
@@ -153,6 +211,7 @@ body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
     }
 }
 
+/* Links más pequeños en móvil */
 .navbar-expanded-links {
     list-style: none;
     padding: 0;
@@ -160,6 +219,10 @@ body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
     
     li {
         margin-bottom: 0.4rem;
+        
+        @media (max-width: 576px) {
+            margin-bottom: 0.3rem;
+        }
     }
     
     a {
@@ -168,12 +231,17 @@ body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
         text-decoration: none;
         transition: color 0.2s;
         
+        @media (max-width: 576px) {
+            font-size: 0.85rem;
+        }
+        
         &:hover {
             color: $color-dark;
         }
     }
 }
 
+/* Bottom section responsive */
 .navbar-expanded-bottom {
     margin-top: 1.5rem;
     padding-top: 1rem;
@@ -183,11 +251,23 @@ body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    
+    /* En móvil, apilar verticalmente */
+    @media (max-width: 576px) {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
 }
 
+/* Búsqueda responsive */
 .navbar-expanded-search {
-    flex: 1;
-    min-width: 300px;
+    flex: 1 1 auto;
+    min-width: 250px; /* Reducido de 300px */
+    
+    @media (max-width: 576px) {
+        min-width: 100%; /* Ancho completo en móvil */
+    }
     
     form {
         display: flex;
@@ -195,6 +275,11 @@ body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
         border-radius: 25px;
         padding: 0.5rem 1rem;
         max-width: 400px;
+        width: 100%;
+        
+        @media (max-width: 576px) {
+            max-width: none; /* Permitir ancho completo */
+        }
     }
     
     input {
@@ -202,6 +287,7 @@ body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
         border: none;
         color: $color-dark;
         flex: 1;
+        min-width: 0; /* IMPORTANTE: Permite que el input se comprima */
         
         &::placeholder {
             color: rgba($color-dark, 0.5);
@@ -220,9 +306,23 @@ body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
         border: none;
         color: rgba($color-dark, 0.7);
         padding: 0 0.5rem;
+        flex-shrink: 0; /* No comprimir el botón */
         
         &:hover {
             color: $color-dark;
+        }
+    }
+}
+
+/* Botón participación en menú expandido */
+.navbar-expanded-participacion {
+    flex-shrink: 0;
+    
+    @media (max-width: 576px) {
+        width: 100%; /* Ancho completo en móvil */
+        
+        button {
+            width: 100%; /* Botón a ancho completo */
         }
     }
 }
@@ -276,5 +376,18 @@ body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
+    }
+}
+
+/* Ajustar max-height en pantallas muy pequeñas */
+@media (max-height: 700px) {
+    .navbar-floating.expanded .navbar-expanded {
+        max-height: 70vh; /* Menos altura en pantallas bajas */
+    }
+}
+
+@media (max-height: 600px) {
+    .navbar-floating.expanded .navbar-expanded {
+        max-height: 60vh;
     }
 }
