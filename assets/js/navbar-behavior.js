@@ -10,15 +10,17 @@
     'use strict';
     
     const navbar = document.querySelector('.nav-wrapper');
+    const mainNav = document.querySelector('#mainNav');
     const body = document.body;
-    const navbarBehavior = body.getAttribute('data-navbar-behavior');
+    const navbarBehavior = body.getAttribute('data-navbar-behavior') || 'fixed';
     
     if (!navbar) return;
     
     let lastScrollTop = 0;
     let isNavbarVisible = true;
-    const scrollThreshold = 10; // Mínimo scroll para activar cambios
-    const scrollTriggerDistance = 100; // Distancia para activar comportamientos
+    let isMenuExpanded = false;
+    const scrollThreshold = 10;
+    const scrollTriggerDistance = 100;
     
     /**
      * Comportamiento: hidden-on-load
@@ -26,14 +28,12 @@
      * Usado en: home/index
      */
     function initHiddenOnLoad() {
-        // Navbar inicia oculto
         navbar.classList.remove('visible');
         isNavbarVisible = false;
         
         window.addEventListener('scroll', function() {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
-            // Mostrar navbar si se hace scroll hacia abajo más de 100px
             if (scrollTop > scrollTriggerDistance && !isNavbarVisible) {
                 navbar.classList.add('visible');
                 isNavbarVisible = true;
@@ -52,17 +52,19 @@
      * Usado en: lectura, laboratorio
      */
     function initAutoHide() {
-        // Navbar inicia visible
         navbar.style.transform = 'translateY(0)';
         navbar.style.transition = 'transform 0.3s ease';
         isNavbarVisible = true;
         
-        // Función para manejar el scroll
         function handleScroll() {
+            // NO ocultar si el menú está expandido
+            if (isMenuExpanded) {
+                return;
+            }
+            
             const scrollTop = this.scrollTop || window.pageYOffset || document.documentElement.scrollTop;
             const scrollDelta = Math.abs(scrollTop - lastScrollTop);
             
-            // Solo procesar si hay suficiente movimiento
             if (scrollDelta < scrollThreshold) {
                 return;
             }
@@ -84,23 +86,20 @@
             lastScrollTop = scrollTop;
         }
         
-        // Detectar scroll en la columna de texto (para lectura/laboratorio)
+        // Detectar scroll en la columna de texto
         const scrollableColumn = document.querySelector('.text-column');
         if (scrollableColumn) {
             scrollableColumn.addEventListener('scroll', handleScroll);
         }
         
-        // También escuchar el scroll del window
         window.addEventListener('scroll', handleScroll);
     }
     
     /**
      * Comportamiento: fixed
      * Navbar siempre visible
-     * Usado en: todas las demás páginas
      */
     function initFixed() {
-        // No hacer nada, el navbar permanece visible siempre
         navbar.style.transform = 'translateY(0)';
         navbar.style.transition = 'none';
     }
@@ -119,7 +118,60 @@
             break;
     }
     
-    // Exportar funciones para uso manual si es necesario
+    // ====================================
+    // MANEJO DEL TOGGLE DEL MENÚ EXPANDIDO
+    // ====================================
+    
+    const navToggle = document.getElementById('navToggle');
+    const navBackdrop = document.getElementById('navBackdrop');
+    const btnFlotante = document.getElementById('btn-modo-usuario');
+    
+    function openMenu() {
+        if (!mainNav) return;
+        
+        mainNav.classList.add('expanded');
+        navBackdrop.classList.add('active');
+        if (btnFlotante) btnFlotante.classList.add('hidden');
+        isMenuExpanded = true;
+        
+        // Asegurar que el navbar sea visible cuando se abre el menú
+        if (navbarBehavior === 'auto-hide') {
+            navbar.style.transform = 'translateY(0)';
+            isNavbarVisible = true;
+        }
+    }
+    
+    function closeMenu() {
+        if (!mainNav) return;
+        
+        mainNav.classList.remove('expanded');
+        navBackdrop.classList.remove('active');
+        if (btnFlotante) btnFlotante.classList.remove('hidden');
+        isMenuExpanded = false;
+    }
+    
+    if (navToggle) {
+        navToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (mainNav.classList.contains('expanded')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+    }
+    
+    if (navBackdrop) {
+        navBackdrop.addEventListener('click', closeMenu);
+    }
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isMenuExpanded) {
+            closeMenu();
+        }
+    });
+    
+    // Exportar funciones para uso manual
     window.NavbarBehavior = {
         showNavbar: function() {
             if (navbarBehavior === 'hidden-on-load') {
@@ -138,6 +190,8 @@
                 navbar.style.transform = 'translateY(-100%)';
                 isNavbarVisible = false;
             }
-        }
+        },
+        openMenu: openMenu,
+        closeMenu: closeMenu
     };
 })();
