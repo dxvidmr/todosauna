@@ -20,15 +20,16 @@
   pointer-events: auto;
 }
 
+/* Hero principal */
 .hero {
-  height: 100vh; /* Cambio de min-height a height */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  padding: 120px 20px 40px; /* Más padding-top para el navbar */
+  padding: 120px 0 40px; /* Sin padding lateral aquí */
   text-align: left;
-  overflow: hidden; /* Evitar desbordamiento */
+  overflow: hidden;
 }
 
 .hero-content {
@@ -38,35 +39,34 @@
   justify-content: center;
   align-items: flex-start;
   width: 100%;
-  max-width: 1400px;
-  padding: 0 40px;
   animation: fadeInUp 0.8s ease-out;
-  min-height: 0; /* Permite que se comprima */
+  min-height: 0;
 }
 
 /* Título principal */
 .hero-title {
-  font-size: clamp(4rem, 10vw, 10rem);
+  font-size: clamp(3rem, 10vw, 10rem);
   font-weight: 900;
   color: $color-dark;
   text-transform: uppercase;
   letter-spacing: -0.03em;
-  margin-bottom: clamp(20px, 4vh, 40px); /* Margen flexible según altura */
+  margin-bottom: clamp(20px, 4vh, 40px);
   line-height: 0.9;
   text-align: left;
+  padding-left: 40px; /* Padding solo para el título */
 }
 
-/* Imagen hero */
+/* Imagen hero - CORREGIDA */
 .hero-image {
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
   position: relative;
-  width: calc(100vw - 80px);
-  max-width: 1400px;
-  height: clamp(250px, 35vh, 500px); /* Altura flexible entre 250px y 500px */
-  margin-left: calc(-50vw + 50%);
+  width: calc(100% - 80px);
+  height: clamp(250px, 50vh, 500px);
+  margin-left: 0; 
+  margin-right: auto;
   overflow: hidden;
-  flex-shrink: 0; /* No se comprime más de su altura mínima */
+  flex-shrink: 0;
 
   img {
     width: 100%;
@@ -77,14 +77,14 @@
   }
 
   @media (max-width: 768px) {
-    width: calc(100vw - 40px);
+    width: calc(100% - 20px);
     height: clamp(200px, 30vh, 350px);
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
   }
 
   @media (max-width: 480px) {
-    width: calc(100vw - 20px);
+    width: calc(100% - 20px);
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
   }
@@ -178,15 +178,16 @@
 /* Responsive para pantallas con poco ancho */
 @media (max-width: 768px) {
   .hero {
-    padding: 60px 20px 20px;
+    padding: 0px 0px 20px;
   }
 
   .hero-content {
-    padding: 0 20px;
+    padding: 0;
   }
 
   .hero-title {
     margin-bottom: 20px;
+    padding-left: 20px;
   }
 
   .hero-scroll {
