@@ -82,9 +82,9 @@
     }
 }
 /* Solo para páginas con navbar fixed (sin comportamiento especial) */
-body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
-    padding-top: 5rem;
-}
+//body:not(.home-page):not([data-navbar-behavior="auto-hide"]) {
+//    padding-top: 5rem;
+//}
 
 .navbar-header {
     display: flex;
