@@ -452,7 +452,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     
                     ${badgesHTML ? `<div class="note-badges">${badgesHTML}</div>` : ''}
                 </div>
-                <p>${noteToShow.textContent.trim()}</p>
+                <p class="fs-6">${noteToShow.textContent.trim()}</p>
                 ${evaluacionesHTML}
                 <div class="note-footer">
                 </div>

@@ -85,7 +85,6 @@ permalink: /participa/laboratorio/
       
       <!-- Controles de navegación de pasajes -->
       <div class="laboratorio-controles">
-        <!-- Información del progreso y barra en la misma línea -->
         <div class="laboratorio-controles-progreso">
           <div class="laboratorio-progreso">
             Pasaje <span id="pasaje-actual">1</span> de <span id="pasajes-totales">-</span>
@@ -138,16 +137,8 @@ permalink: /participa/laboratorio/
         <div id="nota-content" class="nota-content">
           <p class="placeholder-text">Haz clic en un texto subrayado o usa las flechas para ver las notas</p>
         </div>
-        
-        <!-- Instrucciones -->
-        <div class="notas-instrucciones">
-          <p><i class="fa-solid fa-info-circle" aria-hidden="true"></i> Haz clic en el texto subrayado para ver cada nota, o navega con las flechas.</p>
-        </div>
-        
-      </div>
-      
-      <!-- Barra de progreso y contador de notas (alineados con pasaje) -->
-      <div class="laboratorio-controles-progreso notas-controles-progreso">
+
+        <div class="notas-controles-progreso mb-2">
         <div id="barra-progreso-notas-container" class="barra-progreso-container">
           <div class="barra-progreso">
             <div id="barra-progreso-notas-fill" class="barra-progreso-fill" style="width: 0%"></div>
@@ -157,6 +148,16 @@ permalink: /participa/laboratorio/
           <span id="notas-evaluadas">0</span> de <span id="notas-totales">0</span> evaluadas
         </div>
       </div>
+        
+        <!-- Instrucciones -->
+        <div class="notas-instrucciones">
+          <p><i class="fa-solid fa-info-circle" aria-hidden="true"></i> Haz clic en el texto subrayado para ver cada nota, o navega con las flechas.</p>
+        </div>
+        
+      </div>
+      
+      <!-- Barra de progreso y contador de notas (alineados con pasaje) -->
+      
     
     </div>
     

@@ -308,13 +308,23 @@ class EditorSocial {
 
   /**
    * Actualizar barra de progreso de notas
+   * Usa el estado interno (notas evaluadas / total) para el porcentaje
    */
   actualizarBarraProgresoNotas() {
     const barraFill = document.getElementById('barra-progreso-notas-fill');
-    if (barraFill && this.notasPasaje.length > 0) {
-      const progreso = ((this.notaActualIndex + 1) / this.notasPasaje.length) * 100;
-      barraFill.style.width = `${progreso}%`;
-    }
+    if (!barraFill) return;
+
+    const total = Math.max(1, this.notasPasaje.length);
+    const evaluadas = this.notasEvaluadas ? this.notasEvaluadas.size : (parseInt(document.getElementById('notas-evaluadas')?.textContent) || 0);
+
+    const porcentaje = (evaluadas / total) * 100;
+    barraFill.style.width = `${porcentaje}%`;
+
+    // Mantener consistencia visual: también actualizar valor del span si es necesario
+    const notasEvaluadasSpan = document.getElementById('notas-evaluadas');
+    const notasTotalesSpan = document.getElementById('notas-totales');
+    if (notasEvaluadasSpan) notasEvaluadasSpan.textContent = evaluadas;
+    if (notasTotalesSpan) notasTotalesSpan.textContent = this.notasPasaje.length;
   }
 
   /**
@@ -722,7 +732,7 @@ class EditorSocial {
         <div class="note-header">
           ${badgesHTML ? `<div class="note-badges">${badgesHTML}</div>` : ''}
         </div>
-        <p>${nota.texto_nota}</p>
+        <p class="fs-6">${nota.texto_nota}</p>
         <div class="note-footer">
         </div>
       </div>
@@ -918,6 +928,9 @@ class EditorSocial {
     } else {
       document.getElementById('nota-actual-index').textContent = '0';
     }
+
+    // Actualizar barra de progreso de notas tras cambiar contadores
+    this.actualizarBarraProgresoNotas();
   }
 
   /**
