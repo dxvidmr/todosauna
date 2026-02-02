@@ -27,7 +27,7 @@ navbar_behavior: hidden-on-load
         <div class="explore-content text-center">
             <!--<p class="explore-badge">TODOS A UNA</p>-->
             <h2 class="explore-title">
-                Lee, investiga, aprende y conoce la historia de la obra de Lope de Vega
+                Explora la obra, colabora en la edición y descubre la historia de <i>Fuenteovejuna</i>
             </h2>
             <a href="#acerca-de" class="btn btn-dark btn-lg mt-5">
                 SOBRE EL PROYECTO
