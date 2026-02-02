@@ -4,6 +4,9 @@
  * - "hidden-on-load": Navbar oculto al inicio, aparece al hacer scroll (home)
  * - "auto-hide": Navbar visible, se oculta al scroll down, aparece al scroll up (lectura)
  * - "fixed" o undefined: Navbar siempre visible (resto de páginas)
+ * 
+ * IMPORTANTE: Los estilos base están en _navbar.scss
+ * Este JS solo añade/quita clases y maneja eventos de scroll
  */
 
 (function() {
@@ -18,17 +21,20 @@
     const navbarBehavior = navbar.getAttribute('data-navbar-behavior') || 'fixed';
     
     let lastScrollTop = 0;
-    let isNavbarVisible = true;
+    let isNavbarVisible = navbarBehavior !== 'hidden-on-load'; // hidden-on-load empieza oculto
     let isMenuExpanded = false;
     const scrollThreshold = 10;
     const scrollTriggerDistance = 100;
     
+    console.log('[Navbar] Inicializando con comportamiento:', navbarBehavior);
+    
     /**
      * Comportamiento: hidden-on-load
      * Navbar oculto al inicio, aparece al hacer scroll
-     * Usado en: home/index
+     * Los estilos de visibilidad están en CSS (clase .visible)
      */
     function initHiddenOnLoad() {
+        // Asegurar que empieza sin la clase visible
         navbar.classList.remove('visible');
         isNavbarVisible = false;
         
@@ -38,32 +44,34 @@
             if (scrollTop > scrollTriggerDistance && !isNavbarVisible) {
                 navbar.classList.add('visible');
                 isNavbarVisible = true;
-            } else if (scrollTop <= scrollTriggerDistance && isNavbarVisible) {
+            } else if (scrollTop <= scrollTriggerDistance && isNavbarVisible && !isMenuExpanded) {
+                // No ocultar si el menú está expandido
                 navbar.classList.remove('visible');
                 isNavbarVisible = false;
             }
             
             lastScrollTop = scrollTop;
-        });
+        }, { passive: true });
     }
     
     /**
      * Comportamiento: auto-hide
      * Navbar visible al inicio, se oculta al scroll down, aparece al scroll up
-     * Usado en: lectura
      */
     function initAutoHide() {
-        navbar.style.transform = 'translateY(0)';
-        navbar.style.transition = 'transform 0.3s ease';
         isNavbarVisible = true;
         
-        function handleScroll() {
+        function handleScroll(e) {
             // NO ocultar si el menú está expandido
             if (isMenuExpanded) {
                 return;
             }
             
-            const scrollTop = this.scrollTop || window.pageYOffset || document.documentElement.scrollTop;
+            // Obtener scrollTop del elemento o de window
+            const scrollTop = e.target.scrollTop !== undefined 
+                ? e.target.scrollTop 
+                : (window.pageYOffset || document.documentElement.scrollTop);
+            
             const scrollDelta = Math.abs(scrollTop - lastScrollTop);
             
             if (scrollDelta < scrollThreshold) {
@@ -87,26 +95,22 @@
             lastScrollTop = scrollTop;
         }
         
-        // Detectar scroll en la columna de texto
+        // Detectar scroll en la columna de texto (lectura)
         const scrollableColumn = document.querySelector('.text-column');
         if (scrollableColumn) {
-            scrollableColumn.addEventListener('scroll', handleScroll);
+            scrollableColumn.addEventListener('scroll', handleScroll, { passive: true });
         }
         
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
     }
     
     /**
      * Comportamiento: fixed
-     * Navbar siempre visible - LIMPIAR todos los estilos de transformación
+     * Navbar siempre visible - no necesita JS, todo está en CSS
      */
     function initFixed() {
-        // Remover cualquier transformación previa
-        navbar.style.transform = 'none';
-        navbar.style.transition = 'none';
-        // Asegurar que el navbar es visible
-        navbar.style.opacity = '1';
-        navbar.style.visibility = 'visible';
+        // No aplicar estilos inline innecesarios
+        // Los estilos están definidos en CSS para [data-navbar-behavior="fixed"]
         isNavbarVisible = true;
     }
     
@@ -141,11 +145,15 @@
         isMenuExpanded = true;
         
         // Asegurar que el navbar sea visible cuando se abre el menú
-        // independientemente del modo
-        navbar.style.transform = 'translateY(0)';
-        navbar.style.opacity = '1';
-        navbar.style.visibility = 'visible';
-        isNavbarVisible = true;
+        if (navbarBehavior === 'hidden-on-load') {
+            navbar.classList.add('visible');
+            isNavbarVisible = true;
+        } else if (navbarBehavior === 'auto-hide') {
+            navbar.style.transform = 'translateY(0)';
+            isNavbarVisible = true;
+        }
+        
+        console.log('[Navbar] Menú abierto');
     }
     
     function closeMenu() {
@@ -155,17 +163,26 @@
         if (navBackdrop) navBackdrop.classList.remove('active');
         if (btnFlotante) btnFlotante.classList.remove('hidden');
         isMenuExpanded = false;
+        
+        console.log('[Navbar] Menú cerrado');
     }
     
+    // Event listeners para el toggle
     if (navToggle) {
         navToggle.addEventListener('click', function(e) {
+            e.preventDefault();
             e.stopPropagation();
+            
+            console.log('[Navbar] Toggle clicked, expanded:', mainNav?.classList.contains('expanded'));
+            
             if (mainNav && mainNav.classList.contains('expanded')) {
                 closeMenu();
             } else {
                 openMenu();
             }
         });
+    } else {
+        console.warn('[Navbar] navToggle no encontrado');
     }
     
     if (navBackdrop) {
@@ -178,7 +195,18 @@
         }
     });
     
-    // Exportar funciones para uso manual
+    // ====================================
+    // BOTÓN "MI PARTICIPACIÓN"
+    // Solo manejamos el estado hidden/visible aquí
+    // La funcionalidad de click se maneja en modal-modo.js
+    // ====================================
+    
+    // (El botón btnFlotante ya se maneja arriba en openMenu/closeMenu)
+    
+    // ====================================
+    // API PÚBLICA
+    // ====================================
+    
     window.NavbarBehavior = {
         showNavbar: function() {
             if (navbarBehavior === 'hidden-on-load') {
@@ -190,15 +218,20 @@
             }
         },
         hideNavbar: function() {
-            if (navbarBehavior === 'hidden-on-load') {
+            if (navbarBehavior === 'hidden-on-load' && !isMenuExpanded) {
                 navbar.classList.remove('visible');
                 isNavbarVisible = false;
-            } else if (navbarBehavior === 'auto-hide') {
+            } else if (navbarBehavior === 'auto-hide' && !isMenuExpanded) {
                 navbar.style.transform = 'translateY(-100%)';
                 isNavbarVisible = false;
             }
         },
         openMenu: openMenu,
-        closeMenu: closeMenu
+        closeMenu: closeMenu,
+        isVisible: () => isNavbarVisible,
+        isExpanded: () => isMenuExpanded,
+        getBehavior: () => navbarBehavior
     };
+    
+    console.log('[Navbar] Sistema inicializado correctamente');
 })();

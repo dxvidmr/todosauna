@@ -15,10 +15,62 @@
     justify-content: center;
     padding: 1.5rem 1rem 0;
     z-index: 1000;
-    pointer-events: none;
+    pointer-events: none; // El wrapper no captura eventos, solo sus hijos
     
     @media (max-width: 991.98px) {
         padding: 1rem;
+    }
+    
+    // ========================================
+    // COMPORTAMIENTO: hidden-on-load
+    // El navbar está oculto al inicio y aparece al hacer scroll
+    // ========================================
+    &[data-navbar-behavior="hidden-on-load"] {
+        opacity: 0;
+        transform: translateY(-100%);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        
+        // Cuando está oculto, desactivar interacciones completamente
+        .navbar-floating {
+            pointer-events: none;
+        }
+        
+        &.visible {
+            opacity: 1;
+            transform: translateY(0);
+            
+            // Reactivar interacciones cuando es visible
+            .navbar-floating {
+                pointer-events: auto;
+            }
+        }
+    }
+    
+    // ========================================
+    // COMPORTAMIENTO: auto-hide
+    // Navbar visible, se oculta al scroll down, aparece al scroll up
+    // La transición se maneja vía JS con transform inline
+    // ========================================
+    &[data-navbar-behavior="auto-hide"] {
+        transition: transform 0.3s ease;
+        
+        .navbar-floating {
+            pointer-events: auto;
+        }
+    }
+    
+    // ========================================
+    // COMPORTAMIENTO: fixed (default)
+    // Navbar siempre visible
+    // ========================================
+    &[data-navbar-behavior="fixed"] {
+        // Asegurar que siempre es visible y clickeable
+        opacity: 1;
+        transform: none;
+        
+        .navbar-floating {
+            pointer-events: auto;
+        }
     }
 }
 
@@ -389,5 +441,106 @@
 @media (max-height: 600px) {
     .navbar-floating.expanded .navbar-expanded {
         max-height: 60vh;
+    }
+}
+
+/* ============================================
+   BOTÓN FLOTANTE "MI PARTICIPACIÓN"
+   Solo visible en layouts lectura/laboratorio (desktop)
+   ============================================ */
+
+.btn-participacion-flotante {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 1100; // Encima del navbar
+    pointer-events: auto;
+    
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row-reverse; // Icono a la derecha, texto a la izquierda
+    gap: 0;
+    
+    background: $color-light;
+    color: $color-dark;
+    border: none;
+    padding: 1rem 1.25rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: inherit;
+    
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    white-space: nowrap;
+    
+    // Solo el icono visible por defecto
+    i {
+        font-size: 16px;
+        flex-shrink: 0;
+        transition: margin 0.3s ease;
+    }
+    
+    // Texto oculto por defecto
+    .btn-participacion-texto {
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                    opacity 0.2s ease 0.1s,
+                    margin 0.3s ease;
+        margin-left: 0;
+    }
+    
+    // En hover: expande hacia la izquierda mostrando el texto
+    &:hover {
+        background: $color-dark;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        
+        .btn-participacion-texto {
+            max-width: 150px;
+            opacity: 1;
+            margin-right: 10px;
+            color: $color-light;
+        }
+
+        i {
+            color: $color-light;
+        }
+    }
+    
+    &:active {
+        transform: scale(0.95);
+    }
+    
+    // Estado oculto (cuando el menú está expandido)
+    &.hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(100px);
+    }
+}
+
+// En móvil no se muestra, usa el botón del menú
+@media (max-width: 991.98px) {
+    .btn-participacion-flotante {
+        display: none !important;
+    }
+}
+
+/* Botón participación dentro del menú expandido */
+.navbar-expanded-participacion {
+    display: flex;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    
+    @media (max-width: 576px) {
+        width: 100%;
+        
+        button {
+            width: 100%;
+        }
     }
 }

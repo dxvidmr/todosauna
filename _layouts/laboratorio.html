@@ -1,7 +1,6 @@
 ---
 # Layout para el Laboratorio de Notas
-# Similar a lectura pero con Chart.js adicional
-layout: default
+# Layout independiente (NO hereda de default para evitar duplicación)
 ---
 <!doctype html>
 <html lang="es" class="h-100">
@@ -18,7 +17,7 @@ layout: default
   </head>
   <body class="d-flex flex-column h-100">
     <div id="skip-to-content"><a href="#maincontent">Skip to main content</a></div>
-    {% include collection-nav.html %}
+    {% include navbar.html %}
     
     <main id="maincontent" role="main" class="flex-shrink-0">
       <div class="laboratorio-wrapper">

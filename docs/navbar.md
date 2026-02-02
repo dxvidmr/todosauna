@@ -4,7 +4,7 @@ The navigation bar in the CollectionBuilder template uses the [Bootstrap navbar 
 The Bootstrap navbar automatically collapses into a menu button on smaller screens (break point `-lg`, which is approximately tablet size). 
 
 The navbar is configured using "_data/config-nav.csv". 
-It is added to the default layout (so that every page has it) using "_includes/collection-nav.html". 
+It is added to the default layout (so that every page has it) using "_includes/navbar.html". 
 The same nav items will also be automatically added to the footer ("_includes/footer.html").
 The navbar colors can be configured in theme.yml (see "advanced-theme.md").
 

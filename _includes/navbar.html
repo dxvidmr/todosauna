@@ -1,14 +1,14 @@
 <div class="nav-backdrop" id="navBackdrop"></div>
 
+<!-- Botón flotante Mi participación (FUERA del nav-wrapper para que no se oculte con el navbar) -->
+{% if page.layout == 'lectura' or page.layout == 'laboratorio' %}
+<button id="btn-modo-usuario" class="btn-participacion-flotante d-none d-lg-flex" aria-label="Mi participación">
+    <i class="fa-solid fa-user" aria-hidden="true"></i>
+    <span class="btn-participacion-texto">Mi participación</span>
+</button>
+{% endif %}
+
 <div class="nav-wrapper text-dark" data-navbar-behavior="{% if page.navbar_behavior %}{{ page.navbar_behavior }}{% else %}fixed{% endif %}">
-    <!-- Botón flotante Mi participación (solo en lectura/laboratorio, desktop) -->
-    {% if page.layout == 'lectura' or page.layout == 'laboratorio' %}
-    <button id="btn-modo-usuario" class="btn-participacion-flotante d-none d-lg-flex" aria-label="Mi participación">
-        <i class="fa-solid fa-user" aria-hidden="true"></i>
-        <span class="btn-participacion-texto">Mi participación</span>
-    </button>
-    {% endif %}
-    
     <nav class="navbar navbar-floating {{ site.data.theme.navbar-color | default: 'navbar-dark' }} {{ site.data.theme.navbar-background | default: 'bg-dark' }}" id="mainNav">
         <div class="navbar-header">
             <a class="navbar-brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>

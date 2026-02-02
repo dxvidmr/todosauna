@@ -2,6 +2,7 @@
 layout: laboratorio
 title: Laboratorio de notas
 permalink: /participa/laboratorio/
+navbar_behavior: fixed
 ---
 
 <!-- Pantalla de bienvenida -->

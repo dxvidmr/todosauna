@@ -2,6 +2,7 @@
 layout: lectura
 title: Sala de lectura
 permalink: /lectura/
+navbar_behavior: auto-hide
 ---
 
 <!-- Layout principal de dos columnas -->
