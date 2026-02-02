@@ -237,6 +237,169 @@
   }
 }
 
+// Secciones de estadísticas
+.stats-seccion {
+  margin-bottom: 24px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.stats-subtitulo {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: $color-text;
+  margin-bottom: 12px;
+}
+
+// Barra horizontal de contribuciones
+.stats-barra-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.stats-grafico-barra {
+  flex: 1;
+  height: 30px;
+  margin-bottom: 0;
+  position: relative;
+  
+  canvas {
+    display: block;
+    width: 100% !important;
+    height: 30px !important;
+  }
+}
+
+.stats-barra-leyenda {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 140px;
+}
+
+// Responsivo: devolver a columna en pantallas pequeñas
+@media (max-width: 575.98px) {
+  .stats-barra-container,
+  .stats-visualizacion {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stats-barra-leyenda,
+  .stats-leyenda {
+    min-width: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}
+
+// Leyenda
+.leyenda-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.leyenda-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  
+  &.evaluaciones {
+    background: #5b8a72;
+  }
+  
+  &.sugerencias {
+    background: #9a7b4f;
+  }
+  
+  &.util {
+    background: $color-success;
+  }
+  
+  &.mejorable {
+    background: $color-danger;
+  }
+}
+
+.leyenda-texto {
+  color: $color-text;
+}
+
+// Visualización del gráfico circular
+.stats-visualizacion {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.stats-grafico-circular {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 160px; // diámetro reducido para rosco más pequeño
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0;
+  padding: 0;
+
+  canvas {
+    display: block;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+  }
+}
+
+.chart-center-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  padding: 0;
+}
+
+.chart-number {
+  font-size: 1.6rem; // tamaño reducido para mantener proporciones
+  font-weight: 700;
+  color: $color-dark;
+  line-height: 1;
+}
+
+.chart-sublabel {
+  font-size: 0.75rem;
+  color: $color-text-muted;
+  margin-top: 2px;
+}
+
+.stats-leyenda {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 120px;
+}
+
 // ============================================
 // LAYOUT LABORATORIO
 // ============================================

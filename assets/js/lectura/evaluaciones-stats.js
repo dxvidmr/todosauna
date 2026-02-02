@@ -294,25 +294,20 @@ function renderizarEstadisticasGlobales(container, stats) {
     <div class="stats-seccion">
       <h4 class="stats-subtitulo">Tipos de contribución</h4>
       <div class="stats-barra-container">
-        <!-- Leyenda -->
+        <!-- Leyenda (izquierda) -->
         <div class="stats-barra-leyenda">
           <div class="leyenda-item">
             <span class="leyenda-color evaluaciones"></span>
-            <span class="leyenda-texto">Evaluaciones (${stats.totalEvaluaciones})</span>
+            <span class="leyenda-texto"><strong>${pctEvaluaciones}%</strong> Evaluaciones (${stats.totalEvaluaciones})</span>
           </div>
           <div class="leyenda-item">
             <span class="leyenda-color sugerencias"></span>
-            <span class="leyenda-texto">Sugerencias (${stats.totalSugerencias})</span>
+            <span class="leyenda-texto"><strong>${pctSugerencias}%</strong> Sugerencias (${stats.totalSugerencias})</span>
           </div>
         </div>
-        <!-- Barra -->
-        <div class="stats-barra-horizontal">
-          <div class="barra-segmento evaluaciones" style="width: ${pctEvaluaciones}%">
-            <span class="barra-label">${pctEvaluaciones}%</span>
-          </div>
-          <div class="barra-segmento sugerencias" style="width: ${pctSugerencias}%">
-            <span class="barra-label">${pctSugerencias}%</span>
-          </div>
+        <!-- Gráfico de barras con Chart.js -->
+        <div class="stats-grafico-barra">
+          <canvas id="statsBarChart"></canvas>
         </div>
       </div>
     </div>
@@ -321,6 +316,18 @@ function renderizarEstadisticasGlobales(container, stats) {
     <div class="stats-seccion">
       <h4 class="stats-subtitulo">Evaluación de notas</h4>
       <div class="stats-visualizacion">
+        <!-- Leyenda (izquierda) -->
+        <div class="stats-leyenda">
+          <div class="leyenda-item">
+            <span class="leyenda-color util"></span>
+            <span class="leyenda-texto"><strong>${stats.porcentajeUtiles}%</strong> Útiles (${stats.utiles})</span>
+          </div>
+          <div class="leyenda-item">
+            <span class="leyenda-color mejorable"></span>
+            <span class="leyenda-texto"><strong>${stats.porcentajeMejorables}%</strong> Mejorables (${stats.mejorables})</span>
+          </div>
+        </div>
+
         <!-- Gráfico circular con Chart.js -->
         <div class="stats-grafico-circular">
           <canvas id="statsDoughnutChart"></canvas>
@@ -329,32 +336,121 @@ function renderizarEstadisticasGlobales(container, stats) {
             <div class="chart-sublabel">evaluaciones</div>
           </div>
         </div>
-        
-        <!-- Leyenda -->
-        <div class="stats-leyenda">
-          <div class="leyenda-item">
-            <span class="leyenda-color util"></span>
-            <span class="leyenda-texto">
-              <strong>${stats.porcentajeUtiles}%</strong> Útiles (${stats.utiles})
-            </span>
-          </div>
-          <div class="leyenda-item">
-            <span class="leyenda-color mejorable"></span>
-            <span class="leyenda-texto">
-              <strong>${stats.porcentajeMejorables}%</strong> Mejorables (${stats.mejorables})
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   `;
 
   container.innerHTML = html;
 
-  // Crear gráfico donut con Chart.js
+  // Crear gráficos con Chart.js
   setTimeout(() => {
+    crearGraficoBarraHorizontal(stats);
     crearGraficoDoughnut(stats);
   }, 100);
+}
+
+/**
+ * Crear gráfico de barra horizontal de contribuciones
+ */
+function crearGraficoBarraHorizontal(stats) {
+  const canvas = document.getElementById('statsBarChart');
+  if (!canvas) return;
+
+  // Destruir gráfico anterior si existe
+  if (window.statsBarChartInstance) {
+    window.statsBarChartInstance.destroy();
+  }
+
+  // Colores moderados (no demasiado vistosos)
+  const evaluacionesColor = '#5b8a72'; // Verde azulado suave
+  const sugerenciasColor = '#9a7b4f'; // Marrón dorado suave
+
+  const totalContribuciones = stats.totalEvaluaciones + stats.totalSugerencias;
+  const pctEvaluaciones = totalContribuciones > 0 ? Math.round((stats.totalEvaluaciones / totalContribuciones) * 100) : 50;
+  const pctSugerencias = totalContribuciones > 0 ? Math.round((stats.totalSugerencias / totalContribuciones) * 100) : 50;
+
+  window.statsBarChartInstance = new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: ['Contribuciones'],
+      datasets: [
+        {
+          label: 'Evaluaciones',
+          data: [stats.totalEvaluaciones],
+          backgroundColor: evaluacionesColor,
+          borderWidth: 0,
+          barPercentage: 1.0,
+          categoryPercentage: 1.0
+        },
+        {
+          label: 'Sugerencias',
+          data: [stats.totalSugerencias],
+          backgroundColor: sugerenciasColor,
+          borderWidth: 0,
+          barPercentage: 1.0,
+          categoryPercentage: 1.0
+        }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
+        }
+      },
+      scales: {
+        x: {
+          stacked: true,
+          display: false,
+          grid: {
+            display: false
+          },
+          beginAtZero: true,
+          // Forzar el máximo al total de contribuciones para llenar el ancho
+          max: totalContribuciones
+        },
+        y: {
+          stacked: true,
+          display: false,
+          grid: {
+            display: false
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          enabled: true,
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          padding: 12,
+          titleFont: {
+            size: 14,
+            weight: 'bold'
+          },
+          bodyFont: {
+            size: 13
+          },
+          callbacks: {
+            label: function(context) {
+              const label = context.dataset.label || '';
+              const value = context.parsed.x;
+              const total = stats.totalEvaluaciones + stats.totalSugerencias;
+              const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+              return `${label}: ${value} (${percentage}%)`;
+            }
+          }
+        }
+      }
+    }
+  });
 }
 
 /**
@@ -370,8 +466,8 @@ function crearGraficoDoughnut(stats) {
   }
 
   // Colores del tema
-  const utilColor = getComputedStyle(document.documentElement).getPropertyValue('--success-300').trim() || '#10b981';
-  const mejorableColor = getComputedStyle(document.documentElement).getPropertyValue('--warning-300').trim() || '#f59e0b';
+  const utilColor = getComputedStyle(document.documentElement).getPropertyValue('--success-300').trim() || '#7a9e7e';
+  const mejorableColor = getComputedStyle(document.documentElement).getPropertyValue('--danger-300').trim() || '#8b3a33';
 
   window.statsDoughnutChartInstance = new Chart(canvas, {
     type: 'doughnut',
@@ -380,19 +476,28 @@ function crearGraficoDoughnut(stats) {
       datasets: [{
         data: [stats.utiles, stats.mejorables],
         backgroundColor: [utilColor, mejorableColor],
-        borderWidth: 0,
-        hoverOffset: 4
+        borderWidth: 0
       }]
     },
     options: {
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
       cutout: '70%',
       plugins: {
         legend: {
           display: false
         },
         tooltip: {
+          enabled: true,
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          padding: 12,
+          titleFont: {
+            size: 14,
+            weight: 'bold'
+          },
+          bodyFont: {
+            size: 13
+          },
           callbacks: {
             label: function(context) {
               const label = context.label || '';
