@@ -5,13 +5,17 @@ permalink: /lectura/
 navbar_behavior: auto-hide
 ---
 
-<!-- Layout principal de dos columnas -->
-<div class="main-layout">
-    <!-- Columna principal para el texto TEI -->
-    <div id="TEI" class="text-column"></div>
-    <!-- Columna para las navegación y notas -->
-    <div id="col-navegación" class="notes-column">
-        <div id="resize-handle"></div>
+<!-- Contenedor principal para el texto TEI -->
+<div id="TEI" class="text-column"></div>
+
+<!-- Panel flotante de notas/navegación/info -->
+<div class="lectura-panel-wrapper" id="lectura-panel-wrapper">
+    <!-- Panel de contenido (se abre/cierra) -->
+    <div class="lectura-panel" id="lectura-panel">
+        <button class="btn-cerrar-panel" id="btn-cerrar-panel" title="Cerrar panel">
+            <i class="fa-solid fa-times"></i>
+        </button>
+        
         <!-- Contenido de las pestañas -->
         <div class="tab-content active" id="tab-notas">
             <div id="panelNotas">
@@ -79,7 +83,7 @@ navbar_behavior: auto-hide
         </div>
         <div class="tab-content" id="tab-info">
             <div class="info-panel">
-                <h4 class="fs-5 mt-4">Sobre esta edición</h4>
+                <h4 class="fs-5">Sobre esta edición</h4>
                 <p>
                     Esta es una <strong>edición digital divulgativa</strong> de <em>Fuenteovejuna</em> 
                     basada en la edición crítica del grupo Prolope (2009, PPU/Universitat Autònoma de Barcelona).
@@ -110,11 +114,12 @@ navbar_behavior: auto-hide
                 </div>
             </div>
         </div>
-        <!-- Barra de botones (pestañas) al final -->
-        <div class="button-bar">
-            <button class="tab-button active" data-tab="notas">Notas</button>
-            <button class="tab-button" data-tab="navegación">Navegación</button>
-            <button class="tab-button" data-tab="info">Info</button>
-        </div>
+    </div>
+    
+    <!-- Barra de pestañas flotante (siempre visible) -->
+    <div class="lectura-tabs-bar" id="lectura-tabs-bar">
+        <button class="tab-button" data-tab="notas">Notas</button>
+        <button class="tab-button" data-tab="navegación">Navegación</button>
+        <button class="tab-button" data-tab="info">Info</button>
     </div>
 </div>

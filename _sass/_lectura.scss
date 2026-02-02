@@ -6,6 +6,12 @@
 @use "sass:color";
 @use "variables" as *;
 
+// Variables específicas de lectura
+$lectura-panel-width: 380px;
+$lectura-tabs-height: 50px;
+$lectura-panel-max-height: 70vh;
+$color-gray-100: #f8f9fa;
+
 // ============================================
 // NAVBAR AUTO-HIDE EN SALA DE LECTURA
 // ============================================
@@ -17,8 +23,19 @@
   }
 }
 
+// Prevenir scroll horizontal en body/html cuando estamos en lectura
+body:has(.lectura-wrapper) {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+html:has(.lectura-wrapper) {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 // ============================================
-// LAYOUT PRINCIPAL LECTURA (2 COLUMNAS)
+// LAYOUT PRINCIPAL LECTURA
 // ============================================
 
 .lectura-wrapper {
@@ -26,40 +43,151 @@
   margin-top: 0;
   padding-top: 0;
   min-height: 100vh;
+  overflow-x: hidden; // Evitar scroll horizontal
+  width: 100%;
+  max-width: 100vw;
 }
 
-.main-layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-// Columna de texto TEI
+// Columna de texto TEI (ahora ocupa todo el ancho)
 .text-column {
-  flex: 1;
+  width: 100%;
+  max-width: 100vw;
   padding: 50px;
   padding-top: 80px; // Espacio inicial para el navbar
-  overflow-y: auto;
-  max-height: 100vh;
+  min-height: 100vh;
   font-family: 'Google Sans Code', 'Oxygen Mono', 'Source Code Pro', monospace;
   font-weight: 300;
   font-size: 100%;
   line-height: 1.6;
   color: $color-text;
+  box-sizing: border-box;
+  
+  // En desktop: espacio para el panel flotante
+  @media (min-width: 992px) {
+    padding-right: calc(#{$lectura-panel-width} + 100px);
+  }
 }
 
-// Columna de notas/opciones
-.notes-column {
-  position: relative;
-  width: 25%;
-  min-width: 30%;
-  max-width: 50%;
-  border-left: 2px solid $color-border-muted;
-  background-color: $color-bg;
-  overflow-y: auto;
-  max-height: 100vh;
+// ============================================
+// PANEL FLOTANTE DE LECTURA
+// ============================================
+
+.lectura-panel-wrapper {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 900;
   display: flex;
   flex-direction: column;
-  padding-top: 80px; // Espacio inicial para el navbar
+  align-items: stretch;
+  width: $lectura-panel-width;
+  pointer-events: none; // El wrapper no captura eventos
+  
+  > * {
+    pointer-events: auto; // Pero sus hijos sí
+  }
+}
+
+// Panel de contenido (se abre/cierra)
+.lectura-panel {
+  background-color: $color-gray-100;
+  border-radius: 20px 20px 0 0;
+  box-shadow: $shadow-md;
+  max-height: $lectura-panel-max-height;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  
+  // Estado cerrado por defecto
+  opacity: 0;
+  transform: translateY(20px);
+  max-height: 0;
+  padding: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  
+  // Estado abierto
+  &.open {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: $lectura-panel-max-height;
+    padding: 20px;
+    padding-top: 50px; // Espacio para el botón de cerrar
+    pointer-events: auto;
+  }
+}
+
+// Botón de cerrar panel
+.btn-cerrar-panel {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: $color-text-muted;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: $color-dark;
+  }
+}
+
+// Barra de pestañas flotante (estilo navbar)
+.lectura-tabs-bar {
+  display: flex;
+  background-color: $color-dark;
+  border-radius: 50px;
+  padding: 6px;
+  gap: 4px;
+  box-shadow: $shadow-md;
+  backdrop-filter: blur(10px);
+}
+
+// Botones de pestañas (nuevo estilo)
+.lectura-tabs-bar .tab-button {
+  flex: 1;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  
+  &:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  &.active {
+    color: $color-dark;
+    background: $color-light;
+  }
+}
+
+// Contenido de pestañas dentro del panel
+.lectura-panel .tab-content {
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+  
+  &.active {
+    display: block;
+  }
 }
 
 // ============================================
@@ -227,7 +355,7 @@
 }
 
 // ============================================
-// SISTEMA DE PESTAÑAS
+// SISTEMA DE PESTAÑAS (legacy - mantener por compatibilidad)
 // ============================================
 
 .button-bar {
@@ -238,6 +366,7 @@
   margin-top: auto; // Empujar al final del flex container
 }
 
+// Tab button genérico (fuera del tabs-bar)
 .tab-button {
   flex: 1;
   padding: 12px 16px;
@@ -261,15 +390,14 @@
   }
 }
 
+// Tab content genérico
 .tab-content {
   display: none;
-  padding: 20px;
   flex: 1;
   overflow-y: auto;
   
   &.active {
     display: block;
-
   }
 }
 
@@ -391,7 +519,7 @@
 
 .note-panel-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 12px;
   padding-bottom: 12px;
@@ -431,41 +559,6 @@
   
   i {
     margin-right: 8px;
-  }
-}
-
-// ============================================
-// RESIZE HANDLE
-// ============================================
-
-#resize-handle {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 8px;
-  height: 100%;
-  cursor: ew-resize;
-  background-color: transparent;
-  transition: background-color 0.2s ease;
-  
-  &:hover {
-    background-color: $color-dark;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 3px;
-    height: 50px;
-    background-color: $color-border-muted;
-    border-radius: 2px;
-  }
-  
-  &:hover::after {
-    background-color: $color-surface;
   }
 }
 
@@ -736,23 +829,41 @@ tei-seg.note-active {
 // RESPONSIVE
 // ============================================
 
+// Tablet y menor
 @media (max-width: 991.98px) {
-  .main-layout {
-    flex-direction: column;
-  }
-  
+  // Texto ocupa todo el ancho
   .text-column {
-    max-height: none;
     padding: 30px 20px;
+    padding-top: 80px;
+    padding-bottom: calc(#{$lectura-tabs-height} + 30px); // Espacio para la barra de pestañas
+    max-width: 100vw;
+    width: 100%;
   }
   
-  .notes-column {
+  // Panel flotante abajo
+  .lectura-panel-wrapper {
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: auto;
+    transform: none;
     width: 100%;
-    min-width: 100%;
-    max-width: 100%;
-    max-height: none;
-    border-left: none;
-    border-top: 2px solid $color-border-muted;
+    padding: 0 10px 10px;
+  }
+  
+  .lectura-panel {
+    border-radius: 20px 20px 0 0;
+    max-height: 60vh;
+    
+    &.open {
+      max-height: 60vh;
+    }
+  }
+  
+  .lectura-tabs-bar {
+    border-radius: 25px;
+    margin: 0 auto;
+    max-width: 400px;
   }
   
   tei-sp {
@@ -764,9 +875,39 @@ tei-seg.note-active {
   }
 }
 
+// Móvil
 @media (max-width: 575.98px) {
   .text-column {
     padding: 20px 15px;
+    padding-top: 70px;
+    padding-bottom: calc(#{$lectura-tabs-height} + 20px);
+    max-width: 100vw;
+    width: 100%;
+  }
+  
+  .lectura-panel-wrapper {
+    padding: 0 8px 8px;
+  }
+  
+  .lectura-tabs-bar {
+    max-width: none;
+    border-radius: 20px;
+    
+    .tab-button {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+  }
+  
+  .lectura-panel {
+    border-radius: 16px 16px 0 0;
+    max-height: 55vh;
+    
+    &.open {
+      max-height: 55vh;
+      padding: 15px;
+      padding-top: 45px;
+    }
   }
   
   tei-sp {

@@ -11,23 +11,84 @@ document.addEventListener("DOMContentLoaded", function() {
         notaActualId: null      // ID de la nota actualmente mostrada
     };
     
-    // Sistema de pestañas
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
+    // ============================================
+    // PANEL FLOTANTE - Sistema de apertura/cierre
+    // ============================================
     
+    const lecturaPanel = document.getElementById('lectura-panel');
+    const tabsBar = document.getElementById('lectura-tabs-bar');
+    const tabButtons = tabsBar ? tabsBar.querySelectorAll('.tab-button') : document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const btnCerrarPanel = document.getElementById('btn-cerrar-panel');
+    
+    // Estado del panel
+    let panelAbierto = false;
+    let pestanaActiva = null;
+    
+    // Función para abrir el panel
+    function abrirPanel(tabName) {
+        if (!lecturaPanel) return;
+        
+        // Activar la pestaña correspondiente
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        const targetTab = document.getElementById('tab-' + tabName);
+        const targetButton = tabsBar?.querySelector(`[data-tab="${tabName}"]`);
+        
+        if (targetTab) targetTab.classList.add('active');
+        if (targetButton) targetButton.classList.add('active');
+        
+        // Abrir el panel
+        lecturaPanel.classList.add('open');
+        panelAbierto = true;
+        pestanaActiva = tabName;
+    }
+    
+    // Función para cerrar el panel
+    function cerrarPanel() {
+        if (!lecturaPanel) return;
+        
+        lecturaPanel.classList.remove('open');
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        panelAbierto = false;
+        pestanaActiva = null;
+    }
+    
+    // Función para toggle del panel
+    function togglePanel(tabName) {
+        if (panelAbierto && pestanaActiva === tabName) {
+            // Si está abierto en la misma pestaña, cerrar
+            cerrarPanel();
+        } else {
+            // Si está cerrado o en otra pestaña, abrir
+            abrirPanel(tabName);
+        }
+    }
+    
+    // Event listeners para pestañas
     tabButtons.forEach(button => {
         button.addEventListener('click', function() {
             const tabName = this.getAttribute('data-tab');
-            
-            // Desactivar todas las pestañas
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-            
-            // Activar la pestaña seleccionada
-            this.classList.add('active');
-            document.getElementById('tab-' + tabName).classList.add('active');
+            togglePanel(tabName);
         });
     });
+    
+    // Event listener para botón de cerrar
+    btnCerrarPanel?.addEventListener('click', cerrarPanel);
+    
+    // Exponer funciones globalmente para uso desde otros módulos
+    window.lecturaPanel = {
+        abrir: abrirPanel,
+        cerrar: cerrarPanel,
+        toggle: togglePanel,
+        estaAbierto: () => panelAbierto,
+        getPestanaActiva: () => pestanaActiva
+    };
+    
+    // ============================================
+    // CONTROLES DE LECTURA
+    // ============================================
     
     // Control de visibilidad de notas
     const toggleNotesCheckbox = document.getElementById('toggle-notes');
@@ -388,6 +449,11 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Función para mostrar nota en el panel con navegación
     function mostrarNotaEnPanel(noteToShow, noteXmlId, teiContainer, noteContentDiv) {
+        // Abrir el panel en la pestaña de notas
+        if (window.lecturaPanel) {
+            window.lecturaPanel.abrir('notas');
+        }
+        
         const noteType = noteToShow.getAttribute('type') || '';
         const noteSubtype = noteToShow.getAttribute('subtype') || '';
         
@@ -443,9 +509,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
                     </button>
                 </div>
-                <button class="btn-circular btn-cerrar-nota" id="btn-cerrar-nota" title="Cerrar nota">
-                    <i class="fa-solid fa-times" aria-hidden="true"></i>
-                </button>
             </div>
             <div class="note-display" data-note-id="${noteXmlId}">
                 <div class="note-header">
@@ -466,10 +529,6 @@ document.addEventListener("DOMContentLoaded", function() {
         
         document.getElementById('btn-nota-next')?.addEventListener('click', () => {
             navegarNota(1, teiContainer, noteContentDiv);
-        });
-        
-        document.getElementById('btn-cerrar-nota')?.addEventListener('click', () => {
-            cerrarNota(teiContainer, noteContentDiv);
         });
     }
     
@@ -502,7 +561,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     
-    // Función para cerrar la nota
+    // Función para cerrar la nota (resetea el estado)
     function cerrarNota(teiContainer, noteContentDiv) {
         // Quitar highlight activo
         teiContainer.querySelectorAll('.note-current').forEach(el => {
@@ -543,41 +602,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
     verseObserver.observe(teiContainer, { childList: true, subtree: true });
-    
-    // Funcionalidad para redimensionar el panel de notas
-    const resizeHandle = document.getElementById('resize-handle');
-    const notesColumn = document.querySelector('.notes-column');
-    
-    if (resizeHandle && notesColumn) {
-        let isResizing = false;
-        
-        resizeHandle.addEventListener('mousedown', function(e) {
-            isResizing = true;
-            document.body.style.cursor = 'ew-resize';
-            document.body.style.userSelect = 'none';
-        });
-        
-        document.addEventListener('mousemove', function(e) {
-            if (!isResizing) return;
-            
-            const windowWidth = window.innerWidth;
-            const mouseX = e.clientX;
-            const newWidth = ((windowWidth - mouseX) / windowWidth) * 100;
-            
-            // Limitar entre 20% y 50%
-            if (newWidth >= 20 && newWidth <= 50) {
-                notesColumn.style.width = newWidth + '%';
-            }
-        });
-        
-        document.addEventListener('mouseup', function() {
-            if (isResizing) {
-                isResizing = false;
-                document.body.style.cursor = '';
-                document.body.style.userSelect = '';
-            }
-        });
-    }
 
     
     /**
