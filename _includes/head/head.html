@@ -26,6 +26,14 @@
 <link rel="stylesheet" href="{{ site.lib-assets | default: '/assets/lib' | relative_url }}/leaflet/MarkerCluster.Default.css">{% endif %}{%- endif -%}
 <!-- load custom css last to allow overrides -->
 <link rel="stylesheet" href="{{ '/assets/css/cb.css' | relative_url }}" type="text/css">
+{% if page.layout == 'lectura' or layout.layout == 'lectura' %}
+<!-- Fuentes para TEI en Sala de Lectura -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Google+Sans+Code:wght@300..800&family=Oxygen+Mono&display=swap" rel="stylesheet">
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+{% endif %}
 
 {% comment %} 
     Meta tags and analytics are added during production build ONLY 

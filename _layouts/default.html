@@ -7,7 +7,7 @@
     <div id="skip-to-content"><a href="#maincontent">Skip to main content</a></div>
     <!--{% include collection-banner.html %}-->
     {% include navbar.html %}
-    <main id="maincontent" role="main" class="flex-shrink-0">
+    <main id="maincontent" role="main" class="flex-shrink-0{% unless page.navbar_behavior == 'hidden-on-load' %} mt-navbar{% endunless %}">
       {{ content }}
     </main>
     {% include footer.html %}

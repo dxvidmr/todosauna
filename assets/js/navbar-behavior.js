@@ -38,9 +38,7 @@
         navbar.classList.remove('visible');
         isNavbarVisible = false;
         
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
+        function handleScroll(scrollTop) {
             if (scrollTop > scrollTriggerDistance && !isNavbarVisible) {
                 navbar.classList.add('visible');
                 isNavbarVisible = true;
@@ -51,6 +49,16 @@
             }
             
             lastScrollTop = scrollTop;
+        }
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            handleScroll(scrollTop);
+        }, { passive: true });
+        
+        // Listener para body scroll (Bootstrap h-100)
+        document.body.addEventListener('scroll', function() {
+            handleScroll(document.body.scrollTop);
         }, { passive: true });
     }
     
@@ -61,16 +69,11 @@
     function initAutoHide() {
         isNavbarVisible = true;
         
-        function handleScroll(e) {
+        function handleScroll(scrollTop) {
             // NO ocultar si el menú está expandido
             if (isMenuExpanded) {
                 return;
             }
-            
-            // Obtener scrollTop del elemento o de window
-            const scrollTop = e.target.scrollTop !== undefined 
-                ? e.target.scrollTop 
-                : (window.pageYOffset || document.documentElement.scrollTop);
             
             const scrollDelta = Math.abs(scrollTop - lastScrollTop);
             
@@ -83,25 +86,50 @@
                 if (isNavbarVisible) {
                     navbar.style.transform = 'translateY(-100%)';
                     isNavbarVisible = false;
+                    console.log('[Auto-hide] Ocultando navbar, scrollTop:', scrollTop);
                 }
             } else {
                 // Scrolling hacia arriba - mostrar navbar
                 if (!isNavbarVisible || scrollTop <= 80) {
                     navbar.style.transform = 'translateY(0)';
                     isNavbarVisible = true;
+                    console.log('[Auto-hide] Mostrando navbar, scrollTop:', scrollTop);
                 }
             }
             
             lastScrollTop = scrollTop;
         }
         
-        // Detectar scroll en la columna de texto (lectura)
-        const scrollableColumn = document.querySelector('.text-column');
-        if (scrollableColumn) {
-            scrollableColumn.addEventListener('scroll', handleScroll, { passive: true });
+        // Listener para window scroll
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            handleScroll(scrollTop);
+        }, { passive: true });
+        
+        // Listener para body scroll (Bootstrap h-100 causa que el scroll sea en body)
+        document.body.addEventListener('scroll', function() {
+            handleScroll(document.body.scrollTop);
+        }, { passive: true });
+        
+        // Listener para main scroll (en caso de que el scroll esté contenido por Bootstrap h-100)
+        const mainElement = document.querySelector('main#maincontent');
+        if (mainElement) {
+            mainElement.addEventListener('scroll', function() {
+                handleScroll(mainElement.scrollTop);
+            }, { passive: true });
         }
         
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        // También escuchar en .lectura-wrapper por si el scroll está ahí
+        const lecturaWrapper = document.querySelector('.lectura-wrapper');
+        if (lecturaWrapper) {
+            lecturaWrapper.addEventListener('scroll', function() {
+                handleScroll(lecturaWrapper.scrollTop);
+            }, { passive: true });
+        }
+        
+        console.log('[Auto-hide] Listeners registrados en: window, body' + 
+            (mainElement ? ', main' : '') + 
+            (lecturaWrapper ? ', .lectura-wrapper' : ''));
     }
     
     /**

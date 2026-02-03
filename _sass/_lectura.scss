@@ -51,8 +51,7 @@ html:has(.lectura-wrapper) {
 .text-column {
   width: 100%;
   max-width: 100vw;
-  padding: 50px;
-  padding-top: 80px; // Espacio inicial para el navbar
+  padding-left: 50px;
   min-height: 100vh;
   font-family: 'Google Sans Code', 'Oxygen Mono', 'Source Code Pro', monospace;
   font-weight: 300;
@@ -877,7 +876,6 @@ tei-seg.note-active {
   // Texto ocupa todo el ancho
   .text-column {
     padding: 30px 20px;
-    padding-top: 80px;
     padding-bottom: calc(#{$lectura-tabs-height} + 30px); // Espacio para la barra de pestañas
     max-width: 100vw;
     width: 100%;
@@ -924,7 +922,6 @@ tei-seg.note-active {
   .text-column {
     padding: 20px 10px;
     padding-right: 25px; // Más espacio a la derecha para los números de verso
-    padding-top: 70px;
     padding-bottom: calc(#{$lectura-tabs-height} + 20px);
     max-width: 100vw;
     width: 100%;
