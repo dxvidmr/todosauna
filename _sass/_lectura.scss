@@ -8,9 +8,8 @@
 
 // Variables específicas de lectura
 $lectura-panel-width: 380px;
+$lectura-panel-width-desktop: 480px;
 $lectura-tabs-height: 50px;
-$lectura-panel-max-height: 70vh;
-$color-gray-100: #f8f9fa;
 
 // ============================================
 // NAVBAR AUTO-HIDE EN SALA DE LECTURA
@@ -64,7 +63,7 @@ html:has(.lectura-wrapper) {
   
   // En desktop: espacio para el panel flotante
   @media (min-width: 992px) {
-    padding-right: calc(#{$lectura-panel-width} + 100px);
+    padding-right: calc(#{$lectura-panel-width-desktop} + 100px);
   }
 }
 
@@ -86,15 +85,18 @@ html:has(.lectura-wrapper) {
   > * {
     pointer-events: auto; // Pero sus hijos sí
   }
+  
+  @media (min-width: 992px) {
+    width: $lectura-panel-width-desktop;
+  }
 }
 
 // Panel de contenido (se abre/cierra)
 .lectura-panel {
   background-color: $color-gray-100;
-  border-radius: 20px 20px 0 0;
-  box-shadow: $shadow-md;
-  max-height: $lectura-panel-max-height;
-  overflow: hidden;
+  border-radius: 25px;
+  max-height: 70vh;
+  overflow: visible; // Cambiado para permitir que el handle sea visible
   display: flex;
   flex-direction: column;
   position: relative;
@@ -111,35 +113,70 @@ html:has(.lectura-wrapper) {
   &.open {
     opacity: 1;
     transform: translateY(0);
-    max-height: $lectura-panel-max-height;
+    max-height: 70vh;
     padding: 20px;
     padding-top: 50px; // Espacio para el botón de cerrar
+    padding-left: 28px; // Espacio para el handle
     pointer-events: auto;
+    overflow: hidden; // Contenido interno con scroll
   }
 }
+
+@media (min-width: 992px) {
+  // En desktop, asegurar una altura mínima para el panel y permitir que crezca si necesita más
+  .lectura-panel {
+    &.open {
+      min-height: 625px;
+    }
+  }
+} 
 
 // Botón de cerrar panel
 .btn-cerrar-panel {
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: transparent;
-  color: $color-text-muted;
-  font-size: 1.2rem;
-  cursor: pointer;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
   z-index: 10;
+}
+
+// Drag handle para redimensionar panel
+.panel-resize-handle {
+  display: none; // Oculto en mobile
   
-  &:hover {
-    background: rgba(0, 0, 0, 0.1);
-    color: $color-dark;
+  @media (min-width: 992px) {
+    display: block;
+    position: absolute;
+    left: -4px; // Ligeramente fuera del panel
+    top: 0;
+    bottom: 0;
+    width: 16px; // Área más ancha para facilitar el agarre
+    cursor: ew-resize;
+    z-index: 15; // Por encima del contenido del panel
+    transition: background-color 0.2s ease;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 50px;
+      background-color: rgba(0, 0, 0, 0.15);
+      border-radius: 2px;
+      transition: all 0.2s ease;
+    }
+    
+    &:hover::before {
+      background-color: rgba(0, 0, 0, 0.35);
+      height: 80px;
+      width: 5px;
+    }
+    
+    &:active::before {
+      background-color: $color-dark;
+      width: 6px;
+    }
   }
 }
 
@@ -410,6 +447,7 @@ html:has(.lectura-wrapper) {
   font-style: italic;
   text-align: center;
   padding: 2rem 1rem;
+  font-size: 1rem;
 }
 
 #panelNotas {
@@ -658,13 +696,18 @@ tei-l {
 // Números de verso (alineados a la derecha)
 .numero-verso {
   position: absolute;
-  right: -20px;
-  top: 0;
+  right: -50px; // Más espacio hacia la derecha para evitar que el panel los tape
+  top: 5px;
   font-size: 0.75em;
   color: $color-text-muted;
   font-weight: 400;
   user-select: none;
   pointer-events: none;
+  
+  @media (max-width: 575.98px) {
+    right: -15px; // Más cerca en móvil para que queden dentro del viewport
+    font-size: 0.7em; // Ligeramente más pequeño en móvil
+  }
 }
 
 tei-l[part="Y"][corresp="2-2"][facs="t-1"] {
@@ -847,21 +890,22 @@ tei-seg.note-active {
     bottom: 0;
     top: auto;
     transform: none;
-    width: 100%;
+    width: 100% !important; // !important para sobrescribir el width inline de JS
     padding: 0 10px 10px;
   }
   
   .lectura-panel {
-    border-radius: 20px 20px 0 0;
-    max-height: 60vh;
+    border-radius: 25px;
+    max-height: 70vh;
     
     &.open {
-      max-height: 60vh;
+      max-height: 70vh;
+      padding-left: 20px !important; // Restablecer padding en tablet/móvil
     }
   }
   
   .lectura-tabs-bar {
-    border-radius: 25px;
+    border-radius: 50px;
     margin: 0 auto;
     max-width: 400px;
   }
@@ -878,20 +922,23 @@ tei-seg.note-active {
 // Móvil
 @media (max-width: 575.98px) {
   .text-column {
-    padding: 20px 15px;
+    padding: 20px 10px;
+    padding-right: 25px; // Más espacio a la derecha para los números de verso
     padding-top: 70px;
     padding-bottom: calc(#{$lectura-tabs-height} + 20px);
     max-width: 100vw;
     width: 100%;
+    font-size: 90%; // Reducir tamaño de fuente en móvil
   }
   
   .lectura-panel-wrapper {
     padding: 0 8px 8px;
+    width: 100% !important; // !important para sobrescribir el width inline de JS
   }
   
   .lectura-tabs-bar {
     max-width: none;
-    border-radius: 20px;
+    border-radius: 50px;
     
     .tab-button {
       padding: 8px 12px;
@@ -900,11 +947,11 @@ tei-seg.note-active {
   }
   
   .lectura-panel {
-    border-radius: 16px 16px 0 0;
-    max-height: 55vh;
+    border-radius: 25px;
+    max-height: 70vh;
     
     &.open {
-      max-height: 55vh;
+      max-height: 70vh;
       padding: 15px;
       padding-top: 45px;
     }

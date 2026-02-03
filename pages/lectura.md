@@ -11,8 +11,9 @@ navbar_behavior: auto-hide
 <!-- Panel flotante de notas/navegación/info -->
 <div class="lectura-panel-wrapper" id="lectura-panel-wrapper">
     <!-- Panel de contenido (se abre/cierra) -->
-    <div class="lectura-panel" id="lectura-panel">
-        <button class="btn-cerrar-panel" id="btn-cerrar-panel" title="Cerrar panel">
+    <div class="lectura-panel mb-2" id="lectura-panel">
+        <div class="panel-resize-handle" id="panel-resize-handle"></div>
+        <button class="btn-cerrar-panel btn-circular" id="btn-cerrar-panel" title="Cerrar panel">
             <i class="fa-solid fa-times"></i>
         </button>
         

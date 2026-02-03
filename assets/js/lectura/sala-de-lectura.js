@@ -87,6 +87,71 @@ document.addEventListener("DOMContentLoaded", function() {
     };
     
     // ============================================
+    // REDIMENSIONAMIENTO DEL PANEL (DRAG HANDLE)
+    // ============================================
+    
+    const resizeHandle = document.getElementById('panel-resize-handle');
+    const panelWrapper = document.getElementById('lectura-panel-wrapper');
+    
+    if (resizeHandle && panelWrapper) {
+        let isResizing = false;
+        let startX = 0;
+        let startWidth = 0;
+        const minWidth = 320;
+        const maxWidth = 800;
+        
+        // Función para limpiar el width inline en tablet/móvil
+        function resetWidthOnResize() {
+            if (window.innerWidth < 992 && panelWrapper.style.width) {
+                panelWrapper.style.width = '';
+                // También restaurar el padding del text-column
+                if (textColumn) {
+                    textColumn.style.paddingRight = '';
+                }
+            }
+        }
+        
+        // Limpiar width inline al cambiar tamaño de ventana
+        window.addEventListener('resize', resetWidthOnResize);
+        
+        // Solo habilitar drag en desktop
+        if (window.innerWidth >= 992) {
+            resizeHandle.addEventListener('mousedown', function(e) {
+                if (window.innerWidth < 992) return; // Doble verificación
+                
+                isResizing = true;
+                startX = e.clientX;
+                startWidth = panelWrapper.offsetWidth;
+                document.body.style.cursor = 'ew-resize';
+                document.body.style.userSelect = 'none';
+                e.preventDefault();
+            });
+            
+            document.addEventListener('mousemove', function(e) {
+                if (!isResizing || window.innerWidth < 992) return;
+                
+                const deltaX = startX - e.clientX; // Invertido porque el panel crece hacia la izquierda
+                const newWidth = Math.min(Math.max(startWidth + deltaX, minWidth), maxWidth);
+                
+                panelWrapper.style.width = newWidth + 'px';
+                
+                // Ajustar padding-right del text-column para que los números de verso no queden tapados
+                if (textColumn) {
+                    textColumn.style.paddingRight = (newWidth + 100) + 'px';
+                }
+            });
+            
+            document.addEventListener('mouseup', function() {
+                if (isResizing) {
+                    isResizing = false;
+                    document.body.style.cursor = '';
+                    document.body.style.userSelect = '';
+                }
+            });
+        }
+    }
+    
+    // ============================================
     // CONTROLES DE LECTURA
     // ============================================
     

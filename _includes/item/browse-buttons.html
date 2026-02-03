@@ -6,14 +6,14 @@
 
 {%- endcomment -%}
 <div class="text-center">
-  <a class="btn btn-secondary" href="{{ page.previous_item | relative_url }}" id="prev-page-button">&laquo; Previous</a>
-  <a class="btn btn-secondary" href="{{ '/browse.html' | relative_url }}">Back to Browse</a>
-  <a class="btn btn-secondary" href="{{ page.next_item | relative_url }}" id="next-page-button">Next &raquo;</a>
+  <a class="btn btn-dark" href="{{ page.previous_item | relative_url }}" id="prev-page-button"><i class="fa fa-chevron-left"></i> Anterior</a>
+  <a class="btn btn-dark" href="{{ '/archivo/documentos' | relative_url }}">Volver al archivo</a>
+  <a class="btn btn-dark" href="{{ page.next_item | relative_url }}" id="next-page-button">Siguiente <i class="fa fa-chevron-right"></i></a>
 </div>
 <div id="item-nav">
   <div class="d-none d-md-block">
-    <a class="previous btn btn-lg btn-secondary" href="{{ page.previous_item | relative_url }}">&laquo;</a>
-    <a class="next btn btn-lg btn-secondary" href="{{ page.next_item | relative_url }}">&raquo;</a>
+    <a class="previous btn btn-lg btn-circular" href="{{ page.previous_item | relative_url }}"><i class="fa fa-chevron-left"></i></a>
+    <a class="next btn btn-lg btn-circular" href="{{ page.next_item | relative_url }}"><i class="fa fa-chevron-right"></i></a>
   </div>
 </div>
 <script>

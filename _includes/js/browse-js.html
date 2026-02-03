@@ -81,7 +81,7 @@ function makeCard(obj) {
         const btns = obj[{{ f.field | jsonify }}].split(";");
         btns.forEach(btn => {
             if(btn.trim()) {
-                card += `<a class="btn btn-sm btn-secondary m-1 text-wrap" href="{{ page.url | relative_url }}#{{ f.field }}:${encodeURIComponent(btn.trim())}">${btn.trim()}</a>`;
+                card += `<a class="btn btn-sm btn-outline-dark m-1 text-wrap" href="{{ page.url | relative_url }}#{{ f.field }}:${encodeURIComponent(btn.trim())}">${btn.trim()}</a>`;
             }
         });
         {% else %}
@@ -95,10 +95,10 @@ function makeCard(obj) {
     // Media type badge
     if(obj.display_template) {
         const mediaIcon = getIcon(obj.display_template, obj.format, "hidden");
-        card += `<p class="card-text"><small><a class="btn btn-sm btn-outline-secondary" href="{{ page.url | relative_url }}#display_template:${encodeURIComponent(obj.display_template)}">${obj.display_template.toUpperCase().replace("_"," ")} ${mediaIcon}</a></small></p>`;
+        card += `<p class="card-text"><small><a class="btn btn-sm btn-outline-dark" href="{{ page.url | relative_url }}#display_template:${encodeURIComponent(obj.display_template)}">${obj.display_template.toUpperCase().replace("_"," ")} ${mediaIcon}</a></small></p>`;
     }
     
-    card += `<hr><a href="${itemHref}" class="btn btn-sm btn-light" title="link to ${obj.title}">View Full Record</a></div></div></div>`;
+    card += `<hr><a href="${itemHref}" class="btn btn-sm btn-dark" title="link to ${obj.title}">Ver registro</a></div></div></div>`;
     return card;
 }
 

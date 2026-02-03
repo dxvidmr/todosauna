@@ -1,5 +1,9 @@
 @use "variables" as *;
 
+.mt-navbar {
+    margin-top: 100px;
+}
+
 .btn {
     border-radius: 50px;
 }
@@ -57,4 +61,24 @@
 // Iconos en botones outline al hacer hover (cuando Bootstrap cambia el fondo)
 [class*="btn-outline"]:hover i {
   color: white !important;
+}
+
+// Asegurar que el modal backdrop no bloquee clics cuando no hay modal activo
+.modal-backdrop {
+  pointer-events: none;
+  
+  &.show {
+    pointer-events: auto;
+  }
+}
+
+// Asegurar que los modales cerrados no bloqueen interacción
+.modal:not(.show) {
+  pointer-events: none !important;
+  display: none !important;
+}
+
+.modal.show {
+  pointer-events: auto;
+  display: block !important;
 }
