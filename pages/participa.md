@@ -7,7 +7,7 @@ permalink: /participa/
 
 ## Tu voz construye esta historia
 
-<i>Fuenteovejuna</i> es una obra viva que ha sido representada, leída, discutida y sentida por miles de personas durante siglos. Este proyecto necesita tu participación para documentar y comprender esa historia colectiva.
+<i>Fuenteovejuna</i> es una obra viva que ha sido representada, leída, discutida y sentida por miles de personas durante más de cuatro siglos. Este proyecto necesita tu participación para documentar y comprender esa historia colectiva.
 
 ## ¿Qué es la <b>ciencia ciudadana</b>?
 
