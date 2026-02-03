@@ -34,17 +34,18 @@
                 <div class="navbar-expanded-column">
                     <a href="{{ '/lectura/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/lectura/' %} active{% endif %}">Lectura</a>
                     <ul class="navbar-expanded-links">
-                        <li><a href="{{ '/browse.html' | relative_url }}">Explorar colección</a></li>
-                        <li><a href="{{ '/subjects.html' | relative_url }}">Por temas</a></li>
-                        <li><a href="{{ '/timeline.html' | relative_url }}">Línea de tiempo</a></li>
+                        
                     </ul>
                 </div>
                 
                 <div class="navbar-expanded-column">
                     <a href="{{ '/archivo/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/archivo/' %} active{% endif %}">Archivo</a>
                     <ul class="navbar-expanded-links">
-                        <li><a href="{{ '/locations.html' | relative_url }}">Por ubicaciones</a></li>
-                        <li><a href="{{ '/data.html' | relative_url }}">Datos y metadatos</a></li>
+                        <li><a href="{{ '/archivo/documentos/' | relative_url }}">Explorar documentos</a></li>
+                        <li><a href="{{ '/archivo/testimonios/' | relative_url }}">Explorar testimonios</a></li>
+                        <li><a href="{{ '/timeline.html' | relative_url }}">Línea de tiempo</a></li>
+                        <li><a href="{{ '/map.html' | relative_url }}">Mapa</a></li>
+                        
                     </ul>
                 </div>
                 
@@ -52,8 +53,8 @@
                     <a href="{{ '/participa/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/participa/' %} active{% endif %}">Participa</a>
                     <ul class="navbar-expanded-links">
                         <li><a href="{{ '/participa/laboratorio/' | relative_url }}">Laboratorio de notas</a></li>
-                        <li><a href="#">Contribuye con contenido</a></li>
-                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">Contribuye al archivo</a></li>
+                        <li><a href="{{ '/data.html' | relative_url }}">Set de datos</a></li>
                     </ul>
                 </div>
                 
@@ -61,7 +62,7 @@
                     <a href="{{ '/acerca-de/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/acerca-de/' %} active{% endif %}">Acerca de</a>
                     <ul class="navbar-expanded-links">
                         <li><a href="{{ '/about.html' | relative_url }}">Sobre el proyecto</a></li>
-                        <li><a href="#">Equipo</a></li>
+                        <li><a href="#">Contacto</a></li>
                     </ul>
                 </div>
             </div>
