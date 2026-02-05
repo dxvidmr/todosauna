@@ -15,7 +15,7 @@
     <!-- Chart.js para estadísticas -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
   </head>
-  <body class="d-flex flex-column h-100">
+  <body class="d-flex flex-column h-100{% if page.navbar_overlay %} navbar-overlay{% endif %}">
     <div id="skip-to-content"><a href="#maincontent">Skip to main content</a></div>
     {% include navbar.html %}
     

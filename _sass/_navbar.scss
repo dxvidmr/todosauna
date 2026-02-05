@@ -74,6 +74,17 @@
     }
 }
 
+// Cuando el navbar es fixed y NO debe superponerse al contenido
+// usamos sticky para que ocupe espacio natural en el flujo.
+body:not(.navbar-overlay) .nav-wrapper[data-navbar-behavior="fixed"] {
+    position: sticky;
+}
+
+// En páginas que requieren overlay, forzar fixed aunque sea behavior fixed.
+body.navbar-overlay .nav-wrapper[data-navbar-behavior="fixed"] {
+    position: fixed;
+}
+
 /* Floating Navbar */
 .navbar-floating {
     width: auto;

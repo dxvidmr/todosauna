@@ -1,59 +1,57 @@
 ---
-layout: page
+layout: default
 title: Participa
 permalink: /participa/
----
-# Participa
-
-## Tu voz construye esta historia
-
-<i>Fuenteovejuna</i> es una obra viva que ha sido representada, leída, discutida y sentida por miles de personas durante más de cuatro siglos. Este proyecto necesita tu participación para documentar y comprender esa historia colectiva.
-
-## ¿Qué es la <b>ciencia ciudadana</b>?
-
-La investigación colaborativa democratiza el conocimiento. Tu experiencia, memoria o hallazgo documental puede revelar aspectos que los archivos oficiales no conservan. Juntos construimos un relato más rico y completo.
-
-Aprende más sobre <a href="https://www.uab.cat/web/investigacion/investigacion-e-innovacion-responsable/ciencia-ciudadana/-que-es-la-ciencia-ciudadana-1345869944379.html">ciencia ciudadana</a>.
-
-
-
-## Cómo puedes participar
-
-<div class="row mt-4">
-  <div class="col-md-4 mb-4">
-    <div class="card h-100 text-center">
-      <div class="card-body">
-        <h3 class="h4">Laboratorio de notas</h3>
-        <p>Lee y anota el texto de Fuenteovejuna. Comparte tus interpretaciones.</p>
-        <a href="{{ '/laboratorio/' | relative_url }}" class="btn btn-dark btn-lg">Ir al laboratorio</a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="col-md-4 mb-4">
-    <div class="card h-100 text-center">
-      <div class="card-body">
-        <h3 class="h4">Aporta documentos</h3>
-        <p>¿Tienes programas, carteles, fotos o recortes de prensa? Compártelos.</p>
-        <a href="" class="btn btn-dark btn-lg">Contribuir</a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="col-md-4 mb-4">
-    <div class="card h-100 text-center">
-      <div class="card-body">
-        <h3 class="h4">Tu testimonio</h3>
-        <p>Cuenta tu experiencia: como espectador, actor, director, investigador...</p>
-        <a href="" class="btn btn-dark btn-lg">Dejar testimonio</a>
-      </div>
-    </div>
-  </div>
-</div>
-
+navbar_overlay: true
 ---
 
-### Tu participación será reconocida
+<section class="participa-hero">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6 order-2 order-lg-1">
+        <div class="card card-soft p-4 p-lg-5">
+          <h2 class="mb-3">Tu voz construye esta historia</h2>
+          <p class="mb-0">
+            <i>Fuenteovejuna</i> es una obra viva que ha sido representada, leída, discutida y sentida por miles de personas durante cuatro siglos.
+            Tu participación es clave para construir una edición social del texto y documentar su memoria colectiva.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-6 order-1 order-lg-2 text-center text-lg-end">
+        <h1 class="participa-title mb-0">PARTICIPA</h1>
+      </div>
+    </div>
 
-Todas las contribuciones con nombre será reconocidas, pero también puedes participar de forma anónima. Lee más sobre [protección de datos]().
+    <div class="row g-4 mt-3">
+      <div class="col-md-4">
+        <div class="card card-media h-100" style="--card-image: url('{{ '/assets/img/participa/marginalia.jpg' | relative_url }}');">
+          <div class="card-media-body">
+            <h3 class="text-uppercase mb-2">Lee y comenta</h3>
+            <p class="mb-3">Las notas ayudan a construir una interpretación colectiva.</p>
+            <a href="{{ '/participa/laboratorio/' | relative_url }}" class="btn btn-light btn-sm btn-soft">Ir al laboratorio</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-media h-100" style="--card-image: url('{{ '/assets/img/participa/archivos.jpg' | relative_url }}');">
+          <div class="card-media-body">
+            <h3 class="text-uppercase mb-2">Comparte un documento</h3>
+            <p class="mb-3">Programas, carteles, fotos, recortes de prensa...</p>
+            <a href="#" class="btn btn-light btn-sm btn-soft">Contribuir</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-media h-100" style="--card-image: url('{{ '/assets/img/participa/platea.jpg' | relative_url }}');">
+          <div class="card-media-body">
+            <h3 class="text-uppercase mb-2">Cuenta tu historia</h3>
+            <p class="mb-3">¿Qué significa <i>Fuenteovejuna</i> para ti?</p>
+            <a href="#" class="btn btn-light btn-sm btn-soft">Compartir testimonio</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <p class="text-center small mt-4 mb-0 participa-footnote">Lee la <a href="#">guía de participación</a> o conoce más <a href="#">sobre el proyecto</a>.</p>
+  </div>
+</section>

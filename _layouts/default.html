@@ -3,11 +3,11 @@
   <head prefix="og: http://ogp.me/ns#">
     {% include head/head.html %}
   </head>
-  <body class="d-flex flex-column h-100{% if page.url == '/' %} home-page{% endif %}">
+  <body class="d-flex flex-column h-100{% if page.url == '/' %} home-page{% endif %}{% if page.navbar_overlay %} navbar-overlay{% endif %}">
     <div id="skip-to-content"><a href="#maincontent">Skip to main content</a></div>
     <!--{% include collection-banner.html %}-->
     {% include navbar.html %}
-    <main id="maincontent" role="main" class="flex-shrink-0{% unless page.navbar_behavior == 'hidden-on-load' %} mt-navbar{% endunless %}">
+    <main id="maincontent" role="main" class="flex-shrink-0{% if page.navbar_behavior == 'auto-hide' %} navbar-offset-main{% endif %}">
       {{ content }}
     </main>
     {% include footer.html %}

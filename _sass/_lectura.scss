@@ -45,6 +45,7 @@ html:has(.lectura-wrapper) {
   overflow-x: hidden; // Evitar scroll horizontal
   width: 100%;
   max-width: 100vw;
+  box-sizing: border-box;
 }
 
 // Columna de texto TEI (ahora ocupa todo el ancho)
