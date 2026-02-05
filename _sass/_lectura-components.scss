@@ -91,6 +91,9 @@
     font-size: 0.95em;
     transition: color 0.2s ease;
   }
+  &:hover {
+    color: white;
+  }
 }
 
 .btn-contador {
@@ -232,8 +235,8 @@
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
-  background: $color-light;
-  color: white;
+  background: $color-dark;
+  color: $color-gray-100;
   border: none;
   border-radius: 50px;
   font-size: 13px;
@@ -244,12 +247,12 @@
   white-space: nowrap;
   
   &:hover {
-    background: $color-light-dark;
+    background: $color-dark-light;
     transform: scale(1.02);
   }
   
   i {
-    color: $color-dark-light;
+    color: $color-gray-100
   }
 }
 
@@ -327,45 +330,7 @@
   margin-top: 8px;
 }
 
-.btn-cancelar-sugerencia {
-  padding: 10px 18px;
-  background: $color-surface;
-  color: $color-text;
-  border: 1px solid $color-border;
-  border-radius: 50px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
-  
-  &:hover {
-    background: $color-border-light;
-    border-color: #999;
-  }
-}
 
-.btn-enviar-sugerencia {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: $color-light;
-  color: white;
-  border: none;
-  border-radius: 50px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  
-  &:hover:not(:disabled) {
-    background: $color-light-dark;
-  }
-  
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
-}
 
 // ============================================
 // MODAL
@@ -390,6 +355,7 @@
   right: 0;
   bottom: 0;
   background: $color-overlay;
+  z-index: 1;
 }
 
 .modal-content {
@@ -402,6 +368,8 @@
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: $shadow-md;
+  pointer-events: auto; // Asegurar que botones funcionen
+  z-index: 2; // Por encima del overlay
   
   h2 {
     margin-bottom: 8px;

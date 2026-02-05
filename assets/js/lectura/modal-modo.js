@@ -5,7 +5,7 @@
 class ModalModo {
   constructor() {
     this.modalHTML = `
-      <div id="modal-modo" class="modal" style="display:none;">
+      <div id="modal-modo" class="modal">
         <div class="modal-overlay"></div>
         <div class="modal-content">
           <button id="modal-modo-close" class="modal-close" aria-label="Cerrar modal">&times;</button>
@@ -506,7 +506,7 @@ class ModalModo {
   mostrar() {
     return new Promise((resolve) => {
       this.volverOpciones();
-      this.modal.style.display = 'flex';
+      this.modal.classList.add('show');
       this.onClose = resolve;
       // Activar cierre con tecla Escape
       document.addEventListener('keydown', this._handleKeydown);
@@ -514,7 +514,7 @@ class ModalModo {
   }
   
   cerrar() {
-    this.modal.style.display = 'none';
+    this.modal.classList.remove('show');
     // Desactivar listener de tecla Escape
     document.removeEventListener('keydown', this._handleKeydown);
     if (this.onClose) this.onClose();
@@ -593,8 +593,7 @@ class ModalModo {
     
     // Crear modal temporal
     const infoModal = document.createElement('div');
-    infoModal.className = 'modal';
-    infoModal.style.display = 'flex';
+    infoModal.className = 'modal show';
     infoModal.innerHTML = `
       <div class="modal-overlay"></div>
       <div class="modal-content">

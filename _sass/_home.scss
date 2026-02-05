@@ -131,9 +131,6 @@
 
 /* Responsive para pantallas con POCA ALTURA */
 @media (max-height: 800px) {
-  .hero {
-    padding: 80px 20px 20px; /* Menos padding vertical */
-  }
 
   .hero-title {
     font-size: clamp(3rem, 8vw, 7rem); /* Título más pequeño */
@@ -152,9 +149,6 @@
 }
 
 @media (max-height: 650px) {
-  .hero {
-    padding: 60px 20px 15px;
-  }
 
   .hero-title {
     font-size: clamp(2.5rem, 7vw, 5rem);
@@ -227,13 +221,6 @@
   align-items: center;
   padding: 20px 0;
   overflow: hidden;
-}
-
-.explore-content {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 20px;
-  text-align: center;
 }
 
 .explore-badge {

@@ -60,12 +60,11 @@ class SugerenciasNotas {
   crearModal() {
     this.modal = document.createElement('div');
     this.modal.className = 'modal sugerencia-modal';
-    this.modal.style.display = 'none';
     this.modal.innerHTML = `
       <div class="modal-overlay"></div>
       <div class="modal-content sugerencia-modal-content">
         <button class="modal-close" type="button" aria-label="Cerrar">&times;</button>
-        <h2><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Sugerir nota faltante</h2>
+        <h2><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Sugerir nota</h2>
         <p class="modal-descripcion">¿Crees que este texto necesita una nota explicativa? Cuéntanos por qué.</p>
         
         <div class="sugerencia-form">
@@ -81,8 +80,8 @@ class SugerenciasNotas {
           ></textarea>
           
           <div class="sugerencia-botones">
-            <button type="button" class="btn-cancelar-sugerencia">Cancelar</button>
-            <button type="button" class="btn-enviar-sugerencia">
+            <button type="button" class="btn-cancelar-sugerencia btn btn-outline-dark">Cancelar</button>
+            <button type="button" class="btn-enviar-sugerencia btn btn-dark">
               <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
               Enviar sugerencia
             </button>
@@ -100,7 +99,7 @@ class SugerenciasNotas {
 
     // Cerrar con Escape
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.modal.style.display !== 'none') {
+      if (e.key === 'Escape' && this.modal.classList.contains('show')) {
         this.cerrarModal();
       }
     });
@@ -267,7 +266,7 @@ class SugerenciasNotas {
     this.modal.querySelector('#sugerencia-comentario').value = '';
 
     // Mostrar modal
-    this.modal.style.display = 'flex';
+    this.modal.classList.add('show');
     this.ocultarTooltip();
 
     // Focus en textarea
@@ -280,7 +279,7 @@ class SugerenciasNotas {
    * Cerrar el modal
    */
   cerrarModal() {
-    this.modal.style.display = 'none';
+    this.modal.classList.remove('show');
     this.seleccionActual = null;
   }
 

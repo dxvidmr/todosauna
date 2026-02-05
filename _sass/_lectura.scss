@@ -190,30 +190,34 @@ html:has(.lectura-wrapper) {
   backdrop-filter: blur(10px);
 }
 
-// Botones de pestañas (nuevo estilo)
+// Botones de pestañas
+// Botones de pestañas
 .lectura-tabs-bar .tab-button {
   flex: 1;
   padding: 10px 16px;
   background: transparent;
   border: none;
-  border-radius: 50px;
+  border-radius: 0;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  color: $color-gray-100;
   transition: all 0.2s ease;
   white-space: nowrap;
   
   &:hover {
-    color: white;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba($color-gray-600, 0.3);
+    color: $color-gray-100;
+    border-radius: 50px;
   }
   
   &.active {
-    color: $color-dark;
-    background: $color-light;
+    color: $color-gray-100;
+    background: $color-gray-600;
+    border-radius: 50px;
   }
 }
+s
 
 // Contenido de pestañas dentro del panel
 .lectura-panel .tab-content {

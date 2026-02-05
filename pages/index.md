@@ -23,16 +23,14 @@ navbar_behavior: hidden-on-load
 
 <!-- Sección de exploración con carrusel -->
 <section id="explore-section" class="explore-section">
-    <div class="container">
-        <div class="explore-content text-center">
-            <!--<p class="explore-badge">TODOS A UNA</p>-->
-            <h2 class="explore-title">
-                Explora la obra, colabora en la edición y descubre la historia de <i>Fuenteovejuna</i>
-            </h2>
-            <a href="#acerca-de" class="btn btn-dark btn-lg mt-5">
-                SOBRE EL PROYECTO
-            </a>
-        </div>
+    <div class="explore-content text-center ms-3 me-3">
+        <!--<p class="explore-badge">TODOS A UNA</p>-->
+        <h2 class="explore-title">
+            Explora la obra, colabora en la edición y descubre la historia de <i>Fuenteovejuna</i>
+        </h2>
+        <a href="#acerca-de" class="btn btn-dark btn-lg mt-5">
+            SOBRE EL PROYECTO
+        </a>
     </div>
     <!-- Carrusel de imágenes con overlay de texto -->
     <div class="explore-carousel mt-5">
