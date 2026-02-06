@@ -25,7 +25,7 @@ navbar_behavior: hidden-on-load
 <section id="explore-section" class="explore-section">
     <div class="explore-content text-center ms-3 me-3">
         <!--<p class="explore-badge">TODOS A UNA</p>-->
-        <h2 class="explore-title">
+        <h2 class="explore-title mx-2 mx-md-4">
             Explora la obra, colabora en la edición y descubre la historia de <i>Fuenteovejuna</i>
         </h2>
         <a href="#acerca-de" class="btn btn-dark btn-lg mt-5">
