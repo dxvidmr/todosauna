@@ -8,7 +8,7 @@
 </button>
 {% endif %}
 
-<div class="nav-wrapper text-dark" data-navbar-behavior="{% if page.navbar_behavior %}{{ page.navbar_behavior }}{% else %}fixed{% endif %}">
+<div class="nav-wrapper text-light" data-navbar-behavior="{% if page.navbar_behavior %}{{ page.navbar_behavior }}{% else %}fixed{% endif %}">
     <nav class="navbar navbar-floating {{ site.data.theme.navbar-color | default: 'navbar-dark' }} {{ site.data.theme.navbar-background | default: 'bg-dark' }}" id="mainNav">
         <div class="navbar-header">
             <a class="navbar-brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
@@ -29,7 +29,7 @@
         </div>
 
         <!-- Expanded menu content -->
-        <div class="navbar-expanded text-dark" id="navExpanded">
+        <div class="navbar-expanded text-light" id="navExpanded">
             <div class="navbar-expanded-grid">
                 <div class="navbar-expanded-column">
                     <a href="{{ '/lectura/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/lectura/' %} active{% endif %}">Lectura</a>
@@ -75,7 +75,7 @@
                 <!-- Botón Mi participación a la derecha de la búsqueda -->
                 {% if page.layout == 'lectura' or page.layout == 'laboratorio' %}
                 <div class="navbar-expanded-participacion">
-                    <button id="btn-modo-usuario-menu" class="btn btn-outline-dark" aria-label="Mi participación">
+                    <button id="btn-modo-usuario-menu" class="btn btn-outline-light" aria-label="Mi participación">
                         <i class="fa-solid fa-user" aria-hidden="true"></i> Mi participación
                     </button>
                 </div>

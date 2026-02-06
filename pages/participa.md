@@ -5,12 +5,11 @@ permalink: /participa/
 navbar_overlay: true
 ---
 
-<section class="participa-hero">
-  <div class="container">
-    <div class="row align-items-center g-4">
+<section class="participa-hero px-3 px-md-4 px-lg-5">
+    <div class="row align-items-center g-3">
       <div class="col-lg-6 order-2 order-lg-1">
-        <div class="card card-soft p-4 p-lg-5">
-          <h3 class="mb-3 text-uppercase">Tu voz construye esta historia</h3>
+        <div class="card card-soft p-3 p-lg-4">
+          <h3 class="mb-2 text-uppercase">Tu voz construye esta historia</h3>
           <p class="mb-0">
             <i>Fuenteovejuna</i> es una obra viva que ha sido representada, leída, discutida y sentida por miles de personas durante cuatro siglos.
             Tu participación es clave para construir una edición social del texto y documentar su memoria colectiva.
@@ -21,7 +20,7 @@ navbar_overlay: true
         <h1 class="participa-title mb-0">PARTICIPA</h1>
       </div>
     </div>
-    <div class="row g-4 mt-3 participa-cards">
+    <div class="row g-3 mt-2 participa-cards">
       <div class="col-md-4">
         <div class="card card-media h-100" style="--card-image: url('{{ '/assets/img/participa/marginalia.jpg' | relative_url }}');">
           <div class="card-media-body">
@@ -50,6 +49,5 @@ navbar_overlay: true
         </div>
       </div>
     </div>
-    <p class="text-center small mt-4 mb-0 participa-footnote">Lee la <a href="#">guía de participación</a> o conoce más <a href="#">sobre el proyecto</a>.</p>
-  </div>
+    <p class="text-center small mt-3 mb-0 participa-footnote">Lee la <a href="#">guía de participación</a> o conoce más <a href="#">sobre el proyecto</a>.</p>
 </section>

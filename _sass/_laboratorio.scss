@@ -25,7 +25,7 @@
   align-items: center;
   justify-content: center;
   padding: 80px 20px 40px; // Padding-top para el navbar inicial
-  background: linear-gradient(135deg, $color-bg 0%, $color-surface 100%);
+  background: linear-gradient(135deg, $color-light 0%, $color-neutral-100 100%);
 }
 
 .bienvenida-container {
@@ -168,7 +168,7 @@
   gap: 12px;
   
   &:hover {
-    background: $color-dark-dark;
+    background: $color-dark;
     transform: scale(1.02);
   }
   
@@ -189,7 +189,7 @@
   gap: 10px;
   margin-bottom: 24px;
   padding-bottom: 16px;
-  border-bottom: 1px solid $color-border;
+  border-bottom: 1px solid $color-neutral-200;
   font-size: 1.1rem;
   color: $color-text;
   
@@ -215,7 +215,7 @@
 .stat-item {
   text-align: center;
   padding: 16px;
-  background: $color-panel-bg;
+  background: $color-neutral-100;
   border-radius: 8px;
   
   .stat-number {
@@ -430,7 +430,7 @@
 // Barra de progreso
 .barra-progreso {
   height: 8px;
-  background: $color-border-light;
+  background: $color-neutral-100;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -448,8 +448,8 @@
   font-size: 0.75rem;
   font-weight: 500;
   border-radius: 12px;
-  background: $color-border-light;
-  color: $color-dark-dark;
+  background: $color-neutral-100;
+  color: $color-dark;
 }
 
 // Wrapper de las dos columnas
@@ -582,9 +582,9 @@
 
 .btn-navegacion {
   padding: 12px 24px;
-  background: $color-surface;
+  background: $color-light;
   color: $color-text;
-  border: 1px solid $color-border;
+  border: 1px solid $color-neutral-200;
   border-radius: 50px;
   cursor: pointer;
   font-size: 14px;
@@ -595,7 +595,7 @@
   gap: 8px;
   
   &:hover {
-    background: $color-border-light;
+    background: $color-neutral-100;
     border-color: #999;
   }
   
@@ -619,7 +619,7 @@
   gap: 8px;
   
   &:hover {
-    background: $color-dark-dark;
+    background: $color-dark;
   }
   
   i {
@@ -631,14 +631,14 @@
   padding: 12px 24px;
   background: transparent;
   color: $color-text-muted;
-  border: 1px solid $color-border;
+  border: 1px solid $color-neutral-200;
   border-radius: 50px;
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s;
   
   &:hover {
-    background: $color-border-light;
+    background: $color-neutral-100;
     color: $color-text;
   }
 }
@@ -647,7 +647,7 @@
   padding: 12px 16px;
   background: transparent;
   color: $color-text-muted;
-  border: 1px solid $color-border;
+  border: 1px solid $color-neutral-200;
   border-radius: 50px;
   cursor: pointer;
   font-size: 14px;
@@ -655,7 +655,7 @@
   margin-left: auto;
   
   &:hover {
-    background: $color-border-light;
+    background: $color-neutral-100;
     color: $color-text;
   }
   
@@ -742,13 +742,13 @@
   font-size: 0.75rem;
   font-weight: 500;
   border-radius: 12px;
-  background: $color-border-light;
-  color: $color-dark-dark;
+  background: $color-neutral-100;
+  color: $color-dark;
 }
 
 .barra-progreso {
   height: 8px;
-  background: $color-border-light;
+  background: $color-neutral-100;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -787,7 +787,7 @@
     align-items: center;
     margin-bottom: 12px;
     padding-bottom: 12px;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid $color-neutral-200;
     flex-shrink: 0;
   }
 
@@ -807,7 +807,7 @@
 
   .notas-instrucciones {
     padding-top: 16px;
-    border-top: 1px solid $color-border;
+    border-top: 1px solid $color-neutral-200;
     flex-shrink: 0;
     margin-top: 0; // Ya no necesita margin-top: auto porque la barra está antes
     

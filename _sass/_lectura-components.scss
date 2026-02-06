@@ -54,7 +54,7 @@
 .nota-content .nota-evaluacion {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid $color-border-light;
+  border-top: 1px solid $color-neutral-100;
 }
 
 .evaluacion-header {
@@ -92,7 +92,7 @@
     transition: color 0.2s ease;
   }
   &:hover {
-    color: white;
+    color: $color-neutral-100;
   }
 }
 
@@ -146,7 +146,7 @@
   textarea {
     width: 100%;
     padding: 8px;
-    border: 1px solid $color-border;
+    border: 1px solid $color-neutral-200;
     border-radius: 4px;
     font-family: inherit;
     font-size: 13px;
@@ -183,7 +183,7 @@
   font-weight: 500;
   padding: 8px;
   text-align: center;
-  background: $color-border-light;
+  background: $color-neutral-100;
   border-radius: 4px;
   
   i {
@@ -193,9 +193,6 @@
 
 // Ajustes específicos para laboratorio
 .nota-content {
-  .nota-evaluacion {
-    // display: flex; gap: 10px; // Removido para nueva estructura
-  }
   
   .evaluacion-comentario button {
     margin-top: 10px;
@@ -236,7 +233,7 @@
   gap: 6px;
   padding: 8px 14px;
   background: $color-dark;
-  color: $color-gray-100;
+  color: $color-light;
   border: none;
   border-radius: 50px;
   font-size: 13px;
@@ -247,12 +244,12 @@
   white-space: nowrap;
   
   &:hover {
-    background: $color-dark-light;
+    background: $color-neutral-700;
     transform: scale(1.02);
   }
   
   i {
-    color: $color-gray-100
+    color: $color-light
   }
 }
 
@@ -291,8 +288,8 @@
 
 .sugerencia-texto-seleccionado {
   padding: 12px 16px;
-  background: $color-bg;
-  border: 1px solid $color-border;
+  background: $color-light;
+  border: 1px solid $color-neutral-200;
   border-radius: 6px;
   color: $color-text;
   line-height: 1.5;
@@ -305,7 +302,7 @@
 .sugerencia-textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid $color-border;
+  border: 1px solid $color-neutral-200;
   border-radius: 6px;
   font-family: inherit;
   font-size: 14px;
@@ -360,7 +357,7 @@
 
 .modal-content {
   position: relative;
-  background: $color-surface;
+  background: $color-light;
   border-radius: 8px;
   padding: 32px;
   max-width: 800px;
@@ -428,7 +425,7 @@
   }
   
   &:hover {
-    background: $color-light-dark;
+    background: $color-neutral-200;
   }
 }
 
@@ -446,7 +443,7 @@
 .info-modo {
   margin-bottom: 20px;
   padding: 15px;
-  background-color: $color-panel-bg;
+  background-color: $color-neutral-100;
   border-radius: 6px;
   
   p {
@@ -458,7 +455,7 @@
 .info-stats {
   margin-bottom: 20px;
   padding: 15px;
-  background-color: $color-bg-subtle;
+  background-color: $color-neutral-100;
   border-radius: 6px;
   border-left: 4px solid $color-dark;
   
@@ -495,7 +492,7 @@
 
 // Panel de lector existente
 .lector-info-previa {
-  background-color: $color-bg-subtle;
+  background-color: $color-neutral-100;
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 20px;
@@ -520,7 +517,7 @@
 
 // Estilos unificados para todas las opciones clickeables del modal
 .modo-opcion {
-  border: 2px solid $color-border;
+  border: 2px solid $color-neutral-200;
   border-radius: 8px;
   padding: 20px;
   text-align: center;
@@ -591,7 +588,7 @@
   input[type="text"] {
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid $color-border;
+    border: 1px solid $color-neutral-200;
     border-radius: 4px;
     font-size: 14px;
     font-family: inherit;
@@ -630,6 +627,60 @@
 // ESTILOS COMPARTIDOS DE NOTAS
 // ============================================
 
+// NOTAS: targets y highlights (compartido)
+$note-underline: $color-neutral-700;
+$note-highlight-strong: 0.6;
+$note-highlight: 0.25;
+
+@mixin note-highlight($alpha) {
+  background: linear-gradient(
+    transparent 5%,
+    rgba($color-neutral-200, $alpha) 5%,
+    rgba($color-neutral-100, $alpha) 80%
+  );
+}
+
+// Base para targets de notas
+.note-target {
+  text-decoration: underline;
+  text-decoration-color: $note-underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover,
+  &.note-active {
+    text-decoration: none;
+    @include note-highlight($note-highlight-strong);
+  }
+}
+
+// Cuando las notas están ocultas
+.notes-hidden .note-target {
+  text-decoration: none;
+
+  &:hover,
+  &.note-active {
+    text-decoration: none;
+    @include note-highlight($note-highlight-strong);
+  }
+}
+
+// Nota activa en el texto (más fuerte)
+.note-target.note-current {
+  text-decoration: none !important;
+  @include note-highlight($note-highlight-strong);
+}
+
+// Compatibilidad layout legacy (sin wrapper)
+.note-target:not(.note-wrapper),
+tei-l.note-target,
+tei-seg.note-target {
+  display: table;
+  width: fit-content;
+}
+
 // Estilos para el display de notas
 .note-display {
   padding: 1rem;
@@ -665,22 +716,15 @@
   
   .note-badge-type,
   .note-badge-subtype {
-    background-color: $color-border-light;
-    color: $color-dark-dark;
-    border: 1px solid $color-border;
+    background-color: $color-neutral-100;
+    color: $color-dark;
+    border: 1px solid $color-neutral-200;
   }
 }
 
 .note-footer {
   margin-top: 1rem;
   padding-top: 1rem;
-}
-
-// Nota activa en el texto
-.note-wrapper.note-current {
-  background: linear-gradient(transparent 5%, rgba($color-light, 0.25) 5%, rgba($color-light, 0.25) 80%) !important;
-  //border-bottom: 2px solid $color-light !important;
-  text-decoration: none !important;
 }
 
 // ============================================

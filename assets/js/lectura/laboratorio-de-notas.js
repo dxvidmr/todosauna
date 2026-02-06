@@ -405,14 +405,14 @@ class EditorSocial {
     // Anadir titulo del pasaje
     const titulo = document.createElement('h2');
     titulo.textContent = pasaje.titulo;
-    titulo.style.cssText = 'margin-bottom: 10px; color: var(--text); border-bottom: 2px solid var(--primary); padding-bottom: 10px;';
+    titulo.style.cssText = 'margin-bottom: 10px; color: var(--text); border-bottom: 2px solid var(--dark); padding-bottom: 10px;';
     this.pasajeContent.appendChild(titulo);
 
     // Anadir descripcion si existe
     if (pasaje.descripcion) {
       const descripcion = document.createElement('p');
       descripcion.textContent = pasaje.descripcion;
-      descripcion.style.cssText = 'margin-bottom: 20px; color: var(--muted); font-style: italic; line-height: 1.6;';
+      descripcion.style.cssText = 'margin-bottom: 20px; color: var(--text-muted); font-style: italic; line-height: 1.6;';
       this.pasajeContent.appendChild(descripcion);
     }
 
@@ -1103,10 +1103,10 @@ class EditorSocial {
     layout.innerHTML = `
       <div style="text-align: center; padding: 80px 20px; max-width: 600px; margin: 0 auto;">
         <h1 style="font-size: 3rem; color: var(--success); margin-bottom: 20px;">Felicidades!</h1>
-        <p style="font-size: 1.5rem; color: var(--muted); margin-bottom: 30px;">
+        <p style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 30px;">
           Has completado todos los pasajes disponibles
         </p>
-        <p style="font-size: 1.2rem; color: var(--muted-2); margin-bottom: 40px;">
+        <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px;">
           Gracias por tu contribucion al proyecto
         </p>
         <a href="../index.html" class="btn" style="font-size: 1.2rem; padding: 15px 40px;">

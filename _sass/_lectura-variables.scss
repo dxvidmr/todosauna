@@ -5,59 +5,14 @@
 
 @use "variables" as *;
 
-// CSS Custom Properties para componentes dinámicos del JS
+// CSS Custom Properties para componentes dinamicos del JS
 :root {
-  // Colores principales
-  --primary: #{$color-dark};
-  --primary-700: #{$color-dark-dark};
-  --primary-100: #{$color-border-light};
-  --primary-border: #{$color-border};
-  
-  --secondary: #{$color-light};
-  --secondary-100: #{$color-light};
-  
-  // Superficies
-  --surface: #{$color-surface};
-  --surface-variant: #f5f5f5;
-  --panel-bg: #{$color-panel-bg};
-  --bg: #{$color-bg};
-  --bg-subtle: #{$color-bg-subtle};
-  
-  // Textos
+  // Colores base usados por JS
+  --dark: #{$color-dark};
   --text: #{$color-text};
-  --text-secondary: #{$color-text-secondary};
-  --muted: #{$color-text-muted};
-  --muted-dark: #{$color-text-muted-dark};
-  --muted-light: #{$color-border-light};
-  --muted-mid: #999999;
-  
-  // Bordes
-  --border: #{$color-border};
-  --border-muted: #{$color-border-muted};
-  --muted-border: #d0ccc8;
-  
-  // Estados (para votaciones útil/mejorable)
+  --text-muted: #{$color-text-muted};
+
+  // Estados (para votaciones util/mejorable)
   --success: #{$color-success};
-  --success-100: #{$color-success-light};
-  --success-light: #{$color-success-light};
-  
-  --warning: #{$color-danger};
-  --warning-100: #{$color-danger-100};
-  --warning-light: #{$color-danger-light};
-  
-  // Sombras
-  --shadow-color: rgba(0,0,0,0.1);
-  --shadow-strong: rgba(0,0,0,0.15);
-  --shadow-elev-1: #{$shadow-sm};
-  --shadow-elev-2: #{$shadow-md};
-  --shadow-elev-3: #{$shadow-lg};
-  --shadow-heavy: #{$shadow-heavy};
-  
-  // Overlay y otros
-  --overlay: #{$color-overlay};
-  --toast-bg: #333333;
-  --toast-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  
-  --on-primary: #ffffff;
-  --on-surface: #ffffff;
+  --danger: #{$color-danger};
 }

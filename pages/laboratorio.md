@@ -40,7 +40,7 @@ navbar_behavior: fixed
         <div class="opcion-icono"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></div>
         <div class="opcion-contenido">
           <h3>Modo secuencial</h3>
-          <p class="text-gray-500">Recorre los pasajes en orden cronológico de la obra</p>
+          <p class="text-neutral-400">Recorre los pasajes en orden cronológico de la obra</p>
         </div>
       </div>
       
@@ -48,11 +48,11 @@ navbar_behavior: fixed
         <div class="opcion-icono"><i class="fa-solid fa-shuffle" aria-hidden="true"></i></div>
         <div class="opcion-contenido">
           <h3>Modo aleatorio</h3>
-          <p class="text-gray-500">Sorpréndete con un pasaje al azar de la obra</p>
+          <p class="text-neutral-400">Sorpréndete con un pasaje al azar de la obra</p>
         </div>
       </div>
       
-      <div class="stats-globales bg-gray-200">
+      <div class="stats-globales bg-neutral-100">
         <div class="loading-stats-container">
           <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
           Cargando estadísticas...
@@ -78,7 +78,7 @@ navbar_behavior: fixed
     <div class="laboratorio-pasaje-column">
       
       <!-- Contenedor del pasaje -->
-      <div class="pasaje-container bg-gray-100">
+      <div class="pasaje-container bg-light">
         <div id="pasaje-content">
           <div class="loading">Cargando pasaje...</div>
         </div>
@@ -117,7 +117,7 @@ navbar_behavior: fixed
     <div class="laboratorio-notas-column">
       
       <!-- Container de notas (mismo estilo que pasaje-container) -->
-      <div class="notas-container bg-gray-100">
+      <div class="notas-container bg-light">
         
         <!-- Navegación entre notas (como note-panel-header) -->
         <div class="notas-navegacion">

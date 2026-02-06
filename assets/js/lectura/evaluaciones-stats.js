@@ -466,8 +466,8 @@ function crearGraficoDoughnut(stats) {
   }
 
   // Colores del tema
-  const utilColor = getComputedStyle(document.documentElement).getPropertyValue('--success-300').trim() || '#7a9e7e';
-  const mejorableColor = getComputedStyle(document.documentElement).getPropertyValue('--danger-300').trim() || '#8b3a33';
+  const utilColor = getComputedStyle(document.documentElement).getPropertyValue('--success').trim() || '#7a9e7e';
+  const mejorableColor = getComputedStyle(document.documentElement).getPropertyValue('--danger').trim() || '#8b3a33';
 
   window.statsDoughnutChartInstance = new Chart(canvas, {
     type: 'doughnut',
