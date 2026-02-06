@@ -42,6 +42,104 @@ const dateFields = ['date', 'created', 'published', 'modified', 'issued', 'date_
 
 // Cache DOM elements
 var loadingIcon, filterTextBox, browseItemsDiv;
+let msnry = null;
+
+const browseColumnsStorageKey = 'browseColumns';
+const browseColumnsDefault = 3;
+const browseColumnsMin = 3;
+const browseColumnsMax = 6;
+
+function normalizeBrowseColumns(value) {
+    const parsed = parseInt(value, 10);
+    if (Number.isNaN(parsed)) return browseColumnsDefault;
+    return Math.max(browseColumnsMin, Math.min(browseColumnsMax, parsed));
+}
+
+function parseCssSizeToPx(value) {
+    const raw = (value || '').trim();
+    if (!raw) return 0;
+    const num = parseFloat(raw);
+    if (Number.isNaN(num)) return 0;
+    if (raw.endsWith('rem')) {
+        const rootSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        return num * (Number.isNaN(rootSize) ? 16 : rootSize);
+    }
+    return num;
+}
+
+function getBrowseGutterPx() {
+    if (!browseItemsDiv) return 0;
+    const gutterValue = getComputedStyle(browseItemsDiv).getPropertyValue('--browse-gutter');
+    return parseCssSizeToPx(gutterValue);
+}
+
+function createMasonrySizer() {
+    const sizer = document.createElement('div');
+    sizer.className = 'browse-sizer';
+    return sizer;
+}
+
+function initMasonry() {
+    if (!browseItemsDiv || typeof Masonry === 'undefined') return;
+    if (msnry) {
+        msnry.destroy();
+        msnry = null;
+    }
+    msnry = new Masonry(browseItemsDiv, {
+        itemSelector: '.browse-item',
+        columnWidth: '.browse-sizer',
+        gutter: getBrowseGutterPx(),
+        percentPosition: true
+    });
+}
+
+function applyBrowseColumns(value, persist = true) {
+    const columns = normalizeBrowseColumns(value);
+    const valueSpan = document.getElementById('browseColumnsValue');
+    if (valueSpan) valueSpan.textContent = columns;
+    if (browseItemsDiv) {
+        browseItemsDiv.style.setProperty('--browse-columns-user', columns);
+    }
+    document.querySelectorAll('.browse-columns-item').forEach(button => {
+        const buttonValue = parseInt(button.dataset.columns, 10);
+        button.classList.toggle('active', buttonValue === columns);
+    });
+    if (persist) {
+        try {
+            localStorage.setItem(browseColumnsStorageKey, columns);
+        } catch (e) {
+            // ignore storage errors
+        }
+    }
+    if (msnry) {
+        msnry.reloadItems();
+        msnry.layout();
+    }
+}
+
+function initColumnsControl() {
+    const buttons = document.querySelectorAll('.browse-columns-item');
+    buttons.forEach(button => {
+        button.addEventListener('click', () => applyBrowseColumns(button.dataset.columns, true));
+    });
+
+    let stored = null;
+    try {
+        stored = localStorage.getItem(browseColumnsStorageKey);
+    } catch (e) {
+        stored = null;
+    }
+    const initial = normalizeBrowseColumns(stored || browseColumnsDefault);
+    applyBrowseColumns(initial, false);
+}
+
+function debounce(fn, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn.apply(this, args), wait);
+    };
+}
 
 {% include helpers/get-icon.js %}
 
@@ -56,7 +154,7 @@ function makeCard(obj) {
     const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E";
     const itemHref = `{{ '/items/' | relative_url }}${ obj.parent ? obj.parent + ".html#" + obj.id : obj.id + ".html"}`;
     
-    let card = '<div class="item col-lg-4 col-md-6 mb-2"><div class="card">';
+    let card = '<div class="browse-item"><div class="card">';
     
     // Image or icon
     if(obj.img) {
@@ -364,7 +462,9 @@ function updateDisplay(filteredItems, query = "", field = "", startDate = "", en
     
     // Single DOM update
     browseItemsDiv.innerHTML = '';
+    browseItemsDiv.appendChild(createMasonrySizer());
     browseItemsDiv.appendChild(fragment);
+    initMasonry();
     
     // Update count
     document.querySelector("#numberOf").innerHTML = `${filteredItems.length} of {{ items | size }} items`;
@@ -826,6 +926,7 @@ window.addEventListener('load', function() {
     loadingIcon = document.querySelector("#loadingIcon");
     filterTextBox = document.querySelector('#filterTextBox');
     browseItemsDiv = document.querySelector("#browseItems");
+    initColumnsControl();
     
     // Initialize default sort
     {% if site.data.theme.default-sort-field %}
@@ -1043,6 +1144,14 @@ function setupEventHandlers() {
             }
         });
     }
+
+    // Masonry relayout on lazyloaded images and resize
+    document.addEventListener('lazyloaded', () => {
+        if (msnry) msnry.layout();
+    });
+    window.addEventListener('resize', debounce(() => {
+        if (msnry) msnry.layout();
+    }, 150));
 }
 </script>
 {% endunless %}
