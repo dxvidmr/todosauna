@@ -1,201 +1,199 @@
 // ============================================
 // ESTILOS LABORATORIO DE NOTAS
-// Pantalla de bienvenida, layout y controles
+// Arquitectura por vistas: welcome / mode
 // ============================================
 
 @use "variables" as *;
 
 // ============================================
-// WRAPPER LABORATORIO
+// BASE PAGE
 // ============================================
 
+body.laboratorio-page #maincontent,
+body.laboratorio-page .laboratorio-wrapper {
+  background: $color-light;
+}
+
+body.laboratorio-page.laboratorio-mode-active {
+  overflow: hidden;
+}
+
 .laboratorio-wrapper {
+  --lab-inline-gutter: var(--layout-inline-gutter, clamp(16px, 2.4vw, 36px));
+  --lab-rail-max: 1400px;
+  --lab-welcome-top: calc(var(--navbar-height) + var(--overlay-nav-gap));
+  --lab-welcome-bottom: clamp(40px, 7vh, 90px);
+  --lab-mode-top: calc(var(--navbar-height) + var(--overlay-nav-gap));
+
   margin-top: 0;
   padding-top: 0;
   min-height: 100vh;
+  min-height: 100svh;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: clip;
 }
 
 // ============================================
-// PANTALLA DE BIENVENIDA
+// WELCOME SCREEN (contenido, no fullscreen forzado)
 // ============================================
 
 .laboratorio-bienvenida {
-  min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 80px 20px 40px; // Padding-top para el navbar inicial
-  background: linear-gradient(135deg, $color-light 0%, $color-neutral-100 100%);
+  padding: var(--lab-welcome-top) var(--lab-inline-gutter) var(--lab-welcome-bottom);
+  background: $color-light;
 }
 
 .bienvenida-container {
+  width: min(100%, var(--lab-rail-max));
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: 
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-areas:
     "titulo titulo"
     "explicacion opciones";
-  gap: 40px 60px;
-  max-width: 1400px;
-  width: 100%;
-  padding: 40px;
+  gap: clamp(26px, 3vw, 54px) clamp(30px, 4vw, 72px);
 }
 
-// Título principal
 .bienvenida-titulo {
   grid-area: titulo;
-  font-size: 2.5rem;
+  margin: 0;
+  font-size: clamp(2rem, 4.4vw, 3rem);
   color: $color-text;
-  margin: 0 0 20px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  
+  gap: 14px;
+  text-align: center;
+
   i {
     color: $color-dark;
-    font-size: 2.2rem;
+    font-size: clamp(1.7rem, 3.6vw, 2.4rem);
   }
 }
 
-// Lado izquierdo: Explicación
 .bienvenida-explicacion {
   grid-area: explicacion;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  
-  h1 {
-    font-size: 2.5rem;
-    color: $color-text;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    
-    i {
-      color: $color-dark;
-      font-size: 2.2rem;
-    }
-  }
+  gap: clamp(14px, 2vh, 22px);
+  min-width: 0;
 }
 
 .explicacion-seccion {
-  padding: 24px;
-  border-radius: 12px;
-  
+  padding: clamp(18px, 2.4vh, 26px);
+
   h3 {
-    font-size: 1.3rem;
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
     color: $color-dark;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    margin-bottom: 10px;
   }
-  
+
   p {
-    font-size: 1.05rem;
+    font-size: clamp(0.96rem, 1.25vw, 1.06rem);
     line-height: 1.7;
     color: $color-text-secondary;
+    margin-bottom: 0;
   }
-  
+
   ol {
-    margin-left: 20px;
-    line-height: 1.8;
+    margin: 0 0 0 20px;
+    line-height: 1.7;
     color: $color-text-secondary;
+    padding-left: 0;
   }
-  
+
   li {
-    margin-bottom: 8px;
-    font-size: 1.05rem;
+    margin-bottom: 6px;
+    font-size: clamp(0.95rem, 1.2vw, 1.04rem);
   }
 }
 
-// Lado derecho: Opciones de entrada
 .bienvenida-opciones {
   grid-area: opciones;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: clamp(18px, 2.8vh, 28px);
+  min-width: 0;
 }
 
 .opcion-modo {
-  padding: 32px;
+  padding: clamp(20px, 2.8vh, 34px);
   display: flex;
   align-items: center;
-  gap: 30px;
-  transition: all 0.3s ease;
-  
+  gap: clamp(16px, 2.4vw, 28px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
   .opcion-icono {
     flex-shrink: 0;
-    font-size: 2rem;
-    
-    i {
-      display: block;
-    }
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
   }
-  
+
   .opcion-contenido {
     flex: 1;
     text-align: left;
   }
-  
+
   h3 {
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 2.2vw, 1.45rem);
     font-weight: 700;
     text-transform: uppercase;
+    margin-bottom: 6px;
   }
-  
+
   p {
-    font-size: 1rem;
+    font-size: clamp(0.92rem, 1.1vw, 1rem);
     margin-bottom: 0;
   }
 }
 
 .btn-modo-entrada {
   background: $color-dark;
-  color: white;
+  color: $color-light;
   padding: 16px 32px;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   border: none;
   border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.2s;
   width: 100%;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  
+
   &:hover {
     background: $color-dark;
-    transform: scale(1.02);
-  }
-  
-  i {
-    font-size: 1.2rem;
   }
 }
 
-// Estadísticas globales
+// ============================================
+// STATS (welcome)
+// ============================================
+
 .stats-globales {
-  padding: 24px;
-  border-radius: 50px;
+  padding: clamp(18px, 2.6vh, 24px);
+  border-radius: 30px;
+  background: $color-neutral-100;
 }
 
 .stats-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
   border-bottom: 1px solid $color-neutral-200;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: $color-text;
-  
+
   i {
     color: $color-dark;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -209,33 +207,32 @@
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
+  gap: 16px;
 }
 
 .stat-item {
   text-align: center;
-  padding: 16px;
-  background: $color-neutral-100;
-  border-radius: 8px;
-  
+  padding: 14px;
+  background: rgba($color-light, 0.75);
+  border-radius: 10px;
+
   .stat-number {
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 1.9rem;
+    font-weight: 700;
     color: $color-dark;
     display: block;
     margin-bottom: 4px;
   }
-  
+
   .stat-label {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: $color-text-muted;
   }
 }
 
-// Secciones de estadísticas
 .stats-seccion {
-  margin-bottom: 24px;
-  
+  margin-bottom: 20px;
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -248,10 +245,8 @@
   margin-bottom: 12px;
 }
 
-// Barra horizontal de contribuciones
 .stats-barra-container {
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 20px;
 }
@@ -261,7 +256,7 @@
   height: 30px;
   margin-bottom: 0;
   position: relative;
-  
+
   canvas {
     display: block;
     width: 100% !important;
@@ -276,64 +271,8 @@
   min-width: 140px;
 }
 
-// Responsivo: devolver a columna en pantallas pequeñas
-@media (max-width: 575.98px) {
-  .stats-barra-container,
-  .stats-visualizacion {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .stats-barra-leyenda,
-  .stats-leyenda {
-    min-width: auto;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-}
-
-// Leyenda
-.leyenda-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
-}
-
-.leyenda-color {
-  width: 16px;
-  height: 16px;
-  border-radius: 3px;
-  flex-shrink: 0;
-  
-  &.evaluaciones {
-    background: #5b8a72;
-  }
-  
-  &.sugerencias {
-    background: #9a7b4f;
-  }
-  
-  &.util {
-    background: $color-success;
-  }
-  
-  &.mejorable {
-    background: $color-danger;
-  }
-}
-
-.leyenda-texto {
-  color: $color-text;
-}
-
-// Visualización del gráfico circular
 .stats-visualizacion {
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 20px;
 }
@@ -342,7 +281,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 160px; // diámetro reducido para rosco más pequeño
+  flex: 0 0 160px;
   position: relative;
   width: 160px;
   height: 160px;
@@ -370,13 +309,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: auto;
-  height: auto;
-  padding: 0;
 }
 
 .chart-number {
-  font-size: 1.6rem; // tamaño reducido para mantener proporciones
+  font-size: 1.6rem;
   font-weight: 700;
   color: $color-dark;
   line-height: 1;
@@ -395,248 +331,204 @@
   min-width: 120px;
 }
 
+.leyenda-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.leyenda-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+
+  &.evaluaciones {
+    background: #5b8a72;
+  }
+
+  &.sugerencias {
+    background: #9a7b4f;
+  }
+
+  &.util {
+    background: $color-success;
+  }
+
+  &.mejorable {
+    background: $color-danger;
+  }
+}
+
+.leyenda-texto {
+  color: $color-text;
+}
+
 // ============================================
-// LAYOUT LABORATORIO
+// MODE SCREEN (100vh real)
 // ============================================
 
 .laboratorio-layout {
   display: none;
-  flex-direction: column;
-  padding: 30px 40px;
-  height: 100vh;
-  
+  box-sizing: border-box;
+
   &.active {
     display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 100svh;
+    overflow: hidden;
+    padding: var(--lab-mode-top) var(--lab-inline-gutter) clamp(12px, 2vh, 24px);
+    background: $color-light;
   }
 }
 
-// Header del laboratorio (arriba de todo)
 .laboratorio-header {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   flex-shrink: 0;
-  
+
   h1 {
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 2.2vw, 1.9rem);
     color: $color-text;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
-  
+
   p {
     color: $color-text-muted;
-    margin-bottom: 16px;
+    margin-bottom: 0;
+    font-size: clamp(0.88rem, 1.1vw, 0.96rem);
   }
 }
 
-// Barra de progreso
-.barra-progreso {
-  height: 8px;
-  background: $color-neutral-100;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.barra-progreso-fill {
-  height: 100%;
-  background: $color-dark;
-  border-radius: 4px;
-  transition: width 0.3s ease;
-}
-
-.modo-badge {
-  display: inline-block;
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  border-radius: 12px;
-  background: $color-neutral-100;
-  color: $color-dark;
-}
-
-// Wrapper de las dos columnas
 .laboratorio-content-wrapper {
   display: flex;
-  gap: 20px;
+  gap: 18px;
   flex: 1;
-  min-height: 0; // Importante para que funcione el scroll
-  align-items: stretch; // Asegurar que las columnas se estiren a la misma altura
+  min-height: 0;
+  align-items: stretch;
 }
 
-// Forzar que ambas columnas ocupen toda la altura disponible
 .laboratorio-pasaje-column,
 .laboratorio-notas-column {
   height: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
-// Asegurar que los contenedores internos llenen la columna
-.pasaje-container,
-.notas-container {
-  flex: 1;
-  min-height: 0; // importante para permitir scroll interno
-}
-
-// Columna del pasaje
 .laboratorio-pasaje-column {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0; // Importante para flex
+  min-width: 0;
 }
 
-// Columna de notas
 .laboratorio-notas-column {
-  width: 350px;
+  width: clamp(320px, 28vw, 430px);
   min-width: 300px;
   max-width: 450px;
-  display: flex;
-  flex-direction: column;
 }
 
-// Contenedores (ambos con mismo estilo)
 .pasaje-container,
 .notas-container {
   flex: 1;
-  border-radius: 50px;
-  padding: 30px;
+  min-height: 0;
+  border-radius: 34px;
+  padding: clamp(18px, 2.3vh, 30px);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  min-height: 0; // Importante para scroll
+  background: $color-light;
 }
 
 .pasaje-container {
-  font-family: 'Google Sans Code', 'Oxygen Mono', 'Source Code Pro', monospace;
+  font-family: "Google Sans Code", "Oxygen Mono", "Source Code Pro", monospace;
   font-weight: 300;
   line-height: 1.6;
 }
 
 #pasaje-content {
-  min-height: 200px;
+  min-height: 180px;
 }
 
-// Controles de navegación del pasaje
 .laboratorio-controles {
-  margin-top: 16px;
+  margin-top: 12px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-// Controles de progreso (compartido entre pasaje y notas)
-// Controles de progreso de notas (FUERA del container gris)
-.notas-controles-progreso {
+.laboratorio-controles-progreso {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 16px; // separación del container de notas
-  flex-shrink: 0;
-  
+  gap: 14px;
+
+  .laboratorio-progreso {
+    font-size: 0.88rem;
+    color: $color-text-muted;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
   .barra-progreso-container {
     flex: 1;
-    min-width: 0; // permite que se comprima
-  }
-  
-  .notas-contador-abajo {
-    font-size: 0.9rem;
-    color: $color-text-muted;
-    white-space: nowrap;
     margin: 0;
-    min-width: fit-content; // ajusta al contenido
+    min-width: 0;
   }
-}
-
-// Responsive
-@media (max-width: 575.98px) {
-  .notas-controles-progreso {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    
-    .notas-contador-abajo {
-      text-align: center;
-    }
-  }
-}
-
-.laboratorio-progreso {
-  font-size: 0.9rem;
-  color: $color-text-muted;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-}
-
-.barra-progreso-container {
-  flex: 1;
-  margin: 0;
 }
 
 .laboratorio-controles-botones {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
+.btn-navegacion,
+.btn-siguiente,
+.btn-saltar,
+.btn-cambiar-modo {
+  border-radius: 50px;
+  font-size: 0.86rem;
+  transition: all 0.2s;
+}
+
 .btn-navegacion {
-  padding: 12px 24px;
+  padding: 10px 18px;
   background: $color-light;
   color: $color-text;
   border: 1px solid $color-neutral-200;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  
+
   &:hover {
     background: $color-neutral-100;
-    border-color: #999;
-  }
-  
-  i {
-    font-size: 0.9em;
   }
 }
 
 .btn-siguiente {
-  padding: 12px 24px;
+  padding: 10px 18px;
   background: $color-dark;
-  color: white;
+  color: $color-light;
   border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  
+
   &:hover {
     background: $color-dark;
-  }
-  
-  i {
-    font-size: 0.9em;
   }
 }
 
 .btn-saltar {
-  padding: 12px 24px;
+  padding: 10px 18px;
   background: transparent;
   color: $color-text-muted;
   border: 1px solid $color-neutral-200;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s;
-  
+
   &:hover {
     background: $color-neutral-100;
     color: $color-text;
@@ -644,106 +536,20 @@
 }
 
 .btn-cambiar-modo {
-  padding: 12px 16px;
+  padding: 10px 14px;
   background: transparent;
   color: $color-text-muted;
   border: 1px solid $color-neutral-200;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s;
   margin-left: auto;
-  
+
   &:hover {
     background: $color-neutral-100;
     color: $color-text;
   }
-  
+
   i {
     margin-right: 6px;
   }
-}
-
-// ============================================
-// CONTROLES DE PROGRESO - PASAJES
-// ============================================
-
-.laboratorio-controles {
-  margin-top: 16px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-// Progreso de pasajes (fuera del container)
-.laboratorio-controles-progreso {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex: 1;
-  
-  .laboratorio-progreso {
-    font-size: 0.9rem;
-    color: $color-text-muted;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-  }
-  
-  .barra-progreso-container {
-    flex: 1;
-    margin: 0;
-  }
-}
-
-// Botones de navegación de pasajes
-.laboratorio-controles-botones {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-// ============================================
-// CONTROLES DE PROGRESO - NOTAS
-// ============================================
-
-.notas-controles-progreso {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 16px;
-  margin-top: auto;
-  border-top: none;
-  flex-shrink: 0;
-  
-  .barra-progreso-container {
-    flex: 1;
-    min-width: 0;
-  }
-  
-  .notas-contador-abajo {
-    font-size: 0.9rem;
-    color: $color-text-muted;
-    white-space: nowrap;
-    margin: 0;
-    min-width: fit-content;
-  }
-}
-
-// ============================================
-// COMPONENTES INDIVIDUALES
-// ============================================
-
-.modo-badge {
-  display: inline-block;
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  border-radius: 12px;
-  background: $color-neutral-100;
-  color: $color-dark;
 }
 
 .barra-progreso {
@@ -760,27 +566,21 @@
   transition: width 0.3s ease;
 }
 
-.barra-progreso-container {
-  // Base compartida
-  margin: 0;
+.modo-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 12px;
+  background: $color-neutral-100;
+  color: $color-dark;
 }
 
 // ============================================
-// PANEL DE NOTAS
+// NOTE PANEL
 // ============================================
 
 .notas-container {
-  // Estructura interna con barra de progreso al final
-  display: flex;
-  flex-direction: column;
-  
-  .nota-content {
-    flex: 1;
-    overflow-y: auto;
-    min-height: 0;
-    margin-bottom: 20px;
-}
-
   .notas-navegacion {
     display: flex;
     justify-content: space-between;
@@ -805,17 +605,23 @@
     text-align: center;
   }
 
+  .nota-content {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    margin-bottom: 12px;
+  }
+
   .notas-instrucciones {
-    padding-top: 16px;
+    padding-top: 12px;
     border-top: 1px solid $color-neutral-200;
     flex-shrink: 0;
-    margin-top: 0; // Ya no necesita margin-top: auto porque la barra está antes
-    
+
     p {
       margin: 0;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: $color-text-muted;
-      
+
       i {
         margin-right: 6px;
         color: $color-dark;
@@ -824,62 +630,153 @@
   }
 }
 
-// ============================================
-// RESPONSIVE
-// ============================================
+.notas-controles-progreso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: none;
+  flex-shrink: 0;
 
-@media (max-width: 991.98px) {
-  .laboratorio-layout {
-    padding: 20px;
+  .barra-progreso-container {
+    flex: 1;
+    min-width: 0;
   }
-  
-  .laboratorio-content-wrapper {
-    flex-direction: column;
-  }
-  
-  .laboratorio-notas-column {
-    width: 100%;
-    min-width: 100%;
-    max-width: 100%;
+
+  .notas-contador-abajo {
+    font-size: 0.86rem;
+    color: $color-text-muted;
+    white-space: nowrap;
+    margin: 0;
+    min-width: fit-content;
   }
 }
 
-@media (max-width: 575.98px) {
-  // Progreso de pasajes en mobile
-  .laboratorio-controles-progreso {
+// ============================================
+// BREAKPOINTS: desktop / tablet / mobile
+// ============================================
+
+// Tablet: 768 - 1023
+@media (max-width: 1023.98px) {
+  .laboratorio-layout.active {
+    padding-top: calc(var(--navbar-height) + clamp(10px, 2vh, 18px));
+    padding-inline: clamp(14px, 2.8vw, 24px);
+    padding-bottom: clamp(10px, 1.8vh, 18px);
+  }
+
+  .laboratorio-content-wrapper {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .laboratorio-notas-column {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .pasaje-container,
+  .notas-container {
+    border-radius: 28px;
+    padding: clamp(16px, 2.2vh, 22px);
+  }
+}
+
+// Mobile: < 768
+@media (max-width: 767.98px) {
+  .laboratorio-wrapper {
+    --lab-welcome-bottom: clamp(30px, 6vh, 58px);
+    --lab-mode-top: calc(var(--navbar-height) + clamp(8px, 1.6vh, 12px));
+  }
+
+  .laboratorio-bienvenida {
+    padding-inline: clamp(12px, 4vw, 18px);
+  }
+
+  .bienvenida-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "titulo"
+      "explicacion"
+      "opciones";
+    gap: 20px;
+  }
+
+  .bienvenida-titulo {
+    justify-content: flex-start;
+    text-align: left;
+    font-size: clamp(1.75rem, 8.2vw, 2.35rem);
+  }
+
+  .explicacion-seccion {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .opcion-modo {
+    padding: 18px 16px;
+    gap: 14px;
+    border-radius: 18px;
+  }
+
+  .stats-globales {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .stats-barra-container,
+  .stats-visualizacion {
     flex-direction: column;
     align-items: stretch;
-    gap: 8px;
   }
-  
-  // Progreso de notas en mobile
+
+  .stats-barra-leyenda,
+  .stats-leyenda {
+    min-width: auto;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .laboratorio-layout.active {
+    padding-inline: 10px;
+    padding-bottom: 10px;
+  }
+
+  .laboratorio-header {
+    margin-bottom: 10px;
+
+    h1 {
+      font-size: 1.3rem;
+      margin-bottom: 2px;
+    }
+
+    p {
+      font-size: 0.82rem;
+    }
+  }
+
+  .pasaje-container,
+  .notas-container {
+    border-radius: 20px;
+    padding: 12px;
+  }
+
+  .laboratorio-controles-progreso,
   .notas-controles-progreso {
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
-    
-    .notas-contador-abajo {
-      text-align: center;
-    }
   }
-}
 
-// ============================================
-// RESPONSIVE
-// ============================================
+  .notas-contador-abajo {
+    text-align: center;
+  }
 
-@media (max-width: 991.98px) {
-  .laboratorio-layout {
-    padding: 20px;
-  }
-  
-  .laboratorio-content-wrapper {
-    flex-direction: column;
-  }
-  
-  .laboratorio-notas-column {
-    width: 100%;
-    min-width: 100%;
-    max-width: 100%;
+  .laboratorio-controles-botones {
+    gap: 8px;
   }
 }

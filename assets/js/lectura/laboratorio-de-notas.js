@@ -26,6 +26,8 @@ class EditorSocial {
     this.notaContent = null;
     this.bienvenidaContainer = null;
     this.laboratorioLayout = null;
+    this.wrapperEl = null;
+    this.navWrapper = null;
   }
 
   /**
@@ -68,6 +70,8 @@ class EditorSocial {
     this.notaContent = document.getElementById('nota-content');
     this.bienvenidaContainer = document.getElementById('laboratorio-bienvenida');
     this.laboratorioLayout = document.querySelector('.laboratorio-layout');
+    this.wrapperEl = document.querySelector('.laboratorio-wrapper');
+    this.navWrapper = document.querySelector('.nav-wrapper');
 
     // Verificar si usuario tiene modo definido
     if (!window.userManager.tieneModoDefinido()) {
@@ -138,9 +142,39 @@ class EditorSocial {
   }
 
   /**
+   * Aplicar estado visual global del laboratorio.
+   * view: 'welcome' | 'mode'
+   */
+  aplicarEstadoVista(view) {
+    const isMode = view === 'mode';
+
+    if (this.wrapperEl) {
+      this.wrapperEl.setAttribute('data-laboratorio-view', view);
+    }
+
+    document.body.classList.toggle('laboratorio-mode-active', isMode);
+    document.body.classList.toggle('laboratorio-welcome-active', !isMode);
+
+    if (this.navWrapper) {
+      this.navWrapper.setAttribute('data-navbar-variant', isMode ? 'compact' : 'default');
+      this.navWrapper.classList.remove('visible');
+    }
+
+    if (window.NavbarBehavior?.closeMenu) {
+      window.NavbarBehavior.closeMenu();
+    }
+
+    if (window.NavbarBehavior?.showNavbar) {
+      window.NavbarBehavior.showNavbar();
+    }
+  }
+
+  /**
    * Mostrar pantalla de bienvenida
    */
   mostrarPantallaBienvenida() {
+    this.aplicarEstadoVista('welcome');
+
     if (this.bienvenidaContainer) {
       this.bienvenidaContainer.style.display = 'flex';
     }
@@ -153,6 +187,8 @@ class EditorSocial {
    * Ocultar pantalla de bienvenida y mostrar laboratorio
    */
   ocultarPantallaBienvenida() {
+    this.aplicarEstadoVista('mode');
+
     if (this.bienvenidaContainer) {
       this.bienvenidaContainer.style.display = 'none';
     }

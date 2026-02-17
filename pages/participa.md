@@ -5,9 +5,10 @@ permalink: /participa/
 navbar_overlay: true
 ---
 
-<section class="participa-hero px-3 px-md-4 px-lg-5">
-    <div class="row align-items-center g-3">
-      <div class="col-lg-6 order-2 order-lg-1">
+<section class="participa-hero">
+  <div class="participa-shell">
+    <div class="row align-items-center participa-head">
+      <div class="col-md-7 order-2 order-md-1">
         <div class="card card-soft p-3 p-lg-4">
           <h3 class="mb-2 text-uppercase">Tu voz construye esta historia</h3>
           <p class="mb-0">
@@ -16,11 +17,11 @@ navbar_overlay: true
           </p>
         </div>
       </div>
-      <div class="col-lg-6 order-1 order-lg-2 text-center text-lg-end">
+      <div class="col-md-5 order-1 order-md-2 text-center text-md-end">
         <h1 class="participa-title mb-0">PARTICIPA</h1>
       </div>
     </div>
-    <div class="row g-3 mt-2 participa-cards">
+    <div class="row participa-cards">
       <div class="col-md-4">
         <div class="card card-media h-100" style="--card-image: url('{{ '/assets/img/participa/marginalia.jpg' | relative_url }}');">
           <div class="card-media-body">
@@ -49,5 +50,7 @@ navbar_overlay: true
         </div>
       </div>
     </div>
-    <p class="text-center small mt-3 mb-0 participa-footnote">Lee la <a href="#">guía de participación</a> o conoce más <a href="#">sobre el proyecto</a>.</p>
+    <p class="text-center small mb-0 participa-footnote">Lee la <a href="#">guía de participación</a> o conoce más <a href="#">sobre el proyecto</a>.</p>
+  </div>
 </section>
+

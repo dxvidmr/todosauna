@@ -3,6 +3,7 @@ layout: default
 title: Inicio
 permalink: /
 navbar_behavior: hidden-on-load
+custom-foot: js/home-carousel-js.html
 ---
 
 <section class="hero">
@@ -23,17 +24,17 @@ navbar_behavior: hidden-on-load
 
 <!-- Sección de exploración con carrusel -->
 <section id="explore-section" class="explore-section">
-    <div class="explore-content text-center ms-3 me-3">
+    <div class="explore-content text-center">
         <!--<p class="explore-badge">TODOS A UNA</p>-->
-        <h2 class="explore-title mx-2 mx-md-4">
-            Explora la obra, colabora en la edición y descubre la historia de <i>Fuenteovejuna</i>
+        <h2 class="explore-title">
+            Descubre y participa de la historia de <i>Fuenteovejuna</i>
         </h2>
-        <a href="#acerca-de" class="btn btn-dark btn-lg mt-5">
+        <a href="#acerca-de" class="btn btn-dark btn-lg">
             SOBRE EL PROYECTO
         </a>
     </div>
     <!-- Carrusel de imágenes con overlay de texto -->
-    <div class="explore-carousel mt-5">
+    <div class="explore-carousel">
         <div class="carousel-track" id="carouselTrack">
             <!-- Card 1 -->
             <div class="explore-card">
@@ -53,7 +54,7 @@ navbar_behavior: hidden-on-load
             </div>
             <!-- Card 3 -->
             <div class="explore-card">
-                <img src="{{ '/assets/img/explore/imagen2.jpg' | relative_url }}" alt="Participación ciudadana">
+                <img src="{{ '/assets/img/explore/archivo.jpg' | relative_url }}" alt="Participación ciudadana">
                 <div class="explore-card-overlay">
                     <h3>Participación ciudadana</h3>
                     <p>Colabora en la construcción del conocimiento</p>
@@ -61,7 +62,7 @@ navbar_behavior: hidden-on-load
             </div>
             <!-- Card 4 -->
             <div class="explore-card">
-                <img src="{{ '/assets/img/explore/imagen4.jpg' | relative_url }}" alt="Recursos educativos">
+                <img src="{{ '/assets/img/explore/archivo.jpg' | relative_url }}" alt="Recursos educativos">
                 <div class="explore-card-overlay">
                     <h3>Recursos educativos</h3>
                     <p>Para estudiantes y docentes</p>
@@ -69,7 +70,7 @@ navbar_behavior: hidden-on-load
             </div>
             <!-- Card 5 (opcional, añade más si necesitas) -->
             <div class="explore-card">
-                <img src="{{ '/assets/img/explore/imagen5.jpg' | relative_url }}" alt="Investigación">
+                <img src="{{ '/assets/img/explore/archivo.jpg' | relative_url }}" alt="Investigación">
                 <div class="explore-card-overlay">
                     <h3>Investigación abierta</h3>
                     <p>Datos y metodología transparentes</p>
@@ -80,3 +81,4 @@ navbar_behavior: hidden-on-load
 </section>
 
 <!-- El comportamiento del navbar se maneja centralizadamente en navbar-behavior.js -->
+

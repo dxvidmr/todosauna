@@ -3,6 +3,7 @@ layout: laboratorio
 title: Laboratorio de notas
 permalink: /participa/laboratorio/
 navbar_behavior: fixed
+navbar_position: overlay
 ---
 
 <!-- Pantalla de bienvenida -->

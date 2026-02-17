@@ -74,14 +74,51 @@
     }
 }
 
+// Variante compacta: navbar reducido (solo hamburguesa)
+.nav-wrapper[data-navbar-variant="compact"] {
+    justify-content: flex-end;
+    padding-right: clamp(12px, 2vw, 24px);
+    padding-left: clamp(12px, 2vw, 24px);
+
+    .navbar-floating {
+        width: auto;
+        max-width: none;
+        padding: 0.45rem 0.75rem;
+    }
+
+    .navbar-header {
+        width: auto;
+        gap: 0.5rem;
+        justify-content: flex-end;
+    }
+
+    .navbar-brand,
+    .navbar-nav-desktop {
+        display: none !important;
+    }
+
+    .navbar-toggler {
+        display: block;
+        margin: 0;
+    }
+}
+
 // Cuando el navbar es fixed y NO debe superponerse al contenido
 // usamos sticky para que ocupe espacio natural en el flujo.
-body:not(.navbar-overlay) .nav-wrapper[data-navbar-behavior="fixed"] {
+.nav-wrapper[data-navbar-behavior="fixed"][data-navbar-position="inflow"] {
     position: sticky;
 }
 
-// En páginas que requieren overlay, forzar fixed aunque sea behavior fixed.
-body.navbar-overlay .nav-wrapper[data-navbar-behavior="fixed"] {
+.nav-wrapper[data-navbar-position="overlay"] {
+    position: fixed;
+}
+
+// Compatibilidad con paginas legacy que aun usen navbar-overlay sin data attr.
+body:not(.navbar-overlay) .nav-wrapper[data-navbar-behavior="fixed"]:not([data-navbar-position]) {
+    position: sticky;
+}
+
+body.navbar-overlay .nav-wrapper:not([data-navbar-position]) {
     position: fixed;
 }
 
@@ -157,6 +194,33 @@ body.navbar-overlay .nav-wrapper[data-navbar-behavior="fixed"] {
     @media (max-width: 991.98px) {
         width: 100%;
         justify-content: space-between;
+    }
+}
+
+@media (max-width: 340px) {
+    .nav-wrapper {
+        padding: 0.75rem 0.5rem 0;
+    }
+
+    .navbar-floating {
+        width: calc(100% - 1rem);
+        padding: 0.45rem 0.9rem;
+    }
+
+    .navbar-header {
+        gap: 0.5rem;
+        min-width: 0;
+    }
+
+    .navbar-brand {
+        font-size: 1.05rem;
+        max-width: calc(100% - 56px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.35rem;
     }
 }
 
@@ -527,6 +591,10 @@ body.navbar-overlay .nav-wrapper[data-navbar-behavior="fixed"] {
     }
 }
 
+body.laboratorio-page.laboratorio-mode-active .btn-participacion-flotante {
+    right: clamp(84px, 8vw, 118px);
+}
+
 // En móvil no se muestra, usa el botón del menú
 @media (max-width: 991.98px) {
     .btn-participacion-flotante {
@@ -548,3 +616,4 @@ body.navbar-overlay .nav-wrapper[data-navbar-behavior="fixed"] {
         }
     }
 }
+
