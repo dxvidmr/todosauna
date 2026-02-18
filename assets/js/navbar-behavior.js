@@ -140,9 +140,12 @@
         if (!mainNav) return;
 
         mainNav.classList.add('expanded');
+        navbar.classList.add('menu-expanded');
         if (navBackdrop) navBackdrop.classList.add('active');
         if (btnFlotante) btnFlotante.classList.add('hidden');
         isMenuExpanded = true;
+
+        requestAnimationFrame(updateNavbarHeight);
 
         if (navbarBehavior === 'hidden-on-load') {
             navbar.classList.add('visible');
@@ -157,10 +160,11 @@
         if (!mainNav) return;
 
         mainNav.classList.remove('expanded');
+        navbar.classList.remove('menu-expanded');
         if (navBackdrop) navBackdrop.classList.remove('active');
         if (btnFlotante) btnFlotante.classList.remove('hidden');
         isMenuExpanded = false;
-        updateNavbarHeight();
+        requestAnimationFrame(updateNavbarHeight);
     }
 
     if (navToggle) {

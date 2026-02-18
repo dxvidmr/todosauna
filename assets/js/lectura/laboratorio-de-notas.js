@@ -1,7 +1,7 @@
 // ============================================
 // EDITOR SOCIAL (JUEGO DE EVALUACION)
 // Sistema de notas con navegacion lateral
-// Actualizado con modos de navegación
+// Actualizado con modos de navegaciÃ³n
 // ============================================
 
 class EditorSocial {
@@ -15,10 +15,10 @@ class EditorSocial {
     this.notaActualIndex = -1;
     this.notasEvaluadas = new Set();
     
-    // Modo de navegación: 'secuencial' | 'aleatorio'
+    // Modo de navegaciÃ³n: 'secuencial' | 'aleatorio'
     this.modoNavegacion = null;
     
-    // Tracking de pasajes visitados en modo aleatorio (para no repetir en sesión)
+    // Tracking de pasajes visitados en modo aleatorio (para no repetir en sesiÃ³n)
     this.pasajesVisitados = new Set();
     
     // Referencias DOM
@@ -28,6 +28,14 @@ class EditorSocial {
     this.laboratorioLayout = null;
     this.wrapperEl = null;
     this.navWrapper = null;
+
+    // Zoom del pasaje (sesion actual)
+    this.labFontSizePercent = 100;
+    this.labFontMin = 80;
+    this.labFontMax = 150;
+    this.labFontStep = 5;
+    this.labFontVisualScale = 0.9;
+    this.resizeAdjustTimer = null;
   }
 
   /**
@@ -43,7 +51,7 @@ class EditorSocial {
 
     window.__ceteiLoadingPromise = new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      // Usar rutas de Jekyll si están disponibles, sino ruta relativa
+      // Usar rutas de Jekyll si estÃ¡n disponibles, sino ruta relativa
       const jsPath = window.SITE_PATHS?.js || '../assets/js/lectura';
       script.src = jsPath + '/CETEI.js';
       script.onload = resolve;
@@ -72,6 +80,7 @@ class EditorSocial {
     this.laboratorioLayout = document.querySelector('.laboratorio-layout');
     this.wrapperEl = document.querySelector('.laboratorio-wrapper');
     this.navWrapper = document.querySelector('.nav-wrapper');
+    this.modalCambiarModo = document.getElementById('modal-cambiar-modo');
 
     // Verificar si usuario tiene modo definido
     if (!window.userManager.tieneModoDefinido()) {
@@ -91,7 +100,7 @@ class EditorSocial {
       throw new Error('CETEI.js no esta cargado y no se pudo cargar dinamicamente.');
     }
 
-    // Cargar estadísticas globales
+    // Cargar estadÃ­sticas globales
     await this.cargarEstadisticasGlobales();
 
     // Mostrar pantalla de bienvenida
@@ -102,39 +111,40 @@ class EditorSocial {
     
     // Event listeners para controles del laboratorio
     this.setupEventListeners();
+    this.actualizarDisplayZoomPasaje();
 
     console.log('Editor Social inicializado');
   }
 
   /**
-   * Cargar estadísticas globales
+   * Cargar estadÃ­sticas globales
    */
   async cargarEstadisticasGlobales() {
     const container = document.querySelector('.stats-globales');
     
     if (!container) {
-      console.warn('Contenedor de estadísticas no encontrado');
+      console.warn('Contenedor de estadÃ­sticas no encontrado');
       return;
     }
 
     try {
-      // Usar la función del módulo evaluaciones-stats
+      // Usar la funciÃ³n del mÃ³dulo evaluaciones-stats
       if (typeof obtenerEstadisticasGlobales === 'function') {
         const stats = await obtenerEstadisticasGlobales();
         
-        // Renderizar con la función del módulo
+        // Renderizar con la funciÃ³n del mÃ³dulo
         if (typeof renderizarEstadisticasGlobales === 'function') {
           renderizarEstadisticasGlobales(container, stats);
         }
       } else {
-        throw new Error('Función obtenerEstadisticasGlobales no disponible');
+        throw new Error('FunciÃ³n obtenerEstadisticasGlobales no disponible');
       }
     } catch (error) {
-      console.error('Error al cargar estadísticas:', error);
+      console.error('Error al cargar estadÃ­sticas:', error);
       container.innerHTML = `
         <div class="stats-header">
           <i class="fa-solid fa-chart-bar" aria-hidden="true"></i>
-          <strong>Estadísticas globales</strong>
+          <strong>EstadÃ­sticas globales</strong>
         </div>
         <p class="stats-error">No disponible</p>
       `;
@@ -166,6 +176,65 @@ class EditorSocial {
 
     if (window.NavbarBehavior?.showNavbar) {
       window.NavbarBehavior.showNavbar();
+    }
+  }
+
+  getTeiPasajeContainer() {
+    return document.getElementById('tei-pasaje');
+  }
+
+  actualizarDisplayZoomPasaje() {
+    const display = document.getElementById('lab-font-size-display');
+    if (display) {
+      display.textContent = `${this.labFontSizePercent}%`;
+    }
+  }
+
+  aplicarZoomPasaje(percent) {
+    const teiContainer = this.getTeiPasajeContainer();
+    const clampedPercent = Math.max(this.labFontMin, Math.min(this.labFontMax, percent));
+    const effectivePercent = clampedPercent * this.labFontVisualScale;
+    this.labFontSizePercent = clampedPercent;
+
+    if (teiContainer) {
+      teiContainer.style.setProperty('--lab-pasaje-font-size', `${effectivePercent}%`);
+    }
+
+    this.actualizarDisplayZoomPasaje();
+  }
+
+  tieneOverflowHorizontalPasaje() {
+    const pasajeContainer = document.querySelector('.pasaje-container');
+    const teiContainer = this.getTeiPasajeContainer();
+
+    if (!pasajeContainer || !teiContainer) return false;
+
+    return (
+      teiContainer.scrollWidth > teiContainer.clientWidth + 1 ||
+      pasajeContainer.scrollWidth > pasajeContainer.clientWidth + 1
+    );
+  }
+
+  ajustarZoomHastaNoOverflow() {
+    let safety = 0;
+    while (this.tieneOverflowHorizontalPasaje() && this.labFontSizePercent > this.labFontMin && safety < 40) {
+      this.aplicarZoomPasaje(this.labFontSizePercent - this.labFontStep);
+      safety += 1;
+    }
+  }
+
+  intentarAumentarZoomSinOverflow() {
+    if (this.labFontSizePercent >= this.labFontMax) {
+      mostrarToast('Tamano maximo alcanzado', 1400);
+      return;
+    }
+
+    const previous = this.labFontSizePercent;
+    this.aplicarZoomPasaje(previous + this.labFontStep);
+
+    if (this.tieneOverflowHorizontalPasaje()) {
+      this.aplicarZoomPasaje(previous);
+      mostrarToast('No se puede aumentar mas sin desbordar', 1600);
     }
   }
 
@@ -235,11 +304,12 @@ class EditorSocial {
     this.modoNavegacion = 'secuencial';
     this.pasajesVisitados.clear();
     this.ocultarPantallaBienvenida();
+    this.actualizarModoControlesFranja('secuencial');
     
     // Actualizar badge de modo
     const badgeElement = document.getElementById('modo-actual-badge');
     if (badgeElement) {
-      badgeElement.textContent = '📋 Secuencial';
+      badgeElement.textContent = 'Secuencial';
     }
     
     // Mostrar barra de progreso
@@ -248,18 +318,11 @@ class EditorSocial {
       barraContainer.style.display = 'block';
     }
     
-    // Mostrar botón anterior
+    // Mostrar botÃ³n anterior
     const btnAnterior = document.getElementById('btn-anterior');
     if (btnAnterior) {
-      btnAnterior.style.display = 'inline-block';
-    }
-    
-    // Ocultar botón saltar (no necesario en modo secuencial)
-    const btnSaltar = document.getElementById('btn-saltar');
-    if (btnSaltar) {
-      btnSaltar.style.display = 'none';
-    }
-    
+      btnAnterior.style.display = 'inline-flex';
+    }    
     // Cargar primer pasaje
     await this.cargarPasaje(0);
   }
@@ -271,11 +334,12 @@ class EditorSocial {
     this.modoNavegacion = 'aleatorio';
     this.pasajesVisitados.clear();
     this.ocultarPantallaBienvenida();
+    this.actualizarModoControlesFranja('aleatorio');
     
     // Actualizar badge de modo
     const badgeElement = document.getElementById('modo-actual-badge');
     if (badgeElement) {
-      badgeElement.textContent = '🎲 Aleatorio';
+      badgeElement.textContent = 'Aleatorio';
     }
     
     // Ocultar barra de progreso
@@ -284,18 +348,11 @@ class EditorSocial {
       barraContainer.style.display = 'none';
     }
     
-    // Ocultar botón anterior
+    // Ocultar botÃ³n anterior
     const btnAnterior = document.getElementById('btn-anterior');
     if (btnAnterior) {
       btnAnterior.style.display = 'none';
-    }
-    
-    // Mostrar botón saltar
-    const btnSaltar = document.getElementById('btn-saltar');
-    if (btnSaltar) {
-      btnSaltar.style.display = 'inline-block';
-    }
-    
+    }    
     // Cargar pasaje aleatorio
     await this.cargarPasajeAleatorio();
   }
@@ -310,8 +367,8 @@ class EditorSocial {
     );
 
     if (pasajesDisponibles.length === 0) {
-      // Todos visitados - resetear o mostrar finalización
-      if (confirm('Has visitado todos los pasajes. ¿Quieres volver a empezar?')) {
+      // Todos visitados - resetear o mostrar finalizaciÃ³n
+      if (confirm('Has visitado todos los pasajes. Â¿Quieres volver a empezar?')) {
         this.pasajesVisitados.clear();
         await this.cargarPasajeAleatorio();
       } else {
@@ -356,7 +413,7 @@ class EditorSocial {
     const porcentaje = (evaluadas / total) * 100;
     barraFill.style.width = `${porcentaje}%`;
 
-    // Mantener consistencia visual: también actualizar valor del span si es necesario
+    // Mantener consistencia visual: tambiÃ©n actualizar valor del span si es necesario
     const notasEvaluadasSpan = document.getElementById('notas-evaluadas');
     const notasTotalesSpan = document.getElementById('notas-totales');
     if (notasEvaluadasSpan) notasEvaluadasSpan.textContent = evaluadas;
@@ -411,7 +468,7 @@ class EditorSocial {
     // Actualizar barra de progreso (solo modo secuencial)
     this.actualizarBarraProgreso();
     
-    // Actualizar botones de navegación
+    // Actualizar botones de navegaciÃ³n
     this.actualizarBotonesNavegacionPasajes();
 
     // Extraer fragmento del XML
@@ -440,15 +497,15 @@ class EditorSocial {
 
     // Anadir titulo del pasaje
     const titulo = document.createElement('h2');
+    titulo.className = 'lab-pasaje-titulo';
     titulo.textContent = pasaje.titulo;
-    titulo.style.cssText = 'margin-bottom: 10px; color: var(--text); border-bottom: 2px solid var(--dark); padding-bottom: 10px;';
     this.pasajeContent.appendChild(titulo);
 
     // Anadir descripcion si existe
     if (pasaje.descripcion) {
       const descripcion = document.createElement('p');
+      descripcion.className = 'lab-pasaje-descripcion';
       descripcion.textContent = pasaje.descripcion;
-      descripcion.style.cssText = 'margin-bottom: 20px; color: var(--text-muted); font-style: italic; line-height: 1.6;';
       this.pasajeContent.appendChild(descripcion);
     }
 
@@ -470,15 +527,17 @@ class EditorSocial {
     // Crear contenedor para el contenido TEI
     const teiContainer = document.createElement('div');
     teiContainer.id = 'tei-pasaje';
-    teiContainer.style.cssText = "font-family: 'Google Sans Code', 'Oxygen Mono', 'Source Code Pro', monospace; font-weight: 300; line-height: 1.8; font-size: 16px;";
+    teiContainer.className = 'lab-tei-pasaje';
     teiContainer.appendChild(htmlContent);
 
     this.pasajeContent.appendChild(teiContainer);
 
-    // Aplicar alineacion de versos partidos y numeración de versos
+    // Aplicar alineacion de versos partidos y numeraciÃ³n de versos
     setTimeout(() => {
-      alignSplitVerses(this.pasajeContent);
-      aplicarNumeracionVersos(this.pasajeContent, 'cada5');
+      alignSplitVerses(teiContainer);
+      aplicarNumeracionVersos(teiContainer, 'cada5');
+      this.aplicarZoomPasaje(this.labFontSizePercent);
+      this.ajustarZoomHastaNoOverflow();
     }, 100);
 
     console.log('Pasaje renderizado:', pasaje.titulo);
@@ -507,10 +566,38 @@ class EditorSocial {
 
     // Mostrar placeholder o primera nota
     if (this.notasPasaje.length === 0) {
-      this.notaContent.innerHTML = '<p class="placeholder-text">No hay notas en este pasaje</p>';
+      this.renderizarEstadoNotaPanel(
+        'No hay notas en este pasaje',
+        'Sin evaluaciones disponibles en este pasaje'
+      );
     } else {
-      this.notaContent.innerHTML = '<p class="placeholder-text">Haz clic en un texto subrayado o usa las flechas para ver las notas</p>';
+      this.renderizarEstadoNotaPanel(
+        '',
+        ''
+      );
     }
+  }
+
+  renderizarEstadoNotaPanel(mensajeContenido, mensajeDock) {
+    if (!this.notaContent) return;
+
+    const displayHtml = mensajeContenido
+      ? `<p class="placeholder-text">${mensajeContenido}</p>`
+      : '';
+    const dockHtml = mensajeDock
+      ? `<p class="lab-note-dock-placeholder">${mensajeDock}</p>`
+      : '';
+
+    this.notaContent.innerHTML = `
+      <div class="lab-note-layout">
+        <div class="lab-note-display-scroll">
+          ${displayHtml}
+        </div>
+        <div class="lab-note-eval-dock">
+          ${dockHtml}
+        </div>
+      </div>
+    `;
   }
 
   /**
@@ -645,6 +732,9 @@ class EditorSocial {
       });
     });
 
+    aplicarNumeracionVersos(teiContainer, 'cada5');
+    this.ajustarZoomHastaNoOverflow();
+
     console.log('Highlights aplicados');
   }
 
@@ -728,17 +818,17 @@ class EditorSocial {
     const pasajeId = this.pasajes[this.pasajeActualIndex]?.id;
     const yaEvaluada = this.notasEvaluadas.has(nota.nota_id);
 
-    // Mapeo de tipologías normalizadas (igual que sala de lectura)
+    // Mapeo de tipologias normalizadas (igual que sala de lectura)
     const typeMap = {
-      'lexica': 'léxica',
-      'parafrasis': 'paráfrasis',
-      'historica': 'histórica',
-      'geografica': 'geográfica',
-      'mitologica': 'mitológica',
-      'estilistica': 'estilística',
-      'escenica': 'escénica',
-      'ecdotica': 'ecdótica',
-      'realia': 'realia'
+      lexica: 'léxica',
+      parafrasis: 'paráfrasis',
+      historica: 'histórica',
+      geografica: 'geográfica',
+      mitologica: 'mitológica',
+      estilistica: 'estilística',
+      escenica: 'escénica',
+      ecdotica: 'ecdótica',
+      realia: 'realia'
     };
 
     // Construir badges de tipo/subtipo
@@ -752,38 +842,35 @@ class EditorSocial {
       badgesHTML += `<span class="note-badge note-badge-subtype">${normalizedSubtype}</span>`;
     }
 
-    // Obtener estadísticas de evaluaciones
-    const evaluaciones = typeof obtenerEvaluacionesStats === 'function' 
-      ? obtenerEvaluacionesStats(nota.nota_id, nota) 
+    // Obtener estadisticas de evaluaciones
+    const evaluaciones = typeof obtenerEvaluacionesStats === 'function'
+      ? obtenerEvaluacionesStats(nota.nota_id, nota)
       : { total: 0, utiles: 0, mejorables: 0 };
-    
-    // Mensaje si no hay evaluaciones
-    const mensajePrimero = evaluaciones.total === 0 
-      ? '<p class="eval-mensaje-primero">¡Sé el primero en evaluarla!</p>' 
+
+    const mensajePrimero = evaluaciones.total === 0
+      ? '<p class="eval-mensaje-primero">¡Sé el primero en evaluarla!</p>'
       : '';
 
-    // Contenido HTML de la nota (estructura igual a sala de lectura)
-    let html = `
+    const noteDisplayHtml = `
       <div class="note-display" data-note-id="${nota.nota_id}">
         <div class="note-header">
           ${badgesHTML ? `<div class="note-badges">${badgesHTML}</div>` : ''}
         </div>
         <p class="fs-6">${nota.texto_nota}</p>
-        <div class="note-footer">
-        </div>
+        <div class="note-footer"></div>
       </div>
     `;
 
-    // Mostrar botones de evaluacion o estado evaluado
+    let dockHtml = '';
     if (yaEvaluada) {
-      html += `
+      dockHtml = `
         <div class="nota-ya-evaluada">
           <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
           Nota evaluada
         </div>
       `;
     } else {
-      html += `
+      dockHtml = `
         <div class="nota-evaluacion">
           <div class="evaluacion-header">
             <span>¿Te resulta útil esta nota?</span>
@@ -800,7 +887,6 @@ class EditorSocial {
               Mejorable
             </button>
           </div>
-          
           <div class="evaluacion-comentario" style="display:none;">
             <textarea placeholder="¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota (opcional)" rows="3"></textarea>
             <button class="btn btn-dark btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
@@ -811,12 +897,21 @@ class EditorSocial {
       `;
     }
 
-    this.notaContent.innerHTML = html;
+    this.notaContent.innerHTML = `
+      <div class="lab-note-layout">
+        <div class="lab-note-display-scroll">
+          ${noteDisplayHtml}
+        </div>
+        <div class="lab-note-eval-dock">
+          ${dockHtml}
+        </div>
+      </div>
+    `;
 
-    // Adjuntar event listeners si no esta evaluada usando función reutilizable
+    // Adjuntar event listeners si no esta evaluada usando funcion reutilizable
     if (!yaEvaluada) {
       if (typeof attachEvaluationListeners === 'function') {
-        const container = this.notaContent;
+        const container = this.notaContent.querySelector('.lab-note-eval-dock') || this.notaContent;
         attachEvaluationListeners(
           container,
           nota.nota_id,
@@ -828,12 +923,11 @@ class EditorSocial {
           }
         );
       } else {
-        // Fallback a método legacy
+        // Fallback a metodo legacy
         this.attachNotaListeners(nota, pasajeId);
       }
     }
   }
-
   /**
    * Adjuntar listeners a los botones de evaluacion (LEGACY)
    * @deprecated Usar attachEvaluationListeners de evaluaciones-stats.js
@@ -1001,7 +1095,7 @@ class EditorSocial {
         return false;
       }
 
-      // La sesión ya está creada en BD (se creó al elegir modo)
+      // La sesiÃ³n ya estÃ¡ creada en BD (se creÃ³ al elegir modo)
       const evaluacion = {
         timestamp: new Date().toISOString(),
         source: 'laboratorio',
@@ -1024,11 +1118,46 @@ class EditorSocial {
         return false;
       }
 
-      // NO invalidamos caché aquí - actualizamos localmente en actualizarContadorLocal()
+      // NO invalidamos cachÃ© aquÃ­ - actualizamos localmente en actualizarContadorLocal()
 
       console.log('Evaluacion registrada:', vote, notaId);
       return true;
     }
+
+  setupModalCambiarModo() {
+    if (!this.modalCambiarModo) return;
+
+    const closeBtn = document.getElementById('modal-cambiar-modo-close');
+    const cancelBtn = document.getElementById('btn-cancelar-cambiar-modo');
+    const confirmBtn = document.getElementById('btn-confirmar-cambiar-modo');
+    const overlay = this.modalCambiarModo.querySelector('.modal-overlay');
+
+    closeBtn?.addEventListener('click', () => this.cerrarModalCambiarModo());
+    cancelBtn?.addEventListener('click', () => this.cerrarModalCambiarModo());
+    overlay?.addEventListener('click', () => this.cerrarModalCambiarModo());
+
+    confirmBtn?.addEventListener('click', () => {
+      this.cerrarModalCambiarModo();
+      this.volverABienvenida();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.modalCambiarModo?.classList.contains('show')) {
+        this.cerrarModalCambiarModo();
+      }
+    });
+  }
+
+  abrirModalCambiarModo() {
+    if (!this.modalCambiarModo) return;
+    this.modalCambiarModo.classList.add('show');
+    document.getElementById('btn-cancelar-cambiar-modo')?.focus();
+  }
+
+  cerrarModalCambiarModo() {
+    if (!this.modalCambiarModo) return;
+    this.modalCambiarModo.classList.remove('show');
+  }
 
   /**
    * Configurar event listeners de controles
@@ -1059,16 +1188,33 @@ class EditorSocial {
       this.siguientePasaje();
     });
 
-    document.getElementById('btn-saltar')?.addEventListener('click', () => {
-      this.siguientePasaje();
+    // BotÃ³n cambiar modo
+    this.setupModalCambiarModo();
+
+    document.getElementById('btn-cambiar-modo')?.addEventListener('click', () => {
+      this.abrirModalCambiarModo();
     });
 
-    // Botón cambiar modo
-    document.getElementById('btn-cambiar-modo')?.addEventListener('click', () => {
-      if (confirm('¿Quieres volver a la pantalla de selección de modo?')) {
-        this.volverABienvenida();
-      }
+    // Controles de zoom del pasaje
+    document.getElementById('lab-font-increase')?.addEventListener('click', () => {
+      this.intentarAumentarZoomSinOverflow();
     });
+
+    document.getElementById('lab-font-decrease')?.addEventListener('click', () => {
+      this.aplicarZoomPasaje(this.labFontSizePercent - this.labFontStep);
+      this.ajustarZoomHastaNoOverflow();
+    });
+
+    // Revalidar overflow horizontal al cambiar tamano de viewport
+    window.addEventListener('resize', () => {
+      if (this.resizeAdjustTimer) {
+        clearTimeout(this.resizeAdjustTimer);
+      }
+
+      this.resizeAdjustTimer = setTimeout(() => {
+        this.ajustarZoomHastaNoOverflow();
+      }, 120);
+    }, { passive: true });
 
     // Actualizar botones iniciales
     this.actualizarBotonesNavegacion();
@@ -1080,11 +1226,23 @@ class EditorSocial {
   volverABienvenida() {
     this.modoNavegacion = null;
     this.pasajesVisitados.clear();
+    this.actualizarModoControlesFranja(null);
     this.mostrarPantallaBienvenida();
   }
 
+  actualizarModoControlesFranja(modo) {
+    const franja = document.querySelector('.laboratorio-controles-franja');
+    if (!franja) return;
+
+    if (modo) {
+      franja.setAttribute('data-modo', modo);
+    } else {
+      franja.removeAttribute('data-modo');
+    }
+  }
+
   /**
-   * Actualizar estado de botones de navegación de pasajes
+   * Actualizar estado de botones de navegaciÃ³n de pasajes
    */
   actualizarBotonesNavegacionPasajes() {
     const btnAnterior = document.getElementById('btn-anterior');
@@ -1096,12 +1254,14 @@ class EditorSocial {
       }
       if (btnSiguiente) {
         btnSiguiente.disabled = this.pasajeActualIndex >= this.pasajes.length - 1;
-        btnSiguiente.innerHTML = '<i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Siguiente pasaje';
+        btnSiguiente.innerHTML = '<i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span>Siguiente</span>';
+        btnSiguiente.setAttribute('aria-label', 'Siguiente pasaje');
       }
     } else if (this.modoNavegacion === 'aleatorio') {
       if (btnSiguiente) {
         btnSiguiente.disabled = false;
-        btnSiguiente.innerHTML = '<i class="fa-solid fa-shuffle" aria-hidden="true"></i> Otro pasaje aleatorio';
+        btnSiguiente.innerHTML = '<i class="fa-solid fa-shuffle" aria-hidden="true"></i><span>Otro aleatorio</span>';
+        btnSiguiente.setAttribute('aria-label', 'Otro pasaje aleatorio');
       }
     }
   }
@@ -1162,3 +1322,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 console.log('Editor Social cargado');
+

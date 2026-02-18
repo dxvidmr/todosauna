@@ -155,10 +155,10 @@
 }
 
 .card-soft {
-  background: $color-neutral-100;
+  //background: $color-neutral-100;
   border: none;
   border-radius: clamp(20px, 2vw, 30px);
-  //color: $color-text;
+  color: $color-text;
   //box-shadow: $shadow-sm;
 }
 

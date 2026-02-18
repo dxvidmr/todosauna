@@ -9,7 +9,7 @@ navbar_position: overlay
 <!-- Pantalla de bienvenida -->
 <div id="laboratorio-bienvenida" class="laboratorio-bienvenida">
   <div class="bienvenida-container">
-    <h1 class="bienvenida-titulo"><i class="fa-solid fa-flask" aria-hidden="true"></i> Laboratorio de notas</h1>
+    <h1 class="bienvenida-titulo">Laboratorio de notas</h1>
     
     <!-- Lado izquierdo: Explicación -->
     <div class="bienvenida-explicacion">
@@ -63,13 +63,35 @@ navbar_position: overlay
   </div>
 </div>
 
+<!-- Modal confirmar cambio de modo -->
+<div id="modal-cambiar-modo" class="modal lab-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="modal-cambiar-modo-titulo">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button id="modal-cambiar-modo-close" class="modal-close" aria-label="Cerrar modal">&times;</button>
+    <h2 id="modal-cambiar-modo-titulo">¿Cambiar modo de uso?</h2>
+    <p class="modal-descripcion">Volverás a la pantalla de selección y podrás elegir de nuevo entre modo secuencial o aleatorio.</p>
+    <div class="lab-confirm-actions">
+      <button id="btn-cancelar-cambiar-modo" type="button" class="btn btn-outline-dark btn-sm">Cancelar</button>
+      <button id="btn-confirmar-cambiar-modo" type="button" class="btn btn-dark btn-sm">Sí, cambiar modo</button>
+    </div>
+  </div>
+</div>
+
 <!-- Contenido principal: Layout de dos columnas -->
 <div class="laboratorio-layout">
   
   <!-- Header del laboratorio (fuera de las columnas) -->
   <div class="laboratorio-header">
-    <h1>Laboratorio de notas</h1>
-    <p>Lee los pasajes y evalúa si las notas te resultan útiles</p>
+    <div class="laboratorio-header-row">
+      <h1>Laboratorio de notas</h1>
+      <div class="laboratorio-header-meta">
+        <span id="modo-actual-badge" class="modo-badge">Secuencial</span>
+        <button id="btn-cambiar-modo" class="btn-cambiar-modo" title="Volver a la pantalla de selección de modo">
+          <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+          <span>Cambiar modo</span>
+        </button>
+      </div>
+    </div>
   </div>
   
   <!-- Contenedor de dos columnas -->
@@ -79,7 +101,7 @@ navbar_position: overlay
     <div class="laboratorio-pasaje-column">
       
       <!-- Contenedor del pasaje -->
-      <div class="pasaje-container bg-light">
+      <div class="pasaje-container">
         <div id="pasaje-content">
           <div class="loading">Cargando pasaje...</div>
         </div>
@@ -87,28 +109,38 @@ navbar_position: overlay
       
       <!-- Controles de navegación de pasajes -->
       <div class="laboratorio-controles">
-        <div class="laboratorio-controles-progreso">
-          <div class="laboratorio-progreso">
-            Pasaje <span id="pasaje-actual">1</span> de <span id="pasajes-totales">-</span>
-            <span id="modo-actual-badge" class="modo-badge"></span>
+        <div class="laboratorio-controles-franja">
+          <div class="laboratorio-franja-izq">
+            <button id="btn-anterior" class="btn-nav-inline" style="display: none;" aria-label="Pasaje anterior">
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              <span>Anterior</span>
+            </button>
+            <button id="btn-siguiente" class="btn-nav-inline btn-nav-inline-primary" aria-label="Siguiente pasaje">
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              <span>Siguiente</span>
+            </button>
+            <div class="laboratorio-progreso">
+              Pasaje <span id="pasaje-actual">1</span> de <span id="pasajes-totales">-</span>
+            </div>
           </div>
-          
-          <!-- Barra de progreso (solo modo secuencial) -->
+
           <div id="barra-progreso-container" class="barra-progreso-container" style="display: none;">
             <div class="barra-progreso">
               <div id="barra-progreso-fill" class="barra-progreso-fill" style="width: 0%"></div>
             </div>
           </div>
-        </div>
-        
-        <!-- Botones de navegación -->
-        <div class="laboratorio-controles-botones">
-          <button id="btn-anterior" class="btn-navegacion" style="display: none;"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Pasaje anterior</button>
-          <button id="btn-siguiente" class="btn-siguiente">Siguiente pasaje <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
-          <button id="btn-saltar" class="btn-saltar">Saltar sin evaluar</button>
-          <button id="btn-cambiar-modo" class="btn-cambiar-modo" title="Volver a la pantalla de selección de modo">
-            <i class="fa-solid fa-home" aria-hidden="true"></i> Cambiar modo
-          </button>
+
+          <div class="laboratorio-franja-der">
+            <div class="lab-font-controls" aria-label="Tamano del texto del pasaje">
+            <button id="lab-font-decrease" class="lab-font-btn" type="button" aria-label="Reducir tamano del texto">
+              <i class="fa-solid fa-minus" aria-hidden="true"></i>
+            </button>
+            <span id="lab-font-size-display" class="lab-font-size-display">100%</span>
+            <button id="lab-font-increase" class="lab-font-btn" type="button" aria-label="Aumentar tamano del texto">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            </button>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -118,7 +150,7 @@ navbar_position: overlay
     <div class="laboratorio-notas-column">
       
       <!-- Container de notas (mismo estilo que pasaje-container) -->
-      <div class="notas-container bg-light">
+      <div class="notas-container">
         
         <!-- Navegación entre notas (como note-panel-header) -->
         <div class="notas-navegacion">
@@ -133,34 +165,38 @@ navbar_position: overlay
               <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
             </button>
           </div>
+
+          <div class="notas-resumen-evaluacion">
+            <div id="barra-progreso-notas-container" class="barra-progreso-container">
+              <div class="barra-progreso">
+                <div id="barra-progreso-notas-fill" class="barra-progreso-fill" style="width: 0%"></div>
+              </div>
+            </div>
+            <div class="notas-contador-abajo">
+              <span id="notas-evaluadas">0</span> de <span id="notas-totales">0</span> evaluadas
+            </div>
+          </div>
         </div>
         
         <!-- Contenido de la nota actual -->
         <div id="nota-content" class="nota-content">
-          <p class="placeholder-text">Haz clic en un texto subrayado o usa las flechas para ver las notas</p>
-        </div>
-
-        <div class="notas-controles-progreso mb-2">
-        <div id="barra-progreso-notas-container" class="barra-progreso-container">
-          <div class="barra-progreso">
-            <div id="barra-progreso-notas-fill" class="barra-progreso-fill" style="width: 0%"></div>
+          <div class="lab-note-layout">
+            <div class="lab-note-display-scroll">
+              <p class="placeholder-text">Haz clic en un texto subrayado o usa las flechas para ver las notas</p>
+            </div>
+            <div class="lab-note-eval-dock">
+              <p class="lab-note-dock-placeholder"></p>
+            </div>
           </div>
         </div>
-        <div class="notas-contador-abajo">
-          <span id="notas-evaluadas">0</span> de <span id="notas-totales">0</span> evaluadas
-        </div>
-      </div>
         
         <!-- Instrucciones -->
         <div class="notas-instrucciones">
-          <p><i class="fa-solid fa-info-circle" aria-hidden="true"></i> Haz clic en el texto subrayado para ver cada nota, o navega con las flechas.</p>
+          <p><i class="fa-solid fa-info-circle" aria-hidden="true"></i> Haz clic en el texto subrayado para evaluar una nota, o navega con las flechas. Si falta una nota, selecciona el texto y deja tu sugerencia. <a href="{{ '/participa/guia/' | relative_url }}">Guía completa</a>.</p>
         </div>
         
       </div>
       
-      <!-- Barra de progreso y contador de notas (alineados con pasaje) -->
-      
-    
     </div>
     
   </div>
