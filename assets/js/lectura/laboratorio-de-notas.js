@@ -888,7 +888,7 @@ class EditorSocial {
             </button>
           </div>
           <div class="evaluacion-comentario" style="display:none;">
-            <textarea placeholder="¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota (opcional)" rows="3"></textarea>
+            <textarea placeholder="[opcional] ¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota." rows="3"></textarea>
             <button class="btn btn-dark btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
             <button class="btn btn-outline-dark btn-sm btn-cancelar-comentario">Cancelar</button>
           </div>
@@ -1254,7 +1254,7 @@ class EditorSocial {
       }
       if (btnSiguiente) {
         btnSiguiente.disabled = this.pasajeActualIndex >= this.pasajes.length - 1;
-        btnSiguiente.innerHTML = '<i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span>Siguiente</span>';
+        btnSiguiente.innerHTML = '<span>Siguiente</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i>';
         btnSiguiente.setAttribute('aria-label', 'Siguiente pasaje');
       }
     } else if (this.modoNavegacion === 'aleatorio') {

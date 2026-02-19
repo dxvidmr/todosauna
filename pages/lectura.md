@@ -3,6 +3,7 @@ layout: lectura
 title: Sala de lectura
 permalink: /lectura/
 navbar_behavior: auto-hide
+lectura_dynamic_recenter: true
 ---
 
 <!-- Contenedor principal para el texto TEI -->
@@ -11,7 +12,7 @@ navbar_behavior: auto-hide
 <!-- Panel flotante de notas/navegación/info -->
 <div class="lectura-panel-wrapper" id="lectura-panel-wrapper">
     <!-- Panel de contenido (se abre/cierra) -->
-    <div class="lectura-panel mb-2" id="lectura-panel">
+    <div class="lectura-panel" id="lectura-panel">
         <div class="panel-resize-handle" id="panel-resize-handle"></div>
         <button class="btn-cerrar-panel btn-circular" id="btn-cerrar-panel" title="Cerrar panel">
             <i class="fa-solid fa-times"></i>
@@ -28,7 +29,7 @@ navbar_behavior: auto-hide
         <div class="tab-content" id="tab-navegación">
             <div class="navegación-panel">
                 <div class="nav-section">
-                    <h4 class="fs-5"><i class="fa-solid fa-list me-2"></i>Índice</h4>
+                    <h4 class="fs-5">Índice</h4>
                     <div class="structure-nav">
                         <button class="btn-nav-item" data-target-type="head" data-target-attr="type" data-target-value="comedia-head">
                             Inicio
@@ -47,7 +48,11 @@ navbar_behavior: auto-hide
                         </button>
                     </div>
                 </div>
-                <h4 class="fs-5 mt-4"><i class="fa-solid fa-gear me-2"></i>Opciones</h4>
+            </div>
+        </div>
+        <div class="tab-content" id="tab-opciones">
+            <div class="opciones-panel">
+                <h4 class="fs-5">Opciones</h4>
                 <div class="option-group">
                     <label class="option-item">
                         <span>Mostrar marcas de notas</span>
@@ -119,8 +124,21 @@ navbar_behavior: auto-hide
     
     <!-- Barra de pestañas flotante (siempre visible) -->
     <div class="lectura-tabs-bar" id="lectura-tabs-bar">
-        <button class="tab-button" data-tab="notas">Notas</button>
-        <button class="tab-button" data-tab="navegación">Navegación</button>
-        <button class="tab-button" data-tab="info">Info</button>
+        <button class="tab-button" data-tab="notas" title="Notas" aria-label="Notas">
+            <i class="fa-solid fa-note-sticky tab-icon" aria-hidden="true"></i>
+            <span class="tab-label">Notas</span>
+        </button>
+        <button class="tab-button" data-tab="navegación" title="Navegación" aria-label="Navegación">
+            <i class="fa-solid fa-compass tab-icon" aria-hidden="true"></i>
+            <span class="tab-label">Nav</span>
+        </button>
+        <button class="tab-button" data-tab="opciones" title="Opciones" aria-label="Opciones">
+            <i class="fa-solid fa-sliders tab-icon" aria-hidden="true"></i>
+            <span class="tab-label">Opciones</span>
+        </button>
+        <button class="tab-button" data-tab="info" title="Info" aria-label="Información">
+            <i class="fa-solid fa-circle-info tab-icon" aria-hidden="true"></i>
+            <span class="tab-label">Info</span>
+        </button>
     </div>
 </div>

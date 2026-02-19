@@ -823,11 +823,11 @@ body.laboratorio-page.laboratorio-mode-active {
     display: flex;
     align-items: center;
     align-self: center;
-    gap: 6px;
+    gap: 10px;
     margin-left: auto;
-    min-width: 220px;
+    min-width: 250px;
     flex: 1 1 260px;
-    max-width: clamp(220px, 52%, 340px);
+    max-width: clamp(250px, 52%, 340px);
   }
 
   .notas-resumen-evaluacion .barra-progreso-container {
@@ -878,6 +878,13 @@ body.laboratorio-page.laboratorio-mode-active {
     margin-top: 0;
     padding-top: 0;
     border-top: none;
+  }
+
+  .lab-note-eval-dock .nota-evaluacion.is-commenting {
+    min-height: 112px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   .lab-note-eval-dock .nota-ya-evaluada {

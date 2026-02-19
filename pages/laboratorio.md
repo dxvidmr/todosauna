@@ -116,8 +116,8 @@ navbar_position: overlay
               <span>Anterior</span>
             </button>
             <button id="btn-siguiente" class="btn-nav-inline btn-nav-inline-primary" aria-label="Siguiente pasaje">
-              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
               <span>Siguiente</span>
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </button>
             <div class="laboratorio-progreso">
               Pasaje <span id="pasaje-actual">1</span> de <span id="pasajes-totales">-</span>

@@ -70,7 +70,7 @@ function crearBotonesConContadores(notaId, version, evaluaciones) {
     </div>
     ${mensajePrimero}
     <div class="evaluacion-comentario" style="display:none;">
-      <textarea placeholder="¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota (opcional)" rows="3"></textarea>
+      <textarea placeholder="[opcional] ¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota." rows="3"></textarea>
       <button class="btn btn-dark btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
       <button class="btn btn-outline-dark btn-sm btn-cancelar-comentario">Cancelar</button>
     </div>
@@ -92,14 +92,41 @@ function attachEvaluationListeners(container, notaId, version, registrarCallback
   const textarea = comentarioDiv?.querySelector('textarea');
   const btnEnviar = comentarioDiv?.querySelector('.btn-enviar-comentario');
   const btnCancelar = comentarioDiv?.querySelector('.btn-cancelar-comentario');
+  const evaluacionRoot =
+    comentarioDiv?.closest('.nota-evaluacion') ||
+    container.closest('.nota-evaluacion') ||
+    container;
 
   if (!btnUtil || !btnMejorable) {
     console.warn('Botones de evaluación no encontrados');
     return;
   }
 
+  const enterCommentMode = () => {
+    if (evaluacionRoot) {
+      evaluacionRoot.classList.add('is-commenting');
+    }
+    if (comentarioDiv) {
+      comentarioDiv.style.display = 'block';
+    }
+    textarea?.focus();
+  };
+
+  const exitCommentMode = ({ clear } = { clear: false }) => {
+    if (evaluacionRoot) {
+      evaluacionRoot.classList.remove('is-commenting');
+    }
+    if (comentarioDiv) {
+      comentarioDiv.style.display = 'none';
+      if (clear && textarea) {
+        textarea.value = '';
+      }
+    }
+  };
+
   // Botón "Útil"
   btnUtil.addEventListener('click', async () => {
+    exitCommentMode({ clear: false });
     const exito = await registrarCallback(notaId, version, 'up', null);
     if (exito) {
       actualizarContadorLocal(notaId, 'up');
@@ -107,12 +134,9 @@ function attachEvaluationListeners(container, notaId, version, registrarCallback
     }
   });
 
-  // Botón "Mejorable" - mostrar textarea
+  // Botón "Mejorable" - reemplazar vista por comentario
   btnMejorable.addEventListener('click', () => {
-    if (comentarioDiv) {
-      comentarioDiv.style.display = 'block';
-      textarea?.focus();
-    }
+    enterCommentMode();
   });
 
   // Botón "Enviar comentario"
@@ -127,10 +151,7 @@ function attachEvaluationListeners(container, notaId, version, registrarCallback
 
   // Botón "Cancelar"
   btnCancelar?.addEventListener('click', () => {
-    if (comentarioDiv) {
-      comentarioDiv.style.display = 'none';
-      if (textarea) textarea.value = '';
-    }
+    exitCommentMode({ clear: true });
   });
 }
 

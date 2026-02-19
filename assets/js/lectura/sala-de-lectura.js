@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Referencias globales
+    const lecturaWrapper = document.querySelector('.lectura-wrapper');
     const textColumn = document.querySelector('.text-column');
     const fontSizeDisplay = document.getElementById('font-size-display');
     let currentFontSize = 100;
@@ -20,6 +21,94 @@ document.addEventListener("DOMContentLoaded", function() {
     const tabButtons = tabsBar ? tabsBar.querySelectorAll('.tab-button') : document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
     const btnCerrarPanel = document.getElementById('btn-cerrar-panel');
+    let panelWrapper = null;
+    const dynamicRecenterEnabled = lecturaWrapper?.dataset.lecturaDynamicRecenter === 'true';
+
+    function getLayoutTokenPx(token, fallback) {
+        if (!lecturaWrapper) return fallback;
+        const value = getComputedStyle(lecturaWrapper).getPropertyValue(token).trim();
+        const px = parseFloat(value);
+        return Number.isFinite(px) ? px : fallback;
+    }
+
+    function getCurrentTextPaddingLeftPx() {
+        if (!textColumn) return 0;
+        const value = getComputedStyle(textColumn).paddingLeft;
+        const px = parseFloat(value);
+        return Number.isFinite(px) ? px : 0;
+    }
+
+    function getBaseTextPaddingLeftPx() {
+        if (!textColumn) return 0;
+        const previousInlineLeft = textColumn.style.paddingLeft;
+        textColumn.style.paddingLeft = '';
+        const baseLeft = getCurrentTextPaddingLeftPx();
+        textColumn.style.paddingLeft = previousInlineLeft;
+        return baseLeft;
+    }
+
+    function updateDesktopTextInset() {
+        if (!textColumn) return;
+
+        const isDesktop = window.innerWidth >= 992;
+        const isOpen = !!lecturaPanel?.classList.contains('open');
+        lecturaWrapper?.classList.toggle('lectura-panel-open', isOpen);
+        panelWrapper?.classList.toggle('is-open', isOpen);
+
+        if (!isDesktop) {
+            textColumn.style.paddingRight = '';
+            textColumn.style.paddingLeft = '';
+            return;
+        }
+
+        if (!dynamicRecenterEnabled) {
+            textColumn.style.paddingLeft = '';
+            if (isOpen) {
+                const openGap = getLayoutTokenPx('--lectura-panel-gap-open', 32);
+                const openInset = (panelWrapper?.offsetWidth || 0) + openGap;
+                textColumn.style.paddingRight = `${Math.round(openInset)}px`;
+            } else {
+                const railGap = getLayoutTokenPx('--lectura-panel-gap-closed', 24);
+                const railInset = (tabsBar?.offsetWidth || getLayoutTokenPx('--lectura-rail-collapsed-width', 56)) + railGap;
+                textColumn.style.paddingRight = `${Math.round(railInset)}px`;
+            }
+            return;
+        }
+
+        const staticRightInset = getLayoutTokenPx('--lectura-static-right-inset', 560);
+        const openLeftShiftBase = getLayoutTokenPx('--lectura-open-left-shift-base', 24);
+        const textLeftMin = getLayoutTokenPx('--lectura-text-left-min', 40);
+        const panelRightOffset = getLayoutTokenPx('--lectura-panel-right-offset', 20);
+        const openRightSafety = getLayoutTokenPx('--lectura-open-right-safety', 16);
+
+        if (!isOpen) {
+            textColumn.style.paddingRight = '';
+            textColumn.style.paddingLeft = '';
+            return;
+        }
+
+        const panelFootprint = (panelWrapper?.offsetWidth || 0) + panelRightOffset + openRightSafety;
+        const openRightInset = Math.max(staticRightInset, panelFootprint);
+        const baseLeft = getBaseTextPaddingLeftPx();
+        const openLeft = window.innerWidth >= 1600
+            ? baseLeft
+            : Math.max(
+                textLeftMin,
+                baseLeft - openLeftShiftBase
+            );
+
+        textColumn.style.paddingRight = `${Math.round(openRightInset)}px`;
+        textColumn.style.paddingLeft = `${Math.round(openLeft)}px`;
+    }
+
+    let insetUpdateRaf = null;
+    function requestDesktopTextInsetUpdate() {
+        if (insetUpdateRaf) return;
+        insetUpdateRaf = requestAnimationFrame(() => {
+            insetUpdateRaf = null;
+            updateDesktopTextInset();
+        });
+    }
     
     // Estado del panel
     let panelAbierto = false;
@@ -38,11 +127,15 @@ document.addEventListener("DOMContentLoaded", function() {
         
         if (targetTab) targetTab.classList.add('active');
         if (targetButton) targetButton.classList.add('active');
+
+        const openMin = getLayoutTokenPx('--lectura-panel-open-min-width', 360);
+        panelWrapper?.style.setProperty('--lectura-panel-open-width-inline', `${Math.round(openMin)}px`);
         
         // Abrir el panel
         lecturaPanel.classList.add('open');
         panelAbierto = true;
         pestanaActiva = tabName;
+        requestDesktopTextInsetUpdate();
     }
     
     // Función para cerrar el panel
@@ -53,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function() {
         tabButtons.forEach(btn => btn.classList.remove('active'));
         panelAbierto = false;
         pestanaActiva = null;
+        requestDesktopTextInsetUpdate();
     }
     
     // Función para toggle del panel
@@ -86,71 +180,94 @@ document.addEventListener("DOMContentLoaded", function() {
         getPestanaActiva: () => pestanaActiva
     };
     
+    requestDesktopTextInsetUpdate();
+    
     // ============================================
     // REDIMENSIONAMIENTO DEL PANEL (DRAG HANDLE)
     // ============================================
     
     const resizeHandle = document.getElementById('panel-resize-handle');
-    const panelWrapper = document.getElementById('lectura-panel-wrapper');
+    panelWrapper = document.getElementById('lectura-panel-wrapper');
+
+    if (panelWrapper) {
+        ['mouseenter', 'mouseleave', 'focusin', 'focusout'].forEach((eventName) => {
+            panelWrapper.addEventListener(eventName, requestDesktopTextInsetUpdate);
+        });
+    }
+
+    tabsBar?.addEventListener('transitionend', function(event) {
+        if (
+            event.propertyName === 'width' ||
+            event.propertyName === 'inline-size' ||
+            event.propertyName === 'max-width' ||
+            event.propertyName === 'padding-left' ||
+            event.propertyName === 'padding-right'
+        ) {
+            requestDesktopTextInsetUpdate();
+        }
+    });
     
     if (resizeHandle && panelWrapper) {
         let isResizing = false;
         let startX = 0;
         let startWidth = 0;
         const minWidth = 320;
-        const maxWidth = 800;
-        
-        // Función para limpiar el width inline en tablet/móvil
+        const defaultMaxWidth = 800;
+
+        // Funcion para limpiar el width inline en tablet/movil
         function resetWidthOnResize() {
-            if (window.innerWidth < 992 && panelWrapper.style.width) {
-                panelWrapper.style.width = '';
-                // También restaurar el padding del text-column
-                if (textColumn) {
-                    textColumn.style.paddingRight = '';
-                }
+            if (window.innerWidth < 992) {
+                panelWrapper.style.removeProperty('--lectura-panel-open-width-inline');
             }
+            requestDesktopTextInsetUpdate();
         }
-        
-        // Limpiar width inline al cambiar tamaño de ventana
+
+        // Limpiar width inline al cambiar tamano de ventana
         window.addEventListener('resize', resetWidthOnResize);
-        
+
         // Solo habilitar drag en desktop
         if (window.innerWidth >= 992) {
             resizeHandle.addEventListener('mousedown', function(e) {
-                if (window.innerWidth < 992) return; // Doble verificación
-                
+                if (window.innerWidth < 992) return; // Doble verificacion
+
                 isResizing = true;
                 startX = e.clientX;
-                startWidth = panelWrapper.offsetWidth;
+                const currentVarWidth = parseFloat(panelWrapper.style.getPropertyValue('--lectura-panel-open-width-inline'));
+                startWidth = Number.isFinite(currentVarWidth) ? currentVarWidth : (lecturaPanel?.offsetWidth || panelWrapper.offsetWidth);
                 document.body.style.cursor = 'ew-resize';
                 document.body.style.userSelect = 'none';
                 e.preventDefault();
             });
-            
+
             document.addEventListener('mousemove', function(e) {
                 if (!isResizing || window.innerWidth < 992) return;
-                
+
                 const deltaX = startX - e.clientX; // Invertido porque el panel crece hacia la izquierda
+                const maxWidth = dynamicRecenterEnabled
+                    ? getLayoutTokenPx('--lectura-panel-open-width-safe-max', 420)
+                    : defaultMaxWidth;
                 const newWidth = Math.min(Math.max(startWidth + deltaX, minWidth), maxWidth);
-                
-                panelWrapper.style.width = newWidth + 'px';
-                
-                // Ajustar padding-right del text-column para que los números de verso no queden tapados
-                if (textColumn) {
+
+                panelWrapper.style.setProperty('--lectura-panel-open-width-inline', `${Math.round(newWidth)}px`);
+
+                // Mantener comportamiento anterior cuando el recenter dinamico esta desactivado
+                if (!dynamicRecenterEnabled && textColumn) {
                     textColumn.style.paddingRight = (newWidth + 100) + 'px';
                 }
+                requestDesktopTextInsetUpdate();
             });
-            
+
             document.addEventListener('mouseup', function() {
                 if (isResizing) {
                     isResizing = false;
                     document.body.style.cursor = '';
                     document.body.style.userSelect = '';
+                    requestDesktopTextInsetUpdate();
                 }
             });
         }
     }
-    
+
     // ============================================
     // CONTROLES DE LECTURA
     // ============================================
@@ -491,7 +608,10 @@ document.addEventListener("DOMContentLoaded", function() {
                             // Mostrar nota usando función compartida
                             mostrarNotaEnPanel(noteToShow, activeGroup, teiContainer, noteContentDiv);
                         } else {
-                            noteContentDiv.innerHTML = '<p>Nota no encontrada.</p>';
+                            renderizarPlaceholderNota(
+                                noteContentDiv,
+                                'Nota no encontrada.'
+                            );
                             console.error('No se encontró nota con xml:id:', activeGroup);
                         }
                     });
@@ -511,6 +631,33 @@ document.addEventListener("DOMContentLoaded", function() {
             window.edicionEvaluacion.init();
         }
     } // ← Fin de processNotes()
+
+    function renderizarDockEvaluacionLoading() {
+        return `
+            <div class="lectura-note-eval-loading" data-eval-loading="true" aria-hidden="true">
+                <span class="lectura-skeleton-line is-title"></span>
+                <div class="lectura-skeleton-btnrow">
+                    <span class="lectura-skeleton-btn"></span>
+                    <span class="lectura-skeleton-btn"></span>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderizarPlaceholderNota(noteContentDiv, mensaje) {
+        noteContentDiv.dataset.currentNoteId = '';
+        noteContentDiv.innerHTML = `
+            <div class="lectura-note-layout">
+                <div class="lectura-note-header"></div>
+                <div class="lectura-note-scroll">
+                    <p class="placeholder-text">${mensaje}</p>
+                </div>
+                <div class="lectura-note-eval-dock" data-eval-state="idle">
+                    <p class="lectura-note-dock-placeholder"></p>
+                </div>
+            </div>
+        `;
+    }
     
     // Función para mostrar nota en el panel con navegación
     function mostrarNotaEnPanel(noteToShow, noteXmlId, teiContainer, noteContentDiv) {
@@ -546,11 +693,6 @@ document.addEventListener("DOMContentLoaded", function() {
             badgesHTML += `<span class="note-badge note-badge-subtype">${normalizedSubtype}</span>`;
         }
         
-        // Obtener contadores de evaluaciones usando módulo reutilizable
-        const evaluacionesHTML = typeof obtenerEvaluacionesHTML === 'function' 
-            ? obtenerEvaluacionesHTML(noteXmlId) 
-            : '';
-        
         // Actualizar estado de navegación
         window.edicionNotas.notaActualId = noteXmlId;
         window.edicionNotas.notaActualIndex = window.edicionNotas.todasLasNotas.indexOf(noteXmlId);
@@ -563,26 +705,31 @@ document.addEventListener("DOMContentLoaded", function() {
         // Marcar nota activa en el texto (persistente)
         marcarNotaActivaEnTexto(noteXmlId, teiContainer);
         
+        noteContentDiv.dataset.currentNoteId = noteXmlId;
         noteContentDiv.innerHTML = `
-            <div class="note-panel-header">
-                <div class="note-nav-controls">
-                    <button class="btn-circular btn-nav-nota" id="btn-nota-prev" ${!hasPrev ? 'disabled' : ''} title="Nota anterior">
-                        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-                    </button>
-                    <span class="nota-posicion">Nota ${currentIndex + 1} de ${totalNotas}</span>
-                    <button class="btn-circular btn-nav-nota" id="btn-nota-next" ${!hasNext ? 'disabled' : ''} title="Nota siguiente">
-                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-                    </button>
+            <div class="lectura-note-layout">
+                <div class="lectura-note-header">
+                    <div class="note-nav-controls">
+                        <button class="btn-circular btn-nav-nota" id="btn-nota-prev" ${!hasPrev ? 'disabled' : ''} title="Nota anterior">
+                            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                        </button>
+                        <span class="nota-posicion">Nota ${currentIndex + 1} de ${totalNotas}</span>
+                        <button class="btn-circular btn-nav-nota" id="btn-nota-next" ${!hasNext ? 'disabled' : ''} title="Nota siguiente">
+                            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="note-display" data-note-id="${noteXmlId}">
-                <div class="note-header">
-                    
-                    ${badgesHTML ? `<div class="note-badges">${badgesHTML}</div>` : ''}
+                <div class="lectura-note-scroll">
+                    <div class="note-display" data-note-id="${noteXmlId}">
+                        <div class="note-header">
+                            ${badgesHTML ? `<div class="note-badges">${badgesHTML}</div>` : ''}
+                        </div>
+                        <p class="fs-6">${noteToShow.textContent.trim()}</p>
+                        <div class="note-footer"></div>
+                    </div>
                 </div>
-                <p class="fs-6">${noteToShow.textContent.trim()}</p>
-                ${evaluacionesHTML}
-                <div class="note-footer">
+                <div class="lectura-note-eval-dock" data-eval-state="loading">
+                    ${renderizarDockEvaluacionLoading()}
                 </div>
             </div>
         `;
@@ -638,7 +785,10 @@ document.addEventListener("DOMContentLoaded", function() {
         window.edicionNotas.notaActualIndex = -1;
         
         // Mostrar placeholder
-        noteContentDiv.innerHTML = '<p class="placeholder-text">Haz clic en el texto subrayado para ver las notas.</p>';
+        renderizarPlaceholderNota(
+            noteContentDiv,
+            'Haz clic en el texto subrayado para ver las notas.'
+        );
     }
     
     // Función para marcar nota activa en el texto (persistente)

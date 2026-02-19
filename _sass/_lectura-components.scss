@@ -161,6 +161,40 @@
   }
 }
 
+.nota-evaluacion.is-commenting {
+  .evaluacion-header,
+  .evaluacion-botones,
+  .eval-mensaje-primero {
+    display: none !important;
+  }
+
+  .evaluacion-comentario,
+  .nota-content .evaluacion-comentario {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+    margin-top: 0;
+    animation: none;
+  }
+
+  .evaluacion-comentario textarea,
+  .nota-content .evaluacion-comentario textarea {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+    min-height: 58px;
+    max-height: 110px;
+    overflow-y: auto;
+    resize: vertical;
+  }
+
+  .evaluacion-comentario .btn,
+  .nota-content .evaluacion-comentario .btn {
+    margin: 0 !important;
+    width: 100%;
+    min-width: 0;
+  }
+}
+
 @keyframes slideDown {
   from {
     opacity: 0;
