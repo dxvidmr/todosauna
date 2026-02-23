@@ -424,10 +424,7 @@ class EditorSocial {
    * Cargar lista de pasajes desde Supabase
    */
   async cargarPasajes() {
-    const { data, error } = await window.supabaseClient
-      .from('pasajes')
-      .select('*')
-      .order('orden', { ascending: true });
+    const { data, error } = await window.SupabaseAPI.getPasajes();
 
     if (error) {
       console.error('Error al cargar pasajes:', error);
@@ -1096,21 +1093,15 @@ class EditorSocial {
       }
 
       // La sesiÃ³n ya estÃ¡ creada en BD (se creÃ³ al elegir modo)
-      const evaluacion = {
-        timestamp: new Date().toISOString(),
+      const { error } = await window.SupabaseAPI.submitNoteEvaluation({
         source: 'laboratorio',
-        event_type: 'nota_eval',
         session_id: datosUsuario.session_id,
         pasaje_id: pasajeId,
         nota_id: notaId,
         nota_version: version,
         vote: vote,
         comment: comentario
-      };
-
-      const { error } = await window.supabaseClient
-        .from('evaluaciones')
-        .insert(evaluacion);
+      });
 
       if (error) {
         console.error('Error al registrar evaluacion:', error);

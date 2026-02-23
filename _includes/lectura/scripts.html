@@ -9,22 +9,25 @@
 <!-- 2. Cliente Supabase (usa config.js) -->
 <script src="{{ '/assets/js/lectura/supabase-client.js' | relative_url }}"></script>
 
-<!-- 3. Utilidades generales -->
+<!-- 3. Capa de API segura (RPC + contenido editorial) -->
+<script src="{{ '/assets/js/lectura/supabase-api.js' | relative_url }}"></script>
+
+<!-- 4. Utilidades generales -->
 <script src="{{ '/assets/js/lectura/utils.js' | relative_url }}"></script>
 
-<!-- 4. Gestión de usuario -->
+<!-- 5. Gestión de usuario -->
 <script src="{{ '/assets/js/lectura/user-manager.js' | relative_url }}"></script>
 
-<!-- 5. Modal de modo de participación -->
+<!-- 6. Modal de modo de participación -->
 <script src="{{ '/assets/js/lectura/modal-modo.js' | relative_url }}"></script>
 
-<!-- 6. Gestión de notas (carga desde Supabase) -->
+<!-- 7. Gestión de notas (carga desde Supabase) -->
 <script src="{{ '/assets/js/lectura/notas.js' | relative_url }}"></script>
 
-<!-- 7. Estadísticas de evaluaciones (módulo reutilizable) -->
+<!-- 8. Estadísticas de evaluaciones (módulo reutilizable) -->
 <script src="{{ '/assets/js/lectura/evaluaciones-stats.js' | relative_url }}"></script>
 
-<!-- 8. CETEIcean (versión custom) -->
+<!-- 9. CETEIcean (versión custom) -->
 <script src="{{ '/assets/js/lectura/CETEI.js' | relative_url }}"></script>
 
 <!-- 9. Cargar XMLs -->

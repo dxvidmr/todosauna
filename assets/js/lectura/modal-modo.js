@@ -349,18 +349,13 @@ class ModalModo {
     btnSubmit.textContent = 'Buscando...';
     
     try {
-      if (window.userManager?.debug) console.log('Llamando a hashEmail() desde LOGIN...');
-      // Hash del email (normalizado)
-      const email_hash = await window.userManager.hashEmail(email);
+      const resultado = await window.userManager.identificarColaborador(email);
+
+      if (!resultado.ok) {
+        throw resultado.error || new Error('No se pudo identificar el colaborador');
+      }
       
-      // Buscar colaborador existente
-      const { data: colaborador, error } = await window.supabaseClient
-        .from('colaboradores')
-        .select('collaborator_id, display_name, nivel_estudios, disciplina')
-        .eq('email_hash', email_hash)
-        .single();
-      
-      if (error || !colaborador) {
+      if (!resultado.found) {
         btnSubmit.disabled = false;
         btnSubmit.textContent = textoOriginal;
         
@@ -377,47 +372,17 @@ class ModalModo {
         return;
       }
       
-      // Colaborador encontrado, crear sesión
-      const sessionId = crypto.randomUUID();
-      const { error: errorSesion } = await window.supabaseClient
-        .from('sesiones')
-        .insert({
-          session_id: sessionId,
-          es_colaborador: true,
-          collaborator_id: colaborador.collaborator_id,
-          nivel_estudios: colaborador.nivel_estudios,
-          disciplina: colaborador.disciplina
-        });
-      
-      if (errorSesion) {
-        console.error('Error creando sesión:', errorSesion);
-        btnSubmit.disabled = false;
-        btnSubmit.textContent = textoOriginal;
-        alert('Error al identificarte. Intenta de nuevo.');
-        return;
-      }
-      
-      // Guardar en sessionStorage
-      const datos = {
-        session_id: sessionId,
-        es_colaborador: true,
-        collaborator_id: colaborador.collaborator_id,
-        display_name: colaborador.display_name,
-        nivel_estudios: colaborador.nivel_estudios,
-        disciplina: colaborador.disciplina
-      };
-      
-      sessionStorage.setItem('fuenteovejuna_session', JSON.stringify(datos));
-      
-      // Cerrar modal y mostrar bienvenida
+      // userManager.identificarColaborador() already creates and stores session via RPC.
       this.cerrar();
-      mostrarToast(`¡Hola de nuevo, ${colaborador.display_name || 'colaborador/a'}!`, 3000);
+      const displayName = resultado.collaborator?.display_name || 'colaborador/a';
+      mostrarToast(`Hola de nuevo, ${displayName}!`, 3000);
       
     } catch (error) {
       console.error('Error al identificarse:', error);
+      alert('Error al identificarte. Por favor intenta de nuevo.');
+    } finally {
       btnSubmit.disabled = false;
       btnSubmit.textContent = textoOriginal;
-      alert('Error al identificarte. Por favor intenta de nuevo.');
     }
   }
 

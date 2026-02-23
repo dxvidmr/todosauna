@@ -1,89 +1,53 @@
 // ============================================
-// GESTIÓN DE NOTAS
+// GESTION DE NOTAS
 // ============================================
 
 /**
- * Cargar todas las notas activas (con caché)
+ * Cargar todas las notas activas (con cache)
  */
 async function cargarNotasActivas() {
-  // Verificar caché
   if (window.notasActivasCache) {
-    console.log('✓ Notas activas desde caché');
+    console.log('Notas activas desde cache');
     return window.notasActivasCache;
   }
-  
-  // Cargar notas desde Supabase
-  const { data: notas, error } = await window.supabaseClient
-    .from('notas_activas')
-    .select('*');
-  
+
+  const { data: notas, error } = await window.SupabaseAPI.getNotasActivas();
   if (error) {
     console.error('Error al cargar notas:', error);
     return [];
   }
-  
-  // Cargar contadores de evaluaciones para cada nota
+
   try {
-    const { data: evaluaciones, error: evalError } = await window.supabaseClient
-      .from('evaluaciones')
-      .select('nota_id, vote')
-      .not('nota_id', 'is', null);  // Solo evaluaciones con nota_id
-    
-    console.log('Evaluaciones cargadas:', evaluaciones?.length || 0);
-    
-    if (!evalError && evaluaciones && evaluaciones.length > 0) {
-      // Debug: mostrar primeras evaluaciones
-      console.log('Ejemplo de evaluaciones:', evaluaciones.slice(0, 3));
-      
-      // Crear mapa de contadores por nota_id
+    const { data: evaluacionesAgg, error: evalError } = await window.SupabaseAPI.getNoteEvalCounts();
+
+    if (!evalError && Array.isArray(evaluacionesAgg)) {
       const contadores = {};
-      evaluaciones.forEach(e => {
-        if (!e.nota_id) return; // Saltar si no hay nota_id
-        
-        if (!contadores[e.nota_id]) {
-          contadores[e.nota_id] = { total: 0, utiles: 0, mejorables: 0 };
-        }
-        contadores[e.nota_id].total++;
-        // Soportar ambos formatos de vote: up/down y util/mejorable
-        if (e.vote === 'up' || e.vote === 'util') contadores[e.nota_id].utiles++;
-        if (e.vote === 'down' || e.vote === 'mejorable') contadores[e.nota_id].mejorables++;
+      evaluacionesAgg.forEach((row) => {
+        if (!row.nota_id) return;
+        contadores[row.nota_id] = {
+          total: Number(row.total || 0),
+          utiles: Number(row.utiles || 0),
+          mejorables: Number(row.mejorables || 0)
+        };
       });
-      
-      console.log('Contadores generados:', Object.keys(contadores).length, 'notas con evaluaciones');
-      console.log('Ejemplo de contadores:', Object.entries(contadores).slice(0, 3));
-      
-      // Agregar contadores a cada nota
-      notas.forEach(nota => {
+
+      notas.forEach((nota) => {
         nota.evaluaciones = contadores[nota.nota_id] || { total: 0, utiles: 0, mejorables: 0 };
       });
-      
-      console.log('✓ Contadores de evaluaciones agregados');
     } else {
-      console.log('No hay evaluaciones en la BD o error:', evalError);
-      notas.forEach(nota => {
+      notas.forEach((nota) => {
         nota.evaluaciones = { total: 0, utiles: 0, mejorables: 0 };
       });
     }
   } catch (err) {
     console.warn('No se pudieron cargar contadores de evaluaciones:', err);
-    // Agregar contadores vacíos si falla
-    notas.forEach(nota => {
+    notas.forEach((nota) => {
       nota.evaluaciones = { total: 0, utiles: 0, mejorables: 0 };
     });
   }
-  
-  // Debug: mostrar estructura de las primeras notas
-  if (notas.length > 0) {
-    console.log('Estructura de nota ejemplo:', {
-      nota_id: notas[0].nota_id,
-      evaluaciones: notas[0].evaluaciones
-    });
-  }
-  
-  // Guardar en caché
+
   window.notasActivasCache = notas;
-  console.log(`✓ ${notas.length} notas activas cargadas`);
-  
+  console.log(`${notas.length} notas activas cargadas`);
   return notas;
 }
 
@@ -91,85 +55,67 @@ async function cargarNotasActivas() {
  * Filtrar notas que aplican a un conjunto de xml:ids
  */
 function filtrarNotasPorXmlIds(todasNotas, xmlIds) {
-  return todasNotas.filter(nota => {
-    // Parsear targets de la nota (pueden ser múltiples)
+  return todasNotas.filter((nota) => {
     const targetsNota = nota.target
       .split(' ')
-      .map(t => t.replace('#', ''));
-    
-    // Verificar si algún target está en los xml:ids
-    return targetsNota.some(t => xmlIds.includes(t));
+      .map((t) => t.replace('#', ''));
+
+    return targetsNota.some((t) => xmlIds.includes(t));
   });
 }
 
 /**
- * Cargar notas de un pasaje específico
+ * Cargar notas de un pasaje especifico
  */
 async function cargarNotasPasaje(xmlDoc, pasaje, fragmento) {
-  // 1. Obtener todas las notas activas
   const todasNotas = await cargarNotasActivas();
-  
-  // 2. Extraer xml:ids del fragmento
   const xmlIdsDelPasaje = extraerXmlIdsDelFragmento(fragmento);
-  
-  // 3. Filtrar notas que aplican
   const notasDelPasaje = filtrarNotasPorXmlIds(todasNotas, xmlIdsDelPasaje);
-  
-  console.log(`✓ ${notasDelPasaje.length} notas para este pasaje`);
+
+  console.log(`${notasDelPasaje.length} notas para este pasaje`);
   return notasDelPasaje;
 }
 
 /**
- * Invalidar caché de notas (útil después de evaluar)
+ * Invalidar cache de notas (util despues de evaluar)
  */
 function invalidarCacheNotas() {
   window.notasActivasCache = null;
-  console.log('✓ Caché de notas invalidada');
+  console.log('Cache de notas invalidada');
 }
 
 /**
- * Registrar evaluación de nota
+ * Registrar evaluacion de nota
  */
 async function registrarEvaluacion(datos) {
-  // Verificar que usuario tiene modo definido
   if (!window.userManager.tieneModoDefinido()) {
     await window.modalModo.mostrar();
   }
-  
+
   const datosUsuario = window.userManager.obtenerDatosUsuario();
-  
-  // Asegurar que la sesión esté creada en BD (primera evaluación)
-  if (!datosUsuario.sesion_creada_en_bd) {
-    console.log('⏳ Primera evaluación: creando sesión en BD...');
-    const exito = await window.modalModo.crearSesionEnBD(datosUsuario);
-    if (exito) {
-      window.userManager.marcarSesionCreada();
-    } else {
-      alert('Error al crear sesión. Por favor intenta de nuevo.');
-      return false;
-    }
-  }
-  
-  const evaluacion = {
-    timestamp: new Date().toISOString(),
-    session_id: datosUsuario.session_id,
-    ...datos
-  };
-  
-  const { error } = await window.supabaseClient
-    .from('evaluaciones')
-    .insert(evaluacion);
-  
-  if (error) {
-    console.error('Error al registrar evaluación:', error);
+  if (!datosUsuario?.session_id) {
+    console.error('No hay sesion activa para registrar evaluacion');
     return false;
   }
-  
-  // Invalidar caché para que se recarguen los contadores
+
+  const { error } = await window.SupabaseAPI.submitNoteEvaluation({
+    source: datos.source || 'lectura',
+    session_id: datosUsuario.session_id,
+    pasaje_id: datos.pasaje_id || null,
+    nota_id: datos.nota_id,
+    nota_version: datos.nota_version,
+    vote: datos.vote,
+    comment: datos.comment || null
+  });
+
+  if (error) {
+    console.error('Error al registrar evaluacion:', error);
+    return false;
+  }
+
   invalidarCacheNotas();
-  
-  console.log('✓ Evaluación registrada');
+  console.log('Evaluacion registrada');
   return true;
 }
 
-console.log('✓ Notas.js cargado');
+console.log('Notas.js cargado');

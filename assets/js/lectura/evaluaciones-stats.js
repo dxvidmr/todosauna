@@ -1,9 +1,9 @@
-// ============================================
-// ESTADÍSTICAS DE EVALUACIONES (MÓDULO REUTILIZABLE)
+﻿// ============================================
+// ESTADÃSTICAS DE EVALUACIONES (MÃ“DULO REUTILIZABLE)
 // ============================================
 
 /**
- * Obtener estadísticas de evaluaciones para una nota
+ * Obtener estadÃ­sticas de evaluaciones para una nota
  * @param {string} notaId - ID de la nota (ej: "n-1-1")
  * @param {Object} notaData - (Opcional) Objeto de la nota con evaluaciones precargadas
  * @returns {Object} {total, utiles, mejorables} o null si no hay datos
@@ -11,25 +11,25 @@
 function obtenerEvaluacionesStats(notaId, notaData = null) {
   let evaluaciones = null;
   
-  // Opción 1: Si se pasa el objeto nota directamente con evaluaciones
+  // OpciÃ³n 1: Si se pasa el objeto nota directamente con evaluaciones
   if (notaData && notaData.evaluaciones) {
     evaluaciones = notaData.evaluaciones;
     console.log(`[EvalStats] Usando evaluaciones de notaData para ${notaId}:`, evaluaciones);
   }
-  // Opción 2: Buscar en el caché global
+  // OpciÃ³n 2: Buscar en el cachÃ© global
   else if (window.notasActivasCache) {
     const notaEnCache = window.notasActivasCache.find(n => n.nota_id === notaId);
     if (notaEnCache && notaEnCache.evaluaciones) {
       evaluaciones = notaEnCache.evaluaciones;
-      console.log(`[EvalStats] Encontrado en caché para ${notaId}:`, evaluaciones);
+      console.log(`[EvalStats] Encontrado en cachÃ© para ${notaId}:`, evaluaciones);
     } else {
-      console.log(`[EvalStats] No encontrado en caché: ${notaId}`);
+      console.log(`[EvalStats] No encontrado en cachÃ©: ${notaId}`);
     }
   } else {
-    console.log(`[EvalStats] Caché no disponible para ${notaId}`);
+    console.log(`[EvalStats] CachÃ© no disponible para ${notaId}`);
   }
   
-  // Si no hay evaluaciones, usar contador vacío
+  // Si no hay evaluaciones, usar contador vacÃ­o
   if (!evaluaciones) {
     evaluaciones = { total: 0, utiles: 0, mejorables: 0 };
   }
@@ -38,9 +38,9 @@ function obtenerEvaluacionesStats(notaId, notaData = null) {
 }
 
 /**
- * Crear HTML con contadores integrados en botones + mensaje "Sé el primero"
+ * Crear HTML con contadores integrados en botones + mensaje "SÃ© el primero"
  * @param {string} notaId - ID de la nota
- * @param {string} version - Versión de la nota
+ * @param {string} version - VersiÃ³n de la nota
  * @param {Object} evaluaciones - {total, utiles, mejorables}
  * @returns {string} HTML de botones con contadores
  */
@@ -49,18 +49,18 @@ function crearBotonesConContadores(notaId, version, evaluaciones) {
   
   // Mensaje si no hay evaluaciones
   const mensajePrimero = total === 0 
-    ? '<p class="eval-mensaje-primero">¡Sé el primero en evaluarla!</p>' 
+    ? '<p class="eval-mensaje-primero">Â¡SÃ© el primero en evaluarla!</p>'
     : '';
   
   return `
     <div class="evaluacion-header">
-      <span>¿Te resulta útil esta nota?</span>
+      <span>Â¿Te resulta Ãºtil esta nota?</span>
     </div>
     <div class="evaluacion-botones">
       <button class="btn btn-outline-success btn-evaluar btn-util" data-nota-id="${notaId}" data-version="${version}">
         <span class="btn-contador">${utiles}</span>
         <i class="fa-solid fa-heart" aria-hidden="true"></i>
-        Útil
+        Ãštil
       </button>
       <button class="btn btn-outline-danger btn-evaluar btn-mejorable" data-nota-id="${notaId}" data-version="${version}">
         <span class="btn-contador">${mejorables}</span>
@@ -70,7 +70,7 @@ function crearBotonesConContadores(notaId, version, evaluaciones) {
     </div>
     ${mensajePrimero}
     <div class="evaluacion-comentario" style="display:none;">
-      <textarea placeholder="[opcional] ¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota." rows="3"></textarea>
+      <textarea placeholder="[opcional] Â¿QuÃ© cambiarÃ­as? Puedes explicar lo que no te gusta o redactar una nueva nota." rows="3"></textarea>
       <button class="btn btn-dark btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
       <button class="btn btn-outline-dark btn-sm btn-cancelar-comentario">Cancelar</button>
     </div>
@@ -78,10 +78,10 @@ function crearBotonesConContadores(notaId, version, evaluaciones) {
 }
 
 /**
- * Adjuntar listeners de evaluación a botones (REUTILIZABLE)
+ * Adjuntar listeners de evaluaciÃ³n a botones (REUTILIZABLE)
  * @param {HTMLElement} container - Contenedor con los botones
  * @param {string} notaId - ID de la nota
- * @param {string} version - Versión de la nota
+ * @param {string} version - VersiÃ³n de la nota
  * @param {Function} registrarCallback - Callback async(notaId, version, vote, comment) => boolean
  * @param {Function} feedbackCallback - Callback(notaId, vote) => void
  */
@@ -98,7 +98,7 @@ function attachEvaluationListeners(container, notaId, version, registrarCallback
     container;
 
   if (!btnUtil || !btnMejorable) {
-    console.warn('Botones de evaluación no encontrados');
+    console.warn('Botones de evaluaciÃ³n no encontrados');
     return;
   }
 
@@ -124,7 +124,7 @@ function attachEvaluationListeners(container, notaId, version, registrarCallback
     }
   };
 
-  // Botón "Útil"
+  // BotÃ³n "Ãštil"
   btnUtil.addEventListener('click', async () => {
     exitCommentMode({ clear: false });
     const exito = await registrarCallback(notaId, version, 'up', null);
@@ -134,12 +134,12 @@ function attachEvaluationListeners(container, notaId, version, registrarCallback
     }
   });
 
-  // Botón "Mejorable" - reemplazar vista por comentario
+  // BotÃ³n "Mejorable" - reemplazar vista por comentario
   btnMejorable.addEventListener('click', () => {
     enterCommentMode();
   });
 
-  // Botón "Enviar comentario"
+  // BotÃ³n "Enviar comentario"
   btnEnviar?.addEventListener('click', async () => {
     const comentario = textarea?.value.trim() || null;
     const exito = await registrarCallback(notaId, version, 'down', comentario);
@@ -149,33 +149,33 @@ function attachEvaluationListeners(container, notaId, version, registrarCallback
     }
   });
 
-  // Botón "Cancelar"
+  // BotÃ³n "Cancelar"
   btnCancelar?.addEventListener('click', () => {
     exitCommentMode({ clear: true });
   });
 }
 
-console.log('✓ Evaluaciones-stats.js cargado');
+console.log('âœ“ Evaluaciones-stats.js cargado');
 
 /**
- * Actualizar contador de evaluaciones localmente después de evaluar
+ * Actualizar contador de evaluaciones localmente despuÃ©s de evaluar
  * @param {string} notaId - ID de la nota evaluada
  * @param {string} vote - 'up' o 'down' (o 'util'/'mejorable')
  */
 function actualizarContadorLocal(notaId, vote) {
-  // Inicializar caché si no existe
+  // Inicializar cachÃ© si no existe
   if (!window.notasActivasCache) {
     window.notasActivasCache = [];
   }
   
-  // Buscar la nota en caché
+  // Buscar la nota en cachÃ©
   let nota = window.notasActivasCache.find(n => n.nota_id === notaId);
   
-  // Si no existe, crear entrada mínima
+  // Si no existe, crear entrada mÃ­nima
   if (!nota) {
     nota = { nota_id: notaId, evaluaciones: { total: 0, utiles: 0, mejorables: 0 } };
     window.notasActivasCache.push(nota);
-    console.log(`[EvalStats] Creada entrada en caché para ${notaId}`);
+    console.log(`[EvalStats] Creada entrada en cachÃ© para ${notaId}`);
   }
   
   // Inicializar evaluaciones si no existe
@@ -193,94 +193,69 @@ function actualizarContadorLocal(notaId, vote) {
   
   console.log(`[EvalStats] Contador actualizado para ${notaId}:`, nota.evaluaciones);
   
-  // Actualizar los números en los botones del DOM
+  // Actualizar los nÃºmeros en los botones del DOM
   actualizarContadoresEnBotones(nota.evaluaciones);
 }
 
 /**
- * Actualizar los números en los botones de evaluación
+ * Actualizar los nÃºmeros en los botones de evaluaciÃ³n
  * @param {Object} evaluaciones - {total, utiles, mejorables}
  */
 function actualizarContadoresEnBotones(evaluaciones) {
-  // Actualizar botón "Útil"
+  // Actualizar botÃ³n "Ãštil"
   const btnUtil = document.querySelector('.btn-util .btn-contador');
   if (btnUtil) {
     btnUtil.textContent = evaluaciones.utiles;
-    console.log(`[EvalStats] Actualizado contador útil: ${evaluaciones.utiles}`);
+    console.log(`[EvalStats] Actualizado contador Ãºtil: ${evaluaciones.utiles}`);
   }
   
-  // Actualizar botón "Mejorable"
+  // Actualizar botÃ³n "Mejorable"
   const btnMejorable = document.querySelector('.btn-mejorable .btn-contador');
   if (btnMejorable) {
     btnMejorable.textContent = evaluaciones.mejorables;
     console.log(`[EvalStats] Actualizado contador mejorable: ${evaluaciones.mejorables}`);
   }
   
-  // Quitar mensaje "Sé el primero" si existe
+  // Quitar mensaje "SÃ© el primero" si existe
   const mensajePrimero = document.querySelector('.eval-mensaje-primero');
   if (mensajePrimero && evaluaciones.total > 0) {
     mensajePrimero.remove();
-    console.log('[EvalStats] Mensaje "Sé el primero" eliminado');
+    console.log('[EvalStats] Mensaje "SÃ© el primero" eliminado');
   }
 }
 
 // ============================================
-// ESTADÍSTICAS GLOBALES DEL LABORATORIO
+// ESTADÃSTICAS GLOBALES DEL LABORATORIO
 // ============================================
 
 /**
- * Obtener estadísticas globales del laboratorio
+ * Obtener estadÃ­sticas globales del laboratorio
  * @returns {Object} {totalEvaluaciones, porcentajeUtiles, porcentajeMejorables, totalSugerencias}
  */
 async function obtenerEstadisticasGlobales() {
   try {
-    // 1. Total de evaluaciones de notas (nota_eval)
-    const { count: totalEvaluaciones, error: errorEval } = await window.supabaseClient
-      .from('evaluaciones')
-      .select('*', { count: 'exact', head: true })
-      .eq('event_type', 'nota_eval');
+    const { data, error } = await window.SupabaseAPI.getGlobalStats();
+    if (error || !data) throw error || new Error('Respuesta vacia en estadisticas globales');
 
-    if (errorEval) throw errorEval;
+    const totalEvaluaciones = Number(data.total_evaluaciones || 0);
+    const utiles = Number(data.utiles || 0);
+    const mejorables = Number(data.mejorables || 0);
+    const totalSugerencias = Number(data.total_sugerencias || 0);
 
-    // 2. Contar evaluaciones por tipo (útiles vs mejorables)
-    const { data: evaluacionesPorTipo, error: errorTipos } = await window.supabaseClient
-      .from('evaluaciones')
-      .select('vote')
-      .eq('event_type', 'nota_eval');
-
-    if (errorTipos) throw errorTipos;
-
-    let utiles = 0;
-    let mejorables = 0;
-
-    evaluacionesPorTipo?.forEach(ev => {
-      if (ev.vote === 'up') utiles++;
-      else if (ev.vote === 'down') mejorables++;
-    });
-
-    // 3. Total de sugerencias de notas nuevas (falta_nota)
-    const { count: totalSugerencias, error: errorSug } = await window.supabaseClient
-      .from('evaluaciones')
-      .select('*', { count: 'exact', head: true })
-      .eq('event_type', 'falta_nota');
-
-    if (errorSug) throw errorSug;
-
-    // 4. Calcular porcentajes
     const total = utiles + mejorables;
     const porcentajeUtiles = total > 0 ? Math.round((utiles / total) * 100) : 0;
     const porcentajeMejorables = total > 0 ? Math.round((mejorables / total) * 100) : 0;
 
     return {
-      totalEvaluaciones: totalEvaluaciones || 0,
+      totalEvaluaciones,
       utiles,
       mejorables,
       porcentajeUtiles,
       porcentajeMejorables,
-      totalSugerencias: totalSugerencias || 0
+      totalSugerencias
     };
   } catch (error) {
-    console.error('Error al obtener estadísticas globales:', error);
+    console.error('Error al obtener estadisticas globales:', error);
     return {
       totalEvaluaciones: 0,
       utiles: 0,
@@ -293,9 +268,9 @@ async function obtenerEstadisticasGlobales() {
 }
 
 /**
- * Renderizar estadísticas globales en el HTML usando Chart.js
- * @param {HTMLElement} container - Contenedor para las estadísticas
- * @param {Object} stats - Objeto con las estadísticas globales
+ * Renderizar estadÃ­sticas globales en el HTML usando Chart.js
+ * @param {HTMLElement} container - Contenedor para las estadÃ­sticas
+ * @param {Object} stats - Objeto con las estadÃ­sticas globales
  */
 function renderizarEstadisticasGlobales(container, stats) {
   if (!container) return;
@@ -308,12 +283,12 @@ function renderizarEstadisticasGlobales(container, stats) {
   const html = `
     <div class="stats-header">
       <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
-      <strong>Estadísticas globales</strong>
+      <strong>EstadÃ­sticas globales</strong>
     </div>
     
-    <!-- Barra horizontal: Tipos de contribución -->
+    <!-- Barra horizontal: Tipos de contribuciÃ³n -->
     <div class="stats-seccion">
-      <h4 class="stats-subtitulo">Tipos de contribución</h4>
+      <h4 class="stats-subtitulo">Tipos de contribuciÃ³n</h4>
       <div class="stats-barra-container">
         <!-- Leyenda (izquierda) -->
         <div class="stats-barra-leyenda">
@@ -326,22 +301,22 @@ function renderizarEstadisticasGlobales(container, stats) {
             <span class="leyenda-texto"><strong>${pctSugerencias}%</strong> Sugerencias (${stats.totalSugerencias})</span>
           </div>
         </div>
-        <!-- Gráfico de barras con Chart.js -->
+        <!-- GrÃ¡fico de barras con Chart.js -->
         <div class="stats-grafico-barra">
           <canvas id="statsBarChart"></canvas>
         </div>
       </div>
     </div>
     
-    <!-- Gráfico donut: Útiles vs Mejorables -->
+    <!-- GrÃ¡fico donut: Ãštiles vs Mejorables -->
     <div class="stats-seccion">
-      <h4 class="stats-subtitulo">Evaluación de notas</h4>
+      <h4 class="stats-subtitulo">EvaluaciÃ³n de notas</h4>
       <div class="stats-visualizacion">
         <!-- Leyenda (izquierda) -->
         <div class="stats-leyenda">
           <div class="leyenda-item">
             <span class="leyenda-color util"></span>
-            <span class="leyenda-texto"><strong>${stats.porcentajeUtiles}%</strong> Útiles (${stats.utiles})</span>
+            <span class="leyenda-texto"><strong>${stats.porcentajeUtiles}%</strong> Ãštiles (${stats.utiles})</span>
           </div>
           <div class="leyenda-item">
             <span class="leyenda-color mejorable"></span>
@@ -349,7 +324,7 @@ function renderizarEstadisticasGlobales(container, stats) {
           </div>
         </div>
 
-        <!-- Gráfico circular con Chart.js -->
+        <!-- GrÃ¡fico circular con Chart.js -->
         <div class="stats-grafico-circular">
           <canvas id="statsDoughnutChart"></canvas>
           <div class="chart-center-label">
@@ -363,7 +338,7 @@ function renderizarEstadisticasGlobales(container, stats) {
 
   container.innerHTML = html;
 
-  // Crear gráficos con Chart.js
+  // Crear grÃ¡ficos con Chart.js
   setTimeout(() => {
     crearGraficoBarraHorizontal(stats);
     crearGraficoDoughnut(stats);
@@ -371,20 +346,20 @@ function renderizarEstadisticasGlobales(container, stats) {
 }
 
 /**
- * Crear gráfico de barra horizontal de contribuciones
+ * Crear grÃ¡fico de barra horizontal de contribuciones
  */
 function crearGraficoBarraHorizontal(stats) {
   const canvas = document.getElementById('statsBarChart');
   if (!canvas) return;
 
-  // Destruir gráfico anterior si existe
+  // Destruir grÃ¡fico anterior si existe
   if (window.statsBarChartInstance) {
     window.statsBarChartInstance.destroy();
   }
 
   // Colores moderados (no demasiado vistosos)
   const evaluacionesColor = '#5b8a72'; // Verde azulado suave
-  const sugerenciasColor = '#9a7b4f'; // Marrón dorado suave
+  const sugerenciasColor = '#9a7b4f'; // MarrÃ³n dorado suave
 
   const totalContribuciones = stats.totalEvaluaciones + stats.totalSugerencias;
   const pctEvaluaciones = totalContribuciones > 0 ? Math.round((stats.totalEvaluaciones / totalContribuciones) * 100) : 50;
@@ -433,7 +408,7 @@ function crearGraficoBarraHorizontal(stats) {
             display: false
           },
           beginAtZero: true,
-          // Forzar el máximo al total de contribuciones para llenar el ancho
+          // Forzar el mÃ¡ximo al total de contribuciones para llenar el ancho
           max: totalContribuciones
         },
         y: {
@@ -475,13 +450,13 @@ function crearGraficoBarraHorizontal(stats) {
 }
 
 /**
- * Crear gráfico de donut de evaluaciones
+ * Crear grÃ¡fico de donut de evaluaciones
  */
 function crearGraficoDoughnut(stats) {
   const canvas = document.getElementById('statsDoughnutChart');
   if (!canvas) return;
 
-  // Destruir gráfico anterior si existe
+  // Destruir grÃ¡fico anterior si existe
   if (window.statsDoughnutChartInstance) {
     window.statsDoughnutChartInstance.destroy();
   }
@@ -493,7 +468,7 @@ function crearGraficoDoughnut(stats) {
   window.statsDoughnutChartInstance = new Chart(canvas, {
     type: 'doughnut',
     data: {
-      labels: ['Útiles', 'Mejorables'],
+      labels: ['Ãštiles', 'Mejorables'],
       datasets: [{
         data: [stats.utiles, stats.mejorables],
         backgroundColor: [utilColor, mejorableColor],

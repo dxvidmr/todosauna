@@ -1,11 +1,20 @@
 // ============================================
-// CONFIGURACIÓN DE SUPABASE
+// CONFIGURACION DE SUPABASE
 // ============================================
 
+// Nota: la publishable key siempre es visible en cliente.
+// Para rotacion sin tocar este archivo, se puede inyectar:
+// window.__SUPABASE_CONFIG__ = { url: '...', anonKey: '...' };
+
+const runtimeConfig = window.__SUPABASE_CONFIG__ || {};
+
 const SUPABASE_CONFIG = {
-  url: 'https://wlpzbxsgghsjffzycqku.supabase.co',
-  anonKey: 'sb_publishable_U8ZsfYWnaxamERll3iMb9w_PpSNRYjn'
+  url: runtimeConfig.url || 'https://wlpzbxsgghsjffzycqku.supabase.co',
+  anonKey: runtimeConfig.anonKey || 'sb_publishable_PCcxvIOQ06pshIdlXFBKew_xoo5KW_a'
 };
 
-// Exportar para usar en otros archivos
+if (!SUPABASE_CONFIG.url || !SUPABASE_CONFIG.anonKey) {
+  console.error('Configuracion de Supabase incompleta');
+}
+
 window.SUPABASE_CONFIG = SUPABASE_CONFIG;

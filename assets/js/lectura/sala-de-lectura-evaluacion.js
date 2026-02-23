@@ -37,10 +37,7 @@ class EdicionEvaluacion {
       const datosUsuario = window.userManager?.obtenerDatosUsuario();
       if (!datosUsuario?.session_id) return;
 
-      const { data, error } = await window.supabaseClient
-        .from('evaluaciones')
-        .select('nota_id')
-        .eq('session_id', datosUsuario.session_id);
+      const { data, error } = await window.SupabaseAPI.getSessionEvaluatedNotes(datosUsuario.session_id);
 
       if (!error && data) {
         data.forEach((e) => this.notasEvaluadasBD.add(e.nota_id));
@@ -256,11 +253,7 @@ class EdicionEvaluacion {
    */
   async obtenerVersionNota(notaId) {
     try {
-      const { data, error } = await window.supabaseClient
-        .from('notas_activas')
-        .select('version')
-        .eq('nota_id', notaId)
-        .single();
+      const { data, error } = await window.SupabaseAPI.getNotaVersion(notaId);
 
       if (error) {
         console.warn(`Nota ${notaId} no encontrada en Supabase`);
@@ -335,21 +328,15 @@ class EdicionEvaluacion {
       return false;
     }
 
-    const evaluacion = {
-      timestamp: new Date().toISOString(),
+    const { error } = await window.SupabaseAPI.submitNoteEvaluation({
       source: 'lectura',
-      event_type: 'nota_eval',
       session_id: datosUsuario.session_id,
       pasaje_id: null,
       nota_id: notaId,
       nota_version: version,
       vote: vote,
       comment: comentario
-    };
-
-    const { error } = await window.supabaseClient
-      .from('evaluaciones')
-      .insert(evaluacion);
+    });
 
     if (error) {
       console.error('Error al registrar evaluacion:', error);

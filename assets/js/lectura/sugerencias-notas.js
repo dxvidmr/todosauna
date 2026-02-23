@@ -327,24 +327,17 @@ class SugerenciasNotas {
       const comentario = this.modal.querySelector('#sugerencia-comentario').value.trim() || null;
       
       const sugerencia = {
-        timestamp: new Date().toISOString(),
         source: this.source,
-        event_type: 'falta_nota',
         session_id: datosUsuario.session_id,
         pasaje_id: this.obtenerPasajeId(),
-        nota_id: null,
-        nota_version: null,
         target_xmlid: this.seleccionActual.xmlid,
-        vote: null,
         selected_text: this.seleccionActual.texto,
         comment: comentario
       };
 
       console.log('Enviando sugerencia:', sugerencia);
 
-      const { error } = await window.supabaseClient
-        .from('evaluaciones')
-        .insert(sugerencia);
+      const { error } = await window.SupabaseAPI.submitMissingNoteSuggestion(sugerencia);
 
       if (error) {
         throw error;
