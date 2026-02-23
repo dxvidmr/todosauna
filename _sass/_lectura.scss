@@ -46,7 +46,7 @@ html:has(.lectura-wrapper) {
   --lectura-panel-gap-open: 32px;
   --lectura-panel-gap-closed: 24px;
   --lectura-rail-collapsed-width: 56px;
-  --lectura-rail-expanded-width: 148px;
+  --lectura-rail-expanded-width: 105px;
   --lectura-rail-height: clamp(250px, 46vh, 380px);
   --lectura-rail-gap: 8px;
   --lectura-text-pad-left-desktop: clamp(64px, 8vw, 140px);
@@ -1171,7 +1171,7 @@ tei-milestone[unit="stanza"].show-line::after {
 @media (min-width: 992px) and (max-height: 760px) {
   .lectura-wrapper {
     --lectura-rail-collapsed-width: 54px;
-    --lectura-rail-expanded-width: 142px;
+    --lectura-rail-expanded-width: 136px;
     --lectura-rail-height: clamp(230px, 44vh, 330px);
     --lectura-rail-gap: 7px;
     --lectura-panel-gap-open: 26px;
@@ -1217,7 +1217,7 @@ tei-milestone[unit="stanza"].show-line::after {
 @media (min-width: 992px) and (max-height: 665px) {
   .lectura-wrapper {
     --lectura-rail-collapsed-width: 52px;
-    --lectura-rail-expanded-width: 136px;
+    --lectura-rail-expanded-width: 105px;
     --lectura-rail-height: clamp(208px, 40vh, 300px);
     --lectura-rail-gap: 6px;
     --lectura-panel-gap-open: 22px;
@@ -1274,7 +1274,7 @@ tei-milestone[unit="stanza"].show-line::after {
 @media (min-width: 992px) and (max-height: 580px) {
   .lectura-wrapper {
     --lectura-rail-collapsed-width: 48px;
-    --lectura-rail-expanded-width: 124px;
+    --lectura-rail-expanded-width: 105px;
     --lectura-rail-height: clamp(184px, 35vh, 250px);
     --lectura-rail-gap: 5px;
     --lectura-panel-gap-open: 18px;

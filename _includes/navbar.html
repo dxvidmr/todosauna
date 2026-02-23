@@ -9,17 +9,9 @@
 {% endif %}
 
 {% assign navbar_behavior = page.navbar_behavior | default: 'fixed' %}
-{% assign navbar_position = page.navbar_position | default: '' %}
-{% if navbar_position == '' %}
-    {% if page.navbar_overlay %}
-        {% assign navbar_position = 'overlay' %}
-    {% else %}
-        {% assign navbar_position = 'inflow' %}
-    {% endif %}
-{% endif %}
 {% assign navbar_variant = page.navbar_variant | default: 'default' %}
 
-<div class="nav-wrapper text-light" data-navbar-behavior="{{ navbar_behavior }}" data-navbar-position="{{ navbar_position }}" data-navbar-variant="{{ navbar_variant }}">
+<div class="nav-wrapper text-light" data-navbar-behavior="{{ navbar_behavior }}" data-navbar-variant="{{ navbar_variant }}">
     <nav class="navbar navbar-floating {{ site.data.theme.navbar-color | default: 'navbar-dark' }} {{ site.data.theme.navbar-background | default: 'bg-dark' }}" id="mainNav">
         <div class="navbar-header">
             <a class="navbar-brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>

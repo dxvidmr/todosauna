@@ -3,6 +3,10 @@
 
     const navbar = document.querySelector('.nav-wrapper');
     const mainNav = document.querySelector('#mainNav');
+    const navExpanded = document.getElementById('navExpanded');
+    const navToggle = document.getElementById('navToggle');
+    const navBackdrop = document.getElementById('navBackdrop');
+    const btnFlotante = document.getElementById('btn-modo-usuario');
     const root = document.documentElement;
 
     if (!navbar) return;
@@ -16,10 +20,53 @@
     const scrollTriggerDistance = 100;
 
     let lastNavbarHeight = 0;
+    let isMenuClosing = false;
+    let closeHeightSyncTimer = null;
+    let closeHeightTransitionHandler = null;
+
+    function clearCloseHeightSync() {
+        if (closeHeightTransitionHandler && navExpanded) {
+            navExpanded.removeEventListener('transitionend', closeHeightTransitionHandler);
+            closeHeightTransitionHandler = null;
+        }
+
+        if (closeHeightSyncTimer !== null) {
+            window.clearTimeout(closeHeightSyncTimer);
+            closeHeightSyncTimer = null;
+        }
+    }
+
+    function finalizeCloseHeightSync() {
+        isMenuClosing = false;
+        clearCloseHeightSync();
+        requestAnimationFrame(updateNavbarHeight);
+    }
+
+    function syncNavbarHeightAfterClose() {
+        clearCloseHeightSync();
+        isMenuClosing = true;
+
+        if (!navExpanded) {
+            finalizeCloseHeightSync();
+            return;
+        }
+
+        closeHeightTransitionHandler = function(e) {
+            if (e.target !== navExpanded || e.propertyName !== 'max-height') {
+                return;
+            }
+            finalizeCloseHeightSync();
+        };
+
+        navExpanded.addEventListener('transitionend', closeHeightTransitionHandler);
+        closeHeightSyncTimer = window.setTimeout(() => {
+            finalizeCloseHeightSync();
+        }, 500);
+    }
 
     function updateNavbarHeight() {
         if (!navbar) return;
-        if (mainNav && mainNav.classList.contains('expanded')) {
+        if ((mainNav && mainNav.classList.contains('expanded')) || isMenuClosing) {
             return;
         }
         const height = Math.round(navbar.getBoundingClientRect().height || 0);
@@ -132,13 +179,11 @@
             break;
     }
 
-    const navToggle = document.getElementById('navToggle');
-    const navBackdrop = document.getElementById('navBackdrop');
-    const btnFlotante = document.getElementById('btn-modo-usuario');
-
     function openMenu() {
         if (!mainNav) return;
 
+        clearCloseHeightSync();
+        isMenuClosing = false;
         mainNav.classList.add('expanded');
         navbar.classList.add('menu-expanded');
         if (navBackdrop) navBackdrop.classList.add('active');
@@ -159,12 +204,19 @@
     function closeMenu() {
         if (!mainNav) return;
 
+        const wasExpanded = mainNav.classList.contains('expanded');
         mainNav.classList.remove('expanded');
         navbar.classList.remove('menu-expanded');
         if (navBackdrop) navBackdrop.classList.remove('active');
         if (btnFlotante) btnFlotante.classList.remove('hidden');
         isMenuExpanded = false;
-        requestAnimationFrame(updateNavbarHeight);
+
+        if (wasExpanded) {
+            syncNavbarHeightAfterClose();
+        } else {
+            isMenuClosing = false;
+            requestAnimationFrame(updateNavbarHeight);
+        }
     }
 
     if (navToggle) {

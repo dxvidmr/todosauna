@@ -656,10 +656,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnModoUsuarioMenu) {
     btnModoUsuarioMenu.addEventListener('click', () => {
       // Cerrar menú de navegación
-      const mainNav = document.getElementById('mainNav');
-      const backdrop = document.getElementById('navBackdrop');
-      if (mainNav) mainNav.classList.remove('expanded');
-      if (backdrop) backdrop.classList.remove('active');
+      if (window.NavbarBehavior?.closeMenu) {
+        window.NavbarBehavior.closeMenu();
+      } else {
+        const mainNav = document.getElementById('mainNav');
+        const navWrapper = document.querySelector('.nav-wrapper');
+        const backdrop = document.getElementById('navBackdrop');
+        if (mainNav) mainNav.classList.remove('expanded');
+        if (navWrapper) navWrapper.classList.remove('menu-expanded');
+        if (backdrop) backdrop.classList.remove('active');
+      }
       // Mostrar modal
       window.modalModo.mostrarInfoUsuario();
     });

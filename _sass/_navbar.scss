@@ -121,25 +121,6 @@
     }
 }
 
-// Cuando el navbar es fixed y NO debe superponerse al contenido
-// usamos sticky para que ocupe espacio natural en el flujo.
-.nav-wrapper[data-navbar-behavior="fixed"][data-navbar-position="inflow"] {
-    position: sticky;
-}
-
-.nav-wrapper[data-navbar-position="overlay"] {
-    position: fixed;
-}
-
-// Compatibilidad con paginas legacy que aun usen navbar-overlay sin data attr.
-body:not(.navbar-overlay) .nav-wrapper[data-navbar-behavior="fixed"]:not([data-navbar-position]) {
-    position: sticky;
-}
-
-body.navbar-overlay .nav-wrapper:not([data-navbar-position]) {
-    position: fixed;
-}
-
 /* Floating Navbar */
 .navbar-floating {
     position: relative;
@@ -553,8 +534,9 @@ body.navbar-overlay .nav-wrapper:not([data-navbar-position]) {
 
 .btn-participacion-flotante {
     position: fixed;
-    margin-top: 1rem;
-    margin-right: 1rem;
+    top: 1rem;
+    right: 1rem;
+    left: auto;
     z-index: 1100; // Encima del navbar
     pointer-events: auto;
     

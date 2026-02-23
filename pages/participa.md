@@ -2,7 +2,7 @@
 layout: default
 title: Participa
 permalink: /participa/
-navbar_overlay: true
+navbar_main_offset: false
 ---
 
 <section class="participa-hero">

@@ -3,19 +3,15 @@
   <head prefix="og: http://ogp.me/ns#">
     {% include head/head.html %}
   </head>
-  {% assign navbar_position = page.navbar_position | default: '' %}
-  {% if navbar_position == '' %}
-    {% if page.navbar_overlay %}
-      {% assign navbar_position = 'overlay' %}
-    {% else %}
-      {% assign navbar_position = 'inflow' %}
-    {% endif %}
+  {% assign navbar_main_offset = page.navbar_main_offset %}
+  {% if navbar_main_offset == nil %}
+    {% assign navbar_main_offset = true %}
   {% endif %}
-  <body class="d-flex flex-column h-100{% if page.url == '/' %} home-page{% endif %}{% if navbar_position == 'overlay' %} navbar-overlay{% endif %} navbar-position-{{ navbar_position }}">
+  <body class="d-flex flex-column h-100{% if page.url == '/' %} home-page{% endif %}">
     <div id="skip-to-content"><a href="#maincontent">Skip to main content</a></div>
     <!--{% include collection-banner.html %}-->
     {% include navbar.html %}
-    <main id="maincontent" role="main" class="flex-shrink-0{% if page.navbar_behavior == 'auto-hide' %} navbar-offset-main{% endif %}">
+    <main id="maincontent" role="main" class="flex-shrink-0{% if navbar_main_offset %} navbar-offset-main{% endif %}">
       {{ content }}
     </main>
     {% include footer.html %}

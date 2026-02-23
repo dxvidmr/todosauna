@@ -3,6 +3,7 @@ layout: default
 title: Inicio
 permalink: /
 navbar_behavior: hidden-on-load
+navbar_main_offset: false
 custom-foot: js/home-carousel-js.html
 ---
 
