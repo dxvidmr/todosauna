@@ -1,20 +1,23 @@
 // ============================================
-// CONFIGURACION DE SUPABASE
+// SHIM LEGACY: CONFIGURACION SUPABASE
 // ============================================
 
-// Nota: la publishable key siempre es visible en cliente.
-// Para rotacion sin tocar este archivo, se puede inyectar:
-// window.__SUPABASE_CONFIG__ = { url: '...', anonKey: '...' };
+(function () {
+  if (typeof window === 'undefined') return;
 
-const runtimeConfig = window.__SUPABASE_CONFIG__ || {};
+  var ns = window.Participacion || {};
+  if (ns.config) {
+    window.SUPABASE_CONFIG = {
+      url: ns.config.url,
+      anonKey: ns.config.publishableKey
+    };
+    return;
+  }
 
-const SUPABASE_CONFIG = {
-  url: runtimeConfig.url || 'https://wlpzbxsgghsjffzycqku.supabase.co',
-  anonKey: runtimeConfig.anonKey || 'sb_publishable_PCcxvIOQ06pshIdlXFBKew_xoo5KW_a'
-};
-
-if (!SUPABASE_CONFIG.url || !SUPABASE_CONFIG.anonKey) {
-  console.error('Configuracion de Supabase incompleta');
-}
-
-window.SUPABASE_CONFIG = SUPABASE_CONFIG;
+  console.warn('[participacion] Cargando fallback legacy de config.js');
+  var runtimeConfig = window.__SUPABASE_CONFIG__ || {};
+  window.SUPABASE_CONFIG = {
+    url: runtimeConfig.url || '',
+    anonKey: runtimeConfig.anonKey || runtimeConfig.publishableKey || ''
+  };
+})();

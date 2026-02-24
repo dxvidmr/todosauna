@@ -1,47 +1,35 @@
 <!-- ============================================
      SCRIPTS LABORATORIO DE NOTAS
-     Orden de carga CRÍTICO - NO modificar
+     Orden de carga CRITICO - NO modificar
      ============================================ -->
 
 <!-- 1. CETEIcean -->
 <script src="{{ '/assets/js/lectura/CETEI.js' | relative_url }}"></script>
 
-<!-- 2. Configuración -->
-<script src="{{ '/assets/js/lectura/config.js' | relative_url }}"></script>
-
-<!-- 3. Cliente Supabase -->
-<script src="{{ '/assets/js/lectura/supabase-client.js' | relative_url }}"></script>
-
-<!-- 4. Capa de API segura (RPC + contenido editorial) -->
+<!-- 2. Capa de API segura (RPC + contenido editorial) -->
 <script src="{{ '/assets/js/lectura/supabase-api.js' | relative_url }}"></script>
 
-<!-- 5. Utilidades -->
+<!-- 3. Utilidades -->
 <script src="{{ '/assets/js/lectura/utils.js' | relative_url }}"></script>
 
-<!-- 6. Gestión de usuario -->
-<script src="{{ '/assets/js/lectura/user-manager.js' | relative_url }}"></script>
-
-<!-- 7. Modal de modo -->
-<script src="{{ '/assets/js/lectura/modal-modo.js' | relative_url }}"></script>
-
-<!-- 8. Gestión de pasajes -->
+<!-- 4. Gestion de pasajes -->
 <script src="{{ '/assets/js/lectura/pasajes.js' | relative_url }}"></script>
 
-<!-- 9. Gestión de notas -->
+<!-- 5. Gestion de notas -->
 <script src="{{ '/assets/js/lectura/notas.js' | relative_url }}"></script>
 
-<!-- 10. Estadísticas de evaluaciones -->
+<!-- 6. Estadisticas de evaluaciones -->
 <script src="{{ '/assets/js/lectura/evaluaciones-stats.js' | relative_url }}"></script>
 
-<!-- 11. Lógica principal del laboratorio -->
+<!-- 7. Logica principal del laboratorio -->
 <script src="{{ '/assets/js/lectura/laboratorio-de-notas.js' | relative_url }}"></script>
 
-<!-- 12. Sistema de sugerencias -->
+<!-- 8. Sistema de sugerencias -->
 <script src="{{ '/assets/js/lectura/sugerencias-notas.js' | relative_url }}"></script>
 
-<!-- Configuración de rutas para el laboratorio -->
+<!-- Configuracion de rutas para el laboratorio -->
 <script>
-    // Configuración de rutas Jekyll para los scripts
+    // Configuracion de rutas Jekyll para los scripts
     window.SITE_PATHS = {
         xml: '{{ "/assets/data/tei" | relative_url }}',
         js: '{{ "/assets/js/lectura" | relative_url }}'

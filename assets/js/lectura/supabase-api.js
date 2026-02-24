@@ -1,5 +1,7 @@
 // ============================================
-// CAPA SEGURA DE ACCESO A SUPABASE (RPC + CONTENIDO PUBLICO)
+// CAPA LEGACY DE ACCESO A SUPABASE
+// Mantiene lecturas/editorial + evaluaciones.
+// Login/registro/sesion se resuelven via legacy-bridge.js.
 // ============================================
 
 (function () {
@@ -17,26 +19,25 @@
     return data || null;
   }
 
-  async function callRpc(functionName, params = {}, options = {}) {
-    const missingClient = ensureClient();
+  async function callRpc(functionName, params, options) {
+    var rpcParams = params || {};
+    var rpcOptions = options || {};
+    var missingClient = ensureClient();
     if (missingClient) return { data: null, error: missingClient.error };
 
-    const { data, error } = await window.supabaseClient.rpc(functionName, params);
-    if (error) return { data: null, error };
-
-    if (options.single) {
-      return { data: firstRow(data), error: null };
-    }
-
-    return { data, error: null };
+    var result = await window.supabaseClient.rpc(functionName, rpcParams);
+    if (result.error) return { data: null, error: result.error };
+    if (rpcOptions.single) return { data: firstRow(result.data), error: null };
+    return { data: result.data, error: null };
   }
 
-  const SupabaseAPI = {
-    // ---------- Lectura de contenido editorial (permitido por RLS) ----------
-    async getPasajes() {
-      const missingClient = ensureClient();
-      if (missingClient) return { data: null, error: missingClient.error };
+  // Preserve methods injected previously by legacy bridge.
+  var existing = window.SupabaseAPI || {};
 
+  var SupabaseAPI = Object.assign(existing, {
+    async getPasajes() {
+      var missingClient = ensureClient();
+      if (missingClient) return { data: null, error: missingClient.error };
       return window.supabaseClient
         .from('pasajes')
         .select('*')
@@ -44,52 +45,21 @@
     },
 
     async getNotasActivas() {
-      const missingClient = ensureClient();
+      var missingClient = ensureClient();
       if (missingClient) return { data: null, error: missingClient.error };
-
       return window.supabaseClient
         .from('notas_activas')
         .select('*');
     },
 
     async getNotaVersion(notaId) {
-      const missingClient = ensureClient();
+      var missingClient = ensureClient();
       if (missingClient) return { data: null, error: missingClient.error };
-
       return window.supabaseClient
         .from('notas_activas')
         .select('version')
         .eq('nota_id', notaId)
         .single();
-    },
-
-    // ---------- Participacion (solo por RPC) ----------
-    async loginCollaborator(emailHash) {
-      return callRpc('rpc_collaborator_login', { p_email_hash: emailHash }, { single: true });
-    },
-
-    async registerCollaborator(emailHash, displayName, nivelEstudios, disciplina) {
-      return callRpc(
-        'rpc_collaborator_register',
-        {
-          p_email_hash: emailHash,
-          p_display_name: displayName,
-          p_nivel_estudios: nivelEstudios,
-          p_disciplina: disciplina
-        },
-        { single: true }
-      );
-    },
-
-    async createSession(modoParticipacion, collaboratorId) {
-      return callRpc(
-        'rpc_create_session',
-        {
-          p_modo_participacion: modoParticipacion,
-          p_collaborator_id: collaboratorId
-        },
-        { single: true }
-      );
     },
 
     async submitParticipationEvent(payload) {
@@ -142,18 +112,11 @@
     },
 
     async getSessionEvaluatedNotes(sessionId) {
-      return callRpc(
-        'rpc_get_session_evaluated_notes',
-        { p_session_id: sessionId }
-      );
+      return callRpc('rpc_get_session_evaluated_notes', { p_session_id: sessionId });
     },
 
     async getSessionStats(sessionId) {
-      return callRpc(
-        'rpc_get_session_stats',
-        { p_session_id: sessionId },
-        { single: true }
-      );
+      return callRpc('rpc_get_session_stats', { p_session_id: sessionId }, { single: true });
     },
 
     async getNoteEvalCounts() {
@@ -163,7 +126,8 @@
     async getGlobalStats() {
       return callRpc('rpc_get_global_stats', {}, { single: true });
     }
-  };
+  });
 
   window.SupabaseAPI = SupabaseAPI;
 })();
+

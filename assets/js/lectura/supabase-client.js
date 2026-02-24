@@ -1,27 +1,33 @@
 // ============================================
-// CLIENTE SUPABASE (inicializado)
+// SHIM LEGACY: CLIENTE SUPABASE
 // ============================================
 
-// Esperar a que se cargue la librería de Supabase desde CDN
-(function() {
-  // Verificar que config.js ya se cargó
-  if (!window.SUPABASE_CONFIG) {
-    console.error('Error: config.js debe cargarse antes que supabase-client.js');
+(function () {
+  if (typeof window === 'undefined') return;
+
+  var ns = window.Participacion || {};
+  if (ns.supabaseClient) {
+    window.supabaseClient = ns.supabaseClient;
     return;
   }
-  
-  // Verificar que la librería de Supabase esté cargada
-  if (typeof supabase === 'undefined') {
-    console.error('Error: La librería @supabase/supabase-js no está cargada');
+
+  if (!window.SUPABASE_CONFIG || typeof window.supabase === 'undefined') {
+    console.warn('[participacion] supabase-client legacy no pudo inicializarse');
     return;
   }
-  
-  // Crear cliente
-  const { createClient } = supabase;
+
+  var createClient = window.supabase.createClient;
+  if (typeof createClient !== 'function') {
+    console.warn('[participacion] createClient no disponible');
+    return;
+  }
+
   window.supabaseClient = createClient(
     window.SUPABASE_CONFIG.url,
     window.SUPABASE_CONFIG.anonKey
   );
-  
-  console.log('Cliente Supabase inicializado');
+
+  if (ns) ns.supabaseClient = window.supabaseClient;
+  console.log('[participacion] Cliente Supabase inicializado por shim legacy');
 })();
+
