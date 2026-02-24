@@ -81,14 +81,12 @@
       );
     },
 
-    async createSession(esColaborador, collaboratorId, nivelEstudios, disciplina) {
+    async createSession(modoParticipacion, collaboratorId) {
       return callRpc(
         'rpc_create_session',
         {
-          p_es_colaborador: esColaborador,
-          p_collaborator_id: collaboratorId,
-          p_nivel_estudios: nivelEstudios,
-          p_disciplina: disciplina
+          p_modo_participacion: modoParticipacion,
+          p_collaborator_id: collaboratorId
         },
         { single: true }
       );

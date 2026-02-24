@@ -38,37 +38,11 @@ class ModalModo {
             
           </div>
           
-          <!-- Formulario anónimo con datos opcionales -->
+          <!-- Formulario anónimo -->
           <div id="form-anonimo" class="modo-form" style="display:none;">
             <h3>Participación anónima</h3>
-            <p class="help-modal bg-gray-100 text-gray-500">Opcionalmente, puedes compartir datos demográficos para análisis (100% anónimo).</p>
+            <p class="help-modal bg-gray-100 text-gray-500">Participarás sin registro y de forma completamente anónima.</p>
             <form id="form-anonimo-datos">
-              <label>
-                Nivel de estudios (opcional)
-                <select name="nivel_estudios">
-                  <option value="">Prefiero no decirlo</option>
-                  <option value="secundaria">Secundaria</option>
-                  <option value="grado">Grado universitario</option>
-                  <option value="posgrado">Máster/Posgrado</option>
-                  <option value="doctorado">Doctorado</option>
-                  <option value="otro">Otro</option>
-                </select>
-              </label>
-              
-              <label>
-                Disciplina (opcional)
-                <select name="disciplina">
-                  <option value="">Prefiero no decirlo</option>
-                  <option value="filologia">Filología/Lengua/Literatura</option>
-                  <option value="historia">Historia</option>
-                  <option value="educacion">Educación</option>
-                  <option value="arte">Arte/Teatro</option>
-                  <option value="humanidades">Humanidades (general)</option>
-                  <option value="ciencias_sociales">Ciencias Sociales</option>
-                  <option value="otro">Otra</option>
-                </select>
-              </label>
-              
               <div class="botones-modal">
                 <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
                 <button type="submit" class="btn btn-dark">Comenzar</button>
@@ -229,7 +203,7 @@ class ModalModo {
     // Form anónimo
     document.getElementById('form-anonimo-datos').addEventListener('submit', (e) => {
       e.preventDefault();
-      this.procesarFormAnonimo(e.target);
+      this.procesarFormAnonimo();
     });
     
     // Form colaborador LOGIN
@@ -283,20 +257,9 @@ class ModalModo {
     }
   }
   
-  async procesarFormAnonimo(form) {
-    const formData = new FormData(form);
-    const nivel_estudios = formData.get('nivel_estudios') || null;
-    const disciplina = formData.get('disciplina') || null;
-    
-    // Datos demográficos opcionales
-    const datosDemograficos = {};
-    if (nivel_estudios) datosDemograficos.nivel_estudios = nivel_estudios;
-    if (disciplina) datosDemograficos.disciplina = disciplina;
-    
+  async procesarFormAnonimo() {
     try {
-      const exito = await window.userManager.establecerLectorAnonimo(
-        Object.keys(datosDemograficos).length > 0 ? datosDemograficos : null
-      );
+      const exito = await window.userManager.establecerLectorAnonimo();
       
       if (exito) {
         this.cerrar();
@@ -505,7 +468,7 @@ class ModalModo {
     let modoTexto = '';
     let infoExtra = '';
     
-    if (datosUsuario.es_colaborador) {
+    if (datosUsuario.modo_participacion === 'colaborador') {
       modoTexto = '<i class="fa-solid fa-pen" aria-hidden="true"></i> Colaborador/a';
       infoExtra = `
         <p><strong>Nombre:</strong> ${datosUsuario.display_name || 'No especificado'}</p>
@@ -521,16 +484,6 @@ class ModalModo {
     } else {
       modoTexto = '<i class="fa-solid fa-user-secret" aria-hidden="true"></i> Anónimo';
       infoExtra = '<p>Participas de forma anónima sin registro.</p>';
-      
-      if (datosUsuario.nivel_estudios || datosUsuario.disciplina) {
-        infoExtra += '<p><strong>Datos demográficos compartidos:</strong></p>';
-        if (datosUsuario.nivel_estudios) {
-          infoExtra += `<p>Nivel: ${datosUsuario.nivel_estudios}</p>`;
-        }
-        if (datosUsuario.disciplina) {
-          infoExtra += `<p>Disciplina: ${datosUsuario.disciplina}</p>`;
-        }
-      }
     }
     
     const infoHTML = `

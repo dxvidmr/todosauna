@@ -43,12 +43,10 @@ class UserManager {
     return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
   }
 
-  async establecerLectorAnonimo(datosDemograficos = null) {
+  async establecerLectorAnonimo() {
     const { data: sesion, error } = await window.SupabaseAPI.createSession(
-      false,
-      null,
-      datosDemograficos?.nivel_estudios || null,
-      datosDemograficos?.disciplina || null
+      'anonimo',
+      null
     );
 
     if (error || !sesion?.session_id) {
@@ -58,9 +56,7 @@ class UserManager {
 
     this.guardarSesion({
       session_id: sesion.session_id,
-      es_colaborador: false,
-      nivel_estudios: sesion.nivel_estudios,
-      disciplina: sesion.disciplina
+      modo_participacion: sesion.modo_participacion || 'anonimo'
     });
 
     console.log('Sesion anonima creada:', sesion.session_id);
@@ -93,10 +89,8 @@ class UserManager {
 
     const colaborador = resultadoRegistro.collaborator;
     const { data: sesion, error: errorSesion } = await window.SupabaseAPI.createSession(
-      true,
-      colaborador.collaborator_id,
-      datosDemograficos?.nivel_estudios || null,
-      datosDemograficos?.disciplina || null
+      'colaborador',
+      colaborador.collaborator_id
     );
 
     if (errorSesion || !sesion?.session_id) {
@@ -106,11 +100,11 @@ class UserManager {
 
     this.guardarSesion({
       session_id: sesion.session_id,
-      es_colaborador: true,
+      modo_participacion: sesion.modo_participacion || 'colaborador',
       collaborator_id: colaborador.collaborator_id,
       display_name: colaborador.display_name,
-      nivel_estudios: sesion.nivel_estudios,
-      disciplina: sesion.disciplina
+      nivel_estudios: colaborador.nivel_estudios || null,
+      disciplina: colaborador.disciplina || null
     });
 
     console.log('Colaborador establecido:', sesion.session_id);
@@ -130,10 +124,8 @@ class UserManager {
     }
 
     const { data: sesion, error: errorSesion } = await window.SupabaseAPI.createSession(
-      true,
-      colaborador.collaborator_id,
-      colaborador.nivel_estudios || null,
-      colaborador.disciplina || null
+      'colaborador',
+      colaborador.collaborator_id
     );
 
     if (errorSesion || !sesion?.session_id) {
@@ -142,11 +134,11 @@ class UserManager {
 
     this.guardarSesion({
       session_id: sesion.session_id,
-      es_colaborador: true,
+      modo_participacion: sesion.modo_participacion || 'colaborador',
       collaborator_id: colaborador.collaborator_id,
       display_name: colaborador.display_name,
-      nivel_estudios: sesion.nivel_estudios,
-      disciplina: sesion.disciplina
+      nivel_estudios: colaborador.nivel_estudios || null,
+      disciplina: colaborador.disciplina || null
     });
 
     return { ok: true, found: true, collaborator };
