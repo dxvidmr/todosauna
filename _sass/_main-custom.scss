@@ -498,6 +498,10 @@
   }
 }
 
+.participa-form-status.is-success + .participa-form-actions {
+  margin-top: clamp(10px, 1.5vh, 14px);
+}
+
 .participa-inline-status {
   margin: 8px 0 0;
   font-size: 0.85rem;

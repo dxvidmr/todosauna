@@ -132,9 +132,9 @@ custom-foot: participacion/scripts-testimonio-form.html
     </form>
 
     <section id="testimonio-success" class="participa-success card card-soft p-3 p-md-4" hidden>
-      <h2 class="h4 mb-2">Testimonio enviado</h2>
-      <p class="mb-2">Hemos recibido tu testimonio con estado <strong>nuevo</strong>.</p>
-      <p class="mb-3"><strong>ID:</strong> <code id="testimonio-success-id"></code></p>
+      <h2 class="h4 mb-2">¡Testimonio enviado con éxito!</h2>
+      <p class="mb-2">Hemos recibido tu testimonio. Muchas gracias por participar en el proyecto.</p>
+      <p class="mb-3">El ID de tu envío es <code id="testimonio-success-id"></code>. Puedes guardarlo por si más adelante quieres hacer alguna consulta.</p>
       <div id="testimonio-link-status" class="participa-form-status"></div>
       <div class="participa-form-actions">
         <a id="testimonio-cta-documento" href="{{ '/participa/documentos/enviar/' | relative_url }}" class="btn btn-dark">Añadir un documento vinculado</a>
@@ -143,3 +143,4 @@ custom-foot: participacion/scripts-testimonio-form.html
     </section>
   </div>
 </section>
+
