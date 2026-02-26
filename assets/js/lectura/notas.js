@@ -88,18 +88,28 @@ function invalidarCacheNotas() {
  * Registrar evaluacion de nota
  */
 async function registrarEvaluacion(datos) {
-  if (!window.userManager.tieneModoDefinido()) {
-    await window.modalModo.mostrar();
+  const flow = window.Participacion?.flow;
+  const source = datos.source || 'lectura';
+  if (source === 'lectura' && flow?.ensureModeForSecondLecturaContribution) {
+    const canContinue = await flow.ensureModeForSecondLecturaContribution();
+    if (!canContinue) {
+      console.warn('Envio bloqueado: segundo aporte de lectura sin modo definido');
+      return false;
+    }
   }
 
-  const datosUsuario = window.userManager.obtenerDatosUsuario();
+  const datosUsuario = window.userManager.obtenerDatosUsuario() || (() => {
+    const sessionData = window.Participacion?.session?.getPublicSessionData?.();
+    if (!sessionData?.session_id) return null;
+    return { session_id: sessionData.session_id };
+  })();
   if (!datosUsuario?.session_id) {
     console.error('No hay sesion activa para registrar evaluacion');
     return false;
   }
 
   const { error } = await window.SupabaseAPI.submitNoteEvaluation({
-    source: datos.source || 'lectura',
+    source: source,
     session_id: datosUsuario.session_id,
     pasaje_id: datos.pasaje_id || null,
     nota_id: datos.nota_id,
@@ -111,6 +121,10 @@ async function registrarEvaluacion(datos) {
   if (error) {
     console.error('Error al registrar evaluacion:', error);
     return false;
+  }
+
+  if (source === 'lectura' && flow?.incrementLecturaParticipationCount) {
+    flow.incrementLecturaParticipationCount();
   }
 
   invalidarCacheNotas();

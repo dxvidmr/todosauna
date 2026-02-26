@@ -82,11 +82,6 @@ class EditorSocial {
     this.navWrapper = document.querySelector('.nav-wrapper');
     this.modalCambiarModo = document.getElementById('modal-cambiar-modo');
 
-    // Verificar si usuario tiene modo definido
-    if (!window.userManager.tieneModoDefinido()) {
-      await window.modalModo.mostrar();
-    }
-
     // Cargar pasajes desde Supabase
     await this.cargarPasajes();
 
@@ -266,6 +261,34 @@ class EditorSocial {
     }
   }
 
+  async asegurarModoAntesDeIniciarLaboratorio() {
+    if (window.userManager.tieneModoDefinido()) return true;
+
+    await window.modalModo.mostrar({
+      context: 'laboratorio-before-mode',
+      reason: 'before-start'
+    });
+
+    return window.userManager.tieneModoDefinido();
+  }
+
+  async iniciarModoDesdeBienvenida(modo) {
+    if (modo !== 'secuencial' && modo !== 'aleatorio') return;
+
+    const canStart = await this.asegurarModoAntesDeIniciarLaboratorio();
+    if (!canStart) {
+      mostrarToast('Para empezar debes elegir modo de participacion', 2600);
+      return;
+    }
+
+    if (modo === 'secuencial') {
+      await this.iniciarModoSecuencial();
+      return;
+    }
+
+    await this.iniciarModoAleatorio();
+  }
+
   /**
    * Setup listeners para botones de modo
    */
@@ -275,11 +298,7 @@ class EditorSocial {
     opcionesModo.forEach(opcion => {
       opcion.addEventListener('click', () => {
         const modo = opcion.dataset.modo;
-        if (modo === 'secuencial') {
-          this.iniciarModoSecuencial();
-        } else if (modo === 'aleatorio') {
-          this.iniciarModoAleatorio();
-        }
+        void this.iniciarModoDesdeBienvenida(modo);
       });
       
       // Accesibilidad: permitir Enter y Space para activar
@@ -287,11 +306,7 @@ class EditorSocial {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           const modo = opcion.dataset.modo;
-          if (modo === 'secuencial') {
-            this.iniciarModoSecuencial();
-          } else if (modo === 'aleatorio') {
-            this.iniciarModoAleatorio();
-          }
+          void this.iniciarModoDesdeBienvenida(modo);
         }
       });
     });
@@ -1081,7 +1096,10 @@ class EditorSocial {
   async registrarEvaluacion(notaId, version, vote, comentario, pasajeId) {
       // Verificar modo de usuario
       if (!window.userManager.tieneModoDefinido()) {
-        await window.modalModo.mostrar();
+        await window.modalModo.mostrar({
+          context: 'laboratorio-before-mode',
+          reason: 'during-evaluation'
+        });
       }
 
       const datosUsuario = window.userManager.obtenerDatosUsuario();

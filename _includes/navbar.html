@@ -1,6 +1,6 @@
 <div class="nav-backdrop" id="navBackdrop"></div>
 
-<!-- Botón flotante Mi participación (FUERA del nav-wrapper para que no se oculte con el navbar) -->
+<!-- Botón flotante Mi participación (fuera del nav-wrapper para que no se oculte con el navbar) -->
 {% if page.layout == 'lectura' or page.layout == 'laboratorio' %}
 <button id="btn-modo-usuario" class="btn-participacion-flotante d-none d-lg-flex" aria-label="Mi participación">
     <i class="fa-solid fa-user" aria-hidden="true"></i>
@@ -15,12 +15,12 @@
     <nav class="navbar navbar-floating {{ site.data.theme.navbar-color | default: 'navbar-dark' }} {{ site.data.theme.navbar-background | default: 'bg-dark' }}" id="mainNav">
         <div class="navbar-header">
             <a class="navbar-brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
-            
+
             <!-- Desktop navigation - visible on large screens -->
             <div class="d-none d-lg-flex navbar-nav-desktop">
                 <a class="nav-link{% if page.url == '/lectura/' %} active{% endif %}" href="{{ '/lectura/' | relative_url }}">Lectura</a>
-                <a class="nav-link{% if page.url == '/archivo/' %} active{% endif %}" href="{{ '/archivo/' | relative_url }}">Archivo</a>
-                <a class="nav-link{% if page.url == '/participa/' %} active{% endif %}" href="{{ '/participa/' | relative_url }}">Participa</a>
+                <a class="nav-link{% if page.url contains '/archivo/' %} active{% endif %}" href="{{ '/archivo/' | relative_url }}">Archivo</a>
+                <a class="nav-link{% if page.url contains '/participa/' %} active{% endif %}" href="{{ '/participa/' | relative_url }}">Participa</a>
                 <a class="nav-link{% if page.url == '/acerca-de/' %} active{% endif %}" href="{{ '/acerca-de/' | relative_url }}">Acerca de</a>
             </div>
 
@@ -37,30 +37,31 @@
                 <div class="navbar-expanded-column">
                     <a href="{{ '/lectura/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/lectura/' %} active{% endif %}">Lectura</a>
                     <ul class="navbar-expanded-links">
-                        
+
                     </ul>
                 </div>
-                
+
                 <div class="navbar-expanded-column">
-                    <a href="{{ '/archivo/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/archivo/' %} active{% endif %}">Archivo</a>
+                    <a href="{{ '/archivo/' | relative_url }}" class="navbar-expanded-title{% if page.url contains '/archivo/' %} active{% endif %}">Archivo</a>
                     <ul class="navbar-expanded-links">
                         <li><a href="{{ '/archivo/documentos/' | relative_url }}">Explorar documentos</a></li>
                         <li><a href="{{ '/archivo/testimonios/' | relative_url }}">Explorar testimonios</a></li>
                         <li><a href="{{ '/timeline.html' | relative_url }}">Línea de tiempo</a></li>
                         <li><a href="{{ '/map.html' | relative_url }}">Mapa</a></li>
-                        
+
                     </ul>
                 </div>
-                
+
                 <div class="navbar-expanded-column">
-                    <a href="{{ '/participa/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/participa/' %} active{% endif %}">Participa</a>
+                    <a href="{{ '/participa/' | relative_url }}" class="navbar-expanded-title{% if page.url contains '/participa/' %} active{% endif %}">Participa</a>
                     <ul class="navbar-expanded-links">
                         <li><a href="{{ '/participa/laboratorio/' | relative_url }}">Laboratorio de notas</a></li>
-                        <li><a href="#">Contribuye al archivo</a></li>
+                        <li><a href="{{ '/participa/documentos/enviar/' | relative_url }}">Aportar documento</a></li>
+                        <li><a href="{{ '/participa/testimonios/enviar/' | relative_url }}">Enviar testimonio</a></li>
                         <li><a href="{{ '/data.html' | relative_url }}">Set de datos</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="navbar-expanded-column">
                     <a href="{{ '/acerca-de/' | relative_url }}" class="navbar-expanded-title{% if page.url == '/acerca-de/' %} active{% endif %}">Acerca de</a>
                     <ul class="navbar-expanded-links">
@@ -69,12 +70,12 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="navbar-expanded-bottom">
                 <div class="navbar-expanded-search">
                     {% include nav-search-lunr.html %}
                 </div>
-                
+
                 <!-- Botón Mi participación a la derecha de la búsqueda -->
                 {% if page.layout == 'lectura' or page.layout == 'laboratorio' %}
                 <div class="navbar-expanded-participacion">

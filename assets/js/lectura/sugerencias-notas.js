@@ -307,12 +307,20 @@ class SugerenciasNotas {
     const textoOriginal = btnEnviar.innerHTML;
     
     try {
-      // Verificar modo de usuario
-      if (!window.userManager.tieneModoDefinido()) {
-        await window.modalModo.mostrar();
+      const flow = window.Participacion?.flow;
+      if (flow?.ensureModeForSecondLecturaContribution) {
+        const canContinue = await flow.ensureModeForSecondLecturaContribution();
+        if (!canContinue) {
+          mostrarToast('Para continuar debes elegir modo de participacion', 2600);
+          return;
+        }
       }
 
-      const datosUsuario = window.userManager.obtenerDatosUsuario();
+      const datosUsuario = window.userManager.obtenerDatosUsuario() || (() => {
+        const sessionData = window.Participacion?.session?.getPublicSessionData?.();
+        if (!sessionData?.session_id) return null;
+        return { session_id: sessionData.session_id };
+      })();
       
       if (!datosUsuario) {
         mostrarToast('Error: modo no definido', 3000);
@@ -347,6 +355,9 @@ class SugerenciasNotas {
       this.cerrarModal();
       mostrarToast('¡Gracias por tu sugerencia!', 3000);
       console.log('Sugerencia de nota faltante registrada');
+      if (flow?.incrementLecturaParticipationCount) {
+        flow.incrementLecturaParticipationCount();
+      }
 
     } catch (err) {
       console.error('Error al enviar sugerencia:', err);

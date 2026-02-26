@@ -27,7 +27,7 @@ navbar_main_offset: false
           <div class="card-media-body">
             <h3 class="text-uppercase mb-2">Lee y comenta</h3>
             <p class="mb-3">Las notas ayudan a construir una interpretación colectiva.</p>
-            <a href="{{ '/participa/laboratorio/' | relative_url }}" class="btn btn-light btn-sm btn-soft">Ir al laboratorio</a>
+            <a href="{{ '/lectura/' | relative_url }}" class="btn btn-light btn-sm btn-soft">Ir a la lectura</a>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@ navbar_main_offset: false
           <div class="card-media-body">
             <h3 class="text-uppercase mb-2">Comparte un documento</h3>
             <p class="mb-3">Programas, carteles, fotos, recortes de prensa...</p>
-            <a href="#" class="btn btn-light btn-sm btn-soft">Contribuir</a>
+            <a href="{{ '/participa/documentos/enviar/' | relative_url }}" class="btn btn-light btn-sm btn-soft">Contribuir</a>
           </div>
         </div>
       </div>
@@ -45,12 +45,11 @@ navbar_main_offset: false
           <div class="card-media-body">
             <h3 class="text-uppercase mb-2">Cuenta tu historia</h3>
             <p class="mb-3">¿Qué significa <i>Fuenteovejuna</i> para ti?</p>
-            <a href="#" class="btn btn-light btn-sm btn-soft">Compartir testimonio</a>
+            <a href="{{ '/participa/testimonios/enviar/' | relative_url }}" class="btn btn-light btn-sm btn-soft">Compartir testimonio</a>
           </div>
         </div>
       </div>
     </div>
-    <p class="text-center small mb-0 participa-footnote">Lee la <a href="#">guía de participación</a> o conoce más <a href="#">sobre el proyecto</a>.</p>
+    <p class="text-center small mb-0 participa-footnote">Lee la <a href="{{ '/acerca-de/' | relative_url }}">guía de participación</a> o conoce más <a href="{{ '/acerca-de/' | relative_url }}">sobre el proyecto</a>.</p>
   </div>
 </section>
-

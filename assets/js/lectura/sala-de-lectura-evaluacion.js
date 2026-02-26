@@ -34,7 +34,11 @@ class EdicionEvaluacion {
    */
   async cargarNotasYaEvaluadas() {
     try {
-      const datosUsuario = window.userManager?.obtenerDatosUsuario();
+      const datosUsuario = window.userManager?.obtenerDatosUsuario() || (() => {
+        const sessionData = window.Participacion?.session?.getPublicSessionData?.();
+        if (!sessionData?.session_id) return null;
+        return { session_id: sessionData.session_id };
+      })();
       if (!datosUsuario?.session_id) return;
 
       const { data, error } = await window.SupabaseAPI.getSessionEvaluatedNotes(datosUsuario.session_id);
@@ -316,11 +320,20 @@ class EdicionEvaluacion {
    * Save vote in Supabase.
    */
   async registrarEvaluacion(notaId, version, vote, comentario) {
-    if (!window.userManager.tieneModoDefinido()) {
-      await window.modalModo.mostrar();
+    const flow = window.Participacion?.flow;
+    if (flow?.ensureModeForSecondLecturaContribution) {
+      const canContinue = await flow.ensureModeForSecondLecturaContribution();
+      if (!canContinue) {
+        mostrarToast('Para continuar debes elegir modo de participacion', 2600);
+        return false;
+      }
     }
 
-    const datosUsuario = window.userManager.obtenerDatosUsuario();
+    const datosUsuario = window.userManager.obtenerDatosUsuario() || (() => {
+      const sessionData = window.Participacion?.session?.getPublicSessionData?.();
+      if (!sessionData?.session_id) return null;
+      return { session_id: sessionData.session_id };
+    })();
 
     if (!datosUsuario) {
       console.error('No se pudo obtener datos de usuario');
@@ -342,6 +355,10 @@ class EdicionEvaluacion {
       console.error('Error al registrar evaluacion:', error);
       mostrarToast('Error al enviar evaluacion', 3000);
       return false;
+    }
+
+    if (flow?.incrementLecturaParticipationCount) {
+      flow.incrementLecturaParticipationCount();
     }
 
     console.log('Evaluacion registrada:', vote, notaId);

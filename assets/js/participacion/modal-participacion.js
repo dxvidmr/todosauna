@@ -39,6 +39,41 @@
     this.formRegistro = null;
     this._resolveOpen = null;
     this._buttonsBound = false;
+    this.currentContext = '';
+    this.contextCopy = {
+      default: {
+        title: 'Como quieres participar?',
+        description: 'Tu participacion ayuda a mejorar las notas para futuros lectores.',
+        anonimoTitle: 'Editor anonimo',
+        anonimoDescription: 'Sin registro. Privacidad total.',
+        colaboradorTitle: 'Colaborador',
+        colaboradorDescription: 'Identificado por email. Contribuciones reconocidas.'
+      },
+      'lectura-second-contribution': {
+        title: 'Estas participando anonimamente.',
+        description: 'Para continuar, elige si quieres seguir asi o registrarte/identificarte.',
+        anonimoTitle: 'Continuar anonimamente',
+        anonimoDescription: 'Seguir sin registro.',
+        colaboradorTitle: 'Registrarme/Identificarme',
+        colaboradorDescription: 'Crear o recuperar perfil colaborador.'
+      },
+      'laboratorio-before-mode': {
+        title: 'Antes de empezar el laboratorio',
+        description: 'Define tu modo de participacion para iniciar el juego.',
+        anonimoTitle: 'Participar anonimamente',
+        anonimoDescription: 'Entrar sin registro.',
+        colaboradorTitle: 'Registrarme/Identificarme',
+        colaboradorDescription: 'Crear o recuperar perfil colaborador.'
+      },
+      'participa-form-access': {
+        title: 'Antes de enviar tu aportación',
+        description: 'Elige cómo quieres participar para continuar con el formulario.',
+        anonimoTitle: 'Continuar anónimamente',
+        anonimoDescription: 'Enviar sin registro.',
+        colaboradorTitle: 'Registrarme/Identificarme',
+        colaboradorDescription: 'Crear o recuperar perfil colaborador.'
+      }
+    };
     this._onKeydown = this._onKeydown.bind(this);
     this._ensureDOM();
   }
@@ -227,6 +262,30 @@
     forms.forEach(function (form) {
       form.reset();
     });
+
+    this._applyContextContent(this.currentContext);
+  };
+
+  ModalParticipacion.prototype._applyContextContent = function (context) {
+    var ctx = context || '';
+    var content = this.contextCopy[ctx] || this.contextCopy.default;
+    var title = this.modal.querySelector('#modal-titulo');
+    var description = this.modal.querySelector('#modal-descripcion');
+
+    if (title) title.textContent = content.title;
+    if (description) description.textContent = content.description;
+
+    this._setModeOptionContent('anonimo', content.anonimoTitle, content.anonimoDescription);
+    this._setModeOptionContent('colaborador', content.colaboradorTitle, content.colaboradorDescription);
+  };
+
+  ModalParticipacion.prototype._setModeOptionContent = function (mode, title, description) {
+    var option = this.modal.querySelector('.modo-opcion[data-modo="' + mode + '"]');
+    if (!option) return;
+    var optionTitle = option.querySelector('h3');
+    var optionDescription = option.querySelector('p');
+    if (optionTitle) optionTitle.textContent = title;
+    if (optionDescription) optionDescription.textContent = description;
   };
 
   ModalParticipacion.prototype._selectMode = function (mode) {
@@ -360,8 +419,9 @@
   ModalParticipacion.prototype.open = function (options) {
     var self = this;
     this._ensureDOM();
+    this.currentContext = (options && options.context) || '';
     this._resetView();
-    this.modal.dataset.context = (options && options.context) || '';
+    this.modal.dataset.context = this.currentContext;
     this.modal.dataset.reason = (options && options.reason) || '';
     this.modal.classList.add('show');
     document.addEventListener('keydown', this._onKeydown);
@@ -500,4 +560,3 @@
     bindWhenReady();
   }
 })();
-

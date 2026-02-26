@@ -142,6 +142,34 @@
       );
     },
 
+    async submitContribucionStaged(payload) {
+      var input = payload || {};
+      return callRpc(
+        'rpc_submit_contribucion_archivo_staged',
+        {
+          p_session_id: input.session_id,
+          p_staging_id: input.staging_id,
+          p_titulo: input.titulo,
+          p_descripcion: input.descripcion || null,
+          p_creadores: input.creadores || null,
+          p_fecha: input.fecha || null,
+          p_fecha_texto: input.fecha_texto || null,
+          p_ciudad_nombre: input.ciudad_nombre || null,
+          p_ciudad_geoname_id: input.ciudad_geoname_id || null,
+          p_pais_nombre: input.pais_nombre || null,
+          p_pais_geoname_id: input.pais_geoname_id || null,
+          p_lugar_texto: input.lugar_texto || null,
+          p_linked_archive_refs: input.linked_archive_refs || null,
+          p_rights_type: input.rights_type || null,
+          p_rights_holder: input.rights_holder || null,
+          p_privacy_consent: input.privacy_consent,
+          p_privacy_consent_version: input.privacy_consent_version || null,
+          p_privacy_consent_at: input.privacy_consent_at || null
+        },
+        { single: true }
+      );
+    },
+
     async linkTestimonioContribucion(payload) {
       var input = payload || {};
       return callRpc(
@@ -168,4 +196,3 @@
     }
   };
 })();
-

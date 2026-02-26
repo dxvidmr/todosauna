@@ -30,6 +30,18 @@ keywords: Fuenteovejuna; Lope de Vega; Teatro del Siglo de Oro
 author: David Merino Recalde
 
 ##########
+# PARTICIPATION RUNTIME CONFIG (public values only)
+#
+# These values are exposed to frontend scripts via window.__SUPABASE_CONFIG__.
+# Keep private secrets in .env / Supabase secrets, never here.
+supabase_url: https://wlpzbxsgghsjffzycqku.supabase.co
+supabase_publishable_key: sb_publishable_PCcxvIOQ06pshIdlXFBKew_xoo5KW_a
+geonames_username: davidmerinorecalde
+recaptcha_site_key: 6Lf5TXYsAAAAAOWdJ3iBd8ghFSBWrFPTsg7AZO_u
+recaptcha_mode: v3
+apps_script_url: https://script.google.com/macros/s/AKfycbzoejukqJ8EFtgfbCuwJLFVjV72KW9ApYfwutI5rmPr_-muLHGSfAbn1R0M1Z-otl7y/exec
+
+##########
 # COLLECTION SETTINGS
 #
 # Set the metadata for your collection (the name of the CSV file in your _data directory that describes the objects in your collection) 

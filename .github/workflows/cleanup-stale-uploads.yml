@@ -1,0 +1,56 @@
+name: Cleanup Stale Uploads
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run cleanup function
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          CLEANUP_JOB_SECRET: ${{ secrets.CLEANUP_JOB_SECRET }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${SUPABASE_URL:-}" ]; then
+            echo "::error::Missing SUPABASE_URL secret"
+            exit 1
+          fi
+
+          if [ -z "${CLEANUP_JOB_SECRET:-}" ]; then
+            echo "::error::Missing CLEANUP_JOB_SECRET secret"
+            exit 1
+          fi
+
+          endpoint="${SUPABASE_URL%/}/functions/v1/cleanup-stale-uploads"
+          response="$(curl -sS -w '\n%{http_code}' -X POST "$endpoint" \
+            -H 'Content-Type: application/json' \
+            -H "Authorization: Bearer ${CLEANUP_JOB_SECRET}" \
+            -d '{}')"
+
+          body="$(echo "$response" | sed '$d')"
+          status="$(echo "$response" | tail -n1)"
+
+          echo "HTTP status: $status"
+          echo "$body"
+
+          {
+            echo "### cleanup-stale-uploads"
+            echo
+            echo "- URL: \`$endpoint\`"
+            echo "- HTTP: \`$status\`"
+            echo
+            echo "#### Response"
+            echo '```json'
+            echo "$body"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$status" -lt 200 ] || [ "$status" -ge 300 ]; then
+            echo "::error::cleanup-stale-uploads failed with status $status"
+            exit 1
+          fi
