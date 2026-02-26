@@ -9,6 +9,7 @@ class SugerenciasNotas {
     this.modal = null;
     this.seleccionActual = null;
     this.source = this.detectarSource();
+    this.isSubmitting = false;
   }
 
   /**
@@ -298,8 +299,12 @@ class SugerenciasNotas {
    * Enviar la sugerencia a Supabase
    */
   async enviarSugerencia() {
+    if (this.isSubmitting) return;
+    this.isSubmitting = true;
+
     if (!this.seleccionActual) {
       mostrarToast('Error: no hay texto seleccionado', 3000);
+      this.isSubmitting = false;
       return;
     }
 
@@ -311,7 +316,7 @@ class SugerenciasNotas {
       if (flow?.ensureModeForSecondLecturaContribution) {
         const canContinue = await flow.ensureModeForSecondLecturaContribution();
         if (!canContinue) {
-          mostrarToast('Para continuar debes elegir modo de participacion', 2600);
+          mostrarToast('Para continuar debes elegir modo de participación', 2600);
           return;
         }
       }
@@ -361,11 +366,17 @@ class SugerenciasNotas {
 
     } catch (err) {
       console.error('Error al enviar sugerencia:', err);
-      mostrarToast('Error al enviar sugerencia', 3000);
+      const message = window.SupabaseAPI?.getParticipationUserMessage?.(
+        err,
+        'sugerencia',
+        'Error al enviar sugerencia'
+      );
+      mostrarToast(message || 'Error al enviar sugerencia', 3000);
     } finally {
       // Restaurar botón
       btnEnviar.innerHTML = textoOriginal;
       btnEnviar.disabled = false;
+      this.isSubmitting = false;
     }
   }
 }

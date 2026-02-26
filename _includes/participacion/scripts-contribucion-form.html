@@ -1,6 +1,8 @@
-{% if site.recaptcha_mode == 'v3' and site.recaptcha_site_key %}
+{% if site.recaptcha_site_key %}
+  {% if site.recaptcha_mode == 'v3' %}
 <script src="https://www.google.com/recaptcha/api.js?render={{ site.recaptcha_site_key | uri_escape }}" async defer></script>
-{% else %}
+  {% else %}
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  {% endif %}
 {% endif %}
 <script src="{{ '/assets/js/participacion/form-contribucion.js' | relative_url }}"></script>

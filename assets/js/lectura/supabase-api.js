@@ -19,6 +19,53 @@
     return data || null;
   }
 
+  function normalizedErrorText(error) {
+    if (!error) return '';
+    if (typeof error === 'string') return error.toLowerCase();
+    return [
+      error.message,
+      error.details,
+      error.hint,
+      error.code
+    ]
+      .filter(Boolean)
+      .join(' | ')
+      .toLowerCase();
+  }
+
+  function getParticipationRateLimitMessage(error) {
+    if (window.Participacion?.errors?.isRateLimit) {
+      var isRateLimited = window.Participacion.errors.isRateLimit(error, 'submit_evaluacion');
+      if (!isRateLimited) return null;
+      return getParticipationUserMessage(error, 'evaluacion', null);
+    }
+
+    var raw = normalizedErrorText(error);
+    if (!raw) return null;
+
+    if (raw.indexOf('rate_limit_session_exceeded:submit_evaluacion') !== -1) {
+      return 'Has enviado participaciones muy r\u00e1pido. Espera un minuto y vuelve a intentarlo.';
+    }
+
+    if (raw.indexOf('rate_limit_ip_exceeded:submit_evaluacion') !== -1) {
+      return 'Hay demasiada actividad desde esta conexi\u00f3n. Espera un minuto y vuelve a intentarlo.';
+    }
+
+    return null;
+  }
+
+  function getParticipationUserMessage(error, context, fallback) {
+    if (window.Participacion?.errors?.toUserMessage) {
+      return window.Participacion.errors.toUserMessage(error, context, fallback);
+    }
+
+    if (typeof fallback === 'string' && fallback.trim()) {
+      return fallback.trim();
+    }
+
+    return null;
+  }
+
   async function callRpc(functionName, params, options) {
     var rpcParams = params || {};
     var rpcOptions = options || {};
@@ -125,9 +172,16 @@
 
     async getGlobalStats() {
       return callRpc('rpc_get_global_stats', {}, { single: true });
+    },
+
+    getParticipationRateLimitMessage(error) {
+      return getParticipationRateLimitMessage(error);
+    },
+
+    getParticipationUserMessage(error, context, fallback) {
+      return getParticipationUserMessage(error, context, fallback);
     }
   });
 
   window.SupabaseAPI = SupabaseAPI;
 })();
-

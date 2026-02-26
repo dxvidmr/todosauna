@@ -1,7 +1,7 @@
 // ============================================
 // EDITOR SOCIAL (JUEGO DE EVALUACION)
 // Sistema de notas con navegacion lateral
-// Actualizado con modos de navegaciÃ³n
+// Actualizado con modos de navegación
 // ============================================
 
 class EditorSocial {
@@ -15,10 +15,10 @@ class EditorSocial {
     this.notaActualIndex = -1;
     this.notasEvaluadas = new Set();
     
-    // Modo de navegaciÃ³n: 'secuencial' | 'aleatorio'
+    // Modo de navegación: 'secuencial' | 'aleatorio'
     this.modoNavegacion = null;
     
-    // Tracking de pasajes visitados en modo aleatorio (para no repetir en sesiÃ³n)
+    // Tracking de pasajes visitados en modo aleatorio (para no repetir en sesión)
     this.pasajesVisitados = new Set();
     
     // Referencias DOM
@@ -36,6 +36,52 @@ class EditorSocial {
     this.labFontStep = 5;
     this.labFontVisualScale = 0.9;
     this.resizeAdjustTimer = null;
+    this.pendingEvaluations = new Set();
+  }
+
+  notifyFeedback(message, type, duration) {
+    var text = String(message || '').trim();
+    if (!text) return;
+
+    if (window.Participacion?.ui?.notify) {
+      window.Participacion.ui.notify({
+        message: text,
+        type: type || 'info',
+        duration: duration || 2500
+      });
+      return;
+    }
+
+    if (typeof mostrarToast === 'function') {
+      mostrarToast(text, duration || 2500);
+      return;
+    }
+
+    console.log(text);
+  }
+
+  async confirmFeedback(options) {
+    if (window.Participacion?.ui?.['confirm']) {
+      return window.Participacion.ui['confirm'](options || {});
+    }
+    return false;
+  }
+
+  setNoteEvaluationBusy(notaId, isBusy) {
+    var key = String(notaId || '');
+    if (!key) return;
+
+    this.notaContent
+      ?.querySelectorAll('.nota-evaluacion')
+      .forEach((block) => {
+        if (String(block.dataset.noteId || '') !== key) return;
+        block.querySelectorAll('button').forEach((btn) => {
+          btn.disabled = !!isBusy;
+        });
+        block.querySelectorAll('textarea').forEach((area) => {
+          area.readOnly = !!isBusy;
+        });
+      });
   }
 
   /**
@@ -51,7 +97,7 @@ class EditorSocial {
 
     window.__ceteiLoadingPromise = new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      // Usar rutas de Jekyll si estÃ¡n disponibles, sino ruta relativa
+      // Usar rutas de Jekyll si están disponibles, sino ruta relativa
       const jsPath = window.SITE_PATHS?.js || '../assets/js/lectura';
       script.src = jsPath + '/CETEI.js';
       script.onload = resolve;
@@ -95,7 +141,7 @@ class EditorSocial {
       throw new Error('CETEI.js no esta cargado y no se pudo cargar dinamicamente.');
     }
 
-    // Cargar estadÃ­sticas globales
+    // Cargar estadísticas globales
     await this.cargarEstadisticasGlobales();
 
     // Mostrar pantalla de bienvenida
@@ -112,34 +158,34 @@ class EditorSocial {
   }
 
   /**
-   * Cargar estadÃ­sticas globales
+   * Cargar estadísticas globales
    */
   async cargarEstadisticasGlobales() {
     const container = document.querySelector('.stats-globales');
     
     if (!container) {
-      console.warn('Contenedor de estadÃ­sticas no encontrado');
+      console.warn('Contenedor de estadísticas no encontrado');
       return;
     }
 
     try {
-      // Usar la funciÃ³n del mÃ³dulo evaluaciones-stats
+      // Usar la función del módulo evaluaciones-stats
       if (typeof obtenerEstadisticasGlobales === 'function') {
         const stats = await obtenerEstadisticasGlobales();
         
-        // Renderizar con la funciÃ³n del mÃ³dulo
+        // Renderizar con la función del módulo
         if (typeof renderizarEstadisticasGlobales === 'function') {
           renderizarEstadisticasGlobales(container, stats);
         }
       } else {
-        throw new Error('FunciÃ³n obtenerEstadisticasGlobales no disponible');
+        throw new Error('Función obtenerEstadisticasGlobales no disponible');
       }
     } catch (error) {
-      console.error('Error al cargar estadÃ­sticas:', error);
+      console.error('Error al cargar estadísticas:', error);
       container.innerHTML = `
         <div class="stats-header">
           <i class="fa-solid fa-chart-bar" aria-hidden="true"></i>
-          <strong>EstadÃ­sticas globales</strong>
+          <strong>Estadísticas globales</strong>
         </div>
         <p class="stats-error">No disponible</p>
       `;
@@ -220,7 +266,7 @@ class EditorSocial {
 
   intentarAumentarZoomSinOverflow() {
     if (this.labFontSizePercent >= this.labFontMax) {
-      mostrarToast('Tamano maximo alcanzado', 1400);
+      mostrarToast('Tamaño máximo alcanzado', 1400);
       return;
     }
 
@@ -229,7 +275,7 @@ class EditorSocial {
 
     if (this.tieneOverflowHorizontalPasaje()) {
       this.aplicarZoomPasaje(previous);
-      mostrarToast('No se puede aumentar mas sin desbordar', 1600);
+      mostrarToast('No se puede aumentar más sin desbordar', 1600);
     }
   }
 
@@ -277,7 +323,7 @@ class EditorSocial {
 
     const canStart = await this.asegurarModoAntesDeIniciarLaboratorio();
     if (!canStart) {
-      mostrarToast('Para empezar debes elegir modo de participacion', 2600);
+      mostrarToast('Para empezar debes elegir modo de participación', 2600);
       return;
     }
 
@@ -333,7 +379,7 @@ class EditorSocial {
       barraContainer.style.display = 'block';
     }
     
-    // Mostrar botÃ³n anterior
+    // Mostrar botón anterior
     const btnAnterior = document.getElementById('btn-anterior');
     if (btnAnterior) {
       btnAnterior.style.display = 'inline-flex';
@@ -363,7 +409,7 @@ class EditorSocial {
       barraContainer.style.display = 'none';
     }
     
-    // Ocultar botÃ³n anterior
+    // Ocultar botón anterior
     const btnAnterior = document.getElementById('btn-anterior');
     if (btnAnterior) {
       btnAnterior.style.display = 'none';
@@ -382,8 +428,16 @@ class EditorSocial {
     );
 
     if (pasajesDisponibles.length === 0) {
-      // Todos visitados - resetear o mostrar finalizaciÃ³n
-      if (confirm('Has visitado todos los pasajes. Â¿Quieres volver a empezar?')) {
+      // Todos visitados - resetear o mostrar finalización
+      const shouldRestart = await this.confirmFeedback({
+        title: 'Has visitado todos los pasajes',
+        message: '¿Quieres volver a empezar?',
+        confirmText: 'Sí, volver a empezar',
+        cancelText: 'Cerrar',
+        variant: 'warning'
+      });
+
+      if (shouldRestart) {
         this.pasajesVisitados.clear();
         await this.cargarPasajeAleatorio();
       } else {
@@ -428,7 +482,7 @@ class EditorSocial {
     const porcentaje = (evaluadas / total) * 100;
     barraFill.style.width = `${porcentaje}%`;
 
-    // Mantener consistencia visual: tambiÃ©n actualizar valor del span si es necesario
+    // Mantener consistencia visual: también actualizar valor del span si es necesario
     const notasEvaluadasSpan = document.getElementById('notas-evaluadas');
     const notasTotalesSpan = document.getElementById('notas-totales');
     if (notasEvaluadasSpan) notasEvaluadasSpan.textContent = evaluadas;
@@ -443,7 +497,7 @@ class EditorSocial {
 
     if (error) {
       console.error('Error al cargar pasajes:', error);
-      alert('Error al cargar pasajes. Verifica tu conexion.');
+      this.notifyFeedback('Error al cargar pasajes. Verifica tu conexión.', 'error', 3200);
       return;
     }
 
@@ -480,7 +534,7 @@ class EditorSocial {
     // Actualizar barra de progreso (solo modo secuencial)
     this.actualizarBarraProgreso();
     
-    // Actualizar botones de navegaciÃ³n
+    // Actualizar botones de navegación
     this.actualizarBotonesNavegacionPasajes();
 
     // Extraer fragmento del XML
@@ -544,7 +598,7 @@ class EditorSocial {
 
     this.pasajeContent.appendChild(teiContainer);
 
-    // Aplicar alineacion de versos partidos y numeraciÃ³n de versos
+    // Aplicar alineacion de versos partidos y numeración de versos
     setTimeout(() => {
       alignSplitVerses(teiContainer);
       aplicarNumeracionVersos(teiContainer, 'cada5');
@@ -883,7 +937,7 @@ class EditorSocial {
       `;
     } else {
       dockHtml = `
-        <div class="nota-evaluacion">
+        <div class="nota-evaluacion" data-note-id="${nota.nota_id}">
           <div class="evaluacion-header">
             <span>¿Te resulta útil esta nota?</span>
           </div>
@@ -1023,7 +1077,7 @@ class EditorSocial {
       this.renderizarNotaActual(nota);
     }
 
-    mostrarToast('Evaluacion guardada', 2000);
+    mostrarToast('Evaluación guardada', 2000);
   }
 
   /**
@@ -1049,7 +1103,7 @@ class EditorSocial {
     // Todas evaluadas
     if (this.notasEvaluadas.size === this.notasPasaje.length) {
       setTimeout(() => {
-        mostrarToast('Pasaje completado!', 3000);
+        mostrarToast('¡Pasaje completado!', 3000);
       }, 600);
     }
   }
@@ -1094,6 +1148,11 @@ class EditorSocial {
    * Registrar evaluacion en Supabase
    */
   async registrarEvaluacion(notaId, version, vote, comentario, pasajeId) {
+      const lockKey = String(notaId || '');
+      if (lockKey && this.pendingEvaluations.has(lockKey)) {
+        return false;
+      }
+
       // Verificar modo de usuario
       if (!window.userManager.tieneModoDefinido()) {
         await window.modalModo.mostrar({
@@ -1106,31 +1165,47 @@ class EditorSocial {
       
       if (!datosUsuario) {
         console.error('No se pudo obtener datos de usuario');
-        mostrarToast('Error: modo no definido', 3000);
+        this.notifyFeedback('Error: modo no definido', 'error', 3000);
         return false;
       }
 
-      // La sesiÃ³n ya estÃ¡ creada en BD (se creÃ³ al elegir modo)
-      const { error } = await window.SupabaseAPI.submitNoteEvaluation({
-        source: 'laboratorio',
-        session_id: datosUsuario.session_id,
-        pasaje_id: pasajeId,
-        nota_id: notaId,
-        nota_version: version,
-        vote: vote,
-        comment: comentario
-      });
-
-      if (error) {
-        console.error('Error al registrar evaluacion:', error);
-        mostrarToast('Error al enviar evaluacion', 3000);
-        return false;
+      if (lockKey) {
+        this.pendingEvaluations.add(lockKey);
+        this.setNoteEvaluationBusy(lockKey, true);
       }
 
-      // NO invalidamos cachÃ© aquÃ­ - actualizamos localmente en actualizarContadorLocal()
+      // La sesión ya está creada en BD (se creó al elegir modo)
+      try {
+        const { error } = await window.SupabaseAPI.submitNoteEvaluation({
+          source: 'laboratorio',
+          session_id: datosUsuario.session_id,
+          pasaje_id: pasajeId,
+          nota_id: notaId,
+          nota_version: version,
+          vote: vote,
+          comment: comentario
+        });
 
-      console.log('Evaluacion registrada:', vote, notaId);
-      return true;
+        if (error) {
+          console.error('Error al registrar evaluación:', error);
+          const message = window.SupabaseAPI?.getParticipationUserMessage?.(
+            error,
+            'evaluacion',
+            'Error al enviar evaluación'
+          );
+          this.notifyFeedback(message || 'Error al enviar evaluación', 'error', 3000);
+          return false;
+        }
+
+        // NO invalidamos caché aquí - actualizamos localmente en actualizarContadorLocal()
+        console.log('Evaluación registrada:', vote, notaId);
+        return true;
+      } finally {
+        if (lockKey) {
+          this.pendingEvaluations.delete(lockKey);
+          this.setNoteEvaluationBusy(lockKey, false);
+        }
+      }
     }
 
   setupModalCambiarModo() {
@@ -1197,7 +1272,7 @@ class EditorSocial {
       this.siguientePasaje();
     });
 
-    // BotÃ³n cambiar modo
+    // Botón cambiar modo
     this.setupModalCambiarModo();
 
     document.getElementById('btn-cambiar-modo')?.addEventListener('click', () => {
@@ -1251,7 +1326,7 @@ class EditorSocial {
   }
 
   /**
-   * Actualizar estado de botones de navegaciÃ³n de pasajes
+   * Actualizar estado de botones de navegación de pasajes
    */
   actualizarBotonesNavegacionPasajes() {
     const btnAnterior = document.getElementById('btn-anterior');

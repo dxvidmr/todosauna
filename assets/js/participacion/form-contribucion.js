@@ -147,19 +147,17 @@
     return !!String(cfg.recaptchaSiteKey || window.RECAPTCHA_SITE_KEY || '').trim();
   }
 
-  function getErrorMessage(error, fallback) {
+  function getErrorMessage(error, fallback, context) {
+    if (ns.errors && typeof ns.errors.toUserMessage === 'function') {
+      return ns.errors.toUserMessage(error, context || 'contribucion_submit', fallback || 'Error inesperado');
+    }
+
     if (!error) return fallback || 'Error inesperado';
     if (typeof error === 'string') return error;
     if (typeof error.message === 'string' && error.message.trim()) return error.message.trim();
     if (error.error && typeof error.error === 'string' && error.error.trim()) return error.error.trim();
     if (error.error && typeof error.error.message === 'string' && error.error.message.trim()) return error.error.message.trim();
     if (error.details && typeof error.details === 'string' && error.details.trim()) return error.details.trim();
-    try {
-      var serialized = JSON.stringify(error);
-      if (serialized && serialized !== '{}') return serialized;
-    } catch (_err) {
-      // Ignore JSON serialization errors and fall back to generic text.
-    }
     return fallback || 'Error inesperado';
   }
 
@@ -213,7 +211,7 @@
     if (!stagedFiles.length) {
       var emptyItem = document.createElement('li');
       emptyItem.className = 'list-group-item text-muted';
-      emptyItem.textContent = 'Aun no hay archivos subidos.';
+      emptyItem.textContent = 'Aún no hay archivos subidos.';
       uploadedFilesList.appendChild(emptyItem);
       return;
     }
@@ -291,7 +289,7 @@
 
   async function ensureModeDefined(openIfMissing) {
     if (!ns.session || !ns.apiV2) {
-      setStatus(statusStep1, 'La capa de participacion no esta disponible.', 'error');
+      setStatus(statusStep1, 'La capa de participación no está disponible.', 'error');
       return false;
     }
 
@@ -324,7 +322,7 @@
     }
 
     if (!selectedCityId || !selectedCountryId) {
-      setInlineStatus('Selecciona una ciudad valida de GeoNames o borra el campo.', 'error');
+      setInlineStatus('Selecciona una ciudad válida de GeoNames o borra el campo.', 'error');
       return false;
     }
 
@@ -402,19 +400,19 @@
 
     var modeReady = await ensureModeDefined(true);
     if (!modeReady) {
-      setStatus(statusStep2, 'Debes definir modo de participacion antes de subir.', 'warning');
+      setStatus(statusStep2, 'Debes definir modo de participación antes de subir.', 'warning');
       return;
     }
 
     var adapter = getUploadAdapter();
     if (!adapter || typeof adapter.uploadFiles !== 'function') {
-      setStatus(statusStep2, 'El adaptador de subida no esta disponible.', 'error');
+      setStatus(statusStep2, 'El adaptador de subida no está disponible.', 'error');
       return;
     }
 
     var sessionId = getSessionId();
     if (!sessionId) {
-      setStatus(statusStep2, 'No hay sesion activa disponible. Recarga la pagina.', 'error');
+      setStatus(statusStep2, 'No hay sesión activa disponible. Recarga la página.', 'error');
       return;
     }
 
@@ -438,9 +436,9 @@
       renderUploadedFiles();
 
       if (localFilesInput) localFilesInput.value = '';
-      setStatus(statusStep2, 'Archivos subidos y validados. Ya puedes enviar la contribucion.', 'success');
+      setStatus(statusStep2, 'Archivos subidos y validados. Ya puedes enviar la contribución.', 'success');
     } catch (error) {
-      var message = getErrorMessage(error, 'No se pudo completar la subida.');
+      var message = getErrorMessage(error, 'No se pudo completar la subida.', 'contribucion_upload');
       setStatus(statusStep2, message, 'error');
     } finally {
       isUploading = false;
@@ -461,7 +459,7 @@
         staging_id: currentStagingId
       });
       if (cancelResult && cancelResult.error) {
-        setStatus(statusStep2, getErrorMessage(cancelResult.error, 'No se pudo cancelar remoto.'), 'warning');
+        setStatus(statusStep2, getErrorMessage(cancelResult.error, 'No se pudo cancelar remoto.', 'contribucion_cancel'), 'warning');
       }
     }
 
@@ -493,11 +491,11 @@
     });
 
     if (response.error || !response.data || !response.data.vinculo_id) {
-      setStatus(linkStatus, 'La contribucion se guardo, pero no se pudo crear el vinculo con el testimonio.', 'warning');
+      setStatus(linkStatus, 'La contribución se guardó, pero no se pudo crear el vínculo con el testimonio.', 'warning');
       return;
     }
 
-    setStatus(linkStatus, 'La contribucion quedo vinculada al testimonio indicado.', 'success');
+    setStatus(linkStatus, 'La contribución quedó vinculada al testimonio indicado.', 'success');
   }
 
   async function handleSubmit(event) {
@@ -522,20 +520,20 @@
 
     var modeReady = await ensureModeDefined(true);
     if (!modeReady) {
-      setStatus(statusStep1, 'Debes definir modo de participacion para enviar la contribucion.', 'warning');
+      setStatus(statusStep1, 'Debes definir modo de participación para enviar la contribución.', 'warning');
       setStep(1);
       return;
     }
 
     var payload = buildPayload();
     if (!payload.session_id) {
-      setStatus(statusStep1, 'No hay sesion activa. Recarga la pagina e intentalo de nuevo.', 'error');
+      setStatus(statusStep1, 'No hay sesión activa. Recarga la página e inténtalo de nuevo.', 'error');
       setStep(1);
       return;
     }
 
     if (!payload.staging_id) {
-      setStatus(statusStep2, 'No hay staging activo para el envio.', 'error');
+      setStatus(statusStep2, 'No hay staging activo para el envío.', 'error');
       setStep(2);
       return;
     }
@@ -547,7 +545,7 @@
     try {
       var response = await ns.apiV2.submitContribucionStaged(payload);
       if (response.error || !response.data || !response.data.contribucion_id) {
-        throw response.error || new Error('No se pudo guardar la contribucion');
+        throw response.error || new Error('No se pudo guardar la contribución');
       }
 
       var contribucionId = response.data.contribucion_id;
@@ -564,12 +562,12 @@
       if (gate) gate.hidden = true;
       if (successPanel) successPanel.hidden = false;
     } catch (error) {
-      var errorMessage = getErrorMessage(error, 'No se pudo enviar la contribucion.');
+      var errorMessage = getErrorMessage(error, 'No se pudo enviar la contribución.', 'contribucion_submit');
       setStatus(statusStep2, errorMessage, 'error');
       setStep(2);
     } finally {
       isSubmitting = false;
-      if (submitButton) submitButton.textContent = 'Enviar contribucion';
+      if (submitButton) submitButton.textContent = 'Enviar contribución';
       updateGateVisibility();
     }
   }
@@ -620,14 +618,14 @@
 
   async function init() {
     if (!ns.session || !ns.apiV2) {
-      setStatus(statusStep1, 'No se pudo inicializar la capa de participacion.', 'error');
+      setStatus(statusStep1, 'No se pudo inicializar la capa de participación.', 'error');
       return;
     }
 
     var testimonioId = getLinkedTestimonioFromUrl();
     if (hiddenLinkedTestimonioId && testimonioId) {
       hiddenLinkedTestimonioId.value = testimonioId;
-      setStatus(statusStep1, 'Esta contribucion se vinculara automaticamente con el testimonio indicado.', 'info');
+      setStatus(statusStep1, 'Esta contribución se vinculará automáticamente con el testimonio indicado.', 'info');
     }
 
     if (ns.geo && typeof ns.geo.attachCityAutocomplete === 'function') {

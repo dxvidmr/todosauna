@@ -1,0 +1,6 @@
+supabase_url: http://127.0.0.1:54321
+supabase_publishable_key: sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH
+geonames_username: ""
+recaptcha_site_key: ""
+recaptcha_mode: auto
+apps_script_url: https://apps-script.local.test/exec

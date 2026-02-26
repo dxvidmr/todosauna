@@ -8,12 +8,51 @@
   var ns = window.Participacion || (window.Participacion = {});
   if (ns.modal) return;
 
-  function toast(message, duration) {
-    if (typeof window.mostrarToast === 'function') {
-      window.mostrarToast(message, duration || 2500);
+  function notify(message, type, duration) {
+    var text = String(message || '').trim();
+    if (!text) return;
+
+    if (ns.ui && typeof ns.ui.notify === 'function') {
+      ns.ui.notify({
+        message: text,
+        type: type || 'info',
+        duration: duration || 2500
+      });
       return;
     }
-    console.log('[participacion] ' + message);
+
+    if (typeof window.mostrarToast === 'function') {
+      window.mostrarToast(text, duration || 2500);
+      return;
+    }
+
+    console.log('[participacion] ' + text);
+  }
+
+  function getUserMessage(error, context, fallback) {
+    if (ns.errors && typeof ns.errors.toUserMessage === 'function') {
+      return ns.errors.toUserMessage(error, context, fallback);
+    }
+    return fallback;
+  }
+
+  function setButtonBusy(button, isBusy, busyText) {
+    if (!button) return;
+
+    if (isBusy) {
+      if (!button.dataset.originalText) {
+        button.dataset.originalText = button.textContent || '';
+      }
+      button.disabled = true;
+      button.textContent = busyText || 'Procesando...';
+      return;
+    }
+
+    button.disabled = false;
+    if (button.dataset.originalText) {
+      button.textContent = button.dataset.originalText;
+      button.removeAttribute('data-original-text');
+    }
   }
 
   function closeNavbarMenuIfOpen() {
@@ -40,27 +79,31 @@
     this._resolveOpen = null;
     this._buttonsBound = false;
     this.currentContext = '';
+    this.isSubmittingAnonimo = false;
+    this.isSubmittingLogin = false;
+    this.isSubmittingRegistro = false;
+    this.isResettingSession = false;
     this.contextCopy = {
       default: {
-        title: 'Como quieres participar?',
-        description: 'Tu participacion ayuda a mejorar las notas para futuros lectores.',
-        anonimoTitle: 'Editor anonimo',
+        title: '¿Cómo quieres participar?',
+        description: 'Tu participación ayuda a mejorar las notas para futuros lectores.',
+        anonimoTitle: 'Editor anónimo',
         anonimoDescription: 'Sin registro. Privacidad total.',
         colaboradorTitle: 'Colaborador',
         colaboradorDescription: 'Identificado por email. Contribuciones reconocidas.'
       },
       'lectura-second-contribution': {
-        title: 'Estas participando anonimamente.',
-        description: 'Para continuar, elige si quieres seguir asi o registrarte/identificarte.',
-        anonimoTitle: 'Continuar anonimamente',
+        title: 'Estás participando anónimamente.',
+        description: 'Para continuar, elige si quieres seguir así o registrarte/identificarte.',
+        anonimoTitle: 'Continuar anónimamente',
         anonimoDescription: 'Seguir sin registro.',
         colaboradorTitle: 'Registrarme/Identificarme',
         colaboradorDescription: 'Crear o recuperar perfil colaborador.'
       },
       'laboratorio-before-mode': {
         title: 'Antes de empezar el laboratorio',
-        description: 'Define tu modo de participacion para iniciar el juego.',
-        anonimoTitle: 'Participar anonimamente',
+        description: 'Define tu modo de participación para iniciar el juego.',
+        anonimoTitle: 'Participar anónimamente',
         anonimoDescription: 'Entrar sin registro.',
         colaboradorTitle: 'Registrarme/Identificarme',
         colaboradorDescription: 'Crear o recuperar perfil colaborador.'
@@ -77,6 +120,38 @@
     this._onKeydown = this._onKeydown.bind(this);
     this._ensureDOM();
   }
+
+  ModalParticipacion.prototype._showAlert = function (title, message, variant) {
+    var text = String(message || '').trim();
+    if (!text) return Promise.resolve();
+
+    if (ns.ui && typeof ns.ui['alert'] === 'function') {
+      return ns.ui['alert']({
+        title: title || 'Aviso',
+        message: text,
+        buttonText: 'Aceptar',
+        variant: variant || 'default'
+      });
+    }
+
+    notify(text, 'warning', 2800);
+    return Promise.resolve();
+  };
+
+  ModalParticipacion.prototype._showConfirm = function (title, message, confirmText, cancelText, variant) {
+    if (ns.ui && typeof ns.ui['confirm'] === 'function') {
+      return ns.ui['confirm']({
+        title: title || 'Confirmar',
+        message: message || '',
+        confirmText: confirmText || 'Aceptar',
+        cancelText: cancelText || 'Cancelar',
+        variant: variant || 'default'
+      });
+    }
+
+    notify(message || title || 'Confirma la acción.', 'info', 2600);
+    return Promise.resolve(false);
+  };
 
   ModalParticipacion.prototype._ensureDOM = function () {
     if (this.modal) return;
@@ -102,11 +177,11 @@
       '  <div class="modal-overlay"></div>' +
       '  <div class="modal-content">' +
       '    <button id="modal-modo-close" class="modal-close" aria-label="Cerrar modal">&times;</button>' +
-      '    <h2 id="modal-titulo">Como quieres participar?</h2>' +
-      '    <p class="modal-descripcion" id="modal-descripcion">Tu participacion ayuda a mejorar las notas para futuros lectores.</p>' +
+      '    <h2 id="modal-titulo">¿Cómo quieres participar?</h2>' +
+      '    <p class="modal-descripcion" id="modal-descripcion">Tu participación ayuda a mejorar las notas para futuros lectores.</p>' +
       '    <div class="modo-opciones">' +
       '      <div class="modo-opcion" data-modo="anonimo" role="button" tabindex="0">' +
-      '        <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-user-secret" aria-hidden="true"></i></span><h3>Editor anonimo</h3></div>' +
+      '        <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-user-secret" aria-hidden="true"></i></span><h3>Editor anónimo</h3></div>' +
       '        <p>Sin registro. Privacidad total.</p>' +
       '      </div>' +
       '      <div class="modo-opcion" data-modo="colaborador" role="button" tabindex="0">' +
@@ -115,8 +190,8 @@
       '      </div>' +
       '    </div>' +
       '    <div id="form-anonimo" class="modo-form" style="display:none;">' +
-      '      <h3>Participacion anonima</h3>' +
-      '      <p class="help-modal bg-gray-100 text-gray-500">Participaras sin registro y de forma completamente anonima.</p>' +
+      '      <h3>Participación anónima</h3>' +
+      '      <p class="help-modal bg-gray-100 text-gray-500">Participarás sin registro y de forma completamente anónima.</p>' +
       '      <form id="form-anonimo-datos">' +
       '        <div class="botones-modal">' +
       '          <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>' +
@@ -126,10 +201,10 @@
       '    </div>' +
       '    <div id="colaborador-opciones" class="modo-form" style="display:none;">' +
       '      <h3>Identificarse como colaborador/a</h3>' +
-      '      <p class="help-modal bg-gray-100 text-gray-500">No necesitas contrasena. Solo tu email para reconocerte.</p>' +
+      '      <p class="help-modal bg-gray-100 text-gray-500">No necesitas contraseña. Solo tu email para reconocerte.</p>' +
       '      <div class="colaborador-opciones-grid">' +
       '        <div class="modo-opcion" data-tipo="login" role="button" tabindex="0">' +
-      '          <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i></span><h3>Ya participe antes</h3></div>' +
+      '          <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i></span><h3>Ya participé antes</h3></div>' +
       '          <p>Identificarme con mi email.</p>' +
       '        </div>' +
       '        <div class="modo-opcion" data-tipo="registro" role="button" tabindex="0">' +
@@ -155,13 +230,13 @@
       '      <p class="help-modal bg-gray-100 text-gray-500">Rellena el formulario para registrarte como colaborador/a.</p>' +
       '      <form id="form-colaborador-registro-datos">' +
       '        <label>Email<input type="email" name="email" required placeholder="tu@email.com"></label>' +
-      '        <label>Nombre (opcional)<input type="text" name="display_name" placeholder="Maria G." maxlength="50"></label>' +
+      '        <label>Nombre (opcional)<input type="text" name="display_name" placeholder="María G." maxlength="50"></label>' +
       '        <label>Nivel de estudios (opcional)' +
       '          <select name="nivel_estudios">' +
       '            <option value="">Prefiero no decirlo</option>' +
       '            <option value="secundaria">Secundaria</option>' +
       '            <option value="grado">Grado universitario</option>' +
-      '            <option value="posgrado">Master/Posgrado</option>' +
+      '            <option value="posgrado">Máster/Posgrado</option>' +
       '            <option value="doctorado">Doctorado</option>' +
       '            <option value="otro">Otro</option>' +
       '          </select>' +
@@ -169,9 +244,9 @@
       '        <label>Disciplina (opcional)' +
       '          <select name="disciplina">' +
       '            <option value="">Prefiero no decirlo</option>' +
-      '            <option value="filologia">Filologia/Lengua/Literatura</option>' +
+      '            <option value="filologia">Filología/Lengua/Literatura</option>' +
       '            <option value="historia">Historia</option>' +
-      '            <option value="educacion">Educacion</option>' +
+      '            <option value="educacion">Educación</option>' +
       '            <option value="arte">Arte/Teatro</option>' +
       '            <option value="humanidades">Humanidades</option>' +
       '            <option value="ciencias_sociales">Ciencias Sociales</option>' +
@@ -225,7 +300,7 @@
     if (formAnonimo) {
       formAnonimo.addEventListener('submit', async function (event) {
         event.preventDefault();
-        await self._submitAnonimo();
+        await self._submitAnonimo(formAnonimo);
       });
     }
 
@@ -309,43 +384,54 @@
     if (type === 'registro') this.formRegistro.style.display = 'block';
   };
 
-  ModalParticipacion.prototype._submitAnonimo = async function () {
+  ModalParticipacion.prototype._submitAnonimo = async function (form) {
+    if (this.isSubmittingAnonimo) return;
+
     var session = ns.session;
     if (!session) {
-      alert('No se pudo inicializar participacion');
+      await this._showAlert('Participación no disponible', 'No se pudo inicializar la participación.', 'warning');
       return;
     }
 
-    var result = await session.setAnonimo();
-    if (!result.ok) {
-      alert('Error al activar modo anonimo. Intenta de nuevo.');
-      return;
-    }
+    this.isSubmittingAnonimo = true;
+    var button = form ? form.querySelector('button[type="submit"]') : null;
+    setButtonBusy(button, true, 'Activando...');
 
-    this.close();
-    toast('Modo anonimo activado');
+    try {
+      var result = await session.setAnonimo();
+      if (!result.ok) {
+        var errorMessage = getUserMessage(result.error, 'session_set_anonimo', 'Error al activar modo anónimo. Intenta de nuevo.');
+        await this._showAlert('No se pudo activar el modo anónimo', errorMessage, 'warning');
+        return;
+      }
+
+      this.close();
+      notify('Modo anónimo activado', 'success');
+    } finally {
+      setButtonBusy(button, false);
+      this.isSubmittingAnonimo = false;
+    }
   };
 
   ModalParticipacion.prototype._submitLogin = async function (form) {
+    if (this.isSubmittingLogin) return;
+
     var session = ns.session;
     if (!session) {
-      alert('No se pudo inicializar participacion');
+      await this._showAlert('Participación no disponible', 'No se pudo inicializar la participación.', 'warning');
       return;
     }
 
     var formData = new FormData(form);
     var email = String(formData.get('email') || '').trim();
     if (!email) {
-      alert('El email es obligatorio');
+      notify('El email es obligatorio.', 'warning', 2600);
       return;
     }
 
-    var button = form.querySelector('button[type="submit"]');
-    var oldText = button ? button.textContent : '';
-    if (button) {
-      button.disabled = true;
-      button.textContent = 'Buscando...';
-    }
+    this.isSubmittingLogin = true;
+    var button = form ? form.querySelector('button[type="submit"]') : null;
+    setButtonBusy(button, true, 'Buscando...');
 
     try {
       var result = await session.loginAndBind(email);
@@ -354,12 +440,14 @@
       }
 
       if (!result.found) {
-        if (button) {
-          button.disabled = false;
-          button.textContent = oldText;
-        }
-
-        if (window.confirm('No encontramos tu email en el sistema. Quieres registrarte ahora?')) {
+        var wantsRegister = await this._showConfirm(
+          'Email no encontrado',
+          'No encontramos ese email en el sistema. ¿Quieres registrarte ahora?',
+          'Sí, registrarme',
+          'Cancelar',
+          'warning'
+        );
+        if (wantsRegister) {
           this._resetView();
           this._selectMode('colaborador');
           this._showCollaboratorForm('registro');
@@ -368,22 +456,23 @@
       }
 
       this.close();
-      toast('Sesion de colaborador iniciada');
+      notify('Sesión de colaborador iniciada', 'success');
     } catch (err) {
       console.error('[participacion] Error en login colaborador', err);
-      alert('Error al identificarte. Intenta de nuevo.');
+      var message = getUserMessage(err, 'login', 'Error al identificarte. Intenta de nuevo.');
+      await this._showAlert('No se pudo identificar la cuenta', message, 'warning');
     } finally {
-      if (button) {
-        button.disabled = false;
-        button.textContent = oldText;
-      }
+      setButtonBusy(button, false);
+      this.isSubmittingLogin = false;
     }
   };
 
   ModalParticipacion.prototype._submitRegistro = async function (form) {
+    if (this.isSubmittingRegistro) return;
+
     var session = ns.session;
     if (!session) {
-      alert('No se pudo inicializar participacion');
+      await this._showAlert('Participación no disponible', 'No se pudo inicializar la participación.', 'warning');
       return;
     }
 
@@ -394,26 +483,36 @@
     var disciplina = formData.get('disciplina') || null;
 
     if (!email) {
-      alert('El email es obligatorio');
+      notify('El email es obligatorio.', 'warning', 2600);
       return;
     }
 
-    var result = await session.registerAndBind(email, displayName, {
-      nivel_estudios: nivel,
-      disciplina: disciplina
-    });
+    this.isSubmittingRegistro = true;
+    var button = form ? form.querySelector('button[type="submit"]') : null;
+    setButtonBusy(button, true, 'Registrando...');
 
-    if (!result.ok) {
-      if (result.reason === 'already_exists') {
-        alert('Este email ya esta registrado. Usa "Identificarme".');
-      } else {
-        alert('Error al registrar colaborador. Verifica tus datos.');
+    try {
+      var result = await session.registerAndBind(email, displayName, {
+        nivel_estudios: nivel,
+        disciplina: disciplina
+      });
+
+      if (!result.ok) {
+        if (result.reason === 'already_exists') {
+          await this._showAlert('Email ya registrado', 'Este email ya está registrado. Usa "Identificarme".', 'warning');
+        } else {
+          var errorText = getUserMessage(result.error || result, 'register', 'Error al registrar colaborador. Verifica tus datos.');
+          await this._showAlert('No se pudo completar el registro', errorText, 'warning');
+        }
+        return;
       }
-      return;
-    }
 
-    this.close();
-    toast('Registro completado');
+      this.close();
+      notify('Registro completado', 'success');
+    } finally {
+      setButtonBusy(button, false);
+      this.isSubmittingRegistro = false;
+    }
   };
 
   ModalParticipacion.prototype.open = function (options) {
@@ -463,7 +562,7 @@
     var stats = await session.getStats();
     var modoTexto = user.modo_participacion === 'colaborador'
       ? '<i class="fa-solid fa-pen" aria-hidden="true"></i> Colaborador/a'
-      : '<i class="fa-solid fa-user-secret" aria-hidden="true"></i> Anonimo';
+      : '<i class="fa-solid fa-user-secret" aria-hidden="true"></i> Anónimo';
 
     var infoExtra = '';
     if (user.modo_participacion === 'colaborador') {
@@ -471,7 +570,7 @@
       if (user.nivel_estudios) infoExtra += '<p><strong>Nivel:</strong> ' + user.nivel_estudios + '</p>';
       if (user.disciplina) infoExtra += '<p><strong>Disciplina:</strong> ' + user.disciplina + '</p>';
     } else {
-      infoExtra += '<p>Participas de forma anonima sin registro.</p>';
+      infoExtra += '<p>Participas de forma anónima sin registro.</p>';
     }
 
     var modal = document.createElement('div');
@@ -481,7 +580,7 @@
       '<div class="modal-content">' +
       '  <button class="modal-close" aria-label="Cerrar">&times;</button>' +
       '  <div class="info-usuario-panel">' +
-      '    <h3>Tu participacion</h3>' +
+      '    <h3>Tu participación</h3>' +
       '    <div class="info-modo"><p><strong>Modo actual:</strong> ' + modoTexto + '</p>' + infoExtra + '</div>' +
       '    <div class="info-stats">' +
       '      <p><strong>Contribuciones totales:</strong> ' + (stats ? stats.total_evaluaciones : 0) + '</p>' +
@@ -490,7 +589,7 @@
       '      <p>Comentarios: ' + (stats ? stats.comentarios : 0) + '</p>' +
       '    </div>' +
       '    <div class="info-acciones">' +
-      '      <button class="btn btn-dark btn-cerrar-sesion"><i class="fa-solid fa-right-from-bracket me-2" aria-hidden="true"></i>Cerrar sesion</button>' +
+      '      <button class="btn btn-dark btn-cerrar-sesion"><i class="fa-solid fa-right-from-bracket me-2" aria-hidden="true"></i>Cerrar sesión</button>' +
       '    </div>' +
       '  </div>' +
       '</div>';
@@ -515,13 +614,30 @@
     var closeSessionBtn = modal.querySelector('.btn-cerrar-sesion');
     if (closeSessionBtn) {
       closeSessionBtn.addEventListener('click', async function () {
-        if (!window.confirm('Seguro que quieres cerrar sesion?')) return;
-        await session.resetToUnasked();
-        closeInfoModal();
-        toast('Sesion cerrada');
-        setTimeout(function () {
-          void self.open({ context: 'profile', reason: 'after-reset' });
-        }, 200);
+        if (self.isResettingSession) return;
+
+        var shouldReset = await self._showConfirm(
+          'Cerrar sesión',
+          '¿Seguro que quieres cerrar sesión?',
+          'Sí, cerrar sesión',
+          'Cancelar',
+          'warning'
+        );
+
+        if (!shouldReset) return;
+
+        self.isResettingSession = true;
+        setButtonBusy(closeSessionBtn, true, 'Cerrando...');
+        try {
+          await session.resetToUnasked();
+          closeInfoModal();
+          notify('Sesión cerrada', 'success');
+          setTimeout(function () {
+            void self.open({ context: 'profile', reason: 'after-reset' });
+          }, 200);
+        } finally {
+          self.isResettingSession = false;
+        }
       });
     }
   };

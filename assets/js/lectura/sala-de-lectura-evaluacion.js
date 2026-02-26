@@ -6,9 +6,27 @@ class EdicionEvaluacion {
   constructor() {
     this.notasEvaluadasLocal = new Set();
     this.notasEvaluadasBD = new Set();
+    this.pendingEvaluaciones = new Set();
     this.evalRenderSeq = 0;
     this.versionCache = new Map();
     this.noteContentObserver = null;
+  }
+
+  setEvaluationBusy(notaId, isBusy) {
+    var key = String(notaId || '');
+    if (!key) return;
+
+    document
+      .querySelectorAll('.nota-evaluacion')
+      .forEach((block) => {
+        if (String(block.dataset.noteId || '') !== key) return;
+        block.querySelectorAll('button').forEach((btn) => {
+          btn.disabled = !!isBusy;
+        });
+        block.querySelectorAll('textarea').forEach((area) => {
+          area.readOnly = !!isBusy;
+        });
+      });
   }
 
   /**
@@ -16,7 +34,7 @@ class EdicionEvaluacion {
    * Must run after notes and text are ready.
    */
   async init() {
-    console.log('Inicializando sistema de evaluacion en edicion...');
+    console.log('Inicializando sistema de evaluación en edición...');
 
     await this.cargarNotasYaEvaluadas();
 
@@ -84,7 +102,7 @@ class EdicionEvaluacion {
     // Render once for the current note content.
     this.addEvaluationButtons();
 
-    console.log('Listeners de evaluacion configurados');
+    console.log('Listeners de evaluación configurados');
   }
 
   renderDockLoading(dock, notaId) {
@@ -200,7 +218,7 @@ class EdicionEvaluacion {
     if (!currentDock) return;
 
     if (!version) {
-      this.renderDockError(currentDock, notaId, 'No se pudo cargar la evaluacion.');
+      this.renderDockError(currentDock, notaId, 'No se pudo cargar la evaluación.');
       return;
     }
 
@@ -210,13 +228,14 @@ class EdicionEvaluacion {
 
     const evaluacionDiv = document.createElement('div');
     evaluacionDiv.className = 'nota-evaluacion';
+    evaluacionDiv.dataset.noteId = notaId;
 
     if (typeof crearBotonesConContadores === 'function') {
       evaluacionDiv.innerHTML = crearBotonesConContadores(notaId, version, evaluaciones);
     } else {
       evaluacionDiv.innerHTML = `
         <div class="evaluacion-header">
-          <span>¿Te resulta util esta nota?</span>
+          <span>¿Te resulta útil esta nota?</span>
         </div>
         <div class="evaluacion-botones">
           <button class="btn btn-outline-success btn-evaluar btn-util" data-nota-id="${notaId}" data-version="${version}">
@@ -227,7 +246,7 @@ class EdicionEvaluacion {
           </button>
         </div>
         <div class="evaluacion-comentario" style="display:none;">
-          <textarea placeholder="¿Que cambiarias? Puedes explicar lo que no te gusta o redactar una nueva nota (opcional)" rows="3"></textarea>
+          <textarea placeholder="¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota (opcional)" rows="3"></textarea>
           <button class="btn btn-dark btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
           <button class="btn btn-outline-dark btn-sm btn-cancelar-comentario">Cancelar</button>
         </div>
@@ -320,11 +339,16 @@ class EdicionEvaluacion {
    * Save vote in Supabase.
    */
   async registrarEvaluacion(notaId, version, vote, comentario) {
+    const lockKey = String(notaId || '');
+    if (lockKey && this.pendingEvaluaciones.has(lockKey)) {
+      return false;
+    }
+
     const flow = window.Participacion?.flow;
     if (flow?.ensureModeForSecondLecturaContribution) {
       const canContinue = await flow.ensureModeForSecondLecturaContribution();
       if (!canContinue) {
-        mostrarToast('Para continuar debes elegir modo de participacion', 2600);
+        mostrarToast('Para continuar debes elegir modo de participación', 2600);
         return false;
       }
     }
@@ -341,28 +365,45 @@ class EdicionEvaluacion {
       return false;
     }
 
-    const { error } = await window.SupabaseAPI.submitNoteEvaluation({
-      source: 'lectura',
-      session_id: datosUsuario.session_id,
-      pasaje_id: null,
-      nota_id: notaId,
-      nota_version: version,
-      vote: vote,
-      comment: comentario
-    });
-
-    if (error) {
-      console.error('Error al registrar evaluacion:', error);
-      mostrarToast('Error al enviar evaluacion', 3000);
-      return false;
+    if (lockKey) {
+      this.pendingEvaluaciones.add(lockKey);
+      this.setEvaluationBusy(lockKey, true);
     }
 
-    if (flow?.incrementLecturaParticipationCount) {
-      flow.incrementLecturaParticipationCount();
-    }
+    try {
+      const { error } = await window.SupabaseAPI.submitNoteEvaluation({
+        source: 'lectura',
+        session_id: datosUsuario.session_id,
+        pasaje_id: null,
+        nota_id: notaId,
+        nota_version: version,
+        vote: vote,
+        comment: comentario
+      });
 
-    console.log('Evaluacion registrada:', vote, notaId);
-    return true;
+      if (error) {
+        console.error('Error al registrar evaluación:', error);
+        const message = window.SupabaseAPI?.getParticipationUserMessage?.(
+          error,
+          'evaluacion',
+          'Error al enviar evaluación'
+        );
+        mostrarToast(message || 'Error al enviar evaluación', 3000);
+        return false;
+      }
+
+      if (flow?.incrementLecturaParticipationCount) {
+        flow.incrementLecturaParticipationCount();
+      }
+
+      console.log('Evaluación registrada:', vote, notaId);
+      return true;
+    } finally {
+      if (lockKey) {
+        this.pendingEvaluaciones.delete(lockKey);
+        this.setEvaluationBusy(lockKey, false);
+      }
+    }
   }
 
   /**
@@ -388,7 +429,7 @@ class EdicionEvaluacion {
       dock.dataset.evalNoteId = notaId;
     }
 
-    mostrarToast(vote === 'up' ? 'Nota marcada como util' : 'Gracias por tu feedback', 2000);
+    mostrarToast(vote === 'up' ? 'Nota marcada como útil' : 'Gracias por tu feedback', 2000);
   }
 }
 

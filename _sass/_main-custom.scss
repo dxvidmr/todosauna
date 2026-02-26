@@ -594,3 +594,214 @@
     }
   }
 }
+
+// ============================================
+// ARCHIVO TESTIMONIOS (FASE 8.1)
+// ============================================
+
+.archivo-testimonios-page {
+  box-sizing: border-box;
+  padding-inline: var(--layout-inline-gutter);
+  padding-top: calc(var(--navbar-height) + clamp(20px, 3vh, 32px));
+  padding-bottom: clamp(64px, 10vh, 120px);
+}
+
+.archivo-testimonios-shell {
+  width: min(100%, 1100px);
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(14px, 2.2vh, 24px);
+}
+
+.archivo-testimonios-header {
+  border-radius: clamp(20px, 2vw, 28px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.archivo-testimonios-controls {
+  border-radius: clamp(16px, 1.8vw, 22px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.archivo-testimonios-controls-actions {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.archivo-testimonios-summary {
+  font-size: 0.9rem;
+  color: $color-text-muted;
+}
+
+.archivo-testimonios-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  color: $color-text-muted;
+}
+
+.archivo-testimonios-status {
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #f8f9fa;
+  color: #495057;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+}
+
+.archivo-testimonios-status.is-error {
+  background: #f8d7da;
+  border-color: #f1aeb5;
+  color: #842029;
+}
+
+.archivo-testimonios-status.is-empty {
+  background: #e2e3e5;
+  border-color: #c4c8cb;
+  color: #41464b;
+}
+
+.archivo-testimonios-grid {
+  display: grid;
+  gap: clamp(14px, 2.2vh, 20px);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.archivo-testimonios-card {
+  border-radius: clamp(18px, 1.8vw, 24px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  height: 100%;
+  display: grid;
+  gap: 12px;
+}
+
+.archivo-testimonios-title {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.3vh, 1.45rem);
+  line-height: 1.25;
+  color: $color-dark;
+}
+
+.archivo-testimonios-meta {
+  margin: 0;
+  color: $color-text-muted;
+  font-size: 0.9rem;
+}
+
+.archivo-testimonios-body {
+  margin: 0;
+  color: $color-text;
+  line-height: 1.65;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.2rem;
+    margin-bottom: 0;
+  }
+
+  blockquote {
+    margin: 0;
+    padding-left: 12px;
+    border-left: 3px solid rgba(0, 0, 0, 0.18);
+    color: #3c4043;
+  }
+
+  code {
+    font-size: 0.85rem;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.07);
+  }
+}
+
+.archivo-testimonios-body.is-plain-text {
+  white-space: pre-line;
+}
+
+.archivo-testimonios-subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: $color-dark;
+}
+
+.archivo-testimonios-context,
+.archivo-testimonios-links {
+  display: grid;
+  gap: 8px;
+}
+
+.archivo-testimonios-context-list,
+.archivo-testimonios-links-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 4px;
+  font-size: 0.92rem;
+}
+
+.archivo-testimonios-context-item {
+  color: $color-text;
+}
+
+.archivo-testimonios-links-list a {
+  word-break: break-word;
+}
+
+.archivo-testimonios-links-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.archivo-testimonios-links-list code {
+  display: inline-block;
+  max-width: 100%;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.archivo-testimonios-link-ref {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.archivo-testimonios-actions {
+  margin-top: clamp(10px, 1.6vh, 16px);
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 992px) {
+  .archivo-testimonios-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .archivo-testimonios-page {
+    padding-inline: clamp(12px, 3.8vw, 16px);
+    padding-top: calc(var(--navbar-height) + 14px);
+    padding-bottom: 56px;
+  }
+
+  .archivo-testimonios-status {
+    font-size: 0.92rem;
+  }
+
+  .archivo-testimonios-controls-actions {
+    .btn {
+      width: 100%;
+    }
+  }
+}

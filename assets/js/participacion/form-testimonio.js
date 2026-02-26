@@ -68,6 +68,16 @@
     return trimmed ? trimmed : null;
   }
 
+  function getUserMessage(error, context, fallback) {
+    if (ns.errors && typeof ns.errors.toUserMessage === 'function') {
+      return ns.errors.toUserMessage(error, context, fallback);
+    }
+    if (error && typeof error.message === 'string' && error.message.trim()) {
+      return error.message.trim();
+    }
+    return fallback;
+  }
+
   function isUuid(value) {
     return UUID_REGEX.test(String(value || '').trim());
   }
@@ -235,7 +245,7 @@
       if (gate) gate.hidden = true;
       if (successPanel) successPanel.hidden = false;
     } catch (error) {
-      var errorMessage = error && error.message ? error.message : 'No se pudo enviar el testimonio.';
+      var errorMessage = getUserMessage(error, 'testimonio_submit', 'No se pudo enviar el testimonio.');
       setStatus(statusBox, errorMessage, 'error');
     } finally {
       isSubmitting = false;

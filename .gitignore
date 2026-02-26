@@ -25,3 +25,8 @@ objects/
 
 # Supabase CLI local cache
 supabase/.temp/
+
+# Node / Playwright test artifacts
+node_modules/
+playwright-report/
+test-results/
