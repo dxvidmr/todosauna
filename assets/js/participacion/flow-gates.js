@@ -70,10 +70,34 @@
     return readLecturaParticipationCount() < 1;
   }
 
-  function incrementLecturaParticipationCount() {
+  function trackTelemetry(eventName, metadata) {
+    if (!ns.telemetry || typeof ns.telemetry.track !== 'function') return;
+    void ns.telemetry.track(eventName, {
+      context: 'lectura',
+      metadata: metadata || {}
+    });
+  }
+
+  function incrementLecturaParticipationCount(options) {
+    var input = options || {};
+    var source = String(input.source || 'lectura').trim().toLowerCase() || 'lectura';
     var current = readLecturaParticipationCount();
-    writeLecturaParticipationCount(current + 1);
-    return current + 1;
+    var nextCount = current + 1;
+    writeLecturaParticipationCount(nextCount);
+
+    if (
+      current === 0 &&
+      source === 'lectura' &&
+      ns.telemetry &&
+      ns.telemetry.EVENTS &&
+      ns.telemetry.EVENTS.LECTURA_FIRST_CONTRIBUTION
+    ) {
+      trackTelemetry(ns.telemetry.EVENTS.LECTURA_FIRST_CONTRIBUTION, {
+        source: source
+      });
+    }
+
+    return nextCount;
   }
 
   async function ensureModeForSecondLecturaContribution() {
@@ -93,10 +117,31 @@
       return false;
     }
 
+    if (
+      ns.telemetry &&
+      ns.telemetry.EVENTS &&
+      ns.telemetry.EVENTS.LECTURA_SECOND_PROMPT_OPENED
+    ) {
+      trackTelemetry(ns.telemetry.EVENTS.LECTURA_SECOND_PROMPT_OPENED, {
+        reason: 'second-contribution'
+      });
+    }
+
     await ns.modal.open({
       context: 'lectura-second-contribution',
       reason: 'second-contribution'
     });
+
+    if (
+      !(ns.session.isModeDefined && ns.session.isModeDefined()) &&
+      ns.telemetry &&
+      ns.telemetry.EVENTS &&
+      ns.telemetry.EVENTS.LECTURA_SECOND_PROMPT_ABANDONED
+    ) {
+      trackTelemetry(ns.telemetry.EVENTS.LECTURA_SECOND_PROMPT_ABANDONED, {
+        reason: 'second-contribution'
+      });
+    }
 
     return !!(ns.session.isModeDefined && ns.session.isModeDefined());
   }
@@ -108,4 +153,3 @@
     _readLecturaParticipationCount: readLecturaParticipationCount
   };
 })();
-

@@ -124,7 +124,7 @@ async function registrarEvaluacion(datos) {
   }
 
   if (source === 'lectura' && flow?.incrementLecturaParticipationCount) {
-    flow.incrementLecturaParticipationCount();
+    flow.incrementLecturaParticipationCount({ source: source });
   }
 
   invalidarCacheNotas();

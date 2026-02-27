@@ -393,7 +393,7 @@ class EdicionEvaluacion {
       }
 
       if (flow?.incrementLecturaParticipationCount) {
-        flow.incrementLecturaParticipationCount();
+        flow.incrementLecturaParticipationCount({ source: 'lectura' });
       }
 
       console.log('Evaluación registrada:', vote, notaId);

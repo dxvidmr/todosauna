@@ -361,7 +361,7 @@ class SugerenciasNotas {
       mostrarToast('¡Gracias por tu sugerencia!', 3000);
       console.log('Sugerencia de nota faltante registrada');
       if (flow?.incrementLecturaParticipationCount) {
-        flow.incrementLecturaParticipationCount();
+        flow.incrementLecturaParticipationCount({ source: this.source || 'lectura' });
       }
 
     } catch (err) {

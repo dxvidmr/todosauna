@@ -36,6 +36,23 @@
     return fallback;
   }
 
+  function trackSecondContributionChoice(mode) {
+    if (!ns.telemetry || typeof ns.telemetry.track !== 'function') return;
+    if (!ns.telemetry.EVENTS) return;
+
+    var normalizedMode = String(mode || '').trim().toLowerCase();
+    var eventName = normalizedMode === 'anonimo'
+      ? ns.telemetry.EVENTS.LECTURA_SECOND_PROMPT_CHOICE_ANONIMO
+      : ns.telemetry.EVENTS.LECTURA_SECOND_PROMPT_CHOICE_COLABORADOR;
+
+    if (!eventName) return;
+
+    void ns.telemetry.track(eventName, {
+      context: 'lectura',
+      metadata: { mode: normalizedMode || 'colaborador' }
+    });
+  }
+
   function setButtonBusy(button, isBusy, busyText) {
     if (!button) return;
 
@@ -405,6 +422,10 @@
         return;
       }
 
+      if (this.currentContext === 'lectura-second-contribution') {
+        trackSecondContributionChoice('anonimo');
+      }
+
       this.close();
       notify('Modo anónimo activado', 'success');
     } finally {
@@ -453,6 +474,10 @@
           this._showCollaboratorForm('registro');
         }
         return;
+      }
+
+      if (this.currentContext === 'lectura-second-contribution') {
+        trackSecondContributionChoice('colaborador');
       }
 
       this.close();
@@ -505,6 +530,10 @@
           await this._showAlert('No se pudo completar el registro', errorText, 'warning');
         }
         return;
+      }
+
+      if (this.currentContext === 'lectura-second-contribution') {
+        trackSecondContributionChoice('colaborador');
       }
 
       this.close();

@@ -6,7 +6,9 @@ Estado auditado del repo:
 2. Fase **8.1** quedÃ³ funcional (publicaciÃ³n de testimonios en evoluciÃ³n).
 3. Fase **8.3** estÃ¡ completada: hardening anti-abuso en evaluaciones aplicado en DB + frontend.
 4. Fase **8.2** queda pospuesta hasta congelar campos/UX final de testimonios y formularios.
-5. Siguiente bloque activo: **F10.1 (QA base E2E local + CI smoke)**.
+5. F10.1 completada (QA base E2E local + CI smoke).
+6. F10.2 completada (telemetria minima del embudo de lectura).
+7. Siguiente bloque activo: **F11 (retirada legacy + consolidacion de configuracion)**.
 
 ## Fase 8.1 â€” PublicaciÃ³n de Testimonios (MVP visible)
 **Objetivo:** que `/archivo/testimonios/` deje de ser placeholder y lea testimonios publicados.
@@ -70,12 +72,12 @@ Estado auditado del repo:
 **Objetivo:** reducir regresiones y medir embudo bÃ¡sico.
 
 ### Alcance
-1. **F10.1 (en progreso):** E2E smoke (Playwright) para:
+1. **F10.1 (completada):** E2E smoke (Playwright) para:
    - bootstrap sesiÃ³n global.
    - lectura: primera libre / segunda con modal.
    - testimonio + contribuciÃ³n + vÃ­nculo cruzado.
    - upload staged feliz.
-2. **F10.2 (pendiente):** Telemetria minima embudo lectura (RF-016):
+2. **F10.2 (completada):** Telemetria minima embudo lectura (RF-016):
    - evento 1.Âª contribuciÃ³n.
    - apertura modal 2.Âª.
    - elecciÃ³n anÃ³nimo/colaborador.
@@ -115,7 +117,7 @@ Estado auditado del repo:
 
 ## Cambios en APIs / interfaces / tipos pÃºblicos (pendientes)
 1. **Fase 8.2:** nuevas vistas SQL operativas para moderaciÃ³n/export.
-2. **Fase 10:** cambios de QA/observabilidad sin cambios de DB.
+2. **Fase 10:** QA automatizada + telemetria minima (incluye tabla y RPC de funnel).
 3. **Fase 11:** deprecaciÃ³n definitiva de interfaces JS legacy globales.
 
 ## Matriz de pruebas (mÃ­nima por fase)
@@ -131,7 +133,7 @@ Estado auditado del repo:
 ## Supuestos y defaults
 1. ModeraciÃ³n manual en Supabase (sin panel admin dedicado).
 2. `/archivo/documentos/` sigue basado en CSV/CollectionBuilder.
-3. Priorizacion vigente: **10.1 -> 10.2 -> 11 -> 8.2 -> 12**.
+3. Priorizacion vigente: **11 -> 8.2 -> 12**.
 4. Sin breaking changes de backend pÃºblico hasta validar cada bloque.
 
 

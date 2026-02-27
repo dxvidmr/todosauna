@@ -193,6 +193,20 @@
           p_offset: input.offset || 0
         }
       );
+    },
+
+    async trackFunnelEvent(payload) {
+      var input = payload || {};
+      return callRpc(
+        'rpc_track_participacion_funnel_event',
+        {
+          p_session_id: input.session_id || null,
+          p_event_name: input.event_name || null,
+          p_context: input.context || 'lectura',
+          p_metadata: input.metadata || {}
+        },
+        { single: true }
+      );
     }
   };
 })();
