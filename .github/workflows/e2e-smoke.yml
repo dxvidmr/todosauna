@@ -2,11 +2,21 @@ name: e2e-smoke
 
 on:
   pull_request:
-  push:
     branches:
       - main
-      - master
       - develop
+    paths-ignore:
+      - 'docs/**'
+      - 'planes/**'
+      - 'README.md'
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+    paths-ignore:
+      - 'docs/**'
+      - 'planes/**'
+      - 'README.md'
 
 jobs:
   e2e-smoke:
