@@ -57,6 +57,7 @@ Notas:
 1. La suite levanta Supabase local con `-x vector,logflare` para evitar inestabilidad del servicio de analytics en local/CI.
 2. reCAPTCHA se desactiva en E2E (`site key` vacío) y el bypass de verificación se habilita solo en localhost (`UPLOAD_DEV_BYPASS_RECAPTCHA=true`).
 3. No se usa Apps Script real; el upload HTTP se mockea en Playwright.
+4. En CI se usa Supabase CLI pinneado (`2.76.15`) via `npx` para evitar fallos transitorios de setup.
 
 ## Troubleshooting
 
@@ -94,6 +95,7 @@ Notas:
 
 1. `SUPABASE_URL` y `SUPABASE_SERVICE_ROLE_KEY` se inyectan desde `tests/e2e/run-e2e-stack.js` (no van en `--env-file` porque `supabase functions serve` bloquea claves `SUPABASE_*` en archivo).
 2. Jekyll E2E sirve en `http://127.0.0.1:4010`.
+3. El comando de CLI en runner E2E se controla con `SUPABASE_CLI_CMD` (por defecto `npx --yes supabase@2.76.15`).
 
 ### Fallo de subida staged en E2E
 

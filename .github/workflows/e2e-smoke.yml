@@ -22,6 +22,8 @@ jobs:
   e2e-smoke:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    env:
+      SUPABASE_CLI_CMD: npx --yes supabase@2.76.15
 
     steps:
       - name: Checkout
@@ -39,10 +41,21 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Setup Supabase CLI
-        uses: supabase/setup-cli@v1
-        with:
-          version: latest
+      - name: Warm up Supabase CLI (retry)
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            if ${SUPABASE_CLI_CMD} --version; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              echo "Supabase CLI warmup failed (attempt ${attempt}/3). Retrying..."
+              sleep $((attempt * 6))
+            fi
+          done
+          echo "Supabase CLI warmup failed after 3 attempts"
+          exit 1
 
       - name: Install npm dependencies
         run: npm ci

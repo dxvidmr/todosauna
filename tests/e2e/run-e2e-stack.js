@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const { spawn } = require('node:child_process');
+const SUPABASE_CLI_CMD = process.env.SUPABASE_CLI_CMD || 'npx --yes supabase@2.76.15';
 
 function runOnce(command, label) {
   return new Promise((resolve, reject) => {
@@ -89,14 +90,19 @@ process.on('SIGTERM', () => shutdown(0));
 
 async function main() {
   console.log('[e2e-stack] Starting Supabase local stack...');
-  await runOnce('npx supabase start -x vector,logflare', 'supabase start');
+  await runWithRetry(
+    `${SUPABASE_CLI_CMD} start -x vector,logflare`,
+    'supabase start',
+    3,
+    8000
+  );
 
   console.log('[e2e-stack] Resetting local database...');
-  await runWithRetry('npx supabase db reset', 'supabase db reset', 3, 5000);
+  await runWithRetry(`${SUPABASE_CLI_CMD} db reset`, 'supabase db reset', 3, 5000);
 
   console.log('[e2e-stack] Serving Edge Functions...');
   const functionsServe = startLongProcess(
-    'npx supabase functions serve --env-file tests/e2e/env.functions.e2e',
+    `${SUPABASE_CLI_CMD} functions serve --env-file tests/e2e/env.functions.e2e`,
     'supabase functions serve',
     {
       SUPABASE_URL: 'http://127.0.0.1:54321',
