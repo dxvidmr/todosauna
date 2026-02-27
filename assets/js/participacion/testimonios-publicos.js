@@ -1,4 +1,4 @@
-﻿// ============================================
+// ============================================
 // PARTICIPACION: TESTIMONIOS PUBLICOS (F8.1-BIS)
 // Fuente: CSV estatico local
 // ============================================
@@ -25,7 +25,7 @@
   window.__TA_TESTIMONIOS_PUBLICOS_INIT__ = true;
 
   var pageSize = 12;
-  var csvUrl = String(pageRoot.getAttribute('data-csv-url') || '/assets/data/testimonios-publicados.csv').trim();
+  var csvUrl = String(pageRoot.getAttribute('data-csv-url') || '/assets/data/testimonios-export.csv').trim();
   var itemsBase = String(pageRoot.getAttribute('data-items-base') || '/items/').trim();
 
   var contextoLabels = {
@@ -489,7 +489,7 @@
     try {
       var response = await fetch(csvUrl, { cache: 'no-cache' });
       if (!response.ok) {
-        throw new Error('No se pudo cargar el archivo de testimonios publicados.');
+        throw new Error('No se pudo cargar el archivo de testimonios exportados.');
       }
 
       var csvText = await response.text();

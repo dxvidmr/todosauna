@@ -5,15 +5,15 @@ Estado auditado del repo:
 1. Fases **0â€“7** estÃ¡n funcionalmente avanzadas: migraciones `00..04`, RPC v2, Edge Functions de upload, formularios `/participa/testimonios/enviar/` y `/participa/documentos/enviar/`, staging + cleanup.
 2. Fase **8.1** quedÃ³ funcional (publicaciÃ³n de testimonios en evoluciÃ³n).
 3. Fase **8.3** estÃ¡ completada: hardening anti-abuso en evaluaciones aplicado en DB + frontend.
-4. Fase **8.2** queda pospuesta hasta congelar campos/UX final de testimonios y formularios.
+4. Fase **8.2** completada (vistas operativas + runbook de moderacion).
 5. F10.1 completada (QA base E2E local + CI smoke).
 6. F10.2 completada (telemetria minima del embudo de lectura).
 7. F11.1 completada (retirada legacy segura sin borrado fisico).
 8. F11.2 completada (borrado fisico legacy + corte total de compatibilidad).
-9. Siguiente bloque activo: **8.2 -> 12**.
+9. Siguiente bloque activo: **12**.
 
 ## Fase 8.1 â€” PublicaciÃ³n de Testimonios (MVP visible)
-**Objetivo:** que `/archivo/testimonios/` deje de ser placeholder y lea testimonios publicados.
+**Objetivo:** que `/archivo/testimonios/` deje de ser placeholder y lea testimonios exportados a CSV.
 
 ### Alcance
 1. `pages/testimonios.md`: contenedor de listado, estados (`loading/empty/error`) y botÃ³n â€œCargar mÃ¡sâ€.
@@ -22,15 +22,15 @@ Estado auditado del repo:
 4. Pendiente futuro de automatizaciÃ³n documentado en `planes/testimonios-csv-sync-futuro.md`.
 
 ### Criterio de cierre
-1. `/archivo/testimonios/` muestra testimonios publicados.
+1. `/archivo/testimonios/` muestra testimonios exportados a CSV.
 2. No se exponen campos privados.
 3. Funciona â€œcargar mÃ¡sâ€ sin recargar.
 
-## Fase 8.2 â€” ModeraciÃ³n operativa + vistas de trabajo (pospuesta)
+## Fase 8.2 â€” ModeraciÃ³n operativa + vistas de trabajo [completada]
 **Objetivo:** facilitar moderaciÃ³n diaria y paso manual a publicaciÃ³n/archivo sin panel nuevo.
 
 ### Alcance
-1. MigraciÃ³n SQL `*_06_moderacion_operativa_views.sql` con vistas:
+1. MigraciÃ³n SQL `*_07_moderacion_operativa_views.sql` con vistas:
    - `vw_testimonios_moderacion`.
    - `vw_contribuciones_moderacion`.
    - `vw_contribuciones_aprobadas_export_cb`.
@@ -121,7 +121,7 @@ Estado auditado del repo:
 2. Incidencias de upload/cleanup detectables y trazables.
 
 ## Cambios en APIs / interfaces / tipos pÃºblicos (pendientes)
-1. **Fase 8.2:** nuevas vistas SQL operativas para moderaciÃ³n/export.
+1. Sin cambios de API pÃºblica pendientes en este bloque.
 
 ## Matriz de pruebas (mÃ­nima por fase)
 1. F9.1: ausencia de mojibake en lectura/laboratorio.
@@ -136,7 +136,7 @@ Estado auditado del repo:
 ## Supuestos y defaults
 1. ModeraciÃ³n manual en Supabase (sin panel admin dedicado).
 2. `/archivo/documentos/` sigue basado en CSV/CollectionBuilder.
-3. Priorizacion vigente: **8.2 -> 12**.
+3. Priorizacion vigente: **12**.
 4. Sin breaking changes de backend pÃºblico hasta validar cada bloque.
 
 

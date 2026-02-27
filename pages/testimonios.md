@@ -6,7 +6,7 @@ navbar_behavior: fixed
 custom-foot: participacion/scripts-testimonios-publicos.html
 ---
 
-<section class="archivo-testimonios-page" id="archivo-testimonios-page" data-csv-url="{{ '/assets/data/testimonios-publicados.csv' | relative_url }}" data-items-base="{{ '/items/' | relative_url }}">
+<section class="archivo-testimonios-page" id="archivo-testimonios-page" data-csv-url="{{ '/assets/data/testimonios-export.csv' | relative_url }}" data-items-base="{{ '/items/' | relative_url }}">
   <div class="archivo-testimonios-shell">
     <header class="archivo-testimonios-header card card-soft p-3 p-md-4">
       <p class="archivo-testimonios-eyebrow mb-2">Archivo · Testimonios</p>
