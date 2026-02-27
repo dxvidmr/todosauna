@@ -133,3 +133,23 @@ Campos minimos recomendados dentro del receipt:
   - `UPLOAD_TOKEN_SECRET`
   - `APPS_SCRIPT_SHARED_SECRET`
   - `APPS_SCRIPT_UPLOAD_FOLDER_ID` (opcional)
+
+## Checklist operativo de despliegue (upload staged)
+
+1. Variables configuradas en Supabase Functions:
+   - `UPLOAD_TOKEN_SECRET`
+   - `APPS_SCRIPT_SHARED_SECRET`
+   - `APPS_SCRIPT_URL`
+   - `RECAPTCHA_SECRET` (entorno no localhost)
+2. Script Properties configuradas en Apps Script:
+   - `UPLOAD_TOKEN_SECRET`
+   - `APPS_SCRIPT_SHARED_SECRET`
+   - `APPS_SCRIPT_UPLOAD_FOLDER_ID` (si aplica carpeta fija)
+3. Web App desplegada y URL actualizada en `APPS_SCRIPT_URL`.
+4. Prueba manual de exito:
+   - `issue-upload-token` -> upload -> `finalize-document-upload` -> submit final.
+5. Prueba manual de cancelacion:
+   - upload parcial -> `cancel-document-upload` -> estado `cancelled`.
+6. Prueba manual de cleanup:
+   - staging huerfano -> `cleanup-stale-uploads` -> estado `expired` o `cleanup_failed` trazable.
+7. Si falla algun paso, seguir `docs/incidencias-upload-cleanup.md`.

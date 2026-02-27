@@ -1,143 +1,72 @@
-﻿# Replan Maestro v2 (despuÃ©s de F7.2): divisiÃ³n de Fase 8 y roadmap restante
+# Replan Maestro v2 (actualizado)
 
-## Resumen
-Estado auditado del repo:
-1. Fases **0â€“7** estÃ¡n funcionalmente avanzadas: migraciones `00..04`, RPC v2, Edge Functions de upload, formularios `/participa/testimonios/enviar/` y `/participa/documentos/enviar/`, staging + cleanup.
-2. Fase **8.1** quedÃ³ funcional (publicaciÃ³n de testimonios en evoluciÃ³n).
-3. Fase **8.3** estÃ¡ completada: hardening anti-abuso en evaluaciones aplicado en DB + frontend.
-4. Fase **8.2** completada (vistas operativas + runbook de moderacion).
-5. F10.1 completada (QA base E2E local + CI smoke).
-6. F10.2 completada (telemetria minima del embudo de lectura).
-7. F11.1 completada (retirada legacy segura sin borrado fisico).
-8. F11.2 completada (borrado fisico legacy + corte total de compatibilidad).
-9. Siguiente bloque activo: **12**.
+## Resumen de estado
 
-## Fase 8.1 â€” PublicaciÃ³n de Testimonios (MVP visible)
-**Objetivo:** que `/archivo/testimonios/` deje de ser placeholder y lea testimonios exportados a CSV.
+1. Fases funcionales 0-11 cerradas en practica.
+2. Migraciones local/remoto sincronizadas hasta `20260227190000`.
+3. Workflows operativos activos:
+   - `.github/workflows/e2e-smoke.yml`
+   - `.github/workflows/cleanup-stale-uploads.yml`
+4. Bloque actual: **F12 (cierre operativo)**.
+5. Bloque siguiente: **F13 (RF funcionales/arquitectura)**.
 
-### Alcance
-1. `pages/testimonios.md`: contenedor de listado, estados (`loading/empty/error`) y botÃ³n â€œCargar mÃ¡sâ€.
-2. `assets/js/participacion/testimonios-publicos.js` para carga, render y paginaciÃ³n incremental.
-3. Include `/_includes/participacion/scripts-testimonios-publicos.html`.
-4. Pendiente futuro de automatizaciÃ³n documentado en `planes/testimonios-csv-sync-futuro.md`.
+## F12 - Cierre operativo y documentacion final
 
-### Criterio de cierre
-1. `/archivo/testimonios/` muestra testimonios exportados a CSV.
-2. No se exponen campos privados.
-3. Funciona â€œcargar mÃ¡sâ€ sin recargar.
+## F12.1 Runbooks operativos [completada]
 
-## Fase 8.2 â€” ModeraciÃ³n operativa + vistas de trabajo [completada]
-**Objetivo:** facilitar moderaciÃ³n diaria y paso manual a publicaciÃ³n/archivo sin panel nuevo.
+Entregables:
 
-### Alcance
-1. MigraciÃ³n SQL `*_07_moderacion_operativa_views.sql` con vistas:
-   - `vw_testimonios_moderacion`.
-   - `vw_contribuciones_moderacion`.
-   - `vw_contribuciones_aprobadas_export_cb`.
-2. Documento operativo `docs/moderacion-operativa.md`.
-3. AlineaciÃ³n con el plan de cron/autopush futuro en `planes/testimonios-csv-sync-futuro.md`.
+1. `docs/migraciones-playbook.md`
+2. `docs/rotacion-secretos.md`
+3. `docs/incidencias-upload-cleanup.md`
 
-### Criterio de cierre
-1. ModeraciÃ³n reproducible desde Supabase con consultas/vistas claras.
-2. ExportaciÃ³n de contribuciones aprobadas a CSV documentada.
+## F12.2 Alertas operativas cleanup (RF-025) [completada]
 
-## Fase 8.3 â€” Hardening anti-abuso en evaluaciones (RF-020) [completada]
-**Objetivo:** aplicar lÃ­mites tambiÃ©n a lectura/laboratorio (`rpc_submit_participation_event`).
+Entregables:
 
-### Alcance ejecutado
-1. MigraciÃ³n SQL `*_05_rate_limit_evaluaciones.sql`:
-   - check de `participacion_rate_limit_events.action` incluye `submit_evaluacion`.
-   - `_assert_rate_limit` aplicado en `rpc_submit_participation_event`.
-   - registro de eventos de rate limit tras inserciÃ³n exitosa.
-2. Ajuste frontend en lectura/laboratorio/sugerencias:
-   - mensaje explÃ­cito cuando el backend devuelve lÃ­mite alcanzado.
+1. `cleanup-stale-uploads.yml` parsea metricas del JSON de respuesta.
+2. El job falla si:
+   - `metrics.cleanup_failed > CLEANUP_FAIL_THRESHOLD`
+   - `metrics.failed > CLEANUP_FAIL_THRESHOLD`
+3. Resumen con metricas clave en `GITHUB_STEP_SUMMARY`.
 
-### Criterio de cierre
-1. Excesos bloqueados por sesiÃ³n e IP hash.
-2. UX mantiene feedback claro sin romper flujo normal.
+Default:
 
-## Fase 9 â€” Calidad de texto/UX y robustez frontend
-**Objetivo:** limpiar deuda visible antes de retirar legacy.
+1. `CLEANUP_FAIL_THRESHOLD=0`
 
-### Subfases
-1. **F9.1 (completada):** corregido mojibake/UTF-8 en UI pÃºblica crÃ­tica.
-2. **F9.2 (completada):** reemplazo de `alert/confirm` por UX consistente (RF-017).
-3. **F9.3 (completada):** guardas anti doble submit/carrera (RF-018).
-4. **F9.4 (completada):** normalizaciÃ³n de mensajes por cÃ³digos RPC (RF-004).
+## F12.3 Cierre operativo upload pipeline (RF-023) [en progreso]
 
-### Criterio de cierre de fase
-1. UI pÃºblica sin textos corruptos.
-2. No quedan `alert/confirm` en participaciÃ³n.
-3. Sin doble envÃ­o por clicks repetidos.
+Pendiente para cerrar:
 
-## Fase 10 â€” QA automatizada + observabilidad mÃ­nima
-**Objetivo:** reducir regresiones y medir embudo bÃ¡sico.
+1. Evidencia manual documentada de exito:
+   - `issue token -> upload -> finalize -> submit`
+2. Evidencia manual documentada de cancelacion.
+3. Evidencia manual documentada de cleanup de huerfanos.
 
-### Alcance
-1. **F10.1 (completada):** E2E smoke (Playwright) para:
-   - bootstrap sesiÃ³n global.
-   - lectura: primera libre / segunda con modal.
-   - testimonio + contribuciÃ³n + vÃ­nculo cruzado.
-   - upload staged feliz.
-2. **F10.2 (completada):** Telemetria minima embudo lectura (RF-016):
-   - evento 1.Âª contribuciÃ³n.
-   - apertura modal 2.Âª.
-   - elecciÃ³n anÃ³nimo/colaborador.
-   - abandono.
+Base operativa ya actualizada en:
 
-### Criterio de cierre
-1. Suite automÃ¡tica ejecutable en local/CI.
-2. MÃ©tricas mÃ­nimas para decisiones de UX.
+1. `docs/apps-script-upload-contract.md`
+2. `docs/incidencias-upload-cleanup.md`
 
-## Fase 11 â€” Retirada legacy + consolidaciÃ³n de configuraciÃ³n
-**Objetivo:** cerrar transiciÃ³n tÃ©cnica de Fase 4.
+## F12.4 Consistencia de planes [completada]
 
-### Alcance
-1. **F11.1 (completada):** desacople runtime sin borrado fisico.
-2. **F11.2 (completada):** eliminar puente legacy y wrappers:
-   - `assets/js/participacion/legacy-bridge.js`
-   - `assets/js/lectura/user-manager.js`
-   - `assets/js/lectura/modal-modo.js`
-3. Migrar llamadas restantes de lectura/laboratorio a `window.Participacion.*`.
-4. Consolidar configuraciÃ³n Supabase/runtime (RF-006, RF-022).
-5. Retirar alias de compatibilidad y archivos legacy al cierre de F11.2.
+1. Roadmap alineado con estado real.
+2. Backlog pendiente concentrado en F13.
 
-### Criterio de cierre
-1. F11.1: runtime activo sin `legacy-bridge.js`, `window.SupabaseAPI`, `window.userManager` y `window.modalModo`.
-2. F11.2: eliminacion fisica de archivos legacy y aliases temporales completada.
-3. ConfiguraciÃ³n centralizada y documentada.
+## F13 - Siguiente ciclo
 
-## Fase 12 â€” Cierre operativo y documentaciÃ³n final
-**Objetivo:** dejar el sistema mantenible para operaciÃ³n continua.
+Orden de ejecucion:
 
-### Alcance
-1. `docs/migraciones-playbook.md`.
-2. `docs/rotacion-secretos.md`.
-3. `docs/incidencias-upload-cleanup.md`.
-4. Alertas operativas para limpieza staging (RF-025).
+1. F13.1 RF-015 (gate de segunda contribucion en backend)
+2. F13.2 RF-024 (borrado/reintento individual de archivo en staging)
+3. F13.3 RF-003 (separar template del modal de participacion)
+4. F13.4 RF-001 (migracion a ES Modules en runtime)
 
-### Criterio de cierre
-1. Mantenimiento crÃ­tico con runbooks verificables.
-2. Incidencias de upload/cleanup detectables y trazables.
+## Backlog abierto (vivo)
 
-## Cambios en APIs / interfaces / tipos pÃºblicos (pendientes)
-1. Sin cambios de API pÃºblica pendientes en este bloque.
-
-## Matriz de pruebas (mÃ­nima por fase)
-1. F9.1: ausencia de mojibake en lectura/laboratorio.
-2. F9.2: eliminaciÃ³n de `alert/confirm` con UX equivalente.
-3. F9.3: no hay doble submit por clicks repetidos.
-4. F9.4: errores homogÃ©neos por cÃ³digo RPC.
-5. F10: suite e2e verde en escenarios crÃ­ticos.
-6. F11: lectura/laboratorio funcionando sin bridge legacy.
-7. F8.2: consultas de moderaciÃ³n y export CSV reproducible.
-8. F12: runbooks verificables por un tercero.
-
-## Supuestos y defaults
-1. ModeraciÃ³n manual en Supabase (sin panel admin dedicado).
-2. `/archivo/documentos/` sigue basado en CSV/CollectionBuilder.
-3. Priorizacion vigente: **12**.
-4. Sin breaking changes de backend pÃºblico hasta validar cada bloque.
-
-
-
+1. RF-001 pendiente
+2. RF-003 pendiente
+3. RF-015 pendiente
+4. RF-023 en progreso
+5. RF-024 pendiente
+6. RF-025 completado
