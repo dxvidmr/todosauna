@@ -96,7 +96,7 @@ async function main() {
 
   console.log('[e2e-stack] Serving Edge Functions...');
   const functionsServe = startLongProcess(
-    'npx supabase functions serve --env-file tests/e2e/.env.functions',
+    'npx supabase functions serve --env-file tests/e2e/env.functions.e2e',
     'supabase functions serve',
     {
       SUPABASE_URL: 'http://127.0.0.1:54321',

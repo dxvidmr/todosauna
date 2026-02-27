@@ -50,7 +50,7 @@ npm run test:e2e:ci
 
 - Playwright: `playwright.config.ts`
 - Override Jekyll: `tests/e2e/_config.e2e.yml`
-- Env de Edge Functions: `tests/e2e/.env.functions`
+- Env de Edge Functions: `tests/e2e/env.functions.e2e`
 
 Notas:
 
@@ -81,10 +81,14 @@ npx supabase stop --all --no-backup
 
 ### Edge Functions no responden
 
-Verifica que `tests/e2e/.env.functions` existe y contiene:
+Verifica que `tests/e2e/env.functions.e2e` existe y contiene:
 
 - `UPLOAD_TOKEN_SECRET`
 - `APPS_SCRIPT_SHARED_SECRET`
+
+Nota:
+- Este archivo contiene solo credenciales dummy de test (versionadas).
+- No debe contener secretos productivos.
 
 Notas:
 
@@ -95,5 +99,5 @@ Notas:
 
 1. Comprueba que la ruta mock de Apps Script responde con `receipt` firmado.
 2. Verifica que el secreto de firma coincida en:
-   - `tests/e2e/.env.functions`
+   - `tests/e2e/env.functions.e2e`
    - `tests/e2e/helpers/constants.ts`
