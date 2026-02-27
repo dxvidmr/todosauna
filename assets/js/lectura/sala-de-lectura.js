@@ -1,3 +1,6 @@
+import { aplicarNumeracionVersos, alignSplitVerses } from './utils.js';
+import { cargarNotasActivas } from './notas.js';
+
 document.addEventListener("DOMContentLoaded", function() {
     // Referencias globales
     const lecturaWrapper = document.querySelector('.lectura-wrapper');

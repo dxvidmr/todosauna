@@ -7,7 +7,7 @@
 {%- assign items = site.data[site.metadata] | where_exp: 'item','item.objectid and item.parentid == nil' -%}
 {% endif %}
 {%- assign fields = site.data.config-search -%}
-var store = [ 
+const store = [ 
 {%- for item in items -%} 
 {  
 {% for f in fields %}{% if item[f.field] %}{{ f.field | jsonify }}: {{ item[f.field] | normalize_whitespace | replace: '""','"' | jsonify }},{% endif %}{% endfor %} 
@@ -16,3 +16,9 @@ var store = [
 }{%- unless forloop.last -%},{%- endunless -%}
 {%- endfor -%}
 ];
+
+if (typeof window !== 'undefined') {
+  window.store = store;
+}
+
+export default store;

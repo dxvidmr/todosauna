@@ -1,10 +1,22 @@
+<script id="participacion-runtime-config" type="application/json">
+{
+  "url": {{ site.supabase_url | default: "" | jsonify }},
+  "publishableKey": {{ site.supabase_publishable_key | default: "" | jsonify }},
+  "geonamesUsername": {{ site.geonames_username | default: "" | jsonify }},
+  "recaptchaSiteKey": {{ site.recaptcha_site_key | default: "" | jsonify }},
+  "recaptchaMode": {{ site.recaptcha_mode | default: "auto" | jsonify }},
+  "appsScriptUrl": {{ site.apps_script_url | default: "" | jsonify }}
+}
+</script>
 <script>
-  window.__SUPABASE_CONFIG__ = Object.assign({}, window.__SUPABASE_CONFIG__ || {}, {
-    url: {{ site.supabase_url | default: "" | jsonify }},
-    publishableKey: {{ site.supabase_publishable_key | default: "" | jsonify }},
-    geonamesUsername: {{ site.geonames_username | default: "" | jsonify }},
-    recaptchaSiteKey: {{ site.recaptcha_site_key | default: "" | jsonify }},
-    recaptchaMode: {{ site.recaptcha_mode | default: "auto" | jsonify }},
-    appsScriptUrl: {{ site.apps_script_url | default: "" | jsonify }}
-  });
+  (function () {
+    try {
+      var configElement = document.getElementById('participacion-runtime-config');
+      if (!configElement) return;
+      var parsed = JSON.parse(configElement.textContent || '{}');
+      window.__SUPABASE_CONFIG__ = Object.assign({}, window.__SUPABASE_CONFIG__ || {}, parsed);
+    } catch (error) {
+      console.warn('[participacion] No se pudo leer participacion-runtime-config', error);
+    }
+  })();
 </script>

@@ -1,3 +1,19 @@
+import {
+  mostrarToast,
+  cargarXMLCacheado,
+  alignSplitVerses,
+  aplicarNumeracionVersos
+} from './utils.js';
+import { extraerFragmento, extraerXmlIdsDelFragmento } from './pasajes.js';
+import { cargarNotasActivas } from './notas.js';
+import {
+  obtenerEvaluacionesStats,
+  attachEvaluationListeners,
+  actualizarContadorLocal,
+  obtenerEstadisticasGlobales,
+  renderizarEstadisticasGlobales
+} from './evaluaciones-stats.js';
+
 // ============================================
 // EDITOR SOCIAL (JUEGO DE EVALUACION)
 // Sistema de notas con navegacion lateral

@@ -160,3 +160,21 @@ function aplicarNumeracionVersos(container, modo = 'cada5') {
 }
 
 console.log('Utils y rendering utils cargados');
+
+if (typeof window !== 'undefined') {
+  window.hashEmail = hashEmail;
+  window.mostrarToast = mostrarToast;
+  window.cargarXMLCacheado = cargarXMLCacheado;
+  window.formatearFechaRelativa = formatearFechaRelativa;
+  window.alignSplitVerses = alignSplitVerses;
+  window.aplicarNumeracionVersos = aplicarNumeracionVersos;
+}
+
+export {
+  hashEmail,
+  mostrarToast,
+  cargarXMLCacheado,
+  formatearFechaRelativa,
+  alignSplitVerses,
+  aplicarNumeracionVersos
+};

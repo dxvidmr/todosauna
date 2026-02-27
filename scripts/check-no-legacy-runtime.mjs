@@ -28,6 +28,31 @@ const RULES = [
   }
 ];
 
+function findFirstPartyScriptWithoutModule(filePath, content) {
+  const relative = path.relative(repoRoot, filePath).replace(/\\/g, '/');
+  if (!/\.(html|liquid|md)$/i.test(relative)) return [];
+
+  const matches = [];
+  const lines = content.split(/\r?\n/);
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const normalized = line.toLowerCase();
+
+    if (!normalized.includes('<script')) continue;
+    if (!normalized.includes('src=')) continue;
+    if (!normalized.includes('assets/js/')) continue;
+    if (normalized.includes('metadata.min.json')) continue;
+    if (normalized.includes('type="module"') || normalized.includes("type='module'")) continue;
+
+    matches.push({
+      line: index + 1,
+      text: line.trim()
+    });
+  }
+
+  return matches;
+}
+
 function walk(dirPath, result) {
   const entries = fs.readdirSync(dirPath, { withFileTypes: true });
 
@@ -84,10 +109,21 @@ function main() {
         });
       }
     }
+
+    const firstPartyModuleMatches = findFirstPartyScriptWithoutModule(filePath, content);
+    for (const match of firstPartyModuleMatches) {
+      violations.push({
+        file: path.relative(repoRoot, filePath).replace(/\\/g, '/'),
+        line: match.line,
+        id: 'first_party_script_without_module',
+        description: 'Script first-party de assets/js debe declararse como type=\"module\"',
+        text: match.text
+      });
+    }
   }
 
   if (!violations.length) {
-    console.log('OK: no hay referencias legacy en runtime activo.');
+    console.log('OK: no hay referencias legacy y la carga first-party usa ES Modules.');
     return;
   }
 

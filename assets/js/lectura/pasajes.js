@@ -181,3 +181,17 @@ function extraerXmlIdsDelFragmento(fragmento) {
 }
 
 console.log('✓ Pasajes.js cargado');
+
+if (typeof window !== 'undefined') {
+  window.normalizarXmlId = normalizarXmlId;
+  window.buscarPorXmlId = buscarPorXmlId;
+  window.extraerFragmento = extraerFragmento;
+  window.extraerXmlIdsDelFragmento = extraerXmlIdsDelFragmento;
+}
+
+export {
+  normalizarXmlId,
+  buscarPorXmlId,
+  extraerFragmento,
+  extraerXmlIdsDelFragmento
+};

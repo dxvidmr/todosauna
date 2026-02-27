@@ -1,3 +1,5 @@
+import { extraerXmlIdsDelFragmento } from './pasajes.js';
+
 // ============================================
 // GESTION DE NOTAS
 // ============================================
@@ -151,3 +153,19 @@ async function registrarEvaluacion(datos) {
 }
 
 console.log('Notas.js cargado');
+
+if (typeof window !== 'undefined') {
+  window.cargarNotasActivas = cargarNotasActivas;
+  window.filtrarNotasPorXmlIds = filtrarNotasPorXmlIds;
+  window.cargarNotasPasaje = cargarNotasPasaje;
+  window.invalidarCacheNotas = invalidarCacheNotas;
+  window.registrarEvaluacionNota = registrarEvaluacion;
+}
+
+export {
+  cargarNotasActivas,
+  filtrarNotasPorXmlIds,
+  cargarNotasPasaje,
+  invalidarCacheNotas,
+  registrarEvaluacion
+};

@@ -568,3 +568,21 @@ function crearGraficoDoughnut(stats) {
   });
 }
 
+if (typeof window !== 'undefined') {
+  window.obtenerEvaluacionesStats = obtenerEvaluacionesStats;
+  window.crearBotonesConContadores = crearBotonesConContadores;
+  window.attachEvaluationListeners = attachEvaluationListeners;
+  window.actualizarContadorLocal = actualizarContadorLocal;
+  window.obtenerEstadisticasGlobales = obtenerEstadisticasGlobales;
+  window.renderizarEstadisticasGlobales = renderizarEstadisticasGlobales;
+}
+
+export {
+  obtenerEvaluacionesStats,
+  crearBotonesConContadores,
+  attachEvaluationListeners,
+  actualizarContadorLocal,
+  obtenerEstadisticasGlobales,
+  renderizarEstadisticasGlobales
+};
+

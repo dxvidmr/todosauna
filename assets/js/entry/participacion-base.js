@@ -1,0 +1,11 @@
+﻿import '../participacion/supabase-config.js';
+import '../participacion/supabase-client.js';
+import '../participacion/error-normalizer.js';
+import '../participacion/supabase-api-v2.js';
+import '../participacion/upload-adapter.js';
+import '../participacion/session-manager.js';
+import '../participacion/telemetry.js';
+import '../participacion/ui-feedback.js';
+import '../participacion/modal-participacion.js';
+import '../participacion/geonames-autocomplete.js';
+import '../participacion/flow-gates.js';

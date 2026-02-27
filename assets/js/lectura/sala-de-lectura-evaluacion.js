@@ -1,6 +1,13 @@
 // ============================================
 // NOTE EVALUATION SYSTEM IN READING MODE
 // ============================================
+import { mostrarToast } from './utils.js';
+import {
+  obtenerEvaluacionesStats,
+  crearBotonesConContadores,
+  attachEvaluationListeners,
+  actualizarContadorLocal
+} from './evaluaciones-stats.js';
 
 class EdicionEvaluacion {
   constructor() {

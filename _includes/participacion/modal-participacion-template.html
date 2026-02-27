@@ -1,0 +1,101 @@
+﻿<template id="participacion-modal-template">
+  <div id="modal-modo" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <button id="modal-modo-close" class="modal-close" aria-label="Cerrar modal">&times;</button>
+      <h2 id="modal-titulo">¿Cómo quieres participar?</h2>
+      <p class="modal-descripcion" id="modal-descripcion">Tu participación ayuda a mejorar las notas para futuros lectores.</p>
+
+      <div class="modo-opciones">
+        <div class="modo-opcion" data-modo="anonimo" role="button" tabindex="0">
+          <div class="modo-header">
+            <span class="modo-icono"><i class="fa-solid fa-user-secret" aria-hidden="true"></i></span>
+            <h3>Editor anónimo</h3>
+          </div>
+          <p>Sin registro. Privacidad total.</p>
+        </div>
+        <div class="modo-opcion" data-modo="colaborador" role="button" tabindex="0">
+          <div class="modo-header">
+            <span class="modo-icono"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
+            <h3>Colaborador</h3>
+          </div>
+          <p>Identificado por email. Contribuciones reconocidas.</p>
+        </div>
+      </div>
+
+      <div id="form-anonimo" class="modo-form" style="display:none;">
+        <h3>Participación anónima</h3>
+        <p class="help-modal bg-gray-100 text-gray-500">Participarás sin registro y de forma completamente anónima.</p>
+        <form id="form-anonimo-datos">
+          <div class="botones-modal">
+            <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
+            <button type="submit" class="btn btn-dark">Comenzar</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="colaborador-opciones" class="modo-form" style="display:none;">
+        <h3>Identificarse como colaborador/a</h3>
+        <p class="help-modal bg-gray-100 text-gray-500">No necesitas contraseña. Solo tu email para reconocerte.</p>
+        <div class="colaborador-opciones-grid">
+          <div class="modo-opcion" data-tipo="login" role="button" tabindex="0">
+            <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i></span><h3>Ya participé antes</h3></div>
+            <p>Identificarme con mi email.</p>
+          </div>
+          <div class="modo-opcion" data-tipo="registro" role="button" tabindex="0">
+            <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></span><h3>Primera vez</h3></div>
+            <p>Registrar mi email y datos.</p>
+          </div>
+        </div>
+        <div class="botones-modal"><button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button></div>
+      </div>
+
+      <div id="form-colaborador-login" class="modo-form" style="display:none;">
+        <h3>Identificarse</h3>
+        <p class="help-modal bg-gray-100 text-gray-500">Introduce el mismo email que usaste anteriormente. No guardamos tu email real, solo un hash.</p>
+        <form id="form-colaborador-login-datos">
+          <label>Email:<input type="email" name="email" required placeholder="tu@email.com"></label>
+          <div class="botones-modal">
+            <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
+            <button type="submit" class="btn btn-dark">Identificarme</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="form-colaborador-registro" class="modo-form" style="display:none;">
+        <h3>Registrarse</h3>
+        <p class="help-modal bg-gray-100 text-gray-500">Rellena el formulario para registrarte como colaborador/a.</p>
+        <form id="form-colaborador-registro-datos">
+          <label>Email<input type="email" name="email" required placeholder="tu@email.com"></label>
+          <label>Nombre (opcional)<input type="text" name="display_name" placeholder="María G." maxlength="50"></label>
+          <label>Nivel de estudios (opcional)
+            <select name="nivel_estudios">
+              <option value="">Prefiero no decirlo</option>
+              <option value="secundaria">Secundaria</option>
+              <option value="grado">Grado universitario</option>
+              <option value="posgrado">Máster/Posgrado</option>
+              <option value="doctorado">Doctorado</option>
+              <option value="otro">Otro</option>
+            </select>
+          </label>
+          <label>Disciplina (opcional)
+            <select name="disciplina">
+              <option value="">Prefiero no decirlo</option>
+              <option value="filologia">Filología/Lengua/Literatura</option>
+              <option value="historia">Historia</option>
+              <option value="educacion">Educación</option>
+              <option value="arte">Arte/Teatro</option>
+              <option value="humanidades">Humanidades</option>
+              <option value="ciencias_sociales">Ciencias Sociales</option>
+              <option value="otro">Otra</option>
+            </select>
+          </label>
+          <div class="botones-modal">
+            <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
+            <button type="submit" class="btn btn-primary">Registrarme</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,34 +1,4 @@
 <!-- ============================================
-     SCRIPTS LABORATORIO DE NOTAS
-     Orden de carga CRITICO - NO modificar
+     SCRIPTS LABORATORIO DE NOTAS (ES MODULES)
      ============================================ -->
-
-<!-- 1. CETEIcean -->
-<script src="{{ '/assets/js/lectura/CETEI.js' | relative_url }}"></script>
-
-<!-- 2. Utilidades -->
-<script src="{{ '/assets/js/lectura/utils.js' | relative_url }}"></script>
-
-<!-- 3. Gestion de pasajes -->
-<script src="{{ '/assets/js/lectura/pasajes.js' | relative_url }}"></script>
-
-<!-- 4. Gestion de notas -->
-<script src="{{ '/assets/js/lectura/notas.js' | relative_url }}"></script>
-
-<!-- 5. Estadisticas de evaluaciones -->
-<script src="{{ '/assets/js/lectura/evaluaciones-stats.js' | relative_url }}"></script>
-
-<!-- 6. Logica principal del laboratorio -->
-<script src="{{ '/assets/js/lectura/laboratorio-de-notas.js' | relative_url }}"></script>
-
-<!-- 7. Sistema de sugerencias -->
-<script src="{{ '/assets/js/lectura/sugerencias-notas.js' | relative_url }}"></script>
-
-<!-- Configuracion de rutas para el laboratorio -->
-<script>
-    // Configuracion de rutas Jekyll para los scripts
-    window.SITE_PATHS = {
-        xml: '{{ "/assets/data/tei" | relative_url }}',
-        js: '{{ "/assets/js/lectura" | relative_url }}'
-    };
-</script>
+<script type="module" src="{{ '/assets/js/entry/laboratorio-page.js' | relative_url }}"></script>

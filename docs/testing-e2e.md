@@ -65,6 +65,8 @@ Notas:
 3. No se usa Apps Script real; el upload HTTP se mockea en Playwright.
 4. En CI se usa Supabase CLI pinneado (`2.76.15`) via `npx` para evitar fallos transitorios de setup.
 5. Antes de Playwright, CI ejecuta `npm run check:no-legacy-runtime` para bloquear regresiones de F11.
+6. El runtime frontend first-party (`assets/js`) se carga via `type="module"` con entrypoints por página.
+7. `check:no-legacy-runtime` también valida que no se reintroduzcan tags `<script src=\"/assets/js/...\">` sin `type=\"module\"`.
 
 ## Troubleshooting
 

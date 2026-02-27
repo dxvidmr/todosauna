@@ -4,6 +4,7 @@
 <script src="{{ site.lib-assets | default: '/assets/lib' | relative_url }}/lazysizes.min.js" async></script>
 {% if layout.gallery == true or page.gallery == true %}<script src="{{ site.lib-assets | default: '/assets/lib' | relative_url }}/spotlight.bundle.js" defer></script>{% endif %}
 {% include participacion/runtime-config.html %}
+{% include participacion/modal-participacion-template.html %}
 {% include participacion/scripts-base.html %}
 {% if page.custom-foot or layout.custom-foot %}
 {%- assign page_feet = page.custom-foot | split: ";" -%}

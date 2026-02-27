@@ -174,10 +174,18 @@
     if (this.modal) return;
 
     var container = document.getElementById('modal-container') || document.body;
-    var wrapper = document.createElement('div');
-    wrapper.innerHTML = this._renderMarkup().trim();
-    this.modal = wrapper.firstElementChild;
-    container.appendChild(this.modal);
+    var template = document.getElementById('participacion-modal-template');
+
+    if (template && template.content) {
+      var fragment = template.content.cloneNode(true);
+      this.modal = fragment.firstElementChild;
+      container.appendChild(fragment);
+    } else {
+      var wrapper = document.createElement('div');
+      wrapper.innerHTML = this._renderMarkup().trim();
+      this.modal = wrapper.firstElementChild;
+      container.appendChild(this.modal);
+    }
 
     this.opciones = this.modal.querySelector('.modo-opciones');
     this.formAnonimo = this.modal.querySelector('#form-anonimo');
