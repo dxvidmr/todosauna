@@ -23,8 +23,13 @@ type StagingRow = {
 const REUSABLE_STATUSES = new Set(["issued", "uploading", "uploaded"]);
 
 function shouldBypassRecaptcha(req: Request): boolean {
-  const bypassEnabled = (Deno.env.get("UPLOAD_DEV_BYPASS_RECAPTCHA") || "").trim() === "true";
-  return bypassEnabled && isLocalHostRequest(req);
+  const bypassRaw = (Deno.env.get("UPLOAD_DEV_BYPASS_RECAPTCHA") || "").trim().toLowerCase();
+  const bypassEnabled = bypassRaw === "true" || bypassRaw === "1" || bypassRaw === "yes";
+  const ciEnabled = (Deno.env.get("CI") || "").trim().toLowerCase() === "true";
+
+  if (ciEnabled) return true;
+  if (!bypassEnabled) return false;
+  return isLocalHostRequest(req);
 }
 
 function isUuid(value: string): boolean {

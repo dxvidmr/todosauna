@@ -100,6 +100,13 @@ async function main() {
     'supabase functions serve',
     {
       SUPABASE_URL: 'http://127.0.0.1:54321',
+      UPLOAD_DEV_BYPASS_RECAPTCHA: process.env.UPLOAD_DEV_BYPASS_RECAPTCHA || 'true',
+      UPLOAD_TOKEN_SECRET:
+        process.env.UPLOAD_TOKEN_SECRET || 'e2e_upload_token_secret_abcdefghijklmnopqrstuvwxyz123456',
+      APPS_SCRIPT_SHARED_SECRET:
+        process.env.APPS_SCRIPT_SHARED_SECRET || 'e2e_apps_script_shared_secret_abcdefghijklmnopqrstuvwxyz12',
+      APPS_SCRIPT_URL: process.env.APPS_SCRIPT_URL || 'https://apps-script.local.test/exec',
+      RECAPTCHA_SECRET: process.env.RECAPTCHA_SECRET || 'e2e_dummy_recaptcha_secret',
       SUPABASE_SERVICE_ROLE_KEY:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU'
     }
