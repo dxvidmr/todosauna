@@ -22,14 +22,32 @@ type StagingRow = {
 
 const REUSABLE_STATUSES = new Set(["issued", "uploading", "uploaded"]);
 
+function isLocalRequest(req: Request): boolean {
+  if (isLocalHostRequest(req)) return true;
+  try {
+    const hostname = new URL(req.url).hostname.toLowerCase();
+    return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
+  } catch (_error) {
+    return false;
+  }
+}
+
 function shouldBypassRecaptcha(req: Request): boolean {
+  if (isLocalRequest(req)) {
+    console.info("[issue-upload-token] reCAPTCHA bypass enabled for localhost request");
+    return true;
+  }
+
   const bypassRaw = (Deno.env.get("UPLOAD_DEV_BYPASS_RECAPTCHA") || "").trim().toLowerCase();
   const bypassEnabled = bypassRaw === "true" || bypassRaw === "1" || bypassRaw === "yes";
   const ciEnabled = (Deno.env.get("CI") || "").trim().toLowerCase() === "true";
+  const bypassFromEnv = bypassEnabled && ciEnabled;
 
-  if (ciEnabled) return true;
-  if (!bypassEnabled) return false;
-  return isLocalHostRequest(req);
+  if (bypassFromEnv) {
+    console.info("[issue-upload-token] reCAPTCHA bypass enabled for CI fallback");
+  }
+
+  return bypassFromEnv;
 }
 
 function isUuid(value: string): boolean {
