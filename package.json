@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "description": "E2E smoke tests for Todos a una",
   "scripts": {
+    "check:no-legacy-runtime": "node scripts/check-no-legacy-runtime.mjs",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --project=chromium --headed",
     "test:e2e:ci": "playwright test --project=chromium --reporter=line,github"

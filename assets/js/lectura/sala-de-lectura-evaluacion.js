@@ -12,6 +12,31 @@ class EdicionEvaluacion {
     this.noteContentObserver = null;
   }
 
+  getApiV2() {
+    return window.Participacion?.apiV2 || null;
+  }
+
+  getSessionData() {
+    return window.Participacion?.session?.getPublicSessionData?.() || null;
+  }
+
+  getParticipationUserMessage(error, context, fallback) {
+    const api = this.getApiV2();
+    if (api && typeof api.getParticipationUserMessage === 'function') {
+      return api.getParticipationUserMessage(error, context, fallback);
+    }
+
+    if (typeof fallback === 'string' && fallback.trim()) {
+      return fallback;
+    }
+
+    if (error && typeof error.message === 'string' && error.message.trim()) {
+      return error.message.trim();
+    }
+
+    return 'Error inesperado';
+  }
+
   setEvaluationBusy(notaId, isBusy) {
     var key = String(notaId || '');
     if (!key) return;
@@ -52,14 +77,11 @@ class EdicionEvaluacion {
    */
   async cargarNotasYaEvaluadas() {
     try {
-      const datosUsuario = window.userManager?.obtenerDatosUsuario() || (() => {
-        const sessionData = window.Participacion?.session?.getPublicSessionData?.();
-        if (!sessionData?.session_id) return null;
-        return { session_id: sessionData.session_id };
-      })();
-      if (!datosUsuario?.session_id) return;
+      const apiV2 = this.getApiV2();
+      const sessionData = this.getSessionData();
+      if (!apiV2 || !sessionData?.session_id) return;
 
-      const { data, error } = await window.SupabaseAPI.getSessionEvaluatedNotes(datosUsuario.session_id);
+      const { data, error } = await apiV2.getSessionEvaluatedNotes(sessionData.session_id);
 
       if (!error && data) {
         data.forEach((e) => this.notasEvaluadasBD.add(e.nota_id));
@@ -276,7 +298,11 @@ class EdicionEvaluacion {
    */
   async obtenerVersionNota(notaId) {
     try {
-      const { data, error } = await window.SupabaseAPI.getNotaVersion(notaId);
+      const apiV2 = this.getApiV2();
+      if (!apiV2 || typeof apiV2.getNotaVersion !== 'function') {
+        return null;
+      }
+      const { data, error } = await apiV2.getNotaVersion(notaId);
 
       if (error) {
         console.warn(`Nota ${notaId} no encontrada en Supabase`);
@@ -353,13 +379,10 @@ class EdicionEvaluacion {
       }
     }
 
-    const datosUsuario = window.userManager.obtenerDatosUsuario() || (() => {
-      const sessionData = window.Participacion?.session?.getPublicSessionData?.();
-      if (!sessionData?.session_id) return null;
-      return { session_id: sessionData.session_id };
-    })();
+    const apiV2 = this.getApiV2();
+    const sessionData = this.getSessionData();
 
-    if (!datosUsuario) {
+    if (!apiV2 || !sessionData?.session_id) {
       console.error('No se pudo obtener datos de usuario');
       mostrarToast('Error: modo no definido', 3000);
       return false;
@@ -371,9 +394,9 @@ class EdicionEvaluacion {
     }
 
     try {
-      const { error } = await window.SupabaseAPI.submitNoteEvaluation({
+      const { error } = await apiV2.submitNoteEvaluation({
         source: 'lectura',
-        session_id: datosUsuario.session_id,
+        session_id: sessionData.session_id,
         pasaje_id: null,
         nota_id: notaId,
         nota_version: version,
@@ -383,7 +406,7 @@ class EdicionEvaluacion {
 
       if (error) {
         console.error('Error al registrar evaluación:', error);
-        const message = window.SupabaseAPI?.getParticipationUserMessage?.(
+        const message = this.getParticipationUserMessage(
           error,
           'evaluacion',
           'Error al enviar evaluación'

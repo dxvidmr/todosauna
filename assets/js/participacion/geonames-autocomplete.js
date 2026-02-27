@@ -31,13 +31,9 @@
 
   function getConfigValue() {
     var config = ns.config || {};
-    var runtime = window.__SUPABASE_CONFIG__ || {};
     return (
       config.geonamesUsername ||
       config.geoNamesUsername ||
-      runtime.geonamesUsername ||
-      runtime.GEONAMES_USERNAME ||
-      window.GEONAMES_USERNAME ||
       ''
     );
   }

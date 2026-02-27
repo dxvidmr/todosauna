@@ -288,7 +288,12 @@ function actualizarContadoresEnBotones(evaluaciones) {
  */
 async function obtenerEstadisticasGlobales() {
   try {
-    const { data, error } = await window.SupabaseAPI.getGlobalStats();
+    const apiV2 = window.Participacion?.apiV2;
+    if (!apiV2 || typeof apiV2.getGlobalStats !== 'function') {
+      throw new Error('API de participacion no disponible');
+    }
+
+    const { data, error } = await apiV2.getGlobalStats();
     if (error || !data) throw error || new Error('Respuesta vacia en estadisticas globales');
 
     const totalEvaluaciones = Number(data.total_evaluaciones || 0);

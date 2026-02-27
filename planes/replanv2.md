@@ -8,7 +8,9 @@ Estado auditado del repo:
 4. Fase **8.2** queda pospuesta hasta congelar campos/UX final de testimonios y formularios.
 5. F10.1 completada (QA base E2E local + CI smoke).
 6. F10.2 completada (telemetria minima del embudo de lectura).
-7. Siguiente bloque activo: **F11 (retirada legacy + consolidacion de configuracion)**.
+7. F11.1 completada (retirada legacy segura sin borrado fisico).
+8. F11.2 completada (borrado fisico legacy + corte total de compatibilidad).
+9. Siguiente bloque activo: **8.2 -> 12**.
 
 ## Fase 8.1 â€” PublicaciÃ³n de Testimonios (MVP visible)
 **Objetivo:** que `/archivo/testimonios/` deje de ser placeholder y lea testimonios publicados.
@@ -91,16 +93,19 @@ Estado auditado del repo:
 **Objetivo:** cerrar transiciÃ³n tÃ©cnica de Fase 4.
 
 ### Alcance
-1. Eliminar puente legacy y wrappers:
+1. **F11.1 (completada):** desacople runtime sin borrado fisico.
+2. **F11.2 (completada):** eliminar puente legacy y wrappers:
    - `assets/js/participacion/legacy-bridge.js`
    - `assets/js/lectura/user-manager.js`
    - `assets/js/lectura/modal-modo.js`
-2. Migrar llamadas restantes de lectura/laboratorio a `window.Participacion.*`.
-3. Consolidar configuraciÃ³n Supabase/runtime (RF-006, RF-022).
+3. Migrar llamadas restantes de lectura/laboratorio a `window.Participacion.*`.
+4. Consolidar configuraciÃ³n Supabase/runtime (RF-006, RF-022).
+5. Retirar alias de compatibilidad y archivos legacy al cierre de F11.2.
 
 ### Criterio de cierre
-1. No hay dependencias de APIs JS legacy.
-2. ConfiguraciÃ³n centralizada y documentada.
+1. F11.1: runtime activo sin `legacy-bridge.js`, `window.SupabaseAPI`, `window.userManager` y `window.modalModo`.
+2. F11.2: eliminacion fisica de archivos legacy y aliases temporales completada.
+3. ConfiguraciÃ³n centralizada y documentada.
 
 ## Fase 12 â€” Cierre operativo y documentaciÃ³n final
 **Objetivo:** dejar el sistema mantenible para operaciÃ³n continua.
@@ -117,8 +122,6 @@ Estado auditado del repo:
 
 ## Cambios en APIs / interfaces / tipos pÃºblicos (pendientes)
 1. **Fase 8.2:** nuevas vistas SQL operativas para moderaciÃ³n/export.
-2. **Fase 10:** QA automatizada + telemetria minima (incluye tabla y RPC de funnel).
-3. **Fase 11:** deprecaciÃ³n definitiva de interfaces JS legacy globales.
 
 ## Matriz de pruebas (mÃ­nima por fase)
 1. F9.1: ausencia de mojibake en lectura/laboratorio.
@@ -133,7 +136,7 @@ Estado auditado del repo:
 ## Supuestos y defaults
 1. ModeraciÃ³n manual en Supabase (sin panel admin dedicado).
 2. `/archivo/documentos/` sigue basado en CSV/CollectionBuilder.
-3. Priorizacion vigente: **11 -> 8.2 -> 12**.
+3. Priorizacion vigente: **8.2 -> 12**.
 4. Sin breaking changes de backend pÃºblico hasta validar cada bloque.
 
 

@@ -9,10 +9,6 @@
   if (ns.apiV2) return;
 
   function ensureClient() {
-    if (!ns.supabaseClient && window.supabaseClient) {
-      ns.supabaseClient = window.supabaseClient;
-    }
-
     if (!ns.supabaseClient) {
       return { error: { message: 'Cliente Supabase no inicializado' } };
     }
@@ -41,6 +37,36 @@
     } catch (err) {
       return { data: null, error: { message: err && err.message ? err.message : 'RPC fallo' } };
     }
+  }
+
+  async function callQuery(buildQuery, options) {
+    var queryOptions = options || {};
+    var missingClient = ensureClient();
+    if (missingClient) {
+      return { data: null, error: missingClient.error };
+    }
+
+    try {
+      var query = buildQuery(ns.supabaseClient);
+      var result = await query;
+      if (result.error) return { data: null, error: result.error };
+      if (queryOptions.single) return { data: firstRow(result.data), error: null };
+      return { data: result.data, error: null };
+    } catch (err) {
+      return { data: null, error: { message: err && err.message ? err.message : 'Query fallo' } };
+    }
+  }
+
+  function getParticipationUserMessage(error, context, fallback) {
+    if (ns.errors && typeof ns.errors.toUserMessage === 'function') {
+      return ns.errors.toUserMessage(error, context, fallback);
+    }
+
+    if (typeof fallback === 'string' && fallback.trim()) {
+      return fallback.trim();
+    }
+
+    return null;
   }
 
   ns.apiV2 = {
@@ -193,6 +219,105 @@
           p_offset: input.offset || 0
         }
       );
+    },
+
+    async getPasajes() {
+      return callQuery(function (client) {
+        return client
+          .from('pasajes')
+          .select('*')
+          .order('orden', { ascending: true });
+      });
+    },
+
+    async getNotasActivas() {
+      return callQuery(function (client) {
+        return client
+          .from('notas_activas')
+          .select('*');
+      });
+    },
+
+    async getNotaVersion(notaId) {
+      return callQuery(function (client) {
+        return client
+          .from('notas_activas')
+          .select('version')
+          .eq('nota_id', notaId)
+          .single();
+      }, { single: true });
+    },
+
+    async submitParticipationEvent(payload) {
+      var input = payload || {};
+      return callRpc(
+        'rpc_submit_participation_event',
+        {
+          p_source: input.source,
+          p_event_type: input.event_type,
+          p_session_id: input.session_id,
+          p_pasaje_id: input.pasaje_id || null,
+          p_nota_id: input.nota_id || null,
+          p_nota_version: input.nota_version || null,
+          p_target_xmlid: input.target_xmlid || null,
+          p_vote: input.vote || null,
+          p_selected_text: input.selected_text || null,
+          p_comment: input.comment || null
+        },
+        { single: true }
+      );
+    },
+
+    async submitNoteEvaluation(payload) {
+      var input = payload || {};
+      return this.submitParticipationEvent({
+        source: input.source,
+        event_type: 'nota_eval',
+        session_id: input.session_id,
+        pasaje_id: input.pasaje_id || null,
+        nota_id: input.nota_id,
+        nota_version: input.nota_version,
+        target_xmlid: null,
+        vote: input.vote,
+        selected_text: null,
+        comment: input.comment || null
+      });
+    },
+
+    async submitMissingNoteSuggestion(payload) {
+      var input = payload || {};
+      return this.submitParticipationEvent({
+        source: input.source,
+        event_type: 'falta_nota',
+        session_id: input.session_id,
+        pasaje_id: input.pasaje_id || null,
+        nota_id: null,
+        nota_version: null,
+        target_xmlid: input.target_xmlid || null,
+        vote: null,
+        selected_text: input.selected_text || null,
+        comment: input.comment || null
+      });
+    },
+
+    async getSessionEvaluatedNotes(sessionId) {
+      return callRpc('rpc_get_session_evaluated_notes', { p_session_id: sessionId });
+    },
+
+    async getSessionStats(sessionId) {
+      return callRpc('rpc_get_session_stats', { p_session_id: sessionId }, { single: true });
+    },
+
+    async getNoteEvalCounts() {
+      return callRpc('rpc_get_note_eval_counts');
+    },
+
+    async getGlobalStats() {
+      return callRpc('rpc_get_global_stats', {}, { single: true });
+    },
+
+    getParticipationUserMessage: function (error, context, fallback) {
+      return getParticipationUserMessage(error, context, fallback);
     },
 
     async trackFunnelEvent(payload) {

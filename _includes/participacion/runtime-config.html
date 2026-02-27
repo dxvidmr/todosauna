@@ -7,20 +7,4 @@
     recaptchaMode: {{ site.recaptcha_mode | default: "auto" | jsonify }},
     appsScriptUrl: {{ site.apps_script_url | default: "" | jsonify }}
   });
-
-  if (window.__SUPABASE_CONFIG__.geonamesUsername) {
-    window.GEONAMES_USERNAME = window.__SUPABASE_CONFIG__.geonamesUsername;
-  }
-
-  if (window.__SUPABASE_CONFIG__.recaptchaSiteKey) {
-    window.RECAPTCHA_SITE_KEY = window.__SUPABASE_CONFIG__.recaptchaSiteKey;
-  }
-
-  if (window.__SUPABASE_CONFIG__.recaptchaMode) {
-    window.RECAPTCHA_MODE = window.__SUPABASE_CONFIG__.recaptchaMode;
-  }
-
-  if (window.__SUPABASE_CONFIG__.appsScriptUrl) {
-    window.APPS_SCRIPT_URL = window.__SUPABASE_CONFIG__.appsScriptUrl;
-  }
 </script>

@@ -12,6 +12,31 @@ class SugerenciasNotas {
     this.isSubmitting = false;
   }
 
+  getApiV2() {
+    return window.Participacion?.apiV2 || null;
+  }
+
+  getSessionData() {
+    return window.Participacion?.session?.getPublicSessionData?.() || null;
+  }
+
+  getParticipationUserMessage(error, context, fallback) {
+    const api = this.getApiV2();
+    if (api && typeof api.getParticipationUserMessage === 'function') {
+      return api.getParticipationUserMessage(error, context, fallback);
+    }
+
+    if (typeof fallback === 'string' && fallback.trim()) {
+      return fallback;
+    }
+
+    if (error && typeof error.message === 'string' && error.message.trim()) {
+      return error.message.trim();
+    }
+
+    return 'Error inesperado';
+  }
+
   /**
    * Detectar si estamos en sala de lectura o laboratorio
    */
@@ -321,13 +346,10 @@ class SugerenciasNotas {
         }
       }
 
-      const datosUsuario = window.userManager.obtenerDatosUsuario() || (() => {
-        const sessionData = window.Participacion?.session?.getPublicSessionData?.();
-        if (!sessionData?.session_id) return null;
-        return { session_id: sessionData.session_id };
-      })();
-      
-      if (!datosUsuario) {
+      const apiV2 = this.getApiV2();
+      const sessionData = this.getSessionData();
+
+      if (!apiV2 || !sessionData?.session_id) {
         mostrarToast('Error: modo no definido', 3000);
         return;
       }
@@ -341,7 +363,7 @@ class SugerenciasNotas {
       
       const sugerencia = {
         source: this.source,
-        session_id: datosUsuario.session_id,
+        session_id: sessionData.session_id,
         pasaje_id: this.obtenerPasajeId(),
         target_xmlid: this.seleccionActual.xmlid,
         selected_text: this.seleccionActual.texto,
@@ -350,7 +372,7 @@ class SugerenciasNotas {
 
       console.log('Enviando sugerencia:', sugerencia);
 
-      const { error } = await window.SupabaseAPI.submitMissingNoteSuggestion(sugerencia);
+      const { error } = await apiV2.submitMissingNoteSuggestion(sugerencia);
 
       if (error) {
         throw error;
@@ -366,7 +388,7 @@ class SugerenciasNotas {
 
     } catch (err) {
       console.error('Error al enviar sugerencia:', err);
-      const message = window.SupabaseAPI?.getParticipationUserMessage?.(
+      const message = this.getParticipationUserMessage(
         err,
         'sugerencia',
         'Error al enviar sugerencia'

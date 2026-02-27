@@ -2,6 +2,15 @@
 // GESTION DE NOTAS
 // ============================================
 
+function getParticipacionApiV2() {
+  return window.Participacion?.apiV2 || null;
+}
+
+function getParticipacionSessionData() {
+  if (!window.Participacion?.session?.getPublicSessionData) return null;
+  return window.Participacion.session.getPublicSessionData();
+}
+
 /**
  * Cargar todas las notas activas (con cache)
  */
@@ -11,14 +20,20 @@ async function cargarNotasActivas() {
     return window.notasActivasCache;
   }
 
-  const { data: notas, error } = await window.SupabaseAPI.getNotasActivas();
+  const apiV2 = getParticipacionApiV2();
+  if (!apiV2 || typeof apiV2.getNotasActivas !== 'function') {
+    console.error('apiV2 no disponible para cargar notas');
+    return [];
+  }
+
+  const { data: notas, error } = await apiV2.getNotasActivas();
   if (error) {
     console.error('Error al cargar notas:', error);
     return [];
   }
 
   try {
-    const { data: evaluacionesAgg, error: evalError } = await window.SupabaseAPI.getNoteEvalCounts();
+    const { data: evaluacionesAgg, error: evalError } = await apiV2.getNoteEvalCounts();
 
     if (!evalError && Array.isArray(evaluacionesAgg)) {
       const contadores = {};
@@ -98,17 +113,20 @@ async function registrarEvaluacion(datos) {
     }
   }
 
-  const datosUsuario = window.userManager.obtenerDatosUsuario() || (() => {
-    const sessionData = window.Participacion?.session?.getPublicSessionData?.();
-    if (!sessionData?.session_id) return null;
-    return { session_id: sessionData.session_id };
-  })();
+  const sessionData = getParticipacionSessionData();
+  const datosUsuario = sessionData?.session_id ? { session_id: sessionData.session_id } : null;
   if (!datosUsuario?.session_id) {
     console.error('No hay sesion activa para registrar evaluacion');
     return false;
   }
 
-  const { error } = await window.SupabaseAPI.submitNoteEvaluation({
+  const apiV2 = getParticipacionApiV2();
+  if (!apiV2 || typeof apiV2.submitNoteEvaluation !== 'function') {
+    console.error('apiV2 no disponible para enviar evaluaciones');
+    return false;
+  }
+
+  const { error } = await apiV2.submitNoteEvaluation({
     source: source,
     session_id: datosUsuario.session_id,
     pasaje_id: datos.pasaje_id || null,

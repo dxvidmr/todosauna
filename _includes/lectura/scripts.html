@@ -3,22 +3,19 @@
      Orden de carga CRITICO - NO modificar
      ============================================ -->
 
-<!-- 1. Capa de API segura (RPC + contenido editorial) -->
-<script src="{{ '/assets/js/lectura/supabase-api.js' | relative_url }}"></script>
-
-<!-- 2. Utilidades generales -->
+<!-- 1. Utilidades generales -->
 <script src="{{ '/assets/js/lectura/utils.js' | relative_url }}"></script>
 
-<!-- 3. Gestion de notas (carga desde Supabase) -->
+<!-- 2. Gestion de notas (carga desde Supabase) -->
 <script src="{{ '/assets/js/lectura/notas.js' | relative_url }}"></script>
 
-<!-- 4. Estadisticas de evaluaciones (modulo reutilizable) -->
+<!-- 3. Estadisticas de evaluaciones (modulo reutilizable) -->
 <script src="{{ '/assets/js/lectura/evaluaciones-stats.js' | relative_url }}"></script>
 
-<!-- 5. CETEIcean (version custom) -->
+<!-- 4. CETEIcean (version custom) -->
 <script src="{{ '/assets/js/lectura/CETEI.js' | relative_url }}"></script>
 
-<!-- 6. Cargar XMLs -->
+<!-- 5. Cargar XMLs -->
 <script>
     // Variable global para almacenar las notas XML
     window.notasXML = null;
@@ -41,13 +38,13 @@
     });
 </script>
 
-<!-- 7. Logica de edicion (procesa notas, eventos, etc.) -->
+<!-- 6. Logica de edicion (procesa notas, eventos, etc.) -->
 <script src="{{ '/assets/js/lectura/sala-de-lectura.js' | relative_url }}"></script>
 
-<!-- 8. Sistema de evaluacion (anade iconos: util / mejorable) -->
+<!-- 7. Sistema de evaluacion (anade iconos: util / mejorable) -->
 <script src="{{ '/assets/js/lectura/sala-de-lectura-evaluacion.js' | relative_url }}"></script>
 
-<!-- 9. Sistema de sugerencias de notas faltantes -->
+<!-- 8. Sistema de sugerencias de notas faltantes -->
 <script src="{{ '/assets/js/lectura/sugerencias-notas.js' | relative_url }}"></script>
 
 <!-- El comportamiento del navbar se maneja centralizadamente en navbar-behavior.js -->

@@ -22,39 +22,24 @@
     return url.replace(/\/+$/g, '');
   }
 
-  function getSupabaseAnonKey() {
+  function getSupabasePublishableKey() {
     var config = getConfig();
-    return String(config.publishableKey || config.anonKey || '').trim();
+    return String(config.publishableKey || '').trim();
   }
 
   function getAppsScriptUrl() {
     var config = getConfig();
-    return String(
-      config.appsScriptUrl ||
-      (window.__SUPABASE_CONFIG__ && window.__SUPABASE_CONFIG__.appsScriptUrl) ||
-      window.APPS_SCRIPT_URL ||
-      ''
-    ).trim();
+    return String(config.appsScriptUrl || '').trim();
   }
 
   function getRecaptchaSiteKey() {
     var config = getConfig();
-    return String(
-      config.recaptchaSiteKey ||
-      (window.__SUPABASE_CONFIG__ && window.__SUPABASE_CONFIG__.recaptchaSiteKey) ||
-      window.RECAPTCHA_SITE_KEY ||
-      ''
-    ).trim();
+    return String(config.recaptchaSiteKey || '').trim();
   }
 
   function getConfiguredRecaptchaMode() {
     var config = getConfig();
-    var mode = String(
-      config.recaptchaMode ||
-      (window.__SUPABASE_CONFIG__ && window.__SUPABASE_CONFIG__.recaptchaMode) ||
-      window.RECAPTCHA_MODE ||
-      'auto'
-    ).trim().toLowerCase();
+    var mode = String(config.recaptchaMode || 'auto').trim().toLowerCase();
 
     if (mode === 'v2' || mode === 'v3') return mode;
     return 'auto';
@@ -101,9 +86,9 @@
 
   async function callEdgeFunction(functionName, payload) {
     var url = getSupabaseUrl();
-    var anonKey = getSupabaseAnonKey();
+    var publishableKey = getSupabasePublishableKey();
 
-    if (!url || !anonKey) {
+    if (!url || !publishableKey) {
       return { data: null, error: normalizeError('Supabase no esta configurado para edge functions') };
     }
 
@@ -114,8 +99,8 @@
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          apikey: anonKey,
-          Authorization: 'Bearer ' + anonKey
+          apikey: publishableKey,
+          Authorization: 'Bearer ' + publishableKey
         },
         body: JSON.stringify(payload || {})
       });

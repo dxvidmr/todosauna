@@ -457,9 +457,10 @@
   async function getStats() {
     var legacyData = getLegacyUserData();
     if (!legacyData || !legacyData.session_id) return null;
-    if (!window.SupabaseAPI || typeof window.SupabaseAPI.getSessionStats !== 'function') return null;
+    var api = getApi();
+    if (!api || typeof api.getSessionStats !== 'function') return null;
 
-    var result = await window.SupabaseAPI.getSessionStats(legacyData.session_id);
+    var result = await api.getSessionStats(legacyData.session_id);
     if (result.error || !result.data) return null;
 
     return {

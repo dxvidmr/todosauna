@@ -67,6 +67,40 @@ class EditorSocial {
     return false;
   }
 
+  getApiV2() {
+    return window.Participacion?.apiV2 || null;
+  }
+
+  getSessionData() {
+    return window.Participacion?.session?.getPublicSessionData?.() || null;
+  }
+
+  isModeDefined() {
+    return !!window.Participacion?.session?.isModeDefined?.();
+  }
+
+  async openParticipationModal(options) {
+    if (!window.Participacion?.modal?.open) return;
+    await window.Participacion.modal.open(options || {});
+  }
+
+  getParticipationUserMessage(error, context, fallback) {
+    const api = this.getApiV2();
+    if (api && typeof api.getParticipationUserMessage === 'function') {
+      return api.getParticipationUserMessage(error, context, fallback);
+    }
+
+    if (typeof fallback === 'string' && fallback.trim()) {
+      return fallback;
+    }
+
+    if (error && typeof error.message === 'string' && error.message.trim()) {
+      return error.message.trim();
+    }
+
+    return 'Error inesperado';
+  }
+
   setNoteEvaluationBusy(notaId, isBusy) {
     var key = String(notaId || '');
     if (!key) return;
@@ -308,14 +342,14 @@ class EditorSocial {
   }
 
   async asegurarModoAntesDeIniciarLaboratorio() {
-    if (window.userManager.tieneModoDefinido()) return true;
+    if (this.isModeDefined()) return true;
 
-    await window.modalModo.mostrar({
+    await this.openParticipationModal({
       context: 'laboratorio-before-mode',
       reason: 'before-start'
     });
 
-    return window.userManager.tieneModoDefinido();
+    return this.isModeDefined();
   }
 
   async iniciarModoDesdeBienvenida(modo) {
@@ -493,7 +527,12 @@ class EditorSocial {
    * Cargar lista de pasajes desde Supabase
    */
   async cargarPasajes() {
-    const { data, error } = await window.SupabaseAPI.getPasajes();
+    const apiV2 = this.getApiV2();
+    if (!apiV2 || typeof apiV2.getPasajes !== 'function') {
+      this.notifyFeedback('Error al cargar pasajes. API no disponible.', 'error', 3200);
+      return;
+    }
+    const { data, error } = await apiV2.getPasajes();
 
     if (error) {
       console.error('Error al cargar pasajes:', error);
@@ -1154,16 +1193,17 @@ class EditorSocial {
       }
 
       // Verificar modo de usuario
-      if (!window.userManager.tieneModoDefinido()) {
-        await window.modalModo.mostrar({
+      if (!this.isModeDefined()) {
+        await this.openParticipationModal({
           context: 'laboratorio-before-mode',
           reason: 'during-evaluation'
         });
       }
 
-      const datosUsuario = window.userManager.obtenerDatosUsuario();
-      
-      if (!datosUsuario) {
+      const apiV2 = this.getApiV2();
+      const sessionData = this.getSessionData();
+
+      if (!apiV2 || !sessionData?.session_id) {
         console.error('No se pudo obtener datos de usuario');
         this.notifyFeedback('Error: modo no definido', 'error', 3000);
         return false;
@@ -1176,9 +1216,9 @@ class EditorSocial {
 
       // La sesión ya está creada en BD (se creó al elegir modo)
       try {
-        const { error } = await window.SupabaseAPI.submitNoteEvaluation({
+        const { error } = await apiV2.submitNoteEvaluation({
           source: 'laboratorio',
-          session_id: datosUsuario.session_id,
+          session_id: sessionData.session_id,
           pasaje_id: pasajeId,
           nota_id: notaId,
           nota_version: version,
@@ -1188,7 +1228,7 @@ class EditorSocial {
 
         if (error) {
           console.error('Error al registrar evaluación:', error);
-          const message = window.SupabaseAPI?.getParticipationUserMessage?.(
+          const message = this.getParticipationUserMessage(
             error,
             'evaluacion',
             'Error al enviar evaluación'
@@ -1406,4 +1446,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 console.log('Editor Social cargado');
+
 

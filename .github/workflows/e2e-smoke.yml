@@ -60,6 +60,9 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
+      - name: Verify no legacy runtime references
+        run: npm run check:no-legacy-runtime
+
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 

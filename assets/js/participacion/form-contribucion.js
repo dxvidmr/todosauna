@@ -137,14 +137,14 @@
 
   function getRecaptchaMode() {
     var cfg = getConfig();
-    var mode = String(cfg.recaptchaMode || window.RECAPTCHA_MODE || 'auto').trim().toLowerCase();
+    var mode = String(cfg.recaptchaMode || 'auto').trim().toLowerCase();
     if (mode === 'v2' || mode === 'v3') return mode;
     return 'auto';
   }
 
   function hasRecaptchaSiteKey() {
     var cfg = getConfig();
-    return !!String(cfg.recaptchaSiteKey || window.RECAPTCHA_SITE_KEY || '').trim();
+    return !!String(cfg.recaptchaSiteKey || '').trim();
   }
 
   function getErrorMessage(error, fallback, context) {

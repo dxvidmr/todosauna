@@ -46,6 +46,12 @@ Modo CI local:
 npm run test:e2e:ci
 ```
 
+Chequeo anti-legacy runtime:
+
+```bash
+npm run check:no-legacy-runtime
+```
+
 ## Configuración E2E usada
 
 - Playwright: `playwright.config.ts`
@@ -58,6 +64,7 @@ Notas:
 2. reCAPTCHA se desactiva en E2E (`site key` vacío) y el bypass de verificación se habilita solo en localhost (`UPLOAD_DEV_BYPASS_RECAPTCHA=true`).
 3. No se usa Apps Script real; el upload HTTP se mockea en Playwright.
 4. En CI se usa Supabase CLI pinneado (`2.76.15`) via `npx` para evitar fallos transitorios de setup.
+5. Antes de Playwright, CI ejecuta `npm run check:no-legacy-runtime` para bloquear regresiones de F11.
 
 ## Troubleshooting
 
