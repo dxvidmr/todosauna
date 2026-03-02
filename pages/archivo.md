@@ -14,7 +14,7 @@ permalink: /archivo/
         <div class="card-body">
           <h2 class="h4">Documentos</h2>
           <p>Programas, carteles, fotografías, críticas...</p>
-          <a href="{{ '/archivo/documentos/' | relative_url }}" class="btn btn-dark">Explorar documentos</a>
+          <a href="{{ '/archivo/documentos/' | relative_url }}" class="btn btn-primary">Explorar documentos</a>
         </div>
       </div>
     </div>
@@ -23,7 +23,7 @@ permalink: /archivo/
         <div class="card-body">
           <h2 class="h4">Testimonios</h2>
           <p>Voces de espectadores, actores, directores...</p>
-          <a href="{{ '/archivo/testimonios/' | relative_url }}" class="btn btn-dark">Explorar testimonios</a>
+          <a href="{{ '/archivo/testimonios/' | relative_url }}" class="btn btn-primary">Explorar testimonios</a>
         </div>
       </div>
     </div>

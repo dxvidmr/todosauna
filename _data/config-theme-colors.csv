@@ -1,10 +1,14 @@
 color_class,color
-primary,#2d303a
-secondary,#6c757d
+primary,#8f4142
+secondary,#d2c8c5
 success,#7a9e7e
 info,#8298aa
 warning,#d4a574
 danger,#8b3a33
+tosca,#8f4142
+swirl,#d2c8c5
+swirl-50,#f7f4f3
+swirl-100,#eee7e5
 light,#f8f9fa
 dark,#2d303a
 neutral-50,#f1f3f5

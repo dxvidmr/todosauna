@@ -30,7 +30,7 @@ custom-foot: js/home-carousel-js.html
         <h2 class="explore-title">
             Descubre y participa de la historia de <i>Fuenteovejuna</i>
         </h2>
-        <a href="#acerca-de" class="btn btn-dark btn-lg">
+        <a href="#acerca-de" class="btn btn-primary btn-lg">
             SOBRE EL PROYECTO
         </a>
     </div>

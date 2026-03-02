@@ -1,0 +1,174 @@
+@use "variables" as *;
+
+.btn {
+  border-radius: 999px;
+  transition: color 0.18s ease, background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
+
+  i {
+    color: currentColor;
+  }
+
+  &:focus,
+  &:focus-visible {
+    box-shadow: 0 0 0 0.2rem rgba($color-dark, 0.12);
+  }
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.6;
+    box-shadow: none;
+  }
+}
+
+.btn-primary {
+  color: $color-light;
+  background-color: $color-tosca;
+  border-color: $color-tosca;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    color: $color-light;
+    background-color: $color-tosca-lift;
+    border-color: $color-tosca-lift;
+    box-shadow: 0 0 0 0.2rem rgba($color-tosca, 0.16);
+  }
+
+  &:active,
+  &.active,
+  .show > &.dropdown-toggle {
+    color: $color-light;
+    background-color: $color-tosca;
+    border-color: $color-tosca;
+  }
+}
+
+.btn-secondary {
+  color: $color-dark;
+  background-color: $color-swirl;
+  border-color: $color-swirl;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    color: $color-dark;
+    background-color: $color-swirl-50;
+    border-color: $color-swirl-50;
+    box-shadow: 0 0 0 0.2rem rgba($color-swirl, 0.42);
+  }
+
+  &:active,
+  &.active,
+  .show > &.dropdown-toggle {
+    color: $color-dark;
+    background-color: $color-swirl;
+    border-color: $color-swirl;
+  }
+}
+
+.btn-dark {
+  color: $color-light;
+  background-color: $color-dark;
+  border-color: $color-dark;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    color: $color-light;
+    background-color: mix(black, $color-dark, 8%);
+    border-color: mix(black, $color-dark, 8%);
+    box-shadow: 0 0 0 0.2rem rgba($color-dark, 0.18);
+  }
+}
+
+.btn-outline-dark {
+  color: $color-dark;
+  border-color: $color-dark;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    color: $color-light;
+    background-color: $color-dark;
+    border-color: $color-dark;
+    box-shadow: 0 0 0 0.2rem rgba($color-dark, 0.12);
+  }
+}
+
+.btn-light {
+  color: $color-dark;
+  background-color: $color-light;
+  border-color: $color-light;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    color: $color-dark;
+    background-color: white;
+    border-color: white;
+    box-shadow: 0 0 0 0.2rem rgba($color-light, 0.22);
+  }
+}
+
+.btn-outline-light {
+  color: $color-light;
+  border-color: rgba($color-light, 0.74);
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    color: $color-dark;
+    background-color: $color-light;
+    border-color: $color-light;
+    box-shadow: 0 0 0 0.2rem rgba($color-light, 0.24);
+  }
+}
+
+.btn-muted {
+  color: $color-text-muted-dark;
+  background-color: $color-neutral-100;
+  border-color: $color-neutral-200;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    color: $color-dark;
+    background-color: $color-neutral-200;
+    border-color: $color-neutral-400;
+    box-shadow: 0 0 0 0.2rem rgba($color-dark, 0.08);
+  }
+
+  &:active,
+  &.active,
+  .show > &.dropdown-toggle {
+    color: $color-dark;
+    background-color: $color-neutral-200;
+    border-color: $color-neutral-400;
+  }
+}
+
+.btn-circular {
+  width: 32px;
+  height: 32px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ui-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--ui-accent-hover);
+    color: var(--ui-accent-contrast);
+    border-color: var(--ui-accent-hover);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem var(--ui-accent-soft);
+  }
+}

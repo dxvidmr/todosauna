@@ -9,33 +9,28 @@
   --layout-rail-max: 1240px;
   --layout-inline-gutter: clamp(16px, 2.4vw, 36px);
   --overlay-nav-gap: clamp(16px, 2.8vh, 34px);
-  --ui-bg-elevated-soft: #{$color-swirl-50};
+  --color-dark: #{$color-dark};
+  --color-light: #{$color-light};
+  --color-tosca: #{$color-tosca};
+  --color-tosca-lift: #{$color-tosca-lift};
+  --color-tosca-soft: #{$color-tosca-soft};
+  --color-swirl: #{$color-swirl};
+  --color-swirl-50: #{$color-swirl-50};
+  --color-swirl-100: #{$color-swirl-100};
+  --ui-bg-elevated-soft: var(--color-swirl-50);
   --ui-border-soft: #{mix($color-neutral-100, $color-swirl, 55%)};
   --ui-border-strong: #{mix($color-tosca, $color-neutral-200, 24%)};
-  --ui-accent: #{$color-tosca};
-  --ui-accent-hover: #{$color-tosca-hover};
-  --ui-accent-soft: #{$color-tosca-soft};
+  --ui-accent: var(--color-tosca);
+  --ui-accent-hover: var(--color-tosca-lift);
+  --ui-accent-soft: var(--color-tosca-soft);
   --ui-accent-contrast: #{$color-light};
   --ui-text-strong: #{$color-dark};
   --ui-text-muted: #{$color-text-secondary};
   --ui-shadow-soft: 0 12px 32px rgba(45, 48, 58, 0.08), 0 2px 10px rgba(45, 48, 58, 0.05);
-  --ui-navbar-bg: #{$color-swirl-100};
+  --ui-navbar-bg: var(--color-swirl-100);
   --ui-navbar-border: #{mix($color-neutral-100, $color-swirl, 58%)};
   --ui-navbar-text: #{$color-dark};
-  --ui-navbar-accent: #{$color-tosca};
-}
-
-.btn {
-    border-radius: 50px;
-}
-.btn-dark:hover{
-    background-color: var(--ui-accent-soft);
-    color: var(--ui-accent);
-    border: 1px solid var(--ui-accent);
-}
-
-.btn-dark:focus-visible {
-  box-shadow: 0 0 0 0.2rem var(--ui-accent-soft);
+  --ui-navbar-accent: var(--color-tosca);
 }
 
 .navbar-offset-main {
@@ -64,38 +59,6 @@
 
 #scroll-to-top:hover {
   transform: translateY(-6px);
-}
-
-// Botones circulares pequeños reutilizables
-.btn-circular {
-  width: 32px;
-  height: 32px;
-  border: 1px solid transparent;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--ui-text-muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  padding: 0;
-  
-  &:hover {
-    background: var(--ui-accent-hover);
-    color: var(--ui-accent-contrast);
-    border-color: var(--ui-accent-hover);
-  }
-
-  &:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 0.2rem var(--ui-accent-soft);
-  }
-}
-
-// Iconos en botones outline al hacer hover (cuando Bootstrap cambia el fondo)
-[class*="btn-outline"]:hover i {
-  color: var(--ui-accent-contrast) !important;
 }
 
 // Asegurar que el modal backdrop no bloquee clics cuando no hay modal activo

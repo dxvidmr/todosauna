@@ -436,36 +436,15 @@ body.laboratorio-page.laboratorio-mode-active {
 .btn-cambiar-modo {
   height: 28px;
   padding: 0 10px;
-  border-radius: 999px;
-  border: 1px solid $color-neutral-200;
-  background: $color-neutral-100;
-  color: $color-text-muted;
   font-size: 0.74rem;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   line-height: 1;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.12s ease;
-
-  &:hover {
-    background: $color-neutral-200;
-    color: $color-text;
-  }
 
   &:active {
     transform: translateY(1px);
-  }
-
-  &:focus-visible {
-    outline: 2px solid $color-dark;
-    outline-offset: 2px;
-  }
-
-  &:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
   }
 
   i {

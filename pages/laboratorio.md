@@ -71,7 +71,7 @@ navbar_behavior: fixed
     <p class="modal-descripcion">Volverás a la pantalla de selección y podrás elegir de nuevo entre modo secuencial o aleatorio.</p>
     <div class="lab-confirm-actions">
       <button id="btn-cancelar-cambiar-modo" type="button" class="btn btn-outline-dark btn-sm">Cancelar</button>
-      <button id="btn-confirmar-cambiar-modo" type="button" class="btn btn-dark btn-sm">Sí, cambiar modo</button>
+      <button id="btn-confirmar-cambiar-modo" type="button" class="btn btn-secondary btn-sm">Sí, cambiar modo</button>
     </div>
   </div>
 </div>
@@ -85,7 +85,7 @@ navbar_behavior: fixed
       <h1>Laboratorio de notas</h1>
       <div class="laboratorio-header-meta">
         <span id="modo-actual-badge" class="modo-badge">Secuencial</span>
-        <button id="btn-cambiar-modo" class="btn-cambiar-modo" title="Volver a la pantalla de selección de modo">
+        <button id="btn-cambiar-modo" class="btn btn-muted btn-sm btn-cambiar-modo" title="Volver a la pantalla de selección de modo">
           <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
           <span>Cambiar modo</span>
         </button>

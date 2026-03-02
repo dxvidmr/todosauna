@@ -138,7 +138,7 @@
     background-color: var(--ui-navbar-bg) !important;
     background-image: none !important;
     color: var(--ui-navbar-text) !important;
-    border: 0px solid var(--ui-navbar-border);
+    border: none;
     box-shadow: var(--ui-shadow-soft);
     backdrop-filter: blur(10px);
     transition: inline-size 0.4s ease, width 0.4s ease, max-inline-size 0.4s ease, max-width 0.4s ease, border-radius 0.4s ease, padding 0.4s ease;
@@ -513,20 +513,6 @@
     display: flex;
     justify-content: flex-end;
     flex-shrink: 0;
-
-    .btn {
-        border-color: var(--ui-border-strong);
-        background: var(--ui-accent-soft);
-        color: var(--ui-accent);
-        box-shadow: none;
-
-        &:hover,
-        &:focus-visible {
-            background: var(--ui-accent-hover);
-            border-color: var(--ui-accent-hover);
-            color: var(--ui-accent-contrast);
-        }
-    }
     
     @media (max-width: 576px) {
         width: 100%; /* Ancho completo en móvil */
@@ -728,4 +714,3 @@ body.laboratorio-page.laboratorio-mode-active .btn-participacion-flotante {
         display: none !important;
     }
 }
-
