@@ -1,5 +1,13 @@
 import { aplicarNumeracionVersos, alignSplitVerses } from './utils.js';
-import { cargarNotasActivas } from './notas.js';
+import { cargarNotasActivas } from '../participacion/notas.js';
+import {
+    applyNoteHighlights,
+    highlightAllRelatedGroups,
+    buildNoteBadgesHTML,
+    buildNoteDisplayHTML,
+    markCurrentNoteInText,
+    buildSkeletonLoadingHTML
+} from './notas-dom.js';
 
 document.addEventListener("DOMContentLoaded", function() {
     // Referencias globales
@@ -416,219 +424,71 @@ document.addEventListener("DOMContentLoaded", function() {
         // Obtener todas las notas del XML externo
         const notes = Array.from(window.notasXML.querySelectorAll('note'));
 
-        // Ordenar las notas: primero las más específicas (seg), luego las generales (l)
-        // Esto asegura que los wrappers internos se creen antes que los externos
-        notes.sort((a, b) => {
-            const targetA = a.getAttribute('target') || '';
-            const targetB = b.getAttribute('target') || '';
-            
-            // Priorizar notas que apuntan a seg sobre las que apuntan a l
-            const aIsSeg = targetA.includes('seg-');
-            const bIsSeg = targetB.includes('seg-');
-            
-            if (aIsSeg && !bIsSeg) return -1;
-            if (!aIsSeg && bIsSeg) return 1;
-            
-            // Si ambas son del mismo tipo, por número de targets (menos targets = más específico)
-            const aCount = targetA.split(/\s+/).length;
-            const bCount = targetB.split(/\s+/).length;
-            return aCount - bCount;
-        });
+        const processedIds = applyNoteHighlights(teiContainer, notes, {
+            getTarget: note => note.getAttribute('target') || '',
+            getNoteId: note => note.getAttribute('xml:id') || '',
+            propagateGroups: true,
 
-        notes.forEach(note => {
-            const targetAttr = note.getAttribute('target');
-            const noteId = note.getAttribute('xml:id');
-            
-            if (!targetAttr || !noteId) return;
+            onWrapperClick: ({ wrapper, groups }) => {
+                const activeGroup = groups[0];
+                if (!activeGroup) return;
 
-            const targets = targetAttr.split(/\s+/).map(t => t.replace('#', ''));
-            const targetElements = [];
+                console.log('Click en elemento, mostrando nota:', activeGroup);
 
-            // Buscar todos los elementos target en el DOM
-            targets.forEach(targetId => {
-                let element = teiContainer.querySelector(`[xml\\:id="${targetId}"]`);
-                
-                if (!element) {
-                    const allElements = teiContainer.querySelectorAll('*');
-                    for (let el of allElements) {
-                        if (el.getAttribute('xml:id') === targetId) {
-                            element = el;
-                            break;
+                // Buscar la nota en el XML
+                let noteToShow = null;
+                const allNotes = window.notasXML.getElementsByTagName('note');
+                for (let note of allNotes) {
+                    if (note.getAttribute('xml:id') === activeGroup) {
+                        noteToShow = note;
+                        break;
+                    }
+                }
+
+                if (noteToShow) {
+                    mostrarNotaEnPanel(noteToShow, activeGroup, teiContainer, noteContentDiv);
+                } else {
+                    renderizarPlaceholderNota(
+                        noteContentDiv,
+                        'Nota no encontrada.'
+                    );
+                    console.error('No se encontró nota con xml:id:', activeGroup);
+                }
+            },
+
+            onWrapperEnter: ({ wrapper }) => {
+                highlightAllRelatedGroups(teiContainer, wrapper, true);
+            },
+
+            onWrapperLeave: ({ wrapper, event }) => {
+                // Verificar si el destino del ratón es un wrapper relacionado
+                const relatedTarget = event.relatedTarget;
+
+                if (relatedTarget) {
+                    const targetWrapper = relatedTarget.closest('.note-wrapper');
+                    if (targetWrapper) {
+                        const currentGroups = (wrapper.getAttribute('data-note-groups') || '').split(' ').filter(g => g);
+                        const targetGroups = (targetWrapper.getAttribute('data-note-groups') || '').split(' ').filter(g => g);
+
+                        // Si comparten algún grupo, no desactivar
+                        if (currentGroups.some(g => targetGroups.includes(g))) {
+                            return;
                         }
                     }
                 }
-                
-                if (element) {
-                    targetElements.push(element);
-                    console.log(`Encontrado target: ${targetId}`, element);
-                } else {
-                    console.warn(`No se encontró elemento con xml:id="${targetId}"`);
-                }
-            });
 
-            if (targetElements.length === 0) return;
-
-            console.log(`Procesando ${targetElements.length} elementos para nota ${noteId}`);
-
-            // Añadir clase y eventos a cada elemento target
-            targetElements.forEach(element => {
-                // Buscar si ya existe un wrapper directo hijo del elemento
-                let wrapperElement = null;
-                
-                // Verificar si el primer hijo es un wrapper
-                if (element.firstElementChild && element.firstElementChild.classList.contains('note-wrapper')) {
-                    wrapperElement = element.firstElementChild;
-                } else {
-                    // Si no hay wrapper, crear uno nuevo
-                    wrapperElement = document.createElement('span');
-                    wrapperElement.className = 'note-wrapper note-target';
-                    
-                    // Mover TODO el contenido del elemento al wrapper
-                    // Importante: usar childNodes para incluir nodos de texto
-                    const childNodes = Array.from(element.childNodes);
-                    childNodes.forEach(child => {
-                        wrapperElement.appendChild(child);
-                    });
-                    
-                    // Añadir el wrapper al elemento
-                    element.appendChild(wrapperElement);
-                }
-                
-                // Asegurar que el wrapper tenga las clases necesarias
-                if (!wrapperElement.classList.contains('note-target')) {
-                    wrapperElement.classList.add('note-target');
-                }
-                
-                console.log(`Wrapper configurado para:`, element, `Clases:`, wrapperElement.className);
-                
-                // Añadir el ID de nota a la lista de grupos
-                const currentGroups = wrapperElement.getAttribute('data-note-groups') || '';
-                const groups = currentGroups ? currentGroups.split(' ').filter(g => g) : [];
-                if (!groups.includes(noteId)) {
-                    groups.push(noteId);
-                    wrapperElement.setAttribute('data-note-groups', groups.join(' '));
-                    console.log(`Elemento ${element.getAttribute('xml:id')} asignado a grupo(s): ${groups.join(' ')}`);
-                    
-                    // Propagar el grupo a todos los wrappers descendientes
-                    const childWrappers = wrapperElement.querySelectorAll('.note-wrapper');
-                    childWrappers.forEach(childWrapper => {
-                        const childGroups = childWrapper.getAttribute('data-note-groups') || '';
-                        const childGroupsArray = childGroups ? childGroups.split(' ').filter(g => g) : [];
-                        if (!childGroupsArray.includes(noteId)) {
-                            childGroupsArray.push(noteId);
-                            childWrapper.setAttribute('data-note-groups', childGroupsArray.join(' '));
-                            console.log(`  - Propagado grupo ${noteId} a wrapper hijo`);
-                        }
-                    });
-                }
-
-                // Añadir eventos solo una vez por wrapper
-                if (!wrapperElement.hasAttribute('data-note-events')) {
-                    wrapperElement.setAttribute('data-note-events', 'true');
-                    
-                    // Evento mouseenter
-                    wrapperElement.addEventListener('mouseenter', function(e) {
-                        // Detener propagación para evitar activar múltiples notas anidadas
-                        e.stopPropagation();
-                        
-                        const elementGroups = this.getAttribute('data-note-groups');
-                        if (!elementGroups) return;
-                        
-                        const groupsArray = elementGroups.split(' ').filter(g => g);
-                        
-                        // Activar TODOS los grupos a los que pertenece este elemento
-                        const allElements = teiContainer.querySelectorAll('[data-note-groups]');
-                        allElements.forEach(el => {
-                            const elGroupsStr = el.getAttribute('data-note-groups');
-                            if (elGroupsStr) {
-                                const elGroups = elGroupsStr.split(' ').filter(g => g);
-                                // Si el elemento comparte algún grupo con el elemento actual, activarlo
-                                const hasCommonGroup = groupsArray.some(group => elGroups.includes(group));
-                                if (hasCommonGroup) {
-                                    el.classList.add('note-active');
-                                }
-                            }
-                        });
-                    });
-
-                    // Evento mouseleave
-                    wrapperElement.addEventListener('mouseleave', function(e) {
-                        e.stopPropagation();
-                        
-                        // Verificar si el destino del ratón es un wrapper relacionado
-                        const relatedTarget = e.relatedTarget;
-                        
-                        // Si el destino es un wrapper con grupos compartidos, no desactivar
-                        if (relatedTarget) {
-                            // Buscar el wrapper más cercano del destino
-                            const targetWrapper = relatedTarget.closest('.note-wrapper');
-                            if (targetWrapper) {
-                                const currentGroups = this.getAttribute('data-note-groups');
-                                const targetGroups = targetWrapper.getAttribute('data-note-groups');
-                                
-                                if (currentGroups && targetGroups) {
-                                    const currentGroupsArray = currentGroups.split(' ').filter(g => g);
-                                    const targetGroupsArray = targetGroups.split(' ').filter(g => g);
-                                    
-                                    // Si comparten algún grupo, no desactivar
-                                    const hasCommonGroup = currentGroupsArray.some(g => targetGroupsArray.includes(g));
-                                    if (hasCommonGroup) {
-                                        return; // No desactivar, el mouseenter del destino se encargará
-                                    }
-                                }
-                            }
-                        }
-                        
-                        // Si no hay destino relacionado, desactivar todo
-                        const allActive = teiContainer.querySelectorAll('.note-active');
-                        allActive.forEach(el => el.classList.remove('note-active'));
-                    });
-                    
-                    // Evento click
-                    wrapperElement.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        
-                        const elementGroups = this.getAttribute('data-note-groups');
-                        if (!elementGroups) return;
-                        
-                        const groupsArray = elementGroups.split(' ').filter(g => g);
-                        const activeGroup = groupsArray[0];
-                        
-                        console.log('Click en elemento, mostrando nota:', activeGroup);
-                        
-                        // Buscar la nota en el XML
-                        let noteToShow = null;
-                        const allNotes = window.notasXML.getElementsByTagName('note');
-                        for (let note of allNotes) {
-                            if (note.getAttribute('xml:id') === activeGroup) {
-                                noteToShow = note;
-                                break;
-                            }
-                        }
-                        
-                        if (noteToShow) {
-                            // Mostrar nota usando función compartida
-                            mostrarNotaEnPanel(noteToShow, activeGroup, teiContainer, noteContentDiv);
-                        } else {
-                            renderizarPlaceholderNota(
-                                noteContentDiv,
-                                'Nota no encontrada.'
-                            );
-                            console.error('No se encontró nota con xml:id:', activeGroup);
-                        }
-                    });
-                }
-            });
+                // Si no hay destino relacionado, desactivar todo
+                teiContainer.querySelectorAll('.note-active').forEach(el => el.classList.remove('note-active'));
+            }
         });
 
         // Guardar lista de todas las notas para navegación
-        window.edicionNotas.todasLasNotas = notes.map(n => n.getAttribute('xml:id')).filter(id => id);
+        window.edicionNotas.todasLasNotas = processedIds;
         console.log(`Total de notas para navegación: ${window.edicionNotas.todasLasNotas.length}`);
-        
+
         // ← AQUÍ VA TODO AL FINAL DE processNotes():
         console.log('Notas procesadas correctamente');
-        
+
         // Inicializar sistema de evaluación
         if (window.edicionEvaluacion) {
             window.edicionEvaluacion.init();
@@ -636,15 +496,7 @@ document.addEventListener("DOMContentLoaded", function() {
     } // ← Fin de processNotes()
 
     function renderizarDockEvaluacionLoading() {
-        return `
-            <div class="lectura-note-eval-loading" data-eval-loading="true" aria-hidden="true">
-                <span class="lectura-skeleton-line is-title"></span>
-                <div class="lectura-skeleton-btnrow">
-                    <span class="lectura-skeleton-btn"></span>
-                    <span class="lectura-skeleton-btn"></span>
-                </div>
-            </div>
-        `;
+        return buildSkeletonLoadingHTML();
     }
 
     function renderizarPlaceholderNota(noteContentDiv, mensaje) {
@@ -669,32 +521,10 @@ document.addEventListener("DOMContentLoaded", function() {
             window.lecturaPanel.abrir('notas');
         }
         
-        const noteType = noteToShow.getAttribute('type') || '';
-        const noteSubtype = noteToShow.getAttribute('subtype') || '';
-        
-        // Mapeo de tipologías normalizadas
-        const typeMap = {
-            'lexica': 'léxica',
-            'parafrasis': 'paráfrasis',
-            'historica': 'histórica',
-            'geografica': 'geográfica',
-            'mitologica': 'mitológica',
-            'estilistica': 'estilística',
-            'escenica': 'escénica',
-            'ecdotica': 'ecdótica',
-            'realia': 'realia'
-        };
-        
-        // Construir badges de tipo/subtipo
-        let badgesHTML = '';
-        if (noteType) {
-            const normalizedType = typeMap[noteType] || noteType;
-            badgesHTML += `<span class="note-badge note-badge-type">${normalizedType}</span>`;
-        }
-        if (noteSubtype) {
-            const normalizedSubtype = typeMap[noteSubtype] || noteSubtype;
-            badgesHTML += `<span class="note-badge note-badge-subtype">${normalizedSubtype}</span>`;
-        }
+        const badgesHTML = buildNoteBadgesHTML(
+            noteToShow.getAttribute('type'),
+            noteToShow.getAttribute('subtype')
+        );
         
         // Actualizar estado de navegación
         window.edicionNotas.notaActualId = noteXmlId;
@@ -723,13 +553,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     </div>
                 </div>
                 <div class="lectura-note-scroll">
-                    <div class="note-display" data-note-id="${noteXmlId}">
-                        <div class="note-header">
-                            ${badgesHTML ? `<div class="note-badges">${badgesHTML}</div>` : ''}
-                        </div>
-                        <p class="fs-6">${noteToShow.textContent.trim()}</p>
-                        <div class="note-footer"></div>
-                    </div>
+                    ${buildNoteDisplayHTML({ noteId: noteXmlId, text: noteToShow.textContent.trim(), badgesHTML })}
                 </div>
                 <div class="lectura-note-eval-dock" data-eval-state="loading">
                     ${renderizarDockEvaluacionLoading()}
@@ -796,18 +620,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Función para marcar nota activa en el texto (persistente)
     function marcarNotaActivaEnTexto(noteId, teiContainer) {
-        // Quitar marca anterior
-        teiContainer.querySelectorAll('.note-current').forEach(el => {
-            el.classList.remove('note-current', 'note-active');
-        });
-        
-        // Marcar la nueva
-        if (noteId) {
-            const wrappers = teiContainer.querySelectorAll(`[data-note-groups*="${noteId}"]`);
-            wrappers.forEach(wrapper => {
-                wrapper.classList.add('note-current', 'note-active');
-            });
-        }
+        markCurrentNoteInText(teiContainer, noteId, { clearAllActive: false, autoScroll: false });
     }
     
     

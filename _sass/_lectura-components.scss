@@ -662,49 +662,32 @@
 // ============================================
 
 // NOTAS: targets y highlights (compartido)
-$note-underline: $color-neutral-700;
-$note-highlight-strong: 0.6;
-$note-highlight: 0.25;
+$note-highlight-color: $color-neutral-200;
+$note-highlight-base: 0.4;
+$note-highlight-strong: 1;
 
-@mixin note-highlight($alpha) {
-  background: linear-gradient(
-    transparent 5%,
-    rgba($color-neutral-200, $alpha) 5%,
-    rgba($color-neutral-100, $alpha) 80%
-  );
-}
-
-// Base para targets de notas
 .note-target {
-  text-decoration: underline;
-  text-decoration-color: $note-underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  background-color: rgba($note-highlight-color, $note-highlight-base);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease;
 
   &:hover,
   &.note-active {
-    text-decoration: none;
-    @include note-highlight($note-highlight-strong);
+    background-color: rgba($note-highlight-color, $note-highlight-strong);
   }
 }
 
-// Cuando las notas están ocultas
-.notes-hidden .note-target {
-  text-decoration: none;
-
-  &:hover,
-  &.note-active {
-    text-decoration: none;
-    @include note-highlight($note-highlight-strong);
-  }
-}
-
-// Nota activa en el texto (más fuerte)
 .note-target.note-current {
-  text-decoration: none !important;
-  @include note-highlight($note-highlight-strong);
+  background-color: rgba($note-highlight-color, $note-highlight-strong);
+}
+
+.notes-hidden .note-target {
+  background-color: transparent;
+
+  &:hover,
+  &.note-active {
+    background-color: rgba($note-highlight-color, $note-highlight-strong);
+  }
 }
 
 // Compatibilidad layout legacy (sin wrapper)

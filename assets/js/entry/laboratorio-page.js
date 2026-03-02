@@ -1,10 +1,6 @@
 ﻿import '../lectura/CETEI.js';
-import '../lectura/utils.js';
-import '../lectura/pasajes.js';
-import '../lectura/notas.js';
-import '../lectura/evaluaciones-stats.js';
-import '../lectura/laboratorio-de-notas.js';
-import '../lectura/sugerencias-notas.js';
+import '../lectura/laboratorio.js';
+import '../participacion/sugerencias.js';
 
 if (typeof window !== 'undefined') {
   var xmlBase = new URL('../../data/tei', import.meta.url).toString().replace(/\/$/, '');

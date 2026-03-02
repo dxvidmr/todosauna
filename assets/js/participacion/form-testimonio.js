@@ -94,6 +94,10 @@
     if (submitButton) submitButton.disabled = !modeDefined || isSubmitting;
   }
 
+  function handleParticipationStateChanged() {
+    updateGateVisibility();
+  }
+
   async function ensureModeDefined(openIfMissing) {
     if (!ns.session || !ns.apiV2) {
       setStatus(statusBox, 'La capa de participación no está disponible.', 'error');
@@ -289,6 +293,8 @@
         await ensureModeDefined(true);
       });
     }
+
+    window.addEventListener('participacion:state-changed', handleParticipationStateChanged);
 
     await ensureModeDefined(true);
   }

@@ -6,12 +6,20 @@ test.describe('F10.1 smoke - lectura second contribution gate', () => {
     await page.goto('/lectura/');
     await waitForSessionReady(page);
 
-    await page.evaluate(async () => {
-      await window.Participacion.session.resetToUnasked();
-      const state = window.Participacion.session.getState();
+    const resetState = await page.evaluate(async () => {
+      const before = window.Participacion.session.getState();
+      const result = await window.Participacion.session.resetToUnasked();
+      const after = window.Participacion.session.getState();
+      const state = after;
       const key = `ta_lectura_contrib_count::${state.browserSessionToken || state.sessionId}`;
       localStorage.removeItem(key);
+      return { before, after, result };
     });
+
+    expect(resetState.result.ok).toBe(true);
+    expect(resetState.after.sessionId).not.toBe(resetState.before.sessionId);
+    expect(resetState.after.browserSessionToken).not.toBe(resetState.before.browserSessionToken);
+    expect(resetState.after.modeChoice).toBe('unasked');
 
     const firstAttempt = await page.evaluate(async () => {
       return await window.Participacion.flow.ensureModeForSecondLecturaContribution();

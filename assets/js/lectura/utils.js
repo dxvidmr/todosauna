@@ -3,17 +3,6 @@
 // ============================================
 
 /**
- * Hash de email con SHA-256
- */
-async function hashEmail(email) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(email.toLowerCase().trim());
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-/**
  * Mostrar toast notification
  */
 function mostrarToast(mensaje, duracion = 2000) {
@@ -162,7 +151,6 @@ function aplicarNumeracionVersos(container, modo = 'cada5') {
 console.log('Utils y rendering utils cargados');
 
 if (typeof window !== 'undefined') {
-  window.hashEmail = hashEmail;
   window.mostrarToast = mostrarToast;
   window.cargarXMLCacheado = cargarXMLCacheado;
   window.formatearFechaRelativa = formatearFechaRelativa;
@@ -171,7 +159,6 @@ if (typeof window !== 'undefined') {
 }
 
 export {
-  hashEmail,
   mostrarToast,
   cargarXMLCacheado,
   formatearFechaRelativa,

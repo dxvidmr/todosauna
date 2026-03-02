@@ -287,6 +287,32 @@
     if (submitButton) submitButton.disabled = disablePrimary || isUploading || !hasUploadReady();
   }
 
+  function handleParticipationStateChanged(event) {
+    var detail = event && event.detail ? event.detail : null;
+
+    if (detail && detail.sessionChanged) {
+      var hadSessionBoundUpload = !!currentStagingId || stagedFiles.length > 0;
+      var adapter = getUploadAdapter();
+
+      if (adapter && typeof adapter.resetRecaptcha === 'function') {
+        adapter.resetRecaptcha();
+      }
+
+      clearUploadedState();
+      if (localFilesInput) localFilesInput.value = '';
+
+      if (hadSessionBoundUpload) {
+        setStatus(
+          statusStep2,
+          'La sesion ha cambiado. Debes volver a subir los archivos antes de enviar.',
+          'info'
+        );
+      }
+    }
+
+    updateGateVisibility();
+  }
+
   async function ensureModeDefined(openIfMissing) {
     if (!ns.session || !ns.apiV2) {
       setStatus(statusStep1, 'La capa de participación no está disponible.', 'error');
@@ -613,7 +639,7 @@
       radio.addEventListener('change', syncRightsHolder);
     });
 
-    window.addEventListener('participacion:state-changed', updateGateVisibility);
+    window.addEventListener('participacion:state-changed', handleParticipationStateChanged);
   }
 
   async function init() {

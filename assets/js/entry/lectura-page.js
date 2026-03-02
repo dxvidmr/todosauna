@@ -1,10 +1,7 @@
 ﻿import '../lectura/CETEI.js';
-import '../lectura/utils.js';
-import '../lectura/notas.js';
-import '../lectura/evaluaciones-stats.js';
 import '../lectura/sala-de-lectura.js';
-import '../lectura/sala-de-lectura-evaluacion.js';
-import '../lectura/sugerencias-notas.js';
+import '../participacion/lectura-evaluacion.js';
+import '../participacion/sugerencias.js';
 
 function bootstrapLecturaXml() {
   if (typeof window === 'undefined') return;

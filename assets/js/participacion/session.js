@@ -71,6 +71,10 @@
     document.cookie = COOKIE_NAME + '=' + encodeURIComponent(token) + '; path=/; SameSite=Lax';
   }
 
+  function clearSessionCookie() {
+    document.cookie = COOKIE_NAME + '=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+  }
+
   function getModeStorageKey(token) {
     return MODE_PREFIX + token;
   }
@@ -148,6 +152,38 @@
     return ns.apiV2;
   }
 
+  function clearCollaboratorProfile() {
+    state.collaboratorId = null;
+    state.displayName = null;
+    state.nivelEstudios = null;
+    state.disciplina = null;
+  }
+
+  function resetStateForNewSession() {
+    state.sessionId = null;
+    state.browserSessionToken = null;
+    state.modoParticipacion = 'anonimo';
+    state.createdAt = null;
+    state.lastActivityAt = null;
+    state.modeChoice = 'unasked';
+    clearCollaboratorProfile();
+  }
+
+  function restoreStateSnapshot(snapshot) {
+    if (!snapshot) return;
+    state.initialized = !!snapshot.initialized;
+    state.sessionId = snapshot.sessionId || null;
+    state.browserSessionToken = snapshot.browserSessionToken || null;
+    state.modoParticipacion = snapshot.modoParticipacion || 'anonimo';
+    state.collaboratorId = snapshot.collaboratorId || null;
+    state.createdAt = snapshot.createdAt || null;
+    state.lastActivityAt = snapshot.lastActivityAt || null;
+    state.modeChoice = VALID_MODES[snapshot.modeChoice] ? snapshot.modeChoice : 'unasked';
+    state.displayName = snapshot.displayName || null;
+    state.nivelEstudios = snapshot.nivelEstudios || null;
+    state.disciplina = snapshot.disciplina || null;
+  }
+
   function getState() {
     return {
       initialized: state.initialized,
@@ -184,12 +220,34 @@
     state.collaboratorId = row.collaborator_id || null;
     state.createdAt = row.created_at || state.createdAt;
     state.lastActivityAt = row.last_activity_at || state.lastActivityAt;
+
+    if (state.modoParticipacion !== 'colaborador') {
+      clearCollaboratorProfile();
+    }
   }
 
-  function dispatchStateChanged() {
+  function dispatchStateChanged(options) {
+    var input = options || {};
+    var previousState = input.previousState || null;
+    var currentState = getState();
+    var detail = Object.assign({}, currentState, {
+      previousState: previousState,
+      reason: String(input.reason || 'state-updated'),
+      sessionChanged: !!(
+        previousState &&
+        previousState.sessionId &&
+        previousState.sessionId !== currentState.sessionId
+      ),
+      browserSessionChanged: !!(
+        previousState &&
+        previousState.browserSessionToken &&
+        previousState.browserSessionToken !== currentState.browserSessionToken
+      )
+    });
+
     try {
       window.dispatchEvent(
-        new CustomEvent('participacion:state-changed', { detail: getState() })
+        new CustomEvent('participacion:state-changed', { detail: detail })
       );
     } catch (err) {
       // No-op on browsers without CustomEvent support.
@@ -223,6 +281,7 @@
 
     state.bootstrapPromise = (async function () {
       var api = getApi();
+      var previousState = getState();
       if (!api) {
         state.initialized = true;
         return getState();
@@ -254,7 +313,7 @@
       writeModeChoice(state.browserSessionToken, state.modeChoice);
       syncLegacySessionStorage();
       state.initialized = true;
-      dispatchStateChanged();
+      dispatchStateChanged({ previousState: previousState, reason: 'bootstrap' });
       log('Sesion bootstrap lista', getPublicSessionData());
       return getState();
     })().finally(function () {
@@ -267,6 +326,7 @@
   async function setAnonimo() {
     await init();
     var api = getApi();
+    var previousState = getState();
     if (!api || !state.sessionId) {
       return { ok: false, error: { message: 'Sesion no disponible' } };
     }
@@ -284,13 +344,14 @@
 
     writeModeChoice(state.browserSessionToken, state.modeChoice);
     syncLegacySessionStorage();
-    dispatchStateChanged();
+    dispatchStateChanged({ previousState: previousState, reason: 'set-anonimo' });
     return { ok: true, session: getPublicSessionData() };
   }
 
   async function registerAndBind(email, displayName, profile) {
     await init();
     var api = getApi();
+    var previousState = getState();
     if (!api || !state.sessionId) {
       return { ok: false, reason: 'invalid_session' };
     }
@@ -328,7 +389,7 @@
 
     writeModeChoice(state.browserSessionToken, state.modeChoice);
     syncLegacySessionStorage();
-    dispatchStateChanged();
+    dispatchStateChanged({ previousState: previousState, reason: 'register-and-bind' });
 
     return {
       ok: true,
@@ -340,6 +401,7 @@
   async function loginAndBind(email) {
     await init();
     var api = getApi();
+    var previousState = getState();
     if (!api || !state.sessionId) {
       return { ok: false, found: false, reason: 'invalid_session' };
     }
@@ -378,7 +440,7 @@
 
     writeModeChoice(state.browserSessionToken, state.modeChoice);
     syncLegacySessionStorage();
-    dispatchStateChanged();
+    dispatchStateChanged({ previousState: previousState, reason: 'login-and-bind' });
 
     return {
       ok: true,
@@ -391,32 +453,65 @@
   async function resetToUnasked() {
     await init();
     var api = getApi();
+    var previousState = getState();
+    var previousToken = previousState.browserSessionToken;
+    var previousMode = previousState.modeChoice;
 
-    if (api && state.sessionId) {
-      var response = await api.setModeAnonimo(state.sessionId);
-      if (!response.error && response.data) {
-        applySessionRow(response.data);
-      } else if (response.error) {
-        warn('No se pudo desasociar colaborador en reset', response.error);
+    if (!api) {
+      return { ok: false, error: { message: 'Sesion no disponible' } };
+    }
+
+    if (previousState.sessionId) {
+      var detachResponse = await api.setModeAnonimo(previousState.sessionId);
+      if (detachResponse.error) {
+        warn('No se pudo desasociar colaborador en reset', detachResponse.error);
       }
     }
 
-    state.modeChoice = 'unasked';
-    state.modoParticipacion = 'anonimo';
-    state.collaboratorId = null;
-    state.displayName = null;
-    state.nivelEstudios = null;
-    state.disciplina = null;
+    clearSessionCookie();
+    clearLegacySessionStorage();
+    resetStateForNewSession();
 
+    var response = await api.bootstrapSession(null);
+    if (response.error || !response.data || !response.data.session_id) {
+      warn('No se pudo crear nueva sesion en reset', response.error);
+      restoreStateSnapshot(previousState);
+      if (previousToken) {
+        writeSessionCookie(previousToken);
+      }
+      if (previousToken && VALID_MODES[previousMode]) {
+        writeModeChoice(previousToken, previousMode);
+      }
+      syncLegacySessionStorage();
+      dispatchStateChanged({ previousState: previousState, reason: 'session-reset-failed' });
+      return {
+        ok: false,
+        error: response.error || { message: 'No se pudo crear una nueva sesion' }
+      };
+    }
+
+    applySessionRow(response.data);
+
+    var normalizedToken = normalizeUuid(state.browserSessionToken);
+    if (normalizedToken) {
+      state.browserSessionToken = normalizedToken;
+      writeSessionCookie(normalizedToken);
+    }
+
+    state.initialized = true;
+    state.modoParticipacion = 'anonimo';
+    state.modeChoice = 'unasked';
+    clearCollaboratorProfile();
     writeModeChoice(state.browserSessionToken, state.modeChoice);
     clearLegacySessionStorage();
-    dispatchStateChanged();
+    dispatchStateChanged({ previousState: previousState, reason: 'session-reset' });
     return { ok: true, session: getPublicSessionData() };
   }
 
   async function refreshFromServer(modeHint) {
     await init();
     var api = getApi();
+    var previousState = getState();
     if (!api || !state.browserSessionToken) {
       return { ok: false, error: { message: 'Sesion no disponible para refresh' } };
     }
@@ -438,7 +533,7 @@
 
     writeModeChoice(state.browserSessionToken, state.modeChoice);
     syncLegacySessionStorage();
-    dispatchStateChanged();
+    dispatchStateChanged({ previousState: previousState, reason: 'refresh-from-server' });
     return { ok: true, state: getState() };
   }
 

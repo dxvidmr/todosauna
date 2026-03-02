@@ -22,6 +22,8 @@ objects/
 .env
 .env.*
 !.env.example
+tmpclaude-*
+nul
 
 # Supabase CLI local cache
 supabase/.temp/

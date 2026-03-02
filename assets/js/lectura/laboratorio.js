@@ -5,14 +5,26 @@ import {
   aplicarNumeracionVersos
 } from './utils.js';
 import { extraerFragmento, extraerXmlIdsDelFragmento } from './pasajes.js';
-import { cargarNotasActivas } from './notas.js';
+import {
+  applyNoteHighlights,
+  highlightNoteInText,
+  markCurrentNoteInText,
+  buildNoteBadgesHTML,
+  buildNoteDisplayHTML
+} from './notas-dom.js';
+import { cargarNotasActivas } from '../participacion/notas.js';
 import {
   obtenerEvaluacionesStats,
   attachEvaluationListeners,
   actualizarContadorLocal,
   obtenerEstadisticasGlobales,
-  renderizarEstadisticasGlobales
-} from './evaluaciones-stats.js';
+  renderizarEstadisticasGlobales,
+  registrarEvaluacion as registrarEvaluacionShared,
+  crearBotonesConContadores,
+  getApiV2,
+  getSessionData,
+  getParticipationUserMessage
+} from '../participacion/evaluaciones.js';
 
 // ============================================
 // EDITOR SOCIAL (JUEGO DE EVALUACION)
@@ -52,7 +64,8 @@ class EditorSocial {
     this.labFontStep = 5;
     this.labFontVisualScale = 0.9;
     this.resizeAdjustTimer = null;
-    this.pendingEvaluations = new Set();
+    this.participationStateListenerBound = false;
+    this.handleParticipationStateChanged = this.handleParticipationStateChanged.bind(this);
   }
 
   notifyFeedback(message, type, duration) {
@@ -83,14 +96,6 @@ class EditorSocial {
     return false;
   }
 
-  getApiV2() {
-    return window.Participacion?.apiV2 || null;
-  }
-
-  getSessionData() {
-    return window.Participacion?.session?.getPublicSessionData?.() || null;
-  }
-
   isModeDefined() {
     return !!window.Participacion?.session?.isModeDefined?.();
   }
@@ -98,40 +103,6 @@ class EditorSocial {
   async openParticipationModal(options) {
     if (!window.Participacion?.modal?.open) return;
     await window.Participacion.modal.open(options || {});
-  }
-
-  getParticipationUserMessage(error, context, fallback) {
-    const api = this.getApiV2();
-    if (api && typeof api.getParticipationUserMessage === 'function') {
-      return api.getParticipationUserMessage(error, context, fallback);
-    }
-
-    if (typeof fallback === 'string' && fallback.trim()) {
-      return fallback;
-    }
-
-    if (error && typeof error.message === 'string' && error.message.trim()) {
-      return error.message.trim();
-    }
-
-    return 'Error inesperado';
-  }
-
-  setNoteEvaluationBusy(notaId, isBusy) {
-    var key = String(notaId || '');
-    if (!key) return;
-
-    this.notaContent
-      ?.querySelectorAll('.nota-evaluacion')
-      .forEach((block) => {
-        if (String(block.dataset.noteId || '') !== key) return;
-        block.querySelectorAll('button').forEach((btn) => {
-          btn.disabled = !!isBusy;
-        });
-        block.querySelectorAll('textarea').forEach((area) => {
-          area.readOnly = !!isBusy;
-        });
-      });
   }
 
   /**
@@ -202,6 +173,7 @@ class EditorSocial {
     
     // Event listeners para controles del laboratorio
     this.setupEventListeners();
+    this.bindParticipationStateListener();
     this.actualizarDisplayZoomPasaje();
 
     console.log('Editor Social inicializado');
@@ -543,7 +515,7 @@ class EditorSocial {
    * Cargar lista de pasajes desde Supabase
    */
   async cargarPasajes() {
-    const apiV2 = this.getApiV2();
+    const apiV2 = getApiV2();
     if (!apiV2 || typeof apiV2.getPasajes !== 'function') {
       this.notifyFeedback('Error al cargar pasajes. API no disponible.', 'error', 3200);
       return;
@@ -725,132 +697,30 @@ class EditorSocial {
    * Aplicar highlights al texto basandose en las notas de Supabase
    */
   aplicarHighlights() {
-    const teiContainer = document.getElementById('tei-pasaje');
+    const teiContainer = this.getTeiPasajeContainer();
     if (!teiContainer) return;
 
-    // Ordenar notas: primero las mas especificas (seg), luego las generales (l)
-    const notasOrdenadas = [...this.notasPasaje].sort((a, b) => {
-      const targetA = a.target || '';
-      const targetB = b.target || '';
-      
-      const aIsSeg = targetA.includes('seg-');
-      const bIsSeg = targetB.includes('seg-');
-      
-      if (aIsSeg && !bIsSeg) return -1;
-      if (!aIsSeg && bIsSeg) return 1;
-      
-      const aCount = targetA.split(/\s+/).length;
-      const bCount = targetB.split(/\s+/).length;
-      return aCount - bCount;
-    });
+    applyNoteHighlights(teiContainer, this.notasPasaje, {
+      getTarget: nota => nota.target || '',
+      getNoteId: nota => nota.nota_id || '',
+      propagateGroups: false,
 
-    notasOrdenadas.forEach((nota, index) => {
-      const targetAttr = nota.target;
-      const notaId = nota.nota_id;
-      
-      if (!targetAttr || !notaId) return;
+      onWrapperClick: ({ groups }) => {
+        const idx = this.notasPasaje.findIndex(n => n.nota_id === groups[0]);
+        if (idx >= 0) this.navegarANota(idx);
+      },
 
-      const targets = targetAttr.split(/\s+/).map(t => t.replace('#', ''));
-      const targetElements = [];
+      onWrapperEnter: ({ groups }) => {
+        if (groups[0]) highlightNoteInText(teiContainer, groups[0], true);
+      },
 
-      // Buscar todos los elementos target en el DOM
-      targets.forEach(targetId => {
-        let element = teiContainer.querySelector(`[xml\\:id="${targetId}"]`);
-        
-        if (!element) {
-          const allElements = teiContainer.querySelectorAll('*');
-          for (let el of allElements) {
-            if (el.getAttribute('xml:id') === targetId) {
-              element = el;
-              break;
-            }
-          }
+      onWrapperLeave: ({ groups }) => {
+        const noteId = groups[0];
+        const notaActual = this.notasPasaje[this.notaActualIndex];
+        if (!notaActual || notaActual.nota_id !== noteId) {
+          highlightNoteInText(teiContainer, noteId, false);
         }
-        
-        if (element) {
-          targetElements.push(element);
-        }
-      });
-
-      if (targetElements.length === 0) return;
-
-      // Aplicar wrapper a cada elemento target
-      targetElements.forEach(element => {
-        let wrapperElement = null;
-        
-        // Verificar si ya existe un wrapper
-        if (element.firstElementChild && element.firstElementChild.classList.contains('note-wrapper')) {
-          wrapperElement = element.firstElementChild;
-        } else {
-          // Crear wrapper nuevo
-          wrapperElement = document.createElement('span');
-          wrapperElement.className = 'note-wrapper note-target';
-          
-          // Mover contenido al wrapper
-          const childNodes = Array.from(element.childNodes);
-          childNodes.forEach(child => {
-            wrapperElement.appendChild(child);
-          });
-          
-          element.appendChild(wrapperElement);
-        }
-        
-        // Asegurar clases
-        if (!wrapperElement.classList.contains('note-target')) {
-          wrapperElement.classList.add('note-target');
-        }
-        
-        // Anadir ID de nota y su indice
-        const currentGroups = wrapperElement.getAttribute('data-note-groups') || '';
-        const groups = currentGroups ? currentGroups.split(' ').filter(g => g) : [];
-        if (!groups.includes(notaId)) {
-          groups.push(notaId);
-          wrapperElement.setAttribute('data-note-groups', groups.join(' '));
-        }
-
-        // Anadir eventos solo una vez por wrapper
-        if (!wrapperElement.hasAttribute('data-note-events')) {
-          wrapperElement.setAttribute('data-note-events', 'true');
-          
-          // Evento click - mostrar nota correspondiente
-          wrapperElement.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const noteGroups = wrapperElement.getAttribute('data-note-groups');
-            if (!noteGroups) return;
-            
-            const firstNoteId = noteGroups.split(' ')[0];
-            const noteIndex = this.notasPasaje.findIndex(n => n.nota_id === firstNoteId);
-            
-            if (noteIndex >= 0) {
-              this.navegarANota(noteIndex);
-            }
-          });
-
-          // Evento mouseenter - highlight
-          wrapperElement.addEventListener('mouseenter', (e) => {
-            e.stopPropagation();
-            const noteGroups = wrapperElement.getAttribute('data-note-groups');
-            if (noteGroups) {
-              this.highlightNotaEnTexto(noteGroups.split(' ')[0], true);
-            }
-          });
-
-          // Evento mouseleave - quitar highlight
-          wrapperElement.addEventListener('mouseleave', (e) => {
-            e.stopPropagation();
-            const noteGroups = wrapperElement.getAttribute('data-note-groups');
-            if (noteGroups) {
-              const noteId = noteGroups.split(' ')[0];
-              const notaActual = this.notasPasaje[this.notaActualIndex];
-              if (!notaActual || notaActual.nota_id !== noteId) {
-                this.highlightNotaEnTexto(noteId, false);
-              }
-            }
-          });
-        }
-      });
+      }
     });
 
     aplicarNumeracionVersos(teiContainer, 'cada5');
@@ -860,51 +730,12 @@ class EditorSocial {
   }
 
   /**
-   * Highlight/unhighlight una nota en el texto
-   */
-  highlightNotaEnTexto(notaId, activo) {
-    const teiContainer = document.getElementById('tei-pasaje');
-    if (!teiContainer) return;
-
-    const wrappers = teiContainer.querySelectorAll(`[data-note-groups*="${notaId}"]`);
-    wrappers.forEach(wrapper => {
-      if (activo) {
-        wrapper.classList.add('note-active');
-      } else {
-        wrapper.classList.remove('note-active');
-      }
-    });
-  }
-
-  /**
    * Marcar nota actual en el texto
    */
   marcarNotaActualEnTexto(notaId) {
-    const teiContainer = document.getElementById('tei-pasaje');
+    const teiContainer = this.getTeiPasajeContainer();
     if (!teiContainer) return;
-
-    // Quitar marca anterior
-    teiContainer.querySelectorAll('.note-current').forEach(el => {
-      el.classList.remove('note-current');
-    });
-
-    // Quitar todos los active
-    teiContainer.querySelectorAll('.note-active').forEach(el => {
-      el.classList.remove('note-active');
-    });
-
-    // Marcar la actual
-    if (notaId) {
-      const wrappers = teiContainer.querySelectorAll(`[data-note-groups*="${notaId}"]`);
-      wrappers.forEach(wrapper => {
-        wrapper.classList.add('note-current', 'note-active');
-      });
-
-      // Scroll al primer elemento
-      if (wrappers.length > 0) {
-        wrappers[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }
+    markCurrentNoteInText(teiContainer, notaId, { clearAllActive: true, autoScroll: true });
   }
 
   /**
@@ -939,48 +770,18 @@ class EditorSocial {
     const pasajeId = this.pasajes[this.pasajeActualIndex]?.id;
     const yaEvaluada = this.notasEvaluadas.has(nota.nota_id);
 
-    // Mapeo de tipologias normalizadas (igual que sala de lectura)
-    const typeMap = {
-      lexica: 'léxica',
-      parafrasis: 'paráfrasis',
-      historica: 'histórica',
-      geografica: 'geográfica',
-      mitologica: 'mitológica',
-      estilistica: 'estilística',
-      escenica: 'escénica',
-      ecdotica: 'ecdótica',
-      realia: 'realia'
-    };
-
-    // Construir badges de tipo/subtipo
-    let badgesHTML = '';
-    if (nota.type) {
-      const normalizedType = typeMap[nota.type] || nota.type;
-      badgesHTML += `<span class="note-badge note-badge-type">${normalizedType}</span>`;
-    }
-    if (nota.subtype) {
-      const normalizedSubtype = typeMap[nota.subtype] || nota.subtype;
-      badgesHTML += `<span class="note-badge note-badge-subtype">${normalizedSubtype}</span>`;
-    }
+    const badgesHTML = buildNoteBadgesHTML(nota.type, nota.subtype);
 
     // Obtener estadisticas de evaluaciones
     const evaluaciones = typeof obtenerEvaluacionesStats === 'function'
       ? obtenerEvaluacionesStats(nota.nota_id, nota)
       : { total: 0, utiles: 0, mejorables: 0 };
 
-    const mensajePrimero = evaluaciones.total === 0
-      ? '<p class="eval-mensaje-primero">¡Sé el primero en evaluarla!</p>'
-      : '';
-
-    const noteDisplayHtml = `
-      <div class="note-display" data-note-id="${nota.nota_id}">
-        <div class="note-header">
-          ${badgesHTML ? `<div class="note-badges">${badgesHTML}</div>` : ''}
-        </div>
-        <p class="fs-6">${nota.texto_nota}</p>
-        <div class="note-footer"></div>
-      </div>
-    `;
+    const noteDisplayHtml = buildNoteDisplayHTML({
+      noteId: nota.nota_id,
+      text: nota.texto_nota,
+      badgesHTML
+    });
 
     let dockHtml = '';
     if (yaEvaluada) {
@@ -993,28 +794,8 @@ class EditorSocial {
     } else {
       dockHtml = `
         <div class="nota-evaluacion" data-note-id="${nota.nota_id}">
-          <div class="evaluacion-header">
-            <span>¿Te resulta útil esta nota?</span>
-          </div>
-          <div class="evaluacion-botones">
-            <button class="btn btn-outline-success btn-evaluar btn-util" data-nota-id="${nota.nota_id}" data-version="${nota.version}">
-              <span class="btn-contador">${evaluaciones.utiles}</span>
-              <i class="fa-solid fa-heart" aria-hidden="true"></i>
-              Útil
-            </button>
-            <button class="btn btn-outline-danger btn-evaluar btn-mejorable" data-nota-id="${nota.nota_id}" data-version="${nota.version}">
-              <span class="btn-contador">${evaluaciones.mejorables}</span>
-              <i class="fa-solid fa-heart-crack" aria-hidden="true"></i>
-              Mejorable
-            </button>
-          </div>
-          <div class="evaluacion-comentario" style="display:none;">
-            <textarea placeholder="[opcional] ¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota." rows="3"></textarea>
-            <button class="btn btn-dark btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
-            <button class="btn btn-outline-dark btn-sm btn-cancelar-comentario">Cancelar</button>
-          </div>
+          ${crearBotonesConContadores(nota.nota_id, nota.version, evaluaciones)}
         </div>
-        ${mensajePrimero}
       `;
     }
 
@@ -1029,96 +810,21 @@ class EditorSocial {
       </div>
     `;
 
-    // Adjuntar event listeners si no esta evaluada usando funcion reutilizable
+    // Adjuntar event listeners si no esta evaluada
     if (!yaEvaluada) {
-      if (typeof attachEvaluationListeners === 'function') {
-        const container = this.notaContent.querySelector('.lab-note-eval-dock') || this.notaContent;
-        attachEvaluationListeners(
-          container,
-          nota.nota_id,
-          nota.version,
-          (nId, ver, vote, comment) => this.registrarEvaluacion(nId, ver, vote, comment, pasajeId),
-          (nId, vote) => {
-            this.marcarNotaComoEvaluada(nId);
-            this.avanzarSiguienteNotaPendiente();
-          }
-        );
-      } else {
-        // Fallback a metodo legacy
-        this.attachNotaListeners(nota, pasajeId);
-      }
+      const container = this.notaContent.querySelector('.lab-note-eval-dock') || this.notaContent;
+      attachEvaluationListeners(
+        container,
+        nota.nota_id,
+        nota.version,
+        (nId, ver, vote, comment) => this.registrarEvaluacion(nId, ver, vote, comment, pasajeId),
+        (nId, vote) => {
+          this.marcarNotaComoEvaluada(nId);
+          this.avanzarSiguienteNotaPendiente();
+        }
+      );
     }
   }
-  /**
-   * Adjuntar listeners a los botones de evaluacion (LEGACY)
-   * @deprecated Usar attachEvaluationListeners de evaluaciones-stats.js
-   */
-  attachNotaListeners(nota, pasajeId) {
-    const btnUtil = this.notaContent.querySelector('.btn-util');
-    const btnMejorable = this.notaContent.querySelector('.btn-mejorable');
-    const comentarioDiv = this.notaContent.querySelector('.evaluacion-comentario');
-    const textarea = comentarioDiv?.querySelector('textarea');
-    const btnEnviar = comentarioDiv?.querySelector('.btn-enviar-comentario');
-    const btnCancelar = comentarioDiv?.querySelector('.btn-cancelar-comentario');
-
-    // Boton "Util"
-    btnUtil?.addEventListener('click', async () => {
-      const exito = await this.registrarEvaluacion(
-        nota.nota_id,
-        nota.version,
-        'up',
-        null,
-        pasajeId
-      );
-
-      if (exito) {
-        // Actualizar contador local inmediatamente
-        if (typeof actualizarContadorLocal === 'function') {
-          actualizarContadorLocal(nota.nota_id, 'up');
-        }
-        this.marcarNotaComoEvaluada(nota.nota_id);
-        this.avanzarSiguienteNotaPendiente();
-      }
-    });
-
-    // Boton "Mejorable" - mostrar campo de comentario
-    btnMejorable?.addEventListener('click', () => {
-      if (comentarioDiv) {
-        comentarioDiv.style.display = 'block';
-        textarea?.focus();
-      }
-    });
-
-    // Boton "Enviar comentario"
-    btnEnviar?.addEventListener('click', async () => {
-      const comentario = textarea?.value.trim() || null;
-      const exito = await this.registrarEvaluacion(
-        nota.nota_id,
-        nota.version,
-        'down',
-        comentario,
-        pasajeId
-      );
-
-      if (exito) {
-        // Actualizar contador local inmediatamente
-        if (typeof actualizarContadorLocal === 'function') {
-          actualizarContadorLocal(nota.nota_id, 'down');
-        }
-        this.marcarNotaComoEvaluada(nota.nota_id);
-        this.avanzarSiguienteNotaPendiente();
-      }
-    });
-
-    // Boton "Cancelar"
-    btnCancelar?.addEventListener('click', () => {
-      if (comentarioDiv) {
-        comentarioDiv.style.display = 'none';
-        if (textarea) textarea.value = '';
-      }
-    });
-  }
-
   /**
    * Marcar nota como evaluada
    */
@@ -1200,69 +906,15 @@ class EditorSocial {
   }
 
   /**
-   * Registrar evaluacion en Supabase
+   * Registrar evaluacion en Supabase (delega a función compartida)
    */
   async registrarEvaluacion(notaId, version, vote, comentario, pasajeId) {
-      const lockKey = String(notaId || '');
-      if (lockKey && this.pendingEvaluations.has(lockKey)) {
-        return false;
-      }
-
-      // Verificar modo de usuario
-      if (!this.isModeDefined()) {
-        await this.openParticipationModal({
-          context: 'laboratorio-before-mode',
-          reason: 'during-evaluation'
-        });
-      }
-
-      const apiV2 = this.getApiV2();
-      const sessionData = this.getSessionData();
-
-      if (!apiV2 || !sessionData?.session_id) {
-        console.error('No se pudo obtener datos de usuario');
-        this.notifyFeedback('Error: modo no definido', 'error', 3000);
-        return false;
-      }
-
-      if (lockKey) {
-        this.pendingEvaluations.add(lockKey);
-        this.setNoteEvaluationBusy(lockKey, true);
-      }
-
-      // La sesión ya está creada en BD (se creó al elegir modo)
-      try {
-        const { error } = await apiV2.submitNoteEvaluation({
-          source: 'laboratorio',
-          session_id: sessionData.session_id,
-          pasaje_id: pasajeId,
-          nota_id: notaId,
-          nota_version: version,
-          vote: vote,
-          comment: comentario
-        });
-
-        if (error) {
-          console.error('Error al registrar evaluación:', error);
-          const message = this.getParticipationUserMessage(
-            error,
-            'evaluacion',
-            'Error al enviar evaluación'
-          );
-          this.notifyFeedback(message || 'Error al enviar evaluación', 'error', 3000);
-          return false;
-        }
-
-        // NO invalidamos caché aquí - actualizamos localmente en actualizarContadorLocal()
-        console.log('Evaluación registrada:', vote, notaId);
-        return true;
-      } finally {
-        if (lockKey) {
-          this.pendingEvaluations.delete(lockKey);
-          this.setNoteEvaluationBusy(lockKey, false);
-        }
-      }
-    }
+    return registrarEvaluacionShared({
+      notaId, version, vote, comentario, pasajeId,
+      source: 'laboratorio',
+      scopeEl: this.notaContent
+    });
+  }
 
   setupModalCambiarModo() {
     if (!this.modalCambiarModo) return;
@@ -1358,6 +1010,28 @@ class EditorSocial {
 
     // Actualizar botones iniciales
     this.actualizarBotonesNavegacion();
+  }
+
+  bindParticipationStateListener() {
+    if (this.participationStateListenerBound || typeof window === 'undefined') return;
+    window.addEventListener('participacion:state-changed', this.handleParticipationStateChanged);
+    this.participationStateListenerBound = true;
+  }
+
+  handleParticipationStateChanged(event) {
+    const detail = event?.detail;
+    if (!detail?.sessionChanged) return;
+
+    this.notasEvaluadas.clear();
+
+    if (document.getElementById('notas-totales')) {
+      this.actualizarContadores();
+    }
+
+    const notaActual = this.notaActualIndex >= 0 ? this.notasPasaje[this.notaActualIndex] : null;
+    if (notaActual) {
+      this.renderizarNotaActual(notaActual);
+    }
   }
 
   /**

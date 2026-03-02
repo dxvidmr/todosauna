@@ -666,7 +666,16 @@
         self.isResettingSession = true;
         setButtonBusy(closeSessionBtn, true, 'Cerrando...');
         try {
-          await session.resetToUnasked();
+          var result = await session.resetToUnasked();
+          if (!result || !result.ok) {
+            var message = getUserMessage(
+              result && result.error,
+              'session_reset',
+              'No se pudo cerrar la sesion. Intenta de nuevo.'
+            );
+            await self._showAlert('No se pudo cerrar la sesion', message, 'warning');
+            return;
+          }
           closeInfoModal();
           notify('Sesión cerrada', 'success');
           setTimeout(function () {
