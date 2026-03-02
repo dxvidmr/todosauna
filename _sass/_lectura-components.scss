@@ -6,6 +6,24 @@
 @use "variables" as *;
 
 // ============================================
+// BASE TIPOGRAFICA TEI COMPARTIDA
+// ============================================
+
+:root {
+  --tei-text-base-size: 1rem;
+  --tei-text-zoom-percent: 100;
+  --tei-text-line-height: 1.6;
+}
+
+.text-column,
+.lab-tei-pasaje {
+  font-family: 'Google Sans Code', 'Oxygen Mono', 'Source Code Pro', monospace;
+  font-weight: 300;
+  line-height: var(--tei-text-line-height);
+  font-size: calc(var(--tei-text-base-size) * var(--tei-text-zoom-percent) / 100);
+}
+
+// ============================================
 // TOAST NOTIFICATIONS
 // ============================================
 

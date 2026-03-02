@@ -613,14 +613,9 @@ body.laboratorio-page.laboratorio-mode-active {
 }
 
 .lab-tei-pasaje {
-  --lab-pasaje-font-size: 90%;
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  font-family: "Google Sans Code", "Oxygen Mono", "Source Code Pro", monospace;
-  font-weight: 300;
-  line-height: 1.65;
-  font-size: var(--lab-pasaje-font-size);
 }
 
 .pasaje-container tei-l,

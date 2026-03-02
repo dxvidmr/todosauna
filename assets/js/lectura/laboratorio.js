@@ -4,6 +4,13 @@ import {
   alignSplitVerses,
   aplicarNumeracionVersos
 } from './utils.js';
+import {
+  DEFAULT_ZOOM_PERCENT,
+  MIN_ZOOM_PERCENT,
+  MAX_ZOOM_PERCENT,
+  ZOOM_STEP_PERCENT,
+  createTextZoomController
+} from './text-zoom.js';
 import { extraerFragmento, extraerXmlIdsDelFragmento } from './pasajes.js';
 import {
   applyNoteHighlights,
@@ -58,11 +65,11 @@ class EditorSocial {
     this.navWrapper = null;
 
     // Zoom del pasaje (sesion actual)
-    this.labFontSizePercent = 100;
-    this.labFontMin = 80;
-    this.labFontMax = 150;
-    this.labFontStep = 5;
-    this.labFontVisualScale = 0.9;
+    this.labFontSizePercent = DEFAULT_ZOOM_PERCENT;
+    this.labFontMin = MIN_ZOOM_PERCENT;
+    this.labFontMax = MAX_ZOOM_PERCENT;
+    this.labFontStep = ZOOM_STEP_PERCENT;
+    this.textZoomController = null;
     this.resizeAdjustTimer = null;
     this.participationStateListenerBound = false;
     this.handleParticipationStateChanged = this.handleParticipationStateChanged.bind(this);
@@ -148,6 +155,7 @@ class EditorSocial {
     this.wrapperEl = document.querySelector('.laboratorio-wrapper');
     this.navWrapper = document.querySelector('.nav-wrapper');
     this.modalCambiarModo = document.getElementById('modal-cambiar-modo');
+    this.setupTextZoomController();
 
     // Cargar pasajes desde Supabase
     await this.cargarPasajes();
@@ -174,7 +182,6 @@ class EditorSocial {
     // Event listeners para controles del laboratorio
     this.setupEventListeners();
     this.bindParticipationStateListener();
-    this.actualizarDisplayZoomPasaje();
 
     console.log('Editor Social inicializado');
   }
@@ -246,24 +253,40 @@ class EditorSocial {
     return document.getElementById('tei-pasaje');
   }
 
-  actualizarDisplayZoomPasaje() {
-    const display = document.getElementById('lab-font-size-display');
-    if (display) {
-      display.textContent = `${this.labFontSizePercent}%`;
+  setupTextZoomController() {
+    if (this.textZoomController) {
+      this.textZoomController.sync();
+      this.labFontSizePercent = this.textZoomController.getPercent();
+      return;
     }
+
+    this.textZoomController = createTextZoomController({
+      target: () => this.getTeiPasajeContainer(),
+      display: document.getElementById('lab-font-size-display'),
+      defaultPercent: this.labFontSizePercent,
+      minPercent: this.labFontMin,
+      maxPercent: this.labFontMax,
+      stepPercent: this.labFontStep,
+      onAfterApply: ({ percent }) => {
+        this.labFontSizePercent = percent;
+      },
+      canIncrease: () => !this.tieneOverflowHorizontalPasaje()
+    });
+
+    this.labFontSizePercent = this.textZoomController.getPercent();
+  }
+
+  actualizarDisplayZoomPasaje() {
+    if (!this.textZoomController) return;
+    this.textZoomController.sync();
+    this.labFontSizePercent = this.textZoomController.getPercent();
   }
 
   aplicarZoomPasaje(percent) {
-    const teiContainer = this.getTeiPasajeContainer();
-    const clampedPercent = Math.max(this.labFontMin, Math.min(this.labFontMax, percent));
-    const effectivePercent = clampedPercent * this.labFontVisualScale;
-    this.labFontSizePercent = clampedPercent;
-
-    if (teiContainer) {
-      teiContainer.style.setProperty('--lab-pasaje-font-size', `${effectivePercent}%`);
-    }
-
-    this.actualizarDisplayZoomPasaje();
+    if (!this.textZoomController) return null;
+    const result = this.textZoomController.setPercent(percent);
+    this.labFontSizePercent = this.textZoomController.getPercent();
+    return result;
   }
 
   tieneOverflowHorizontalPasaje() {
@@ -287,16 +310,17 @@ class EditorSocial {
   }
 
   intentarAumentarZoomSinOverflow() {
-    if (this.labFontSizePercent >= this.labFontMax) {
+    if (!this.textZoomController) return;
+
+    const result = this.textZoomController.increase();
+    this.labFontSizePercent = this.textZoomController.getPercent();
+
+    if (!result.ok && result.reason === 'max') {
       mostrarToast('Tamaño máximo alcanzado', 1400);
       return;
     }
 
-    const previous = this.labFontSizePercent;
-    this.aplicarZoomPasaje(previous + this.labFontStep);
-
-    if (this.tieneOverflowHorizontalPasaje()) {
-      this.aplicarZoomPasaje(previous);
+    if (!result.ok && result.reason === 'blocked') {
       mostrarToast('No se puede aumentar más sin desbordar', 1600);
     }
   }
@@ -993,8 +1017,9 @@ class EditorSocial {
     });
 
     document.getElementById('lab-font-decrease')?.addEventListener('click', () => {
-      this.aplicarZoomPasaje(this.labFontSizePercent - this.labFontStep);
-      this.ajustarZoomHastaNoOverflow();
+      if (!this.textZoomController) return;
+      this.textZoomController.decrease();
+      this.labFontSizePercent = this.textZoomController.getPercent();
     });
 
     // Revalidar overflow horizontal al cambiar tamano de viewport

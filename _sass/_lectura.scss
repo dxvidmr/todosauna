@@ -80,10 +80,6 @@ html:has(.lectura-wrapper) {
   max-width: 100vw;
   padding-left: 50px;
   min-height: 100vh;
-  font-family: 'Google Sans Code', 'Oxygen Mono', 'Source Code Pro', monospace;
-  font-weight: 300;
-  font-size: 100%;
-  line-height: 1.6;
   color: $color-text;
   box-sizing: border-box;
 
@@ -1385,7 +1381,6 @@ tei-milestone[unit="stanza"].show-line::after {
     padding-bottom: calc(#{$lectura-tabs-height} + 20px);
     max-width: 100vw;
     width: 100%;
-    font-size: 90%; // Reducir tamaño de fuente en móvil
   }
   
   .lectura-panel-wrapper {

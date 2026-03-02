@@ -1,3 +1,4 @@
+import { createTextZoomController } from './text-zoom.js';
 import { aplicarNumeracionVersos, alignSplitVerses } from './utils.js';
 import { cargarNotasActivas } from '../participacion/notas.js';
 import {
@@ -13,8 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Referencias globales
     const lecturaWrapper = document.querySelector('.lectura-wrapper');
     const textColumn = document.querySelector('.text-column');
-    const fontSizeDisplay = document.getElementById('font-size-display');
-    let currentFontSize = 100;
     
     // Estado de navegación de notas
     window.edicionNotas = {
@@ -294,28 +293,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-    
-    // Control de tamaño de fuente
-    document.getElementById('increase-font')?.addEventListener('click', function() {
-        if (currentFontSize < 150) {
-            currentFontSize += 10;
-            updateFontSize();
-        }
+
+    createTextZoomController({
+        target: textColumn,
+        increaseButton: document.getElementById('increase-font'),
+        decreaseButton: document.getElementById('decrease-font'),
+        display: document.getElementById('font-size-display')
     });
-    
-    document.getElementById('decrease-font')?.addEventListener('click', function() {
-        if (currentFontSize > 70) {
-            currentFontSize -= 10;
-            updateFontSize();
-        }
-    });
-    
-    function updateFontSize() {
-        if (textColumn && fontSizeDisplay) {
-            textColumn.style.fontSize = currentFontSize + '%';
-            fontSizeDisplay.textContent = currentFontSize + '%';
-        }
-    }
     
     // Control de numeración de versos
     const numeracionSelect = document.getElementById('numeracion-versos');
