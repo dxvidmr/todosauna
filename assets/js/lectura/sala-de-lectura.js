@@ -41,6 +41,28 @@ document.addEventListener("DOMContentLoaded", function() {
         return Number.isFinite(px) ? px : fallback;
     }
 
+    function syncExpandedRailWidth() {
+        if (!lecturaWrapper || !tabsBar) return;
+
+        if (window.innerWidth < 992) {
+            lecturaWrapper.style.removeProperty('--lectura-rail-expanded-width');
+            return;
+        }
+
+        const previousTransition = tabsBar.style.transition;
+        tabsBar.style.transition = 'none';
+        tabsBar.classList.add('is-measuring');
+
+        const measuredWidth = Math.ceil(tabsBar.getBoundingClientRect().width);
+
+        tabsBar.classList.remove('is-measuring');
+        tabsBar.style.transition = previousTransition;
+
+        if (measuredWidth > 0) {
+            lecturaWrapper.style.setProperty('--lectura-rail-expanded-width', `${measuredWidth}px`);
+        }
+    }
+
     function getCurrentTextPaddingLeftPx() {
         if (!textColumn) return 0;
         const value = getComputedStyle(textColumn).paddingLeft;
@@ -63,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const isDesktop = window.innerWidth >= 992;
         const isOpen = !!lecturaPanel?.classList.contains('open');
         lecturaWrapper?.classList.toggle('lectura-panel-open', isOpen);
-        panelWrapper?.classList.toggle('is-open', isOpen);
 
         if (!isDesktop) {
             textColumn.style.paddingRight = '';
@@ -277,6 +298,17 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
     }
+
+    syncExpandedRailWidth();
+    if (document.fonts?.ready) {
+        document.fonts.ready.then(() => {
+            syncExpandedRailWidth();
+            requestDesktopTextInsetUpdate();
+        });
+    }
+    window.addEventListener('resize', () => {
+        syncExpandedRailWidth();
+    });
 
     // ============================================
     // CONTROLES DE LECTURA

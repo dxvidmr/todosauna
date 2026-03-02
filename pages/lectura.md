@@ -130,15 +130,15 @@ lectura_dynamic_recenter: true
         </button>
         <button class="tab-button" data-tab="navegación" title="Navegación" aria-label="Navegación">
             <i class="fa-solid fa-compass tab-icon" aria-hidden="true"></i>
-            <span class="tab-label">Nav</span>
+            <span class="tab-label">Navegación</span>
         </button>
         <button class="tab-button" data-tab="opciones" title="Opciones" aria-label="Opciones">
             <i class="fa-solid fa-sliders tab-icon" aria-hidden="true"></i>
             <span class="tab-label">Opciones</span>
         </button>
-        <button class="tab-button" data-tab="info" title="Info" aria-label="Información">
+        <button class="tab-button" data-tab="info" title="Información" aria-label="Información">
             <i class="fa-solid fa-circle-info tab-icon" aria-hidden="true"></i>
-            <span class="tab-label">Info</span>
+            <span class="tab-label">Información</span>
         </button>
     </div>
 </div>

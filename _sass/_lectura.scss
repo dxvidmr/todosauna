@@ -46,7 +46,7 @@ html:has(.lectura-wrapper) {
   --lectura-panel-gap-open: 32px;
   --lectura-panel-gap-closed: 24px;
   --lectura-rail-collapsed-width: 56px;
-  --lectura-rail-expanded-width: 105px;
+  --lectura-rail-expanded-width: 144px;
   --lectura-rail-height: clamp(250px, 46vh, 380px);
   --lectura-rail-gap: 8px;
   --lectura-text-pad-left-desktop: clamp(64px, 8vw, 140px);
@@ -142,9 +142,8 @@ html:has(.lectura-wrapper) {
   }
 
   @media (min-width: 992px) {
-    &:hover,
-    &:focus-within,
-    &.is-open {
+    &:has(.lectura-tabs-bar:hover),
+    &:has(.lectura-tabs-bar .tab-button:focus-visible) {
       gap: var(--lectura-panel-gap-open);
     }
   }
@@ -335,12 +334,20 @@ html:has(.lectura-wrapper) {
       border-radius 0.24s ease;
   }
 
-  .lectura-panel-wrapper:hover .lectura-tabs-bar,
-  .lectura-panel-wrapper:focus-within .lectura-tabs-bar,
-  .lectura-panel-wrapper.is-open .lectura-tabs-bar {
+  .lectura-tabs-bar:hover,
+  .lectura-tabs-bar:has(.tab-button:focus-visible),
+  .lectura-tabs-bar.is-measuring {
     inline-size: var(--lectura-rail-expanded-width);
     width: var(--lectura-rail-expanded-width);
     border-radius: 20px;
+  }
+
+  .lectura-tabs-bar.is-measuring {
+    inline-size: max-content;
+    width: max-content;
+    min-width: max-content;
+    max-width: none;
+    transition: none;
   }
 
   .lectura-tabs-bar .tab-button {
@@ -368,11 +375,16 @@ html:has(.lectura-wrapper) {
     border-radius: 16px;
   }
 
-  .lectura-panel-wrapper:hover .lectura-tabs-bar .tab-button,
-  .lectura-panel-wrapper:focus-within .lectura-tabs-bar .tab-button,
-  .lectura-panel-wrapper.is-open .lectura-tabs-bar .tab-button {
+  .lectura-tabs-bar:hover .tab-button,
+  .lectura-tabs-bar:has(.tab-button:focus-visible) .tab-button,
+  .lectura-tabs-bar.is-measuring .tab-button {
     justify-content: flex-start;
     gap: 8px;
+  }
+
+  .lectura-tabs-bar.is-measuring .tab-button {
+    width: auto;
+    min-width: max-content;
   }
 
   .lectura-tabs-bar .tab-button .tab-icon {
@@ -386,6 +398,7 @@ html:has(.lectura-wrapper) {
 
   .lectura-tabs-bar .tab-button .tab-label {
     display: inline-block;
+    min-width: 0;
     max-width: 0;
     overflow: hidden;
     opacity: 0;
@@ -397,10 +410,10 @@ html:has(.lectura-wrapper) {
       transform 0.24s ease;
   }
 
-  .lectura-panel-wrapper:hover .lectura-tabs-bar .tab-button .tab-label,
-  .lectura-panel-wrapper:focus-within .lectura-tabs-bar .tab-button .tab-label,
-  .lectura-panel-wrapper.is-open .lectura-tabs-bar .tab-button .tab-label {
-    max-width: 98px;
+  .lectura-tabs-bar:hover .tab-button .tab-label,
+  .lectura-tabs-bar:has(.tab-button:focus-visible) .tab-button .tab-label,
+  .lectura-tabs-bar.is-measuring .tab-button .tab-label {
+    max-width: 100%;
     opacity: 1;
     transform: translateX(0);
   }
@@ -1167,7 +1180,6 @@ tei-milestone[unit="stanza"].show-line::after {
 @media (min-width: 992px) and (max-height: 760px) {
   .lectura-wrapper {
     --lectura-rail-collapsed-width: 54px;
-    --lectura-rail-expanded-width: 136px;
     --lectura-rail-height: clamp(230px, 44vh, 330px);
     --lectura-rail-gap: 7px;
     --lectura-panel-gap-open: 26px;
@@ -1194,12 +1206,6 @@ tei-milestone[unit="stanza"].show-line::after {
     font-size: 0.9rem;
   }
 
-  .lectura-panel-wrapper:hover .lectura-tabs-bar .tab-button .tab-label,
-  .lectura-panel-wrapper:focus-within .lectura-tabs-bar .tab-button .tab-label,
-  .lectura-panel-wrapper.is-open .lectura-tabs-bar .tab-button .tab-label {
-    max-width: 90px;
-  }
-
   .info-panel p,
   .option-item {
     font-size: 0.84rem;
@@ -1213,7 +1219,6 @@ tei-milestone[unit="stanza"].show-line::after {
 @media (min-width: 992px) and (max-height: 665px) {
   .lectura-wrapper {
     --lectura-rail-collapsed-width: 52px;
-    --lectura-rail-expanded-width: 105px;
     --lectura-rail-height: clamp(208px, 40vh, 300px);
     --lectura-rail-gap: 6px;
     --lectura-panel-gap-open: 22px;
@@ -1241,16 +1246,10 @@ tei-milestone[unit="stanza"].show-line::after {
     font-size: 0.84rem;
   }
 
-  .lectura-panel-wrapper:hover .lectura-tabs-bar .tab-button,
-  .lectura-panel-wrapper:focus-within .lectura-tabs-bar .tab-button,
-  .lectura-panel-wrapper.is-open .lectura-tabs-bar .tab-button {
+  .lectura-tabs-bar:hover .tab-button,
+  .lectura-tabs-bar:has(.tab-button:focus-visible) .tab-button,
+  .lectura-tabs-bar.is-measuring .tab-button {
     gap: 7px;
-  }
-
-  .lectura-panel-wrapper:hover .lectura-tabs-bar .tab-button .tab-label,
-  .lectura-panel-wrapper:focus-within .lectura-tabs-bar .tab-button .tab-label,
-  .lectura-panel-wrapper.is-open .lectura-tabs-bar .tab-button .tab-label {
-    max-width: 84px;
   }
 
   .option-item {
@@ -1270,7 +1269,6 @@ tei-milestone[unit="stanza"].show-line::after {
 @media (min-width: 992px) and (max-height: 580px) {
   .lectura-wrapper {
     --lectura-rail-collapsed-width: 48px;
-    --lectura-rail-expanded-width: 105px;
     --lectura-rail-height: clamp(184px, 35vh, 250px);
     --lectura-rail-gap: 5px;
     --lectura-panel-gap-open: 18px;
@@ -1297,16 +1295,10 @@ tei-milestone[unit="stanza"].show-line::after {
     font-size: 0.78rem;
   }
 
-  .lectura-panel-wrapper:hover .lectura-tabs-bar .tab-button,
-  .lectura-panel-wrapper:focus-within .lectura-tabs-bar .tab-button,
-  .lectura-panel-wrapper.is-open .lectura-tabs-bar .tab-button {
+  .lectura-tabs-bar:hover .tab-button,
+  .lectura-tabs-bar:has(.tab-button:focus-visible) .tab-button,
+  .lectura-tabs-bar.is-measuring .tab-button {
     gap: 7px;
-  }
-
-  .lectura-panel-wrapper:hover .lectura-tabs-bar .tab-button .tab-label,
-  .lectura-panel-wrapper:focus-within .lectura-tabs-bar .tab-button .tab-label,
-  .lectura-panel-wrapper.is-open .lectura-tabs-bar .tab-button .tab-label {
-    max-width: 74px;
   }
 
   .option-item {
