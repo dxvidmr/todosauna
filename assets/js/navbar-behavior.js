@@ -5,6 +5,7 @@
     const mainNav = document.querySelector('#mainNav');
     const navExpanded = document.getElementById('navExpanded');
     const navToggle = document.getElementById('navToggle');
+    const navClose = document.getElementById('navClose');
     const navBackdrop = document.getElementById('navBackdrop');
     const btnFlotante = document.getElementById('btn-modo-usuario');
     const root = document.documentElement;
@@ -24,6 +25,13 @@
     let closeHeightSyncTimer = null;
     let closeHeightTransitionHandler = null;
 
+    function updateMenuButtonState() {
+        const isExpandedVisual = !!(mainNav && (mainNav.classList.contains('expanded') || mainNav.classList.contains('is-closing')));
+        if (navToggle) navToggle.setAttribute('aria-expanded', isExpandedVisual ? 'true' : 'false');
+        if (navClose) navClose.setAttribute('aria-expanded', isExpandedVisual ? 'true' : 'false');
+        if (navExpanded) navExpanded.setAttribute('aria-hidden', isExpandedVisual ? 'false' : 'true');
+    }
+
     function clearCloseHeightSync() {
         if (closeHeightTransitionHandler && navExpanded) {
             navExpanded.removeEventListener('transitionend', closeHeightTransitionHandler);
@@ -38,7 +46,12 @@
 
     function finalizeCloseHeightSync() {
         isMenuClosing = false;
+        if (mainNav) {
+            mainNav.classList.remove('is-closing');
+        }
+        navbar.classList.remove('menu-closing');
         clearCloseHeightSync();
+        updateMenuButtonState();
         requestAnimationFrame(updateNavbarHeight);
     }
 
@@ -61,7 +74,7 @@
         navExpanded.addEventListener('transitionend', closeHeightTransitionHandler);
         closeHeightSyncTimer = window.setTimeout(() => {
             finalizeCloseHeightSync();
-        }, 500);
+        }, 260);
     }
 
     function updateNavbarHeight() {
@@ -77,6 +90,7 @@
     }
 
     updateNavbarHeight();
+    updateMenuButtonState();
     if (window.ResizeObserver) {
         const resizeObserver = new ResizeObserver(() => updateNavbarHeight());
         resizeObserver.observe(navbar);
@@ -184,11 +198,14 @@
 
         clearCloseHeightSync();
         isMenuClosing = false;
+        mainNav.classList.remove('is-closing');
+        navbar.classList.remove('menu-closing');
         mainNav.classList.add('expanded');
         navbar.classList.add('menu-expanded');
         if (navBackdrop) navBackdrop.classList.add('active');
         if (btnFlotante) btnFlotante.classList.add('hidden');
         isMenuExpanded = true;
+        updateMenuButtonState();
 
         requestAnimationFrame(updateNavbarHeight);
 
@@ -205,16 +222,31 @@
         if (!mainNav) return;
 
         const wasExpanded = mainNav.classList.contains('expanded');
+        const wasClosing = mainNav.classList.contains('is-closing');
+
+        if (wasExpanded) {
+            mainNav.classList.add('is-closing');
+            navbar.classList.add('menu-closing');
+        }
+
         mainNav.classList.remove('expanded');
         navbar.classList.remove('menu-expanded');
         if (navBackdrop) navBackdrop.classList.remove('active');
         if (btnFlotante) btnFlotante.classList.remove('hidden');
         isMenuExpanded = false;
+        updateMenuButtonState();
 
         if (wasExpanded) {
             syncNavbarHeightAfterClose();
-        } else {
+        } else if (!wasClosing) {
+            if (mainNav) {
+                mainNav.classList.remove('is-closing');
+            }
+            navbar.classList.remove('menu-closing');
+            updateMenuButtonState();
             isMenuClosing = false;
+            requestAnimationFrame(updateNavbarHeight);
+        } else {
             requestAnimationFrame(updateNavbarHeight);
         }
     }
@@ -229,6 +261,14 @@
             } else {
                 openMenu();
             }
+        });
+    }
+
+    if (navClose) {
+        navClose.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeMenu();
         });
     }
 

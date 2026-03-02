@@ -718,21 +718,12 @@ tei-seg.note-target {
 
 // Estilos para el display de notas
 .note-display {
-  padding: 1rem;
-  border-radius: 4px;
-  margin-top: 0.5rem;
   
   .note-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 0.5rem;
-  }
-  
-  h5 {
-    margin: 0;
-    color: $color-dark;
-    font-size: 1.1rem;
   }
   
   .note-badges {

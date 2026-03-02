@@ -14,9 +14,15 @@ lectura_dynamic_recenter: true
     <!-- Panel de contenido (se abre/cierra) -->
     <div class="lectura-panel" id="lectura-panel">
         <div class="panel-resize-handle" id="panel-resize-handle"></div>
-        <button class="btn-cerrar-panel btn-circular" id="btn-cerrar-panel" title="Cerrar panel">
-            <i class="fa-solid fa-times"></i>
-        </button>
+        <div class="lectura-panel-header">
+            <div class="lectura-panel-header-main">
+                <div class="lectura-panel-title" id="lectura-panel-title"></div>
+                <div class="lectura-panel-header-actions" id="lectura-panel-header-actions" hidden></div>
+            </div>
+            <button class="btn-cerrar-panel btn-circular" id="btn-cerrar-panel" title="Cerrar panel" aria-label="Cerrar panel">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
         
         <!-- Contenido de las pestañas -->
         <div class="tab-content active" id="tab-notas">
@@ -29,7 +35,6 @@ lectura_dynamic_recenter: true
         <div class="tab-content" id="tab-navegación">
             <div class="navegación-panel">
                 <div class="nav-section">
-                    <h4 class="fs-5">Índice</h4>
                     <div class="structure-nav">
                         <button class="btn-nav-item" data-target-type="head" data-target-attr="type" data-target-value="comedia-head">
                             Inicio
@@ -52,7 +57,6 @@ lectura_dynamic_recenter: true
         </div>
         <div class="tab-content" id="tab-opciones">
             <div class="opciones-panel">
-                <h4 class="fs-5">Opciones</h4>
                 <div class="option-group">
                     <label class="option-item">
                         <span>Mostrar marcas de notas</span>
@@ -89,7 +93,6 @@ lectura_dynamic_recenter: true
         </div>
         <div class="tab-content" id="tab-info">
             <div class="info-panel">
-                <h4 class="fs-5">Sobre esta edición</h4>
                 <p>
                     Esta es una <strong>edición digital divulgativa</strong> de <em>Fuenteovejuna</em> 
                     basada en la edición crítica del grupo Prolope (2009, PPU/Universitat Autònoma de Barcelona).

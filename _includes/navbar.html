@@ -24,11 +24,14 @@
                 <a class="nav-link{% if page.url == '/acerca-de/' %} active{% endif %}" href="{{ '/acerca-de/' | relative_url }}">Acerca de</a>
             </div>
 
-            <!-- Hamburger/Close button -->
-            <button class="navbar-toggler" type="button" id="navToggle" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                <span class="navbar-close-icon">&times;</span>
-            </button>
+            <div class="navbar-header-actions">
+                <button class="navbar-toggler navbar-menu-button" type="button" id="navToggle" aria-label="Abrir navegación" aria-controls="navExpanded" aria-expanded="false">
+                    <span class="navbar-toggler-icon" aria-hidden="true"></span>
+                </button>
+                <button class="navbar-close-button" type="button" id="navClose" aria-label="Cerrar navegación" aria-controls="navExpanded" aria-expanded="true">
+                    <span class="navbar-close-icon" aria-hidden="true">&times;</span>
+                </button>
+            </div>
         </div>
 
         <!-- Expanded menu content -->
@@ -77,13 +80,11 @@
                 </div>
 
                 <!-- Botón Mi participación a la derecha de la búsqueda -->
-                {% if page.layout == 'lectura' or page.layout == 'laboratorio' %}
                 <div class="navbar-expanded-participacion">
                     <button id="btn-modo-usuario-menu" class="btn btn-outline-light" aria-label="Mi participación">
                         <i class="fa-solid fa-user" aria-hidden="true"></i> Mi participación
                     </button>
                 </div>
-                {% endif %}
             </div>
         </div>
     </nav>

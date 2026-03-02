@@ -5,11 +5,17 @@
 // Colores base (coinciden con config-theme-colors.csv)
 $color-dark: #2d303a;
 $color-light: #f8f9fa;
+$color-tosca: #8f4142;
+$color-swirl: #d2c8c5;
 $color-secondary: #6c757d;
 $color-success: #7a9e7e;
 $color-danger: #8b3a33;
 
 // Variaciones de estados
+$color-tosca-hover: darken($color-tosca, 8%);
+$color-tosca-soft: mix(white, $color-tosca, 90%);
+$color-swirl-50: mix(white, $color-swirl, 84%);
+$color-swirl-100: mix(white, $color-swirl, 68%);
 $color-success-light: lighten($color-success, 35%);
 $color-danger-100: #fbeae9;
 

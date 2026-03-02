@@ -174,7 +174,6 @@ html:has(.lectura-wrapper) {
     transform: translateY(0);
     max-height: 70vh;
     padding: 20px;
-    padding-top: 50px; // Espacio para el boton de cerrar
     padding-left: 28px; // Espacio para el handle
     pointer-events: auto;
     overflow: hidden; // Contenido interno con scroll
@@ -209,19 +208,60 @@ html:has(.lectura-wrapper) {
     opacity: 1;
     transform: translateX(0);
     padding: 20px;
-    padding-top: 16px;
     padding-left: 28px;
     pointer-events: auto;
     overflow: hidden;
   }
 }
 
-// Boton de cerrar panel
-.btn-cerrar-panel {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 10;
+.lectura-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid $color-neutral-200;
+  min-width: 0;
+}
+
+.lectura-panel-header-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.lectura-panel-title {
+  flex: 0 1 auto;
+  min-width: 0;
+  color: $color-dark;
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lectura-panel-header-actions {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.lectura-panel-header-actions[hidden],
+.lectura-panel-header-actions:empty {
+  display: none;
+}
+
+.lectura-panel-header .btn-cerrar-panel {
+  position: static;
+  inset: auto;
+  z-index: auto;
+  flex: 0 0 auto;
 }
 
 // Drag handle para redimensionar panel
@@ -430,23 +470,10 @@ html:has(.lectura-wrapper) {
   }
 }
 
-// ============================================
-// PANEL DE NAVEGACIÓN
-// ============================================
-
-.navegación-panel h4,
-.opciones-panel h4,
-.info-panel h4 {
-  margin: 0 0 1rem 0;
-  color: $color-dark;
-  border-bottom: 1px solid $color-neutral-200;
-  padding-bottom: 0.5rem;
-}
-
 .navegación-panel,
 .opciones-panel,
 .info-panel {
-  padding-top: 10px;
+  padding-top: 0;
 }
 
 .info-panel p {
@@ -764,10 +791,6 @@ html:has(.lectura-wrapper) {
   }
 }
 
-.index-section {
-  margin-bottom: 1.5rem;
-}
-
 // ============================================
 // NAVEGACIÓN DE NOTAS EN PANEL
 // ============================================
@@ -778,15 +801,6 @@ html:has(.lectura-wrapper) {
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.lectura-note-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 30px;
-  padding-right: 44px;
-  flex-shrink: 0;
 }
 
 .lectura-note-scroll {
@@ -903,21 +917,15 @@ html:has(.lectura-wrapper) {
   }
 }
 
-.note-panel-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: 1px solid $color-neutral-200;
-}
-
 .note-nav-controls {
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
   
   .btn-nav-nota {
+    flex: 0 0 auto;
+
     &:disabled {
       opacity: 0.4;
       cursor: not-allowed;
@@ -928,8 +936,9 @@ html:has(.lectura-wrapper) {
     font-size: 0.85rem;
     color: $color-text-muted;
     font-weight: 500;
-    min-width: 96px;
+    min-width: 0;
     text-align: center;
+    white-space: nowrap;
   }
 }
 
@@ -1189,7 +1198,6 @@ tei-milestone[unit="stanza"].show-line::after {
   .lectura-panel.open {
     max-height: min(78dvh, calc(100vh - 28px));
     padding: 18px;
-    padding-top: 14px;
     padding-left: 24px;
   }
 
@@ -1211,9 +1219,6 @@ tei-milestone[unit="stanza"].show-line::after {
     font-size: 0.84rem;
   }
 
-  .lectura-note-header {
-    min-height: 28px;
-  }
 }
 
 @media (min-width: 992px) and (max-height: 665px) {
@@ -1229,7 +1234,6 @@ tei-milestone[unit="stanza"].show-line::after {
   .lectura-panel.open {
     max-height: min(74dvh, calc(100vh - 24px));
     padding: 16px;
-    padding-top: 12px;
     padding-left: 20px;
   }
 
@@ -1261,9 +1265,6 @@ tei-milestone[unit="stanza"].show-line::after {
     line-height: 1.35;
   }
 
-  .lectura-note-header {
-    min-height: 26px;
-  }
 }
 
 @media (min-width: 992px) and (max-height: 580px) {
@@ -1278,7 +1279,6 @@ tei-milestone[unit="stanza"].show-line::after {
   .lectura-panel.open {
     max-height: min(68dvh, calc(100vh - 18px));
     padding: 14px;
-    padding-top: 10px;
     padding-left: 16px;
   }
 
@@ -1305,9 +1305,6 @@ tei-milestone[unit="stanza"].show-line::after {
     padding: 5px 0;
   }
 
-  .lectura-note-header {
-    min-height: 24px;
-  }
 }
 
 // ============================================
@@ -1343,6 +1340,19 @@ tei-milestone[unit="stanza"].show-line::after {
       max-height: 70vh;
       padding-left: 20px !important; // Restablecer padding en tablet/móvil
     }
+  }
+
+  .lectura-panel-header {
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .lectura-panel-header-main {
+    gap: 12px;
+  }
+
+  .lectura-panel-title {
+    font-size: 0.95rem;
   }
   
   .lectura-tabs-bar {
@@ -1381,7 +1391,9 @@ tei-milestone[unit="stanza"].show-line::after {
   }
   
   .lectura-tabs-bar {
+    width: 100%;
     max-width: none;
+    margin: 0;
     border-radius: 50px;
     
     .tab-button {
@@ -1397,8 +1409,29 @@ tei-milestone[unit="stanza"].show-line::after {
     &.open {
       max-height: 70vh;
       padding: 15px;
-      padding-top: 45px;
     }
+  }
+
+  .lectura-panel-header {
+    gap: 10px;
+    padding-bottom: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .lectura-panel-header-main {
+    gap: 8px;
+  }
+
+  .lectura-panel-title {
+    font-size: 0.92rem;
+  }
+
+  .note-nav-controls {
+    gap: 6px;
+  }
+
+  .note-nav-controls .nota-posicion {
+    font-size: 0.78rem;
   }
   
   tei-sp {

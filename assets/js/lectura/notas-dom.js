@@ -47,6 +47,100 @@ function sortNotesBySpecificity(notes, getTarget) {
   });
 }
 
+function buildDocumentOrderIndex(container) {
+  var orderMap = new Map();
+  if (!container) return orderMap;
+  var all = container.querySelectorAll('*');
+  for (var i = 0; i < all.length; i++) {
+    orderMap.set(all[i], i);
+  }
+  return orderMap;
+}
+
+function orderNoteMetaByReadingPosition(metaList) {
+  return metaList.slice().sort(function (a, b) {
+    if (a.firstDocIndex !== b.firstDocIndex) return a.firstDocIndex - b.firstDocIndex;
+    if (a.lastDocIndex !== b.lastDocIndex) return a.lastDocIndex - b.lastDocIndex;
+    if (a.targetCount !== b.targetCount) return a.targetCount - b.targetCount;
+    return a.xmlOrder - b.xmlOrder;
+  });
+}
+
+function collectNoteTargetMeta(container, notes, options) {
+  var getTarget = options.getTarget, getNoteId = options.getNoteId;
+  var orderMap = buildDocumentOrderIndex(container);
+  var metaById = {};
+
+  notes.forEach(function (note, xmlOrder) {
+    var noteId = getNoteId(note);
+    var targetStr = getTarget(note);
+    if (!noteId || !targetStr) return;
+
+    var parsedTargets = parseTargetString(targetStr);
+    var elements = resolveTargetElements(container, targetStr);
+    if (elements.length === 0) return;
+
+    var indices = elements
+      .map(function (element) { return orderMap.get(element); })
+      .filter(function (index) { return typeof index === 'number' && Number.isFinite(index); });
+
+    if (indices.length === 0) return;
+
+    var firstDocIndex = Math.min.apply(Math, indices);
+    var lastDocIndex = Math.max.apply(Math, indices);
+
+    metaById[noteId] = {
+      noteId: noteId,
+      targetStr: targetStr,
+      elements: elements,
+      xmlOrder: xmlOrder,
+      firstDocIndex: firstDocIndex,
+      lastDocIndex: lastDocIndex,
+      targetCount: parsedTargets.length,
+      spanSize: lastDocIndex - firstDocIndex,
+      readingOrderIndex: -1
+    };
+  });
+
+  var orderedMeta = orderNoteMetaByReadingPosition(Object.values(metaById));
+  orderedMeta.forEach(function (meta, readingOrderIndex) {
+    meta.readingOrderIndex = readingOrderIndex;
+  });
+
+  return metaById;
+}
+
+function buildReadingOrderNoteIds(container, notes, options) {
+  var metaById = options && options.metaById
+    ? options.metaById
+    : collectNoteTargetMeta(container, notes, options);
+
+  return orderNoteMetaByReadingPosition(Object.values(metaById)).map(function (meta) {
+    return meta.noteId;
+  });
+}
+
+function pickPrimaryNoteIdForClick(groups, metaById) {
+  if (!Array.isArray(groups) || groups.length === 0) return null;
+  if (groups.length === 1) return groups[0] || null;
+
+  var candidates = groups
+    .map(function (groupId) { return metaById && metaById[groupId] ? metaById[groupId] : null; })
+    .filter(function (meta) { return !!meta; })
+    .sort(function (a, b) {
+      if (a.spanSize !== b.spanSize) return a.spanSize - b.spanSize;
+      if (a.targetCount !== b.targetCount) return a.targetCount - b.targetCount;
+      if (a.readingOrderIndex !== b.readingOrderIndex) return a.readingOrderIndex - b.readingOrderIndex;
+      return a.xmlOrder - b.xmlOrder;
+    });
+
+  if (candidates.length > 0) {
+    return candidates[0].noteId;
+  }
+
+  return groups[0] || null;
+}
+
 // Asegurar .note-wrapper hijo en elemento TEI. Reutiliza existente.
 function ensureNoteWrapper(element) {
   if (element.firstElementChild && element.firstElementChild.classList.contains('note-wrapper')) {
@@ -217,6 +311,9 @@ function applyNoteHighlights(container, notes, options) {
 if (typeof window !== 'undefined') {
   window.TIPO_NOTA_MAP = TIPO_NOTA_MAP;
   window.applyNoteHighlights = applyNoteHighlights;
+  window.collectNoteTargetMeta = collectNoteTargetMeta;
+  window.buildReadingOrderNoteIds = buildReadingOrderNoteIds;
+  window.pickPrimaryNoteIdForClick = pickPrimaryNoteIdForClick;
   window.highlightNoteInText = highlightNoteInText;
   window.highlightAllRelatedGroups = highlightAllRelatedGroups;
   window.markCurrentNoteInText = markCurrentNoteInText;
@@ -227,6 +324,7 @@ if (typeof window !== 'undefined') {
 
 export {
   TIPO_NOTA_MAP, parseTargetString, sortNotesBySpecificity,
+  collectNoteTargetMeta, buildReadingOrderNoteIds, pickPrimaryNoteIdForClick,
   findElementByXmlId, resolveTargetElements,
   ensureNoteWrapper, addNoteGroup, markWrapperEventsAttached,
   buildNoteBadgesHTML, buildNoteDisplayHTML, buildSkeletonLoadingHTML,

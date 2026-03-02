@@ -3,6 +3,9 @@ import { aplicarNumeracionVersos, alignSplitVerses } from './utils.js';
 import { cargarNotasActivas } from '../participacion/notas.js';
 import {
     applyNoteHighlights,
+    collectNoteTargetMeta,
+    buildReadingOrderNoteIds,
+    pickPrimaryNoteIdForClick,
     highlightAllRelatedGroups,
     buildNoteBadgesHTML,
     buildNoteDisplayHTML,
@@ -19,7 +22,8 @@ document.addEventListener("DOMContentLoaded", function() {
     window.edicionNotas = {
         todasLasNotas: [],      // Array de xml:ids de notas
         notaActualIndex: -1,    // Índice de la nota actualmente mostrada
-        notaActualId: null      // ID de la nota actualmente mostrada
+        notaActualId: null,     // ID de la nota actualmente mostrada
+        metaPorNota: {}         // Metadata para orden de lectura y desempates de clic
     };
     
     // ============================================
@@ -31,6 +35,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const tabButtons = tabsBar ? tabsBar.querySelectorAll('.tab-button') : document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
     const btnCerrarPanel = document.getElementById('btn-cerrar-panel');
+    const panelTitle = document.getElementById('lectura-panel-title');
+    const panelHeaderActions = document.getElementById('lectura-panel-header-actions');
     let panelWrapper = null;
     const dynamicRecenterEnabled = lecturaWrapper?.dataset.lecturaDynamicRecenter === 'true';
 
@@ -144,6 +150,70 @@ document.addEventListener("DOMContentLoaded", function() {
     // Estado del panel
     let panelAbierto = false;
     let pestanaActiva = null;
+
+    function getTabLabelText(tabName) {
+        const tabButton = tabsBar?.querySelector(`[data-tab="${tabName}"]`);
+        return tabButton?.querySelector('.tab-label')?.textContent?.trim() || '';
+    }
+
+    function updatePanelHeaderTitle(tabName) {
+        if (!panelTitle) return;
+        panelTitle.textContent = tabName ? getTabLabelText(tabName) : '';
+    }
+
+    function renderPanelHeaderActions() {
+        if (!panelHeaderActions) return;
+
+        const noteState = window.edicionNotas || {};
+        const totalNotas = Array.isArray(noteState.todasLasNotas) ? noteState.todasLasNotas.length : 0;
+        const currentIndex = Number.isInteger(noteState.notaActualIndex) ? noteState.notaActualIndex : -1;
+        const hasActiveNote = pestanaActiva === 'notas' && panelAbierto && !!noteState.notaActualId && currentIndex >= 0 && totalNotas > 0;
+
+        if (!hasActiveNote) {
+            panelHeaderActions.innerHTML = '';
+            panelHeaderActions.hidden = true;
+            return;
+        }
+
+        const hasPrev = currentIndex > 0;
+        const hasNext = currentIndex < totalNotas - 1;
+
+        panelHeaderActions.hidden = false;
+        panelHeaderActions.innerHTML = `
+            <div class="note-nav-controls">
+                <button class="btn-circular btn-nav-nota" id="btn-nota-prev" ${!hasPrev ? 'disabled' : ''} title="Nota anterior" aria-label="Nota anterior">
+                    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                </button>
+                <span class="nota-posicion">Nota ${currentIndex + 1} de ${totalNotas}</span>
+                <button class="btn-circular btn-nav-nota" id="btn-nota-next" ${!hasNext ? 'disabled' : ''} title="Nota siguiente" aria-label="Nota siguiente">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        `;
+
+        panelHeaderActions.querySelector('#btn-nota-prev')?.addEventListener('click', () => {
+            navegarNota(-1, teiContainer, noteContentDiv);
+        });
+
+        panelHeaderActions.querySelector('#btn-nota-next')?.addEventListener('click', () => {
+            navegarNota(1, teiContainer, noteContentDiv);
+        });
+    }
+
+    function isEditableTarget(target) {
+        if (!(target instanceof Element)) return false;
+        return !!target.closest('input, textarea, select, [contenteditable="true"], [contenteditable=""], [role="textbox"]');
+    }
+
+    function canHandleNoteArrowNavigation(event) {
+        if (event.defaultPrevented) return false;
+        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return false;
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return false;
+        if (!panelAbierto || pestanaActiva !== 'notas') return false;
+        if (!window.edicionNotas?.notaActualId || window.edicionNotas?.notaActualIndex < 0) return false;
+        if (isEditableTarget(event.target)) return false;
+        return true;
+    }
     
     // Función para abrir el panel
     function abrirPanel(tabName) {
@@ -161,22 +231,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const openMin = getLayoutTokenPx('--lectura-panel-open-min-width', 360);
         panelWrapper?.style.setProperty('--lectura-panel-open-width-inline', `${Math.round(openMin)}px`);
+        panelAbierto = true;
+        pestanaActiva = tabName;
+        updatePanelHeaderTitle(tabName);
+        renderPanelHeaderActions();
         
         // Abrir el panel
         lecturaPanel.classList.add('open');
-        panelAbierto = true;
-        pestanaActiva = tabName;
         requestDesktopTextInsetUpdate();
     }
     
     // Función para cerrar el panel
     function cerrarPanel() {
         if (!lecturaPanel) return;
+
+        if (window.edicionNotas?.notaActualId && teiContainer && noteContentDiv) {
+            cerrarNota(teiContainer, noteContentDiv);
+        }
         
         lecturaPanel.classList.remove('open');
         tabButtons.forEach(btn => btn.classList.remove('active'));
         panelAbierto = false;
         pestanaActiva = null;
+        updatePanelHeaderTitle(null);
+        renderPanelHeaderActions();
         requestDesktopTextInsetUpdate();
     }
     
@@ -201,6 +279,20 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Event listener para botón de cerrar
     btnCerrarPanel?.addEventListener('click', cerrarPanel);
+
+    document.addEventListener('keydown', function(event) {
+        if (!canHandleNoteArrowNavigation(event)) return;
+
+        const direction = event.key === 'ArrowLeft' ? -1 : 1;
+        event.preventDefault();
+        navegarNota(direction, teiContainer, noteContentDiv);
+    });
+
+    document.addEventListener('pointerdown', function(event) {
+        if (window.innerWidth >= 992 || !panelAbierto || !panelWrapper) return;
+        if (panelWrapper.contains(event.target)) return;
+        cerrarPanel();
+    });
     
     // Exponer funciones globalmente para uso desde otros módulos
     window.lecturaPanel = {
@@ -210,7 +302,9 @@ document.addEventListener("DOMContentLoaded", function() {
         estaAbierto: () => panelAbierto,
         getPestanaActiva: () => pestanaActiva
     };
-    
+
+    updatePanelHeaderTitle(null);
+    renderPanelHeaderActions();
     requestDesktopTextInsetUpdate();
     
     // ============================================
@@ -439,14 +533,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Obtener todas las notas del XML externo
         const notes = Array.from(window.notasXML.querySelectorAll('note'));
+        const metaPorNota = collectNoteTargetMeta(teiContainer, notes, {
+            getTarget: note => note.getAttribute('target') || '',
+            getNoteId: note => note.getAttribute('xml:id') || ''
+        });
+        const readingOrderIds = buildReadingOrderNoteIds(teiContainer, notes, {
+            getTarget: note => note.getAttribute('target') || '',
+            getNoteId: note => note.getAttribute('xml:id') || '',
+            metaById: metaPorNota
+        });
 
-        const processedIds = applyNoteHighlights(teiContainer, notes, {
+        applyNoteHighlights(teiContainer, notes, {
             getTarget: note => note.getAttribute('target') || '',
             getNoteId: note => note.getAttribute('xml:id') || '',
             propagateGroups: true,
 
             onWrapperClick: ({ wrapper, groups }) => {
-                const activeGroup = groups[0];
+                const activeGroup = pickPrimaryNoteIdForClick(groups, window.edicionNotas.metaPorNota);
                 if (!activeGroup) return;
 
                 console.log('Click en elemento, mostrando nota:', activeGroup);
@@ -499,7 +602,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         // Guardar lista de todas las notas para navegación
-        window.edicionNotas.todasLasNotas = processedIds;
+        window.edicionNotas.metaPorNota = metaPorNota;
+        window.edicionNotas.todasLasNotas = readingOrderIds;
         console.log(`Total de notas para navegación: ${window.edicionNotas.todasLasNotas.length}`);
 
         // ← AQUÍ VA TODO AL FINAL DE processNotes():
@@ -519,7 +623,6 @@ document.addEventListener("DOMContentLoaded", function() {
         noteContentDiv.dataset.currentNoteId = '';
         noteContentDiv.innerHTML = `
             <div class="lectura-note-layout">
-                <div class="lectura-note-header"></div>
                 <div class="lectura-note-scroll">
                     <p class="placeholder-text">${mensaje}</p>
                 </div>
@@ -528,6 +631,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             </div>
         `;
+        renderPanelHeaderActions();
     }
     
     // Función para mostrar nota en el panel con navegación
@@ -546,28 +650,12 @@ document.addEventListener("DOMContentLoaded", function() {
         window.edicionNotas.notaActualId = noteXmlId;
         window.edicionNotas.notaActualIndex = window.edicionNotas.todasLasNotas.indexOf(noteXmlId);
         
-        const currentIndex = window.edicionNotas.notaActualIndex;
-        const totalNotas = window.edicionNotas.todasLasNotas.length;
-        const hasPrev = currentIndex > 0;
-        const hasNext = currentIndex < totalNotas - 1;
-        
         // Marcar nota activa en el texto (persistente)
         marcarNotaActivaEnTexto(noteXmlId, teiContainer);
-        
+         
         noteContentDiv.dataset.currentNoteId = noteXmlId;
         noteContentDiv.innerHTML = `
             <div class="lectura-note-layout">
-                <div class="lectura-note-header">
-                    <div class="note-nav-controls">
-                        <button class="btn-circular btn-nav-nota" id="btn-nota-prev" ${!hasPrev ? 'disabled' : ''} title="Nota anterior">
-                            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-                        </button>
-                        <span class="nota-posicion">Nota ${currentIndex + 1} de ${totalNotas}</span>
-                        <button class="btn-circular btn-nav-nota" id="btn-nota-next" ${!hasNext ? 'disabled' : ''} title="Nota siguiente">
-                            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
                 <div class="lectura-note-scroll">
                     ${buildNoteDisplayHTML({ noteId: noteXmlId, text: noteToShow.textContent.trim(), badgesHTML })}
                 </div>
@@ -576,15 +664,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             </div>
         `;
-        
-        // Añadir event listeners para navegación
-        document.getElementById('btn-nota-prev')?.addEventListener('click', () => {
-            navegarNota(-1, teiContainer, noteContentDiv);
-        });
-        
-        document.getElementById('btn-nota-next')?.addEventListener('click', () => {
-            navegarNota(1, teiContainer, noteContentDiv);
-        });
+        renderPanelHeaderActions();
     }
     
     // Función para navegar entre notas
@@ -632,6 +712,7 @@ document.addEventListener("DOMContentLoaded", function() {
             noteContentDiv,
             'Haz clic en el texto subrayado para ver las notas.'
         );
+        renderPanelHeaderActions();
     }
     
     // Función para marcar nota activa en el texto (persistente)
