@@ -34,6 +34,20 @@ Object metadata is exposed using [Schema.org](http://schema.org) and [Open Graph
 
 Questions can be directed to **collectionbuilder.team@gmail.com**
 
+## Proyecto: notas prácticas
+
+### Supabase CLI
+
+En este proyecto no se asume `supabase` instalado globalmente en el sistema.
+Para aplicar migraciones se usa el CLI vía `npx`, siguiendo el mismo patrón que ya aparece en CI:
+
+```powershell
+npx --yes supabase@2.76.15 --version
+npx --yes supabase@2.76.15 db push
+```
+
+Si `supabase db push` falla con `CommandNotFoundException`, usa ese comando completo con `npx`.
+
 ## License
 
 CollectionBuilder documentation and general web content is licensed [Creative Commons Attribution-ShareAlike 4.0 International](http://creativecommons.org/licenses/by-sa/4.0/). 

@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // COMPONENTES COMPARTIDOS LECTURA/LABORATORIO
 // Modal, evaluaciones, sugerencias, etc.
 // ============================================
@@ -106,7 +106,7 @@ tei-stage {
   color: $color-text-muted;
   
   &::before {
-    content: '⏳';
+    content: 'â³';
     display: block;
     font-size: 48px;
     margin-bottom: 10px;
@@ -181,7 +181,7 @@ tei-stage {
 }
 
 // ============================================
-// EVALUACIÓN DE NOTAS
+// EVALUACIÃ“N DE NOTAS
 // ============================================
 
 .nota-evaluacion,
@@ -224,7 +224,7 @@ tei-stage {
   white-space: nowrap;
 }
 
-// Botones de evaluación (usan clases Bootstrap base)
+// Botones de evaluaciÃ³n (usan clases Bootstrap base)
 .btn-evaluar,
 .btn-util,
 .btn-mejorable {
@@ -354,7 +354,7 @@ tei-stage {
   }
 }
 
-// Área de comentario
+// Ãrea de comentario
 .evaluacion-comentario,
 .nota-content .evaluacion-comentario {
   margin-top: 12px;
@@ -442,7 +442,7 @@ tei-stage {
   }
 }
 
-// Ajustes específicos para laboratorio
+// Ajustes especÃ­ficos para laboratorio
 .nota-content {
   
   .evaluacion-comentario button {
@@ -620,124 +620,288 @@ tei-stage {
   z-index: 2; // Por encima del overlay
   
   h2 {
-    margin-bottom: 8px;
+    margin: 0;
     color: $color-text;
   }
 }
 
-.modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  font-size: 28px;
-  line-height: 1;
-  color: $color-text-muted;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s;
-  z-index: 1;
-  
-  &:hover,
-  &:focus {
-    color: $color-text;
-    background: rgba(0,0,0,0.05);
-    outline: none;
+.modal-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-areas: "main actions close";
+  align-items: start;
+  gap: 12px 16px;
+  margin-bottom: 10px;
+}
+
+.modal-header.has-content {
+  margin-bottom: 24px;
+}
+
+.modal-header:not(.has-content) {
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "main close";
+}
+
+.modal-header-main {
+  grid-area: main;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-header-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.modal-header-actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: flex-end;
+  gap: 10px;
+
+  .btn-cerrar-sesion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
   }
+}
+
+.modal-header #modal-modo-close {
+  grid-area: close;
+  justify-self: end;
+  align-self: start;
+}
+
+.modal-mode-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: $color-secondary-100;
+  color: $color-dark;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.modal-header-meta-item {
+  color: $color-text-muted;
+  font-size: 0.92rem;
 }
 
 .modal-descripcion {
   color: $color-text-muted;
-  margin-bottom: 24px;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+#modal-titulo {
+  font-size: clamp(1.45rem, 3vw, 1.8rem);
+  line-height: 1.08;
+}
+
+.modal[data-view="selection"] #modal-titulo {
+  font-size: clamp(1.9rem, 4.6vw, 2.45rem);
+  line-height: 1.03;
 }
 
 // ============================================
-// BOTÓN MI PARTICIPACIÓN (EN MENÚ)
-// Los estilos del botón flotante están en _navbar.scss
+// PERFIL DE PARTICIPACION
 // ============================================
-
-.btn-participacion-menu {
-  background: $color-light;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 15px;
-  font-family: inherit;
-  transition: background 0.2s;
-  white-space: nowrap;
-  
-  i {
-    margin-right: 10px;
-  }
-  
-  &:hover {
-    background: $color-neutral-200;
-  }
+.modal[data-view="profile"] .modal-content {
+  max-width: 920px;
 }
 
-// Panel de información del usuario
-.info-usuario-panel {
-  padding: 20px;
-  
+.perfil-participacion {
+  width: 100%;
+}
+
+.perfil-participacion-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.modal[data-view="profile"] #modal-titulo {
+  font-size: clamp(2rem, 5vw, 2.85rem);
+  line-height: 1.02;
+}
+
+.perfil-summary-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px;
+  border-radius: 18px;
+  background: $color-secondary-100;
+}
+
+.perfil-summary-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px 18px;
+}
+
+.perfil-summary-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.perfil-summary-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.perfil-summary-label {
+  margin: 0;
+  color: $color-text-muted;
+  font-size: 0.95rem;
+}
+
+.perfil-summary-value {
+  margin: 0;
+  color: $color-text;
+  font-size: clamp(2.4rem, 8vw, 3.7rem);
+  font-weight: 700;
+  line-height: 0.95;
+}
+
+.perfil-activity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.perfil-activity-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid $color-neutral-200;
+  border-radius: 18px;
+  background: $color-neutral-50;
+
   h3 {
-    margin: 0 0 20px 0;
+    margin: 0;
     color: $color-text;
-    font-size: 20px;
+    font-size: 1.05rem;
   }
 }
 
-.info-modo {
-  margin-bottom: 20px;
-  padding: 15px;
-  background-color: $color-neutral-100;
-  border-radius: 6px;
-  
+.perfil-activity-value {
+  margin: 0;
+  color: $color-text;
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.perfil-activity-detail {
+  margin: 0;
+  color: $color-text-muted;
+  line-height: 1.45;
+}
+
+.perfil-activity-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.perfil-activity-section {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.perfil-activity-kicker {
+  margin: 0;
+  color: $color-text-muted;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.perfil-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.perfil-card-actions {
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.perfil-upsell {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 22px;
+  border-radius: 18px;
+  background: $color-secondary-100;
+
+  h3 {
+    margin: 0;
+    color: $color-text;
+    font-size: 1.15rem;
+  }
+
   p {
-    margin: 8px 0;
+    margin: 0;
+    color: $color-text-muted;
     line-height: 1.5;
   }
 }
 
-.info-stats {
-  margin-bottom: 20px;
-  padding: 15px;
-  background-color: $color-neutral-100;
-  border-radius: 6px;
-  border-left: 4px solid $color-dark;
-  
-  p {
-    margin: 8px 0;
+@media (max-width: 640px) {
+  .modal-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "main close"
+      "actions actions";
   }
-}
 
-.info-session-id {
-  opacity: 0.7;
-  font-family: monospace;
-}
+  .modal-header-actions {
+    justify-content: flex-start;
+  }
 
-.info-acciones {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-}
+  .modal-header-actions,
+  .perfil-card-actions {
+    flex-direction: column;
+  }
 
-.btn-cerrar-info {
-  background-color: $color-text-muted;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 50px;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
-  
-  &:hover {
-    background-color: $color-text-muted-dark;
+  .modal-header-actions .btn,
+  .perfil-card-actions .btn,
+  .perfil-summary-actions .btn {
+    width: 100%;
+  }
+
+  .perfil-summary-head {
+    flex-direction: column;
+  }
+
+  .perfil-summary-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .perfil-activity-split {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -755,7 +919,7 @@ tei-stage {
 }
 
 // ============================================
-// OPCIONES DE MODO (Modal participación)
+// OPCIONES DE MODO (Modal participaciÃ³n)
 // ============================================
 
 .modo-opciones,

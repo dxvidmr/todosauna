@@ -25,9 +25,9 @@ navbar_main_offset: false
       <div class="col-md-4">
         <div class="card card-media h-100" style="--card-image: url('{{ '/assets/img/participa/marginalia.jpg' | relative_url }}');">
           <div class="card-media-body">
-            <h3 class="text-uppercase mb-2">Lee y comenta</h3>
-            <p class="mb-3">Las notas ayudan a construir una interpretación colectiva.</p>
-            <a href="{{ '/lectura/' | relative_url }}" class="btn btn-light btn-sm">Ir a la lectura</a>
+            <h3 class="text-uppercase mb-2">Lee y anota</h3>
+            <p class="mb-3">Tus comentarios ayudan a construir una interpretación colectiva.</p>
+            <a href="{{ '/participa/laboratorio/' | relative_url }}" class="btn btn-light btn-sm">Ir al laboratorio</a>
           </div>
         </div>
       </div>

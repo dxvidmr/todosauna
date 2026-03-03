@@ -2,9 +2,17 @@
   <div id="modal-modo" class="modal">
     <div class="modal-overlay"></div>
     <div class="modal-content">
-      <button id="modal-modo-close" class="modal-close" aria-label="Cerrar modal">&times;</button>
-      <h2 id="modal-titulo">¿Cómo quieres participar?</h2>
-      <p class="modal-descripcion" id="modal-descripcion">Tu participación ayuda a mejorar las notas para futuros lectores.</p>
+      <div class="modal-header">
+        <div class="modal-header-main">
+          <h2 id="modal-titulo">¿Cómo quieres participar?</h2>
+          <p class="modal-descripcion" id="modal-descripcion">Tu participación ayuda a mejorar las notas para futuros lectores.</p>
+          <div id="modal-header-meta" class="modal-header-meta" style="display:none;"></div>
+        </div>
+        <div id="modal-header-actions" class="modal-header-actions" style="display:none;"></div>
+        <button id="modal-modo-close" class="btn-circular" type="button" aria-label="Cerrar modal">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
 
       <div class="modo-opciones">
         <div class="modo-opcion" data-modo="anonimo" role="button" tabindex="0">
@@ -24,8 +32,6 @@
       </div>
 
       <div id="form-anonimo" class="modo-form" style="display:none;">
-        <h3>Participación anónima</h3>
-        <p class="help-modal bg-gray-100 text-gray-500">Participarás sin registro y de forma completamente anónima.</p>
         <form id="form-anonimo-datos">
           <div class="botones-modal">
             <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
@@ -35,8 +41,6 @@
       </div>
 
       <div id="colaborador-opciones" class="modo-form" style="display:none;">
-        <h3>Identificarse como colaborador/a</h3>
-        <p class="help-modal bg-gray-100 text-gray-500">No necesitas contraseña. Solo tu email para reconocerte.</p>
         <div class="colaborador-opciones-grid">
           <div class="modo-opcion" data-tipo="login" role="button" tabindex="0">
             <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i></span><h3>Ya participé antes</h3></div>
@@ -51,10 +55,8 @@
       </div>
 
       <div id="form-colaborador-login" class="modo-form" style="display:none;">
-        <h3>Identificarse</h3>
-        <p class="help-modal bg-gray-100 text-gray-500">Introduce el mismo email que usaste anteriormente. No guardamos tu email real, solo un hash.</p>
         <form id="form-colaborador-login-datos">
-          <label>Email:<input type="email" name="email" required placeholder="tu@email.com"></label>
+          <label>Email<input type="email" name="email" required placeholder="tu@email.com"></label>
           <div class="botones-modal">
             <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
             <button type="submit" class="btn btn-primary">Identificarme</button>
@@ -63,8 +65,6 @@
       </div>
 
       <div id="form-colaborador-registro" class="modo-form" style="display:none;">
-        <h3>Registrarse</h3>
-        <p class="help-modal bg-gray-100 text-gray-500">Rellena el formulario para registrarte como colaborador/a.</p>
         <form id="form-colaborador-registro-datos">
           <label>Email<input type="email" name="email" required placeholder="tu@email.com"></label>
           <label>Nombre (opcional)<input type="text" name="display_name" placeholder="María G." maxlength="50"></label>
@@ -96,6 +96,8 @@
           </div>
         </form>
       </div>
+
+      <div id="perfil-participacion" class="modo-form perfil-participacion" style="display:none;"></div>
     </div>
   </div>
 </template>

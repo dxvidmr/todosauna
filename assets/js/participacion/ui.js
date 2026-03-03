@@ -25,7 +25,7 @@
     var options = typeof input === 'string' ? { message: input } : (input || {});
     return {
       kind: kind,
-      title: String(options.title || (kind === 'confirm' ? 'Confirmar acción' : 'Información')).trim(),
+      title: String(options.title || (kind === 'confirm' ? 'Confirmar acci\u00f3n' : 'Informaci\u00f3n')).trim(),
       message: String(options.message || '').trim(),
       confirmText: String(options.confirmText || 'Aceptar').trim(),
       cancelText: String(options.cancelText || 'Cancelar').trim(),

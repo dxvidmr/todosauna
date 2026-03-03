@@ -6,7 +6,7 @@ import {
 } from './evaluaciones.js';
 // ============================================
 // SISTEMA DE SUGERENCIAS DE NOTAS FALTANTES
-// Permite a usuarios sugerir dónde faltan notas
+// Permite a usuarios sugerir donde faltan notas
 // ============================================
 
 class SugerenciasNotas {
@@ -53,7 +53,7 @@ class SugerenciasNotas {
     this.tooltip.style.display = 'none';
     document.body.appendChild(this.tooltip);
 
-    // Listener del botón del tooltip
+    // Listener del boton del tooltip
     this.tooltip.querySelector('.btn-sugerir-nota').addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -72,7 +72,7 @@ class SugerenciasNotas {
       <div class="modal-content sugerencia-modal-content">
         <button class="modal-close" type="button" aria-label="Cerrar">&times;</button>
         <h2><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Sugerir nota</h2>
-        <p class="modal-descripcion">¿Crees que este texto necesita una nota explicativa? Cuéntanos por qué.</p>
+        <p class="modal-descripcion">\u00bfCrees que este texto necesita una nota explicativa? Cu\u00e9ntanos por qu\u00e9.</p>
 
         <div class="sugerencia-form">
           <label class="sugerencia-label">Texto seleccionado</label>
@@ -82,7 +82,7 @@ class SugerenciasNotas {
           <textarea
             id="sugerencia-comentario"
             class="sugerencia-textarea"
-            placeholder="¿Por qué crees que falta una nota aquí? ¿Qué explicación añadirías?"
+            placeholder="\u00bfPor qu\u00e9 crees que falta una nota aqu\u00ed? \u00bfQu\u00e9 explicaci\u00f3n a\u00f1adir\u00edas?"
             rows="4"
           ></textarea>
 
@@ -113,12 +113,12 @@ class SugerenciasNotas {
   }
 
   /**
-   * Configurar listeners de selección de texto
+   * Configurar listeners de seleccion de texto
    */
   setupEventListeners() {
-    // Detectar fin de selección de texto
+    // Detectar fin de seleccion de texto
     document.addEventListener('mouseup', (e) => {
-      // Pequeño delay para que la selección se complete
+      // Pequeno delay para que la seleccion se complete
       setTimeout(() => this.manejarSeleccion(e), 10);
     });
 
@@ -136,7 +136,7 @@ class SugerenciasNotas {
   }
 
   /**
-   * Manejar selección de texto
+   * Manejar seleccion de texto
    */
   manejarSeleccion(e) {
     const selection = window.getSelection();
@@ -152,14 +152,14 @@ class SugerenciasNotas {
       return;
     }
 
-    // Verificar que la selección está dentro de la zona de edición
+    // Verificar que la seleccion esta dentro de la zona de edicion
     const zonaEdicion = this.obtenerZonaEdicion();
     if (!zonaEdicion) return;
 
     const range = selection.getRangeAt(0);
     const container = range.commonAncestorContainer;
 
-    // Verificar que el contenedor está dentro de la zona de edición
+    // Verificar que el contenedor esta dentro de la zona de edicion
     const elementoContenedor = container.nodeType === Node.TEXT_NODE
       ? container.parentElement
       : container;
@@ -173,7 +173,7 @@ class SugerenciasNotas {
       return;
     }
 
-    // Guardar información de la selección
+    // Guardar informacion de la seleccion
     this.seleccionActual = {
       texto: textoSeleccionado,
       range: range.cloneRange(),
@@ -201,7 +201,7 @@ class SugerenciasNotas {
   }
 
   /**
-   * Obtener el xml:id del elemento TEI más cercano
+   * Obtener el xml:id del elemento TEI mas cercano
    */
   obtenerXmlIdCercano(elemento) {
     // Buscar hacia arriba el primer elemento con xml:id
@@ -217,7 +217,7 @@ class SugerenciasNotas {
       current = current.parentElement;
     }
 
-    // Intentar encontrar el verso o elemento TEI más cercano
+    // Intentar encontrar el verso o elemento TEI mas cercano
     const teiElement = elemento.closest('tei-l, tei-sp, tei-stage, tei-p, tei-seg');
     if (teiElement) {
       return teiElement.getAttribute('xml:id') ||
@@ -230,19 +230,19 @@ class SugerenciasNotas {
   }
 
   /**
-   * Mostrar el tooltip cerca de la selección
+   * Mostrar el tooltip cerca de la seleccion
    */
   mostrarTooltip(rect) {
     const tooltip = this.tooltip;
 
-    // Posicionar tooltip encima de la selección
+    // Posicionar tooltip encima de la seleccion
     const tooltipHeight = 40;
     const gap = 8;
 
     let top = rect.top + window.scrollY - tooltipHeight - gap;
     let left = rect.left + window.scrollX + (rect.width / 2);
 
-    // Ajustar si está fuera de pantalla
+    // Ajustar si esta fuera de pantalla
     if (top < window.scrollY + 10) {
       top = rect.bottom + window.scrollY + gap;
     }
@@ -294,7 +294,7 @@ class SugerenciasNotas {
    * Obtener el pasaje_id actual (si estamos en laboratorio)
    */
   obtenerPasajeId() {
-    // En laboratorio, el pasaje actual está en window.laboratorioNotas
+    // En laboratorio, el pasaje actual esta en window.laboratorioNotas
     if (window.laboratorioNotas && window.laboratorioNotas.pasajeActual) {
       return window.laboratorioNotas.pasajeActual.id;
     }
@@ -322,7 +322,7 @@ class SugerenciasNotas {
       if (flow?.ensureModeForSecondLecturaContribution) {
         const canContinue = await flow.ensureModeForSecondLecturaContribution();
         if (!canContinue) {
-          mostrarToast('Para continuar debes elegir modo de participación', 2600);
+          mostrarToast('Para continuar debes elegir modo de participaci\u00f3n', 2600);
           return;
         }
       }
@@ -359,9 +359,9 @@ class SugerenciasNotas {
         throw error;
       }
 
-      // Éxito
+      // Exito
       this.cerrarModal();
-      mostrarToast('¡Gracias por tu sugerencia!', 3000);
+      mostrarToast('\u00a1Gracias por tu sugerencia!', 3000);
       console.log('Sugerencia de nota faltante registrada');
       if (flow?.incrementLecturaParticipationCount) {
         flow.incrementLecturaParticipationCount({ source: this.source || 'lectura' });
@@ -376,7 +376,7 @@ class SugerenciasNotas {
       );
       mostrarToast(message || 'Error al enviar sugerencia', 3000);
     } finally {
-      // Restaurar botón
+      // Restaurar boton
       btnEnviar.innerHTML = textoOriginal;
       btnEnviar.disabled = false;
       this.isSubmitting = false;
@@ -387,9 +387,9 @@ class SugerenciasNotas {
 // Instanciar y exportar
 window.sugerenciasNotas = new SugerenciasNotas();
 
-// Inicializar cuando el DOM esté listo
+// Inicializar cuando el DOM este listo
 document.addEventListener('DOMContentLoaded', () => {
-  // Pequeño delay para asegurar que otros scripts cargaron
+  // Pequeno delay para asegurar que otros scripts cargaron
   setTimeout(() => {
     window.sugerenciasNotas.init();
   }, 500);

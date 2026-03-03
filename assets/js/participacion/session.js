@@ -559,10 +559,15 @@
     if (result.error || !result.data) return null;
 
     return {
+      total_contribuciones: Number(result.data.total_contribuciones || 0),
       total_evaluaciones: Number(result.data.total_evaluaciones || 0),
       votos_up: Number(result.data.votos_up || 0),
       votos_down: Number(result.data.votos_down || 0),
-      comentarios: Number(result.data.comentarios || 0)
+      comentarios: Number(result.data.comentarios || 0),
+      total_sugerencias: Number(result.data.total_sugerencias || 0),
+      total_testimonios: Number(result.data.total_testimonios || 0),
+      total_contribuciones_archivo: Number(result.data.total_contribuciones_archivo || 0),
+      total_envios: Number(result.data.total_envios || 0)
     };
   }
 
