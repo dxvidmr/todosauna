@@ -36,23 +36,27 @@ navbar_behavior: fixed
     
     <!-- Lado derecho: Opciones de entrada -->
     <div class="bienvenida-opciones">
-      <div class="opcion-modo btn btn-dark" data-modo="secuencial" role="button" tabindex="0">
-        <div class="opcion-icono"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></div>
+      <div class="opcion-modo" data-modo="secuencial">
         <div class="opcion-contenido">
-          <h3>Modo secuencial</h3>
-          <p class="text-neutral-400">Recorre los pasajes en orden cronológico de la obra</p>
+          <h3>Modo <span class="text-primary">secuencial</span></h3>
+          <p class="text-neutral-700">Recorre los pasajes en orden cronológico de la obra</p>
+        </div>
+        <div class="opcion-accion">
+          <button type="button" class="btn btn-primary btn-xl btn-iniciar-modo" data-modo="secuencial">Iniciar</button>
         </div>
       </div>
       
-      <div class="opcion-modo btn btn-dark" data-modo="aleatorio" role="button" tabindex="0">
-        <div class="opcion-icono"><i class="fa-solid fa-shuffle" aria-hidden="true"></i></div>
+      <div class="opcion-modo" data-modo="aleatorio">
         <div class="opcion-contenido">
-          <h3>Modo aleatorio</h3>
-          <p class="text-neutral-400">Sorpréndete con un pasaje al azar de la obra</p>
+          <h3>Modo <span class="text-primary">aleatorio</span></h3>
+          <p class="text-neutral-700">Sorpréndete con un pasaje al azar de la obra</p>
+        </div>
+        <div class="opcion-accion">
+          <button type="button" class="btn btn-primary btn-xl btn-iniciar-modo" data-modo="aleatorio">Iniciar</button>
         </div>
       </div>
       
-      <div class="stats-globales bg-neutral-100">
+      <div class="stats-globales stats-globales--parked bg-neutral-100">
         <div class="loading-stats-container">
           <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
           Cargando estadísticas...
@@ -110,11 +114,11 @@ navbar_behavior: fixed
       <div class="laboratorio-controles">
         <div class="laboratorio-controles-franja">
           <div class="laboratorio-franja-izq">
-            <button id="btn-anterior" class="btn-nav-inline" style="display: none;" aria-label="Pasaje anterior">
+            <button id="btn-anterior" type="button" class="btn btn-outline-dark btn-sm d-inline-flex align-items-center gap-1" style="display: none;" aria-label="Pasaje anterior">
               <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
               <span>Anterior</span>
             </button>
-            <button id="btn-siguiente" class="btn-nav-inline btn-nav-inline-primary" aria-label="Siguiente pasaje">
+            <button id="btn-siguiente" type="button" class="btn btn-primary btn-sm d-inline-flex align-items-center gap-1" aria-label="Siguiente pasaje">
               <span>Siguiente</span>
               <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </button>
@@ -131,11 +135,11 @@ navbar_behavior: fixed
 
           <div class="laboratorio-franja-der">
             <div class="lab-font-controls" aria-label="Tamano del texto del pasaje">
-            <button id="lab-font-decrease" class="lab-font-btn" type="button" aria-label="Reducir tamano del texto">
+            <button id="lab-font-decrease" class="btn-circular" type="button" aria-label="Reducir tamano del texto">
               <i class="fa-solid fa-minus" aria-hidden="true"></i>
             </button>
             <span id="lab-font-size-display" class="lab-font-size-display">100%</span>
-            <button id="lab-font-increase" class="lab-font-btn" type="button" aria-label="Aumentar tamano del texto">
+            <button id="lab-font-increase" class="btn-circular" type="button" aria-label="Aumentar tamano del texto">
               <i class="fa-solid fa-plus" aria-hidden="true"></i>
             </button>
             </div>
@@ -178,20 +182,20 @@ navbar_behavior: fixed
         </div>
         
         <!-- Contenido de la nota actual -->
-        <div id="nota-content" class="nota-content">
-          <div class="lab-note-layout">
-            <div class="lab-note-display-scroll">
+        <div id="nota-content" class="nota-content note-panel-host">
+          <div class="note-panel-layout">
+            <div class="note-panel-scroll">
               <p class="placeholder-text">Haz clic en un texto subrayado o usa las flechas para ver las notas</p>
             </div>
-            <div class="lab-note-eval-dock">
-              <p class="lab-note-dock-placeholder"></p>
+            <div class="note-eval-dock">
+              <p class="note-dock-placeholder"></p>
             </div>
           </div>
         </div>
         
         <!-- Instrucciones -->
         <div class="notas-instrucciones">
-          <p><i class="fa-solid fa-info-circle" aria-hidden="true"></i> Haz clic en el texto subrayado para evaluar una nota, o navega con las flechas. Si falta una nota, selecciona el texto y deja tu sugerencia. <a href="{{ '/participa/guia/' | relative_url }}">Guía completa</a>.</p>
+          <p><i class="fa-solid fa-info-circle" aria-hidden="true"></i> Haz clic en el texto subrayado para evaluar una nota, o navega con las flechas. Si consideras que falta una nota, selecciona el texto y deja tu sugerencia. <a href="{{ '/participa/guia/' | relative_url }}">Guía completa</a>.</p>
         </div>
         
       </div>

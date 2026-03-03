@@ -1,9 +1,6 @@
 @use "variables" as *;
 
 // COLOR STUDY TOKENS
-// Source colors:
-// - tosca: #8f4142
-// - swirl: #d2c8c5
 :root {
   --navbar-height: 0px;
   --layout-rail-max: 1240px;
@@ -11,26 +8,21 @@
   --overlay-nav-gap: clamp(16px, 2.8vh, 34px);
   --color-dark: #{$color-dark};
   --color-light: #{$color-light};
-  --color-tosca: #{$color-tosca};
-  --color-tosca-lift: #{$color-tosca-lift};
-  --color-tosca-soft: #{$color-tosca-soft};
-  --color-swirl: #{$color-swirl};
-  --color-swirl-50: #{$color-swirl-50};
-  --color-swirl-100: #{$color-swirl-100};
-  --ui-bg-elevated-soft: var(--color-swirl-50);
-  --ui-border-soft: #{mix($color-neutral-100, $color-swirl, 55%)};
-  --ui-border-strong: #{mix($color-tosca, $color-neutral-200, 24%)};
-  --ui-accent: var(--color-tosca);
-  --ui-accent-hover: var(--color-tosca-lift);
-  --ui-accent-soft: var(--color-tosca-soft);
-  --ui-accent-contrast: #{$color-light};
+  --color-primary: #{$color-primary};
+  --color-primary-lift: #{$color-primary-lift};
+  --color-primary-soft: #{$color-primary-soft};
+  --color-secondary: #{$color-secondary};
+  --color-secondary-50: #{$color-secondary-50};
+  --color-secondary-100: #{$color-secondary-100};
+  --ui-bg-elevated-soft: var(--color-secondary-50);
+  --ui-border-soft: #{mix($color-neutral-100, $color-secondary, 55%)};
+  --ui-border-strong: #{mix($color-primary, $color-neutral-200, 24%)};
   --ui-text-strong: #{$color-dark};
   --ui-text-muted: #{$color-text-secondary};
-  --ui-shadow-soft: 0 12px 32px rgba(45, 48, 58, 0.08), 0 2px 10px rgba(45, 48, 58, 0.05);
-  --ui-navbar-bg: var(--color-swirl-100);
-  --ui-navbar-border: #{mix($color-neutral-100, $color-swirl, 58%)};
+  --ui-shadow-soft: 0 12px 32px #{rgba($color-dark, 0.08)}, 0 2px 10px #{rgba($color-dark, 0.05)};
+  --ui-navbar-bg: var(--color-secondary-100);
+  --ui-navbar-border: #{mix($color-neutral-100, $color-secondary, 58%)};
   --ui-navbar-text: #{$color-dark};
-  --ui-navbar-accent: var(--color-tosca);
 }
 
 .navbar-offset-main {
@@ -200,20 +192,6 @@
   margin-bottom: clamp(0.8rem, 1.8vh, 1.1rem);
 }
 
-.btn-soft {
-  background-color: rgba(255, 255, 255, 0.88);
-  border: none;
-  color: $color-dark;
-  padding: 6px 18px;
-  font-size: 0.82rem;
-
-  &:hover,
-  &:focus {
-    background-color: rgba(255, 255, 255, 1);
-    color: $color-dark;
-  }
-}
-
 @media (min-width: 768px) {
   .participa-head .col-md-7 {
     display: flex;
@@ -282,10 +260,6 @@
     font-size: 0.94rem;
   }
 
-  .participa-cards .btn-soft {
-    font-size: 0.82rem;
-    padding: 6px 15px;
-  }
 }
 
 @media (max-height: 760px) {
@@ -332,10 +306,6 @@
     margin-bottom: 0.45rem;
   }
 
-  .btn-soft {
-    padding: 4px 11px;
-    font-size: 0.74rem;
-  }
 }
 
 @media (max-height: 540px) {
@@ -364,10 +334,6 @@
     margin-bottom: 0.35rem;
   }
 
-  .btn-soft {
-    font-size: 0.7rem;
-    padding: 4px 10px;
-  }
 }
 
 // ============================================
@@ -401,9 +367,9 @@
 }
 
 .participa-mode-gate {
-  background: #fff3cd;
-  border: 1px solid #ffe69c;
-  color: #664d03;
+  background: $color-secondary-50;
+  border: 1px solid $color-secondary;
+  color: $color-dark;
   border-radius: 14px;
   padding: 14px 16px;
 }
@@ -460,31 +426,31 @@
   padding: 10px 12px;
   margin: clamp(10px, 1.5vh, 14px) 0 0;
   font-size: 0.92rem;
-  background: #f8f9fa;
-  color: #495057;
+  background: $color-light;
+  color: $color-neutral-700;
 
   &:empty {
     display: none;
   }
 
   &.is-error {
-    background: #f8d7da;
-    color: #842029;
+    background: rgba($color-danger, 0.16);
+    color: $color-danger;
   }
 
   &.is-warning {
-    background: #fff3cd;
-    color: #664d03;
+    background: $color-secondary-50;
+    color: $color-dark;
   }
 
   &.is-success {
-    background: #d1e7dd;
-    color: #0f5132;
+    background: $color-success-light;
+    color: mix(black, $color-success, 35%);
   }
 
   &.is-info {
-    background: #cff4fc;
-    color: #055160;
+    background: $color-neutral-100;
+    color: $color-neutral-700;
   }
 }
 
@@ -495,14 +461,14 @@
 .participa-inline-status {
   margin: 8px 0 0;
   font-size: 0.85rem;
-  color: #495057;
+  color: $color-neutral-700;
 
   &.is-error {
-    color: #842029;
+    color: $color-danger;
   }
 
   &.is-warning {
-    color: #664d03;
+    color: $color-dark;
   }
 }
 
@@ -518,11 +484,11 @@
 }
 
 .participa-step {
-  border: 1px solid #dee2e6;
+  border: 1px solid $color-neutral-200;
   border-radius: 999px;
   padding: 5px 12px;
   font-size: 0.84rem;
-  color: #6c757d;
+  color: $color-neutral-700;
 
   &.is-active {
     background: $color-dark;
@@ -545,7 +511,7 @@
   z-index: 15;
   border: 1px solid rgba(0, 0, 0, 0.14);
   border-radius: 10px;
-  background: #fff;
+  background: $color-light;
   box-shadow: 0 14px 26px rgba(0, 0, 0, 0.14);
   max-height: 220px;
   overflow-y: auto;
@@ -567,7 +533,7 @@
 
   &:hover,
   &.is-active {
-    background: #f1f3f5;
+    background: $color-neutral-50;
   }
 }
 
@@ -637,8 +603,8 @@
 .archivo-testimonios-status {
   border-radius: 12px;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  background: #f8f9fa;
-  color: #495057;
+  background: $color-light;
+  color: $color-neutral-700;
   padding: 12px 14px;
   font-size: 0.95rem;
   display: flex;
@@ -646,15 +612,15 @@
 }
 
 .archivo-testimonios-status.is-error {
-  background: #f8d7da;
-  border-color: #f1aeb5;
-  color: #842029;
+  background: rgba($color-danger, 0.16);
+  border-color: rgba($color-danger, 0.28);
+  color: $color-danger;
 }
 
 .archivo-testimonios-status.is-empty {
-  background: #e2e3e5;
-  border-color: #c4c8cb;
-  color: #41464b;
+  background: $color-neutral-100;
+  border-color: $color-neutral-200;
+  color: $color-neutral-700;
 }
 
 .archivo-testimonios-grid {
@@ -703,7 +669,7 @@
     margin: 0;
     padding-left: 12px;
     border-left: 3px solid rgba(0, 0, 0, 0.18);
-    color: #3c4043;
+    color: $color-neutral-700;
   }
 
   code {

@@ -10,6 +10,7 @@
 @use "sass:map";
 @use 'sass:math';
 @use 'sass:list';
+@use "variables" as v;
 
 /* set up base variable to override from cb.scss */
 $link-color-base: "" !default;
@@ -19,7 +20,7 @@ $theme-colors: () !default;
 
 $white:    #fff !default;
 $black:    #000 !default;
-$primary:       #0d6efd !default;
+$primary:  #0d6efd !default;
 
 $min-contrast-ratio:   4.5 !default;
 $color-contrast-dark:      $black !default;
@@ -192,6 +193,57 @@ $_luminance-list: .0008 .001 .0011 .0013 .0015 .0017 .002 .0022 .0025 .0027 .003
     }
 }
 
+/* project mixin to create editorial solid buttons */
+@mixin theme-button-editorial(
+    $background,
+    $border,
+    $color,
+    $hover-background,
+    $hover-border,
+    $hover-color,
+    $focus-background,
+    $focus-border,
+    $focus-color,
+    $active-background,
+    $active-border,
+    $active-color,
+    $focus-ring
+) {
+    color: $color;
+    background-color: $background;
+    border-color: $border;
+
+    &:hover {
+        color: $hover-color;
+        background-color: $hover-background;
+        border-color: $hover-border;
+    }
+
+    .btn-check:focus + &,
+    &:focus,
+    &:focus-visible {
+        color: $focus-color;
+        background-color: $focus-background;
+        border-color: $focus-border;
+        box-shadow: 0 0 0 $btn-focus-width $focus-ring;
+    }
+
+    .btn-check:checked + &,
+    .btn-check:active + &,
+    &:active,
+    &.active,
+    .show > &.dropdown-toggle {
+        color: $active-color;
+        background-color: $active-background;
+        border-color: $active-border;
+
+        &:focus,
+        &:focus-visible {
+            box-shadow: 0 0 0 $btn-focus-width $focus-ring;
+        }
+    }
+}
+
 /* custom mixin to create btn-outline */
 @mixin theme-button-outline(
         $color,
@@ -225,6 +277,54 @@ $_luminance-list: .0008 .001 .0011 .0013 .0015 .0017 .002 .0022 .0025 .0027 .003
 
         &:focus {
             box-shadow: 0 0 0 $btn-focus-width rgba($color, .5);
+        }
+    }
+}
+
+/* project mixin to create editorial outline buttons */
+@mixin theme-button-outline-editorial(
+    $color,
+    $hover-background,
+    $hover-border,
+    $hover-color,
+    $focus-background,
+    $focus-border,
+    $focus-color,
+    $active-background,
+    $active-border,
+    $active-color,
+    $focus-ring
+) {
+    color: $color;
+    border-color: $color;
+
+    &:hover {
+        color: $hover-color;
+        background-color: $hover-background;
+        border-color: $hover-border;
+    }
+
+    .btn-check:focus + &,
+    &:focus,
+    &:focus-visible {
+        color: $focus-color;
+        background-color: $focus-background;
+        border-color: $focus-border;
+        box-shadow: 0 0 0 $btn-focus-width $focus-ring;
+    }
+
+    .btn-check:checked + &,
+    .btn-check:active + &,
+    &:active,
+    &.active,
+    &.dropdown-toggle.show {
+        color: $active-color;
+        background-color: $active-background;
+        border-color: $active-border;
+
+        &:focus,
+        &:focus-visible {
+            box-shadow: 0 0 0 $btn-focus-width $focus-ring;
         }
     }
 }
@@ -277,10 +377,107 @@ $_luminance-list: .0008 .001 .0011 .0013 .0015 .0017 .002 .0022 .0025 .0027 .003
     @if meta.type-of($value) == color {
         /* btn classes */
         .btn-#{$color} {
-            @include theme-button($value, $value);
+            @if $color == "primary" {
+                @include theme-button-editorial(
+                    $value,
+                    $value,
+                    color-contrast($value),
+                    v.$color-primary-lift,
+                    v.$color-primary-lift,
+                    color-contrast(v.$color-primary-lift),
+                    v.$color-primary-lift,
+                    v.$color-primary-lift,
+                    color-contrast(v.$color-primary-lift),
+                    $value,
+                    $value,
+                    color-contrast($value),
+                    rgba($value, 0.16)
+                );
+            } @else if $color == "secondary" {
+                @include theme-button-editorial(
+                    $value,
+                    $value,
+                    v.$color-dark,
+                    v.$color-secondary-50,
+                    v.$color-secondary-50,
+                    v.$color-dark,
+                    v.$color-secondary-50,
+                    v.$color-secondary-50,
+                    v.$color-dark,
+                    $value,
+                    $value,
+                    v.$color-dark,
+                    rgba($value, 0.42)
+                );
+            } @else if $color == "dark" {
+                $dark-hover: color.mix(black, $value, 8%);
+                @include theme-button-editorial(
+                    $value,
+                    $value,
+                    color-contrast($value),
+                    $dark-hover,
+                    $dark-hover,
+                    color-contrast($dark-hover),
+                    $dark-hover,
+                    $dark-hover,
+                    color-contrast($dark-hover),
+                    $value,
+                    $value,
+                    color-contrast($value),
+                    rgba($value, 0.18)
+                );
+            } @else if $color == "light" {
+                @include theme-button-editorial(
+                    $value,
+                    $value,
+                    v.$color-dark,
+                    $white,
+                    $white,
+                    v.$color-dark,
+                    $white,
+                    $white,
+                    v.$color-dark,
+                    $value,
+                    $value,
+                    v.$color-dark,
+                    rgba($value, 0.22)
+                );
+            } @else {
+                @include theme-button($value, $value);
+            }
         }
         .btn-outline-#{$color} {
-            @include theme-button-outline($value);
+            @if $color == "dark" {
+                @include theme-button-outline-editorial(
+                    $value,
+                    v.$color-neutral-50,
+                    v.$color-neutral-400,
+                    v.$color-dark,
+                    v.$color-neutral-50,
+                    v.$color-neutral-400,
+                    v.$color-dark,
+                    v.$color-neutral-100,
+                    v.$color-neutral-400,
+                    v.$color-dark,
+                    rgba($value, 0.12)
+                );
+            } @else if $color == "light" {
+                @include theme-button-outline-editorial(
+                    $value,
+                    $value,
+                    $value,
+                    v.$color-dark,
+                    $value,
+                    $value,
+                    v.$color-dark,
+                    $value,
+                    $value,
+                    v.$color-dark,
+                    rgba($value, 0.24)
+                );
+            } @else {
+                @include theme-button-outline($value);
+            }
         }
         /* text classes */
         @include theme-text(".text-#{$color}", $value);

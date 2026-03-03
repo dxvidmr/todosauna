@@ -19,7 +19,7 @@ custom-foot: participacion/scripts-contribucion-form.html
 
     <section id="participa-mode-gate-documento" class="participa-mode-gate" hidden>
       <p class="mb-2">Antes de enviar, define tu modo de participacion.</p>
-      <button type="button" id="btn-definir-modo-documento" class="btn btn-dark btn-sm">Elegir modo de participacion</button>
+      <button type="button" id="btn-definir-modo-documento" class="btn btn-secondary btn-sm">Elegir modo de participacion</button>
     </section>
 
     <form id="contribucion-form" class="participa-form card card-soft p-3 p-md-4" novalidate>
@@ -123,7 +123,7 @@ custom-foot: participacion/scripts-contribucion-form.html
         <div id="contribucion-step1-status" class="participa-form-status" aria-live="polite"></div>
 
         <div class="participa-form-actions mt-3">
-          <button type="button" id="btn-contribucion-next" class="btn btn-dark">Continuar</button>
+          <button type="button" id="btn-contribucion-next" class="btn btn-primary">Continuar</button>
         </div>
       </section>
 
@@ -139,7 +139,7 @@ custom-foot: participacion/scripts-contribucion-form.html
             <div id="contribucion-recaptcha-widget"></div>
           </div>
           <div class="participa-form-actions">
-            <button type="button" id="btn-contribucion-subir" class="btn btn-dark">Subir archivos</button>
+            <button type="button" id="btn-contribucion-subir" class="btn btn-primary">Subir archivos</button>
             <button type="button" id="btn-contribucion-cancelar-subida" class="btn btn-outline-dark">Cancelar subida</button>
           </div>
         </fieldset>
@@ -153,7 +153,7 @@ custom-foot: participacion/scripts-contribucion-form.html
 
         <div class="participa-form-actions mt-3">
           <button type="button" id="btn-contribucion-prev" class="btn btn-outline-dark">Volver</button>
-          <button type="submit" id="btn-enviar-contribucion" class="btn btn-dark">Enviar contribucion</button>
+          <button type="submit" id="btn-enviar-contribucion" class="btn btn-primary">Enviar contribucion</button>
         </div>
       </section>
     </form>
@@ -164,7 +164,7 @@ custom-foot: participacion/scripts-contribucion-form.html
       <p class="mb-3">El ID de tu envío es <code id="contribucion-success-id"></code>. Puedes anotarlo por si más adelante quieres hacer alguna consulta.</p>
       <div id="contribucion-link-status" class="participa-form-status"></div>
       <div class="participa-form-actions">
-        <a id="contribucion-cta-testimonio" href="{{ '/participa/testimonios/enviar/' | relative_url }}" class="btn btn-dark">Añadir un testimonio vinculado</a>
+        <a id="contribucion-cta-testimonio" href="{{ '/participa/testimonios/enviar/' | relative_url }}" class="btn btn-secondary">Añadir un testimonio vinculado</a>
         <a href="{{ '/participa/' | relative_url }}" class="btn btn-outline-dark">Volver a Participa</a>
       </div>
     </section>

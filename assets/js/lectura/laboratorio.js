@@ -17,7 +17,8 @@ import {
   highlightNoteInText,
   markCurrentNoteInText,
   buildNoteBadgesHTML,
-  buildNoteDisplayHTML
+  buildNoteDisplayHTML,
+  buildNotePanelHTML
 } from './notas-dom.js';
 import { cargarNotasActivas } from '../participacion/notas.js';
 import {
@@ -385,21 +386,12 @@ class EditorSocial {
    * Setup listeners para botones de modo
    */
   setupBienvenidaListeners() {
-    const opcionesModo = document.querySelectorAll('.opcion-modo');
+    const botonesModo = document.querySelectorAll('.btn-iniciar-modo');
     
-    opcionesModo.forEach(opcion => {
-      opcion.addEventListener('click', () => {
-        const modo = opcion.dataset.modo;
+    botonesModo.forEach(boton => {
+      boton.addEventListener('click', () => {
+        const modo = boton.dataset.modo || boton.closest('.opcion-modo')?.dataset.modo;
         void this.iniciarModoDesdeBienvenida(modo);
-      });
-      
-      // Accesibilidad: permitir Enter y Space para activar
-      opcion.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const modo = opcion.dataset.modo;
-          void this.iniciarModoDesdeBienvenida(modo);
-        }
       });
     });
   }
@@ -702,19 +694,14 @@ class EditorSocial {
       ? `<p class="placeholder-text">${mensajeContenido}</p>`
       : '';
     const dockHtml = mensajeDock
-      ? `<p class="lab-note-dock-placeholder">${mensajeDock}</p>`
+      ? `<p class="note-dock-placeholder">${mensajeDock}</p>`
       : '';
 
-    this.notaContent.innerHTML = `
-      <div class="lab-note-layout">
-        <div class="lab-note-display-scroll">
-          ${displayHtml}
-        </div>
-        <div class="lab-note-eval-dock">
-          ${dockHtml}
-        </div>
-      </div>
-    `;
+    this.notaContent.innerHTML = buildNotePanelHTML({
+      dockAttrs: `data-eval-state="${mensajeDock ? 'error' : 'idle'}"`,
+      bodyHTML: displayHtml,
+      dockHTML: dockHtml
+    });
   }
 
   /**
@@ -823,20 +810,15 @@ class EditorSocial {
       `;
     }
 
-    this.notaContent.innerHTML = `
-      <div class="lab-note-layout">
-        <div class="lab-note-display-scroll">
-          ${noteDisplayHtml}
-        </div>
-        <div class="lab-note-eval-dock">
-          ${dockHtml}
-        </div>
-      </div>
-    `;
+    this.notaContent.innerHTML = buildNotePanelHTML({
+      dockAttrs: `data-eval-state="${yaEvaluada ? 'evaluated' : 'ready'}"`,
+      bodyHTML: noteDisplayHtml,
+      dockHTML: dockHtml
+    });
 
     // Adjuntar event listeners si no esta evaluada
     if (!yaEvaluada) {
-      const container = this.notaContent.querySelector('.lab-note-eval-dock') || this.notaContent;
+      const container = this.notaContent.querySelector('.note-eval-dock') || this.notaContent;
       attachEvaluationListeners(
         container,
         nota.nota_id,

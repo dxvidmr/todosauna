@@ -1,14 +1,16 @@
+@use "variables" as *;
+
 /*  
     pages - style tweaks related to individual CB pages
     although most presentation is controlled by Bootstrap classes, these styles are necessary for default visualization pages to function correctly
 */
 
 /* set up base variable to override from cb.scss */
-$toc-a-color: #191919 !default;
+$toc-a-color: $color-dark !default;
 
 /* index */
 .carousel-item-title{
-    background-color: rgba(37, 36, 36, 0.72);
+    background-color: rgba($color-dark, 0.72);
 }
 
 /* item page */
@@ -25,7 +27,7 @@ $toc-a-color: #191919 !default;
 }
 .breadcrumb {
     padding: 0.75rem 1rem;
-    background-color: rgb(248, 249, 250);
+    background-color: $color-light;
     border-radius: 0.25rem;
 }
 .compound-thumb {
@@ -107,7 +109,7 @@ $toc-a-color: #191919 !default;
     min-width: 80px; /* Reduce minimum width */
     height: calc(1.5em + 0.75rem + 2px); /* Match Bootstrap form-control height */
     padding: 1.35rem 0.5rem; /* Reduce padding to save space */
-    border: 1px solid #ced4da;
+    border: 1px solid $color-neutral-200;
     border-radius: 0.25rem; /* Add border radius back for consistency */
     font-size: 1rem; /* Match main input font size */
 }
@@ -121,7 +123,7 @@ $toc-a-color: #191919 !default;
 
 .date-separator {
     font-size: 0.875rem;
-    color: #6c757d;
+    color: $color-neutral-700;
     padding: 0 0.25rem;
     white-space: nowrap;
 }
@@ -194,7 +196,7 @@ $toc-a-color: #191919 !default;
 #about-toc-title {
     button { 
         width: 100%;
-        background-color: #dedede;
+        background-color: $color-neutral-200;
     }
 }
 #about-toc-list {
@@ -284,7 +286,7 @@ $toc-a-color: #191919 !default;
     }
     .jekyll-toc-list { 
         padding: 1rem;
-        //border: 1px solid #dee2e6;
+        // border opcional si se quiere recuperar el contorno del TOC
         //border-radius: 0.25rem;
         max-height: 90vh;
         overflow-y: auto;

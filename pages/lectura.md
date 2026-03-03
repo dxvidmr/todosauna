@@ -27,8 +27,15 @@ lectura_dynamic_recenter: true
         <!-- Contenido de las pestañas -->
         <div class="tab-content active" id="tab-notas">
             <div id="panelNotas">
-                <div id="noteContent">
-                    <p class="placeholder-text">Haz clic en el texto subrayado para ver las notas.</p>
+                <div id="noteContent" class="note-panel-host">
+                    <div class="note-panel-layout">
+                        <div class="note-panel-scroll">
+                            <p class="placeholder-text">Haz clic en el texto subrayado para ver las notas.</p>
+                        </div>
+                        <div class="note-eval-dock" data-eval-state="idle">
+                            <p class="note-dock-placeholder"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -58,36 +65,36 @@ lectura_dynamic_recenter: true
         <div class="tab-content" id="tab-opciones">
             <div class="opciones-panel">
                 <div class="option-group">
-                    <label class="option-item">
-                        <span>Mostrar marcas de notas</span>
+                    <div class="option-item">
+                        <label for="toggle-notes">Mostrar marcas de notas</label>
                         <label class="toggle-switch">
                             <input type="checkbox" id="toggle-notes" checked>
                             <span class="slider"></span>
                         </label>
-                    </label>
-                    <label class="option-item">
-                        <span>Mostrar separación de estrofas</span>
+                    </div>
+                    <div class="option-item">
+                        <label for="toggle-stanzas">Mostrar separación de estrofas</label>
                         <label class="toggle-switch">
                             <input type="checkbox" id="toggle-stanzas">
                             <span class="slider"></span>
                         </label>
-                    </label>
-                    <label class="option-item">
-                        <span class="flex-shrink-0 me-3">Numeración</span>
+                    </div>
+                    <div class="option-item">
+                        <label for="numeracion-versos" class="flex-shrink-0 me-3">Numeración</label>
                         <select id="numeracion-versos" class="form-select form-select-sm w-auto">
                             <option value="cada5" selected>Cada 5 versos</option>
                             <option value="todos">Todos los versos</option>
                             <option value="ninguno">Ninguno</option>
                         </select>
-                    </label>
-                    <label class="option-item">
+                    </div>
+                    <div class="option-item">
                         <span>Tamaño del texto</span>
                         <div class="font-size-controls">
-                            <button id="decrease-font" class="font-btn"><i class="fa-solid fa-minus"></i></button>
+                            <button id="decrease-font" class="btn-circular" type="button" aria-label="Reducir tamano del texto"><i class="fa-solid fa-minus"></i></button>
                             <span class="fs-6" id="font-size-display">100%</span>
-                            <button id="increase-font" class="font-btn"><i class="fa-solid fa-plus"></i></button>
+                            <button id="increase-font" class="btn-circular" type="button" aria-label="Aumentar tamano del texto"><i class="fa-solid fa-plus"></i></button>
                         </div>
-                    </label>
+                    </div>
                 </div>
             </div>
         </div>

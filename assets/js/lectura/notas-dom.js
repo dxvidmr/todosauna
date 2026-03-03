@@ -211,6 +211,23 @@ function buildSkeletonLoadingHTML() {
   );
 }
 
+function buildNotePanelHTML(options) {
+  var bodyHTML = options && options.bodyHTML ? options.bodyHTML : '';
+  var dockHTML = options && options.dockHTML ? options.dockHTML : '';
+  var dockAttrs = options && options.dockAttrs ? options.dockAttrs : '';
+
+  return (
+    '<div class="note-panel-layout">' +
+      '<div class="note-panel-scroll">' +
+        bodyHTML +
+      '</div>' +
+      '<div class="note-eval-dock"' + (dockAttrs ? ' ' + dockAttrs : '') + '>' +
+        dockHTML +
+      '</div>' +
+    '</div>'
+  );
+}
+
 // Toggle .note-active en wrappers que contienen noteId
 function highlightNoteInText(container, noteId, active) {
   if (!container || !noteId) return;
@@ -320,6 +337,7 @@ if (typeof window !== 'undefined') {
   window.buildNoteBadgesHTML = buildNoteBadgesHTML;
   window.buildNoteDisplayHTML = buildNoteDisplayHTML;
   window.buildSkeletonLoadingHTML = buildSkeletonLoadingHTML;
+  window.buildNotePanelHTML = buildNotePanelHTML;
 }
 
 export {
@@ -327,7 +345,7 @@ export {
   collectNoteTargetMeta, buildReadingOrderNoteIds, pickPrimaryNoteIdForClick,
   findElementByXmlId, resolveTargetElements,
   ensureNoteWrapper, addNoteGroup, markWrapperEventsAttached,
-  buildNoteBadgesHTML, buildNoteDisplayHTML, buildSkeletonLoadingHTML,
+  buildNoteBadgesHTML, buildNoteDisplayHTML, buildSkeletonLoadingHTML, buildNotePanelHTML,
   highlightNoteInText, highlightAllRelatedGroups,
   markCurrentNoteInText, applyNoteHighlights
 };

@@ -122,56 +122,43 @@ body.laboratorio-page.laboratorio-mode-active {
 }
 
 .opcion-modo {
-  padding: clamp(20px, 2.8vh, 34px);
   display: flex;
-  align-items: center;
-  gap: clamp(16px, 2.4vw, 28px);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-
-  .opcion-icono {
-    flex-shrink: 0;
-    font-size: clamp(1.5rem, 2.8vw, 2rem);
-  }
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: clamp(24px, 3vh, 34px);
+  border-radius: 25px;
+  background: $color-secondary;
 
   .opcion-contenido {
-    flex: 1;
     text-align: left;
+    min-width: 0;
   }
 
   h3 {
-    font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+    font-size: clamp(1.28rem, 2.2vw, 1.7rem);
     font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 6px;
+    color: $color-dark;
+    line-height: 1.1;
+    margin: 0 0 10px;
   }
 
   p {
-    font-size: clamp(0.92rem, 1.1vw, 1rem);
+    font-size: clamp(0.98rem, 1.15vw, 1.04rem);
+    line-height: 1.6;
     margin-bottom: 0;
+    max-width: 34ch;
   }
 }
 
-.btn-modo-entrada {
-  background: $color-dark;
-  color: $color-light;
-  padding: 16px 32px;
-  font-size: 1.05rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 50px;
-  width: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
+.opcion-accion {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
 
-  &:hover {
-    background: $color-dark;
-  }
+.opcion-modo .btn-iniciar-modo {
+  white-space: nowrap;
 }
 
 // ============================================
@@ -182,6 +169,10 @@ body.laboratorio-page.laboratorio-mode-active {
   padding: clamp(18px, 2.6vh, 24px);
   border-radius: 30px;
   background: $color-neutral-100;
+}
+
+.stats-globales--parked {
+  display: none;
 }
 
 .stats-header {
@@ -348,11 +339,11 @@ body.laboratorio-page.laboratorio-mode-active {
   flex-shrink: 0;
 
   &.evaluaciones {
-    background: #5b8a72;
+    background: $color-success;
   }
 
   &.sugerencias {
-    background: #9a7b4f;
+    background: $color-primary;
   }
 
   &.util {
@@ -509,44 +500,39 @@ body.laboratorio-page.laboratorio-mode-active {
   min-height: 0;
   border-radius: 25px;
   padding: clamp(18px, 2.3vh, 30px);
-  overflow-y: auto;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   background: $color-neutral-50;
 }
 
 .pasaje-container,
-.notas-container,
-.notas-container .lab-note-display-scroll {
+.notas-container .note-panel-scroll {
   scrollbar-width: thin;
   scrollbar-color: $color-text-muted $color-neutral-50;
 }
 
 .pasaje-container::-webkit-scrollbar,
-.notas-container::-webkit-scrollbar,
-.notas-container .lab-note-display-scroll::-webkit-scrollbar {
+.notas-container .note-panel-scroll::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
 .pasaje-container::-webkit-scrollbar-track,
-.notas-container::-webkit-scrollbar-track,
-.notas-container .lab-note-display-scroll::-webkit-scrollbar-track {
+.notas-container .note-panel-scroll::-webkit-scrollbar-track {
   background: $color-neutral-50;
   border-radius: 999px;
 }
 
 .pasaje-container::-webkit-scrollbar-thumb,
-.notas-container::-webkit-scrollbar-thumb,
-.notas-container .lab-note-display-scroll::-webkit-scrollbar-thumb {
+.notas-container .note-panel-scroll::-webkit-scrollbar-thumb {
   background: $color-text-muted;
   border-radius: 999px;
   border: 2px solid $color-neutral-50;
 }
 
 .pasaje-container::-webkit-scrollbar-thumb:hover,
-.notas-container::-webkit-scrollbar-thumb:hover,
-.notas-container .lab-note-display-scroll::-webkit-scrollbar-thumb:hover {
+.notas-container .note-panel-scroll::-webkit-scrollbar-thumb:hover {
   background: $color-neutral-700;
 }
 
@@ -620,12 +606,7 @@ body.laboratorio-page.laboratorio-mode-active {
   column-gap: clamp(10px, 1.4vw, 20px);
 }
 
-.pasaje-container tei-speaker {
-  grid-column: 1;
-}
-
 .pasaje-container tei-sp > tei-l {
-  grid-column: 2;
   min-width: 0;
 }
 
@@ -641,25 +622,6 @@ body.laboratorio-page.laboratorio-mode-active {
   gap: 0.4rem;
   margin-left: 0;
   flex-shrink: 0;
-}
-
-.lab-font-btn {
-  width: 26px;
-  height: 26px;
-  border: none;
-  border-radius: 50%;
-  background: $color-neutral-200;
-  color: $color-dark;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: $color-dark;
-    color: $color-light;
-  }
 }
 
 .lab-font-size-display {
@@ -713,38 +675,6 @@ body.laboratorio-page.laboratorio-mode-active {
   min-width: 0;
 }
 
-.btn-nav-inline {
-  height: 28px;
-  padding: 0 10px;
-  border: 1px solid $color-neutral-200;
-  background: $color-light;
-  color: $color-text;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.78rem;
-  font-weight: 500;
-  line-height: 1;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: $color-neutral-200;
-  }
-}
-
-.btn-nav-inline-primary {
-  border: none;
-  background: $color-dark;
-  color: $color-light;
-
-  &:hover {
-    background: $color-dark;
-    color: $color-light;
-  }
-}
-
 .barra-progreso {
   height: 6px;
   background: $color-neutral-100;
@@ -764,7 +694,7 @@ body.laboratorio-page.laboratorio-mode-active {
 // ============================================
 
 .notas-container {
-  overflow: hidden;
+  overflow: visible;
 
   .notas-navegacion {
     display: flex;
@@ -821,57 +751,14 @@ body.laboratorio-page.laboratorio-mode-active {
     flex: 1;
     min-height: 0;
     margin-bottom: 10px;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
   }
 
-  .lab-note-layout {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .lab-note-display-scroll {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-right: 4px;
-  }
-
-  .lab-note-eval-dock {
-    flex-shrink: 0;
-    border-top: 1px solid $color-neutral-200;
-    padding-top: 10px;
-  }
-
-  .lab-note-eval-dock .nota-evaluacion {
-    margin-top: 0;
-    padding-top: 0;
-    border-top: none;
-  }
-
-  .lab-note-eval-dock .nota-evaluacion.is-commenting {
-    min-height: 112px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
-  .lab-note-eval-dock .nota-ya-evaluada {
-    margin: 0;
-    padding: 10px 12px;
-  }
-
-  .lab-note-dock-placeholder {
-    margin: 0;
-    font-size: 0.82rem;
-    color: $color-text-muted;
-    text-align: center;
-    font-style: italic;
+  .note-eval-dock {
+    --note-eval-dock-pt: 10px;
+    --note-eval-comment-min-height: 112px;
   }
 
   .notas-instrucciones {
@@ -1028,14 +915,18 @@ body.laboratorio-page.laboratorio-mode-active {
   }
 
   .opcion-modo {
-    padding: 18px 16px;
+    padding: 20px 18px;
     gap: 14px;
-    border-radius: 18px;
+    border-radius: 25px;
   }
 
   .stats-globales {
     padding: 14px;
     border-radius: 20px;
+  }
+
+  .opcion-accion {
+    justify-content: flex-start;
   }
 
   .stats-barra-container,
@@ -1149,11 +1040,6 @@ body.laboratorio-page.laboratorio-mode-active {
     justify-content: flex-end;
   }
 
-  .btn-nav-inline {
-    height: 26px;
-    font-size: 0.74rem;
-    padding: 0 8px;
-  }
 }
 
 @media (max-width: 479.98px) {

@@ -81,7 +81,7 @@ class EdicionEvaluacion {
     this.notasEvaluadasBD.clear();
 
     const noteContentDiv = document.getElementById('noteContent');
-    const dock = noteContentDiv?.querySelector('.lectura-note-eval-dock') || noteContentDiv;
+    const dock = noteContentDiv?.querySelector('.note-eval-dock') || noteContentDiv;
     if (dock) {
       dock.dataset.evalState = 'idle';
       dock.dataset.evalNoteId = '';
@@ -148,7 +148,7 @@ class EdicionEvaluacion {
     if (!dock) return;
     dock.dataset.evalState = 'error';
     dock.dataset.evalNoteId = notaId;
-    dock.innerHTML = `<p class="lectura-note-dock-placeholder">${mensaje}</p>`;
+    dock.innerHTML = `<p class="note-dock-placeholder">${mensaje}</p>`;
   }
 
   isRenderStale(noteContentDiv, notaId, renderSeq) {
@@ -199,7 +199,7 @@ class EdicionEvaluacion {
 
     const noteDisplay = noteContentDiv.querySelector('.note-display');
     const notaId = noteDisplay?.dataset?.noteId || null;
-    const dock = noteContentDiv.querySelector('.lectura-note-eval-dock') || noteContentDiv;
+    const dock = noteContentDiv.querySelector('.note-eval-dock') || noteContentDiv;
     if (!dock) return;
 
     if (!notaId) {
@@ -231,7 +231,7 @@ class EdicionEvaluacion {
     const version = await this.obtenerVersionNotaConCache(notaId);
     if (this.isRenderStale(noteContentDiv, notaId, renderSeq)) return;
 
-    const currentDock = noteContentDiv.querySelector('.lectura-note-eval-dock');
+    const currentDock = noteContentDiv.querySelector('.note-eval-dock');
     if (!currentDock) return;
 
     if (!version) {

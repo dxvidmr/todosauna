@@ -29,7 +29,6 @@
 .jumbotron {
     padding: 4rem 2rem;
     margin-bottom: 2rem;
-    background-color: #e9ecef;
     border-radius: 0.3rem;
 }  
 #{{ jumbo_div_id }} {
@@ -51,7 +50,7 @@
     .jumbo-tagline { font-size:.85em; }
 }
 </style>
-<div class="jumbotron feature px-0 border" id="{{ jumbo_div_id }}">
+<div class="jumbotron feature px-0 border bg-neutral-100" id="{{ jumbo_div_id }}">
     <div class="jumbo-title-box">
         {% unless include.heading == false and include.text == false %}
         <div class="p-2 text-center text-white bg-dark bg-opacity-75">

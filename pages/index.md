@@ -28,10 +28,10 @@ custom-foot: js/home-carousel-js.html
     <div class="explore-content text-center">
         <!--<p class="explore-badge">TODOS A UNA</p>-->
         <h2 class="explore-title">
-            Descubre y participa de la historia de <i>Fuenteovejuna</i>
+            Descubre y <a href="{{ '/participa/' | relative_url }}" class="btn btn-primary explore-title-cta">participa</a> de la historia de <i>Fuenteovejuna</i>
         </h2>
-        <a href="#acerca-de" class="btn btn-primary btn-lg">
-            SOBRE EL PROYECTO
+        <a href="#acerca-de" class="btn btn-secondary btn-lg">
+            Sobre el proyecto
         </a>
     </div>
     <!-- Carrusel de imágenes con overlay de texto -->

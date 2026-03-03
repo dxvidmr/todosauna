@@ -59,12 +59,12 @@
       ? (
         '<div class="botones-modal participa-ui-dialog-actions">' +
         '  <button type="button" class="btn btn-outline-dark participa-ui-cancel"></button>' +
-        '  <button type="button" class="btn btn-dark participa-ui-confirm"></button>' +
+        '  <button type="button" class="btn btn-primary participa-ui-confirm"></button>' +
         '</div>'
       )
       : (
         '<div class="botones-modal participa-ui-dialog-actions">' +
-        '  <button type="button" class="btn btn-dark participa-ui-confirm"></button>' +
+        '  <button type="button" class="btn btn-primary participa-ui-confirm"></button>' +
         '</div>'
       );
 

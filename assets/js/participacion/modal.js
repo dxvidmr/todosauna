@@ -36,6 +36,51 @@
     return fallback;
   }
 
+  function escapeHtml(value) {
+    return String(value || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function parseDateValue(value) {
+    if (!value) return null;
+    var date = new Date(value);
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
+
+  function isSameCalendarDay(a, b) {
+    return a.getFullYear() === b.getFullYear()
+      && a.getMonth() === b.getMonth()
+      && a.getDate() === b.getDate();
+  }
+
+  function formatDateShort(value) {
+    var date = parseDateValue(value);
+    if (!date) return null;
+
+    try {
+      return new Intl.DateTimeFormat('es-ES', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      }).format(date);
+    } catch (err) {
+      return date.toLocaleDateString();
+    }
+  }
+
+  function formatLastActivity(value) {
+    var date = parseDateValue(value);
+    if (!date) return null;
+
+    var now = new Date();
+    if (isSameCalendarDay(date, now)) return 'hoy';
+    return formatDateShort(date);
+  }
+
   function trackSecondContributionChoice(mode) {
     if (!ns.telemetry || typeof ns.telemetry.track !== 'function') return;
     if (!ns.telemetry.EVENTS) return;
@@ -88,14 +133,21 @@
 
   function ModalParticipacion() {
     this.modal = null;
+    this.modalContent = null;
+    this.modalTitle = null;
+    this.modalDescription = null;
     this.opciones = null;
     this.formAnonimo = null;
     this.colaboradorOpciones = null;
     this.formLogin = null;
     this.formRegistro = null;
+    this.profileView = null;
     this._resolveOpen = null;
     this._buttonsBound = false;
     this.currentContext = '';
+    this.currentView = 'selection';
+    this.viewStack = [];
+    this._lastProfileViewModel = null;
     this.isSubmittingAnonimo = false;
     this.isSubmittingLogin = false;
     this.isSubmittingRegistro = false;
@@ -187,11 +239,15 @@
       container.appendChild(this.modal);
     }
 
+    this.modalContent = this.modal.querySelector('.modal-content');
+    this.modalTitle = this.modal.querySelector('#modal-titulo');
+    this.modalDescription = this.modal.querySelector('#modal-descripcion');
     this.opciones = this.modal.querySelector('.modo-opciones');
     this.formAnonimo = this.modal.querySelector('#form-anonimo');
     this.colaboradorOpciones = this.modal.querySelector('#colaborador-opciones');
     this.formLogin = this.modal.querySelector('#form-colaborador-login');
     this.formRegistro = this.modal.querySelector('#form-colaborador-registro');
+    this.profileView = this.modal.querySelector('#perfil-participacion');
 
     this._attachModalEvents();
   };
@@ -278,14 +334,16 @@
       '            <option value="otro">Otra</option>' +
       '          </select>' +
       '        </label>' +
-      '        <div class="botones-modal">' +
-      '          <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>' +
-      '          <button type="submit" class="btn btn-primary">Registrarme</button>' +
-      '        </div>' +
-      '      </form>' +
-      '    </div>' +
-      '  </div>' +
-      '</div>'
+       '        <div class="botones-modal">' +
+       '          <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>' +
+       '          <button type="submit" class="btn btn-primary">Registrarme</button>' +
+       '        </div>' +
+       '      </form>' +
+       '    </div>' +
+       '    <div id="perfil-participacion" class="modo-form perfil-participacion" style="display:none;"></div>' +
+       '    </div>' +
+       '  </div>' +
+       '</div>'
     );
   };
 
@@ -312,7 +370,7 @@
 
     this.modal.querySelectorAll('.btn-volver').forEach(function (button) {
       button.addEventListener('click', function () {
-        self._resetView();
+        self._goBack();
       });
     });
 
@@ -346,34 +404,128 @@
     }
   };
 
-  ModalParticipacion.prototype._resetView = function () {
-    var title = this.modal.querySelector('#modal-titulo');
-    var description = this.modal.querySelector('#modal-descripcion');
-    if (title) title.style.display = 'block';
-    if (description) description.style.display = 'block';
-
-    this.opciones.style.display = 'grid';
-    this.formAnonimo.style.display = 'none';
-    this.colaboradorOpciones.style.display = 'none';
-    this.formLogin.style.display = 'none';
-    this.formRegistro.style.display = 'none';
-
+  ModalParticipacion.prototype._resetForms = function () {
     var forms = this.modal.querySelectorAll('form');
     forms.forEach(function (form) {
       form.reset();
     });
+  };
 
+  ModalParticipacion.prototype._hideAllViews = function () {
+    if (this.opciones) this.opciones.style.display = 'none';
+    if (this.formAnonimo) this.formAnonimo.style.display = 'none';
+    if (this.colaboradorOpciones) this.colaboradorOpciones.style.display = 'none';
+    if (this.formLogin) this.formLogin.style.display = 'none';
+    if (this.formRegistro) this.formRegistro.style.display = 'none';
+    if (this.profileView) this.profileView.style.display = 'none';
+  };
+
+  ModalParticipacion.prototype._showHeader = function (titleText, descriptionText) {
+    if (this.modalTitle) {
+      this.modalTitle.style.display = 'block';
+      if (typeof titleText === 'string') this.modalTitle.textContent = titleText;
+    }
+
+    if (this.modalDescription) {
+      this.modalDescription.style.display = 'block';
+      if (typeof descriptionText === 'string') this.modalDescription.textContent = descriptionText;
+    }
+  };
+
+  ModalParticipacion.prototype._hideHeader = function () {
+    if (this.modalTitle) this.modalTitle.style.display = 'none';
+    if (this.modalDescription) this.modalDescription.style.display = 'none';
+  };
+
+  ModalParticipacion.prototype._activateView = function (viewName, options) {
+    var opts = options || {};
+
+    if (opts.resetStack) {
+      this.viewStack = [];
+    } else if (!opts.replace && this.currentView && this.currentView !== viewName) {
+      this.viewStack.push(this.currentView);
+    }
+
+    this.currentView = viewName;
+    if (this.modal) this.modal.dataset.view = viewName;
+    this._hideAllViews();
+  };
+
+  ModalParticipacion.prototype._showModeSelection = function (options) {
+    this._activateView('selection', options);
+    this._resetForms();
     this._applyContextContent(this.currentContext);
+    this._showHeader(
+      this.modalTitle ? this.modalTitle.textContent : '',
+      this.modalDescription ? this.modalDescription.textContent : ''
+    );
+    if (this.opciones) this.opciones.style.display = 'grid';
+  };
+
+  ModalParticipacion.prototype._showAnonimoForm = function (options) {
+    this._activateView('anonimo', options);
+    this._hideHeader();
+    if (this.formAnonimo) this.formAnonimo.style.display = 'block';
+  };
+
+  ModalParticipacion.prototype._showColaboradorOptions = function (options) {
+    this._activateView('colaborador-opciones', options);
+    this._hideHeader();
+    if (this.colaboradorOpciones) this.colaboradorOpciones.style.display = 'block';
+  };
+
+  ModalParticipacion.prototype._showLoginForm = function (options) {
+    this._activateView('login', options);
+    this._hideHeader();
+    if (this.formLogin) this.formLogin.style.display = 'block';
+  };
+
+  ModalParticipacion.prototype._showRegistroForm = function (options) {
+    this._activateView('registro', options);
+    this._hideHeader();
+    if (this.formRegistro) this.formRegistro.style.display = 'block';
+  };
+
+  ModalParticipacion.prototype._goBack = function () {
+    var previousView = this.viewStack.pop();
+    if (!previousView) {
+      this._showModeSelection({ resetStack: true });
+      return;
+    }
+
+    if (previousView === 'profile') {
+      this._showProfileView(this._lastProfileViewModel || null, { replace: true });
+      return;
+    }
+
+    if (previousView === 'colaborador-opciones') {
+      this._showColaboradorOptions({ replace: true });
+      return;
+    }
+
+    if (previousView === 'anonimo') {
+      this._showAnonimoForm({ replace: true });
+      return;
+    }
+
+    if (previousView === 'login') {
+      this._showLoginForm({ replace: true });
+      return;
+    }
+
+    if (previousView === 'registro') {
+      this._showRegistroForm({ replace: true });
+      return;
+    }
+
+    this._showModeSelection({ resetStack: true });
   };
 
   ModalParticipacion.prototype._applyContextContent = function (context) {
     var ctx = context || '';
     var content = this.contextCopy[ctx] || this.contextCopy.default;
-    var title = this.modal.querySelector('#modal-titulo');
-    var description = this.modal.querySelector('#modal-descripcion');
-
-    if (title) title.textContent = content.title;
-    if (description) description.textContent = content.description;
+    if (this.modalTitle) this.modalTitle.textContent = content.title;
+    if (this.modalDescription) this.modalDescription.textContent = content.description;
 
     this._setModeOptionContent('anonimo', content.anonimoTitle, content.anonimoDescription);
     this._setModeOptionContent('colaborador', content.colaboradorTitle, content.colaboradorDescription);
@@ -389,24 +541,19 @@
   };
 
   ModalParticipacion.prototype._selectMode = function (mode) {
-    this.modal.querySelector('#modal-titulo').style.display = 'none';
-    this.modal.querySelector('#modal-descripcion').style.display = 'none';
-    this.opciones.style.display = 'none';
-
     if (mode === 'anonimo') {
-      this.formAnonimo.style.display = 'block';
+      this._showAnonimoForm();
       return;
     }
 
     if (mode === 'colaborador') {
-      this.colaboradorOpciones.style.display = 'block';
+      this._showColaboradorOptions();
     }
   };
 
   ModalParticipacion.prototype._showCollaboratorForm = function (type) {
-    this.colaboradorOpciones.style.display = 'none';
-    if (type === 'login') this.formLogin.style.display = 'block';
-    if (type === 'registro') this.formRegistro.style.display = 'block';
+    if (type === 'login') this._showLoginForm();
+    if (type === 'registro') this._showRegistroForm();
   };
 
   ModalParticipacion.prototype._submitAnonimo = async function (form) {
@@ -477,9 +624,8 @@
           'warning'
         );
         if (wantsRegister) {
-          this._resetView();
-          this._selectMode('colaborador');
-          this._showCollaboratorForm('registro');
+          this._showColaboradorOptions({ resetStack: true });
+          this._showRegistroForm();
         }
         return;
       }
@@ -626,7 +772,7 @@
       '      <p>Comentarios: ' + (stats ? stats.comentarios : 0) + '</p>' +
       '    </div>' +
       '    <div class="info-acciones">' +
-      '      <button class="btn btn-dark btn-cerrar-sesion"><i class="fa-solid fa-right-from-bracket me-2" aria-hidden="true"></i>Cerrar sesión</button>' +
+      '      <button class="btn btn-secondary btn-cerrar-sesion"><i class="fa-solid fa-right-from-bracket me-2" aria-hidden="true"></i>Cerrar sesión</button>' +
       '    </div>' +
       '  </div>' +
       '</div>';

@@ -9,6 +9,7 @@ import {
     highlightAllRelatedGroups,
     buildNoteBadgesHTML,
     buildNoteDisplayHTML,
+    buildNotePanelHTML,
     markCurrentNoteInText,
     buildSkeletonLoadingHTML
 } from './notas-dom.js';
@@ -621,16 +622,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function renderizarPlaceholderNota(noteContentDiv, mensaje) {
         noteContentDiv.dataset.currentNoteId = '';
-        noteContentDiv.innerHTML = `
-            <div class="lectura-note-layout">
-                <div class="lectura-note-scroll">
-                    <p class="placeholder-text">${mensaje}</p>
-                </div>
-                <div class="lectura-note-eval-dock" data-eval-state="idle">
-                    <p class="lectura-note-dock-placeholder"></p>
-                </div>
-            </div>
-        `;
+        noteContentDiv.innerHTML = buildNotePanelHTML({
+            dockAttrs: 'data-eval-state="idle"',
+            bodyHTML: `<p class="placeholder-text">${mensaje}</p>`,
+            dockHTML: '<p class="note-dock-placeholder"></p>'
+        });
         renderPanelHeaderActions();
     }
     
@@ -654,16 +650,11 @@ document.addEventListener("DOMContentLoaded", function() {
         marcarNotaActivaEnTexto(noteXmlId, teiContainer);
          
         noteContentDiv.dataset.currentNoteId = noteXmlId;
-        noteContentDiv.innerHTML = `
-            <div class="lectura-note-layout">
-                <div class="lectura-note-scroll">
-                    ${buildNoteDisplayHTML({ noteId: noteXmlId, text: noteToShow.textContent.trim(), badgesHTML })}
-                </div>
-                <div class="lectura-note-eval-dock" data-eval-state="loading">
-                    ${renderizarDockEvaluacionLoading()}
-                </div>
-            </div>
-        `;
+        noteContentDiv.innerHTML = buildNotePanelHTML({
+            dockAttrs: 'data-eval-state="loading"',
+            bodyHTML: buildNoteDisplayHTML({ noteId: noteXmlId, text: noteToShow.textContent.trim(), badgesHTML }),
+            dockHTML: renderizarDockEvaluacionLoading()
+        });
         renderPanelHeaderActions();
     }
     

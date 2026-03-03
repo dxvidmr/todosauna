@@ -3,34 +3,33 @@
 // ============================================
 
 // Colores base (coinciden con config-theme-colors.csv)
-$color-dark: #2d303a;
-$color-light: #f8f9fa;
-$color-tosca: #8f4142;
-$color-swirl: #d2c8c5;
-$color-secondary: #6c757d;
+$color-dark: #383634;
+$color-light: mix(white, $color-dark, 96%);
+$color-primary: #8f4142;
+$color-secondary: #d2c8c5;
 $color-success: #7a9e7e;
 $color-danger: #8b3a33;
 
 // Variaciones de estados
-$color-tosca-lift: mix(white, $color-tosca, 12%);
-$color-tosca-soft: mix(white, $color-tosca, 90%);
-$color-swirl-50: #f7f4f3;
-$color-swirl-100: #eee7e5;
+$color-primary-lift: mix(white, $color-primary, 12%);
+$color-primary-soft: mix(white, $color-primary, 90%);
+$color-secondary-50: #f7f4f3;
+$color-secondary-100: #eee7e5;
 $color-success-light: lighten($color-success, 35%);
 $color-danger-100: #fbeae9;
 
 // Neutrales
-$color-neutral-50: #f1f3f5;
-$color-neutral-100: #e9ecef;
-$color-neutral-200: #dee2e6;
-$color-neutral-400: #adb5bd;
-$color-neutral-700: #4d535c;
+$color-neutral-50: mix(white, $color-dark, 94%);
+$color-neutral-100: mix(white, $color-dark, 89%);
+$color-neutral-200: mix(white, $color-dark, 82%);
+$color-neutral-400: mix(white, $color-dark, 55%);
+$color-neutral-700: mix(white, $color-dark, 22%);
 
 // Textos
-$color-text: #333333;
-$color-text-secondary: #5f5a56;
-$color-text-muted: #989898;
-$color-text-muted-dark: #555555;
+$color-text: $color-dark;
+$color-text-secondary: mix(white, $color-dark, 26%);
+$color-text-muted: mix(white, $color-dark, 58%);
+$color-text-muted-dark: mix(white, $color-dark, 18%);
 
 // Sombras
 $shadow-sm: 0 2px 8px rgba(0,0,0,0.1);

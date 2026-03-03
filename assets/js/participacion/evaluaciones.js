@@ -48,30 +48,30 @@ function crearBotonesConContadores(notaId, version, evaluaciones) {
   const { total, utiles, mejorables } = evaluaciones;
 
   // Mensaje si no hay evaluaciones
-  const mensajePrimero = total === 0
-    ? '<p class="eval-mensaje-primero">¡Sé el primero en evaluarla!</p>'
+  const badgeSinEvaluaciones = total === 0
+    ? '<span class="eval-badge-empty">Sin evaluaciones</span>'
     : '';
 
   return `
     <div class="evaluacion-header">
       <span>¿Te resulta útil esta nota?</span>
+      ${badgeSinEvaluaciones}
     </div>
     <div class="evaluacion-botones">
-      <button class="btn btn-outline-success btn-evaluar btn-util" data-nota-id="${notaId}" data-version="${version}">
+      <button class="btn btn-outline-dark btn-evaluar btn-util" data-nota-id="${notaId}" data-version="${version}">
         <span class="btn-contador">${utiles}</span>
         <i class="fa-solid fa-heart" aria-hidden="true"></i>
         Útil
       </button>
-      <button class="btn btn-outline-danger btn-evaluar btn-mejorable" data-nota-id="${notaId}" data-version="${version}">
+      <button class="btn btn-outline-dark btn-evaluar btn-mejorable" data-nota-id="${notaId}" data-version="${version}">
         <span class="btn-contador">${mejorables}</span>
         <i class="fa-solid fa-heart-crack" aria-hidden="true"></i>
         Mejorable
       </button>
     </div>
-    ${mensajePrimero}
     <div class="evaluacion-comentario" style="display:none;">
       <textarea placeholder="[opcional] ¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota." rows="3"></textarea>
-      <button class="btn btn-dark btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
+      <button class="btn btn-primary btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
       <button class="btn btn-outline-dark btn-sm btn-cancelar-comentario">Cancelar</button>
     </div>
   `;
@@ -133,8 +133,12 @@ function attachEvaluationListeners(container, notaId, version, registrarCallback
   };
 
   const enterCommentMode = () => {
+    const dock = evaluacionRoot?.closest('.note-eval-dock');
     if (evaluacionRoot) {
       evaluacionRoot.classList.add('is-commenting');
+    }
+    if (dock) {
+      dock.dataset.evalState = 'commenting';
     }
     if (comentarioDiv) {
       comentarioDiv.style.display = 'block';
@@ -143,8 +147,12 @@ function attachEvaluationListeners(container, notaId, version, registrarCallback
   };
 
   const exitCommentMode = ({ clear } = { clear: false }) => {
+    const dock = evaluacionRoot?.closest('.note-eval-dock');
     if (evaluacionRoot) {
       evaluacionRoot.classList.remove('is-commenting');
+    }
+    if (dock && dock.dataset.evalState !== 'evaluated') {
+      dock.dataset.evalState = 'ready';
     }
     if (comentarioDiv) {
       comentarioDiv.style.display = 'none';
@@ -270,11 +278,11 @@ function actualizarContadoresEnBotones(evaluaciones) {
     console.log(`[EvalStats] Actualizado contador mejorable: ${evaluaciones.mejorables}`);
   }
 
-  // Quitar mensaje "Sé el primero" si existe
-  const mensajePrimero = document.querySelector('.eval-mensaje-primero');
-  if (mensajePrimero && evaluaciones.total > 0) {
-    mensajePrimero.remove();
-    console.log('[EvalStats] Mensaje "Sé el primero" eliminado');
+  // Quitar badge "Sin evaluaciones" si ya hay votos
+  const badgeSinEvaluaciones = document.querySelector('.eval-badge-empty');
+  if (badgeSinEvaluaciones && evaluaciones.total > 0) {
+    badgeSinEvaluaciones.remove();
+    console.log('[EvalStats] Badge "Sin evaluaciones" eliminado');
   }
 }
 
@@ -416,9 +424,15 @@ function crearGraficoBarraHorizontal(stats) {
     window.statsBarChartInstance.destroy();
   }
 
-  // Colores moderados (no demasiado vistosos)
-  const evaluacionesColor = '#5b8a72'; // Verde azulado suave
-  const sugerenciasColor = '#9a7b4f'; // Marrón dorado suave
+  // Colores del sistema: éxito para evaluaciones y acento editorial para sugerencias
+  const rootStyles = getComputedStyle(document.documentElement);
+  const evaluacionesColor =
+    rootStyles.getPropertyValue('--success').trim() ||
+    rootStyles.getPropertyValue('--color-primary').trim() ||
+    rootStyles.getPropertyValue('--color-dark').trim();
+  const sugerenciasColor =
+    rootStyles.getPropertyValue('--color-primary').trim() ||
+    rootStyles.getPropertyValue('--color-dark').trim();
 
   const totalContribuciones = stats.totalEvaluaciones + stats.totalSugerencias;
   const pctEvaluaciones = totalContribuciones > 0 ? Math.round((stats.totalEvaluaciones / totalContribuciones) * 100) : 50;
@@ -521,8 +535,14 @@ function crearGraficoDoughnut(stats) {
   }
 
   // Colores del tema
-  const utilColor = getComputedStyle(document.documentElement).getPropertyValue('--success').trim() || '#7a9e7e';
-  const mejorableColor = getComputedStyle(document.documentElement).getPropertyValue('--danger').trim() || '#8b3a33';
+  const rootStyles = getComputedStyle(document.documentElement);
+  const utilColor =
+    rootStyles.getPropertyValue('--success').trim() ||
+    rootStyles.getPropertyValue('--color-primary').trim() ||
+    rootStyles.getPropertyValue('--color-dark').trim();
+  const mejorableColor =
+    rootStyles.getPropertyValue('--danger').trim() ||
+    rootStyles.getPropertyValue('--color-dark').trim();
 
   window.statsDoughnutChartInstance = new Chart(canvas, {
     type: 'doughnut',
@@ -707,7 +727,7 @@ function mostrarEvaluadaFeedback(container, notaId) {
   feedback.className = 'nota-ya-evaluada';
   feedback.innerHTML = '<i class="fa-solid fa-check-circle" aria-hidden="true"></i> Nota evaluada';
 
-  var dock = container.closest('.lectura-note-eval-dock') || container.closest('.lab-note-eval-dock');
+  var dock = container.closest('.note-eval-dock');
   container.replaceWith(feedback);
   if (dock) {
     dock.dataset.evalState = 'evaluated';

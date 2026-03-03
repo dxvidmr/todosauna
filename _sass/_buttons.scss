@@ -1,16 +1,18 @@
+@use "sass:color";
 @use "variables" as *;
+
+// Sistema base de botones:
+// - semanticos globales: primary, secondary, dark, outline-dark, light, outline-light, muted
+// - utilitarios de sistema: btn-circular
+// Los controles de lectura/laboratorio se quedan en sus SCSS locales.
 
 .btn {
   border-radius: 999px;
   transition: color 0.18s ease, background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
 
   i {
     color: currentColor;
-  }
-
-  &:focus,
-  &:focus-visible {
-    box-shadow: 0 0 0 0.2rem rgba($color-dark, 0.12);
   }
 
   &:disabled,
@@ -20,108 +22,136 @@
   }
 }
 
+@function rgb-channels($value) {
+  @return #{color.channel($value, "red", $space: rgb)}, #{color.channel($value, "green", $space: rgb)}, #{color.channel($value, "blue", $space: rgb)};
+}
+
+@mixin btn-solid-vars($text, $bg, $border, $hover-bg, $hover-border, $active-bg, $active-border, $focus-ring) {
+  --bs-btn-color: #{$text};
+  --bs-btn-bg: #{$bg};
+  --bs-btn-border-color: #{$border};
+  --bs-btn-hover-color: #{$text};
+  --bs-btn-hover-bg: #{$hover-bg};
+  --bs-btn-hover-border-color: #{$hover-border};
+  --bs-btn-focus-shadow-rgb: #{rgb-channels($focus-ring)};
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($focus-ring, 0.16)};
+  --bs-btn-active-color: #{$text};
+  --bs-btn-active-bg: #{$active-bg};
+  --bs-btn-active-border-color: #{$active-border};
+  --bs-btn-active-shadow: none;
+  --bs-btn-disabled-color: #{$text};
+  --bs-btn-disabled-bg: #{$bg};
+  --bs-btn-disabled-border-color: #{$border};
+}
+
+@mixin btn-outline-vars($text, $border, $hover-text, $hover-bg, $hover-border, $active-text, $active-bg, $active-border, $focus-ring) {
+  --bs-btn-color: #{$text};
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: #{$border};
+  --bs-btn-hover-color: #{$hover-text};
+  --bs-btn-hover-bg: #{$hover-bg};
+  --bs-btn-hover-border-color: #{$hover-border};
+  --bs-btn-focus-shadow-rgb: #{rgb-channels($focus-ring)};
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($focus-ring, 0.16)};
+  --bs-btn-active-color: #{$active-text};
+  --bs-btn-active-bg: #{$active-bg};
+  --bs-btn-active-border-color: #{$active-border};
+  --bs-btn-active-shadow: none;
+  --bs-btn-disabled-color: #{$text};
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #{$border};
+}
+
 .btn-primary {
-  color: $color-light;
-  background-color: $color-tosca;
-  border-color: $color-tosca;
-
-  &:hover,
-  &:focus,
-  &:focus-visible {
-    color: $color-light;
-    background-color: $color-tosca-lift;
-    border-color: $color-tosca-lift;
-    box-shadow: 0 0 0 0.2rem rgba($color-tosca, 0.16);
-  }
-
-  &:active,
-  &.active,
-  .show > &.dropdown-toggle {
-    color: $color-light;
-    background-color: $color-tosca;
-    border-color: $color-tosca;
-  }
+  @include btn-solid-vars(
+    $color-light,
+    $color-primary,
+    $color-primary,
+    $color-primary-lift,
+    $color-primary-lift,
+    $color-primary,
+    $color-primary,
+    $color-primary
+  );
 }
 
 .btn-secondary {
-  color: $color-dark;
-  background-color: $color-swirl;
-  border-color: $color-swirl;
+  @include btn-solid-vars(
+    $color-dark,
+    $color-secondary,
+    $color-secondary,
+    $color-secondary-50,
+    $color-secondary-50,
+    $color-secondary,
+    $color-secondary,
+    $color-secondary
+  );
 
-  &:hover,
-  &:focus,
-  &:focus-visible {
-    color: $color-dark;
-    background-color: $color-swirl-50;
-    border-color: $color-swirl-50;
-    box-shadow: 0 0 0 0.2rem rgba($color-swirl, 0.42);
-  }
-
-  &:active,
-  &.active,
-  .show > &.dropdown-toggle {
-    color: $color-dark;
-    background-color: $color-swirl;
-    border-color: $color-swirl;
-  }
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-secondary, 0.42)};
 }
 
 .btn-dark {
-  color: $color-light;
-  background-color: $color-dark;
-  border-color: $color-dark;
+  $dark-hover: color.mix(black, $color-dark, 8%);
 
-  &:hover,
-  &:focus,
-  &:focus-visible {
-    color: $color-light;
-    background-color: mix(black, $color-dark, 8%);
-    border-color: mix(black, $color-dark, 8%);
-    box-shadow: 0 0 0 0.2rem rgba($color-dark, 0.18);
-  }
+  @include btn-solid-vars(
+    $color-light,
+    $color-dark,
+    $color-dark,
+    $dark-hover,
+    $dark-hover,
+    $color-dark,
+    $color-dark,
+    $color-dark
+  );
+
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-dark, 0.18)};
 }
 
 .btn-outline-dark {
-  color: $color-dark;
-  border-color: $color-dark;
+  @include btn-outline-vars(
+    $color-dark,
+    $color-dark,
+    $color-dark,
+    $color-neutral-50,
+    $color-neutral-400,
+    $color-dark,
+    $color-neutral-100,
+    $color-neutral-400,
+    $color-dark
+  );
 
-  &:hover,
-  &:focus,
-  &:focus-visible {
-    color: $color-light;
-    background-color: $color-dark;
-    border-color: $color-dark;
-    box-shadow: 0 0 0 0.2rem rgba($color-dark, 0.12);
-  }
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-dark, 0.12)};
 }
 
 .btn-light {
-  color: $color-dark;
-  background-color: $color-light;
-  border-color: $color-light;
+  @include btn-solid-vars(
+    $color-dark,
+    $color-light,
+    $color-light,
+    white,
+    white,
+    $color-light,
+    $color-light,
+    $color-light
+  );
 
-  &:hover,
-  &:focus,
-  &:focus-visible {
-    color: $color-dark;
-    background-color: white;
-    border-color: white;
-    box-shadow: 0 0 0 0.2rem rgba($color-light, 0.22);
-  }
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-light, 0.22)};
 }
 
 .btn-outline-light {
-  color: $color-light;
-  border-color: rgba($color-light, 0.74);
+  @include btn-outline-vars(
+    $color-light,
+    rgba($color-light, 0.74),
+    $color-dark,
+    $color-light,
+    $color-light,
+    $color-dark,
+    $color-light,
+    $color-light,
+    $color-light
+  );
 
-  &:hover,
-  &:focus,
-  &:focus-visible {
-    color: $color-dark;
-    background-color: $color-light;
-    border-color: $color-light;
-    box-shadow: 0 0 0 0.2rem rgba($color-light, 0.24);
-  }
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-light, 0.24)};
 }
 
 .btn-muted {
@@ -162,13 +192,18 @@
 
   &:hover,
   &:focus-visible {
-    background: var(--ui-accent-hover);
-    color: var(--ui-accent-contrast);
-    border-color: var(--ui-accent-hover);
+    color: var(--color-primary);
+    border-color: transparent;
   }
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 0.2rem var(--ui-accent-soft);
+    box-shadow: 0 0 0 0.2rem var(--color-primary-soft);
+  }
+
+  &:active {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    border-color: var(--color-primary-soft);
   }
 }

@@ -23,6 +23,55 @@
   font-size: calc(var(--tei-text-base-size) * var(--tei-text-zoom-percent) / 100);
 }
 
+tei-l {
+  display: block;
+  margin-bottom: 0.2em;
+  position: relative;
+}
+
+tei-l[part="I"],
+tei-l[part="M"],
+tei-l[part="F"] {
+  display: block;
+}
+
+.numero-verso {
+  position: absolute;
+  color: $color-text-muted;
+  font-weight: 400;
+  user-select: none;
+  pointer-events: none;
+}
+
+tei-sp {
+  display: grid;
+  margin-bottom: 1em;
+  text-align: left;
+}
+
+tei-speaker {
+  font-weight: 500;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+tei-sp > tei-l {
+  grid-column: 2;
+  margin-bottom: 0.2em;
+}
+
+tei-sp > tei-l:first-of-type {
+  grid-row: 1;
+}
+
+tei-stage {
+  color: $color-text-muted-dark;
+  display: block;
+  font-style: italic;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
 // ============================================
 // TOAST NOTIFICATIONS
 // ============================================
@@ -31,7 +80,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #333333;
+  background: $color-dark;
   color: white;
   padding: 12px 20px;
   border-radius: 4px;
@@ -65,17 +114,90 @@
 }
 
 // ============================================
+// ESTRUCTURA COMPARTIDA DEL PANEL DE NOTA
+// ============================================
+
+.note-panel-host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: visible;
+}
+
+.note-panel-layout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--note-panel-layout-gap, 8px);
+}
+
+.note-panel-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: var(--note-panel-scroll-pr, 4px);
+}
+
+.note-eval-dock {
+  flex-shrink: 0;
+  min-width: 0;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-top: 1px solid $color-neutral-200;
+  padding-top: var(--note-eval-dock-pt, 8px);
+  gap: var(--note-eval-dock-gap, 0);
+  min-height: auto;
+}
+
+.note-eval-dock[data-eval-state="loading"],
+.note-eval-dock[data-eval-state="commenting"] {
+  min-height: var(--note-eval-dock-active-min-height, auto);
+}
+
+.note-eval-dock[data-eval-state="evaluated"],
+.note-eval-dock[data-eval-state="error"] {
+  min-height: auto;
+  gap: 0;
+}
+
+.note-eval-dock .nota-evaluacion.is-commenting {
+  min-height: var(--note-eval-comment-min-height, auto);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.note-dock-placeholder {
+  margin: 0;
+  text-align: center;
+  font-size: 0.82rem;
+  color: $color-text-muted;
+  font-style: italic;
+}
+
+// ============================================
 // EVALUACIÓN DE NOTAS
 // ============================================
 
 .nota-evaluacion,
 .nota-content .nota-evaluacion {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid $color-neutral-100;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  overflow: visible;
 }
 
 .evaluacion-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
   font-size: 13px;
   color: $color-text-muted;
   margin-bottom: 8px;
@@ -86,13 +208,20 @@
   gap: 8px;
 }
 
-.eval-mensaje-primero {
-  margin: 8px 0 0 0;
-  padding: 0;
-  font-size: 0.85rem;
+.eval-badge-empty {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 3px 8px;
+  border: 1px solid $color-neutral-200;
+  border-radius: 999px;
+  background: $color-neutral-100;
   color: $color-text-muted;
-  font-style: italic;
-  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 // Botones de evaluación (usan clases Bootstrap base)
@@ -104,13 +233,45 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  
+  color: $color-dark;
+  background: transparent;
+  border-color: $color-neutral-200;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+
   i {
     font-size: 0.95em;
     transition: color 0.2s ease;
   }
-  &:hover {
-    color: $color-neutral-100;
+
+  &.btn-outline-dark:not(.votado):hover {
+    background: $color-neutral-100;
+    border-color: $color-neutral-400;
+    color: $color-dark;
+  }
+
+  &.btn-outline-dark:not(.votado):focus {
+    background: $color-neutral-100;
+    border-color: $color-neutral-400;
+    color: $color-dark;
+    box-shadow: none;
+  }
+
+  &.btn-outline-dark:not(.votado):focus-visible {
+    background: $color-neutral-100;
+    border-color: $color-neutral-400;
+    color: $color-dark;
+    box-shadow: 0 0 0 0.14rem rgba($color-dark, 0.08);
+  }
+
+  &.btn-outline-dark:not(.votado):focus-visible {
+    outline: none;
+  }
+
+  &.btn-outline-dark:not(.votado):active {
+    background: $color-neutral-200;
+    border-color: $color-neutral-400;
+    color: $color-dark;
+    box-shadow: none;
   }
 }
 
@@ -123,13 +284,22 @@
   font-size: 0.85em;
 }
 
-// Transiciones de color en iconos
-.btn-util:hover:not(.votado) i { 
-  color: $color-success; 
+.btn-util i {
+  color: $color-success;
 }
 
-.btn-mejorable:hover:not(.votado) i { 
-  color: $color-danger; 
+.btn-mejorable i {
+  color: $color-danger;
+}
+
+.btn-util .btn-contador {
+  background: transparent;
+  color: mix(black, $color-success, 35%);
+}
+
+.btn-mejorable .btn-contador {
+  background: transparent;
+  color: $color-danger;
 }
 
 // Estados votados
@@ -142,6 +312,11 @@
   i {
     color: $color-success;
   }
+
+  .btn-contador {
+    background: transparent;
+    color: $color-success;
+  }
 }
 
 .btn-mejorable.votado {
@@ -152,6 +327,30 @@
   
   i {
     color: $color-danger;
+  }
+
+  .btn-contador {
+    background: transparent;
+    color: $color-danger;
+  }
+}
+
+.nota-ya-evaluada,
+.note-eval-dock .nota-ya-evaluada {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  padding: 10px 12px;
+  background: $color-neutral-100;
+  border-radius: 6px;
+  color: $color-dark;
+  font-weight: 500;
+  margin: 0;
+
+  i {
+    margin: 0;
   }
 }
 
@@ -182,7 +381,7 @@
 .nota-evaluacion.is-commenting {
   .evaluacion-header,
   .evaluacion-botones,
-  .eval-mensaje-primero {
+  .eval-badge-empty {
     display: none !important;
   }
 
@@ -696,7 +895,7 @@ $note-highlight-strong: 1;
 }
 
 .note-target.note-current {
-  background-color: rgba($note-highlight-color, $note-highlight-strong);
+  background-color: $color-primary-soft;
 }
 
 .notes-hidden .note-target {

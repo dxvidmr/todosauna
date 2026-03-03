@@ -88,7 +88,7 @@ class SugerenciasNotas {
 
           <div class="sugerencia-botones">
             <button type="button" class="btn-cancelar-sugerencia btn btn-outline-dark">Cancelar</button>
-            <button type="button" class="btn-enviar-sugerencia btn btn-dark">
+            <button type="button" class="btn-enviar-sugerencia btn btn-primary">
               <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
               Enviar sugerencia
             </button>

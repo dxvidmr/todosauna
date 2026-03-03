@@ -19,7 +19,7 @@ custom-foot: participacion/scripts-testimonio-form.html
 
     <section id="participa-mode-gate-testimonio" class="participa-mode-gate" hidden>
       <p class="mb-2">Antes de enviar, define tu modo de participación.</p>
-      <button type="button" id="btn-definir-modo-testimonio" class="btn btn-dark btn-sm">Elegir modo de participación</button>
+      <button type="button" id="btn-definir-modo-testimonio" class="btn btn-secondary btn-sm">Elegir modo de participación</button>
     </section>
 
     <form id="testimonio-form" class="participa-form card card-soft p-3 p-md-4" novalidate>
@@ -127,7 +127,7 @@ custom-foot: participacion/scripts-testimonio-form.html
       <div id="testimonio-form-status" class="participa-form-status" aria-live="polite"></div>
 
       <div class="participa-form-actions">
-        <button type="submit" id="btn-enviar-testimonio" class="btn btn-dark">Enviar testimonio</button>
+        <button type="submit" id="btn-enviar-testimonio" class="btn btn-primary">Enviar testimonio</button>
       </div>
     </form>
 
@@ -137,7 +137,7 @@ custom-foot: participacion/scripts-testimonio-form.html
       <p class="mb-3">El ID de tu envío es <code id="testimonio-success-id"></code>. Puedes guardarlo por si más adelante quieres hacer alguna consulta.</p>
       <div id="testimonio-link-status" class="participa-form-status"></div>
       <div class="participa-form-actions">
-        <a id="testimonio-cta-documento" href="{{ '/participa/documentos/enviar/' | relative_url }}" class="btn btn-dark">Añadir un documento vinculado</a>
+        <a id="testimonio-cta-documento" href="{{ '/participa/documentos/enviar/' | relative_url }}" class="btn btn-secondary">Añadir un documento vinculado</a>
         <a href="{{ '/participa/' | relative_url }}" class="btn btn-outline-dark">Volver a Participa</a>
       </div>
     </section>
