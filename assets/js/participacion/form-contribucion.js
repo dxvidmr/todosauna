@@ -62,6 +62,9 @@
   var currentStep = 1;
   var isSubmitting = false;
   var isUploading = false;
+  var cancelRequested = false;
+  var isCancellingUpload = false;
+  var uploadAbortController = null;
   var currentStagingId = null;
   var stagedFiles = [];
 
@@ -196,6 +199,46 @@
     renderUploadedFiles();
   }
 
+  function createUploadAbortController() {
+    if (typeof AbortController !== 'function') return null;
+    try {
+      return new AbortController();
+    } catch (_err) {
+      return null;
+    }
+  }
+
+  function isUploadAbortedError(error) {
+    if (!error) return false;
+    if (error.code === 'upload_aborted') return true;
+    return String(error.name || '') === 'AbortError';
+  }
+
+  function resetUploadLocalState(adapter) {
+    if (adapter && typeof adapter.resetRecaptcha === 'function') {
+      adapter.resetRecaptcha();
+    }
+    clearUploadedState();
+    if (localFilesInput) localFilesInput.value = '';
+  }
+
+  async function cancelRemoteStaging(adapter, sessionId, stagingId) {
+    if (!adapter || typeof adapter.cancelUpload !== 'function') return null;
+    if (!sessionId || !stagingId) return null;
+
+    try {
+      var cancelResult = await adapter.cancelUpload({
+        session_id: sessionId,
+        staging_id: stagingId
+      });
+      if (cancelResult && cancelResult.error) return cancelResult.error;
+    } catch (error) {
+      return error;
+    }
+
+    return null;
+  }
+
   function formatBytes(bytes) {
     var size = Number(bytes || 0);
     if (!Number.isFinite(size) || size < 1) return '0 B';
@@ -283,7 +326,7 @@
     var disablePrimary = !modeDefined || isSubmitting;
     if (nextButton) nextButton.disabled = disablePrimary;
     if (uploadButton) uploadButton.disabled = disablePrimary || isUploading;
-    if (cancelUploadButton) cancelUploadButton.disabled = disablePrimary || isUploading;
+    if (cancelUploadButton) cancelUploadButton.disabled = disablePrimary || isCancellingUpload;
     if (submitButton) submitButton.disabled = disablePrimary || isUploading || !hasUploadReady();
   }
 
@@ -415,7 +458,7 @@
   }
 
   async function handleUploadClick() {
-    if (isUploading) return;
+    if (isUploading || isCancellingUpload) return;
 
     setStatus(statusStep2, '', '');
     var files = localFilesInput && localFilesInput.files ? Array.from(localFilesInput.files) : [];
@@ -442,6 +485,8 @@
       return;
     }
 
+    cancelRequested = false;
+    uploadAbortController = createUploadAbortController();
     isUploading = true;
     setUploadButtonLoading(true);
     updateGateVisibility();
@@ -450,11 +495,39 @@
       var result = await adapter.uploadFiles(files, {
         session_id: sessionId,
         staging_id: currentStagingId,
-        recaptchaContainerId: 'contribucion-recaptcha-widget'
+        recaptchaContainerId: 'contribucion-recaptcha-widget',
+        signal: uploadAbortController ? uploadAbortController.signal : null,
+        onStagingReady: function (stagingId) {
+          setCurrentStagingId(stagingId);
+        }
       });
 
       if (result.error || !result.data) {
         throw result.error || new Error('No se pudo completar la subida');
+      }
+
+      if (cancelRequested) {
+        var remoteCancelAfterUpload = await cancelRemoteStaging(
+          adapter,
+          sessionId,
+          result.data.staging_id || currentStagingId
+        );
+        resetUploadLocalState(adapter);
+
+        if (remoteCancelAfterUpload) {
+          setStatus(
+            statusStep2,
+            getErrorMessage(
+              remoteCancelAfterUpload,
+              'Subida cancelada localmente, pero no se pudo cancelar remoto.',
+              'contribucion_cancel'
+            ),
+            'warning'
+          );
+        } else {
+          setStatus(statusStep2, 'Subida cancelada y estado local limpiado.', 'info');
+        }
+        return;
       }
 
       setCurrentStagingId(result.data.staging_id || currentStagingId);
@@ -464,39 +537,78 @@
       if (localFilesInput) localFilesInput.value = '';
       setStatus(statusStep2, 'Archivos subidos y validados. Ya puedes enviar la contribución.', 'success');
     } catch (error) {
-      var message = getErrorMessage(error, 'No se pudo completar la subida.', 'contribucion_upload');
-      setStatus(statusStep2, message, 'error');
+      if (cancelRequested || isUploadAbortedError(error)) {
+        var remoteCancelError = await cancelRemoteStaging(adapter, sessionId, currentStagingId);
+        resetUploadLocalState(adapter);
+
+        if (remoteCancelError) {
+          setStatus(
+            statusStep2,
+            getErrorMessage(
+              remoteCancelError,
+              'Subida cancelada localmente, pero no se pudo cancelar remoto.',
+              'contribucion_cancel'
+            ),
+            'warning'
+          );
+        } else {
+          setStatus(statusStep2, 'Subida cancelada y estado local limpiado.', 'info');
+        }
+      } else {
+        var message = getErrorMessage(error, 'No se pudo completar la subida.', 'contribucion_upload');
+        setStatus(statusStep2, message, 'error');
+      }
     } finally {
       isUploading = false;
+      isCancellingUpload = false;
+      cancelRequested = false;
+      uploadAbortController = null;
       setUploadButtonLoading(false);
       updateGateVisibility();
     }
   }
 
   async function handleCancelUpload() {
+    if (isSubmitting || isCancellingUpload) return;
     setStatus(statusStep2, '', '');
 
     var adapter = getUploadAdapter();
     var sessionId = getSessionId();
 
-    if (adapter && typeof adapter.cancelUpload === 'function' && currentStagingId && sessionId) {
-      var cancelResult = await adapter.cancelUpload({
-        session_id: sessionId,
-        staging_id: currentStagingId
-      });
-      if (cancelResult && cancelResult.error) {
-        setStatus(statusStep2, getErrorMessage(cancelResult.error, 'No se pudo cancelar remoto.', 'contribucion_cancel'), 'warning');
+    if (isUploading) {
+      cancelRequested = true;
+      isCancellingUpload = true;
+      setStatus(statusStep2, 'Cancelando subida...', 'info');
+      updateGateVisibility();
+
+      if (uploadAbortController && typeof uploadAbortController.abort === 'function') {
+        uploadAbortController.abort();
       }
+      return;
     }
 
-    if (adapter && typeof adapter.resetRecaptcha === 'function') {
-      adapter.resetRecaptcha();
-    }
-
-    clearUploadedState();
-    if (localFilesInput) localFilesInput.value = '';
-    setStatus(statusStep2, 'Subida cancelada y estado local limpiado.', 'info');
+    isCancellingUpload = true;
     updateGateVisibility();
+
+    try {
+      var cancelError = await cancelRemoteStaging(adapter, sessionId, currentStagingId);
+      resetUploadLocalState(adapter);
+
+      if (cancelError) {
+        setStatus(
+          statusStep2,
+          getErrorMessage(cancelError, 'Subida cancelada localmente, pero no se pudo cancelar remoto.', 'contribucion_cancel'),
+          'warning'
+        );
+      } else {
+        setStatus(statusStep2, 'Subida cancelada y estado local limpiado.', 'info');
+      }
+    } finally {
+      isCancellingUpload = false;
+      cancelRequested = false;
+      uploadAbortController = null;
+      updateGateVisibility();
+    }
   }
 
   async function maybeLinkTestimonio(contribucionId) {

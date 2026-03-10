@@ -76,15 +76,41 @@
     return fallback || 'Error no especificado';
   }
 
-  function normalizeError(message) {
-    return { message: stringifyUnknown(message, 'Error no especificado') };
+  function normalizeError(message, code) {
+    var error = { message: stringifyUnknown(message, 'Error no especificado') };
+    if (code) error.code = String(code).trim();
+    return error;
   }
 
   function extractErrorMessage(errorLike, fallback) {
     return stringifyUnknown(errorLike, fallback || 'Error no especificado');
   }
 
-  async function callEdgeFunction(functionName, payload) {
+  function createUploadAbortedError() {
+    return normalizeError('Subida cancelada por el usuario.', 'upload_aborted');
+  }
+
+  function createUploadAbortedException() {
+    var error = new Error('Subida cancelada por el usuario.');
+    error.code = 'upload_aborted';
+    return error;
+  }
+
+  function isAbortError(errorLike) {
+    if (!errorLike) return false;
+    if (errorLike.code === 'upload_aborted') return true;
+    if (errorLike.name === 'AbortError') return true;
+    var message = String(errorLike.message || '').toLowerCase();
+    return message.indexOf('abort') >= 0;
+  }
+
+  function throwIfAborted(signal) {
+    if (signal && signal.aborted) {
+      throw createUploadAbortedException();
+    }
+  }
+
+  async function callEdgeFunction(functionName, payload, options) {
     var url = getSupabaseUrl();
     var publishableKey = getSupabasePublishableKey();
 
@@ -95,7 +121,7 @@
     var endpoint = url + '/functions/v1/' + functionName;
     var response;
     try {
-      response = await fetch(endpoint, {
+      var requestOptions = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -103,8 +129,14 @@
           Authorization: 'Bearer ' + publishableKey
         },
         body: JSON.stringify(payload || {})
-      });
+      };
+      if (options && options.signal) requestOptions.signal = options.signal;
+
+      response = await fetch(endpoint, requestOptions);
     } catch (err) {
+      if (isAbortError(err)) {
+        return { data: null, error: createUploadAbortedError() };
+      }
       return {
         data: null,
         error: normalizeError(err && err.message ? err.message : 'No se pudo conectar con edge function')
@@ -116,6 +148,10 @@
       parsed = await response.json();
     } catch (_err) {
       parsed = null;
+    }
+
+    if (options && options.signal && options.signal.aborted) {
+      return { data: null, error: createUploadAbortedError() };
     }
 
     if (!response.ok) {
@@ -287,30 +323,73 @@
     };
   }
 
-  async function readFileAsBase64(file) {
+  async function readFileAsBase64(file, options) {
+    var signal = options && options.signal ? options.signal : null;
+    throwIfAborted(signal);
+
     return await new Promise(function (resolve, reject) {
       var reader = new FileReader();
+      var settled = false;
+
+      function cleanupAbortListener() {
+        if (!signal) return;
+        signal.removeEventListener('abort', handleAbortSignal);
+      }
+
+      function resolveOnce(value) {
+        if (settled) return;
+        settled = true;
+        cleanupAbortListener();
+        resolve(value);
+      }
+
+      function rejectOnce(error) {
+        if (settled) return;
+        settled = true;
+        cleanupAbortListener();
+        reject(error);
+      }
+
+      function handleAbortSignal() {
+        try {
+          reader.abort();
+        } catch (_err) {
+          // Ignore and still reject as aborted.
+        }
+        rejectOnce(createUploadAbortedException());
+      }
+
+      if (signal) {
+        signal.addEventListener('abort', handleAbortSignal, { once: true });
+      }
+
       reader.onerror = function () {
-        reject(new Error('No se pudo leer el archivo seleccionado'));
+        rejectOnce(new Error('No se pudo leer el archivo seleccionado'));
+      };
+      reader.onabort = function () {
+        rejectOnce(createUploadAbortedException());
       };
       reader.onload = function () {
         var result = String(reader.result || '');
         var commaIndex = result.indexOf(',');
         if (commaIndex < 0) {
-          reject(new Error('No se pudo codificar el archivo a base64'));
+          rejectOnce(new Error('No se pudo codificar el archivo a base64'));
           return;
         }
-        resolve(result.slice(commaIndex + 1));
+        resolveOnce(result.slice(commaIndex + 1));
       };
       reader.readAsDataURL(file);
     });
   }
 
-  async function uploadSingleFileMultipartToAppsScript(file, uploadToken, stagingId) {
+  async function uploadSingleFileMultipartToAppsScript(file, uploadToken, stagingId, options) {
     var appsScriptUrl = getAppsScriptUrl();
     if (!appsScriptUrl) {
       throw new Error('APPS_SCRIPT_URL no esta configurado');
     }
+
+    var signal = options && options.signal ? options.signal : null;
+    throwIfAborted(signal);
 
     var normalized = normalizeFileObject(file);
     var formData = new FormData();
@@ -321,25 +400,34 @@
 
     var response;
     try {
-      response = await fetch(appsScriptUrl, {
+      var requestOptions = {
         method: 'POST',
         body: formData
-      });
+      };
+      if (signal) requestOptions.signal = signal;
+
+      response = await fetch(appsScriptUrl, requestOptions);
     } catch (err) {
+      if (isAbortError(err)) {
+        throw createUploadAbortedException();
+      }
       throw new Error(err && err.message ? err.message : 'No se pudo conectar con Apps Script');
     }
 
     return parseUploadResponse(response, normalized);
   }
 
-  async function uploadSingleFileFormBase64ToAppsScript(file, uploadToken, stagingId) {
+  async function uploadSingleFileFormBase64ToAppsScript(file, uploadToken, stagingId, options) {
     var appsScriptUrl = getAppsScriptUrl();
     if (!appsScriptUrl) {
       throw new Error('APPS_SCRIPT_URL no esta configurado');
     }
 
+    var signal = options && options.signal ? options.signal : null;
+    throwIfAborted(signal);
+
     var normalized = normalizeFileObject(file);
-    var fileBase64 = await readFileAsBase64(file);
+    var fileBase64 = await readFileAsBase64(file, { signal: signal });
     var formData = new FormData();
     formData.append('action', 'upload');
     formData.append('upload_token', uploadToken);
@@ -351,25 +439,31 @@
 
     var response;
     try {
-      response = await fetch(appsScriptUrl, {
+      var requestOptions = {
         method: 'POST',
         body: formData
-      });
+      };
+      if (signal) requestOptions.signal = signal;
+
+      response = await fetch(appsScriptUrl, requestOptions);
     } catch (err) {
+      if (isAbortError(err)) {
+        throw createUploadAbortedException();
+      }
       throw new Error(err && err.message ? err.message : 'No se pudo conectar con Apps Script');
     }
 
     return parseUploadResponse(response, normalized);
   }
 
-  async function uploadSingleFileToAppsScript(file, uploadToken, stagingId) {
+  async function uploadSingleFileToAppsScript(file, uploadToken, stagingId, options) {
     try {
-      return await uploadSingleFileMultipartToAppsScript(file, uploadToken, stagingId);
+      return await uploadSingleFileMultipartToAppsScript(file, uploadToken, stagingId, options);
     } catch (error) {
       if (!isMissingMultipartFileError(error)) {
         throw error;
       }
-      return await uploadSingleFileFormBase64ToAppsScript(file, uploadToken, stagingId);
+      return await uploadSingleFileFormBase64ToAppsScript(file, uploadToken, stagingId, options);
     }
   }
 
@@ -392,29 +486,34 @@
     };
   }
 
-  async function issueToken(payload) {
+  async function issueToken(payload, options) {
     var withSession = await withSessionPayload(payload);
     if (withSession.error) return withSession;
-    return callEdgeFunction('issue-upload-token', withSession.data);
+    return callEdgeFunction('issue-upload-token', withSession.data, options);
   }
 
-  async function finalizeUpload(payload) {
+  async function finalizeUpload(payload, options) {
     var withSession = await withSessionPayload(payload);
     if (withSession.error) return withSession;
-    return callEdgeFunction('finalize-document-upload', withSession.data);
+    return callEdgeFunction('finalize-document-upload', withSession.data, options);
   }
 
-  async function cancelUpload(payload) {
+  async function cancelUpload(payload, options) {
     var withSession = await withSessionPayload(payload);
     if (withSession.error) return withSession;
-    return callEdgeFunction('cancel-document-upload', withSession.data);
+    return callEdgeFunction('cancel-document-upload', withSession.data, options);
   }
 
   async function uploadFiles(files, options) {
     var opts = options || {};
+    var signal = opts.signal || null;
     var fileList = ensureArray(files).filter(Boolean);
     if (!fileList.length) {
       return { data: null, error: normalizeError('No se seleccionaron archivos para subir') };
+    }
+
+    if (signal && signal.aborted) {
+      return { data: null, error: createUploadAbortedError() };
     }
 
     if (ns.session && typeof ns.session.init === 'function') {
@@ -431,7 +530,11 @@
 
     try {
       recaptchaToken = await getRecaptchaToken(opts.recaptchaContainerId || DEFAULT_RECAPTCHA_CONTAINER_ID);
+      throwIfAborted(signal);
     } catch (err) {
+      if (isAbortError(err)) {
+        return { data: null, error: createUploadAbortedError() };
+      }
       return { data: null, error: normalizeError(err && err.message ? err.message : 'reCAPTCHA invalido') };
     }
 
@@ -440,22 +543,36 @@
       staging_id: opts.staging_id || null,
       file_manifest: manifest,
       recaptcha_token: recaptchaToken
-    });
+    }, { signal: signal });
 
     resetRecaptcha();
 
     if (tokenResponse.error || !tokenResponse.data || !tokenResponse.data.staging_id || !tokenResponse.data.upload_token) {
+      if (tokenResponse && tokenResponse.error && tokenResponse.error.code === 'upload_aborted') {
+        return { data: null, error: createUploadAbortedError() };
+      }
       return { data: null, error: tokenResponse.error || normalizeError('No se pudo emitir upload token') };
     }
 
     var stagingId = String(tokenResponse.data.staging_id);
     var uploadToken = String(tokenResponse.data.upload_token);
     var uploadedFiles = [];
+    if (typeof opts.onStagingReady === 'function') {
+      try {
+        opts.onStagingReady(stagingId);
+      } catch (_err) {
+        // Hook only.
+      }
+    }
 
     for (var i = 0; i < fileList.length; i += 1) {
       try {
-        uploadedFiles.push(await uploadSingleFileToAppsScript(fileList[i], uploadToken, stagingId));
+        throwIfAborted(signal);
+        uploadedFiles.push(await uploadSingleFileToAppsScript(fileList[i], uploadToken, stagingId, {
+          signal: signal
+        }));
       } catch (err) {
+        var aborted = isAbortError(err);
         if (uploadedFiles.length) {
           try {
             await finalizeUpload({
@@ -467,6 +584,12 @@
             // Best effort only.
           }
         }
+        if (aborted) {
+          return {
+            data: null,
+            error: createUploadAbortedError()
+          };
+        }
         return {
           data: null,
           error: normalizeError(err && err.message ? err.message : 'No se pudo subir uno de los archivos')
@@ -474,11 +597,23 @@
       }
     }
 
-    var finalizeResponse = await finalizeUpload({
+    var finalizePayload = {
       session_id: sessionId,
       staging_id: stagingId,
       uploaded_files: uploadedFiles
-    });
+    };
+    var finalizeResponse = await finalizeUpload(finalizePayload, { signal: signal });
+
+    if (finalizeResponse && finalizeResponse.error && finalizeResponse.error.code === 'upload_aborted') {
+      if (uploadedFiles.length) {
+        try {
+          await finalizeUpload(finalizePayload);
+        } catch (_bestEffortFinalizeErr) {
+          // Best effort only.
+        }
+      }
+      return { data: null, error: createUploadAbortedError() };
+    }
 
     if (finalizeResponse.error || !finalizeResponse.data || !finalizeResponse.data.ready_for_submit) {
       return { data: null, error: finalizeResponse.error || normalizeError('No se pudo finalizar la subida') };
