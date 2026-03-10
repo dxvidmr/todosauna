@@ -13,13 +13,12 @@ custom-foot: participacion/scripts-contribucion-form.html
       <h1 class="mb-2">Comparte un documento</h1>
       <p class="mb-0">
         Puedes enviar fotos, programas, ediciones, manuscritos y otros materiales relacionados con <i>Fuenteovejuna</i>.
-        El envio puede ser anonimo o como colaborador/a.
       </p>
     </header>
 
     <section id="participa-mode-gate-documento" class="participa-mode-gate" hidden>
-      <p class="mb-2">Antes de enviar, define tu modo de participacion.</p>
-      <button type="button" id="btn-definir-modo-documento" class="btn btn-secondary btn-sm">Elegir modo de participacion</button>
+      <p class="mb-2">Antes de enviar, define tu modo de participación.</p>
+      <button type="button" id="btn-definir-modo-documento" class="btn btn-secondary btn-sm">Elegir modo de participación</button>
     </section>
 
     <form id="contribucion-form" class="participa-form card card-soft p-3 p-md-4" novalidate>
@@ -28,7 +27,7 @@ custom-foot: participacion/scripts-contribucion-form.html
 
       <div class="participa-steps mb-3">
         <span class="participa-step is-active" data-step="1">1. Metadatos y derechos</span>
-        <span class="participa-step" data-step="2">2. Subida y envio</span>
+        <span class="participa-step" data-step="2">2. Subida y envío</span>
       </div>
 
       <section id="contribucion-step-1">
@@ -44,7 +43,7 @@ custom-foot: participacion/scripts-contribucion-form.html
           </div>
           <div class="mb-0">
             <label for="contribucion-creadores" class="form-label">Creadores y roles</label>
-            <textarea class="form-control" id="contribucion-creadores" rows="3" placeholder="Nombre | rol (una linea por creador)"></textarea>
+            <textarea class="form-control" id="contribucion-creadores" rows="3" placeholder="Nombre | rol (una línea por creador)"></textarea>
           </div>
         </fieldset>
 
