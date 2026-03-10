@@ -91,7 +91,7 @@
   function updateGateVisibility() {
     var modeDefined = !!(ns.session && ns.session.isModeDefined && ns.session.isModeDefined());
     if (gate) gate.hidden = modeDefined;
-    if (submitButton) submitButton.disabled = !modeDefined || isSubmitting;
+    if (submitButton) submitButton.disabled = isSubmitting;
   }
 
   function handleParticipationStateChanged() {
@@ -296,7 +296,7 @@
 
     window.addEventListener('participacion:state-changed', handleParticipationStateChanged);
 
-    await ensureModeDefined(true);
+    await ensureModeDefined(false);
   }
 
   void init();

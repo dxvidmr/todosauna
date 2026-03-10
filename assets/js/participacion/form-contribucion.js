@@ -323,7 +323,7 @@
     var modeDefined = !!(ns.session && ns.session.isModeDefined && ns.session.isModeDefined());
     if (gate) gate.hidden = modeDefined;
 
-    var disablePrimary = !modeDefined || isSubmitting;
+    var disablePrimary = isSubmitting;
     if (nextButton) nextButton.disabled = disablePrimary;
     if (uploadButton) uploadButton.disabled = disablePrimary || isUploading;
     if (cancelUploadButton) cancelUploadButton.disabled = disablePrimary || isCancellingUpload;
@@ -464,12 +464,6 @@
     var files = localFilesInput && localFilesInput.files ? Array.from(localFilesInput.files) : [];
     if (!files.length) {
       setStatus(statusStep2, 'Selecciona al menos un archivo antes de subir.', 'warning');
-      return;
-    }
-
-    var modeReady = await ensureModeDefined(true);
-    if (!modeReady) {
-      setStatus(statusStep2, 'Debes definir modo de participación antes de subir.', 'warning');
       return;
     }
 
@@ -786,7 +780,7 @@
     renderUploadedFiles();
     setStep(1);
 
-    await ensureModeDefined(true);
+    await ensureModeDefined(false);
     updateGateVisibility();
   }
 
