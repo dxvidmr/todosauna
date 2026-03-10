@@ -20,6 +20,7 @@
     browserSessionToken: null,
     modoParticipacion: 'anonimo',
     collaboratorId: null,
+    collaboratorCreatedAt: null,
     createdAt: null,
     lastActivityAt: null,
     modeChoice: 'unasked',
@@ -154,6 +155,7 @@
 
   function clearCollaboratorProfile() {
     state.collaboratorId = null;
+    state.collaboratorCreatedAt = null;
     state.displayName = null;
     state.nivelEstudios = null;
     state.disciplina = null;
@@ -176,6 +178,7 @@
     state.browserSessionToken = snapshot.browserSessionToken || null;
     state.modoParticipacion = snapshot.modoParticipacion || 'anonimo';
     state.collaboratorId = snapshot.collaboratorId || null;
+    state.collaboratorCreatedAt = snapshot.collaboratorCreatedAt || null;
     state.createdAt = snapshot.createdAt || null;
     state.lastActivityAt = snapshot.lastActivityAt || null;
     state.modeChoice = VALID_MODES[snapshot.modeChoice] ? snapshot.modeChoice : 'unasked';
@@ -191,6 +194,7 @@
       browserSessionToken: state.browserSessionToken,
       modoParticipacion: state.modoParticipacion,
       collaboratorId: state.collaboratorId,
+      collaboratorCreatedAt: state.collaboratorCreatedAt,
       createdAt: state.createdAt,
       lastActivityAt: state.lastActivityAt,
       modeChoice: state.modeChoice,
@@ -206,6 +210,7 @@
       browser_session_token: state.browserSessionToken,
       modo_participacion: state.modoParticipacion,
       collaborator_id: state.collaboratorId,
+      collaborator_created_at: state.collaboratorCreatedAt,
       created_at: state.createdAt,
       last_activity_at: state.lastActivityAt
     };
@@ -218,6 +223,7 @@
     state.browserSessionToken = row.browser_session_token || state.browserSessionToken;
     state.modoParticipacion = row.modo_participacion || state.modoParticipacion || 'anonimo';
     state.collaboratorId = row.collaborator_id || null;
+    state.collaboratorCreatedAt = row.collaborator_created_at || state.collaboratorCreatedAt;
     state.createdAt = row.created_at || state.createdAt;
     state.lastActivityAt = row.last_activity_at || state.lastActivityAt;
 
@@ -338,9 +344,7 @@
 
     applySessionRow(response.data);
     state.modeChoice = 'anonimo';
-    state.displayName = null;
-    state.nivelEstudios = null;
-    state.disciplina = null;
+    clearCollaboratorProfile();
 
     writeModeChoice(state.browserSessionToken, state.modeChoice);
     syncLegacySessionStorage();
@@ -383,6 +387,7 @@
 
     var collaborator = response.data.collaborator || {};
     state.collaboratorId = collaborator.collaborator_id || state.collaboratorId;
+    state.collaboratorCreatedAt = collaborator.created_at || state.collaboratorCreatedAt;
     state.displayName = collaborator.display_name || null;
     state.nivelEstudios = collaborator.nivel_estudios || null;
     state.disciplina = collaborator.disciplina || null;
@@ -434,6 +439,7 @@
 
     var collaborator = response.data.collaborator || {};
     state.collaboratorId = collaborator.collaborator_id || state.collaboratorId;
+    state.collaboratorCreatedAt = collaborator.created_at || state.collaboratorCreatedAt;
     state.displayName = collaborator.display_name || null;
     state.nivelEstudios = collaborator.nivel_estudios || null;
     state.disciplina = collaborator.disciplina || null;

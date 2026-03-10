@@ -667,8 +667,14 @@
       total_envios: Number(safeStats.total_envios || 0)
     };
     var metaParts = ['<span class="modal-mode-badge">' + escapeHtml(isAnonymous ? 'An\u00f3nimo' : 'Colaborador/a') + '</span>'];
-    var sinceText = state.createdAt ? 'Desde ' + formatDateShort(state.createdAt) : null;
-    var lastActivityText = state.lastActivityAt ? '\u00daltima actividad ' + formatLastActivity(state.lastActivityAt) : null;
+    var collaboratorSinceDate = state.collaboratorCreatedAt || state.createdAt;
+    var sinceText = (!isAnonymous && collaboratorSinceDate)
+      ? 'Desde ' + formatDateShort(collaboratorSinceDate)
+      : null;
+    var hasParticipation = normalizedStats.total_contribuciones > 0;
+    var lastActivityText = (hasParticipation && state.lastActivityAt)
+      ? '\u00daltima actividad ' + formatLastActivity(state.lastActivityAt)
+      : null;
     if (sinceText) metaParts.push('<span class="modal-header-meta-item">' + escapeHtml(sinceText) + '</span>');
     if (lastActivityText) metaParts.push('<span class="modal-header-meta-item">' + escapeHtml(lastActivityText) + '</span>');
 
