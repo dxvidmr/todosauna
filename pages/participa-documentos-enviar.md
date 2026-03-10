@@ -66,13 +66,13 @@ custom-foot: participacion/scripts-contribucion-form.html
               <label for="contribucion-ciudad" class="form-label">Ciudad (GeoNames)</label>
               <div class="participa-geonames-field">
                 <input type="text" class="form-control" id="contribucion-ciudad" autocomplete="off" placeholder="Empieza a escribir una ciudad">
-                <button type="button" class="btn btn-outline-secondary btn-sm" id="contribucion-limpiar-ciudad">Limpiar</button>
+                <button type="button" class="btn btn-secondary btn-sm" id="contribucion-limpiar-ciudad">Limpiar</button>
               </div>
               <input type="hidden" id="contribucion-ciudad-nombre">
               <input type="hidden" id="contribucion-ciudad-id">
             </div>
             <div class="col-md-5">
-              <label for="contribucion-pais" class="form-label">Pais (automatico)</label>
+              <label for="contribucion-pais" class="form-label">País (automático)</label>
               <input type="text" class="form-control" id="contribucion-pais" readonly>
               <input type="hidden" id="contribucion-pais-nombre">
               <input type="hidden" id="contribucion-pais-id">

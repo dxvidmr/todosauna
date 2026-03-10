@@ -55,7 +55,7 @@ custom-foot: participacion/scripts-testimonio-form.html
             <label for="testimonio-experiencia-ciudad" class="form-label">Ciudad (GeoNames)</label>
             <div class="participa-geonames-field">
               <input type="text" class="form-control" id="testimonio-experiencia-ciudad" autocomplete="off" placeholder="Empieza a escribir una ciudad">
-              <button type="button" class="btn btn-outline-secondary btn-sm" id="testimonio-limpiar-ciudad">Limpiar</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="testimonio-limpiar-ciudad">Limpiar</button>
             </div>
             <input type="hidden" id="testimonio-experiencia-ciudad-nombre">
             <input type="hidden" id="testimonio-experiencia-ciudad-id">
