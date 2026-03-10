@@ -12,8 +12,8 @@ navbar_main_offset: false
         <div class="card card-soft p-3 p-lg-4">
           <h3 class="mb-2 text-uppercase">Tu voz construye esta historia</h3>
           <p class="mb-0">
-            <i>Fuenteovejuna</i> es una obra viva que ha sido representada, leída, discutida y sentida por miles de personas durante cuatro siglos.
-            Tu participación es clave para construir una edición social del texto y documentar su memoria colectiva.
+            <i>Fuenteovejuna</i> es una obra viva que ha sido representada, leida, discutida y sentida por miles de personas durante cuatro siglos.
+            Tu participacion es clave para construir una edicion social del texto y documentar su memoria colectiva.
           </p>
         </div>
       </div>
@@ -21,35 +21,39 @@ navbar_main_offset: false
         <h1 class="participa-title mb-0">PARTICIPA</h1>
       </div>
     </div>
+
     <div class="row participa-cards">
       <div class="col-md-4">
-        <div class="card card-media h-100" style="--card-image: url('{{ '/assets/img/participa/marginalia.jpg' | relative_url }}');">
-          <div class="card-media-body">
-            <h3 class="text-uppercase mb-2">Lee y anota</h3>
-            <p class="mb-3">Tus comentarios ayudan a construir una interpretación colectiva.</p>
-            <a href="{{ '/participa/laboratorio/' | relative_url }}" class="btn btn-light btn-sm">Ir al laboratorio</a>
+        <a class="card ta-card ta-card--media ta-card--link h-100" href="{{ '/participa/laboratorio/' | relative_url }}" style="--card-image: url('{{ '/assets/img/participa/marginalia.jpg' | relative_url }}');">
+          <div class="ta-card__body">
+            <h3 class="ta-card__title text-uppercase mb-2">Lee y anota</h3>
+            <p class="ta-card__copy mb-3">Tus comentarios ayudan a construir una interpretacion colectiva.</p>
+            <span class="btn btn-light btn-sm">Ir al laboratorio</span>
           </div>
-        </div>
+        </a>
       </div>
+
       <div class="col-md-4">
-        <div class="card card-media h-100" style="--card-image: url('{{ '/assets/img/participa/archivos.jpg' | relative_url }}');">
-          <div class="card-media-body">
-            <h3 class="text-uppercase mb-2">Comparte un documento</h3>
-            <p class="mb-3">Programas, carteles, fotos, recortes de prensa...</p>
-            <a href="{{ '/participa/documentos/enviar/' | relative_url }}" class="btn btn-light btn-sm">Contribuir</a>
+        <a class="card ta-card ta-card--media ta-card--link h-100" href="{{ '/participa/documentos/enviar/' | relative_url }}" style="--card-image: url('{{ '/assets/img/participa/archivos.jpg' | relative_url }}');">
+          <div class="ta-card__body">
+            <h3 class="ta-card__title text-uppercase mb-2">Comparte un documento</h3>
+            <p class="ta-card__copy mb-3">Programas, carteles, fotos, recortes de prensa...</p>
+            <span class="btn btn-light btn-sm">Contribuir</span>
           </div>
-        </div>
+        </a>
       </div>
+
       <div class="col-md-4">
-        <div class="card card-media h-100" style="--card-image: url('{{ '/assets/img/participa/platea.jpg' | relative_url }}');">
-          <div class="card-media-body">
-            <h3 class="text-uppercase mb-2">Cuenta tu historia</h3>
-            <p class="mb-3">¿Qué significa <i>Fuenteovejuna</i> para ti?</p>
-            <a href="{{ '/participa/testimonios/enviar/' | relative_url }}" class="btn btn-light btn-sm">Compartir testimonio</a>
+        <a class="card ta-card ta-card--media ta-card--link h-100" href="{{ '/participa/testimonios/enviar/' | relative_url }}" style="--card-image: url('{{ '/assets/img/participa/platea.jpg' | relative_url }}');">
+          <div class="ta-card__body">
+            <h3 class="ta-card__title text-uppercase mb-2">Cuenta tu historia</h3>
+            <p class="ta-card__copy mb-3">Que significa <i>Fuenteovejuna</i> para ti?</p>
+            <span class="btn btn-light btn-sm">Compartir testimonio</span>
           </div>
-        </div>
+        </a>
       </div>
     </div>
-    <p class="text-center small mb-0 participa-footnote">Lee la <a href="{{ '/acerca-de/' | relative_url }}">guía de participación</a> o conoce más <a href="{{ '/acerca-de/' | relative_url }}">sobre el proyecto</a>.</p>
+
+    <p class="text-center small mb-0 participa-footnote">Lee la <a href="{{ '/acerca-de/' | relative_url }}">guia de participacion</a> o conoce mas <a href="{{ '/acerca-de/' | relative_url }}">sobre el proyecto</a>.</p>
   </div>
 </section>
