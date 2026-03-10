@@ -136,6 +136,7 @@
   }
 
   function ModalParticipacion() {
+    this.shell = null;
     this.modal = null;
     this.modalContent = null;
     this.modalHeader = null;
@@ -193,8 +194,6 @@
         colaboradorDescription: 'Crear o recuperar perfil colaborador.'
       }
     };
-    this._onKeydown = this._onKeydown.bind(this);
-    this._ensureDOM();
   }
 
   ModalParticipacion.prototype._showAlert = function (title, message, variant) {
@@ -232,20 +231,22 @@
   ModalParticipacion.prototype._ensureDOM = function () {
     if (this.modal) return;
 
-    var container = document.getElementById('modal-container') || document.body;
-    var template = document.getElementById('participacion-modal-template');
+    this.shell = ns.modalShell && typeof ns.modalShell.mountTemplate === 'function'
+      ? ns.modalShell.mountTemplate({
+          templateId: 'participacion-modal-template',
+          labelledBy: 'modal-titulo',
+          describedBy: 'modal-descripcion',
+          initialFocusSelector: '.modo-opcion[data-modo="anonimo"]',
+          onRequestClose: this.close.bind(this)
+        })
+      : null;
 
-    if (template && template.content) {
-      var fragment = template.content.cloneNode(true);
-      this.modal = fragment.firstElementChild;
-      container.appendChild(fragment);
-    } else {
-      var wrapper = document.createElement('div');
-      wrapper.innerHTML = this._renderMarkup().trim();
-      this.modal = wrapper.firstElementChild;
-      container.appendChild(this.modal);
+    if (!this.shell || !this.shell.modal) {
+      console.error('[participacion] No se pudo montar la plantilla del modal de participacion.');
+      return;
     }
 
+    this.modal = this.shell.modal;
     this.modalContent = this.modal.querySelector('.modal-content');
     this.modalHeader = this.modal.querySelector('.modal-header');
     this.modalTitle = this.modal.querySelector('#modal-titulo');
@@ -260,99 +261,6 @@
     this.profileView = this.modal.querySelector('#perfil-participacion');
 
     this._attachModalEvents();
-  };
-
-  ModalParticipacion.prototype._renderMarkup = function () {
-    return (
-      '<div id="modal-modo" class="modal">' +
-      '  <div class="modal-overlay"></div>' +
-      '  <div class="modal-content">' +
-      '    <div class="modal-header">' +
-      '      <div class="modal-header-main">' +
-      '        <h2 id="modal-titulo">\u00bfC\u00f3mo quieres participar?</h2>' +
-      '        <p class="modal-descripcion" id="modal-descripcion">Tu participaci\u00f3n ayuda a mejorar las notas para futuros lectores.</p>' +
-      '        <div id="modal-header-meta" class="modal-header-meta" style="display:none;"></div>' +
-      '      </div>' +
-      '      <div id="modal-header-actions" class="modal-header-actions" style="display:none;"></div>' +
-      '      <button id="modal-modo-close" class="btn-circular" type="button" aria-label="Cerrar modal"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>' +
-      '    </div>' +
-      '    <div class="modo-opciones">' +
-      '      <div class="modo-opcion" data-modo="anonimo" role="button" tabindex="0">' +
-      '        <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-user-secret" aria-hidden="true"></i></span><h3>Editor an\u00f3nimo</h3></div>' +
-      '        <p>Sin registro. Privacidad total.</p>' +
-      '      </div>' +
-      '      <div class="modo-opcion" data-modo="colaborador" role="button" tabindex="0">' +
-      '        <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-pen" aria-hidden="true"></i></span><h3>Colaborador</h3></div>' +
-      '        <p>Identificado por email. Contribuciones reconocidas.</p>' +
-      '      </div>' +
-      '    </div>' +
-      '    <div id="form-anonimo" class="modo-form" style="display:none;">' +
-      '      <form id="form-anonimo-datos">' +
-      '        <div class="botones-modal">' +
-      '          <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>' +
-      '          <button type="submit" class="btn btn-primary">Comenzar</button>' +
-      '        </div>' +
-      '      </form>' +
-      '    </div>' +
-      '    <div id="colaborador-opciones" class="modo-form" style="display:none;">' +
-      '      <div class="colaborador-opciones-grid">' +
-      '        <div class="modo-opcion" data-tipo="login" role="button" tabindex="0">' +
-      '          <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i></span><h3>Ya particip\u00e9 antes</h3></div>' +
-      '          <p>Identificarme con mi email.</p>' +
-      '        </div>' +
-      '        <div class="modo-opcion" data-tipo="registro" role="button" tabindex="0">' +
-      '          <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></span><h3>Primera vez</h3></div>' +
-      '          <p>Registrar mi email y datos.</p>' +
-      '        </div>' +
-      '      </div>' +
-      '      <div class="botones-modal"><button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button></div>' +
-      '    </div>' +
-      '    <div id="form-colaborador-login" class="modo-form" style="display:none;">' +
-      '      <form id="form-colaborador-login-datos">' +
-      '        <label>Email<input type="email" name="email" required placeholder="tu@email.com"></label>' +
-      '        <div class="botones-modal">' +
-      '          <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>' +
-      '          <button type="submit" class="btn btn-primary">Identificarme</button>' +
-      '        </div>' +
-      '      </form>' +
-      '    </div>' +
-      '    <div id="form-colaborador-registro" class="modo-form" style="display:none;">' +
-      '      <form id="form-colaborador-registro-datos">' +
-      '        <label>Email<input type="email" name="email" required placeholder="tu@email.com"></label>' +
-      '        <label>Nombre (opcional)<input type="text" name="display_name" placeholder="Mar\u00eda G." maxlength="50"></label>' +
-      '        <label>Nivel de estudios (opcional)' +
-      '          <select name="nivel_estudios">' +
-      '            <option value="">Prefiero no decirlo</option>' +
-      '            <option value="secundaria">Secundaria</option>' +
-      '            <option value="grado">Grado universitario</option>' +
-      '            <option value="posgrado">M\u00e1ster/Posgrado</option>' +
-      '            <option value="doctorado">Doctorado</option>' +
-      '            <option value="otro">Otro</option>' +
-      '          </select>' +
-      '        </label>' +
-      '        <label>Disciplina (opcional)' +
-      '          <select name="disciplina">' +
-      '            <option value="">Prefiero no decirlo</option>' +
-      '            <option value="filologia">Filolog\u00eda/Lengua/Literatura</option>' +
-      '            <option value="historia">Historia</option>' +
-      '            <option value="educacion">Educaci\u00f3n</option>' +
-      '            <option value="arte">Arte/Teatro</option>' +
-      '            <option value="humanidades">Humanidades</option>' +
-      '            <option value="ciencias_sociales">Ciencias Sociales</option>' +
-      '            <option value="otro">Otra</option>' +
-      '          </select>' +
-      '        </label>' +
-       '        <div class="botones-modal">' +
-       '          <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>' +
-       '          <button type="submit" class="btn btn-primary">Registrarme</button>' +
-       '        </div>' +
-       '      </form>' +
-       '    </div>' +
-       '    <div id="perfil-participacion" class="modo-form perfil-participacion" style="display:none;"></div>' +
-       '    </div>' +
-       '  </div>' +
-       '</div>'
-    );
   };
 
   ModalParticipacion.prototype._attachModalEvents = function () {
@@ -381,11 +289,6 @@
         self._goBack();
       });
     });
-
-    var closeButton = this.modal.querySelector('#modal-modo-close');
-    var overlay = this.modal.querySelector('.modal-overlay');
-    if (closeButton) closeButton.addEventListener('click', function () { self.close(); });
-    if (overlay) overlay.addEventListener('click', function () { self.close(); });
 
     var formAnonimo = this.modal.querySelector('#form-anonimo-datos');
     if (formAnonimo) {
@@ -666,8 +569,8 @@
       if (!result.found) {
         var wantsRegister = await this._showConfirm(
           'Email no encontrado',
-          'No encontramos ese email en el sistema. \u00bfQuieres registrarte ahora?',
-          'S\u00ed, registrarme',
+          'No encontramos ese email en el sistema. Si es tu primera vez, puedes registrarte ahora.',
+          'Registrarme',
           'Cancelar',
           'warning'
         );
@@ -804,9 +707,9 @@
         if (!session) return;
 
         var shouldReset = await self._showConfirm(
-          'Cerrar sesion',
-          '\u00bfSeguro que quieres cerrar sesion?',
-          'Si, cerrar sesion',
+          'Cerrar sesi\u00f3n',
+          '\u00bfSeguro que quieres cerrar la sesi\u00f3n?',
+          'Cerrar sesi\u00f3n',
           'Cancelar',
           'warning'
         );
@@ -820,13 +723,13 @@
             var message = getUserMessage(
               result && result.error,
               'session_reset',
-              'No se pudo cerrar la sesion. Intenta de nuevo.'
+              'No se pudo cerrar la sesi\u00f3n. Intenta de nuevo.'
             );
-            await self._showAlert('No se pudo cerrar la sesion', message, 'warning');
+            await self._showAlert('No se pudo cerrar la sesi\u00f3n', message, 'warning');
             return;
           }
           self.close();
-          notify('Sesion cerrada', 'success');
+          notify('Sesi\u00f3n cerrada', 'success');
           setTimeout(function () {
             void self.open({ context: 'profile', reason: 'after-reset' });
           }, 200);
@@ -871,109 +774,114 @@
   ModalParticipacion.prototype._renderProfileHTML = function (viewModel) {
     var stats = viewModel && viewModel.stats ? viewModel.stats : {};
     var evaluationBalanceText = escapeHtml(pluralize(stats.votos_up, 'positiva', 'positivas'))
-      + ' \u00b7 '
+      + '<br>'
       + escapeHtml(pluralize(stats.votos_down, 'negativa', 'negativas'));
 
-    var uploadsDetail = viewModel.hasUploads
-      ? [
-          pluralize(stats.total_testimonios, 'testimonio', 'testimonios'),
-          pluralize(stats.total_contribuciones_archivo, 'documento', 'documentos')
-        ].join(' \u00b7 ')
-      : 'Todav\u00eda no has enviado testimonios ni documentos.';
+    var uploadsDetailHtml = viewModel.hasUploads
+      ? ''
+        + escapeHtml(pluralize(stats.total_testimonios, 'testimonio', 'testimonios'))
+        + '<br>'
+        + escapeHtml(pluralize(stats.total_contribuciones_archivo, 'documento', 'documentos'))
+      : 'Todavía no has enviado testimonios ni documentos.';
+
+    if (!viewModel.hasUploads) {
+      uploadsDetailHtml = escapeHtml('Todavia no has enviado testimonios ni documentos.');
+    }
 
     var uploadsActions = ''
-      + '<div class="perfil-card-actions">'
-      + '  <a class="btn btn-primary" href="' + escapeHtml(viewModel.uploadPrimaryUrl) + '">' + escapeHtml(viewModel.uploadPrimaryLabel) + '</a>'
+      + '<div class="modal-actions perfil-card-actions">'
+      + '  <a class="btn btn-secondary" href="' + escapeHtml(viewModel.uploadPrimaryUrl) + '">' + escapeHtml(viewModel.uploadPrimaryLabel) + '</a>'
       + '  <a class="btn btn-outline-dark" href="' + escapeHtml(viewModel.uploadSecondaryUrl) + '">' + escapeHtml(viewModel.uploadSecondaryLabel) + '</a>'
       + '</div>';
 
     var summaryActions = ''
-      + '<div class="perfil-summary-actions">'
+      + '<div class="modal-actions perfil-summary-actions">'
       + '  <a class="btn btn-primary" href="/participa/">' + escapeHtml(stats.total_contribuciones > 0 ? 'Participa' : 'Empieza a participar') + '</a>'
       + '</div>';
 
     var evaluationDetails = stats.total_evaluaciones > 0
       ? ''
-        + '<p class="perfil-activity-detail">' + evaluationBalanceText + '</p>'
-        + '<p class="perfil-activity-detail">' + escapeHtml(pluralize(stats.comentarios, 'comentario', 'comentarios')) + '</p>'
+        + '<p class="perfil-card-text perfil-activity-detail">' + evaluationBalanceText + '</p>'
+        + '<p class="perfil-card-text perfil-activity-detail">' + escapeHtml(pluralize(stats.comentarios, 'comentario', 'comentarios')) + '</p>'
       : '';
 
-    var upgradeBlock = '';
+    var upgradeNote = '';
     if (viewModel.showAnonymousUpgrade) {
-      upgradeBlock = ''
-        + '<section class="perfil-upsell" data-only-anonimo>'
-        + '  <h3>\u00bfQuieres registrarte como colaborador/a?</h3>'
-        + '  <p>As\u00ed tus contribuciones podr\u00e1n quedar reconocidas y podr\u00e1s recuperarlas en futuras sesiones.</p>'
-        + '  <div class="perfil-card-actions">'
+      upgradeNote = ''
+        + '<aside class="modal-context-note" data-only-anonimo>'
+        + '  <p><strong>Ahora participas en an\u00f3nimo.</strong> Reg\u00edstrate para conservar y recuperar tus contribuciones en futuras sesiones.</p>'
+        + '  <div class="modal-actions modal-context-note-actions">'
         + '    <button type="button" class="btn btn-primary btn-upgrade-colaborador">Registrarme</button>'
         + '  </div>'
-        + '</section>';
+        + '</aside>';
     }
 
     return ''
       + '<div class="perfil-participacion-shell">'
+      +    upgradeNote
       + '  <section class="perfil-summary-card">'
       + '    <div class="perfil-summary-head">'
       + '      <div class="perfil-summary-copy">'
-      + '        <p class="perfil-summary-label">Contribuciones totales</p>'
-      + '        <p class="perfil-summary-value">' + escapeHtml(stats.total_contribuciones) + '</p>'
+      + '        <h3 class="perfil-card-title">Contribuciones totales</h3>'
+      + '        <p class="perfil-card-metric perfil-card-metric--hero">' + escapeHtml(stats.total_contribuciones) + '</p>'
       + '      </div>'
       +        summaryActions
       + '    </div>'
       + '  </section>'
       + '  <section class="perfil-activity-grid">'
       + '    <article class="perfil-activity-card">'
-      + '      <h3>Notas</h3>'
+      + '      <h3 class="perfil-card-title">Notas</h3>'
       + '      <div class="perfil-activity-split">'
       + '        <div class="perfil-activity-section">'
-      + '          <p class="perfil-activity-kicker">Evaluaci\u00f3n</p>'
-      + '          <p class="perfil-activity-value">' + escapeHtml(stats.total_evaluaciones) + '</p>'
+      + '          <p class="perfil-card-eyebrow">Evaluaci\u00f3n</p>'
+      + '          <p class="perfil-card-metric">' + escapeHtml(stats.total_evaluaciones) + '</p>'
       +            evaluationDetails
       + '        </div>'
       + '        <div class="perfil-activity-section">'
-      + '          <p class="perfil-activity-kicker">Sugerencias</p>'
-      + '          <p class="perfil-activity-value">' + escapeHtml(stats.total_sugerencias) + '</p>'
+      + '          <p class="perfil-card-eyebrow">Sugerencias</p>'
+      + '          <p class="perfil-card-metric">' + escapeHtml(stats.total_sugerencias) + '</p>'
       + '        </div>'
       + '      </div>'
       + '    </article>'
       + '    <article class="perfil-activity-card">'
-      + '      <h3>Env\u00edos</h3>'
-      + '      <p class="perfil-activity-value">' + escapeHtml(stats.total_envios) + '</p>'
-      + '      <p class="perfil-activity-detail">' + escapeHtml(uploadsDetail) + '</p>'
+      + '      <h3 class="perfil-card-title">Env\u00edos</h3>'
+      + '      <p class="perfil-card-metric">' + escapeHtml(stats.total_envios) + '</p>'
+      + '      <p class="perfil-card-text perfil-activity-detail">' + uploadsDetailHtml + '</p>'
       +        uploadsActions
       + '    </article>'
       + '  </section>'
-      +    upgradeBlock
       + '</div>';
   };
 
   ModalParticipacion.prototype._openShell = function (options) {
     this._ensureDOM();
+    if (!this.modal) return;
+
     this.currentContext = (options && options.context) || this.currentContext || '';
 
-    if (this.modal) {
-      this.modal.dataset.context = this.currentContext;
-      this.modal.dataset.reason = (options && options.reason) || '';
+    this.modal.dataset.context = this.currentContext;
+    this.modal.dataset.reason = (options && options.reason) || '';
+
+    if (this.shell) {
+      this.shell.open();
+    } else {
       this.modal.classList.add('show');
     }
-
-    document.removeEventListener('keydown', this._onKeydown);
-    document.addEventListener('keydown', this._onKeydown);
   };
 
   ModalParticipacion.prototype.close = function () {
     if (!this.modal) return;
-    this.modal.classList.remove('show');
-    document.removeEventListener('keydown', this._onKeydown);
+
+    if (this.shell) {
+      this.shell.close();
+    } else {
+      this.modal.classList.remove('show');
+    }
 
     if (this._resolveOpen) {
       this._resolveOpen();
       this._resolveOpen = null;
     }
-  };
-
-  ModalParticipacion.prototype._onKeydown = function (event) {
-    if (event.key === 'Escape') this.close();
   };
 
   ModalParticipacion.prototype.open = function (options) {

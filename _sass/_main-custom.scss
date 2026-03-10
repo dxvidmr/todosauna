@@ -73,6 +73,13 @@
   display: flex !important;
 }
 
+// Bootstrap modal header: sin padding lateral/superior y solo espacio inferior antes de la linea
+.modal {
+  --bs-modal-header-padding-x: 0;
+  --bs-modal-header-padding-y: 0;
+  --bs-modal-header-padding: 0 0 1rem 0;
+}
+
 // ============================================
 // PARTICIPA PAGE - SHARED CARD STYLES
 // ============================================

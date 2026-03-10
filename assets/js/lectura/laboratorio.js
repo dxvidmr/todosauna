@@ -36,8 +36,6 @@ import {
 
 // ============================================
 // EDITOR SOCIAL (JUEGO DE EVALUACION)
-// Sistema de notas con navegacion lateral
-// Actualizado con modos de navegación
 // ============================================
 
 class EditorSocial {
@@ -64,7 +62,6 @@ class EditorSocial {
     this.laboratorioLayout = null;
     this.wrapperEl = null;
     this.navWrapper = null;
-
     // Zoom del pasaje (sesion actual)
     this.labFontSizePercent = DEFAULT_ZOOM_PERCENT;
     this.labFontMin = MIN_ZOOM_PERCENT;
@@ -155,7 +152,6 @@ class EditorSocial {
     this.laboratorioLayout = document.querySelector('.laboratorio-layout');
     this.wrapperEl = document.querySelector('.laboratorio-wrapper');
     this.navWrapper = document.querySelector('.nav-wrapper');
-    this.modalCambiarModo = document.getElementById('modal-cambiar-modo');
     this.setupTextZoomController();
 
     // Cargar pasajes desde Supabase
@@ -469,8 +465,8 @@ class EditorSocial {
       // Todos visitados - resetear o mostrar finalización
       const shouldRestart = await this.confirmFeedback({
         title: 'Has visitado todos los pasajes',
-        message: '¿Quieres volver a empezar?',
-        confirmText: 'Sí, volver a empezar',
+        message: 'Puedes volver a empezar o cerrar esta sesi\u00f3n del laboratorio.',
+        confirmText: 'Volver a empezar',
         cancelText: 'Cerrar',
         variant: 'warning'
       });
@@ -922,41 +918,6 @@ class EditorSocial {
     });
   }
 
-  setupModalCambiarModo() {
-    if (!this.modalCambiarModo) return;
-
-    const closeBtn = document.getElementById('modal-cambiar-modo-close');
-    const cancelBtn = document.getElementById('btn-cancelar-cambiar-modo');
-    const confirmBtn = document.getElementById('btn-confirmar-cambiar-modo');
-    const overlay = this.modalCambiarModo.querySelector('.modal-overlay');
-
-    closeBtn?.addEventListener('click', () => this.cerrarModalCambiarModo());
-    cancelBtn?.addEventListener('click', () => this.cerrarModalCambiarModo());
-    overlay?.addEventListener('click', () => this.cerrarModalCambiarModo());
-
-    confirmBtn?.addEventListener('click', () => {
-      this.cerrarModalCambiarModo();
-      this.volverABienvenida();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.modalCambiarModo?.classList.contains('show')) {
-        this.cerrarModalCambiarModo();
-      }
-    });
-  }
-
-  abrirModalCambiarModo() {
-    if (!this.modalCambiarModo) return;
-    this.modalCambiarModo.classList.add('show');
-    document.getElementById('btn-cancelar-cambiar-modo')?.focus();
-  }
-
-  cerrarModalCambiarModo() {
-    if (!this.modalCambiarModo) return;
-    this.modalCambiarModo.classList.remove('show');
-  }
-
   /**
    * Configurar event listeners de controles
    */
@@ -987,10 +948,18 @@ class EditorSocial {
     });
 
     // Botón cambiar modo
-    this.setupModalCambiarModo();
+    document.getElementById('btn-cambiar-modo')?.addEventListener('click', async () => {
+      const shouldChangeMode = await this.confirmFeedback({
+        title: 'Cambiar modo',
+        message: 'Volver\u00e1s a la pantalla de selecci\u00f3n para elegir de nuevo entre modo secuencial o aleatorio.',
+        confirmText: 'Cambiar modo',
+        cancelText: 'Cancelar',
+        variant: 'warning'
+      });
 
-    document.getElementById('btn-cambiar-modo')?.addEventListener('click', () => {
-      this.abrirModalCambiarModo();
+      if (shouldChangeMode) {
+        this.volverABienvenida();
+      }
     });
 
     // Controles de zoom del pasaje

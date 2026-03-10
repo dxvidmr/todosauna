@@ -4,6 +4,7 @@
 // ============================================
 
 @use "variables" as *;
+@use "buttons" as buttons;
 
 // ============================================
 // BASE TIPOGRAFICA TEI COMPARTIDA
@@ -625,6 +626,14 @@ tei-stage {
   }
 }
 
+.modal-close,
+.modal-shell-close {
+  @include buttons.btn-circular-base;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
 .modal-header {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
@@ -658,13 +667,17 @@ tei-stage {
   gap: 8px 12px;
 }
 
+.modal-actions,
 .modal-header-actions {
-  grid-area: actions;
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
+}
+
+.modal-header-actions {
+  grid-area: actions;
   align-items: start;
   justify-content: flex-end;
-  gap: 10px;
 
   .btn-cerrar-sesion {
     display: inline-flex;
@@ -755,28 +768,51 @@ tei-stage {
   min-width: 0;
   flex: 1 1 auto;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .perfil-summary-actions {
-  display: flex;
   flex: 0 0 auto;
   align-items: flex-end;
   justify-content: flex-end;
 }
 
-.perfil-summary-label {
+.perfil-card-title {
+  margin: 0;
+  color: $color-text;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.perfil-card-eyebrow {
+  margin: 0;
+  color: $color-text-muted;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.perfil-card-metric {
+  margin: 0;
+  color: $color-text;
+  font-size: clamp(1.75rem, 4vw, 2.15rem);
+  font-weight: 700;
+  line-height: 0.98;
+}
+
+.perfil-card-metric--hero {
+  font-size: clamp(2.4rem, 8vw, 3.7rem);
+  line-height: 0.95;
+}
+
+.perfil-card-text {
   margin: 0;
   color: $color-text-muted;
   font-size: 0.95rem;
-}
-
-.perfil-summary-value {
-  margin: 0;
-  color: $color-text;
-  font-size: clamp(2.4rem, 8vw, 3.7rem);
-  font-weight: 700;
-  line-height: 0.95;
+  line-height: 1.45;
 }
 
 .perfil-activity-grid {
@@ -788,31 +824,15 @@ tei-stage {
 .perfil-activity-card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   padding: 18px;
   border: 1px solid $color-neutral-200;
   border-radius: 18px;
   background: $color-neutral-50;
-
-  h3 {
-    margin: 0;
-    color: $color-text;
-    font-size: 1.05rem;
-  }
-}
-
-.perfil-activity-value {
-  margin: 0;
-  color: $color-text;
-  font-size: 1.9rem;
-  font-weight: 600;
-  line-height: 1;
 }
 
 .perfil-activity-detail {
-  margin: 0;
-  color: $color-text-muted;
-  line-height: 1.45;
+  font-size: 0.92rem;
 }
 
 .perfil-activity-split {
@@ -825,21 +845,7 @@ tei-stage {
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: 8px;
-}
-
-.perfil-activity-kicker {
-  margin: 0;
-  color: $color-text-muted;
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-.perfil-card-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  gap: 6px;
 }
 
 .perfil-card-actions {
@@ -847,25 +853,54 @@ tei-stage {
   padding-top: 6px;
 }
 
-.perfil-upsell {
+.modal-context-note {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 20px 22px;
-  border-radius: 18px;
-  background: $color-secondary-100;
-
-  h3 {
-    margin: 0;
-    color: $color-text;
-    font-size: 1.15rem;
-  }
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  padding: 16px 18px;
+  border: 1px solid $color-primary;
+  border-radius: 16px;
+  background: transparent;
 
   p {
     margin: 0;
-    color: $color-text-muted;
+    flex: 1 1 280px;
+    color: $color-text;
     line-height: 1.5;
   }
+
+  strong {
+    color: $color-dark;
+  }
+}
+
+.modal-context-note-actions {
+  flex: 0 0 auto;
+}
+
+.participa-ui-dialog-content {
+  max-width: 430px;
+  width: min(92vw, 430px);
+  border-radius: 18px;
+  padding: 44px 22px 18px;
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    line-height: 1.25;
+  }
+}
+
+.participa-ui-dialog-message {
+  margin: 0 0 14px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.participa-ui-dialog-actions {
+  justify-content: flex-end;
 }
 
 @media (max-width: 640px) {
@@ -881,11 +916,13 @@ tei-stage {
   }
 
   .modal-header-actions,
+  .modal-actions,
   .perfil-card-actions {
     flex-direction: column;
   }
 
   .modal-header-actions .btn,
+  .modal-actions .btn,
   .perfil-card-actions .btn,
   .perfil-summary-actions .btn {
     width: 100%;
@@ -898,6 +935,14 @@ tei-stage {
   .perfil-summary-actions {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .modal-context-note-actions {
+    width: 100%;
+  }
+
+  .participa-ui-dialog-content {
+    padding: 40px 16px 14px;
   }
 
   .perfil-activity-split {

@@ -66,20 +66,6 @@ navbar_behavior: fixed
   </div>
 </div>
 
-<!-- Modal confirmar cambio de modo -->
-<div id="modal-cambiar-modo" class="modal lab-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="modal-cambiar-modo-titulo">
-  <div class="modal-overlay"></div>
-  <div class="modal-content">
-    <button id="modal-cambiar-modo-close" class="modal-close" aria-label="Cerrar modal">&times;</button>
-    <h2 id="modal-cambiar-modo-titulo">¿Cambiar modo de uso?</h2>
-    <p class="modal-descripcion">Volverás a la pantalla de selección y podrás elegir de nuevo entre modo secuencial o aleatorio.</p>
-    <div class="lab-confirm-actions">
-      <button id="btn-cancelar-cambiar-modo" type="button" class="btn btn-outline-dark btn-sm">Cancelar</button>
-      <button id="btn-confirmar-cambiar-modo" type="button" class="btn btn-secondary btn-sm">Sí, cambiar modo</button>
-    </div>
-  </div>
-</div>
-
 <!-- Contenido principal: Layout de dos columnas -->
 <div class="laboratorio-layout">
   

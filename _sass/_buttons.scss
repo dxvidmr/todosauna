@@ -80,8 +80,8 @@
     $color-dark,
     $color-secondary,
     $color-secondary,
-    $color-secondary-50,
-    $color-secondary-50,
+    $color-secondary-100,
+    $color-secondary-100,
     $color-secondary,
     $color-secondary,
     $color-secondary
@@ -177,7 +177,7 @@
   }
 }
 
-.btn-circular {
+@mixin btn-circular-base {
   width: 32px;
   height: 32px;
   border: 1px solid transparent;
@@ -206,4 +206,8 @@
     color: var(--color-primary);
     border-color: var(--color-primary-soft);
   }
+}
+
+.btn-circular {
+  @include btn-circular-base;
 }

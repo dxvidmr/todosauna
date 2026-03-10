@@ -42,43 +42,39 @@
   function createDialog(options) {
     closeActiveDialog(false);
 
-    var previousFocus = document.activeElement;
-    var wrapper = document.createElement('div');
-    wrapper.className = 'modal show participa-ui-dialog participa-ui-dialog-' + options.variant;
-    wrapper.setAttribute('role', 'dialog');
-    wrapper.setAttribute('aria-modal', 'true');
-
     var titleId = 'participacion-ui-title-' + Date.now();
-    wrapper.setAttribute('aria-labelledby', titleId);
-
     var messageHtml = options.message
       ? '<p class="modal-descripcion participa-ui-dialog-message"></p>'
       : '';
 
     var actionsHtml = options.kind === 'confirm'
       ? (
-        '<div class="botones-modal participa-ui-dialog-actions">' +
+        '<div class="modal-actions participa-ui-dialog-actions">' +
         '  <button type="button" class="btn btn-outline-dark participa-ui-cancel"></button>' +
-        '  <button type="button" class="btn btn-primary participa-ui-confirm"></button>' +
+        '  <button type="button" class="btn btn-secondary participa-ui-confirm"></button>' +
         '</div>'
       )
       : (
-        '<div class="botones-modal participa-ui-dialog-actions">' +
+        '<div class="modal-actions participa-ui-dialog-actions">' +
         '  <button type="button" class="btn btn-primary participa-ui-confirm"></button>' +
         '</div>'
       );
 
-    wrapper.innerHTML =
-      '<div class="modal-overlay"></div>' +
-      '<div class="modal-content participa-ui-dialog-content">' +
-      '  <button class="modal-close participa-ui-close" type="button" aria-label="Cerrar">&times;</button>' +
-      '  <h2 id="' + titleId + '"></h2>' +
-      messageHtml +
-      actionsHtml +
-      '</div>';
-
-    var overlay = wrapper.querySelector('.modal-overlay');
-    var closeBtn = wrapper.querySelector('.participa-ui-close');
+    var shell = ns.modalShell.create({
+      modalClassName: 'participa-ui-dialog participa-ui-dialog-' + options.variant,
+      contentClassName: 'participa-ui-dialog-content',
+      labelledBy: titleId,
+      closeButtonClassName: 'btn-circular modal-shell-close participa-ui-close',
+      closeButtonLabel: 'Cerrar',
+      closeButtonHtml: '<i class="fa-solid fa-xmark" aria-hidden="true"></i>',
+      initialFocusSelector: '.participa-ui-confirm',
+      destroyOnClose: true,
+      bodyHtml:
+        '<h2 id="' + titleId + '"></h2>' +
+        messageHtml +
+        actionsHtml
+    });
+    var wrapper = shell.modal;
     var titleEl = wrapper.querySelector('h2');
     var messageEl = wrapper.querySelector('.participa-ui-dialog-message');
     var confirmBtn = wrapper.querySelector('.participa-ui-confirm');
@@ -91,38 +87,20 @@
     }
     if (cancelBtn) cancelBtn.textContent = options.cancelText;
 
-    document.body.appendChild(wrapper);
-
     return new Promise(function (resolve) {
+      var isClosed = false;
+
       function close(result) {
-        document.removeEventListener('keydown', onKeydown);
-        wrapper.remove();
-        if (previousFocus && typeof previousFocus.focus === 'function') {
-          previousFocus.focus();
-        }
+        if (isClosed) return;
+        isClosed = true;
+        shell.close(result);
         activeDialog = null;
         resolve(!!result);
       }
 
-      function onKeydown(event) {
-        if (event.key === 'Escape') {
-          close(false);
-        }
-      }
-
-      document.addEventListener('keydown', onKeydown);
-
-      if (closeBtn) {
-        closeBtn.addEventListener('click', function () {
-          close(false);
-        });
-      }
-
-      if (overlay) {
-        overlay.addEventListener('click', function () {
-          close(false);
-        });
-      }
+      shell.options.onRequestClose = function () {
+        close(false);
+      };
 
       if (confirmBtn) {
         confirmBtn.addEventListener('click', function () {
@@ -137,9 +115,7 @@
       }
 
       activeDialog = { close: close };
-      setTimeout(function () {
-        if (confirmBtn) confirmBtn.focus();
-      }, 0);
+      shell.open();
     });
   }
 

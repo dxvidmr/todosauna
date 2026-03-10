@@ -9,7 +9,7 @@
           <div id="modal-header-meta" class="modal-header-meta" style="display:none;"></div>
         </div>
         <div id="modal-header-actions" class="modal-header-actions" style="display:none;"></div>
-        <button id="modal-modo-close" class="btn-circular" type="button" aria-label="Cerrar modal">
+        <button id="modal-modo-close" class="btn-circular" type="button" aria-label="Cerrar modal" data-modal-close="true">
           <i class="fa-solid fa-xmark" aria-hidden="true"></i>
         </button>
       </div>
@@ -33,7 +33,7 @@
 
       <div id="form-anonimo" class="modo-form" style="display:none;">
         <form id="form-anonimo-datos">
-          <div class="botones-modal">
+          <div class="botones-modal modal-actions">
             <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
             <button type="submit" class="btn btn-primary">Comenzar</button>
           </div>
@@ -51,13 +51,13 @@
             <p>Registrar mi email y datos.</p>
           </div>
         </div>
-        <div class="botones-modal"><button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button></div>
+        <div class="botones-modal modal-actions"><button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button></div>
       </div>
 
       <div id="form-colaborador-login" class="modo-form" style="display:none;">
         <form id="form-colaborador-login-datos">
           <label>Email<input type="email" name="email" required placeholder="tu@email.com"></label>
-          <div class="botones-modal">
+          <div class="botones-modal modal-actions">
             <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
             <button type="submit" class="btn btn-primary">Identificarme</button>
           </div>
@@ -90,7 +90,7 @@
               <option value="otro">Otra</option>
             </select>
           </label>
-          <div class="botones-modal">
+          <div class="botones-modal modal-actions">
             <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
             <button type="submit" class="btn btn-primary">Registrarme</button>
           </div>

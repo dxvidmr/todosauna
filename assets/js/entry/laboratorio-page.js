@@ -1,4 +1,6 @@
-﻿import '../lectura/CETEI.js';
+import '../lectura/CETEI.js';
+import '../participacion/modal-shell.js';
+import '../participacion/ui.js';
 import '../lectura/laboratorio.js';
 import '../participacion/sugerencias.js';
 
