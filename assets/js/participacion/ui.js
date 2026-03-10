@@ -67,10 +67,10 @@
       closeButtonClassName: 'btn-circular modal-shell-close participa-ui-close',
       closeButtonLabel: 'Cerrar',
       closeButtonHtml: '<i class="fa-solid fa-xmark" aria-hidden="true"></i>',
-      initialFocusSelector: '.participa-ui-confirm',
+      initialFocusSelector: '.participa-ui-dialog-title',
       destroyOnClose: true,
       bodyHtml:
-        '<h2 id="' + titleId + '"></h2>' +
+        '<h2 id="' + titleId + '" class="participa-ui-dialog-title" tabindex="-1"></h2>' +
         messageHtml +
         actionsHtml
     });

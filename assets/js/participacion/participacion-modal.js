@@ -236,7 +236,7 @@
           templateId: 'participacion-modal-template',
           labelledBy: 'modal-titulo',
           describedBy: 'modal-descripcion',
-          initialFocusSelector: '.modo-opcion[data-modo="anonimo"]',
+          initialFocusSelector: '#modal-titulo',
           onRequestClose: this.close.bind(this)
         })
       : null;
@@ -684,8 +684,8 @@
       guideUrl: '/participa/guia/',
       headerMetaHTML: metaParts.join(''),
       headerActionsHTML: ''
-        + '<a class="btn btn-secondary btn-sm" href="/participa/guia/">Gu\u00EDa de participaci\u00f3n</a>'
-        + '<button type="button" class="btn btn-outline-dark btn-sm btn-cerrar-sesion"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Cerrar sesi\u00f3n</span></button>',
+        + '<a class="btn btn-outline-dark btn-sm" href="/participa/guia/">Gu\u00EDa de participaci\u00f3n</a>'
+        + '<button type="button" class="btn btn-secondary btn-sm btn-cerrar-sesion"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Cerrar sesi\u00f3n</span></button>',
       uploadPrimaryLabel: normalizedStats.total_testimonios > 0 ? 'Enviar otro testimonio' : 'Comparte tu historia',
       uploadPrimaryUrl: '/participa/testimonios/enviar/',
       uploadSecondaryLabel: normalizedStats.total_contribuciones_archivo > 0 ? 'Aportar otro documento' : 'Aporta un documento',
