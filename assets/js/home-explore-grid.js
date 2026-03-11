@@ -279,7 +279,8 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
 
       const sessionReady = await this.ensureSession();
       if (!sessionReady) {
-        this.isEvaluationEnabled = false;
+        this.evaluatedNoteIds = new Set();
+        this.isEvaluationEnabled = this.hasEvaluationApi;
         return;
       }
 

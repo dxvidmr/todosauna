@@ -473,6 +473,16 @@
       return;
     }
 
+    var ensuredUpload = await ns.session.ensureSessionForWrite();
+    if (!ensuredUpload || !ensuredUpload.ok) {
+      setStatus(
+        statusStep2,
+        getErrorMessage(ensuredUpload && ensuredUpload.error, 'No se pudo preparar la sesión para subir archivos.', 'session_bootstrap'),
+        'error'
+      );
+      return;
+    }
+
     var sessionId = getSessionId();
     if (!sessionId) {
       setStatus(statusStep2, 'No hay sesión activa disponible. Recarga la página.', 'error');
@@ -653,6 +663,17 @@
     var modeReady = await ensureModeDefined(true);
     if (!modeReady) {
       setStatus(statusStep1, 'Debes definir modo de participación para enviar la contribución.', 'warning');
+      setStep(1);
+      return;
+    }
+
+    var ensuredSubmit = await ns.session.ensureSessionForWrite();
+    if (!ensuredSubmit || !ensuredSubmit.ok) {
+      setStatus(
+        statusStep1,
+        getErrorMessage(ensuredSubmit && ensuredSubmit.error, 'No se pudo preparar la sesión para enviar la contribución.', 'session_bootstrap'),
+        'error'
+      );
       setStep(1);
       return;
     }

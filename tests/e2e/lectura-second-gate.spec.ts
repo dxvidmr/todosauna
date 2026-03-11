@@ -17,7 +17,7 @@ test.describe('F10.1 smoke - lectura second contribution gate', () => {
     });
 
     expect(resetState.result.ok).toBe(true);
-    expect(resetState.after.sessionId).not.toBe(resetState.before.sessionId);
+    expect(resetState.after.sessionId).toBeNull();
     expect(resetState.after.browserSessionToken).not.toBe(resetState.before.browserSessionToken);
     expect(resetState.after.modeChoice).toBe('unasked');
 

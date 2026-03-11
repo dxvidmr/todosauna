@@ -216,6 +216,16 @@
       return;
     }
 
+    var ensured = await ns.session.ensureSessionForWrite();
+    if (!ensured || !ensured.ok) {
+      setStatus(
+        statusBox,
+        getUserMessage(ensured && ensured.error, 'session_bootstrap', 'No se pudo preparar la sesión para enviar el testimonio.'),
+        'error'
+      );
+      return;
+    }
+
     var payload = buildPayload();
 
     if (!payload.session_id) {

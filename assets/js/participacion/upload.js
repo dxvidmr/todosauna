@@ -516,7 +516,12 @@
       return { data: null, error: createUploadAbortedError() };
     }
 
-    if (ns.session && typeof ns.session.init === 'function') {
+    if (ns.session && typeof ns.session.ensureSessionForWrite === 'function') {
+      var ensuredSession = await ns.session.ensureSessionForWrite();
+      if (!ensuredSession || !ensuredSession.ok) {
+        return { data: null, error: normalizeError(ensuredSession && ensuredSession.error ? ensuredSession.error.message : 'No se pudo preparar sesion de subida') };
+      }
+    } else if (ns.session && typeof ns.session.init === 'function') {
       await ns.session.init();
     }
 

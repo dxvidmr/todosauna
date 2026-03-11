@@ -4,6 +4,8 @@ export async function waitForSessionReady(page: Page): Promise<void> {
   await page.waitForFunction(async () => {
     if (!window.Participacion || !window.Participacion.session) return false;
     await window.Participacion.session.init();
+    const ensured = await window.Participacion.session.ensureSessionForWrite();
+    if (!ensured || !ensured.ok) return false;
     const state = window.Participacion.session.getState();
     return !!(state && state.sessionId && state.browserSessionToken);
   });

@@ -328,6 +328,20 @@ class SugerenciasNotas {
       }
 
       const apiV2 = getApiV2();
+      const sessionManager = window.Participacion?.session || null;
+      if (sessionManager && typeof sessionManager.ensureSessionForWrite === 'function') {
+        const ensured = await sessionManager.ensureSessionForWrite();
+        if (!ensured || !ensured.ok) {
+          const ensureMessage = getParticipationUserMessage(
+            ensured && ensured.error,
+            'session_bootstrap',
+            'No se pudo preparar la sesion para enviar la sugerencia'
+          );
+          mostrarToast(ensureMessage || 'No se pudo preparar la sesion', 3000);
+          return;
+        }
+      }
+
       const sessionData = getSessionData();
 
       if (!apiV2 || !sessionData?.session_id) {

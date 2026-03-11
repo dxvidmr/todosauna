@@ -637,6 +637,22 @@ async function registrarEvaluacion(opciones) {
   }
 
   var apiV2 = getApiV2();
+  var sessionManager = window.Participacion?.session || null;
+  if (sessionManager && typeof sessionManager.ensureSessionForWrite === 'function') {
+    var ensured = await sessionManager.ensureSessionForWrite();
+    if (!ensured || !ensured.ok) {
+      if (typeof window.mostrarToast === 'function') {
+        var ensureMessage = getParticipationUserMessage(
+          ensured && ensured.error,
+          'session_bootstrap',
+          'No se pudo preparar la sesion para enviar la evaluacion'
+        );
+        window.mostrarToast(ensureMessage || 'No se pudo preparar la sesion', 3000);
+      }
+      return false;
+    }
+  }
+
   var sessionData = getSessionData();
   if (!apiV2 || !sessionData?.session_id) {
     if (typeof window.mostrarToast === 'function') {

@@ -11,11 +11,22 @@
   var COOKIE_NAME = 'ta_browser_session_token';
   var MODE_PREFIX = 'ta_mode_choice::';
   var LEGACY_SESSION_KEY = 'fuenteovejuna_session';
+  var SHARED_STATE_KEY = 'ta_participacion_shared_state';
+  var TAB_REGISTRY_KEY = 'ta_participacion_tabs_registry';
+  var TAB_ID_SESSION_KEY = 'ta_participacion_tab_id';
+  var LECTURA_COUNT_PREFIX = 'ta_lectura_contrib_count::';
   var VALID_MODES = { unasked: true, anonimo: true, colaborador: true };
+  var TAB_HEARTBEAT_MS = 20000;
+  var TAB_STALE_MS = 120000;
+
+  var tabHeartbeatHandle = null;
+  var lifecycleBound = false;
+  var tabUnregistered = false;
 
   var state = {
     initialized: false,
-    bootstrapPromise: null,
+    initPromise: null,
+    ensurePromise: null,
     sessionId: null,
     browserSessionToken: null,
     modoParticipacion: 'anonimo',
@@ -50,6 +61,28 @@
     if (!raw) return null;
     var uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
     return uuidRegex.test(raw) ? raw : null;
+  }
+
+  function createUuid() {
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+      return window.crypto.randomUUID();
+    }
+
+    var template = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
+    return template.replace(/[xy]/g, function (char) {
+      var rnd = Math.random() * 16 | 0;
+      var value = char === 'x' ? rnd : ((rnd & 0x3) | 0x8);
+      return value.toString(16);
+    });
+  }
+
+  function safeParseJson(raw) {
+    if (!raw) return null;
+    try {
+      return JSON.parse(raw);
+    } catch (_err) {
+      return null;
+    }
   }
 
   function readCookie(name) {
@@ -100,14 +133,21 @@
     }
   }
 
-  function primeStateFromStorage() {
-    var tokenFromCookie = normalizeUuid(readCookie(COOKIE_NAME));
-    if (!tokenFromCookie) return;
+  function removeModeChoice(token) {
+    if (!token) return;
+    try {
+      localStorage.removeItem(getModeStorageKey(token));
+    } catch (err) {
+      warn('No se pudo limpiar modo localStorage', err);
+    }
+  }
 
-    state.browserSessionToken = tokenFromCookie;
-    var storedMode = readModeChoice(tokenFromCookie);
-    if (storedMode) {
-      state.modeChoice = storedMode;
+  function removeLecturaCount(token) {
+    if (!token) return;
+    try {
+      localStorage.removeItem(LECTURA_COUNT_PREFIX + token);
+    } catch (err) {
+      warn('No se pudo limpiar contador local de lectura', err);
     }
   }
 
@@ -171,20 +211,109 @@
     clearCollaboratorProfile();
   }
 
-  function restoreStateSnapshot(snapshot) {
-    if (!snapshot) return;
-    state.initialized = !!snapshot.initialized;
-    state.sessionId = snapshot.sessionId || null;
-    state.browserSessionToken = snapshot.browserSessionToken || null;
-    state.modoParticipacion = snapshot.modoParticipacion || 'anonimo';
-    state.collaboratorId = snapshot.collaboratorId || null;
-    state.collaboratorCreatedAt = snapshot.collaboratorCreatedAt || null;
-    state.createdAt = snapshot.createdAt || null;
-    state.lastActivityAt = snapshot.lastActivityAt || null;
-    state.modeChoice = VALID_MODES[snapshot.modeChoice] ? snapshot.modeChoice : 'unasked';
-    state.displayName = snapshot.displayName || null;
-    state.nivelEstudios = snapshot.nivelEstudios || null;
+  function readSharedState() {
+    try {
+      var raw = localStorage.getItem(SHARED_STATE_KEY);
+      return safeParseJson(raw);
+    } catch (err) {
+      warn('No se pudo leer estado compartido localStorage', err);
+      return null;
+    }
+  }
+
+  function applySharedStateSnapshot(snapshot) {
+    if (!snapshot || typeof snapshot !== 'object') return;
+
+    state.sessionId = normalizeUuid(snapshot.session_id) || null;
+    state.browserSessionToken = normalizeUuid(snapshot.browser_session_token) || null;
+    state.modoParticipacion = snapshot.modo_participacion === 'colaborador' ? 'colaborador' : 'anonimo';
+    state.collaboratorId = normalizeUuid(snapshot.collaborator_id) || null;
+    state.collaboratorCreatedAt = snapshot.collaborator_created_at || null;
+    state.createdAt = snapshot.created_at || null;
+    state.lastActivityAt = snapshot.last_activity_at || null;
+    state.modeChoice = VALID_MODES[snapshot.mode_choice] ? snapshot.mode_choice : state.modeChoice;
+    state.displayName = snapshot.display_name || null;
+    state.nivelEstudios = snapshot.nivel_estudios || null;
     state.disciplina = snapshot.disciplina || null;
+
+    if (state.modoParticipacion !== 'colaborador' && state.modeChoice !== 'colaborador') {
+      clearCollaboratorProfile();
+    }
+  }
+
+  function persistSharedState() {
+    var payload = {
+      session_id: state.sessionId || null,
+      browser_session_token: state.browserSessionToken || null,
+      modo_participacion: state.modoParticipacion || 'anonimo',
+      collaborator_id: state.collaboratorId || null,
+      collaborator_created_at: state.collaboratorCreatedAt || null,
+      created_at: state.createdAt || null,
+      last_activity_at: state.lastActivityAt || null,
+      mode_choice: VALID_MODES[state.modeChoice] ? state.modeChoice : 'unasked',
+      display_name: state.displayName || null,
+      nivel_estudios: state.nivelEstudios || null,
+      disciplina: state.disciplina || null
+    };
+
+    try {
+      localStorage.setItem(SHARED_STATE_KEY, JSON.stringify(payload));
+    } catch (err) {
+      warn('No se pudo escribir estado compartido localStorage', err);
+    }
+  }
+
+  function clearSharedState() {
+    try {
+      localStorage.removeItem(SHARED_STATE_KEY);
+    } catch (err) {
+      warn('No se pudo limpiar estado compartido localStorage', err);
+    }
+  }
+
+  function ensureBrowserToken() {
+    var current = normalizeUuid(state.browserSessionToken);
+    if (current) {
+      state.browserSessionToken = current;
+      return current;
+    }
+
+    var cookieToken = normalizeUuid(readCookie(COOKIE_NAME));
+    if (cookieToken) {
+      state.browserSessionToken = cookieToken;
+      return cookieToken;
+    }
+
+    var next = createUuid();
+    state.browserSessionToken = next;
+    return next;
+  }
+
+  function primeStateFromStorage() {
+    var snapshot = readSharedState();
+    if (snapshot) {
+      applySharedStateSnapshot(snapshot);
+    }
+
+    if (!state.browserSessionToken) {
+      var tokenFromCookie = normalizeUuid(readCookie(COOKIE_NAME));
+      if (tokenFromCookie) {
+        state.browserSessionToken = tokenFromCookie;
+      }
+    }
+
+    var token = ensureBrowserToken();
+    var storedMode = readModeChoice(token);
+    if (!VALID_MODES[state.modeChoice] && storedMode) {
+      state.modeChoice = storedMode;
+    } else if (!VALID_MODES[state.modeChoice]) {
+      state.modeChoice = state.modoParticipacion === 'colaborador' ? 'colaborador' : 'unasked';
+    }
+
+    writeSessionCookie(token);
+    writeModeChoice(token, state.modeChoice);
+    syncLegacySessionStorage();
+    persistSharedState();
   }
 
   function getState() {
@@ -219,10 +348,10 @@
   function applySessionRow(row) {
     if (!row) return;
 
-    state.sessionId = row.session_id || state.sessionId;
-    state.browserSessionToken = row.browser_session_token || state.browserSessionToken;
+    state.sessionId = normalizeUuid(row.session_id) || state.sessionId;
+    state.browserSessionToken = normalizeUuid(row.browser_session_token) || state.browserSessionToken;
     state.modoParticipacion = row.modo_participacion || state.modoParticipacion || 'anonimo';
-    state.collaboratorId = row.collaborator_id || null;
+    state.collaboratorId = normalizeUuid(row.collaborator_id) || null;
     state.collaboratorCreatedAt = row.collaborator_created_at || state.collaboratorCreatedAt;
     state.createdAt = row.created_at || state.createdAt;
     state.lastActivityAt = row.last_activity_at || state.lastActivityAt;
@@ -277,60 +406,84 @@
   }
 
   async function init() {
-    if (state.initialized && state.sessionId) {
+    if (state.initialized) {
       return getState();
     }
 
-    if (state.bootstrapPromise) {
-      return state.bootstrapPromise;
+    if (state.initPromise) {
+      return state.initPromise;
     }
 
-    state.bootstrapPromise = (async function () {
-      var api = getApi();
-      var previousState = getState();
-      if (!api) {
-        state.initialized = true;
-        return getState();
-      }
+    state.initPromise = (async function () {
+      primeStateFromStorage();
+      bindLifecycleEvents();
+      registerCurrentTabPresence();
+      startTabHeartbeat();
+      state.initialized = true;
+      return getState();
+    })().finally(function () {
+      state.initPromise = null;
+    });
 
-      var cookieToken = normalizeUuid(readCookie(COOKIE_NAME));
-      var response = await api.bootstrapSession(cookieToken);
+    return state.initPromise;
+  }
 
+  async function ensureSessionForWrite() {
+    await init();
+
+    if (state.sessionId) {
+      return { ok: true, session: getPublicSessionData() };
+    }
+
+    if (state.ensurePromise) {
+      return state.ensurePromise;
+    }
+
+    var api = getApi();
+    if (!api) {
+      return { ok: false, error: { message: 'Sesion no disponible' } };
+    }
+
+    var previousState = getState();
+    state.ensurePromise = (async function () {
+      var token = ensureBrowserToken();
+      writeSessionCookie(token);
+
+      var response = await api.bootstrapSession(token);
       if (response.error || !response.data || !response.data.session_id) {
-        warn('No se pudo bootstrap de sesion', response.error);
-        state.initialized = true;
-        return getState();
+        warn('No se pudo bootstrap de sesion en envio', response.error);
+        return {
+          ok: false,
+          error: response.error || { message: 'No se pudo crear sesion de participacion' }
+        };
       }
 
       applySessionRow(response.data);
 
-      var normalizedToken = normalizeUuid(state.browserSessionToken);
-      if (normalizedToken) {
-        state.browserSessionToken = normalizedToken;
-        writeSessionCookie(normalizedToken);
+      if (!VALID_MODES[state.modeChoice]) {
+        state.modeChoice = state.modoParticipacion === 'colaborador' ? 'colaborador' : 'unasked';
       }
 
-      var storedMode = readModeChoice(state.browserSessionToken);
-      if (!storedMode) {
-        storedMode = state.modoParticipacion === 'colaborador' ? 'colaborador' : 'unasked';
-      }
-
-      state.modeChoice = storedMode;
       writeModeChoice(state.browserSessionToken, state.modeChoice);
       syncLegacySessionStorage();
-      state.initialized = true;
-      dispatchStateChanged({ previousState: previousState, reason: 'bootstrap' });
-      log('Sesion bootstrap lista', getPublicSessionData());
-      return getState();
+      persistSharedState();
+      dispatchStateChanged({ previousState: previousState, reason: 'bootstrap-write' });
+      log('Sesion lista para participacion', getPublicSessionData());
+      return { ok: true, session: getPublicSessionData() };
     })().finally(function () {
-      state.bootstrapPromise = null;
+      state.ensurePromise = null;
     });
 
-    return state.bootstrapPromise;
+    return state.ensurePromise;
   }
 
   async function setAnonimo() {
     await init();
+    var ensured = await ensureSessionForWrite();
+    if (!ensured.ok) {
+      return { ok: false, error: ensured.error || { message: 'Sesion no disponible' } };
+    }
+
     var api = getApi();
     var previousState = getState();
     if (!api || !state.sessionId) {
@@ -348,12 +501,18 @@
 
     writeModeChoice(state.browserSessionToken, state.modeChoice);
     syncLegacySessionStorage();
+    persistSharedState();
     dispatchStateChanged({ previousState: previousState, reason: 'set-anonimo' });
     return { ok: true, session: getPublicSessionData() };
   }
 
   async function registerAndBind(email, displayName, profile) {
     await init();
+    var ensured = await ensureSessionForWrite();
+    if (!ensured.ok) {
+      return { ok: false, reason: 'invalid_session', error: ensured.error || null };
+    }
+
     var api = getApi();
     var previousState = getState();
     if (!api || !state.sessionId) {
@@ -394,6 +553,7 @@
 
     writeModeChoice(state.browserSessionToken, state.modeChoice);
     syncLegacySessionStorage();
+    persistSharedState();
     dispatchStateChanged({ previousState: previousState, reason: 'register-and-bind' });
 
     return {
@@ -405,6 +565,11 @@
 
   async function loginAndBind(email) {
     await init();
+    var ensured = await ensureSessionForWrite();
+    if (!ensured.ok) {
+      return { ok: false, found: false, reason: 'invalid_session', error: ensured.error || null };
+    }
+
     var api = getApi();
     var previousState = getState();
     if (!api || !state.sessionId) {
@@ -446,6 +611,7 @@
 
     writeModeChoice(state.browserSessionToken, state.modeChoice);
     syncLegacySessionStorage();
+    persistSharedState();
     dispatchStateChanged({ previousState: previousState, reason: 'login-and-bind' });
 
     return {
@@ -461,13 +627,8 @@
     var api = getApi();
     var previousState = getState();
     var previousToken = previousState.browserSessionToken;
-    var previousMode = previousState.modeChoice;
 
-    if (!api) {
-      return { ok: false, error: { message: 'Sesion no disponible' } };
-    }
-
-    if (previousState.sessionId) {
+    if (api && previousState.sessionId) {
       var detachResponse = await api.setModeAnonimo(previousState.sessionId);
       if (detachResponse.error) {
         warn('No se pudo desasociar colaborador en reset', detachResponse.error);
@@ -477,39 +638,19 @@
     clearSessionCookie();
     clearLegacySessionStorage();
     resetStateForNewSession();
-
-    var response = await api.bootstrapSession(null);
-    if (response.error || !response.data || !response.data.session_id) {
-      warn('No se pudo crear nueva sesion en reset', response.error);
-      restoreStateSnapshot(previousState);
-      if (previousToken) {
-        writeSessionCookie(previousToken);
-      }
-      if (previousToken && VALID_MODES[previousMode]) {
-        writeModeChoice(previousToken, previousMode);
-      }
-      syncLegacySessionStorage();
-      dispatchStateChanged({ previousState: previousState, reason: 'session-reset-failed' });
-      return {
-        ok: false,
-        error: response.error || { message: 'No se pudo crear una nueva sesion' }
-      };
-    }
-
-    applySessionRow(response.data);
-
-    var normalizedToken = normalizeUuid(state.browserSessionToken);
-    if (normalizedToken) {
-      state.browserSessionToken = normalizedToken;
-      writeSessionCookie(normalizedToken);
-    }
-
-    state.initialized = true;
-    state.modoParticipacion = 'anonimo';
     state.modeChoice = 'unasked';
     clearCollaboratorProfile();
+    state.browserSessionToken = createUuid();
+    writeSessionCookie(state.browserSessionToken);
     writeModeChoice(state.browserSessionToken, state.modeChoice);
+    persistSharedState();
     clearLegacySessionStorage();
+
+    if (previousToken) {
+      removeModeChoice(previousToken);
+      removeLecturaCount(previousToken);
+    }
+
     dispatchStateChanged({ previousState: previousState, reason: 'session-reset' });
     return { ok: true, session: getPublicSessionData() };
   }
@@ -518,7 +659,7 @@
     await init();
     var api = getApi();
     var previousState = getState();
-    if (!api || !state.browserSessionToken) {
+    if (!api || !state.browserSessionToken || !state.sessionId) {
       return { ok: false, error: { message: 'Sesion no disponible para refresh' } };
     }
 
@@ -539,6 +680,7 @@
 
     writeModeChoice(state.browserSessionToken, state.modeChoice);
     syncLegacySessionStorage();
+    persistSharedState();
     dispatchStateChanged({ previousState: previousState, reason: 'refresh-from-server' });
     return { ok: true, state: getState() };
   }
@@ -579,6 +721,7 @@
 
   ns.session = {
     init: init,
+    ensureSessionForWrite: ensureSessionForWrite,
     getState: getState,
     getPublicSessionData: getPublicSessionData,
     isModeDefined: function () {
@@ -594,6 +737,158 @@
     getStats: getStats
   };
 
+  function readTabRegistryRaw() {
+    try {
+      return safeParseJson(localStorage.getItem(TAB_REGISTRY_KEY)) || {};
+    } catch (_err) {
+      return {};
+    }
+  }
+
+  function normalizeTabRegistry(input, nowTs) {
+    var source = input && typeof input === 'object' ? input : {};
+    var now = Number.isFinite(nowTs) ? nowTs : Date.now();
+    var normalized = {};
+
+    Object.keys(source).forEach(function (tabId) {
+      var raw = Number(source[tabId]);
+      if (!Number.isFinite(raw)) return;
+      if (now - raw > TAB_STALE_MS) return;
+      normalized[tabId] = raw;
+    });
+
+    return normalized;
+  }
+
+  function writeTabRegistry(registry) {
+    var payload = registry && typeof registry === 'object' ? registry : {};
+    var keys = Object.keys(payload);
+    try {
+      if (!keys.length) {
+        localStorage.removeItem(TAB_REGISTRY_KEY);
+        return;
+      }
+      localStorage.setItem(TAB_REGISTRY_KEY, JSON.stringify(payload));
+    } catch (err) {
+      warn('No se pudo escribir registro de pestanas', err);
+    }
+  }
+
+  function getOrCreateTabId() {
+    var stored = null;
+    try {
+      stored = normalizeUuid(sessionStorage.getItem(TAB_ID_SESSION_KEY));
+    } catch (_err) {
+      stored = null;
+    }
+
+    if (stored) return stored;
+
+    var next = createUuid();
+    try {
+      sessionStorage.setItem(TAB_ID_SESSION_KEY, next);
+    } catch (_err) {
+      // Ignore.
+    }
+    return next;
+  }
+
+  function registerCurrentTabPresence() {
+    var tabId = getOrCreateTabId();
+    var now = Date.now();
+    var registry = normalizeTabRegistry(readTabRegistryRaw(), now);
+    registry[tabId] = now;
+    writeTabRegistry(registry);
+    tabUnregistered = false;
+  }
+
+  function unregisterCurrentTabPresence() {
+    if (tabUnregistered) return;
+    tabUnregistered = true;
+
+    var tabId = null;
+    try {
+      tabId = normalizeUuid(sessionStorage.getItem(TAB_ID_SESSION_KEY));
+    } catch (_err) {
+      tabId = null;
+    }
+    if (!tabId) return;
+
+    var now = Date.now();
+    var registry = normalizeTabRegistry(readTabRegistryRaw(), now);
+    delete registry[tabId];
+    var remaining = Object.keys(registry).length;
+    writeTabRegistry(registry);
+
+    if (remaining === 0) {
+      var token = state.browserSessionToken || normalizeUuid(readCookie(COOKIE_NAME));
+      if (token) {
+        removeModeChoice(token);
+        removeLecturaCount(token);
+      }
+      clearSharedState();
+      clearSessionCookie();
+      clearLegacySessionStorage();
+    }
+  }
+
+  function startTabHeartbeat() {
+    if (tabHeartbeatHandle) return;
+    tabHeartbeatHandle = window.setInterval(function () {
+      registerCurrentTabPresence();
+    }, TAB_HEARTBEAT_MS);
+  }
+
+  function stopTabHeartbeat() {
+    if (!tabHeartbeatHandle) return;
+    window.clearInterval(tabHeartbeatHandle);
+    tabHeartbeatHandle = null;
+  }
+
+  function handleSharedStateStorageEvent(event) {
+    if (!event || event.key !== SHARED_STATE_KEY) return;
+
+    var previousState = getState();
+    if (!event.newValue) {
+      resetStateForNewSession();
+      state.modeChoice = 'unasked';
+      state.initialized = true;
+      syncLegacySessionStorage();
+      dispatchStateChanged({ previousState: previousState, reason: 'storage-cleared' });
+      return;
+    }
+
+    var snapshot = safeParseJson(event.newValue);
+    if (!snapshot) return;
+
+    applySharedStateSnapshot(snapshot);
+    if (!VALID_MODES[state.modeChoice]) {
+      var storedMode = readModeChoice(state.browserSessionToken);
+      state.modeChoice = storedMode || (state.modoParticipacion === 'colaborador' ? 'colaborador' : 'unasked');
+    }
+    state.initialized = true;
+    syncLegacySessionStorage();
+    dispatchStateChanged({ previousState: previousState, reason: 'storage-sync' });
+  }
+
+  function bindLifecycleEvents() {
+    if (lifecycleBound) return;
+    lifecycleBound = true;
+
+    window.addEventListener('storage', handleSharedStateStorageEvent);
+    window.addEventListener('pagehide', function () {
+      stopTabHeartbeat();
+      unregisterCurrentTabPresence();
+    });
+    window.addEventListener('beforeunload', function () {
+      stopTabHeartbeat();
+      unregisterCurrentTabPresence();
+    });
+  }
+
   primeStateFromStorage();
-  void ns.session.init();
+  bindLifecycleEvents();
+  registerCurrentTabPresence();
+  startTabHeartbeat();
+  state.initialized = true;
 })();
