@@ -1,0 +1,276 @@
+{% assign card = include.card %}
+{% assign context = include.context | default: "home" %}
+{% assign type = card.type | default: "color" %}
+{% assign card_id = card.id | default: "card" %}
+{% assign desktop_col = card.desktop_col_span | default: 3 %}
+{% assign desktop_row = card.desktop_row_span | default: 3 %}
+{% assign tablet_col = card.tablet_col_span | default: 3 %}
+{% assign tablet_row = card.tablet_row_span | default: 3 %}
+{% assign link_url = card.link | default: "" %}
+{% assign render_link_url = "" %}
+{% if link_url != "" %}
+{% assign render_link_url = link_url | relative_url %}
+{% endif %}
+{% assign cta_text = card.cta_label | default: "" %}
+{% assign cta_href = card.cta_link | default: "" %}
+{% assign accent_value = card.color_var | default: "" | strip %}
+{% assign card_media_src = "" %}
+{% assign card_media_alt = card.image_alt | default: card.title %}
+{% assign rotator_sources_attr = "" %}
+{% assign rotator_alts_attr = "" %}
+{% assign rotator_links_attr = "" %}
+{% if accent_value != "" and accent_value contains "$" %}
+{% assign accent_value = accent_value | replace: "$", "--" %}
+{% endif %}
+
+{% if type == "rotator" %}
+{% assign rotator_limit = 24 %}
+{% assign rotator_count = 0 %}
+{% assign rotator_seen = "|" %}
+{% assign rotator_sources_csv = "" %}
+{% assign rotator_alts_csv = "" %}
+{% assign rotator_links_csv = "" %}
+{% assign rotator_default_src = "" %}
+{% assign rotator_default_alt = "" %}
+{% assign rotator_default_link = "" %}
+
+{% if site.data.theme.browse-child-objects == true %}
+{% assign rotator_items = site.data[site.metadata] | where_exp: "item", "item.objectid" %}
+{% else %}
+{% assign rotator_items = site.data[site.metadata] | where_exp: "item", "item.objectid and item.parentid == nil" %}
+{% endif %}
+
+{% for item in rotator_items %}
+  {% if rotator_count < rotator_limit %}
+    {% assign candidate_src = item.image_small | default: item.image_thumb | strip %}
+    {% if candidate_src != "" %}
+      {% assign candidate_token = "|" | append: candidate_src | append: "|" %}
+      {% unless rotator_seen contains candidate_token %}
+        {% assign rotator_seen = rotator_seen | append: candidate_src | append: "|" %}
+        {% assign candidate_src_url = candidate_src | relative_url %}
+        {% capture candidate_link_raw %}{% if item.parentid %}/items/{{ item.parentid }}.html#{{ item.objectid }}{% else %}/items/{{ item.objectid }}.html{% endif %}{% endcapture %}
+        {% assign candidate_link_url = candidate_link_raw | strip | relative_url %}
+        {% assign candidate_alt = item.image_alt_text | default: item.title | default: item.description | strip | replace: "|", "/" %}
+        {% if candidate_alt == "" %}
+          {% assign candidate_alt = card.image_alt | default: card.title | default: "Imagen documental" %}
+        {% endif %}
+        {% if rotator_sources_csv != "" %}
+          {% assign rotator_sources_csv = rotator_sources_csv | append: "|" %}
+          {% assign rotator_alts_csv = rotator_alts_csv | append: "|" %}
+          {% assign rotator_links_csv = rotator_links_csv | append: "|" %}
+        {% endif %}
+        {% assign rotator_sources_csv = rotator_sources_csv | append: candidate_src_url %}
+        {% assign rotator_alts_csv = rotator_alts_csv | append: candidate_alt %}
+        {% assign rotator_links_csv = rotator_links_csv | append: candidate_link_url %}
+        {% assign rotator_count = rotator_count | plus: 1 %}
+        {% if rotator_default_src == "" %}
+          {% assign rotator_default_src = candidate_src_url %}
+          {% assign rotator_default_alt = candidate_alt %}
+          {% assign rotator_default_link = candidate_link_url %}
+        {% endif %}
+      {% endunless %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if rotator_count == 0 and card.rotator_sources %}
+  {% for source in card.rotator_sources %}
+    {% if rotator_count < rotator_limit %}
+      {% assign manual_src = source | strip %}
+      {% if manual_src != "" %}
+        {% assign manual_src_url = manual_src | relative_url %}
+        {% assign manual_alt = "" %}
+        {% if card.rotator_alts and card.rotator_alts[forloop.index0] %}
+          {% assign manual_alt = card.rotator_alts[forloop.index0] | strip | replace: "|", "/" %}
+        {% endif %}
+        {% if manual_alt == "" %}
+          {% assign manual_alt = card.image_alt | default: card.title | default: "Imagen documental" %}
+        {% endif %}
+        {% if rotator_sources_csv != "" %}
+          {% assign rotator_sources_csv = rotator_sources_csv | append: "|" %}
+          {% assign rotator_alts_csv = rotator_alts_csv | append: "|" %}
+        {% endif %}
+        {% assign rotator_sources_csv = rotator_sources_csv | append: manual_src_url %}
+        {% assign rotator_alts_csv = rotator_alts_csv | append: manual_alt %}
+        {% assign rotator_count = rotator_count | plus: 1 %}
+        {% if rotator_default_src == "" %}
+          {% assign rotator_default_src = manual_src_url %}
+          {% assign rotator_default_alt = manual_alt %}
+          {% assign rotator_default_link = render_link_url %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if rotator_default_src == "" and card.image %}
+{% assign rotator_default_src = card.image | relative_url %}
+{% assign rotator_default_alt = card.image_alt | default: card.title %}
+{% assign rotator_sources_csv = rotator_default_src %}
+{% assign rotator_alts_csv = rotator_default_alt %}
+{% if render_link_url != "" %}
+{% assign rotator_links_csv = render_link_url %}
+{% assign rotator_default_link = render_link_url %}
+{% endif %}
+{% endif %}
+
+{% assign card_media_src = rotator_default_src %}
+{% assign card_media_alt = rotator_default_alt | default: card_media_alt %}
+{% assign rotator_sources_attr = rotator_sources_csv %}
+{% assign rotator_alts_attr = rotator_alts_csv %}
+{% assign rotator_links_attr = rotator_links_csv %}
+{% if rotator_default_link != "" %}
+{% assign render_link_url = rotator_default_link %}
+{% endif %}
+{% elsif card.image and type == "media" %}
+{% assign card_media_src = card.image | relative_url %}
+{% endif %}
+
+{% capture style_rules -%}
+{% if context == "home" %}
+--col-span: {{ desktop_col }};
+--row-span: {{ desktop_row }};
+--col-span-tablet: {{ tablet_col }};
+--row-span-tablet: {{ tablet_row }};
+{% endif %}
+{% if accent_value != "" %}
+{% if accent_value contains "--" %}
+--ta-card-accent: var({{ accent_value }});
+{% else %}
+--ta-card-accent: {{ accent_value }};
+{% endif %}
+{% endif %}
+{%- endcapture %}
+{% assign style_attr = style_rules | strip %}
+{% capture class_list -%}
+ta-card{% if type == "media" or type == "rotator" %} ta-card--media{% else %} ta-card--color{% endif %}{% if type == "rotator" %} ta-card--rotator{% endif %}{% if type == "interactive_eval" %} ta-card--interactive{% endif %}{% if type == "pill" %} ta-card--pill{% endif %}{% if render_link_url != "" and type != "interactive_eval" %} ta-card--link{% endif %}{% if context == "home" %} home-grid__item home-grid__item--{{ card_id }}{% endif %}
+{%- endcapture %}
+
+{% if type == "interactive_eval" %}
+  <article class="{{ class_list | strip }}"{% if style_attr != "" %} style="{{ style_attr }}"{% endif %} data-home-eval-card>
+    <div class="ta-card__body">
+      {% if card.eyebrow %}<p class="ta-card__eyebrow">{{ card.eyebrow }}</p>{% endif %}
+      {% if card.title %}<h3 class="ta-card__title">{{ card.title }}</h3>{% endif %}
+      {% if card.copy %}<p class="ta-card__copy">{{ card.copy }}</p>{% endif %}
+      <div class="home-eval-layout">
+        <section class="home-eval-panel home-eval-panel--text note-panel-host" aria-label="Texto">
+          <p class="home-eval-panel-label">{{ card.context_label | default: "Texto" }}</p>
+          <div class="home-eval-panel-layout note-panel-layout">
+            <div class="home-eval-context note-panel-scroll" data-home-note-context></div>
+          </div>
+        </section>
+        <section class="home-eval-panel home-eval-panel--note note-panel-host" aria-label="Nota">
+          <p class="home-eval-panel-label">{{ card.note_label | default: "Nota" }}</p>
+          <div class="home-eval-panel-layout note-panel-layout">
+            <div class="home-eval-note-scroll note-panel-scroll">
+              <div class="home-eval-note-meta note-display" hidden>
+                <div class="note-header">
+                  <div class="note-badges" data-home-note-badges hidden></div>
+                </div>
+              </div>
+              <p class="home-eval-note" data-home-note-text>{{ card.loading_text | default: "Cargando nota..." }}</p>
+              <p class="home-eval-status" data-home-eval-status aria-live="polite"></p>
+            </div>
+            <div class="home-eval-controls note-eval-dock" data-home-eval-controls data-eval-state="idle">
+              <p class="note-dock-placeholder"></p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="home-eval-overlay" data-home-eval-overlay hidden>
+        <a class="btn btn-muted" href="{{ card.lab_link | default: '/participa/laboratorio/' | relative_url }}">{{ card.lab_cta | default: "Ir al laboratorio de notas" }}</a>
+      </div>
+    </div>
+  </article>
+{% elsif render_link_url != "" %}
+  <a class="{{ class_list | strip }}"
+     href="{{ render_link_url | escape }}"
+     {% if type == "rotator" %}data-home-rotator-card{% endif %}
+     {% if style_attr != "" %}style="{{ style_attr }}"{% endif %}>
+    {% if card_media_src != "" and (type == "media" or type == "rotator") %}
+      <img
+        class="ta-card__media{% if type == 'rotator' %} home-rotator-image{% endif %}"
+        src="{{ card_media_src | escape }}"
+        alt="{{ card_media_alt | escape }}"
+        {% if type == "rotator" %}data-home-rotator-image{% endif %}
+        {% if type == "rotator" and rotator_sources_attr != "" %}
+          data-rotator-sources="{{ rotator_sources_attr | escape }}"
+        {% endif %}
+        {% if type == "rotator" and rotator_alts_attr != "" %}
+          data-rotator-alts="{{ rotator_alts_attr | escape }}"
+        {% endif %}
+        {% if type == "rotator" and rotator_links_attr != "" %}
+          data-rotator-links="{{ rotator_links_attr | escape }}"
+        {% endif %}
+      >
+    {% endif %}
+    <div class="ta-card__body ta-card__body--split{% if type == "pill" %} ta-card__body--pill{% endif %}">
+      {% if type == "pill" %}
+        {% if card.title %}<h3 class="ta-card__title ta-card__title--pill">{{ card.title }}</h3>{% endif %}
+      {% else %}
+        {% if card.eyebrow %}<p class="ta-card__eyebrow">{{ card.eyebrow }}</p>{% endif %}
+        <div class="ta-card__content">
+          {% if card.title %}<h3 class="ta-card__title">{{ card.title }}</h3>{% endif %}
+          {% if card.copy %}<p class="ta-card__copy">{{ card.copy }}</p>{% endif %}
+          {% if cta_text != "" %}
+            <span class="{{ card.cta_class | default: 'btn btn-muted btn-sm ta-card__cta' }}">{{ cta_text }}</span>
+          {% endif %}
+          {% if card.actions %}
+            <div class="ta-card__actions">
+              {% for action in card.actions %}
+                <span class="{{ action.class | default: 'btn btn-muted btn-sm' }}">{{ action.label }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </a>
+{% else %}
+  <article class="{{ class_list | strip }}"{% if style_attr != "" %} style="{{ style_attr }}"{% endif %}{% if type == "rotator" %} data-home-rotator-card{% endif %}>
+    {% if card_media_src != "" and (type == "media" or type == "rotator") %}
+      <img
+        class="ta-card__media{% if type == 'rotator' %} home-rotator-image{% endif %}"
+        src="{{ card_media_src | escape }}"
+        alt="{{ card_media_alt | escape }}"
+        {% if type == "rotator" %}data-home-rotator-image{% endif %}
+        {% if type == "rotator" and rotator_sources_attr != "" %}
+          data-rotator-sources="{{ rotator_sources_attr | escape }}"
+        {% endif %}
+        {% if type == "rotator" and rotator_alts_attr != "" %}
+          data-rotator-alts="{{ rotator_alts_attr | escape }}"
+        {% endif %}
+        {% if type == "rotator" and rotator_links_attr != "" %}
+          data-rotator-links="{{ rotator_links_attr | escape }}"
+        {% endif %}
+      >
+    {% endif %}
+    <div class="ta-card__body ta-card__body--split{% if type == "pill" %} ta-card__body--pill{% endif %}">
+      {% if type == "pill" %}
+        {% if card.title %}<h3 class="ta-card__title ta-card__title--pill">{{ card.title }}</h3>{% endif %}
+      {% else %}
+        {% if card.eyebrow %}<p class="ta-card__eyebrow">{{ card.eyebrow }}</p>{% endif %}
+        <div class="ta-card__content">
+          {% if card.title %}<h3 class="ta-card__title">{{ card.title }}</h3>{% endif %}
+          {% if card.copy %}<p class="ta-card__copy">{{ card.copy }}</p>{% endif %}
+          {% if cta_text != "" and cta_href != "" %}
+            <a class="{{ card.cta_class | default: 'btn btn-muted btn-sm ta-card__cta' }}" href="{{ cta_href | relative_url }}">{{ cta_text }}</a>
+          {% elsif cta_text != "" %}
+            <span class="{{ card.cta_class | default: 'btn btn-muted btn-sm ta-card__cta' }}">{{ cta_text }}</span>
+          {% endif %}
+          {% if card.actions %}
+            <div class="ta-card__actions">
+              {% for action in card.actions %}
+                {% if action.url %}
+                  <a class="{{ action.class | default: 'btn btn-muted btn-sm' }}" href="{{ action.url | relative_url }}">{{ action.label }}</a>
+                {% else %}
+                  <span class="{{ action.class | default: 'btn btn-muted btn-sm' }}">{{ action.label }}</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </article>
+{% endif %}

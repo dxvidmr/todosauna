@@ -22,36 +22,13 @@ navbar_main_offset: false
       </div>
     </div>
 
+    {% assign participa_cards = site.data.participa_cards %}
     <div class="row participa-cards">
-      <div class="col-md-4">
-        <a class="card ta-card ta-card--media ta-card--link h-100" href="{{ '/participa/laboratorio/' | relative_url }}" style="--card-image: url('{{ '/assets/img/participa/marginalia.jpg' | relative_url }}');">
-          <div class="ta-card__body">
-            <h3 class="ta-card__title text-uppercase mb-2">Lee y anota</h3>
-            <p class="ta-card__copy mb-3">Tus comentarios ayudan a construir una interpretacion colectiva.</p>
-            <span class="btn btn-light btn-sm">Ir al laboratorio</span>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-4">
-        <a class="card ta-card ta-card--media ta-card--link h-100" href="{{ '/participa/documentos/enviar/' | relative_url }}" style="--card-image: url('{{ '/assets/img/participa/archivos.jpg' | relative_url }}');">
-          <div class="ta-card__body">
-            <h3 class="ta-card__title text-uppercase mb-2">Comparte un documento</h3>
-            <p class="ta-card__copy mb-3">Programas, carteles, fotos, recortes de prensa...</p>
-            <span class="btn btn-light btn-sm">Contribuir</span>
-          </div>
-        </a>
-      </div>
-
-      <div class="col-md-4">
-        <a class="card ta-card ta-card--media ta-card--link h-100" href="{{ '/participa/testimonios/enviar/' | relative_url }}" style="--card-image: url('{{ '/assets/img/participa/platea.jpg' | relative_url }}');">
-          <div class="ta-card__body">
-            <h3 class="ta-card__title text-uppercase mb-2">Cuenta tu historia</h3>
-            <p class="ta-card__copy mb-3">Que significa <i>Fuenteovejuna</i> para ti?</p>
-            <span class="btn btn-light btn-sm">Compartir testimonio</span>
-          </div>
-        </a>
-      </div>
+      {% for card in participa_cards %}
+        <div class="col-md-4">
+          {% include cards/ta-card.html card=card context="participa" %}
+        </div>
+      {% endfor %}
     </div>
 
     <p class="text-center small mb-0 participa-footnote">Lee la <a href="{{ '/acerca-de/' | relative_url }}">guia de participacion</a> o conoce mas <a href="{{ '/acerca-de/' | relative_url }}">sobre el proyecto</a>.</p>

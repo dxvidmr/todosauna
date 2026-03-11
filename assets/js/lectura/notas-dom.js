@@ -13,14 +13,43 @@ function parseTargetString(targetAttr) {
   return targetAttr.split(/\s+/).map(function (t) { return t.replace('#', ''); }).filter(function (t) { return t; });
 }
 
+// Resolver variantes de ids de verso: l-59a <-> l-59-a
+function buildXmlIdCandidates(xmlId) {
+  var id = (xmlId || '').toString().trim().replace(/^#/, '');
+  if (!id) return [];
+
+  var candidates = [id];
+  var compactLine = /^l-(\d+)([a-z])$/i.exec(id);
+  if (compactLine) {
+    candidates.push('l-' + compactLine[1] + '-' + compactLine[2].toLowerCase());
+  }
+
+  var dashedLine = /^l-(\d+)-([a-z])$/i.exec(id);
+  if (dashedLine) {
+    candidates.push('l-' + dashedLine[1] + dashedLine[2].toLowerCase());
+  }
+
+  return Array.from(new Set(candidates));
+}
+
 // Buscar elemento por xml:id (CSS selector + fallback lineal)
 function findElementByXmlId(container, xmlId) {
   if (!container || !xmlId) return null;
-  var el = container.querySelector('[xml\\:id="' + xmlId + '"]');
-  if (el) return el;
+
+  var candidates = buildXmlIdCandidates(xmlId);
+  for (var c = 0; c < candidates.length; c++) {
+    var candidate = candidates[c];
+    var el = container.querySelector('[xml\\:id="' + candidate + '"]');
+    if (el) return el;
+  }
+
   var all = container.querySelectorAll('*');
   for (var i = 0; i < all.length; i++) {
-    if (all[i].getAttribute('xml:id') === xmlId) return all[i];
+    var currentId = all[i].getAttribute('xml:id');
+    if (!currentId) continue;
+    for (var j = 0; j < candidates.length; j++) {
+      if (currentId === candidates[j]) return all[i];
+    }
   }
   return null;
 }

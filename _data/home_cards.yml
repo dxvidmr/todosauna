@@ -1,0 +1,119 @@
+# Plantilla base de grilla home (desktop)
+# Regla actual: grid de 12 columnas con auto-rows.
+# Para mover/balancear:
+# - order_desktop: prioridad de colocacion
+# - desktop_col_span / desktop_row_span: tamano de cada tarjeta
+#
+# Campos opcionales que puedes completar luego:
+# - type: color | media | interactive_eval | rotator | pill
+# - color_var: variable CSS (ej: --color-secondary)
+# - eyebrow, title, copy, link, image, image_alt, actions, etc.
+# - pill: se comporta como color y muestra solo title centrado
+# - rotator (home): toma imagenes desde site.data[site.metadata] con regla browse
+#   (browse-child-objects), usa image_small -> image_thumb y enlaza cada slide
+#   a su registro interno /items/... . "image" y "link" solo actuan como fallback.
+
+- id: slot_01
+  order_desktop: 1
+  type: media
+  color_var: ""
+  eyebrow: "LECTURA"
+  title: "Lee la obra"
+  copy: "Una edición divulgativa de <i>Fuenteovejuna</i> con anotaciones y recursos para entenderla mejor."
+  link: /lectura
+  image: /assets/img/explore/edicion2009.jpg
+  image_alt: "Imagen de la edición de 2009 a cargo de PROLOPE"
+  desktop_col_span: 6
+  desktop_row_span: 7
+  tablet_col_span: 6
+  tablet_row_span: 5
+
+- id: slot_02
+  order_desktop: 2
+  type: media
+  color_var: ""
+  eyebrow: "PARTICIPA"
+  title: "Comparte tu historia"
+  copy: "¿Qué significa <i>Fuenteovejuna</i> para ti?"
+  link: /participa/testimonios/enviar
+  image: /assets/img/participa/platea.jpg
+  image_alt: "Imagen de la platea de un teatro"
+  desktop_col_span: 3
+  desktop_row_span: 4
+  tablet_col_span: 3
+  tablet_row_span: 3
+
+- id: slot_03
+  order_desktop: 3
+  type: color
+  color_var: ""
+  eyebrow: ""
+  title: ""
+  copy: ""
+  link: ""
+  image: ""
+  image_alt: ""
+  desktop_col_span: 3
+  desktop_row_span: 6
+  tablet_col_span: 3
+  tablet_row_span: 4
+
+- id: slot_04
+  order_desktop: 4
+  type: rotator
+  color_var: ""
+  eyebrow: "ARCHIVO"
+  title: ""
+  copy: ""
+  link: /archivo
+  image: /assets/img/participa/archivos.jpg
+  image_alt: ""
+  desktop_col_span: 3
+  desktop_row_span: 3
+  tablet_col_span: 3
+  tablet_row_span: 2
+
+- id: slot_05
+  order_desktop: 5
+  type: pill
+  color_var: --color-primary
+  eyebrow: ""
+  title: "Conoce el proyecto"
+  copy: ""
+  link: /acerca-de
+  image: ""
+  image_alt: ""
+  desktop_col_span: 3
+  desktop_row_span: 1
+  tablet_col_span: 3
+  tablet_row_span: 1
+
+- id: slot_06
+  order_desktop: 6
+  type: rotator
+  color_var: ""
+  eyebrow: "ARCHIVO"
+  title: ""
+  copy: ""
+  link: /archivo
+  image: /assets/img/participa/archivos.jpg
+  image_alt: ""
+  desktop_col_span: 3
+  desktop_row_span: 4
+  tablet_col_span: 2
+  tablet_row_span: 3
+
+- id: slot_07
+  order_desktop: 7
+  type: interactive_eval
+  color_var: ""
+  eyebrow: ""
+  title: ""
+  copy: ""
+  link: ""
+  image: ""
+  image_alt: ""
+  desktop_col_span: 9
+  desktop_row_span: 4
+  tablet_col_span: 4
+  tablet_row_span: 3

@@ -1,0 +1,35 @@
+# Tipos disponibles en cards compartidas:
+# - media | color | pill | interactive_eval | rotator
+
+- id: laboratorio
+  type: media
+  eyebrow: ""
+  title: "Lee y comenta el texto"
+  copy: "Tus sugerencias ayudan a construir una interpretación colectiva."
+  link: /participa/laboratorio/
+  image: /assets/img/participa/marginalia.jpg
+  image_alt: "Anotaciones manuscritas sobre un texto"
+  cta_label: "Ir al laboratorio"
+  cta_class: "btn btn-muted btn-sm ta-card__cta"
+
+- id: documentos
+  type: media
+  eyebrow: ""
+  title: "Comparte un documento"
+  copy: "Programas, carteles, fotos, recortes de prensa..."
+  link: /participa/documentos/enviar/
+  image: /assets/img/participa/archivos.jpg
+  image_alt: "Caja con documentos de archivo"
+  cta_label: "Contribuir"
+  cta_class: "btn btn-muted btn-sm ta-card__cta"
+
+- id: testimonios
+  type: media
+  eyebrow: ""
+  title: "Cuenta tu historia"
+  copy: "¿Qué significa <i>Fuenteovejuna</i> para ti?"
+  link: /participa/testimonios/enviar/
+  image: /assets/img/participa/platea.jpg
+  image_alt: "Butacas de teatro vacias"
+  cta_label: "Compartir testimonio"
+  cta_class: "btn btn-muted btn-sm ta-card__cta"
