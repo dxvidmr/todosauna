@@ -8,8 +8,8 @@ custom-foot: participacion/scripts-contribucion-form.html
 
 <section class="participa-form-page participa-form-page--documento">
   <div class="participa-form-shell">
-    <header class="participa-form-header card card-soft p-3 p-md-4">
-      <p class="participa-form-eyebrow mb-2">Participa - Archivo documental</p>
+    <header class="participa-form-header card card-soft ui-thin-border p-3 p-md-4">
+      <p class="ui-eyebrow mb-2">Participa · Archivo documental</p>
       <h1 class="mb-2">Comparte un documento</h1>
       <p class="mb-0">
         Puedes enviar fotos, programas, ediciones, manuscritos y otros materiales relacionados con <i>Fuenteovejuna</i>.
@@ -21,7 +21,7 @@ custom-foot: participacion/scripts-contribucion-form.html
       <button type="button" id="btn-definir-modo-documento" class="btn btn-secondary btn-sm">Elegir modo de participación</button>
     </section>
 
-    <form id="contribucion-form" class="participa-form card card-soft p-3 p-md-4" novalidate>
+    <form id="contribucion-form" class="participa-form card card-soft" novalidate>
       <input type="hidden" id="contribucion-linked-testimonio-id" value="">
       <input type="hidden" id="contribucion-staging-id" value="">
 
@@ -33,59 +33,63 @@ custom-foot: participacion/scripts-contribucion-form.html
       <section id="contribucion-step-1">
         <fieldset class="participa-fieldset">
           <legend>Datos del documento</legend>
+          <small class="field-helper field-helper--intro">Incluye la información mínima para poder identificar, catalogar y revisar el documento.</small>
           <div class="mb-3">
-            <label for="contribucion-titulo" class="form-label">Titulo *</label>
+            <label for="contribucion-titulo" class="form-label">Título <span class="required-mark" aria-hidden="true">*</span></label>
             <input type="text" class="form-control" id="contribucion-titulo" maxlength="180" required>
           </div>
           <div class="mb-3">
-            <label for="contribucion-descripcion" class="form-label">Descripcion</label>
+            <label for="contribucion-descripcion" class="form-label">Descripción <span class="optional-note">(opcional)</span></label>
             <textarea class="form-control" id="contribucion-descripcion" rows="4" maxlength="3000"></textarea>
           </div>
           <div class="mb-0">
-            <label for="contribucion-creadores" class="form-label">Creadores y roles</label>
+            <label for="contribucion-creadores" class="form-label">Creadores y roles <span class="optional-note">(opcional)</span></label>
             <textarea class="form-control" id="contribucion-creadores" rows="3" placeholder="Nombre | rol (una línea por creador)"></textarea>
           </div>
         </fieldset>
 
         <fieldset class="participa-fieldset">
-          <legend>Contexto (opcional)</legend>
+          <legend>Contexto <span class="optional-note">(opcional)</span></legend>
+          <small class="field-helper field-helper--intro">Añade contexto para interpretar mejor el documento. Solo completa lo que recuerdes.</small>
           <div class="row g-3">
             <div class="col-md-6">
-              <label for="contribucion-fecha" class="form-label">Fecha exacta</label>
+              <label for="contribucion-fecha" class="form-label">Fecha del documento (si se conoce)</label>
               <input type="date" class="form-control" id="contribucion-fecha">
             </div>
             <div class="col-md-6">
-              <label for="contribucion-fecha-texto" class="form-label">Fecha explicativa</label>
+              <label for="contribucion-fecha-texto" class="form-label">Fecha aproximada o contexto temporal</label>
               <input type="text" class="form-control" id="contribucion-fecha-texto" maxlength="120" placeholder="Ej.: Primavera de 1986, gira escolar">
             </div>
           </div>
 
-          <div class="row g-3 mt-1">
-            <div class="col-md-7">
-              <label for="contribucion-ciudad" class="form-label">Ciudad (GeoNames)</label>
+          <p class="field-group-title mt-3 mb-2">Ciudad y país de referencia</p>
+          <div class="geo-location-row geo-location-row--full mt-1">
+            <div>
+              <label for="contribucion-ciudad" class="form-label">Ciudad de referencia</label>
               <div class="participa-geonames-field">
                 <input type="text" class="form-control" id="contribucion-ciudad" autocomplete="off" placeholder="Empieza a escribir una ciudad">
-                <button type="button" class="btn btn-secondary btn-sm" id="contribucion-limpiar-ciudad">Limpiar</button>
               </div>
               <input type="hidden" id="contribucion-ciudad-nombre">
               <input type="hidden" id="contribucion-ciudad-id">
             </div>
-            <div class="col-md-5">
-              <label for="contribucion-pais" class="form-label">País (automático)</label>
+            <div>
+              <label for="contribucion-pais" class="form-label">País de referencia (automático)</label>
               <input type="text" class="form-control" id="contribucion-pais" readonly>
               <input type="hidden" id="contribucion-pais-nombre">
               <input type="hidden" id="contribucion-pais-id">
             </div>
+            <button type="button" class="btn btn-outline-dark btn-sm" id="contribucion-limpiar-ciudad">Limpiar</button>
           </div>
+          <small class="field-helper">Opcional. Si escribes ciudad, selecciona una opción de la lista GeoNames.</small>
 
           <div class="mt-3">
-            <label for="contribucion-lugar-texto" class="form-label">Lugar explicativo</label>
+            <label for="contribucion-lugar-texto" class="form-label">Lugar o fuente de procedencia (texto libre)</label>
             <input type="text" class="form-control" id="contribucion-lugar-texto" maxlength="160" placeholder="Ej.: Teatro municipal, archivo familiar...">
           </div>
 
           <div class="mt-3">
-            <label for="contribucion-linked-refs" class="form-label">Vinculos con objetos ya existentes (opcional)</label>
-            <textarea class="form-control" id="contribucion-linked-refs" rows="3" placeholder="Un enlace o ID por linea"></textarea>
+            <label for="contribucion-linked-refs" class="form-label">Vínculos con objetos ya existentes <span class="optional-note">(opcional)</span></label>
+            <textarea class="form-control" id="contribucion-linked-refs" rows="3" placeholder="Un enlace o ID por línea"></textarea>
           </div>
         </fieldset>
 
@@ -114,7 +118,8 @@ custom-foot: participacion/scripts-contribucion-form.html
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="1" id="contribucion-consent" required>
             <label class="form-check-label" for="contribucion-consent">
-              Acepto la <a href="{{ '/privacidad/' | relative_url }}" target="_blank" rel="noopener noreferrer">política de privacidad</a> para este envío. *
+              Acepto la <a href="{{ '/privacidad/' | relative_url }}" target="_blank" rel="noopener noreferrer">política de privacidad</a> para este envío.
+              <span class="required-mark" aria-hidden="true">*</span>
             </label>
           </div>
         </fieldset>
@@ -130,11 +135,11 @@ custom-foot: participacion/scripts-contribucion-form.html
         <fieldset class="participa-fieldset">
           <legend>Archivos</legend>
           <div class="mb-3">
-            <label for="contribucion-archivos-locales" class="form-label">Selecciona archivos (max. 10 - 20MB por archivo)</label>
+            <label for="contribucion-archivos-locales" class="form-label">Selecciona archivos (máx. 10 · 20 MB por archivo)</label>
             <input type="file" class="form-control" id="contribucion-archivos-locales" multiple accept=".pdf,image/jpeg,image/jpg,image/png,image/webp,image/tiff">
           </div>
           <div id="contribucion-recaptcha-wrap" class="mb-3">
-            <p class="small mb-2">Validacion anti-bot (reCAPTCHA)</p>
+            <p class="small mb-2">Validación anti-bot (reCAPTCHA)</p>
             <div id="contribucion-recaptcha-widget"></div>
           </div>
           <div class="participa-form-actions">
@@ -144,7 +149,7 @@ custom-foot: participacion/scripts-contribucion-form.html
         </fieldset>
 
         <fieldset class="participa-fieldset">
-          <legend>Archivos listos para envio</legend>
+          <legend>Archivos listos para envío</legend>
           <ul id="contribucion-archivos-subidos-lista" class="list-group mb-0"></ul>
         </fieldset>
 
@@ -152,12 +157,12 @@ custom-foot: participacion/scripts-contribucion-form.html
 
         <div class="participa-form-actions mt-3">
           <button type="button" id="btn-contribucion-prev" class="btn btn-outline-dark">Volver</button>
-          <button type="submit" id="btn-enviar-contribucion" class="btn btn-primary">Enviar contribucion</button>
+          <button type="submit" id="btn-enviar-contribucion" class="btn btn-primary">Enviar contribución</button>
         </div>
       </section>
     </form>
 
-    <section id="contribucion-success" class="participa-success card card-soft p-3 p-md-4" hidden>
+    <section id="contribucion-success" class="participa-success card card-soft ui-thin-border p-3 p-md-4" hidden>
       <h2 class="h4 mb-2">¡Contribución enviada con éxito!</h2>
       <p class="mb-2">Hemos recibido tu aporte. Muchas gracias por participar en el proyecto.</p>
       <p class="mb-3">El ID de tu envío es <code id="contribucion-success-id"></code>. Puedes anotarlo por si más adelante quieres hacer alguna consulta.</p>

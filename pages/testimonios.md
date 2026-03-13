@@ -8,8 +8,8 @@ custom-foot: participacion/scripts-testimonios-publicos.html
 
 <section class="archivo-testimonios-page" id="archivo-testimonios-page" data-csv-url="{{ '/assets/data/testimonios-export.csv' | relative_url }}" data-items-base="{{ '/items/' | relative_url }}">
   <div class="archivo-testimonios-shell">
-    <header class="archivo-testimonios-header card card-soft p-3 p-md-4">
-      <p class="archivo-testimonios-eyebrow mb-2">Archivo · Testimonios</p>
+    <header class="archivo-testimonios-header card card-soft ui-thin-border p-3 p-md-4">
+      <p class="ui-eyebrow mb-2">Archivo · Testimonios</p>
       <h1 class="mb-2">Archivo de la memoria</h1>
       <p class="mb-0">
         Descubre testimonios publicados de lectoras, lectores, investigadoras, investigadores y comunidades
@@ -17,7 +17,7 @@ custom-foot: participacion/scripts-testimonios-publicos.html
       </p>
     </header>
 
-    <section class="archivo-testimonios-controls card card-soft p-3">
+    <section class="archivo-testimonios-controls card card-soft ui-thin-border p-3">
       <div class="row g-3">
         <div class="col-md-8">
           <label for="testimonios-publicos-search" class="form-label mb-1">Buscar en testimonios</label>

@@ -332,6 +332,12 @@
   color: $color-text;
 }
 
+// Borde fino reutilizable para superficies tipo card/panel.
+.ui-thin-border {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--ui-thin-border-radius, clamp(20px, 2vw, 28px));
+}
+
 @media (min-width: 768px) {
   .participa-head .col-md-7 {
     display: flex;
@@ -494,12 +500,7 @@
   gap: clamp(14px, 2.4vh, 24px);
 }
 
-.participa-form-header {
-  border-radius: clamp(20px, 2vw, 28px);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.participa-form-eyebrow {
+.ui-eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.78rem;
@@ -515,106 +516,16 @@
 }
 
 .participa-form {
-  border-radius: clamp(20px, 2vw, 28px);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 0;
+  padding: 0 !important;
   display: grid;
   gap: clamp(16px, 2.2vh, 24px);
-}
-
-.participa-fieldset {
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 14px;
-  padding: clamp(14px, 2.1vh, 20px);
-  margin: 0;
-
-  legend {
-    float: none;
-    width: auto;
-    margin: 0 0 10px 0;
-    padding: 0 6px;
-    font-size: 0.98rem;
-    font-weight: 700;
-    color: $color-dark;
-  }
-}
-
-.participa-fieldset + .participa-fieldset {
-  margin-top: clamp(12px, 1.8vh, 18px);
-}
-
-.participa-privacy-grid {
-  display: grid;
-  gap: 8px;
-
-  label {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.92rem;
-  }
 }
 
 .participa-form-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-}
-
-.participa-form-status {
-  border-radius: 10px;
-  padding: 10px 12px;
-  margin: clamp(10px, 1.5vh, 14px) 0 0;
-  font-size: 0.92rem;
-  background: $color-light;
-  color: $color-neutral-700;
-
-  &:empty {
-    display: none;
-  }
-
-  &.is-error {
-    background: rgba($color-danger, 0.16);
-    color: $color-danger;
-  }
-
-  &.is-warning {
-    background: $color-secondary-50;
-    color: $color-dark;
-  }
-
-  &.is-success {
-    background: $color-success-light;
-    color: mix(black, $color-success, 35%);
-  }
-
-  &.is-info {
-    background: $color-neutral-100;
-    color: $color-neutral-700;
-  }
-}
-
-.participa-form-status.is-success + .participa-form-actions {
-  margin-top: clamp(10px, 1.5vh, 14px);
-}
-
-.participa-inline-status {
-  margin: 8px 0 0;
-  font-size: 0.85rem;
-  color: $color-neutral-700;
-
-  &.is-error {
-    color: $color-danger;
-  }
-
-  &.is-warning {
-    color: $color-dark;
-  }
-}
-
-.participa-success {
-  border-radius: clamp(20px, 2vw, 28px);
-  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .participa-steps {
@@ -634,46 +545,6 @@
     background: $color-dark;
     color: $color-light;
     border-color: $color-dark;
-  }
-}
-
-.participa-geonames-field {
-  position: relative;
-  display: flex;
-  gap: 8px;
-}
-
-.participa-geonames-dropdown {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  right: 0;
-  z-index: 15;
-  border: 1px solid rgba(0, 0, 0, 0.14);
-  border-radius: 10px;
-  background: $color-light;
-  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.14);
-  max-height: 220px;
-  overflow-y: auto;
-}
-
-.participa-geonames-option {
-  width: 100%;
-  border: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  background: transparent;
-  text-align: left;
-  padding: 9px 11px;
-  font-size: 0.9rem;
-  color: $color-text;
-
-  &:last-child {
-    border-bottom: 0;
-  }
-
-  &:hover,
-  &.is-active {
-    background: $color-neutral-50;
   }
 }
 
@@ -709,14 +580,8 @@
   gap: clamp(14px, 2.2vh, 24px);
 }
 
-.archivo-testimonios-header {
-  border-radius: clamp(20px, 2vw, 28px);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-}
-
 .archivo-testimonios-controls {
-  border-radius: clamp(16px, 1.8vw, 22px);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  --ui-thin-border-radius: clamp(16px, 1.8vw, 22px);
 }
 
 .archivo-testimonios-controls-actions {
@@ -730,13 +595,6 @@
 
 .archivo-testimonios-summary {
   font-size: 0.9rem;
-  color: $color-text-muted;
-}
-
-.archivo-testimonios-eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.78rem;
   color: $color-text-muted;
 }
 

@@ -8,8 +8,8 @@ custom-foot: participacion/scripts-testimonio-form.html
 
 <section class="participa-form-page participa-form-page--testimonio">
   <div class="participa-form-shell">
-    <header class="participa-form-header card card-soft p-3 p-md-4">
-      <p class="participa-form-eyebrow mb-2">Participa · Testimonios</p>
+    <header class="participa-form-header card card-soft ui-thin-border p-3 p-md-4">
+      <p class="ui-eyebrow mb-2">Participa · Testimonios</p>
       <h1 class="mb-2">Comparte tu testimonio</h1>
       <p class="mb-0">
         Tu experiencia con <i>Fuenteovejuna</i> ayuda a construir una memoria colectiva de la obra.
@@ -22,56 +22,59 @@ custom-foot: participacion/scripts-testimonio-form.html
       <button type="button" id="btn-definir-modo-testimonio" class="btn btn-secondary btn-sm">Elegir modo de participación</button>
     </section>
 
-    <form id="testimonio-form" class="participa-form card card-soft p-3 p-md-4" novalidate>
+    <form id="testimonio-form" class="participa-form card card-soft" novalidate>
       <input type="hidden" id="testimonio-linked-contribucion-id" value="">
 
       <fieldset class="participa-fieldset">
         <legend>Contenido</legend>
         <div class="mb-3">
-          <label for="testimonio-titulo" class="form-label">Título *</label>
+          <label for="testimonio-titulo" class="form-label">Título <span class="required-mark" aria-hidden="true">*</span></label>
           <input type="text" class="form-control" id="testimonio-titulo" maxlength="160" required>
         </div>
         <div class="mb-0">
-          <label for="testimonio-texto" class="form-label">Testimonio (admite Markdown) *</label>
+          <label for="testimonio-texto" class="form-label">Testimonio (admite Markdown) <span class="required-mark" aria-hidden="true">*</span></label>
           <textarea class="form-control" id="testimonio-texto" rows="7" required></textarea>
         </div>
       </fieldset>
 
-      <fieldset class="participa-fieldset">
-        <legend>Contexto (opcional)</legend>
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label for="testimonio-fecha" class="form-label">Fecha exacta</label>
-            <input type="date" class="form-control" id="testimonio-fecha">
-          </div>
-          <div class="col-md-6">
-            <label for="testimonio-fecha-texto" class="form-label">Fecha explicativa</label>
-            <input type="text" class="form-control" id="testimonio-fecha-texto" maxlength="120" placeholder="Ej.: Verano de 1998, durante una gira escolar">
-          </div>
-        </div>
-
-        <div class="row g-3 mt-1">
-          <div class="col-md-7">
-            <label for="testimonio-experiencia-ciudad" class="form-label">Ciudad (GeoNames)</label>
-            <div class="participa-geonames-field">
-              <input type="text" class="form-control" id="testimonio-experiencia-ciudad" autocomplete="off" placeholder="Empieza a escribir una ciudad">
-              <button type="button" class="btn btn-secondary btn-sm" id="testimonio-limpiar-ciudad">Limpiar</button>
+        <fieldset class="participa-fieldset">
+          <legend>Contexto <span class="optional-note">(opcional)</span></legend>
+          <small class="field-helper field-helper--intro">Añade el contexto que ayude a entender tu experiencia. Completa solo lo que quieras compartir.</small>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="testimonio-fecha" class="form-label">Fecha de la experiencia (si la recuerdas)</label>
+              <input type="date" class="form-control" id="testimonio-fecha">
             </div>
-            <input type="hidden" id="testimonio-experiencia-ciudad-nombre">
-            <input type="hidden" id="testimonio-experiencia-ciudad-id">
+            <div class="col-md-6">
+              <label for="testimonio-fecha-texto" class="form-label">Fecha aproximada o contexto temporal</label>
+              <input type="text" class="form-control" id="testimonio-fecha-texto" maxlength="120" placeholder="Ej.: Verano de 1998, durante una gira escolar">
+            </div>
           </div>
-          <div class="col-md-5">
-            <label for="testimonio-experiencia-pais" class="form-label">País (automático)</label>
-            <input type="text" class="form-control" id="testimonio-experiencia-pais" readonly>
-            <input type="hidden" id="testimonio-experiencia-pais-nombre">
-            <input type="hidden" id="testimonio-experiencia-pais-id">
-          </div>
-        </div>
 
-        <div class="mt-3">
-          <label for="testimonio-lugar-texto" class="form-label">Lugar explicativo</label>
-          <input type="text" class="form-control" id="testimonio-lugar-texto" maxlength="160" placeholder="Ej.: Teatro municipal, patio del instituto...">
-        </div>
+          <p class="field-group-title mt-3 mb-2">Ciudad y país de referencia</p>
+          <div class="geo-location-row geo-location-row--full mt-1">
+            <div>
+              <label for="testimonio-experiencia-ciudad" class="form-label">Ciudad de referencia</label>
+              <div class="participa-geonames-field">
+                <input type="text" class="form-control" id="testimonio-experiencia-ciudad" autocomplete="off" placeholder="Empieza a escribir una ciudad">
+              </div>
+              <input type="hidden" id="testimonio-experiencia-ciudad-nombre">
+              <input type="hidden" id="testimonio-experiencia-ciudad-id">
+            </div>
+            <div>
+              <label for="testimonio-experiencia-pais" class="form-label">País de referencia (automático)</label>
+              <input type="text" class="form-control" id="testimonio-experiencia-pais" readonly>
+              <input type="hidden" id="testimonio-experiencia-pais-nombre">
+              <input type="hidden" id="testimonio-experiencia-pais-id">
+            </div>
+            <button type="button" class="btn btn-outline-dark btn-sm" id="testimonio-limpiar-ciudad">Limpiar</button>
+          </div>
+          <small class="field-helper">Opcional. Si escribes ciudad, selecciona una opción de la lista GeoNames.</small>
+
+          <div class="mt-3">
+            <label for="testimonio-lugar-texto" class="form-label">Lugar concreto de la experiencia (texto libre)</label>
+            <input type="text" class="form-control" id="testimonio-lugar-texto" maxlength="160" placeholder="Ej.: Teatro municipal, patio del instituto...">
+          </div>
 
         <div class="row g-3 mt-1">
           <div class="col-md-6">
@@ -102,7 +105,7 @@ custom-foot: participacion/scripts-testimonio-form.html
       <fieldset class="participa-fieldset">
         <legend>Vínculos y privacidad</legend>
         <div class="mb-3">
-          <label for="testimonio-linked-refs" class="form-label">Vínculos a objetos del archivo (opcional)</label>
+          <label for="testimonio-linked-refs" class="form-label">Vínculos a objetos del archivo <span class="optional-note">(opcional)</span></label>
           <textarea class="form-control" id="testimonio-linked-refs" rows="3" placeholder="Un enlace o ID por línea"></textarea>
         </div>
 
@@ -119,7 +122,8 @@ custom-foot: participacion/scripts-testimonio-form.html
         <div class="form-check mt-3">
           <input class="form-check-input" type="checkbox" value="1" id="testimonio-consent" required>
           <label class="form-check-label" for="testimonio-consent">
-            Acepto la <a href="{{ '/privacidad/' | relative_url }}" target="_blank" rel="noopener noreferrer">política de privacidad</a> para este envío. *
+            Acepto la <a href="{{ '/privacidad/' | relative_url }}" target="_blank" rel="noopener noreferrer">política de privacidad</a> para este envío.
+            <span class="required-mark" aria-hidden="true">*</span>
           </label>
         </div>
       </fieldset>
@@ -131,7 +135,7 @@ custom-foot: participacion/scripts-testimonio-form.html
       </div>
     </form>
 
-    <section id="testimonio-success" class="participa-success card card-soft p-3 p-md-4" hidden>
+    <section id="testimonio-success" class="participa-success card card-soft ui-thin-border p-3 p-md-4" hidden>
       <h2 class="h4 mb-2">¡Testimonio enviado con éxito!</h2>
       <p class="mb-2">Hemos recibido tu testimonio. Muchas gracias por participar en el proyecto.</p>
       <p class="mb-3">El ID de tu envío es <code id="testimonio-success-id"></code>. Puedes guardarlo por si más adelante quieres hacer alguna consulta.</p>
