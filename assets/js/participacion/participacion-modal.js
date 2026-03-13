@@ -7,6 +7,7 @@
 
   var ns = window.Participacion || (window.Participacion = {});
   if (ns.modal) return;
+  var REGISTER_CONSENT_VERSION = 'colaborador-registro-v1';
 
   function notify(message, type, duration) {
     var text = String(message || '').trim();
@@ -432,7 +433,7 @@
     this._setHeaderActions('');
     this._showHeader(
       'Registrarse',
-      'Rellena el formulario para registrarte como colaborador/a.'
+      'Rellena el formulario para registrarte como colaborador/a y aceptar la política de privacidad.'
     );
     if (this.formRegistro) this.formRegistro.style.display = 'block';
   };
@@ -608,12 +609,32 @@
 
     var formData = new FormData(form);
     var email = String(formData.get('email') || '').trim();
+    var confirmEmail = String(formData.get('confirm_email') || '').trim();
     var displayName = String(formData.get('display_name') || '').trim() || null;
     var nivel = formData.get('nivel_estudios') || null;
     var disciplina = formData.get('disciplina') || null;
+    var privacyConsent = formData.get('privacy_consent') ? true : false;
+
+    var normalizedEmail = email.toLowerCase();
+    var normalizedConfirmEmail = confirmEmail.toLowerCase();
 
     if (!email) {
       notify('El email es obligatorio.', 'warning', 2600);
+      return;
+    }
+
+    if (!confirmEmail) {
+      notify('Debes confirmar tu email.', 'warning', 2600);
+      return;
+    }
+
+    if (normalizedEmail !== normalizedConfirmEmail) {
+      notify('Los emails no coinciden. Revísalos.', 'warning', 2800);
+      return;
+    }
+
+    if (!privacyConsent) {
+      notify('Debes aceptar la política de privacidad para registrarte.', 'warning', 3000);
       return;
     }
 
@@ -624,7 +645,10 @@
     try {
       var result = await session.registerAndBind(email, displayName, {
         nivel_estudios: nivel,
-        disciplina: disciplina
+        disciplina: disciplina,
+        consent_rgpd: true,
+        consent_rgpd_version: REGISTER_CONSENT_VERSION,
+        consent_accepted_at: new Date().toISOString()
       });
 
       if (!result.ok) {

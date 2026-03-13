@@ -1069,6 +1069,26 @@ tei-stage {
   }
 }
 
+.modal-legal-note {
+  color: $color-text-muted;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.modal-legal-check {
+  margin-top: 4px;
+  margin-bottom: 16px;
+
+  .form-check-label {
+    color: $color-text-muted;
+    font-size: 0.9rem;
+  }
+}
+
 .botones-modal {
   display: flex;
   gap: 10px;

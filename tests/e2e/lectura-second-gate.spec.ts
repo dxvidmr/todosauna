@@ -10,9 +10,6 @@ test.describe('F10.1 smoke - lectura second contribution gate', () => {
       const before = window.Participacion.session.getState();
       const result = await window.Participacion.session.resetToUnasked();
       const after = window.Participacion.session.getState();
-      const state = after;
-      const key = `ta_lectura_contrib_count::${state.browserSessionToken || state.sessionId}`;
-      localStorage.removeItem(key);
       return { before, after, result };
     });
 

@@ -95,7 +95,10 @@
           p_email_hash: input.emailHash || null,
           p_display_name: input.displayName || null,
           p_nivel_estudios: input.nivelEstudios || null,
-          p_disciplina: input.disciplina || null
+          p_disciplina: input.disciplina || null,
+          p_consent_rgpd: input.consentRgpd === true,
+          p_consent_rgpd_version: input.consentRgpdVersion || null,
+          p_consent_accepted_at: input.consentAcceptedAt || null
         },
         { single: true }
       );

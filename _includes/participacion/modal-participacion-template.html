@@ -33,6 +33,10 @@
 
       <div id="form-anonimo" class="modo-form" style="display:none;">
         <form id="form-anonimo-datos">
+          <p class="modal-legal-note">
+            Al continuar, aceptas la
+            <a href="{{ '/privacidad/' | relative_url }}" target="_blank" rel="noopener noreferrer">Política de privacidad</a>.
+          </p>
           <div class="botones-modal modal-actions">
             <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
             <button type="submit" class="btn btn-primary">Comenzar</button>
@@ -67,6 +71,7 @@
       <div id="form-colaborador-registro" class="modo-form" style="display:none;">
         <form id="form-colaborador-registro-datos">
           <label>Email<input type="email" name="email" required placeholder="tu@email.com"></label>
+          <label>Confirmar email<input type="email" name="confirm_email" required placeholder="Repite tu email"></label>
           <label>Nombre (opcional)<input type="text" name="display_name" placeholder="María G." maxlength="50"></label>
           <label>Nivel de estudios (opcional)
             <select name="nivel_estudios">
@@ -90,6 +95,13 @@
               <option value="otro">Otra</option>
             </select>
           </label>
+          <div class="form-check modal-legal-check">
+            <input class="form-check-input" type="checkbox" id="registro-privacy-consent" name="privacy_consent" required>
+            <label class="form-check-label" for="registro-privacy-consent">
+              He leído y acepto la
+              <a href="{{ '/privacidad/' | relative_url }}" target="_blank" rel="noopener noreferrer">Política de privacidad</a>. *
+            </label>
+          </div>
           <div class="botones-modal modal-actions">
             <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
             <button type="submit" class="btn btn-primary">Registrarme</button>

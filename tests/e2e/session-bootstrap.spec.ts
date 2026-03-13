@@ -3,7 +3,7 @@ import { forceAnonMode, waitForSessionReady } from './helpers/participacion';
 import { UUID_REGEX } from './helpers/constants';
 
 test.describe('F10.1 smoke - session bootstrap', () => {
-  test('does not create supabase session during passive navigation', async ({ page, context }) => {
+  test('does not create supabase session during passive navigation', async ({ page }) => {
     await page.goto('/');
     await page.evaluate(async () => {
       await window.Participacion.session.init();
@@ -12,9 +12,6 @@ test.describe('F10.1 smoke - session bootstrap', () => {
     const firstState = await page.evaluate(() => window.Participacion.session.getState());
     expect(firstState.sessionId).toBeNull();
     expect(firstState.browserSessionToken).toMatch(UUID_REGEX);
-
-    const firstCookie = (await context.cookies()).find((cookie) => cookie.name === 'ta_browser_session_token');
-    expect(firstCookie?.value).toMatch(UUID_REGEX);
 
     await page.goto('/lectura/');
     await page.evaluate(async () => {
@@ -25,9 +22,6 @@ test.describe('F10.1 smoke - session bootstrap', () => {
     expect(secondState.sessionId).toBeNull();
     expect(secondState.sessionId).toBe(firstState.sessionId);
     expect(secondState.browserSessionToken).toBe(firstState.browserSessionToken);
-
-    const secondCookie = (await context.cookies()).find((cookie) => cookie.name === 'ta_browser_session_token');
-    expect(secondCookie?.value).toBe(firstCookie?.value);
   });
 
   test('creates session only when a real write requires it', async ({ page }) => {
@@ -51,7 +45,42 @@ test.describe('F10.1 smoke - session bootstrap', () => {
     expect(afterBootstrap.state.browserSessionToken).toBe(beforeBootstrap.browserSessionToken);
   });
 
-  test('resetToUnasked rotates browser token and clears active session id', async ({ page, context }) => {
+  test('syncs session/mode across open tabs and resets after closing all tabs', async ({ page, context }) => {
+    await page.goto('/lectura/');
+    await waitForSessionReady(page);
+    await forceAnonMode(page);
+
+    const stateA = await page.evaluate(() => window.Participacion.session.getState());
+    expect(stateA.sessionId).toMatch(UUID_REGEX);
+    expect(stateA.modeChoice).toBe('anonimo');
+
+    const pageB = await context.newPage();
+    await pageB.goto('/lectura/');
+    const stateB = await pageB.evaluate(async () => {
+      await window.Participacion.session.init();
+      return window.Participacion.session.getState();
+    });
+
+    expect(stateB.sessionId).toBe(stateA.sessionId);
+    expect(stateB.browserSessionToken).toBe(stateA.browserSessionToken);
+    expect(stateB.modeChoice).toBe('anonimo');
+
+    await page.close();
+    await pageB.close();
+
+    const pageC = await context.newPage();
+    await pageC.goto('/lectura/');
+    const stateC = await pageC.evaluate(async () => {
+      await window.Participacion.session.init();
+      return window.Participacion.session.getState();
+    });
+
+    expect(stateC.sessionId).toBeNull();
+    expect(stateC.modeChoice).toBe('unasked');
+    await pageC.close();
+  });
+
+  test('resetToUnasked rotates browser token and clears active session id', async ({ page }) => {
     await page.goto('/lectura/');
     await waitForSessionReady(page);
     await forceAnonMode(page);
@@ -59,9 +88,6 @@ test.describe('F10.1 smoke - session bootstrap', () => {
     const beforeState = await page.evaluate(() => window.Participacion.session.getState());
     expect(beforeState.sessionId).toMatch(UUID_REGEX);
     expect(beforeState.browserSessionToken).toMatch(UUID_REGEX);
-
-    const beforeCookie = (await context.cookies()).find((cookie) => cookie.name === 'ta_browser_session_token');
-    expect(beforeCookie?.value).toBe(beforeState.browserSessionToken);
 
     const resetState = await page.evaluate(async () => {
       const before = window.Participacion.session.getState();
@@ -76,9 +102,5 @@ test.describe('F10.1 smoke - session bootstrap', () => {
     expect(resetState.after.browserSessionToken).not.toBe(resetState.before.browserSessionToken);
     expect(resetState.after.modeChoice).toBe('unasked');
     expect(resetState.after.modoParticipacion).toBe('anonimo');
-
-    const afterCookie = (await context.cookies()).find((cookie) => cookie.name === 'ta_browser_session_token');
-    expect(afterCookie?.value).toBe(resetState.after.browserSessionToken);
-    expect(afterCookie?.value).not.toBe(beforeCookie?.value);
   });
 });

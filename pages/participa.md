@@ -31,6 +31,10 @@ navbar_main_offset: false
       {% endfor %}
     </div>
 
-    <p class="text-center small mb-0 participa-footnote">Lee la <a href="{{ '/acerca-de/' | relative_url }}">guia de participacion</a> o conoce mas <a href="{{ '/acerca-de/' | relative_url }}">sobre el proyecto</a>.</p>
+    <p class="text-center small mb-0 participa-footnote">
+      Lee la <a href="{{ '/participa/guia/' | relative_url }}">guía de participación</a>,
+      conoce más <a href="{{ '/acerca-de/' | relative_url }}">sobre el proyecto</a>
+      y consulta la <a href="{{ '/privacidad/' | relative_url }}">política de privacidad</a>.
+    </p>
   </div>
 </section>

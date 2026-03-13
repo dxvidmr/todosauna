@@ -8,25 +8,24 @@
   var ns = window.Participacion || (window.Participacion = {});
   if (ns.session) return;
 
-  var COOKIE_NAME = 'ta_browser_session_token';
-  var MODE_PREFIX = 'ta_mode_choice::';
+  var SESSION_STATE_KEY = 'ta_participacion_state_v4';
   var LEGACY_SESSION_KEY = 'fuenteovejuna_session';
-  var SHARED_STATE_KEY = 'ta_participacion_shared_state';
-  var TAB_REGISTRY_KEY = 'ta_participacion_tabs_registry';
   var TAB_ID_SESSION_KEY = 'ta_participacion_tab_id';
-  var LECTURA_COUNT_PREFIX = 'ta_lectura_contrib_count::';
+  var BUS_CHANNEL_NAME = 'ta_participacion_sync';
+  var BUS_STORAGE_KEY = 'ta_participacion_sync_bus';
+  var SYNC_REQUEST_TIMEOUT_MS = 300;
   var VALID_MODES = { unasked: true, anonimo: true, colaborador: true };
-  var TAB_HEARTBEAT_MS = 20000;
-  var TAB_STALE_MS = 120000;
 
-  var tabHeartbeatHandle = null;
-  var lifecycleBound = false;
-  var tabUnregistered = false;
+  var channel = null;
+  var busBound = false;
+  var pendingSync = null;
+  var seenBusIds = [];
 
   var state = {
     initialized: false,
     initPromise: null,
     ensurePromise: null,
+    tabId: null,
     sessionId: null,
     browserSessionToken: null,
     modoParticipacion: 'anonimo',
@@ -37,7 +36,9 @@
     modeChoice: 'unasked',
     displayName: null,
     nivelEstudios: null,
-    disciplina: null
+    disciplina: null,
+    lecturaContributionCount: 0,
+    updatedAt: 0
   };
 
   function log(message, extra) {
@@ -85,74 +86,45 @@
     }
   }
 
-  function readCookie(name) {
-    var cookieString = document.cookie || '';
-    if (!cookieString) return null;
-
-    var target = name + '=';
-    var parts = cookieString.split(';');
-    for (var i = 0; i < parts.length; i += 1) {
-      var segment = parts[i].trim();
-      if (segment.indexOf(target) === 0) {
-        return decodeURIComponent(segment.substring(target.length));
-      }
-    }
-    return null;
-  }
-
-  function writeSessionCookie(token) {
-    if (!token) return;
-    document.cookie = COOKIE_NAME + '=' + encodeURIComponent(token) + '; path=/; SameSite=Lax';
-  }
-
-  function clearSessionCookie() {
-    document.cookie = COOKIE_NAME + '=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
-  }
-
-  function getModeStorageKey(token) {
-    return MODE_PREFIX + token;
-  }
-
-  function readModeChoice(token) {
-    if (!token) return null;
-    try {
-      var stored = localStorage.getItem(getModeStorageKey(token));
-      return VALID_MODES[stored] ? stored : null;
-    } catch (err) {
-      warn('No se pudo leer modo localStorage', err);
-      return null;
-    }
-  }
-
-  function writeModeChoice(token, mode) {
-    if (!token || !VALID_MODES[mode]) return;
-    try {
-      localStorage.setItem(getModeStorageKey(token), mode);
-    } catch (err) {
-      warn('No se pudo escribir modo localStorage', err);
-    }
-  }
-
-  function removeModeChoice(token) {
-    if (!token) return;
-    try {
-      localStorage.removeItem(getModeStorageKey(token));
-    } catch (err) {
-      warn('No se pudo limpiar modo localStorage', err);
-    }
-  }
-
-  function removeLecturaCount(token) {
-    if (!token) return;
-    try {
-      localStorage.removeItem(LECTURA_COUNT_PREFIX + token);
-    } catch (err) {
-      warn('No se pudo limpiar contador local de lectura', err);
-    }
+  function clampNonNegativeInt(value) {
+    var parsed = Number.parseInt(String(value || '0'), 10);
+    if (!Number.isFinite(parsed) || parsed < 0) return 0;
+    return parsed;
   }
 
   function isModeDefinedInternal() {
     return state.modeChoice === 'anonimo' || state.modeChoice === 'colaborador';
+  }
+
+  function getApi() {
+    if (!ns.apiV2) {
+      warn('apiV2 no disponible');
+      return null;
+    }
+    return ns.apiV2;
+  }
+
+  function clearCollaboratorProfile() {
+    state.collaboratorId = null;
+    state.collaboratorCreatedAt = null;
+    state.displayName = null;
+    state.nivelEstudios = null;
+    state.disciplina = null;
+  }
+
+  function resetStateCore() {
+    state.sessionId = null;
+    state.browserSessionToken = createUuid();
+    state.modoParticipacion = 'anonimo';
+    state.collaboratorId = null;
+    state.collaboratorCreatedAt = null;
+    state.createdAt = null;
+    state.lastActivityAt = null;
+    state.modeChoice = 'unasked';
+    state.displayName = null;
+    state.nivelEstudios = null;
+    state.disciplina = null;
+    state.lecturaContributionCount = 0;
   }
 
   function clearLegacySessionStorage() {
@@ -185,135 +157,160 @@
     }
   }
 
-  function getApi() {
-    if (!ns.apiV2) {
-      warn('apiV2 no disponible');
-      return null;
-    }
-    return ns.apiV2;
-  }
+  function getOrCreateTabId() {
+    if (state.tabId) return state.tabId;
 
-  function clearCollaboratorProfile() {
-    state.collaboratorId = null;
-    state.collaboratorCreatedAt = null;
-    state.displayName = null;
-    state.nivelEstudios = null;
-    state.disciplina = null;
-  }
-
-  function resetStateForNewSession() {
-    state.sessionId = null;
-    state.browserSessionToken = null;
-    state.modoParticipacion = 'anonimo';
-    state.createdAt = null;
-    state.lastActivityAt = null;
-    state.modeChoice = 'unasked';
-    clearCollaboratorProfile();
-  }
-
-  function readSharedState() {
+    var stored = null;
     try {
-      var raw = localStorage.getItem(SHARED_STATE_KEY);
-      return safeParseJson(raw);
-    } catch (err) {
-      warn('No se pudo leer estado compartido localStorage', err);
-      return null;
+      stored = normalizeUuid(sessionStorage.getItem(TAB_ID_SESSION_KEY));
+    } catch (_err) {
+      stored = null;
     }
+
+    if (!stored) {
+      stored = createUuid();
+      try {
+        sessionStorage.setItem(TAB_ID_SESSION_KEY, stored);
+      } catch (_err2) {
+        // Ignore storage write errors.
+      }
+    }
+
+    state.tabId = stored;
+    return state.tabId;
   }
 
-  function applySharedStateSnapshot(snapshot) {
-    if (!snapshot || typeof snapshot !== 'object') return;
+  function snapshotForStorage() {
+    return {
+      tabId: state.tabId,
+      sessionId: state.sessionId,
+      browserSessionToken: state.browserSessionToken,
+      modoParticipacion: state.modoParticipacion,
+      collaboratorId: state.collaboratorId,
+      collaboratorCreatedAt: state.collaboratorCreatedAt,
+      createdAt: state.createdAt,
+      lastActivityAt: state.lastActivityAt,
+      modeChoice: state.modeChoice,
+      displayName: state.displayName,
+      nivelEstudios: state.nivelEstudios,
+      disciplina: state.disciplina,
+      lecturaContributionCount: state.lecturaContributionCount,
+      updatedAt: state.updatedAt
+    };
+  }
 
-    state.sessionId = normalizeUuid(snapshot.session_id) || null;
-    state.browserSessionToken = normalizeUuid(snapshot.browser_session_token) || null;
-    state.modoParticipacion = snapshot.modo_participacion === 'colaborador' ? 'colaborador' : 'anonimo';
-    state.collaboratorId = normalizeUuid(snapshot.collaborator_id) || null;
-    state.collaboratorCreatedAt = snapshot.collaborator_created_at || null;
-    state.createdAt = snapshot.created_at || null;
-    state.lastActivityAt = snapshot.last_activity_at || null;
-    state.modeChoice = VALID_MODES[snapshot.mode_choice] ? snapshot.mode_choice : state.modeChoice;
-    state.displayName = snapshot.display_name || null;
-    state.nivelEstudios = snapshot.nivel_estudios || null;
-    state.disciplina = snapshot.disciplina || null;
+  function sanitizeSharedState(input) {
+    var raw = input && typeof input === 'object' ? input : {};
+
+    var sessionId = normalizeUuid(raw.sessionId);
+    var browserSessionToken = normalizeUuid(raw.browserSessionToken);
+    var modoParticipacion = raw.modoParticipacion === 'colaborador' ? 'colaborador' : 'anonimo';
+    var modeChoice = VALID_MODES[raw.modeChoice] ? raw.modeChoice : (modoParticipacion === 'colaborador' ? 'colaborador' : 'unasked');
+    var collaboratorId = normalizeUuid(raw.collaboratorId);
+    var count = clampNonNegativeInt(raw.lecturaContributionCount);
+    var updatedAt = Number(raw.updatedAt);
+
+    return {
+      tabId: normalizeUuid(raw.tabId) || null,
+      sessionId: sessionId,
+      browserSessionToken: browserSessionToken,
+      modoParticipacion: modoParticipacion,
+      collaboratorId: collaboratorId,
+      collaboratorCreatedAt: raw.collaboratorCreatedAt || null,
+      createdAt: raw.createdAt || null,
+      lastActivityAt: raw.lastActivityAt || null,
+      modeChoice: modeChoice,
+      displayName: raw.displayName || null,
+      nivelEstudios: raw.nivelEstudios || null,
+      disciplina: raw.disciplina || null,
+      lecturaContributionCount: count,
+      updatedAt: Number.isFinite(updatedAt) && updatedAt > 0 ? updatedAt : Date.now()
+    };
+  }
+
+  function applySanitizedState(next) {
+    state.sessionId = next.sessionId;
+    state.browserSessionToken = next.browserSessionToken;
+    state.modoParticipacion = next.modoParticipacion;
+    state.collaboratorId = next.collaboratorId;
+    state.collaboratorCreatedAt = next.collaboratorCreatedAt;
+    state.createdAt = next.createdAt;
+    state.lastActivityAt = next.lastActivityAt;
+    state.modeChoice = next.modeChoice;
+    state.displayName = next.displayName;
+    state.nivelEstudios = next.nivelEstudios;
+    state.disciplina = next.disciplina;
+    state.lecturaContributionCount = next.lecturaContributionCount;
+    state.updatedAt = next.updatedAt;
 
     if (state.modoParticipacion !== 'colaborador' && state.modeChoice !== 'colaborador') {
       clearCollaboratorProfile();
     }
   }
 
-  function persistSharedState() {
-    var payload = {
-      session_id: state.sessionId || null,
-      browser_session_token: state.browserSessionToken || null,
-      modo_participacion: state.modoParticipacion || 'anonimo',
-      collaborator_id: state.collaboratorId || null,
-      collaborator_created_at: state.collaboratorCreatedAt || null,
-      created_at: state.createdAt || null,
-      last_activity_at: state.lastActivityAt || null,
-      mode_choice: VALID_MODES[state.modeChoice] ? state.modeChoice : 'unasked',
-      display_name: state.displayName || null,
-      nivel_estudios: state.nivelEstudios || null,
-      disciplina: state.disciplina || null
-    };
-
+  function readStateFromSessionStorage() {
     try {
-      localStorage.setItem(SHARED_STATE_KEY, JSON.stringify(payload));
-    } catch (err) {
-      warn('No se pudo escribir estado compartido localStorage', err);
-    }
-  }
-
-  function clearSharedState() {
-    try {
-      localStorage.removeItem(SHARED_STATE_KEY);
-    } catch (err) {
-      warn('No se pudo limpiar estado compartido localStorage', err);
-    }
-  }
-
-  function ensureBrowserToken() {
-    var current = normalizeUuid(state.browserSessionToken);
-    if (current) {
-      state.browserSessionToken = current;
-      return current;
-    }
-
-    var cookieToken = normalizeUuid(readCookie(COOKIE_NAME));
-    if (cookieToken) {
-      state.browserSessionToken = cookieToken;
-      return cookieToken;
-    }
-
-    var next = createUuid();
-    state.browserSessionToken = next;
-    return next;
-  }
-
-  function primeStateFromStorage() {
-    var snapshot = readSharedState();
-    if (snapshot) {
-      applySharedStateSnapshot(snapshot);
-    }
-
-    if (!state.browserSessionToken) {
-      var tokenFromCookie = normalizeUuid(readCookie(COOKIE_NAME));
-      if (tokenFromCookie) {
-        state.browserSessionToken = tokenFromCookie;
+      var parsed = safeParseJson(sessionStorage.getItem(SESSION_STATE_KEY));
+      if (!parsed || typeof parsed !== 'object') return false;
+      var sanitized = sanitizeSharedState(parsed);
+      if (!sanitized.browserSessionToken) {
+        sanitized.browserSessionToken = createUuid();
       }
+      applySanitizedState(sanitized);
+      return true;
+    } catch (err) {
+      warn('No se pudo leer estado en sessionStorage', err);
+      return false;
     }
+  }
 
-    var token = ensureBrowserToken();
-    var storedMode = readModeChoice(token);
-    if (!VALID_MODES[state.modeChoice] && storedMode) {
-      state.modeChoice = storedMode;
-    } else if (!VALID_MODES[state.modeChoice]) {
-      state.modeChoice = state.modoParticipacion === 'colaborador' ? 'colaborador' : 'unasked';
+  function persistStateToSessionStorage() {
+    try {
+      sessionStorage.setItem(SESSION_STATE_KEY, JSON.stringify(snapshotForStorage()));
+    } catch (err) {
+      warn('No se pudo escribir estado en sessionStorage', err);
     }
+  }
 
-    writeSessionCookie(token);
-    writeModeChoice(token, state.modeChoice);
-    syncLegacySessionStorage();
-    persistSharedState();
+  function clearStateFromSessionStorage() {
+    try {
+      sessionStorage.removeItem(SESSION_STATE_KEY);
+    } catch (err) {
+      warn('No se pudo limpiar estado en sessionStorage', err);
+    }
+  }
+
+  function getStateScore(input) {
+    var s = input && typeof input === 'object' ? input : {};
+    var score = 0;
+    if (normalizeUuid(s.sessionId)) score += 100;
+    if (VALID_MODES[s.modeChoice] && s.modeChoice !== 'unasked') score += 40;
+    if (normalizeUuid(s.browserSessionToken)) score += 20;
+    if (clampNonNegativeInt(s.lecturaContributionCount) > 0) score += 10;
+    return score;
+  }
+
+  function rememberBusId(messageId) {
+    if (!messageId) return;
+    if (seenBusIds.indexOf(messageId) !== -1) return;
+    seenBusIds.push(messageId);
+    if (seenBusIds.length > 400) {
+      seenBusIds = seenBusIds.slice(seenBusIds.length - 200);
+    }
+  }
+
+  function hasSeenBusId(messageId) {
+    if (!messageId) return false;
+    return seenBusIds.indexOf(messageId) !== -1;
+  }
+
+  function hasShareableState() {
+    return !!(
+      state.sessionId ||
+      state.browserSessionToken ||
+      state.modeChoice !== 'unasked' ||
+      state.lecturaContributionCount > 0
+    );
   }
 
   function getState() {
@@ -329,7 +326,8 @@
       modeChoice: state.modeChoice,
       displayName: state.displayName,
       nivelEstudios: state.nivelEstudios,
-      disciplina: state.disciplina
+      disciplina: state.disciplina,
+      lecturaContributionCount: state.lecturaContributionCount
     };
   }
 
@@ -343,22 +341,6 @@
       created_at: state.createdAt,
       last_activity_at: state.lastActivityAt
     };
-  }
-
-  function applySessionRow(row) {
-    if (!row) return;
-
-    state.sessionId = normalizeUuid(row.session_id) || state.sessionId;
-    state.browserSessionToken = normalizeUuid(row.browser_session_token) || state.browserSessionToken;
-    state.modoParticipacion = row.modo_participacion || state.modoParticipacion || 'anonimo';
-    state.collaboratorId = normalizeUuid(row.collaborator_id) || null;
-    state.collaboratorCreatedAt = row.collaborator_created_at || state.collaboratorCreatedAt;
-    state.createdAt = row.created_at || state.createdAt;
-    state.lastActivityAt = row.last_activity_at || state.lastActivityAt;
-
-    if (state.modoParticipacion !== 'colaborador') {
-      clearCollaboratorProfile();
-    }
   }
 
   function dispatchStateChanged(options) {
@@ -381,11 +363,229 @@
     });
 
     try {
-      window.dispatchEvent(
-        new CustomEvent('participacion:state-changed', { detail: detail })
-      );
-    } catch (err) {
-      // No-op on browsers without CustomEvent support.
+      window.dispatchEvent(new CustomEvent('participacion:state-changed', { detail: detail }));
+    } catch (_err) {
+      // Ignore.
+    }
+  }
+
+  function emitBusMessage(type, payload, targetTabId) {
+    var message = {
+      id: createUuid(),
+      fromTabId: getOrCreateTabId(),
+      targetTabId: normalizeUuid(targetTabId) || null,
+      type: String(type || '').trim(),
+      payload: payload || null,
+      ts: Date.now()
+    };
+
+    if (!message.type) return;
+
+    if (channel) {
+      try {
+        channel.postMessage(message);
+      } catch (err) {
+        warn('No se pudo publicar por BroadcastChannel', err);
+      }
+    }
+
+    try {
+      localStorage.setItem(BUS_STORAGE_KEY, JSON.stringify(message));
+      localStorage.removeItem(BUS_STORAGE_KEY);
+    } catch (_err2) {
+      // Ignore storage bus errors.
+    }
+  }
+
+  function syncAfterLocalMutation(previousState, reason, options) {
+    var input = options || {};
+    state.initialized = true;
+    persistStateToSessionStorage();
+    syncLegacySessionStorage();
+    dispatchStateChanged({ previousState: previousState, reason: reason });
+
+    if (input.broadcast === false) return;
+    var messageType = input.messageType || 'state-patch';
+    emitBusMessage(messageType, {
+      reason: reason,
+      state: snapshotForStorage()
+    });
+  }
+
+  function applyIncomingSharedState(payload, reason) {
+    if (!payload || typeof payload !== 'object') return;
+
+    var incomingState = payload.state && typeof payload.state === 'object'
+      ? payload.state
+      : payload;
+
+    var sanitized = sanitizeSharedState(incomingState);
+    if (!sanitized.browserSessionToken) return;
+
+    var currentSnapshot = snapshotForStorage();
+    var incomingScore = getStateScore(sanitized);
+    var currentScore = getStateScore(currentSnapshot);
+    var isBetter = incomingScore > currentScore;
+    var isNewer = sanitized.updatedAt >= (state.updatedAt || 0);
+
+    if (!isBetter && !isNewer) return;
+
+    var previousState = getState();
+    applySanitizedState(sanitized);
+    syncAfterLocalMutation(previousState, reason || 'cross-tab-sync', {
+      broadcast: false
+    });
+  }
+
+  function handleStateResponse(payload) {
+    if (!payload || typeof payload !== 'object') return;
+
+    var candidate = payload.state && typeof payload.state === 'object'
+      ? payload.state
+      : payload;
+
+    var sanitized = sanitizeSharedState(candidate);
+    if (!sanitized.browserSessionToken) return;
+
+    if (!pendingSync) {
+      if (!state.sessionId && state.modeChoice === 'unasked') {
+        applyIncomingSharedState({ state: sanitized }, 'init-sync');
+      }
+      return;
+    }
+
+    if (!pendingSync.best) {
+      pendingSync.best = sanitized;
+      return;
+    }
+
+    var incomingScore = getStateScore(sanitized);
+    var bestScore = getStateScore(pendingSync.best);
+    if (incomingScore > bestScore) {
+      pendingSync.best = sanitized;
+      return;
+    }
+
+    if (incomingScore === bestScore && sanitized.updatedAt > pendingSync.best.updatedAt) {
+      pendingSync.best = sanitized;
+    }
+  }
+
+  function handleBusMessage(message) {
+    if (!message || typeof message !== 'object') return;
+
+    var messageId = String(message.id || '').trim();
+    if (!messageId || hasSeenBusId(messageId)) return;
+    rememberBusId(messageId);
+
+    var fromTabId = normalizeUuid(message.fromTabId);
+    if (fromTabId && fromTabId === getOrCreateTabId()) return;
+
+    var targetTabId = normalizeUuid(message.targetTabId);
+    if (targetTabId && targetTabId !== getOrCreateTabId()) return;
+
+    var type = String(message.type || '').trim();
+    var payload = message.payload || null;
+
+    if (type === 'state-request') {
+      if (!hasShareableState()) return;
+      emitBusMessage('state-response', {
+        state: snapshotForStorage()
+      }, fromTabId);
+      return;
+    }
+
+    if (type === 'state-response') {
+      handleStateResponse(payload);
+      return;
+    }
+
+    if (type === 'state-patch') {
+      applyIncomingSharedState(payload, 'cross-tab-sync');
+      return;
+    }
+
+    if (type === 'session-reset') {
+      applyIncomingSharedState(payload, 'reset');
+    }
+  }
+
+  function handleStorageBusEvent(event) {
+    if (!event || event.key !== BUS_STORAGE_KEY) return;
+    if (!event.newValue) return;
+
+    var message = safeParseJson(event.newValue);
+    if (!message) return;
+    handleBusMessage(message);
+  }
+
+  function bindBus() {
+    if (busBound) return;
+    busBound = true;
+
+    if (typeof window.BroadcastChannel === 'function') {
+      try {
+        channel = new window.BroadcastChannel(BUS_CHANNEL_NAME);
+        channel.onmessage = function (event) {
+          if (!event || typeof event.data === 'undefined') return;
+          handleBusMessage(event.data);
+        };
+      } catch (err) {
+        channel = null;
+        warn('BroadcastChannel no disponible; se usara fallback storage', err);
+      }
+    }
+
+    window.addEventListener('storage', handleStorageBusEvent);
+  }
+
+  function requestStateFromPeers() {
+    if (pendingSync) return pendingSync.promise;
+
+    pendingSync = {
+      best: null,
+      promise: null
+    };
+
+    pendingSync.promise = new Promise(function (resolve) {
+      emitBusMessage('state-request', {
+        requestedAt: Date.now()
+      });
+
+      window.setTimeout(function () {
+        var winner = pendingSync ? pendingSync.best : null;
+        pendingSync = null;
+        resolve(winner);
+      }, SYNC_REQUEST_TIMEOUT_MS);
+    });
+
+    return pendingSync.promise;
+  }
+
+  function ensureBrowserSessionToken() {
+    var token = normalizeUuid(state.browserSessionToken);
+    if (token) {
+      state.browserSessionToken = token;
+      return token;
+    }
+
+    state.browserSessionToken = createUuid();
+    return state.browserSessionToken;
+  }
+
+  function applySessionRow(row) {
+    if (!row || typeof row !== 'object') return;
+
+    state.sessionId = normalizeUuid(row.session_id) || state.sessionId;
+    state.browserSessionToken = normalizeUuid(row.browser_session_token) || state.browserSessionToken;
+    state.modoParticipacion = row.modo_participacion === 'colaborador' ? 'colaborador' : 'anonimo';
+    state.collaboratorId = normalizeUuid(row.collaborator_id) || null;
+    state.collaboratorCreatedAt = row.collaborator_created_at || state.collaboratorCreatedAt;
+    state.createdAt = row.created_at || state.createdAt;
+    state.lastActivityAt = row.last_activity_at || state.lastActivityAt;
+
+    if (state.modoParticipacion !== 'colaborador') {
+      clearCollaboratorProfile();
     }
   }
 
@@ -406,20 +606,36 @@
   }
 
   async function init() {
-    if (state.initialized) {
-      return getState();
-    }
-
-    if (state.initPromise) {
-      return state.initPromise;
-    }
+    if (state.initialized) return getState();
+    if (state.initPromise) return state.initPromise;
 
     state.initPromise = (async function () {
-      primeStateFromStorage();
-      bindLifecycleEvents();
-      registerCurrentTabPresence();
-      startTabHeartbeat();
+      getOrCreateTabId();
+      bindBus();
+
+      var hadStoredState = readStateFromSessionStorage();
+      if (!hadStoredState) {
+        resetStateCore();
+        state.updatedAt = Date.now();
+      }
+
+      var needsPeerSync = !hadStoredState || (
+        !state.sessionId &&
+        state.modeChoice === 'unasked' &&
+        clampNonNegativeInt(state.lecturaContributionCount) === 0
+      );
+
+      if (needsPeerSync) {
+        var candidate = await requestStateFromPeers();
+        if (candidate) {
+          applySanitizedState(candidate);
+        }
+      }
+
+      ensureBrowserSessionToken();
       state.initialized = true;
+      persistStateToSessionStorage();
+      syncLegacySessionStorage();
       return getState();
     })().finally(function () {
       state.initPromise = null;
@@ -431,10 +647,6 @@
   async function ensureSessionForWrite() {
     await init();
 
-    if (state.sessionId) {
-      return { ok: true, session: getPublicSessionData() };
-    }
-
     if (state.ensurePromise) {
       return state.ensurePromise;
     }
@@ -444,12 +656,11 @@
       return { ok: false, error: { message: 'Sesion no disponible' } };
     }
 
-    var previousState = getState();
     state.ensurePromise = (async function () {
-      var token = ensureBrowserToken();
-      writeSessionCookie(token);
-
+      var token = ensureBrowserSessionToken();
+      var previousState = getState();
       var response = await api.bootstrapSession(token);
+
       if (response.error || !response.data || !response.data.session_id) {
         warn('No se pudo bootstrap de sesion en envio', response.error);
         return {
@@ -459,15 +670,26 @@
       }
 
       applySessionRow(response.data);
-
       if (!VALID_MODES[state.modeChoice]) {
         state.modeChoice = state.modoParticipacion === 'colaborador' ? 'colaborador' : 'unasked';
       }
+      state.updatedAt = Date.now();
+      var changed = (
+        previousState.sessionId !== state.sessionId ||
+        previousState.browserSessionToken !== state.browserSessionToken ||
+        previousState.modoParticipacion !== state.modoParticipacion ||
+        previousState.collaboratorId !== state.collaboratorId ||
+        previousState.modeChoice !== state.modeChoice
+      );
 
-      writeModeChoice(state.browserSessionToken, state.modeChoice);
-      syncLegacySessionStorage();
-      persistSharedState();
-      dispatchStateChanged({ previousState: previousState, reason: 'bootstrap-write' });
+      if (changed) {
+        syncAfterLocalMutation(previousState, 'write-bootstrap');
+      } else {
+        state.initialized = true;
+        persistStateToSessionStorage();
+        syncLegacySessionStorage();
+      }
+
       log('Sesion lista para participacion', getPublicSessionData());
       return { ok: true, session: getPublicSessionData() };
     })().finally(function () {
@@ -479,13 +701,13 @@
 
   async function setAnonimo() {
     await init();
+
     var ensured = await ensureSessionForWrite();
     if (!ensured.ok) {
       return { ok: false, error: ensured.error || { message: 'Sesion no disponible' } };
     }
 
     var api = getApi();
-    var previousState = getState();
     if (!api || !state.sessionId) {
       return { ok: false, error: { message: 'Sesion no disponible' } };
     }
@@ -495,38 +717,52 @@
       return { ok: false, error: response.error || { message: 'No se pudo fijar modo anonimo' } };
     }
 
+    var previousState = getState();
     applySessionRow(response.data);
     state.modeChoice = 'anonimo';
     clearCollaboratorProfile();
+    state.updatedAt = Date.now();
 
-    writeModeChoice(state.browserSessionToken, state.modeChoice);
-    syncLegacySessionStorage();
-    persistSharedState();
-    dispatchStateChanged({ previousState: previousState, reason: 'set-anonimo' });
+    syncAfterLocalMutation(previousState, 'mode-change');
     return { ok: true, session: getPublicSessionData() };
   }
 
   async function registerAndBind(email, displayName, profile) {
     await init();
+
     var ensured = await ensureSessionForWrite();
     if (!ensured.ok) {
       return { ok: false, reason: 'invalid_session', error: ensured.error || null };
     }
 
     var api = getApi();
-    var previousState = getState();
     if (!api || !state.sessionId) {
       return { ok: false, reason: 'invalid_session' };
     }
 
     var inputProfile = profile || {};
+    var consentAccepted = inputProfile.consent_rgpd === true;
+    var consentVersion = String(inputProfile.consent_rgpd_version || '').trim();
+    var consentAcceptedAt = inputProfile.consent_accepted_at || null;
+
+    if (!consentAccepted || !consentVersion) {
+      return {
+        ok: false,
+        reason: 'missing_consent',
+        error: { message: 'Debes aceptar la política de privacidad para registrarte.' }
+      };
+    }
+
     var emailHash = await hashEmail(email);
     var response = await api.registerAndBindSession({
       sessionId: state.sessionId,
       emailHash: emailHash,
       displayName: displayName || null,
       nivelEstudios: inputProfile.nivel_estudios || null,
-      disciplina: inputProfile.disciplina || null
+      disciplina: inputProfile.disciplina || null,
+      consentRgpd: consentAccepted,
+      consentRgpdVersion: consentVersion,
+      consentAcceptedAt: consentAcceptedAt
     });
 
     if (response.error || !response.data) {
@@ -541,20 +777,19 @@
       };
     }
 
+    var previousState = getState();
     applySessionRow(response.data.session || null);
     state.modeChoice = 'colaborador';
 
     var collaborator = response.data.collaborator || {};
-    state.collaboratorId = collaborator.collaborator_id || state.collaboratorId;
+    state.collaboratorId = normalizeUuid(collaborator.collaborator_id) || state.collaboratorId;
     state.collaboratorCreatedAt = collaborator.created_at || state.collaboratorCreatedAt;
     state.displayName = collaborator.display_name || null;
     state.nivelEstudios = collaborator.nivel_estudios || null;
     state.disciplina = collaborator.disciplina || null;
+    state.updatedAt = Date.now();
 
-    writeModeChoice(state.browserSessionToken, state.modeChoice);
-    syncLegacySessionStorage();
-    persistSharedState();
-    dispatchStateChanged({ previousState: previousState, reason: 'register-and-bind' });
+    syncAfterLocalMutation(previousState, 'mode-change');
 
     return {
       ok: true,
@@ -565,13 +800,13 @@
 
   async function loginAndBind(email) {
     await init();
+
     var ensured = await ensureSessionForWrite();
     if (!ensured.ok) {
       return { ok: false, found: false, reason: 'invalid_session', error: ensured.error || null };
     }
 
     var api = getApi();
-    var previousState = getState();
     if (!api || !state.sessionId) {
       return { ok: false, found: false, reason: 'invalid_session' };
     }
@@ -599,20 +834,19 @@
       return { ok: true, found: false, collaborator: null };
     }
 
+    var previousState = getState();
     applySessionRow(response.data.session || null);
     state.modeChoice = 'colaborador';
 
     var collaborator = response.data.collaborator || {};
-    state.collaboratorId = collaborator.collaborator_id || state.collaboratorId;
+    state.collaboratorId = normalizeUuid(collaborator.collaborator_id) || state.collaboratorId;
     state.collaboratorCreatedAt = collaborator.created_at || state.collaboratorCreatedAt;
     state.displayName = collaborator.display_name || null;
     state.nivelEstudios = collaborator.nivel_estudios || null;
     state.disciplina = collaborator.disciplina || null;
+    state.updatedAt = Date.now();
 
-    writeModeChoice(state.browserSessionToken, state.modeChoice);
-    syncLegacySessionStorage();
-    persistSharedState();
-    dispatchStateChanged({ previousState: previousState, reason: 'login-and-bind' });
+    syncAfterLocalMutation(previousState, 'mode-change');
 
     return {
       ok: true,
@@ -624,41 +858,31 @@
 
   async function resetToUnasked() {
     await init();
-    var api = getApi();
-    var previousState = getState();
-    var previousToken = previousState.browserSessionToken;
 
-    if (api && previousState.sessionId) {
-      var detachResponse = await api.setModeAnonimo(previousState.sessionId);
+    var api = getApi();
+    if (api && state.sessionId) {
+      var detachResponse = await api.setModeAnonimo(state.sessionId);
       if (detachResponse.error) {
         warn('No se pudo desasociar colaborador en reset', detachResponse.error);
       }
     }
 
-    clearSessionCookie();
-    clearLegacySessionStorage();
-    resetStateForNewSession();
-    state.modeChoice = 'unasked';
-    clearCollaboratorProfile();
-    state.browserSessionToken = createUuid();
-    writeSessionCookie(state.browserSessionToken);
-    writeModeChoice(state.browserSessionToken, state.modeChoice);
-    persistSharedState();
-    clearLegacySessionStorage();
+    var previousState = getState();
+    resetStateCore();
+    state.updatedAt = Date.now();
+    clearStateFromSessionStorage();
 
-    if (previousToken) {
-      removeModeChoice(previousToken);
-      removeLecturaCount(previousToken);
-    }
+    syncAfterLocalMutation(previousState, 'reset', {
+      messageType: 'session-reset'
+    });
 
-    dispatchStateChanged({ previousState: previousState, reason: 'session-reset' });
     return { ok: true, session: getPublicSessionData() };
   }
 
   async function refreshFromServer(modeHint) {
     await init();
+
     var api = getApi();
-    var previousState = getState();
     if (!api || !state.browserSessionToken || !state.sessionId) {
       return { ok: false, error: { message: 'Sesion no disponible para refresh' } };
     }
@@ -668,6 +892,7 @@
       return { ok: false, error: response.error || { message: 'No se pudo refrescar sesion' } };
     }
 
+    var previousState = getState();
     applySessionRow(response.data);
 
     if (VALID_MODES[modeHint]) {
@@ -677,16 +902,15 @@
     } else if (!VALID_MODES[state.modeChoice]) {
       state.modeChoice = 'unasked';
     }
+    state.updatedAt = Date.now();
 
-    writeModeChoice(state.browserSessionToken, state.modeChoice);
-    syncLegacySessionStorage();
-    persistSharedState();
-    dispatchStateChanged({ previousState: previousState, reason: 'refresh-from-server' });
+    syncAfterLocalMutation(previousState, 'cross-tab-sync');
     return { ok: true, state: getState() };
   }
 
   function getLegacyUserData() {
     if (!state.sessionId || !isModeDefinedInternal()) return null;
+
     return {
       session_id: state.sessionId,
       modo_participacion: state.modeChoice,
@@ -700,6 +924,7 @@
   async function getStats() {
     var legacyData = getLegacyUserData();
     if (!legacyData || !legacyData.session_id) return null;
+
     var api = getApi();
     if (!api || typeof api.getSessionStats !== 'function') return null;
 
@@ -719,6 +944,18 @@
     };
   }
 
+  function getLecturaContributionCount() {
+    return clampNonNegativeInt(state.lecturaContributionCount);
+  }
+
+  function incrementLecturaContributionCount() {
+    var previousState = getState();
+    state.lecturaContributionCount = clampNonNegativeInt(state.lecturaContributionCount) + 1;
+    state.updatedAt = Date.now();
+    syncAfterLocalMutation(previousState, 'count-change');
+    return state.lecturaContributionCount;
+  }
+
   ns.session = {
     init: init,
     ensureSessionForWrite: ensureSessionForWrite,
@@ -734,161 +971,8 @@
     refreshFromServer: refreshFromServer,
     hashEmail: hashEmail,
     getLegacyUserData: getLegacyUserData,
-    getStats: getStats
+    getStats: getStats,
+    getLecturaContributionCount: getLecturaContributionCount,
+    incrementLecturaContributionCount: incrementLecturaContributionCount
   };
-
-  function readTabRegistryRaw() {
-    try {
-      return safeParseJson(localStorage.getItem(TAB_REGISTRY_KEY)) || {};
-    } catch (_err) {
-      return {};
-    }
-  }
-
-  function normalizeTabRegistry(input, nowTs) {
-    var source = input && typeof input === 'object' ? input : {};
-    var now = Number.isFinite(nowTs) ? nowTs : Date.now();
-    var normalized = {};
-
-    Object.keys(source).forEach(function (tabId) {
-      var raw = Number(source[tabId]);
-      if (!Number.isFinite(raw)) return;
-      if (now - raw > TAB_STALE_MS) return;
-      normalized[tabId] = raw;
-    });
-
-    return normalized;
-  }
-
-  function writeTabRegistry(registry) {
-    var payload = registry && typeof registry === 'object' ? registry : {};
-    var keys = Object.keys(payload);
-    try {
-      if (!keys.length) {
-        localStorage.removeItem(TAB_REGISTRY_KEY);
-        return;
-      }
-      localStorage.setItem(TAB_REGISTRY_KEY, JSON.stringify(payload));
-    } catch (err) {
-      warn('No se pudo escribir registro de pestanas', err);
-    }
-  }
-
-  function getOrCreateTabId() {
-    var stored = null;
-    try {
-      stored = normalizeUuid(sessionStorage.getItem(TAB_ID_SESSION_KEY));
-    } catch (_err) {
-      stored = null;
-    }
-
-    if (stored) return stored;
-
-    var next = createUuid();
-    try {
-      sessionStorage.setItem(TAB_ID_SESSION_KEY, next);
-    } catch (_err) {
-      // Ignore.
-    }
-    return next;
-  }
-
-  function registerCurrentTabPresence() {
-    var tabId = getOrCreateTabId();
-    var now = Date.now();
-    var registry = normalizeTabRegistry(readTabRegistryRaw(), now);
-    registry[tabId] = now;
-    writeTabRegistry(registry);
-    tabUnregistered = false;
-  }
-
-  function unregisterCurrentTabPresence() {
-    if (tabUnregistered) return;
-    tabUnregistered = true;
-
-    var tabId = null;
-    try {
-      tabId = normalizeUuid(sessionStorage.getItem(TAB_ID_SESSION_KEY));
-    } catch (_err) {
-      tabId = null;
-    }
-    if (!tabId) return;
-
-    var now = Date.now();
-    var registry = normalizeTabRegistry(readTabRegistryRaw(), now);
-    delete registry[tabId];
-    var remaining = Object.keys(registry).length;
-    writeTabRegistry(registry);
-
-    if (remaining === 0) {
-      var token = state.browserSessionToken || normalizeUuid(readCookie(COOKIE_NAME));
-      if (token) {
-        removeModeChoice(token);
-        removeLecturaCount(token);
-      }
-      clearSharedState();
-      clearSessionCookie();
-      clearLegacySessionStorage();
-    }
-  }
-
-  function startTabHeartbeat() {
-    if (tabHeartbeatHandle) return;
-    tabHeartbeatHandle = window.setInterval(function () {
-      registerCurrentTabPresence();
-    }, TAB_HEARTBEAT_MS);
-  }
-
-  function stopTabHeartbeat() {
-    if (!tabHeartbeatHandle) return;
-    window.clearInterval(tabHeartbeatHandle);
-    tabHeartbeatHandle = null;
-  }
-
-  function handleSharedStateStorageEvent(event) {
-    if (!event || event.key !== SHARED_STATE_KEY) return;
-
-    var previousState = getState();
-    if (!event.newValue) {
-      resetStateForNewSession();
-      state.modeChoice = 'unasked';
-      state.initialized = true;
-      syncLegacySessionStorage();
-      dispatchStateChanged({ previousState: previousState, reason: 'storage-cleared' });
-      return;
-    }
-
-    var snapshot = safeParseJson(event.newValue);
-    if (!snapshot) return;
-
-    applySharedStateSnapshot(snapshot);
-    if (!VALID_MODES[state.modeChoice]) {
-      var storedMode = readModeChoice(state.browserSessionToken);
-      state.modeChoice = storedMode || (state.modoParticipacion === 'colaborador' ? 'colaborador' : 'unasked');
-    }
-    state.initialized = true;
-    syncLegacySessionStorage();
-    dispatchStateChanged({ previousState: previousState, reason: 'storage-sync' });
-  }
-
-  function bindLifecycleEvents() {
-    if (lifecycleBound) return;
-    lifecycleBound = true;
-
-    window.addEventListener('storage', handleSharedStateStorageEvent);
-    window.addEventListener('pagehide', function () {
-      stopTabHeartbeat();
-      unregisterCurrentTabPresence();
-    });
-    window.addEventListener('beforeunload', function () {
-      stopTabHeartbeat();
-      unregisterCurrentTabPresence();
-    });
-  }
-
-  primeStateFromStorage();
-  bindLifecycleEvents();
-  registerCurrentTabPresence();
-  startTabHeartbeat();
-  state.initialized = true;
 })();

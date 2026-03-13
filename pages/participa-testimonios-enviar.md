@@ -119,7 +119,7 @@ custom-foot: participacion/scripts-testimonio-form.html
         <div class="form-check mt-3">
           <input class="form-check-input" type="checkbox" value="1" id="testimonio-consent" required>
           <label class="form-check-label" for="testimonio-consent">
-            Acepto la política de privacidad para este envío. *
+            Acepto la <a href="{{ '/privacidad/' | relative_url }}" target="_blank" rel="noopener noreferrer">política de privacidad</a> para este envío. *
           </label>
         </div>
       </fieldset>
@@ -143,4 +143,3 @@ custom-foot: participacion/scripts-testimonio-form.html
     </section>
   </div>
 </section>
-

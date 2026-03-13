@@ -114,7 +114,7 @@ custom-foot: participacion/scripts-contribucion-form.html
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="1" id="contribucion-consent" required>
             <label class="form-check-label" for="contribucion-consent">
-              Acepto la politica de privacidad para este envio. *
+              Acepto la <a href="{{ '/privacidad/' | relative_url }}" target="_blank" rel="noopener noreferrer">política de privacidad</a> para este envío. *
             </label>
           </div>
         </fieldset>

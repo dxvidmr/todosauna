@@ -1,6 +1,6 @@
 # Mapa de protección de datos (foto técnica actual)
 
-Última revisión técnica: 2026-03-11  
+Última revisión técnica: 2026-03-13  
 Proyecto: Todos a una
 
 Este documento describe qué datos se registran realmente en el sistema, cuándo se registran y qué puede ver o recuperar una persona usuaria desde la web actual.
@@ -9,13 +9,15 @@ Este documento describe qué datos se registran realmente en el sistema, cuándo
 
 - Las visitas sin participación no crean filas en `public.sesiones` ni en otras tablas de participación.
 - La sesión de Supabase se crea solo cuando hay una acción de participación con escritura real (evaluación, sugerencia, envío de testimonio, subida/envío de documento, registro/login colaborador).
+- El estado de participación vive en `sessionStorage` y se sincroniza entre pestañas abiertas en tiempo real.
+- Si se cierran todas las pestañas, la sesión local se pierde y al volver se empieza sin modo elegido.
 - La navegación general de visitas debe medirse con analítica web (por ejemplo, Google Analytics), fuera de Supabase.
 
 ## Matriz única de tratamiento de datos
 
 | Flujo / actor | Qué datos se registran exactamente | Dónde se guardan | Cuándo se registran | Para qué se usan | Qué puede recuperar/ver la persona usuaria desde la web | Qué no es recuperable desde la web actual | Qué queda visible públicamente |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Visita pasiva (sin participación) | No se registra `session_id` en Supabase. En navegador se mantiene estado técnico local: `browser_session_token` y `mode_choice` para continuidad UX entre pestañas. | Navegador (`cookie` de sesión + `localStorage` + `sessionStorage` legacy). | Al cargar scripts de participación, sin enviar nada al backend. | Compartir estado entre pestañas y preparar UX sin crear registro server-side. | Solo efectos de UX local (estado de modo/gates en la sesión de navegador). | No hay fila de sesión en Supabase que consultar/exportar. | Nada. |
+| Visita pasiva (sin participación) | No se registra `session_id` en Supabase. En navegador se mantiene estado técnico efímero: `browser_session_token`, `mode_choice` y contador de contribución de lectura. | `sessionStorage` + sincronización entre pestañas con `BroadcastChannel` (fallback por `storage` event transitorio). | Al cargar scripts de participación, sin enviar nada al backend. | Compartir estado entre pestañas abiertas y evitar persistencia duradera. | Solo efectos de UX local (estado de modo/gates dentro de la sesión activa de pestañas). | No hay fila de sesión en Supabase que consultar/exportar. Al cerrar todas las pestañas, se pierde este estado. | Nada. |
 | Alta de sesión de participación (primer write real) | `session_id`, `browser_session_token`, `modo_participacion` inicial, timestamps de sesión. | `public.sesiones` (Supabase). | En el primer envío real que requiere escritura. | Vincular eventos de participación a una sesión técnica. | Estado de sesión/mode en UI y perfil de participación de la sesión actual. | No hay descarga de fila cruda desde UI pública. | Nada. |
 | Evaluación de nota / sugerencia de falta de nota | `session_id`, `source`, `event_type`, `nota_id`/`target_xmlid`, `vote`, `comment` opcional, timestamp; además eventos anti-flood con `ip_hash`. | `public.evaluaciones` + `public.participacion_rate_limit_events`. | En cada envío de evaluación/sugerencia. | Mejora editorial, métricas agregadas y control anti-abuso. | Feedback inmediato en UI, estado 'nota evaluada', y contadores agregados de su sesión. | No acceso a filas crudas ni a `ip_hash`. | Solo agregados (conteos/estadísticas), no datos personales crudos. |
 | Registro/login colaborador | `email_hash` (SHA-256), `display_name` opcional, `nivel_estudios` opcional, `disciplina` opcional, vínculo a sesión (`collaborator_id`). | `public.colaboradores` + `public.sesiones`. | Al registrarse o identificarse como colaborador/a. | Permitir atribución y recuperación de contribuciones sin guardar email en claro. | Puede volver a identificarse con el mismo email (comparación por hash) y ver su modo/perfil. | Email en claro y contraseña (no se almacenan). | No se publica `email_hash`. |
