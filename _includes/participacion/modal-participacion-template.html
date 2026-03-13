@@ -70,36 +70,92 @@
 
       <div id="form-colaborador-registro" class="modo-form" style="display:none;">
         <form id="form-colaborador-registro-datos">
-          <label>Email<input type="email" name="email" required placeholder="tu@email.com"></label>
-          <label>Confirmar email<input type="email" name="confirm_email" required placeholder="Repite tu email"></label>
-          <label>Nombre (opcional)<input type="text" name="display_name" placeholder="María G." maxlength="50"></label>
-          <label>Nivel de estudios (opcional)
-            <select name="nivel_estudios">
-              <option value="">Prefiero no decirlo</option>
-              <option value="secundaria">Secundaria</option>
-              <option value="grado">Grado universitario</option>
-              <option value="posgrado">Máster/Posgrado</option>
-              <option value="doctorado">Doctorado</option>
-              <option value="otro">Otro</option>
-            </select>
+          <label>Email <span class="required-mark" aria-hidden="true">*</span>
+            <input type="email" name="email" required placeholder="tu@email.com" autocomplete="email">
           </label>
-          <label>Disciplina (opcional)
-            <select name="disciplina">
-              <option value="">Prefiero no decirlo</option>
-              <option value="filologia">Filología/Lengua/Literatura</option>
-              <option value="historia">Historia</option>
-              <option value="educacion">Educación</option>
-              <option value="arte">Arte/Teatro</option>
-              <option value="humanidades">Humanidades</option>
-              <option value="ciencias_sociales">Ciencias Sociales</option>
-              <option value="otro">Otra</option>
-            </select>
+          <label class="label-derivado">Confirmar email <span class="required-mark" aria-hidden="true">*</span>
+            <input type="email" name="confirm_email" required placeholder="Repite tu email" autocomplete="email">
+            <small class="field-helper">Debe coincidir con el email anterior.</small>
           </label>
+          <label>Nombre <span class="optional-note">(opcional)</span>
+            <input type="text" name="display_name" placeholder="María G." maxlength="50" autocomplete="name">
+          </label>
+
+          <details class="modal-optional-group">
+            <summary>
+              <span class="modal-optional-summary-text">Algunos datos más sobre ti <span class="optional-note">(opcional)</span></span>
+              <i class="fa-solid fa-chevron-down modal-optional-summary-icon" aria-hidden="true"></i>
+            </summary>
+            <div class="modal-optional-content">
+              <label>Nivel de estudios
+                <select name="nivel_estudios">
+                  <option value="">Prefiero no decirlo</option>
+                  <option value="secundaria">Secundaria</option>
+                  <option value="grado">Grado universitario</option>
+                  <option value="posgrado">Máster/Posgrado</option>
+                  <option value="doctorado">Doctorado</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </label>
+              <label>Disciplina
+                <select name="disciplina">
+                  <option value="">Prefiero no decirlo</option>
+                  <option value="filologia">Filología/Lengua/Literatura</option>
+                  <option value="historia">Historia</option>
+                  <option value="educacion">Educación</option>
+                  <option value="arte">Arte/Teatro</option>
+                  <option value="humanidades">Humanidades</option>
+                  <option value="ciencias_sociales">Ciencias Sociales</option>
+                  <option value="otro">Otra</option>
+                </select>
+              </label>
+              <label>Año de nacimiento
+                <input
+                  type="number"
+                  name="anio_nacimiento"
+                  min="1900"
+                  max="2100"
+                  step="1"
+                  inputmode="numeric"
+                  placeholder="1990"
+                >
+              </label>
+
+              <fieldset class="modal-checkbox-group">
+                <legend class="field-group-title">Relación con la obra</legend>
+                <label><input type="checkbox" name="relacion_obra" value="lectura"> Lectura</label>
+                <label><input type="checkbox" name="relacion_obra" value="espectador_teatro"> Espectador/a de teatro</label>
+                <label><input type="checkbox" name="relacion_obra" value="creacion_escenica"> Creación escénica</label>
+                <label><input type="checkbox" name="relacion_obra" value="docencia"> Docencia</label>
+                <label><input type="checkbox" name="relacion_obra" value="investigacion"> Investigación</label>
+                <label><input type="checkbox" name="relacion_obra" value="edicion_literaria"> Edición literaria</label>
+              </fieldset>
+
+              <p class="field-group-title">Ciudad y país de referencia (GeoNames)</p>
+              <div class="modal-location-row modal-location-row--full">
+                <div>
+                  <input type="text" id="registro-city-input" placeholder="Ciudad (escribe y elige una de la lista)">
+                </div>
+                <div>
+                  <input type="text" id="registro-country-display" readonly placeholder="País">
+                </div>
+                <button type="button" class="btn btn-outline-dark btn-sm" id="registro-clear-city">Limpiar</button>
+              </div>
+              <small class="field-helper">Opcional. Solo se usa si decides completarlo. Si escribes ciudad, selecciona una opción de la lista.</small>
+              <input type="hidden" id="registro-city-name" name="city_name">
+              <input type="hidden" id="registro-city-geoname-id" name="city_geoname_id">
+              <input type="hidden" id="registro-country-name" name="country_name">
+              <input type="hidden" id="registro-country-geoname-id" name="country_geoname_id">
+              <p id="registro-geo-status" class="participa-inline-status" hidden aria-live="polite"></p>
+            </div>
+          </details>
+
+          <p id="form-colaborador-registro-status" class="participa-form-status" hidden aria-live="polite"></p>
           <div class="form-check modal-legal-check">
             <input class="form-check-input" type="checkbox" id="registro-privacy-consent" name="privacy_consent" required>
             <label class="form-check-label" for="registro-privacy-consent">
               He leído y acepto la
-              <a href="{{ '/privacidad/' | relative_url }}" target="_blank" rel="noopener noreferrer">Política de privacidad</a>. *
+              <a href="{{ '/privacidad/' | relative_url }}" target="_blank" rel="noopener noreferrer">Política de privacidad</a>. <span class="required-mark" aria-hidden="true">*</span>
             </label>
           </div>
           <div class="botones-modal modal-actions">

@@ -8,6 +8,14 @@
   var ns = window.Participacion || (window.Participacion = {});
   if (ns.modal) return;
   var REGISTER_CONSENT_VERSION = 'colaborador-registro-v1';
+  var RELACION_OBRA_ALLOWED = {
+    lectura: true,
+    espectador_teatro: true,
+    creacion_escenica: true,
+    docencia: true,
+    investigacion: true,
+    edicion_literaria: true
+  };
 
   function notify(message, type, duration) {
     var text = String(message || '').trim();
@@ -28,6 +36,89 @@
     }
 
     console.log('[participacion] ' + text);
+  }
+
+  function setFormStatus(element, message, type) {
+    if (!element) return;
+    var text = String(message || '').trim();
+    element.textContent = text;
+    element.className = 'participa-form-status' + (type ? ' is-' + type : '');
+    element.hidden = !text;
+  }
+
+  function getFormInvalidMessageEs(input) {
+    if (!input || typeof input.validity === 'undefined') return '';
+
+    var name = String(input.name || '').trim();
+    var validity = input.validity;
+
+    if (name === 'email') {
+      if (validity.valueMissing) return 'El email es obligatorio.';
+      if (validity.typeMismatch) return 'Introduce un email válido.';
+    }
+
+    if (name === 'confirm_email') {
+      if (validity.valueMissing) return 'Debes confirmar tu email.';
+      if (validity.typeMismatch) return 'Introduce un email válido.';
+    }
+
+    if (name === 'privacy_consent') {
+      if (validity.valueMissing) return 'Debes aceptar la política de privacidad para registrarte.';
+    }
+
+    if (name === 'anio_nacimiento') {
+      if (validity.badInput) return 'Introduce un año válido.';
+      if (validity.rangeUnderflow || validity.rangeOverflow) {
+        return 'El año de nacimiento debe estar entre 1900 y el año actual.';
+      }
+    }
+
+    if (validity.valueMissing) return 'Este campo es obligatorio.';
+    return '';
+  }
+
+  function parseOptionalPositiveInt(value) {
+    var raw = String(value || '').trim();
+    if (!raw) return null;
+    var parsed = Number.parseInt(raw, 10);
+    if (!Number.isFinite(parsed) || parsed <= 0) return null;
+    return parsed;
+  }
+
+  function sanitizeOptionalText(value) {
+    var text = String(value || '').trim();
+    return text || null;
+  }
+
+  function parseOptionalBirthYear(value) {
+    var raw = String(value || '').trim();
+    if (!raw) return { value: null, error: null };
+
+    var year = Number(raw);
+    var currentYear = new Date().getFullYear();
+    if (!Number.isInteger(year)) {
+      return { value: null, error: 'Introduce un año válido (formato YYYY).' };
+    }
+
+    if (year < 1900 || year > currentYear) {
+      return { value: null, error: 'El año de nacimiento debe estar entre 1900 y el año actual.' };
+    }
+
+    return { value: year, error: null };
+  }
+
+  function sanitizeRelacionObra(values) {
+    if (!Array.isArray(values) || values.length === 0) return null;
+
+    var unique = [];
+    values.forEach(function (value) {
+      var normalized = String(value || '').trim();
+      if (!RELACION_OBRA_ALLOWED[normalized]) return;
+      if (unique.indexOf(normalized) !== -1) return;
+      unique.push(normalized);
+    });
+
+    return unique.length ? unique : null;
   }
 
   function getUserMessage(error, context, fallback) {
@@ -150,6 +241,8 @@
     this.colaboradorOpciones = null;
     this.formLogin = null;
     this.formRegistro = null;
+    this.formRegistroStatus = null;
+    this.registroGeoController = null;
     this.profileView = null;
     this._resolveOpen = null;
     this._buttonsBound = false;
@@ -259,6 +352,7 @@
     this.colaboradorOpciones = this.modal.querySelector('#colaborador-opciones');
     this.formLogin = this.modal.querySelector('#form-colaborador-login');
     this.formRegistro = this.modal.querySelector('#form-colaborador-registro');
+    this.formRegistroStatus = this.modal.querySelector('#form-colaborador-registro-status');
     this.profileView = this.modal.querySelector('#perfil-participacion');
 
     this._attachModalEvents();
@@ -309,10 +403,51 @@
 
     var formRegistro = this.modal.querySelector('#form-colaborador-registro-datos');
     if (formRegistro) {
+      var anioNacimientoInput = formRegistro.querySelector('input[name="anio_nacimiento"]');
+      if (anioNacimientoInput) {
+        anioNacimientoInput.setAttribute('max', String(new Date().getFullYear()));
+      }
+
+      formRegistro.addEventListener('invalid', function (event) {
+        var target = event && event.target ? event.target : null;
+        if (!target || typeof target.setCustomValidity !== 'function') return;
+        var invalidMessage = getFormInvalidMessageEs(target);
+        if (!invalidMessage) return;
+        target.setCustomValidity(invalidMessage);
+        setFormStatus(self.formRegistroStatus, invalidMessage, 'error');
+      }, true);
+
       formRegistro.addEventListener('submit', async function (event) {
         event.preventDefault();
         await self._submitRegistro(formRegistro);
       });
+      formRegistro.addEventListener('input', function (event) {
+        var target = event && event.target ? event.target : null;
+        if (target && typeof target.setCustomValidity === 'function') {
+          target.setCustomValidity('');
+        }
+        setFormStatus(self.formRegistroStatus, '', '');
+      });
+      formRegistro.addEventListener('change', function (event) {
+        var target = event && event.target ? event.target : null;
+        if (target && typeof target.setCustomValidity === 'function') {
+          target.setCustomValidity('');
+        }
+        setFormStatus(self.formRegistroStatus, '', '');
+      });
+
+      if (ns.geo && typeof ns.geo.attachCityAutocomplete === 'function') {
+        self.registroGeoController = ns.geo.attachCityAutocomplete({
+          input: '#registro-city-input',
+          cityNameField: '#registro-city-name',
+          cityIdField: '#registro-city-geoname-id',
+          countryNameField: '#registro-country-name',
+          countryIdField: '#registro-country-geoname-id',
+          countryDisplayField: '#registro-country-display',
+          clearButton: '#registro-clear-city',
+          statusField: '#registro-geo-status'
+        });
+      }
     }
   };
 
@@ -321,6 +456,10 @@
     forms.forEach(function (form) {
       form.reset();
     });
+    if (this.registroGeoController && typeof this.registroGeoController.clear === 'function') {
+      this.registroGeoController.clear();
+    }
+    setFormStatus(this.formRegistroStatus, '', '');
   };
 
   ModalParticipacion.prototype._hideAllViews = function () {
@@ -610,32 +749,99 @@
     var formData = new FormData(form);
     var email = String(formData.get('email') || '').trim();
     var confirmEmail = String(formData.get('confirm_email') || '').trim();
-    var displayName = String(formData.get('display_name') || '').trim() || null;
-    var nivel = formData.get('nivel_estudios') || null;
-    var disciplina = formData.get('disciplina') || null;
+    var displayName = sanitizeOptionalText(formData.get('display_name'));
+    var nivel = sanitizeOptionalText(formData.get('nivel_estudios'));
+    var disciplina = sanitizeOptionalText(formData.get('disciplina'));
+    var anioNacimientoRaw = formData.get('anio_nacimiento');
+    var anioNacimientoInput = form ? form.querySelector('input[name="anio_nacimiento"]') : null;
+    var cityInput = form ? form.querySelector('#registro-city-input') : null;
+    var cityInputValue = cityInput ? String(cityInput.value || '').trim() : '';
+    var cityName = sanitizeOptionalText(formData.get('city_name'));
+    var cityGeonameId = parseOptionalPositiveInt(formData.get('city_geoname_id'));
+    var countryName = sanitizeOptionalText(formData.get('country_name'));
+    var countryGeonameId = parseOptionalPositiveInt(formData.get('country_geoname_id'));
+    var relacionObra = sanitizeRelacionObra(formData.getAll('relacion_obra'));
     var privacyConsent = formData.get('privacy_consent') ? true : false;
-
     var normalizedEmail = email.toLowerCase();
     var normalizedConfirmEmail = confirmEmail.toLowerCase();
+    var emailInput = form ? form.querySelector('input[name="email"]') : null;
+    var confirmEmailInput = form ? form.querySelector('input[name="confirm_email"]') : null;
+    var privacyConsentInput = form ? form.querySelector('input[name="privacy_consent"]') : null;
+    setFormStatus(this.formRegistroStatus, '', '');
+
+    if (emailInput && typeof emailInput.setCustomValidity === 'function') emailInput.setCustomValidity('');
+    if (confirmEmailInput && typeof confirmEmailInput.setCustomValidity === 'function') confirmEmailInput.setCustomValidity('');
+    if (privacyConsentInput && typeof privacyConsentInput.setCustomValidity === 'function') privacyConsentInput.setCustomValidity('');
+    if (anioNacimientoInput && typeof anioNacimientoInput.setCustomValidity === 'function') anioNacimientoInput.setCustomValidity('');
+    if (cityInput && typeof cityInput.setCustomValidity === 'function') cityInput.setCustomValidity('');
 
     if (!email) {
-      notify('El email es obligatorio.', 'warning', 2600);
+      if (emailInput && typeof emailInput.setCustomValidity === 'function') {
+        emailInput.setCustomValidity('El email es obligatorio.');
+        if (typeof emailInput.reportValidity === 'function') emailInput.reportValidity();
+      }
+      setFormStatus(this.formRegistroStatus, 'El email es obligatorio.', 'error');
       return;
     }
 
     if (!confirmEmail) {
-      notify('Debes confirmar tu email.', 'warning', 2600);
+      if (confirmEmailInput && typeof confirmEmailInput.setCustomValidity === 'function') {
+        confirmEmailInput.setCustomValidity('Debes confirmar tu email.');
+        if (typeof confirmEmailInput.reportValidity === 'function') confirmEmailInput.reportValidity();
+      }
+      setFormStatus(this.formRegistroStatus, 'Debes confirmar tu email.', 'error');
       return;
     }
 
     if (normalizedEmail !== normalizedConfirmEmail) {
-      notify('Los emails no coinciden. Revísalos.', 'warning', 2800);
+      if (confirmEmailInput && typeof confirmEmailInput.setCustomValidity === 'function') {
+        confirmEmailInput.setCustomValidity('Los emails no coinciden.');
+        if (typeof confirmEmailInput.reportValidity === 'function') confirmEmailInput.reportValidity();
+        if (typeof confirmEmailInput.focus === 'function') confirmEmailInput.focus();
+      }
+      setFormStatus(this.formRegistroStatus, 'Los emails no coinciden. Rev\u00edsalos.', 'error');
       return;
     }
 
     if (!privacyConsent) {
-      notify('Debes aceptar la política de privacidad para registrarte.', 'warning', 3000);
+      if (privacyConsentInput && typeof privacyConsentInput.setCustomValidity === 'function') {
+        privacyConsentInput.setCustomValidity('Debes aceptar la pol\u00edtica de privacidad para registrarte.');
+        if (typeof privacyConsentInput.reportValidity === 'function') privacyConsentInput.reportValidity();
+        if (typeof privacyConsentInput.focus === 'function') privacyConsentInput.focus();
+      }
+      setFormStatus(this.formRegistroStatus, 'Debes aceptar la pol\u00edtica de privacidad para registrarte.', 'error');
       return;
+    }
+
+    var parsedBirthYear = parseOptionalBirthYear(anioNacimientoRaw);
+    if (parsedBirthYear.error) {
+      if (anioNacimientoInput && typeof anioNacimientoInput.setCustomValidity === 'function') {
+        anioNacimientoInput.setCustomValidity(parsedBirthYear.error);
+        if (typeof anioNacimientoInput.reportValidity === 'function') anioNacimientoInput.reportValidity();
+        if (typeof anioNacimientoInput.focus === 'function') anioNacimientoInput.focus();
+      }
+      setFormStatus(this.formRegistroStatus, parsedBirthYear.error, 'error');
+      return;
+    }
+
+    var hasLocationInput = !!(cityInputValue || cityName || cityGeonameId || countryName || countryGeonameId);
+    if (hasLocationInput) {
+      var hasResolvedGeoSelection = !!(cityName && cityGeonameId && countryName && countryGeonameId);
+      if (!hasResolvedGeoSelection) {
+        var geoError = 'Si indicas ciudad, debes seleccionar una opción válida de GeoNames.';
+        if (cityInput && typeof cityInput.setCustomValidity === 'function') {
+          cityInput.setCustomValidity(geoError);
+          if (typeof cityInput.reportValidity === 'function') cityInput.reportValidity();
+          if (typeof cityInput.focus === 'function') cityInput.focus();
+        }
+        setFormStatus(this.formRegistroStatus, geoError, 'error');
+        return;
+      }
+    } else {
+      cityName = null;
+      cityGeonameId = null;
+      countryName = null;
+      countryGeonameId = null;
     }
 
     this.isSubmittingRegistro = true;
@@ -646,6 +852,12 @@
       var result = await session.registerAndBind(email, displayName, {
         nivel_estudios: nivel,
         disciplina: disciplina,
+        anio_nacimiento: parsedBirthYear.value,
+        city_name: cityName,
+        city_geoname_id: cityGeonameId,
+        country_name: countryName,
+        country_geoname_id: countryGeonameId,
+        relacion_obra: relacionObra,
         consent_rgpd: true,
         consent_rgpd_version: REGISTER_CONSENT_VERSION,
         consent_accepted_at: new Date().toISOString()

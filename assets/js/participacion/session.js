@@ -15,6 +15,14 @@
   var BUS_STORAGE_KEY = 'ta_participacion_sync_bus';
   var SYNC_REQUEST_TIMEOUT_MS = 300;
   var VALID_MODES = { unasked: true, anonimo: true, colaborador: true };
+  var RELACION_OBRA_ALLOWED = {
+    lectura: true,
+    espectador_teatro: true,
+    creacion_escenica: true,
+    docencia: true,
+    investigacion: true,
+    edicion_literaria: true
+  };
 
   var channel = null;
   var busBound = false;
@@ -90,6 +98,44 @@
     var parsed = Number.parseInt(String(value || '0'), 10);
     if (!Number.isFinite(parsed) || parsed < 0) return 0;
     return parsed;
+  }
+
+  function sanitizeOptionalText(value) {
+    var text = String(value || '').trim();
+    return text || null;
+  }
+
+  function parseOptionalPositiveInt(value) {
+    var raw = String(value || '').trim();
+    if (!raw) return null;
+    var parsed = Number.parseInt(raw, 10);
+    if (!Number.isFinite(parsed) || parsed <= 0) return null;
+    return parsed;
+  }
+
+  function parseOptionalBirthYear(value) {
+    var raw = String(value || '').trim();
+    if (!raw) return null;
+    var parsed = Number.parseInt(raw, 10);
+    if (!Number.isFinite(parsed)) return null;
+
+    var currentYear = new Date().getFullYear();
+    if (parsed < 1900 || parsed > currentYear) return null;
+    return parsed;
+  }
+
+  function sanitizeRelacionObra(values) {
+    if (!Array.isArray(values) || values.length === 0) return null;
+
+    var unique = [];
+    values.forEach(function (value) {
+      var normalized = String(value || '').trim();
+      if (!RELACION_OBRA_ALLOWED[normalized]) return;
+      if (unique.indexOf(normalized) !== -1) return;
+      unique.push(normalized);
+    });
+
+    return unique.length ? unique : null;
   }
 
   function isModeDefinedInternal() {
@@ -744,6 +790,12 @@
     var consentAccepted = inputProfile.consent_rgpd === true;
     var consentVersion = String(inputProfile.consent_rgpd_version || '').trim();
     var consentAcceptedAt = inputProfile.consent_accepted_at || null;
+    var anioNacimiento = parseOptionalBirthYear(inputProfile.anio_nacimiento);
+    var cityName = sanitizeOptionalText(inputProfile.city_name);
+    var cityGeonameId = parseOptionalPositiveInt(inputProfile.city_geoname_id);
+    var countryName = sanitizeOptionalText(inputProfile.country_name);
+    var countryGeonameId = parseOptionalPositiveInt(inputProfile.country_geoname_id);
+    var relacionObra = sanitizeRelacionObra(inputProfile.relacion_obra);
 
     if (!consentAccepted || !consentVersion) {
       return {
@@ -757,9 +809,15 @@
     var response = await api.registerAndBindSession({
       sessionId: state.sessionId,
       emailHash: emailHash,
-      displayName: displayName || null,
-      nivelEstudios: inputProfile.nivel_estudios || null,
-      disciplina: inputProfile.disciplina || null,
+      displayName: sanitizeOptionalText(displayName),
+      nivelEstudios: sanitizeOptionalText(inputProfile.nivel_estudios),
+      disciplina: sanitizeOptionalText(inputProfile.disciplina),
+      anioNacimiento: anioNacimiento,
+      cityName: cityName,
+      cityGeonameId: cityGeonameId,
+      countryName: countryName,
+      countryGeonameId: countryGeonameId,
+      relacionObra: relacionObra,
       consentRgpd: consentAccepted,
       consentRgpdVersion: consentVersion,
       consentAcceptedAt: consentAcceptedAt

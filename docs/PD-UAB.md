@@ -37,7 +37,7 @@ El proyecto tiene vocación de continuidad más allá de la defensa de la tesis 
 | --- | --- | --- |
 | Evaluaciones anónimas de notas | Art. 6.1.f (interés legítimo) + art. 89.1 (investigación científica) | No se recogen datos personales directos; `session_id` es un UUID técnico sin vinculación a identidad real. |
 | Sugerencia de falta de nota | Art. 6.1.f + art. 89.1 | Mismo encaje que evaluaciones. |
-| Registro de colaborador | Art. 6.1.a (consentimiento explícito) | Checkbox obligatorio; consentimiento versionado y fechado. |
+| Registro de colaborador | Art. 6.1.a (consentimiento explícito) | Checkbox obligatorio; consentimiento versionado y fechado. Puede incluir campos opcionales de perfil (año de nacimiento, ubicación GeoNames y relación con la obra). |
 | Login de colaborador recurrente | Art. 6.1.f (interés legítimo) | Reidentificación técnica por hash; no se almacena email en claro. |
 | Envío de testimonio | Art. 6.1.a (consentimiento explícito) | Consentimiento explícito en formulario; `privacy_settings` configurados por la persona usuaria. |
 | Envío de documento/archivo | Art. 6.1.a (consentimiento explícito) | Incluye aceptación de condiciones y derechos de uso del material aportado. |
@@ -56,7 +56,7 @@ Documento técnico de referencia: [Mapa de protección de datos](./proteccion-da
 | `public.sesiones` | `session_id` (UUID), `browser_session_token`, `modo_participacion`, timestamps | Duración del proyecto + 5 años tras defensa |
 | `public.evaluaciones` | `session_id`, `source`, `event_type`, `nota_id`/`target_xmlid`, `vote`, `comment` opcional, timestamp | Duración del proyecto + 5 años tras defensa |
 | `public.participacion_rate_limit_events` | `session_id`, `ip_hash`, `action`, `created_at` | Retención operativa prevista: 90 días |
-| `public.colaboradores` | `email_hash` (SHA-256), `display_name` opcional, `nivel_estudios` opcional, `disciplina` opcional | Hasta solicitud de supresión o fin del proyecto + 5 años |
+| `public.colaboradores` | `email_hash` (SHA-256), consentimiento RGPD (`consent_rgpd`, versión, fecha), `display_name` opcional, `nivel_estudios` opcional, `disciplina` opcional, `anio_nacimiento` opcional, `city_name/city_geoname_id` opcional, `country_name/country_geoname_id` opcional, `relacion_obra` opcional (`text[]`) | Hasta solicitud de supresión o fin del proyecto + 5 años |
 | `public.testimonios` | `session_id`, `collaborator_id` opcional, texto, `privacy_settings`, consentimiento versionado | Testimonios aprobados: conservación histórica; resto: duración del proyecto + 5 años |
 | `public.contribuciones_archivo` | `session_id`, `collaborator_id` opcional, metadatos documentales, consentimiento versionado | Conservación histórica del archivo |
 | `public.contribuciones_upload_staging` | `staging_id`, `session_id`, manifiesto técnico de subida | 30 días tras envío completado o cancelado |

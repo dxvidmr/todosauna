@@ -96,6 +96,12 @@
           p_display_name: input.displayName || null,
           p_nivel_estudios: input.nivelEstudios || null,
           p_disciplina: input.disciplina || null,
+          p_anio_nacimiento: input.anioNacimiento || null,
+          p_city_name: input.cityName || null,
+          p_city_geoname_id: input.cityGeonameId || null,
+          p_country_name: input.countryName || null,
+          p_country_geoname_id: input.countryGeonameId || null,
+          p_relacion_obra: Array.isArray(input.relacionObra) && input.relacionObra.length ? input.relacionObra : null,
           p_consent_rgpd: input.consentRgpd === true,
           p_consent_rgpd_version: input.consentRgpdVersion || null,
           p_consent_accepted_at: input.consentAcceptedAt || null

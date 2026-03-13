@@ -9,6 +9,30 @@
   if (ns.ui) return;
 
   var activeDialog = null;
+  var FALLBACK_TOAST_CLASS = 'toast participa-ui-toast';
+
+  function renderFallbackToast(message, duration) {
+    var existing = document.querySelector('.participa-ui-toast');
+    if (existing) existing.remove();
+
+    var toast = document.createElement('div');
+    toast.className = FALLBACK_TOAST_CLASS;
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    window.setTimeout(function () {
+      toast.classList.add('show');
+    }, 10);
+
+    window.setTimeout(function () {
+      toast.classList.remove('show');
+      window.setTimeout(function () {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 300);
+    }, duration);
+  }
 
   function notify(input) {
     var options = typeof input === 'string' ? { message: input } : (input || {});
@@ -16,9 +40,14 @@
     if (!message) return;
 
     var duration = Number(options.duration || 2500);
+    if (!Number.isFinite(duration) || duration < 800) duration = 2500;
+
     if (typeof window.mostrarToast === 'function') {
       window.mostrarToast(message, duration);
+      return;
     }
+
+    renderFallbackToast(message, duration);
   }
 
   function normalizeDialogOptions(kind, input) {

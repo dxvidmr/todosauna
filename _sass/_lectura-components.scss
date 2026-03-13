@@ -948,6 +948,11 @@ tei-stage {
   .perfil-activity-split {
     grid-template-columns: 1fr;
   }
+
+  .modal-location-row--full {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
 }
 
 // Panel de lector existente
@@ -1045,7 +1050,8 @@ tei-stage {
   
   select,
   input[type="email"],
-  input[type="text"] {
+  input[type="text"],
+  input[type="number"] {
     width: 100%;
     padding: 10px 12px;
     border: 1px solid $color-neutral-200;
@@ -1087,6 +1093,115 @@ tei-stage {
     color: $color-text-muted;
     font-size: 0.9rem;
   }
+}
+
+.label-derivado {
+  font-size: 0.9rem;
+  color: $color-text-muted;
+}
+
+.required-mark {
+  color: $color-danger;
+  font-weight: 700;
+}
+
+.optional-note {
+  color: $color-text-muted;
+  font-weight: 400;
+  font-size: 0.84rem;
+}
+
+.modal-optional-group {
+  border: 1px solid $color-neutral-200;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  background: $color-neutral-100;
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+    list-style: none;
+    padding: 10px 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: $color-text;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  &[open] summary {
+    border-bottom: 1px solid $color-neutral-200;
+  }
+
+  &[open] .modal-optional-summary-icon {
+    transform: rotate(180deg);
+  }
+}
+
+.modal-optional-content {
+  padding: 10px 12px 12px;
+}
+
+.modal-optional-summary-text {
+  min-width: 0;
+}
+
+.modal-optional-summary-icon {
+  font-size: 0.85rem;
+  color: $color-text-muted;
+  transition: transform 0.2s ease;
+}
+
+.modal-location-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.modal-location-row--full {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.modal-checkbox-group {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+
+  legend {
+    margin: 0 0 2px;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-size: 0.92rem;
+    color: $color-text-muted;
+  }
+}
+
+.field-group-title {
+  margin: 0 0 6px;
+  color: $color-text;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.field-helper {
+  margin-top: 6px !important;
+  color: $color-text-muted !important;
+  font-size: 0.82rem !important;
+  line-height: 1.35;
 }
 
 .botones-modal {
