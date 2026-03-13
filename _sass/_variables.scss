@@ -1,5 +1,6 @@
 // ============================================
-// VARIABLES GLOBALES DEL SITIO
+// TOKENS GLOBALES DEL SITIO
+// Solo variables Sass (sin reglas CSS de componentes)
 // ============================================
 
 // Colores base (coinciden con config-theme-colors.csv)
@@ -39,7 +40,3 @@ $shadow-heavy: 0 0 10px rgba(0,0,0,0.5);
 // Overlay
 $color-overlay: rgba(0,0,0,0.7);
 
-// Clases para texto pequeño
-.fs-small {
-    font-size: 0.875rem !important;  // 14px
-}

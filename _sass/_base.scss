@@ -4,6 +4,7 @@
     base - slight modifications to override base Bootstrap
     these values are configurable using theme.yml > Theme Fonts area 
     or by editing base variables in cb.scss
+    Este parcial mantiene estilos base/globales y utilidades legacy compartidas.
 */
 
 /* set up base variable to override from cb.scss */
@@ -105,31 +106,31 @@ a {
     bottom: 20px; 
     right: 20px; 
     z-index: 99;
-    font-size: 40px; 
+    width: 50px;
+    height: 50px;
+    font-size: 40px;
+    color: $color-dark;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    transition: transform 0.3s ease;
+}
+
+#scroll-to-top i {
+    font-size: 0.7em;
+}
+
+#scroll-to-top:hover {
+    transform: translateY(-6px);
+}
+
+/* shared utility class (moved from variables) */
+.fs-small {
+    font-size: 0.875rem; // 14px
 }
 
 /* feature include tweaks */
 .feature-alert p:last-of-type { margin-bottom: 0; }
-@media (min-width: 768px) {
-    .feature-w-25 {
-        width: 25%!important;
-    }
-    .feature-w-50 {
-        width: 50%!important;
-    }
-    .feature-w-75 {
-        width: 75%!important;
-    }
-    .feature-w-100 {
-        width: 100%!important;
-    }
-    .feature-float-end {
-        float: right!important;
-    }
-    .feature-float-start {
-        float: left!important;
-    } 
-}
 
 /* bootstrap icons tweaks */
 .bi { 

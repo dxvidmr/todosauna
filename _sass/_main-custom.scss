@@ -1,5 +1,10 @@
 @use "variables" as *;
 
+// ============================================
+// LAYOUT Y BLOQUES COMPARTIDOS (home/participa/testimonios)
+// Sin overrides globales de Bootstrap.
+// ============================================
+
 // COLOR STUDY TOKENS
 :root {
   --navbar-height: 0px;
@@ -32,53 +37,6 @@
 
 
 
-// Scroll to top button - personalizado
-#scroll-to-top {
-  color: $color-dark;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  transform: translateY(0);
-}
-
-#scroll-to-top i {
-  font-size: 0.7em;
-}
-
-#scroll-to-top:hover {
-  transform: translateY(-6px);
-}
-
-// Asegurar que el modal backdrop no bloquee clics cuando no hay modal activo
-.modal-backdrop {
-  pointer-events: none;
-  
-  &.show {
-    pointer-events: auto;
-  }
-}
-
-// Asegurar que los modales cerrados no bloqueen interacción
-.modal:not(.show) {
-  pointer-events: none !important;
-  display: none !important;
-}
-
-.modal.show {
-  pointer-events: auto;
-  display: flex !important;
-}
-
-// Bootstrap modal header: sin padding lateral/superior y solo espacio inferior antes de la linea
-.modal {
-  --bs-modal-header-padding-x: 0;
-  --bs-modal-header-padding-y: 0;
-  --bs-modal-header-padding: 0 0 1rem 0;
-}
 
 // ============================================
 // SHARED CARD STYLES (HOME + PARTICIPA)

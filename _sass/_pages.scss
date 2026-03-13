@@ -3,6 +3,7 @@
 /*  
     pages - style tweaks related to individual CB pages
     although most presentation is controlled by Bootstrap classes, these styles are necessary for default visualization pages to function correctly
+    Este parcial concentra reglas CB legacy/globales por layout.
 */
 
 /* set up base variable to override from cb.scss */
@@ -115,7 +116,7 @@ $toc-a-color: $color-dark !default;
 }
 
 /* Specific styling for date inputs in advanced search modal */
-.modal .date-input-group input {
+#advancedSearchModal .date-input-group input {
     padding: 0.25rem 0.5rem; /* Smaller padding for modal */
     font-size: 0.875rem; /* Smaller font size to match form-control-sm */
     height: calc(1.5em + 0.5rem + 2px); /* Adjust height for smaller inputs */
@@ -143,8 +144,8 @@ $toc-a-color: $color-dark !default;
         padding: 1.75rem 0.25rem; /* Less padding on mobile */
     }
     
-    /* Keep modal inputs small on mobile too */
-    .modal .date-input-group input {
+    /* Keep advanced-search modal inputs small on mobile too */
+    #advancedSearchModal .date-input-group input {
         padding: 0.25rem 0.375rem;
     }
     
@@ -227,7 +228,7 @@ $toc-a-color: $color-dark !default;
     }
 
     a {
-        color: $toc-a-color !important;
+        color: $toc-a-color;
     }
 }
 #about-contents-wrapper { 
@@ -312,7 +313,7 @@ $toc-a-color: $color-dark !default;
         }
 
         a {
-            color: $toc-a-color !important;
+            color: $toc-a-color;
         }
     }
 }
@@ -341,6 +342,6 @@ $toc-a-color: $color-dark !default;
         max-width: 650px;
     }
     .feature-include {
-        text-align: center !important;
+        text-align: center;
     }
 }
