@@ -3,7 +3,7 @@
 
 - id: laboratorio
   type: media
-  eyebrow: ""
+  eyebrow: "Participa | Anotación del texto"
   title: "Lee y comenta el texto"
   copy: "Tus sugerencias ayudan a construir una interpretación colectiva."
   link: /participa/laboratorio/
@@ -11,10 +11,14 @@
   image_alt: "Anotaciones manuscritas sobre un texto"
   cta_label: "Ir al laboratorio"
   cta_class: "btn btn-muted btn-sm ta-card__cta"
+  desktop_col_span: 4
+  desktop_row_span: 5
+  tablet_col_span: 2
+  tablet_row_span: 3
 
 - id: documentos
   type: media
-  eyebrow: ""
+  eyebrow: "Participa | Documentos"
   title: "Comparte un documento"
   copy: "Programas, carteles, fotos, recortes de prensa..."
   link: /participa/documentos/enviar/
@@ -22,10 +26,14 @@
   image_alt: "Caja con documentos de archivo"
   cta_label: "Contribuir"
   cta_class: "btn btn-muted btn-sm ta-card__cta"
+  desktop_col_span: 4
+  desktop_row_span: 5
+  tablet_col_span: 2
+  tablet_row_span: 3
 
 - id: testimonios
   type: media
-  eyebrow: ""
+  eyebrow: "Participa | Testimonios"
   title: "Cuenta tu historia"
   copy: "¿Qué significa <i>Fuenteovejuna</i> para ti?"
   link: /participa/testimonios/enviar/
@@ -33,3 +41,7 @@
   image_alt: "Butacas de teatro vacias"
   cta_label: "Compartir testimonio"
   cta_class: "btn btn-muted btn-sm ta-card__cta"
+  desktop_col_span: 4
+  desktop_row_span: 5
+  tablet_col_span: 2
+  tablet_row_span: 3

@@ -228,8 +228,6 @@
   --participa-stack-gap: clamp(26px, 4.2vh, 56px);
   --participa-head-gap-x: clamp(18px, 2vw, 30px);
   --participa-head-gap-y: clamp(12px, 1.8vh, 22px);
-  --participa-card-gap-x: clamp(14px, 1.8vw, 24px);
-  --participa-card-gap-y: clamp(16px, 2.4vh, 30px);
   --participa-title-size: clamp(2.4rem, min(6vw, 8.2vh), 5rem);
   --participa-card-min-height: clamp(280px, 39vh, 430px);
   --participa-card-radius: clamp(22px, 2.3vw, 32px);
@@ -270,13 +268,7 @@
 }
 
 .participa-cards {
-  --bs-gutter-x: var(--participa-card-gap-x);
-  --bs-gutter-y: var(--participa-card-gap-y);
   margin: 0;
-}
-
-.participa-cards > [class*="col-"] {
-  display: flex;
 }
 
 .participa-cards .ta-card {
@@ -319,8 +311,6 @@
     --participa-stack-gap: clamp(28px, 4.8vh, 54px);
     --participa-head-gap-x: 0px;
     --participa-head-gap-y: clamp(22px, 4.4vh, 44px);
-    --participa-card-gap-x: 0px;
-    --participa-card-gap-y: clamp(18px, 3.4vh, 30px);
     --participa-title-size: clamp(2.35rem, 12.6vw, 3.85rem);
     --participa-card-min-height: clamp(250px, 70vw, 360px);
     --participa-card-radius: clamp(18px, 4.8vw, 26px);
@@ -335,15 +325,13 @@
     padding-inline: clamp(14px, 4vw, 18px);
   }
 
-  .participa-head,
-  .participa-cards {
+  .participa-head {
     --bs-gutter-x: 0;
     margin-left: 0;
     margin-right: 0;
   }
 
-  .participa-head > [class*="col-"],
-  .participa-cards > [class*="col-"] {
+  .participa-head > [class*="col-"] {
     padding-left: 0;
     padding-right: 0;
   }
@@ -370,7 +358,6 @@
   .participa-hero {
     --participa-pad-bottom: clamp(56px, 8.5vh, 96px);
     --participa-stack-gap: clamp(18px, 3vh, 34px);
-    --participa-card-gap-y: clamp(12px, 1.8vh, 20px);
     --participa-title-size: clamp(2.4rem, min(6.6vw, 8.4vh), 4.6rem);
     --participa-card-min-height: clamp(240px, 34vh, 320px);
   }
@@ -388,7 +375,6 @@
   .participa-hero {
     --participa-pad-bottom: clamp(46px, 7.6vh, 82px);
     --participa-stack-gap: clamp(14px, 2.4vh, 24px);
-    --participa-card-gap-y: clamp(10px, 1.6vh, 16px);
     --participa-title-size: clamp(1.95rem, min(5.2vw, 6.4vh), 3.2rem);
     --participa-card-min-height: clamp(208px, 30vh, 270px);
   }
@@ -418,7 +404,6 @@
     --participa-stack-gap: 12px;
     --participa-title-size: clamp(1.6rem, min(4.8vw, 5.8vh), 2.4rem);
     --participa-card-min-height: clamp(180px, 27vh, 220px);
-    --participa-card-gap-y: 12px;
   }
 
   .participa-footnote {

@@ -45,14 +45,14 @@
 
 - id: slot_03
   order_desktop: 3
-  type: color
+  type: media
   color_var: ""
-  eyebrow: ""
-  title: ""
-  copy: ""
-  link: ""
-  image: ""
-  image_alt: ""
+  eyebrow: "Biblioteca Digital Hispánica"
+  title: "La edición de 1619"
+  copy: "Consulta los impresos de 1619 conservados en la Biblioteca Nacional de España"
+  link: https://bnedigital.bne.es/bd/es/viewer?id=5d498e14-50e8-4a9f-85d3-188612ce4e91
+  image: /assets/img/explore/impreso.jpg
+  image_alt: "Portada de la edición de 1619 de Fuenteovejuna"
   desktop_col_span: 3
   desktop_row_span: 6
   tablet_col_span: 3

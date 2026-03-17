@@ -1,0 +1,29 @@
+- id: archivo_documentos
+  type: rotator
+  eyebrow: "Archivo | Documentos"
+  title: "Colección documental"
+  copy: "Programas, carteles, fotografias, recortes de prensa y otros materiales para explorar la historia textual y escénica de <i>Fuenteovejuna</i>."
+  link: /archivo/documentos/
+  image: /assets/img/explore/impreso.jpg
+  image_alt: "Documento impreso"
+  cta_label: "Explorar documentos"
+  cta_class: "btn btn-muted btn-sm ta-card__cta"
+  desktop_col_span: 6
+  desktop_row_span: 7
+  tablet_col_span: 3
+  tablet_row_span: 5
+
+- id: archivo_testimonios
+  type: media
+  eyebrow: "Archivo | Testimonios"
+  title: "Colección de testimonios"
+  copy: "Relatos en primera persona sobre lecturas, montajes y experiencias en torno a <i>Fuenteovejuna</i>."
+  link: /archivo/testimonios/
+  image: /assets/img/explore/experiencias.jpg
+  image_alt: ""
+  cta_label: "Explorar testimonios"
+  cta_class: "btn btn-muted btn-sm ta-card__cta"
+  desktop_col_span: 6
+  desktop_row_span: 7
+  tablet_col_span: 3
+  tablet_row_span: 5

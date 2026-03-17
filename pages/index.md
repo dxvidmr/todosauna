@@ -29,7 +29,7 @@ custom-foot: js/home-explore-grid-js.html
     </h2>
 
     {% assign home_cards = site.data.home_cards | sort: "order_desktop" %}
-    <div class="home-grid" data-home-grid>
+    <div class="home-grid ta-grid" data-home-grid>
       {% for card in home_cards %}
         {% include cards/ta-card.html card=card context="home" %}
       {% endfor %}

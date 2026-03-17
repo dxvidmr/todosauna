@@ -21,20 +21,16 @@ navbar_main_offset: false
         <h1 class="participa-title mb-0">PARTICIPA</h1>
       </div>
     </div>
-
     {% assign participa_cards = site.data.participa_cards %}
-    <div class="row participa-cards">
+    <div class="ta-grid participa-cards">
       {% for card in participa_cards %}
-        <div class="col-md-4">
-          {% include cards/ta-card.html card=card context="participa" %}
-        </div>
+        {% include cards/ta-card.html card=card context="grid" %}
       {% endfor %}
     </div>
-
     <p class="text-center small mb-0 participa-footnote">
-      Lee la <a href="{{ '/participa/guia/' | relative_url }}">guía de participación</a>,
-      conoce más <a href="{{ '/acerca-de/' | relative_url }}">sobre el proyecto</a>
-      y consulta la <a href="{{ '/privacidad/' | relative_url }}">política de privacidad</a>.
+      Lee la <a href="{{ '/participa/guia/' | relative_url }}">guia de participacion</a>,
+      conoce mas <a href="{{ '/acerca-de/' | relative_url }}">sobre el proyecto</a>
+      y consulta la <a href="{{ '/privacidad/' | relative_url }}">politica de privacidad</a>.
     </p>
   </div>
 </section>
