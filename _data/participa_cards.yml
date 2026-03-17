@@ -20,7 +20,7 @@
   type: media
   eyebrow: "Participa | Documentos"
   title: "Comparte un documento"
-  copy: "Programas, carteles, fotos, recortes de prensa..."
+  copy: "Programas de mano, carteles, fotos, recortes de prensa, ilustraciones..."
   link: /participa/documentos/enviar/
   image: /assets/img/participa/archivos.jpg
   image_alt: "Caja con documentos de archivo"
@@ -35,7 +35,7 @@
   type: media
   eyebrow: "Participa | Testimonios"
   title: "Cuenta tu historia"
-  copy: "¿Qué significa <i>Fuenteovejuna</i> para ti?"
+  copy: "¿Has leído la obra? ¿Interpretaste uno de sus personajes? ¿Qué significa <i>Fuenteovejuna</i> para ti?"
   link: /participa/testimonios/enviar/
   image: /assets/img/participa/platea.jpg
   image_alt: "Butacas de teatro vacias"
