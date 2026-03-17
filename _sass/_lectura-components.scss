@@ -19,7 +19,7 @@
 
 .text-column,
 .lab-tei-pasaje {
-  font-family: 'Google Sans Code', 'Oxygen Mono', 'Source Code Pro', monospace;
+  font-family: 'Atkinson Hyperlegible Mono', 'Google Sans Code', 'Source Code Pro', monospace;
   font-weight: 300;
   line-height: var(--tei-text-line-height);
   font-size: calc(var(--tei-text-base-size) * var(--tei-text-zoom-percent) / 100);
@@ -549,7 +549,7 @@ tei-stage {
   line-height: 1.5;
   max-height: 150px;
   overflow-y: auto;
-  font-family: 'Google Sans Code', 'Oxygen Mono', monospace;
+  font-family: 'Atkinson Hyperlegible Mono', 'Google Sans Code', monospace;
   font-size: 14px;
 }
 

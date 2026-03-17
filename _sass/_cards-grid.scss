@@ -1,6 +1,195 @@
 @use "variables" as *;
 
 // ============================================
+// SHARED CARD SYSTEM (component + grid)
+// ============================================
+
+.ta-card {
+  --ta-card-radius: clamp(20px, 2vw, 30px);
+  --ta-card-min-height: clamp(220px, 35vh, 380px);
+  --ta-card-body-pad-y: clamp(18px, 2.6vh, 28px);
+  --ta-card-body-pad-x: clamp(16px, 1.7vw, 24px);
+  --ta-card-border: rgba(0, 0, 0, 0.07);
+  --ta-card-shadow: 0 12px 32px rgba(0, 0, 0, 0.09), 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  position: relative;
+  display: flex;
+  min-height: var(--ta-card-min-height);
+  border: 1px solid var(--ta-card-border);
+  border-radius: var(--ta-card-radius);
+  color: $color-text;
+  overflow: hidden;
+  box-shadow: var(--ta-card-shadow);
+  transition: box-shadow 0.25s ease;
+}
+
+.ta-card--link {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover,
+  &:focus-visible {
+    color: inherit;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.14), 0 4px 14px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.ta-card--interactive {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.11), 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+.ta-card--interactive.ta-card--color {
+  --ta-card-color: #{$color-light};
+  background-color: var(--ta-card-color);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: $color-text;
+}
+
+.ta-card--interactive .ta-card__body {
+  color: $color-text;
+  text-shadow: none;
+}
+
+.ta-card__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, opacity 0.28s ease;
+}
+
+.ta-card--media {
+  color: $color-light;
+  border: none;
+  background-image: var(--card-image);
+  background-size: cover;
+  background-position: center;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.08) 0%,
+      rgba(0, 0, 0, 0.52) 56%,
+      rgba(0, 0, 0, 0.84) 100%
+    );
+  }
+
+  .ta-card__body {
+    z-index: 2;
+    color: $color-light;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+}
+
+.ta-card--media.ta-card--link:hover .ta-card__media,
+.ta-card--media.ta-card--link:focus-visible .ta-card__media {
+  transform: scale(1.04);
+}
+
+.ta-card--color {
+  --ta-card-accent: var(--color-secondary);
+  --ta-card-color: var(--ta-card-accent);
+  background-color: var(--ta-card-color);
+  background-image: none;
+}
+
+.ta-card--pill .ta-card__body--pill {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-block: clamp(10px, 1.6vh, 16px);
+}
+
+.ta-card--pill .ta-card__title--pill {
+  margin: 0;
+  width: 100%;
+  font-size: clamp(1.2rem, 2.1vh, 1.8rem);
+  color: $color-light;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.ta-card__body {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: clamp(6px, 1.2vh, 11px);
+  padding: var(--ta-card-body-pad-y) var(--ta-card-body-pad-x);
+}
+
+.ta-card__body--split {
+  height: 100%;
+  justify-content: space-between;
+}
+
+.ta-card__content {
+  width: 100%;
+  display: grid;
+  gap: clamp(6px, 1.2vh, 11px);
+}
+
+.ta-card__eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  opacity: 0.92;
+}
+
+.ta-card__title {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.2vh, 1.5rem);
+  line-height: 1.22;
+  letter-spacing: 0.005em;
+}
+
+.ta-card__copy {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.72vh, 1rem);
+  line-height: 1.48;
+  font-weight: 350;
+}
+
+.ta-card__actions {
+  margin-top: clamp(4px, 0.9vh, 8px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ta-card__cta {
+  margin-top: clamp(2px, 0.6vh, 6px);
+}
+
+.home-rotator-image.is-fading {
+  opacity: 0;
+}
+
+.card-soft {
+  border: none;
+  border-radius: clamp(20px, 2vw, 30px);
+  color: $color-text;
+}
+
+// Borde fino reutilizable para superficies tipo card/panel.
+.ui-thin-border {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--ui-thin-border-radius, clamp(20px, 2vw, 28px));
+}
+
+// ============================================
 // SHARED CARD GRID (home + participa + archivo)
 // ============================================
 
@@ -78,5 +267,76 @@
 @media (max-height: 665px) {
   .ta-grid {
     gap: 10px;
+  }
+}
+
+// ============================================
+// SHARED GATEWAY CARDS (archivo + participa)
+// ============================================
+
+.ta-cards {
+  margin: 0;
+}
+
+.ta-cards .ta-card {
+  width: 100%;
+  aspect-ratio: 5 / 4;
+}
+
+@media (max-width: 767.98px) {
+  .ta-cards .ta-card {
+    aspect-ratio: 4 / 3;
+  }
+
+  .ta-cards .ta-card__body {
+    padding: 16px 18px;
+  }
+
+  .ta-cards .ta-card__title {
+    font-size: clamp(1.02rem, 4.8vw, 1.28rem);
+  }
+
+  .ta-cards .ta-card__copy {
+    font-size: 0.94rem;
+  }
+}
+
+@media (max-height: 760px) {
+  .ta-cards .ta-card__body {
+    padding: clamp(16px, 2.1vh, 22px) clamp(14px, 1.4vw, 18px);
+  }
+
+  .ta-cards .ta-card__copy {
+    margin-bottom: 0.65rem;
+  }
+}
+
+@media (max-height: 665px) {
+  .ta-cards .ta-card__body {
+    padding: 14px 12px;
+  }
+
+  .ta-cards .ta-card__title {
+    font-size: clamp(0.98rem, 1.9vh, 1.08rem);
+  }
+
+  .ta-cards .ta-card__copy {
+    font-size: clamp(0.8rem, 1.55vh, 0.9rem);
+    margin-bottom: 0.45rem;
+  }
+}
+
+@media (max-height: 540px) {
+  .ta-cards .ta-card__body {
+    padding: 11px 10px;
+  }
+
+  .ta-cards .ta-card__title {
+    font-size: 0.92rem;
+  }
+
+  .ta-cards .ta-card__copy {
+    font-size: 0.76rem;
+    margin-bottom: 0.35rem;
   }
 }

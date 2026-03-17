@@ -33,7 +33,7 @@
 
 .hero-title {
   font-size: clamp(2.4rem, min(10vw, 16vh), 10rem);
-  font-weight: 900;
+  font-weight: 800;
   color: $color-dark;
   text-transform: uppercase;
   letter-spacing: -0.03em;
@@ -218,7 +218,7 @@
 }
 
 [data-home-grid] .ta-card--interactive .home-eval-context.note-panel-scroll {
-  font-family: 'Google Sans Code', 'Oxygen Mono', 'Source Code Pro', monospace;
+  font-family: 'Atkinson Hyperlegible Mono', 'Google Sans Code', 'Source Code Pro', monospace;
   font-weight: 300;
   font-size: calc(var(--tei-text-base-size) * var(--tei-text-zoom-percent) / 100);
   line-height: var(--tei-text-line-height);

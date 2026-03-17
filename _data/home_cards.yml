@@ -63,8 +63,8 @@
   type: rotator
   color_var: ""
   eyebrow: "ARCHIVO"
-  title: ""
-  copy: ""
+  title: "Colección de documentos"
+  copy: "Materiales para explorar su historia textual y escénica"
   link: /archivo
   image: /assets/img/participa/archivos.jpg
   image_alt: ""
@@ -93,8 +93,8 @@
   type: rotator
   color_var: ""
   eyebrow: "ARCHIVO"
-  title: ""
-  copy: ""
+  title: "Colección de documentos"
+  copy: "Materiales para explorar su historia textual y escénica"
   link: /archivo
   image: /assets/img/participa/archivos.jpg
   image_alt: ""
