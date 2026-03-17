@@ -1,36 +1,29 @@
 ---
-layout: default
+layout: page
 title: Participa
 permalink: /participa/
-navbar_main_offset: false
 ---
 
-<section class="participa-hero">
-  <div class="participa-shell">
-    <div class="row align-items-center participa-head">
-      <div class="col-md-7 order-2 order-md-1">
-        <div class="card card-soft p-3 p-lg-4">
-          <h3 class="mb-2 text-uppercase">Tu voz construye esta historia</h3>
-          <p class="mb-0">
-            <i>Fuenteovejuna</i> es una obra viva que ha sido representada, leida, discutida y sentida por miles de personas durante cuatro siglos.
-            Tu participacion es clave para construir una edicion social del texto y documentar su memoria colectiva.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-5 order-1 order-md-2 text-center text-md-end">
-        <h1 class="participa-title mb-0">PARTICIPA</h1>
-      </div>
+<section class="py-2 py-md-3">
+  <div class="row justify-content-center mb-4 mb-md-5">
+    <div class="col-lg-10 text-center">
+      <h1 class="display-5 fw-semibold mb-3">Participa en <i>Todos a una</i></h1>
+      <p class="lead mb-0">
+        Tu colaboración ayuda a construir una edicion social del texto y a documentar su historias.
+      </p>
     </div>
-    {% assign participa_cards = site.data.participa_cards %}
-    <div class="ta-grid participa-cards">
-      {% for card in participa_cards %}
-        {% include cards/ta-card.html card=card context="grid" %}
-      {% endfor %}
-    </div>
-    <p class="text-center small mb-0 participa-footnote">
-      Lee la <a href="{{ '/participa/guia/' | relative_url }}">guia de participacion</a>,
-      conoce mas <a href="{{ '/acerca-de/' | relative_url }}">sobre el proyecto</a>
-      y consulta la <a href="{{ '/privacidad/' | relative_url }}">politica de privacidad</a>.
-    </p>
   </div>
+
+  {% assign participa_cards = site.data.participa_cards %}
+  <div class="ta-grid ta-cards">
+    {% for card in participa_cards %}
+      {% include cards/ta-card.html card=card context="grid" %}
+    {% endfor %}
+  </div>
+
+  <p class="text-center small text-muted mt-4 mb-0">
+    Lee la <a href="{{ '/participa/guia/' | relative_url }}">guia de participacion</a>,
+    conoce mas <a href="{{ '/acerca-de/' | relative_url }}">sobre el proyecto</a>
+    y consulta la <a href="{{ '/privacidad/' | relative_url }}">politica de privacidad</a>.
+  </p>
 </section>

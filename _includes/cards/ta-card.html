@@ -1,7 +1,6 @@
 {% assign card = include.card %}
 {% assign context = include.context | default: "home" %}
 {% assign type = card.type | default: "color" %}
-{% assign card_id = card.id | default: "card" %}
 {% assign use_grid_layout = false %}
 {% if context == "home" or context == "grid" %}
 {% assign use_grid_layout = true %}
@@ -147,7 +146,7 @@
 {%- endcapture %}
 {% assign style_attr = style_rules | strip %}
 {% capture class_list -%}
-ta-card{% if type == "media" or type == "rotator" %} ta-card--media{% else %} ta-card--color{% endif %}{% if type == "rotator" %} ta-card--rotator{% endif %}{% if type == "interactive_eval" %} ta-card--interactive{% endif %}{% if type == "pill" %} ta-card--pill{% endif %}{% if render_link_url != "" and type != "interactive_eval" %} ta-card--link{% endif %}{% if use_grid_layout %} ta-grid__item{% endif %}{% if context == "home" %} home-grid__item home-grid__item--{{ card_id }}{% endif %}
+ta-card{% if type == "media" or type == "rotator" %} ta-card--media{% else %} ta-card--color{% endif %}{% if type == "rotator" %} ta-card--rotator{% endif %}{% if type == "interactive_eval" %} ta-card--interactive{% endif %}{% if type == "pill" %} ta-card--pill{% endif %}{% if render_link_url != "" and type != "interactive_eval" %} ta-card--link{% endif %}{% if use_grid_layout %} ta-grid__item{% endif %}
 {%- endcapture %}
 
 {% if type == "interactive_eval" %}

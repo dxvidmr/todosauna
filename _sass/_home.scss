@@ -174,13 +174,13 @@
   margin-inline: 0.12em;
 }
 
-.home-grid .ta-card--interactive .ta-card__body {
+[data-home-grid] .ta-card--interactive .ta-card__body {
   height: 100%;
   min-height: 0;
   padding-top: 0;
 }
 
-.home-grid .ta-card--interactive {
+[data-home-grid] .ta-card--interactive {
   position: relative;
   isolation: isolate;
 }
@@ -217,7 +217,7 @@
   color: $color-text-muted-dark;
 }
 
-.home-grid .ta-card--interactive .home-eval-context.note-panel-scroll {
+[data-home-grid] .ta-card--interactive .home-eval-context.note-panel-scroll {
   font-family: 'Google Sans Code', 'Oxygen Mono', 'Source Code Pro', monospace;
   font-weight: 300;
   font-size: calc(var(--tei-text-base-size) * var(--tei-text-zoom-percent) / 100);
@@ -327,17 +327,17 @@
 }
 
 @media (min-width: 992px) {
-  .home-grid .ta-card--interactive .home-eval-layout {
+  [data-home-grid] .ta-card--interactive .home-eval-layout {
     grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
     align-items: stretch;
   }
 
-  .home-grid .ta-card--interactive .home-eval-panel {
+  [data-home-grid] .ta-card--interactive .home-eval-panel {
     height: 100%;
   }
 
-  .home-grid .ta-card--interactive .home-eval-context.note-panel-scroll,
-  .home-grid .ta-card--interactive .home-eval-note-scroll.note-panel-scroll {
+  [data-home-grid] .ta-card--interactive .home-eval-context.note-panel-scroll,
+  [data-home-grid] .ta-card--interactive .home-eval-note-scroll.note-panel-scroll {
     overflow-y: auto;
   }
 }

@@ -218,64 +218,6 @@
   opacity: 0;
 }
 
-// ============================================
-// PARTICIPA PAGE (uses shared ta-card base)
-// ============================================
-
-.participa-hero {
-  --participa-nav-gap: clamp(12px, 2.2vh, 26px);
-  --participa-pad-bottom: clamp(72px, 11vh, 150px);
-  --participa-stack-gap: clamp(26px, 4.2vh, 56px);
-  --participa-head-gap-x: clamp(18px, 2vw, 30px);
-  --participa-head-gap-y: clamp(12px, 1.8vh, 22px);
-  --participa-title-size: clamp(2.4rem, min(6vw, 8.2vh), 5rem);
-  --participa-card-min-height: clamp(280px, 39vh, 430px);
-  --participa-card-radius: clamp(22px, 2.3vw, 32px);
-  --ta-card-min-height: var(--participa-card-min-height);
-  --ta-card-radius: var(--participa-card-radius);
-
-  box-sizing: border-box;
-  padding-inline: var(--layout-inline-gutter);
-  padding-top: calc(var(--navbar-height) + var(--participa-nav-gap));
-  padding-bottom: var(--participa-pad-bottom);
-  
-  .participa-title {
-    color: $color-dark;
-    font-weight: 700;
-    font-size: var(--participa-title-size);
-    letter-spacing: -0.02em;
-    line-height: 0.95;
-  }
-
-  .participa-footnote {
-    color: $color-text-muted;
-    font-size: clamp(0.88rem, 1.8vh, 1rem);
-    margin-top: 0;
-  }
-}
-
-.participa-shell {
-  width: min(100%, var(--layout-rail-max));
-  margin-inline: auto;
-  display: grid;
-  gap: var(--participa-stack-gap);
-}
-
-.participa-head {
-  --bs-gutter-x: var(--participa-head-gap-x);
-  --bs-gutter-y: var(--participa-head-gap-y);
-  margin: 0;
-}
-
-.participa-cards {
-  margin: 0;
-}
-
-.participa-cards .ta-card {
-  width: 100%;
-  aspect-ratio: 5 / 4;
-}
-
 .card-soft {
   border: none;
   border-radius: clamp(20px, 2vw, 30px);
@@ -288,141 +230,75 @@
   border-radius: var(--ui-thin-border-radius, clamp(20px, 2vw, 28px));
 }
 
-@media (min-width: 768px) {
-  .participa-head .col-md-7 {
-    display: flex;
-  }
+// ============================================
+// SHARED GATEWAY CARDS (archivo + participa)
+// ============================================
 
-  .participa-head .col-md-7 .card-soft {
-    width: 100%;
-  }
+.ta-cards {
+  margin: 0;
+}
 
-  .participa-head .col-md-5 {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
+.ta-cards .ta-card {
+  width: 100%;
+  aspect-ratio: 5 / 4;
 }
 
 @media (max-width: 767.98px) {
-  .participa-hero {
-    --participa-nav-gap: clamp(8px, 1.6vh, 14px);
-    --participa-pad-bottom: clamp(78px, 14vh, 132px);
-    --participa-stack-gap: clamp(28px, 4.8vh, 54px);
-    --participa-head-gap-x: 0px;
-    --participa-head-gap-y: clamp(22px, 4.4vh, 44px);
-    --participa-title-size: clamp(2.35rem, 12.6vw, 3.85rem);
-    --participa-card-min-height: clamp(250px, 70vw, 360px);
-    --participa-card-radius: clamp(18px, 4.8vw, 26px);
-    padding-inline: 0;
-    overflow-x: clip;
-  }
-
-  .participa-shell {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    padding-inline: clamp(14px, 4vw, 18px);
-  }
-
-  .participa-head {
-    --bs-gutter-x: 0;
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .participa-head > [class*="col-"] {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .participa-cards .ta-card {
+  .ta-cards .ta-card {
     aspect-ratio: 4 / 3;
   }
 
-  .participa-cards .ta-card__body {
+  .ta-cards .ta-card__body {
     padding: 16px 18px;
   }
 
-  .participa-cards .ta-card__title {
+  .ta-cards .ta-card__title {
     font-size: clamp(1.02rem, 4.8vw, 1.28rem);
   }
 
-  .participa-cards .ta-card__copy {
+  .ta-cards .ta-card__copy {
     font-size: 0.94rem;
   }
-
 }
 
 @media (max-height: 760px) {
-  .participa-hero {
-    --participa-pad-bottom: clamp(56px, 8.5vh, 96px);
-    --participa-stack-gap: clamp(18px, 3vh, 34px);
-    --participa-title-size: clamp(2.4rem, min(6.6vw, 8.4vh), 4.6rem);
-    --participa-card-min-height: clamp(240px, 34vh, 320px);
-  }
-
-  .participa-hero .ta-card__body {
+  .ta-cards .ta-card__body {
     padding: clamp(16px, 2.1vh, 22px) clamp(14px, 1.4vw, 18px);
   }
 
-  .participa-hero .ta-card__copy {
+  .ta-cards .ta-card__copy {
     margin-bottom: 0.65rem;
   }
 }
 
 @media (max-height: 665px) {
-  .participa-hero {
-    --participa-pad-bottom: clamp(46px, 7.6vh, 82px);
-    --participa-stack-gap: clamp(14px, 2.4vh, 24px);
-    --participa-title-size: clamp(1.95rem, min(5.2vw, 6.4vh), 3.2rem);
-    --participa-card-min-height: clamp(208px, 30vh, 270px);
-  }
-
-  .card-soft {
-    border-radius: 20px;
-  }
-
-  .participa-hero .ta-card__body {
+  .ta-cards .ta-card__body {
     padding: 14px 12px;
   }
 
-  .participa-hero .ta-card__title {
+  .ta-cards .ta-card__title {
     font-size: clamp(0.98rem, 1.9vh, 1.08rem);
   }
 
-  .participa-hero .ta-card__copy {
+  .ta-cards .ta-card__copy {
     font-size: clamp(0.8rem, 1.55vh, 0.9rem);
     margin-bottom: 0.45rem;
   }
-
 }
 
 @media (max-height: 540px) {
-  .participa-hero {
-    --participa-pad-bottom: 38px;
-    --participa-stack-gap: 12px;
-    --participa-title-size: clamp(1.6rem, min(4.8vw, 5.8vh), 2.4rem);
-    --participa-card-min-height: clamp(180px, 27vh, 220px);
-  }
-
-  .participa-footnote {
-    font-size: 0.78rem;
-  }
-
-  .participa-hero .ta-card__body {
+  .ta-cards .ta-card__body {
     padding: 11px 10px;
   }
 
-  .participa-hero .ta-card__title {
+  .ta-cards .ta-card__title {
     font-size: 0.92rem;
   }
 
-  .participa-hero .ta-card__copy {
+  .ta-cards .ta-card__copy {
     font-size: 0.76rem;
     margin-bottom: 0.35rem;
   }
-
 }
 
 // ============================================

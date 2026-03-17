@@ -15,7 +15,7 @@ permalink: /archivo/
   </div>
 
   {% assign archivo_cards = site.data.archivo_cards %}
-  <div class="ta-grid participa-cards">
+  <div class="ta-grid ta-cards">
     {% for card in archivo_cards %}
       {% include cards/ta-card.html card=card context="grid" %}
     {% endfor %}
