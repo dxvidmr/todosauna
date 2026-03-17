@@ -9,7 +9,7 @@ permalink: /archivo/
     <div class="col-lg-10 text-center">
       <h1 class="display-5 fw-semibold mb-3">Archivo <i>Fuenteovejuna</i></h1>
       <p class="lead mb-0">
-        Entra por dos caminos: los documentos que registran su historia y los testimonios que conservan su memoria.
+        Descubre la historia de <i>Fuenteovejuna</i> a partir de materiales documentales y de testimonios personales.
       </p>
     </div>
   </div>
