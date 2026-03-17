@@ -26,14 +26,108 @@ body {
     @if $base-font-size != "" { font-size: $base-font-size; }
     @if $text-color != "" { color: $text-color; }
 }
-a {
-    /* remove link underline */ 
+
+/* Editorial text links:
+   - scoped to text content in main
+   - keeps UI/navigation links untouched
+   - default behavior: underline in text color -> primary highlight on hover
+*/
+$editorial-link-scope:
+    "main :where(p, li, dd, dt, blockquote, figcaption, small, h1, h2, h3, h4, h5, h6) a[href]:not(.btn):not(.nav-link):not(.dropdown-item):not(.stretched-link):not(.ta-card):not(.info-link):not([role='button'])";
+
+#{$editorial-link-scope} {
+    &,
+    &:visited {
+        color: inherit;
+    }
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.15em;
+    text-decoration-skip-ink: auto;
+}
+
+@mixin editorial-link-highlight-fade-in {
+    padding: 1px 0;
+    background-color: transparent;
+    transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out;
+
+    &:hover,
+    &:focus-visible,
+    &:active {
+        background-color: $color-primary;
+        color: $color-light;
+        text-decoration: none;
+    }
+}
+
+@mixin editorial-link-highlight-from-strikethrough {
+    padding: 1px 0;
+    background-image: linear-gradient(
+        transparent 0%,
+        transparent calc(50% - 0.1ex),
+        $color-primary calc(50% - 0.1ex),
+        $color-primary calc(50% + 0.5ex),
+        transparent calc(50% + 0.5ex),
+        transparent 100%
+    );
+    background-color: transparent;
+    transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out;
+
+    &:hover,
+    &:focus-visible,
+    &:active {
+        background-color: $color-primary;
+        color: $color-light;
+        text-decoration: none;
+    }
+}
+
+@mixin editorial-link-highlight-from-bottom-border {
+    padding: 1px 0;
     text-decoration: none;
-    @if $link-color != "" { 
-        color: $link-color; 
-        &:hover {
-            @if $text-color != "" { color: $text-color; }
-        }
+    background-image: linear-gradient(
+        transparent 0%,
+        transparent calc(50% - 0.15ex),
+        $color-primary calc(50% - 0.15ex),
+        $color-primary 100%
+    );
+    background-size: 100% 200%;
+    background-position: 0 0;
+    transition: background-position 0.6s ease-in-out, color 0.6s ease-in-out;
+
+    &:hover,
+    &:focus-visible,
+    &:active {
+        background-position: 0 100%;
+        color: $color-light;
+    }
+}
+
+/* Default editorial effect for eligible links */
+#{$editorial-link-scope} {
+    @include editorial-link-highlight-from-bottom-border;
+}
+
+/* Optional explicit variants */
+.link--highlight-fade-in {
+    @include editorial-link-highlight-fade-in;
+}
+
+.link--highlight-from-strikethrough {
+    @include editorial-link-highlight-from-strikethrough;
+}
+
+.link--highlight-from-bottom-border {
+    @include editorial-link-highlight-from-bottom-border;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #{$editorial-link-scope},
+    .link--highlight-fade-in,
+    .link--highlight-from-strikethrough,
+    .link--highlight-from-bottom-border {
+        transition: none;
     }
 }
 
