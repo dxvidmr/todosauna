@@ -1,7 +1,7 @@
 ---
-title: Data
+title: Metadatos de la colección documental
 layout: data
-permalink: /data.html
+permalink: /metadatos-archivo/
 ---
 
 ## Collection Metadata
