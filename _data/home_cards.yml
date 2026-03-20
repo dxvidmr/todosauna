@@ -19,7 +19,7 @@
   color_var: ""
   eyebrow: "LECTURA"
   title: "Lee la obra"
-  copy: "Una edición divulgativa de <i>Fuenteovejuna</i> con anotaciones y recursos para entenderla mejor."
+  copy: "Una edición divulgativa de <i>Fuenteovejuna</i> con anotaciones y recursos para su lectura"
   link: /lectura
   image: /assets/img/explore/edicion2009.jpg
   image_alt: "Imagen de la edición de 2009 a cargo de PROLOPE"
@@ -56,22 +56,22 @@
   desktop_col_span: 3
   desktop_row_span: 6
   tablet_col_span: 3
-  tablet_row_span: 4
+  tablet_row_span: 6
 
 - id: slot_04
   order_desktop: 4
-  type: rotator
+  type: media
   color_var: ""
-  eyebrow: "ARCHIVO"
-  title: "Colección de documentos"
-  copy: "Materiales para explorar su historia textual y escénica"
-  link: /archivo
-  image: /assets/img/participa/archivos.jpg
-  image_alt: ""
+  eyebrow: "APRENDE"
+  title: "Lope de Vega y su obra"
+  copy: "Recursos para conocer al autor y su producción literaria"
+  link: https://prolope.uab.cat/wp-content/uploads/2023/11/logo_positiu.png
+  image: /assets/img/explore/LopedeVega.jpg
+  image_alt: "Retrato de Lope de Vega. Obra atribuida a Eugenio Cajés (c. 1627)"
   desktop_col_span: 3
   desktop_row_span: 3
   tablet_col_span: 3
-  tablet_row_span: 2
+  tablet_row_span: 4
 
 - id: slot_05
   order_desktop: 5
@@ -101,7 +101,7 @@
   desktop_col_span: 3
   desktop_row_span: 4
   tablet_col_span: 2
-  tablet_row_span: 3
+  tablet_row_span: 5
 
 - id: slot_07
   order_desktop: 7
@@ -116,4 +116,4 @@
   desktop_col_span: 9
   desktop_row_span: 4
   tablet_col_span: 4
-  tablet_row_span: 3
+  tablet_row_span: 5

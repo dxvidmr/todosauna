@@ -311,3 +311,79 @@
     }
   }
 }
+
+// ============================================
+// FOOTER INSTITUCIONAL
+// ============================================
+
+.site-footer {
+  margin-top: clamp(56px, 8vh, 120px);
+}
+
+.site-footer__brand {
+  font-size: clamp(1.8rem, 4.8vw, 3.1rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.site-footer__tagline {
+  max-width: 52ch;
+  font-size: clamp(0.95rem, 1.08vw, 1.08rem);
+  line-height: 1.45;
+}
+
+.site-footer__meta {
+  font-size: clamp(0.74rem, 0.9vw, 0.8rem);
+}
+
+.site-footer nav a,
+.site-footer p a {
+  transition: opacity 0.2s ease, color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: $color-light;
+    opacity: 0.86;
+  }
+}
+
+.site-footer__logo-link {
+  transition: opacity 0.2s ease, filter 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+    filter: brightness(1.03);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba($color-light, 0.26);
+    border-radius: 6px;
+  }
+}
+
+.site-footer__logo {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: clamp(23px, 3.8vw, 44px);
+  object-fit: contain;
+}
+
+.site-footer__logo--prolope {
+  height: clamp(25px, 3.9vw, 46px);
+}
+
+.site-footer__logo--uab {
+  height: clamp(23px, 3.6vw, 40px);
+}
+
+.site-footer__logo--recerca {
+  height: clamp(20px, 3.1vw, 32px);
+}
+
+.site-footer__logo--ministerio {
+  height: clamp(25px, 4vw, 48px);
+}

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" class="h-100">
+<html lang="es">
   <head prefix="og: http://ogp.me/ns#">
     {% include head/head.html %}
   </head>
@@ -7,7 +7,7 @@
   {% if navbar_main_offset == nil %}
     {% assign navbar_main_offset = true %}
   {% endif %}
-  <body class="d-flex flex-column h-100{% if page.url == '/' %} home-page{% endif %}">
+  <body class="d-flex flex-column min-vh-100{% if page.url == '/' %} home-page{% endif %}">
     <div id="skip-to-content"><a href="#maincontent">Skip to main content</a></div>
     <!--{% include collection-banner.html %}-->
     {% include navbar.html %}

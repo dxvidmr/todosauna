@@ -1,25 +1,56 @@
-<footer class="bg-dark pt-4 mt-auto container-fluid">
+﻿<footer class="site-footer bg-dark text-light mt-auto border-top border-light border-opacity-25 py-5" role="contentinfo">
+  <div class="container-fluid px-3 px-md-4 px-lg-5">
+    <div class="row g-4 g-lg-5 align-items-start">
+      <div class="col-12 col-lg-6">
+        <a class="text-decoration-none text-light d-inline-block" href="{{ '/' | relative_url }}" aria-label="Ir al inicio">
+          <span class="site-footer__brand d-block text-primary">TODOS A UNA</span>
+        </a>
+        <p class="site-footer__tagline mb-0 text-white-50 mt-2 mt-lg-3">Descubre y participa de la historia de <i>Fuenteovejuna</i>, de Lope de Vega.</p>
+      </div>
 
-    <div class="row pb-4 mb-2">
+      <nav class="col-6 col-lg-3" aria-label="Navegacion principal">
+        <h2 class="small text-uppercase fw-semibold text-white-50 mb-2">Navega</h2>
+        <ul class="list-unstyled d-grid gap-2 mb-0 small">
+          <li><a class="text-decoration-none text-light" href="{{ '/lectura/' | relative_url }}">Edición digital</a></li>
+          <li><a class="text-decoration-none text-light" href="{{ '/archivo/' | relative_url }}">Archivo</a></li>
+          <li><a class="text-decoration-none text-light" href="{{ '/contacto/' | relative_url }}">Contacto</a></li>
+        </ul>
+      </nav>
 
-        <div class="col-md-7 px-4 mt-3">
-
-            <h1><a href="{{ '/' | relative_url }}" class="text-light">{{ site.title }}</a></h1>
-            <p class="text-light"><small>{{ site.description }}</small></p>
-
-        </div>
-
-        <div class="col-md-5 mt-3 text-center">
-
-        </div>
-
+      <nav class="col-6 col-lg-3" aria-label="Navegacion secundaria">
+        <h2 class="small text-uppercase fw-semibold text-white-50 mb-2 invisible" aria-hidden="true">Más enlaces</h2>
+        <ul class="list-unstyled d-grid gap-2 mb-0 small">
+          <li><a class="text-decoration-none text-light" href="{{ '/acerca-de/' | relative_url }}">Acerca de</a></li>
+          <li><a class="text-decoration-none text-light" href="{{ '/data.html' | relative_url }}">Datos abiertos</a></li>
+          <li><a class="text-decoration-none text-light" href="{{ '/privacidad/' | relative_url }}">Privacidad</a></li>
+        </ul>
+      </nav>
     </div>
 
-    <div class="col-md-12 text-center pt-3 pb-1 fs-small">
-        <p class="text-neutral-400">
-            Universitat Autònoma de Barcelona. 2026 | Built with Collection Builder, CETEIcean and more |
-            <a href="{{ '/privacidad/' | relative_url }}" class="text-neutral-400 text-decoration-underline">Política de privacidad</a>
-        </p>
+    <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 gap-lg-4 mt-4 mt-lg-5 pt-3 pt-lg-4 border-top border-light border-opacity-25" aria-label="Entidades colaboradoras y financiadoras">
+      <a class="site-footer__logo-link d-inline-flex align-items-center justify-content-center text-decoration-none" href="https://prolope.uab.cat/" target="_blank" rel="noopener noreferrer" aria-label="PROLOPE">
+        <img class="site-footer__logo site-footer__logo--prolope" src="{{ '/assets/img/logos/prolope_blanco.png' | relative_url }}" alt="PROLOPE, grupo de investigacion" loading="lazy" decoding="async">
+      </a>
+
+      <a class="site-footer__logo-link d-inline-flex align-items-center justify-content-center text-decoration-none" href="https://www.uab.cat/" target="_blank" rel="noopener noreferrer" aria-label="Universitat Autònoma de Barcelona">
+        <img class="site-footer__logo site-footer__logo--uab" src="{{ '/assets/img/logos/logodeptnegro.svg' | relative_url }}" alt="Universitat Autònoma de Barcelona" loading="lazy" decoding="async">
+      </a>
+
+      <a class="site-footer__logo-link d-inline-flex align-items-center justify-content-center text-decoration-none" href="https://recercaiuniversitats.gencat.cat/" target="_blank" rel="noopener noreferrer" aria-label="Recerca i Universitats">
+        <img class="site-footer__logo site-footer__logo--recerca" src="{{ '/assets/img/logos/recerca.png' | relative_url }}" alt="Recerca i Universitats" loading="lazy" decoding="async">
+      </a>
+
+      <a class="site-footer__logo-link d-inline-flex align-items-center justify-content-center text-decoration-none" href="https://www.ciencia.gob.es/" target="_blank" rel="noopener noreferrer" aria-label="Ministerio de Ciencia, Innovación y Universidades">
+        <img class="site-footer__logo site-footer__logo--ministerio" src="{{ '/assets/img/logos/ministerio.jpg' | relative_url }}" alt="Ministerio de Ciencia, Innovación y Universidades" loading="lazy" decoding="async">
+      </a>
     </div>
 
+    <div class="pt-3 pt-lg-4 mt-2 mt-lg-3">
+      <p class="site-footer__meta mb-0 text-white-50 d-flex flex-wrap align-items-center justify-content-center gap-2 text-center">
+        Universitat Autònoma de Barcelona. {{ site.time | date: '%Y' }}
+        <span class="opacity-75" aria-hidden="true">|</span>
+        <a class="text-light" href="{{ '/privacidad/' | relative_url }}">Política de privacidad</a>
+      </p>
+    </div>
+  </div>
 </footer>
