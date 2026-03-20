@@ -15,7 +15,7 @@ permalink: /participa/
   </div>
 
   {% assign participa_cards = site.data.participa_cards %}
-  <div class="ta-grid ta-cards">
+  <div class="ta-grid">
     {% for card in participa_cards %}
       {% include cards/ta-card.html card=card context="grid" %}
     {% endfor %}

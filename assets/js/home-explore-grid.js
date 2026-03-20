@@ -155,8 +155,9 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
     start();
   }
 
-  function initImageRotators(grid) {
-    const images = grid.querySelectorAll(ROTATOR_IMAGE_SELECTOR);
+  function initImageRotators(root = document) {
+    const scope = root && typeof root.querySelectorAll === 'function' ? root : document;
+    const images = scope.querySelectorAll(ROTATOR_IMAGE_SELECTOR);
     if (!images.length) return;
     images.forEach((image) => initImageRotator(image));
   }
@@ -591,12 +592,11 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
   }
 
   function initHomeExploreGrid() {
+    initImageRotators(document);
+
     const grid = document.querySelector(GRID_SELECTOR);
     if (!grid || grid.dataset.homeGridReady === 'true') return;
-
     grid.dataset.homeGridReady = 'true';
-
-    initImageRotators(grid);
     initEvaluationCard(grid);
   }
 

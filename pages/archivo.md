@@ -2,6 +2,7 @@
 layout: page
 title: Archivo
 permalink: /archivo/
+custom-foot: js/home-explore-grid-js.html
 ---
 
 <section class="py-2 py-md-3">
@@ -15,7 +16,7 @@ permalink: /archivo/
   </div>
 
   {% assign archivo_cards = site.data.archivo_cards %}
-  <div class="ta-grid ta-cards">
+  <div class="ta-grid">
     {% for card in archivo_cards %}
       {% include cards/ta-card.html card=card context="grid" %}
     {% endfor %}
