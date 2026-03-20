@@ -28,12 +28,12 @@ body {
 }
 
 /* Editorial text links:
-   - scoped to text content in main
+   - scoped to text content in main + modals/dialogs
    - keeps UI/navigation links untouched
    - default behavior: underline in text color -> primary highlight on hover
 */
 $editorial-link-scope:
-    "main :where(p, li, dd, dt, blockquote, figcaption, small, h1, h2, h3, h4, h5, h6) a[href]:not(.btn):not(.nav-link):not(.dropdown-item):not(.stretched-link):not(.ta-card):not(.info-link):not([role='button'])";
+    ":where(main, .modal, .modal-content, .participa-ui-dialog, #modal-modo, [role='dialog'], [aria-modal='true'], dialog) :where(p, li, dd, dt, blockquote, figcaption, small, h1, h2, h3, h4, h5, h6, label, .form-check-label) a[href]:not(.btn):not(.nav-link):not(.dropdown-item):not(.stretched-link):not(.ta-card):not(.info-link):not([role='button'])";
 
 #{$editorial-link-scope} {
     &,
