@@ -327,6 +327,10 @@
 }
 
 @media (min-width: 992px) {
+  .explore-section {
+    --explore-stack-gap: clamp(82px, 16vh, 180px);
+  }
+
   [data-home-grid] .ta-card--interactive .home-eval-layout {
     grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
     align-items: stretch;
@@ -346,7 +350,7 @@
   .explore-section {
     --explore-pad-top: clamp(42px, 8vh, 110px);
     --explore-pad-bottom: clamp(54px, 9vh, 124px);
-    --explore-stack-gap: clamp(24px, 4.4vh, 48px);
+    --explore-stack-gap: clamp(30px, 5.2vh, 60px);
   }
 }
 
