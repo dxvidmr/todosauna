@@ -17,17 +17,7 @@
   --color-primary-lift: #{$color-primary-lift};
   --color-primary-soft: #{$color-primary-soft};
   --color-secondary: #{$color-secondary};
-  --color-secondary-50: #{$color-secondary-50};
-  --color-secondary-100: #{$color-secondary-100};
-  --ui-bg-elevated-soft: var(--color-secondary-50);
-  --ui-border-soft: #{mix($color-neutral-100, $color-secondary, 55%)};
-  --ui-border-strong: #{mix($color-primary, $color-neutral-200, 24%)};
-  --ui-text-strong: #{$color-dark};
   --ui-text-muted: #{$color-text-secondary};
-  --ui-shadow-soft: 0 6px 16px #{rgba($color-dark, 0.05)}, 0 1px 3px #{rgba($color-dark, 0.03)};
-  --ui-navbar-bg: var(--color-secondary-50);
-  --ui-navbar-border: #{mix($color-neutral-100, $color-secondary, 58%)};
-  --ui-navbar-text: #{$color-dark};
 }
 
 .navbar-offset-main {

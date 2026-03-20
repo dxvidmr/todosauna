@@ -126,22 +126,27 @@
     max-inline-size: calc(100vw - 2rem);
     border-radius: 50px;
     padding: 0.5rem 1.5rem;
-    background-color: var(--ui-navbar-bg) !important;
+    --navbar-bg: #{$color-neutral-100};
+    --navbar-text: #{$color-dark};
+    --navbar-border-soft: #{mix($color-neutral-200, $color-dark, 88%)};
+    --navbar-search-bg: #{$color-light};
+    --navbar-shadow: 0 6px 16px #{rgba($color-dark, 0.045)}, 0 1px 3px #{rgba($color-dark, 0.028)};
+    background-color: var(--navbar-bg) !important;
     background-image: none !important;
-    color: var(--ui-navbar-text) !important;
+    color: var(--navbar-text) !important;
     border: none;
-    box-shadow: var(--ui-shadow-soft);
+    box-shadow: var(--navbar-shadow);
     backdrop-filter: blur(10px);
     transition: inline-size 0.4s ease, width 0.4s ease, max-inline-size 0.4s ease, max-width 0.4s ease, border-radius 0.4s ease, padding 0.4s ease;
     overflow: visible;
     pointer-events: auto;
     flex-shrink: 0;
-    --bs-navbar-color: var(--ui-navbar-text);
+    --bs-navbar-color: var(--navbar-text);
     --bs-navbar-hover-color: var(--color-primary);
     --bs-navbar-active-color: var(--color-primary);
-    --bs-navbar-brand-color: var(--ui-navbar-text);
+    --bs-navbar-brand-color: var(--navbar-text);
     --bs-navbar-brand-hover-color: var(--color-primary);
-    --bs-navbar-toggler-border-color: var(--ui-navbar-border);
+    --bs-navbar-toggler-border-color: var(--navbar-border-soft);
     
     @media (max-width: 991.98px) {
         inline-size: calc(100% - 2rem);
@@ -174,7 +179,7 @@
     position: static;
     margin-top: 1.5rem;
     padding-top: 1.5rem;
-    border-top-color: var(--ui-border-soft);
+    border-top-color: var(--navbar-border-soft);
     max-height: 80vh;
     opacity: 1;
     visibility: visible;
@@ -307,7 +312,7 @@
     min-width: 0;
     
     .nav-link {
-        color: var(--ui-navbar-text);
+        color: var(--navbar-text);
         font-size: 1rem;
         padding: 0.5rem 0;
         transition: color 0.2s ease, opacity 0.2s ease;
@@ -340,7 +345,7 @@
     overflow: hidden; /* Cambiar a auto cuando esté expandido */
     transition: max-height 0.4s ease, opacity 0.2s ease, margin-top 0.4s ease, padding-top 0.4s ease, border-top-color 0.2s ease, visibility 0s linear 0.4s;
     width: 100%;
-    color: var(--ui-navbar-text) !important;
+    color: var(--navbar-text) !important;
 }
 
 /* Grid responsive */
@@ -371,7 +376,7 @@
     
     @media (max-width: 576px) {
         padding-bottom: 1rem;
-        border-bottom: 1px solid var(--ui-border-soft);
+        border-bottom: 1px solid var(--navbar-border-soft);
         
         &:last-child {
             border-bottom: none;
@@ -382,7 +387,7 @@
 
 /* Ajustar títulos en móvil */
 .navbar-expanded-title {
-    color: var(--ui-navbar-text);
+    color: var(--navbar-text);
     font-size: 1.1rem;
     font-weight: 500;
     text-decoration: none;
@@ -432,7 +437,7 @@
 .navbar-expanded-bottom {
     margin-top: 1.5rem;
     padding-top: 1rem;
-    border-top: 1px solid var(--ui-border-soft);
+    border-top: 1px solid var(--navbar-border-soft);
     display: flex;
     gap: 1rem;
     align-items: center;
@@ -458,8 +463,8 @@
     
     form {
         display: flex;
-        background: var(--ui-bg-elevated-soft);
-        border: 1px solid var(--ui-border-soft);
+        background: var(--navbar-search-bg);
+        border: 1px solid var(--navbar-border-soft);
         border-radius: 25px;
         padding: 0.5rem 1rem;
         max-width: 400px;
@@ -474,7 +479,7 @@
     input {
         background: transparent;
         border: none;
-        color: var(--ui-navbar-text);
+        color: var(--navbar-text);
         flex: 1;
         min-width: 0; /* IMPORTANTE: Permite que el input se comprima */
         
@@ -484,7 +489,7 @@
         
         &:focus {
             background: transparent;
-            color: var(--ui-navbar-text);
+            color: var(--navbar-text);
             outline: none;
             box-shadow: none;
         }
@@ -520,7 +525,7 @@
 
 /* Navbar brand */
 .navbar-brand {
-    color: var(--ui-navbar-text);
+    color: var(--navbar-text);
     font-weight: 800;
     font-size: 1.25rem;
     margin-right: 0;
@@ -549,7 +554,7 @@
     margin: 0;
     position: relative;
     background: transparent;
-    color: var(--ui-navbar-text);
+    color: var(--navbar-text);
     display: inline-flex;
     align-items: center;
     justify-content: center;
