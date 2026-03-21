@@ -484,7 +484,7 @@ function updateDisplay(filteredItems, query = "", field = "", startDate = "", en
     initMasonry();
     
     // Update count
-    document.querySelector("#numberOf").innerHTML = `${filteredItems.length} of {{ items | size }} items`;
+    document.querySelector("#numberOf").innerHTML = `${filteredItems.length} de {{ items | size }} elementos`;
     
     // Focus active input (only if needed)
     if (query || startDate || endDate) {

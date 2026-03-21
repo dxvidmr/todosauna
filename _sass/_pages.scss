@@ -275,78 +275,179 @@ $toc-a-color: $color-dark !default;
     }
 }
 
-.date-range-inputs {
-    display: none;
-    flex: 1; /* Allow it to grow/shrink with available space */
-    min-width: 200px; /* Prevent it from getting too small */
+.browse-advanced-wrap {
+    display: flex;
+    justify-content: flex-end;
 }
 
-.date-range-inputs.active {
-    display: flex;
-}
-
-.date-input-group {
-    display: flex;
-    flex-wrap: nowrap; /* Keep inputs on same line */
-    gap: 0.25rem; /* Reduce gap to save space */
-    align-items: center;
-    margin-top: 0; /* Remove top margin to align with search box */
+.browse-filter-form {
     width: 100%;
 }
 
-.date-input-group label {
-    margin: 0;
-    font-weight: 500;
-    white-space: nowrap;
-    font-size: 0.875rem;
+.browse-filter-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.6rem;
+    align-items: stretch;
 }
 
-.date-input-group input {
-    flex: 1;
-    min-width: 80px; /* Reduce minimum width */
-    height: calc(1.5em + 0.75rem + 2px); /* Match Bootstrap form-control height */
-    padding: 1.35rem 0.5rem; /* Reduce padding to save space */
+.browse-field-slot,
+.browse-query-slot {
+    min-width: 0;
+}
+
+.browse-mobile-filter-toggle {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+}
+
+.browse-query-slot .form-control {
+    width: 100%;
+}
+
+.browse-action-slot {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+}
+
+.browse-action-slot .btn {
+    width: 100%;
+}
+
+.date-range-inputs {
+    display: none;
+    width: 100%;
+}
+
+.date-range-inputs.active {
+    display: block;
+}
+
+.date-input-group {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+#browseFilter .date-input-group input {
+    min-width: 0;
+    height: auto;
+    padding: 0.625rem 0.75rem;
     border: 1px solid $color-neutral-200;
-    border-radius: 0.25rem; /* Add border radius back for consistency */
-    font-size: 1rem; /* Match main input font size */
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
 }
 
-/* Specific styling for date inputs in advanced search modal */
 #advancedSearchModal .date-input-group input {
-    padding: 0.25rem 0.5rem; /* Smaller padding for modal */
-    font-size: 0.875rem; /* Smaller font size to match form-control-sm */
-    height: calc(1.5em + 0.5rem + 2px); /* Adjust height for smaller inputs */
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    height: calc(1.5em + 0.5rem + 2px);
 }
 
 .date-separator {
     font-size: 0.875rem;
     color: $color-neutral-700;
-    padding: 0 0.25rem;
     white-space: nowrap;
 }
 
-@media (max-width: 576px) {
-    .date-range-inputs {
-        width: auto; /* Let it size naturally instead of fixed 60% */
-        min-width: 180px; /* Smaller minimum on mobile */
+.browse-meta-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.65rem;
+}
+
+.browse-meta-count {
+    font-size: 0.92rem;
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+.browse-meta-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.browse-meta-actions .dropdown,
+.browse-meta-actions .dropdown-toggle {
+    width: 100%;
+}
+
+.browse-meta-actions .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .browse-action-slot {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    
-    .date-input-group {
-        gap: 0.125rem; /* Even smaller gap on mobile */
+}
+
+@media (max-width: 575.98px) {
+    #browseFilter .date-input-group {
+        grid-template-columns: 1fr;
     }
-    
-    .date-input-group input {
-        min-width: 60px; /* Smaller inputs on mobile */
-        padding: 1.75rem 0.25rem; /* Less padding on mobile */
+
+    #browseFilter .date-separator {
+        display: none;
     }
-    
-    /* Keep advanced-search modal inputs small on mobile too */
-    #advancedSearchModal .date-input-group input {
-        padding: 0.25rem 0.375rem;
+
+    .browse-meta-actions {
+        grid-template-columns: 1fr;
     }
-    
-    .date-separator {
-        padding: 0 0.125rem;
+}
+
+@media (max-width: 991.98px) {
+    .browse-advanced-wrap .btn {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .browse-advanced-wrap .btn {
+        width: auto;
+    }
+
+    .browse-filter-grid {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .browse-filter-grid.has-facets {
+        grid-template-columns: minmax(190px, 220px) minmax(0, 1fr) auto;
+    }
+
+    .browse-action-slot {
+        display: flex;
+        grid-template-columns: none;
+    }
+
+    .browse-action-slot .btn {
+        width: auto;
+        white-space: nowrap;
+    }
+
+    .browse-meta-controls {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .browse-meta-actions {
+        display: flex;
+        grid-template-columns: none;
+    }
+
+    .browse-meta-actions .dropdown,
+    .browse-meta-actions .dropdown-toggle {
+        width: auto;
     }
 }
 

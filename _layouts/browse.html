@@ -5,93 +5,105 @@ custom-foot: js/masonry-lib.html;js/browse-js.html
 ---
 {%- assign fields = site.data.config-browse -%}
 
-<div class="row mb-2">
-    <div class="col-7 col-lg-9">{{ content }}</div>
-    <div class="col-5 col-lg-3 text-end text-lg-start">{% if site.data.theme.advanced-search == true %}{% include advanced-search-modal.html %}{% endif %}</div>
-</div>
+{{ content }}
+
 <div class="row mb-3 justify-content-center">
-    <div class="col-lg-8 text-center">
-        <form role="search" id="browseFilter" onsubmit="submitFilter(); return false;">
-            <div class="input-group input-group-lg">
-                {% if site.data.theme.faceted-search == true %}
-                <select class="form-control form-select d-none d-lg-block" id="fieldSelect" style="max-width: 200px;" aria-label="seleccionar campo de búsqueda para filtrar">
-                    <option value="all">Todo</option>
-                    <option value="title">Título</option>
-                    {% for f in fields %}
-                    {% assign cap-field = f.field | capitalize %}
-                    <option value="{{ f.field }}">{{ f.facet_name | default: f.display_name | default: cap-field }}</option>
-                    {% endfor %}
-                    <option value="display_template">Tipo de contenido</option>
-                    {% if site.data.theme.advanced-search == true %}
-                    <option value="" disabled>─────────────</option>
-                    <option value="advanced">Búsqueda avanzada...</option>{% endif %}
-                </select>
-                <!-- Mobile filter button - shows only on small screens -->
-                <div class="{% if site.data.theme.faceted-search == true %}dropdown d-lg-none{% else %}d-none{% endif %}">
-                    <button class="py-3 btn btn-outline-secondary" type="button" id="mobileFilterButton" data-bs-toggle="dropdown" aria-expanded="false" title="Opciones de filtro">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
-                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
-                        </svg>
-                        <span id="selectedField" class="d-none d-sm-inline ms-1">Todo</span>
-                    </button>
-                    <div class="dropdown-menu">
-                        <button class="dropdown-item" type="button" data-field="all">Todo</button>
-                        <button class="dropdown-item" type="button" data-field="title">Título</button>
-                        {% for f in fields %}
-                        {% assign cap-field = f.field | capitalize %}
-                        <button class="dropdown-item" type="button" data-field="{{ f.field }}">{{ f.facet_name | default: f.display_name | default: cap-field }}</button>
-                        {% endfor %}
-                        <button class="dropdown-item" type="button" data-field="display_template">Tipo de contenido</button>
-                        {% if site.data.theme.advanced-search == true %}
-                        <div class="dropdown-divider"></div>
-                        <button class="dropdown-item" type="button" data-field="advanced">Búsqueda avanzada</button>
-                        {% endif %}
+    <div class="col-lg-10">
+        <div class="card card-soft ui-thin-border p-3 p-md-4">
+            {% if site.data.theme.advanced-search == true %}
+            <div class="browse-advanced-wrap mb-3">{% include advanced-search-modal.html %}</div>
+            {% endif %}
+            <form role="search" id="browseFilter" class="browse-filter-form" onsubmit="submitFilter(); return false;">
+                <div class="browse-filter-grid{% if site.data.theme.faceted-search == true %} has-facets{% endif %}">
+                    {% if site.data.theme.faceted-search == true %}
+                    <div class="browse-field-slot">
+                        <select class="form-select d-none d-lg-block" id="fieldSelect" style="max-width: 220px;" aria-label="seleccionar campo de busqueda para filtrar">
+                            <option value="all">Todo</option>
+                            <option value="title">Titulo</option>
+                            {% for f in fields %}
+                            {% assign cap-field = f.field | capitalize %}
+                            <option value="{{ f.field }}">{{ f.facet_name | default: f.display_name | default: cap-field }}</option>
+                            {% endfor %}
+                            <option value="display_template">Tipo de contenido</option>
+                            {% if site.data.theme.advanced-search == true %}
+                            <option value="" disabled>-------------</option>
+                            <option value="advanced">Busqueda avanzada...</option>{% endif %}
+                        </select>
+                        <div class="dropdown d-lg-none">
+                            <button class="btn btn-outline-secondary browse-mobile-filter-toggle" type="button" id="mobileFilterButton" data-bs-toggle="dropdown" aria-expanded="false" title="Opciones de filtro">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                                    <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+                                </svg>
+                                <span id="selectedField">Todo</span>
+                            </button>
+                            <div class="dropdown-menu w-100">
+                                <button class="dropdown-item" type="button" data-field="all">Todo</button>
+                                <button class="dropdown-item" type="button" data-field="title">Titulo</button>
+                                {% for f in fields %}
+                                {% assign cap-field = f.field | capitalize %}
+                                <button class="dropdown-item" type="button" data-field="{{ f.field }}">{{ f.facet_name | default: f.display_name | default: cap-field }}</button>
+                                {% endfor %}
+                                <button class="dropdown-item" type="button" data-field="display_template">Tipo de contenido</button>
+                                {% if site.data.theme.advanced-search == true %}
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item" type="button" data-field="advanced">Busqueda avanzada</button>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
-                </div>{% endif %}
-                <input type="text" class="form-control" id="filterTextBox" placeholder="Filtrar... " aria-label="Buscar"> 
-                <!-- Update the date range inputs section -->
-                <div id="dateRangeInputs" class="date-range-inputs">
-                    <div class="date-input-group">
-                        <input type="text" id="startDate" class="ms-2 form-control" placeholder="Fecha de inicio">
-                        <span class="date-separator">a</span>
-                        <input type="text" id="endDate" class="me-2 form-control" placeholder="Fecha de fin">
+                    {% endif %}
+
+                    <div class="browse-query-slot">
+                        <input type="text" class="form-control" id="filterTextBox" placeholder="Filtrar..." aria-label="Buscar">
+                        <div id="dateRangeInputs" class="date-range-inputs">
+                            <div class="date-input-group">
+                                <input type="text" id="startDate" class="form-control" placeholder="Fecha de inicio">
+                                <span class="date-separator">a</span>
+                                <input type="text" id="endDate" class="form-control" placeholder="Fecha de fin">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="browse-action-slot">
+                        <button class="btn btn-dark" type="submit" title="Filtrar elementos" id="filterButton">Buscar</button>
+                        <button class="btn btn-outline-neutral-400 filter" type="button" onclick="resetFilter(); return false;" data-filter="">Reiniciar</button>
                     </div>
                 </div>
-                <button class="btn btn-dark" type="submit" title="Filtrar elementos" id="filterButton" >Buscar</button>
-                <button class="btn btn-outline-neutral-400 filter d-none d-lg-flex" onclick="resetFilter(); return false;" data-filter="">Reiniciar</button>
-            </div>
-        </form>
-        <!-- Active filter indicators -->
-        <div id="activeFilters" class="mt-2 text-start"></div>
-        <div class="h2" id="numberOf"></div>
-    </div>
-    <div class="col-lg-2 col-md-6">
-        <div class="dropdown">
-            <button class="btn btn-dark mt-1 dropdown-toggle" type="button" id="browseSortButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Orden: <span id="sortFilter">Aleatorio</span>
-            </button>
-            <div class="dropdown-menu browse-sort-menu" aria-labelledby="browseSortButton">
-                <button class="dropdown-item browse-sort-item {% if site.data.theme.default-sort-field == '' %}active{% endif %}" data-filter="random">Aleatorio</button>
-                <button class="dropdown-item browse-sort-item" data-filter="title">Título</button>
-                {% assign sort_options = site.data.config-browse | where_exp: 'i','i.sort_name != nil' %}
-                {% for o in sort_options %}
-                <button class="dropdown-item browse-sort-item" data-filter="{{ o.field | escape }}">{{ o.sort_name }}</button>
-                {% endfor %}
-            </div>
-            <button class="btn btn-outline-secondary filter p-1 d-lg-none float-end" onclick="resetFilter(); return false;" data-filter="">Reiniciar</button>
+            </form>
+            <div id="activeFilters" class="mt-3 text-start"></div>
         </div>
-       
     </div>
-    <div class="col-lg-2 col-md-6">
-        <div class="dropdown">
-            <button class="btn btn-outline-dark mt-1 dropdown-toggle" type="button" id="browseColumnsButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Columnas: <span id="browseColumnsValue">5</span>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="browseColumnsButton">
-                <button class="dropdown-item browse-columns-item" type="button" data-columns="3">3</button>
-                <button class="dropdown-item browse-columns-item" type="button" data-columns="4">4</button>
-                <button class="dropdown-item browse-columns-item" type="button" data-columns="5">5</button>
-                <button class="dropdown-item browse-columns-item" type="button" data-columns="6">6</button>
+</div>
+
+<div class="row mb-3 justify-content-center">
+    <div class="col-lg-10">
+        <div class="browse-meta-controls">
+            <div class="browse-meta-count text-muted" id="numberOf"></div>
+            <div class="browse-meta-actions">
+                <div class="dropdown">
+                    <button class="btn btn-outline-dark dropdown-toggle" type="button" id="browseSortButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Orden:&ensp;<span id="sortFilter">Aleatorio</span>
+                    </button>
+                    <div class="dropdown-menu browse-sort-menu" aria-labelledby="browseSortButton">
+                        <button class="dropdown-item browse-sort-item {% if site.data.theme.default-sort-field == '' %}active{% endif %}" data-filter="random">Aleatorio</button>
+                        <button class="dropdown-item browse-sort-item" data-filter="title">Titulo</button>
+                        {% assign sort_options = site.data.config-browse | where_exp: 'i','i.sort_name != nil' %}
+                        {% for o in sort_options %}
+                        <button class="dropdown-item browse-sort-item" data-filter="{{ o.field | escape }}">{{ o.sort_name }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-outline-dark dropdown-toggle" type="button" id="browseColumnsButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Columnas:&ensp;<span id="browseColumnsValue">5</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="browseColumnsButton">
+                        <button class="dropdown-item browse-columns-item" type="button" data-columns="3">3</button>
+                        <button class="dropdown-item browse-columns-item" type="button" data-columns="4">4</button>
+                        <button class="dropdown-item browse-columns-item" type="button" data-columns="5">5</button>
+                        <button class="dropdown-item browse-columns-item" type="button" data-columns="6">6</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
