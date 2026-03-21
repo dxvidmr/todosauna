@@ -51,9 +51,15 @@ $toc-a-color: $color-dark !default;
 /* browse */
 
 .browse-grid {
-    --browse-columns-user: 3;
+    --browse-columns-user: 5;
     --browse-columns: var(--browse-columns-user);
     --browse-gutter: 1rem;
+    --browse-title-size: 1rem;
+    --browse-meta-size: 0.84rem;
+    --browse-badge-size: 0.72rem;
+    --browse-caption-pad-y: 0.75rem;
+    --browse-caption-pad-x: 0.85rem;
+    --browse-overlay-pad: 0.8rem;
     position: relative;
 }
 
@@ -76,6 +82,196 @@ $toc-a-color: $color-dark !default;
 @media (min-width: 576px) and (max-width: 991.98px) {
     .browse-grid {
         --browse-columns: min(var(--browse-columns-user), 2);
+    }
+}
+
+.browse-card-link {
+    display: block;
+    color: $color-text;
+    text-decoration: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.6rem;
+    overflow: hidden;
+    background: $color-light;
+    transition: box-shadow 0.18s ease;
+
+    &:hover,
+    &:focus-visible {
+        color: $color-text;
+        text-decoration: none;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+}
+
+.browse-media {
+    position: relative;
+    overflow: hidden;
+}
+
+.browse-media-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.22s ease;
+}
+
+.browse-card-link:hover .browse-media-image,
+.browse-card-link:focus-visible .browse-media-image {
+    transform: scale(1.01);
+}
+
+.browse-media-icon {
+    width: 100%;
+    min-height: 180px;
+    display: grid;
+    place-items: center;
+    color: $color-neutral-700;
+    padding: 1rem;
+    text-align: center;
+
+    svg {
+        width: 56px;
+        height: 56px;
+    }
+}
+
+.browse-badges {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.browse-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.18rem 0.48rem;
+    border-radius: 999px;
+    background: rgba($color-dark, 0.78);
+    color: $color-light;
+    font-size: var(--browse-badge-size);
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+.browse-badge--type {
+    background: rgba($color-secondary-50, 0.92);
+    color: $color-dark;
+    border: 1px solid rgba($color-dark, 0.14);
+    font-weight: 500;
+}
+
+.browse-hover-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.45rem;
+    padding: var(--browse-overlay-pad);
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.04) 8%,
+        rgba(0, 0, 0, 0.46) 58%,
+        rgba(0, 0, 0, 0.8) 100%
+    );
+    color: $color-light;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.browse-card-link:hover .browse-hover-overlay,
+.browse-card-link:focus-visible .browse-hover-overlay,
+.browse-card-link:focus-within .browse-hover-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.browse-hover-meta {
+    display: grid;
+    gap: 0.2rem;
+    font-size: var(--browse-meta-size);
+    line-height: 1.25;
+}
+
+.browse-hover-row {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.browse-hover-label {
+    font-weight: 700;
+    margin-right: 0.2rem;
+}
+
+.browse-caption {
+    padding: var(--browse-caption-pad-y) var(--browse-caption-pad-x);
+}
+
+.browse-title {
+    margin: 0;
+    color: $color-dark;
+    font-size: var(--browse-title-size);
+    line-height: 1.24;
+    letter-spacing: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+}
+
+.browse-grid[data-columns="3"] {
+    --browse-title-size: 1rem;
+    --browse-meta-size: 0.84rem;
+    --browse-badge-size: 0.72rem;
+    --browse-caption-pad-y: 0.75rem;
+    --browse-caption-pad-x: 0.85rem;
+    --browse-overlay-pad: 0.8rem;
+}
+
+.browse-grid[data-columns="4"] {
+    --browse-title-size: 0.95rem;
+    --browse-meta-size: 0.78rem;
+    --browse-badge-size: 0.68rem;
+    --browse-caption-pad-y: 0.68rem;
+    --browse-caption-pad-x: 0.75rem;
+    --browse-overlay-pad: 0.72rem;
+}
+
+.browse-grid[data-columns="5"] {
+    --browse-title-size: 0.9rem;
+    --browse-meta-size: 0.74rem;
+    --browse-badge-size: 0.64rem;
+    --browse-caption-pad-y: 0.62rem;
+    --browse-caption-pad-x: 0.66rem;
+    --browse-overlay-pad: 0.64rem;
+}
+
+.browse-grid[data-columns="6"] {
+    --browse-title-size: 0.86rem;
+    --browse-meta-size: 0.7rem;
+    --browse-badge-size: 0.62rem;
+    --browse-caption-pad-y: 0.58rem;
+    --browse-caption-pad-x: 0.6rem;
+    --browse-overlay-pad: 0.56rem;
+}
+
+@media (max-width: 991.98px) {
+    .browse-grid {
+        --browse-title-size: 1rem;
+        --browse-meta-size: 0.84rem;
+        --browse-badge-size: 0.72rem;
+        --browse-caption-pad-y: 0.75rem;
+        --browse-caption-pad-x: 0.85rem;
+        --browse-overlay-pad: 0.8rem;
     }
 }
 

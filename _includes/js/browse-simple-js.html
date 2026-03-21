@@ -7,6 +7,7 @@ var items = [
         {% if item.image_thumb %}"img": {{ item.image_thumb | relative_url | jsonify }}, {%- endif -%} 
         {% if item.display_template %}"display_template": {{ item.display_template | jsonify }}, {%- endif -%}
         {% if item.format %}"format": {{ item.format | jsonify }}, {%- endif -%}
+        {% if item.type %}"type": {{ item.type | jsonify }}, {%- endif -%}
         {% if item.image_alt_text %}"alt": {{ item.image_alt_text | escape | jsonify }}, {%- endif -%}
         "title":{{ item.title | strip | escape | jsonify }},
         {% if item.parentid %}"parent": {{ item.parentid | jsonify }}, {%- endif -%}
@@ -17,7 +18,7 @@ var items = [
 
 var msnry = null;
 var browseColumnsStorageKey = 'browseColumns';
-var browseColumnsDefault = 3;
+var browseColumnsDefault = 5;
 var browseColumnsMin = 3;
 var browseColumnsMax = 6;
 
@@ -72,6 +73,7 @@ function applyBrowseColumns(value, persist) {
     if (valueSpan) valueSpan.textContent = columns;
     if (browseItemsDiv) {
         browseItemsDiv.style.setProperty('--browse-columns-user', columns);
+        browseItemsDiv.dataset.columns = columns;
     }
     var buttons = document.querySelectorAll('.browse-columns-item');
     buttons.forEach(function(button) {
@@ -119,64 +121,68 @@ function debounce(fn, wait) {
 }
 
 /* function to create cards for each item */ 
-function makeCard(obj) {
-    // placeholder image for lazyload
-    var placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E";
-    // find item link
-    var itemHref = `{{ '/items/' | relative_url }}${ obj.parent ? obj.parent + ".html#" + obj.id : obj.id + ".html"}`; 
-    // find image
-    var imgSrc, thumbIcon;
-    // if there is a thumb in the csv display it
-    if(obj.img) {
-        imgSrc = obj.img;
-    // else add an icon based on display_template or format
-    } else {
-        thumbIcon = getIcon(obj.template,obj.format,"thumb");
-    }
-    var imgAlt = obj.alt ? obj.alt : obj.title;
+function firstMetaValue(value) {
+    if (!value) return "";
+    var values = value.toString().split(";").map(function(v) { return v.trim(); }).filter(Boolean);
+    return values.length ? values[0] : "";
+}
 
-    // start card
-    var card = '<div class="browse-item"><div class="card">';
-    // top image for items with image
-    if(imgSrc) {
-        card += '<a href="' + itemHref + '"> <img class="card-img-top lazyload" src="' + placeholder + '" data-src="' + imgSrc + '" alt="' + imgAlt + '"></a>';
+function compactTypeLabel(obj) {
+    var typeValue = firstMetaValue(obj.type);
+    if (typeValue) return typeValue;
+
+    var templateValue = firstMetaValue(obj.display_template);
+    if (templateValue) return templateValue.replace(/_/g, " ");
+
+    var formatValue = firstMetaValue(obj.format);
+    if (formatValue) {
+        var pieces = formatValue.split("/");
+        return pieces[pieces.length - 1];
     }
-    // title
-    card += '<div class="card-body text-center"> <h3 class="card-title h4"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
-    // icon thumb for item without image
-    if(thumbIcon){
-        card += '<p><a href="' + itemHref + '">' + thumbIcon + '</a></p>';
+
+    return "";
+}
+
+function makeCard(obj) {
+    var placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E";
+    var itemHref = `{{ '/items/' | relative_url }}${ obj.parent ? obj.parent + ".html#" + obj.id : obj.id + ".html"}`; 
+    var thumbIcon = !obj.img ? getIcon(obj.display_template, obj.format, "thumb") : "";
+    var imgAlt = obj.alt ? obj.alt : obj.title;
+    var creator = firstMetaValue(obj.creator);
+    var location = firstMetaValue(obj.location);
+    var dateLabel = firstMetaValue(obj.date);
+    var typeLabel = compactTypeLabel(obj);
+
+    var card = '<div class="browse-item"><a class="browse-card-link" href="' + itemHref + '">';
+    card += '<div class="browse-media">';
+
+    if (obj.img) {
+        card += '<img class="browse-media-image lazyload" src="' + placeholder + '" data-src="' + obj.img + '" alt="' + imgAlt + '">';
+    } else if (thumbIcon) {
+        card += '<div class="browse-media-icon" aria-hidden="true">' + thumbIcon + '</div>';
+    } else {
+        card += '<div class="browse-media-icon" aria-hidden="true"></div>';
     }
-    // other fields
-    card += '<p class="card-text">';
-    {% for f in fields %}{% unless f.hidden == 'true' %}
-    if(obj[{{ f.field | jsonify }}]){
-    {% if f.display_name %}card += '<strong>{{ f.display_name }}:</strong> ';{% endif %}
-    {% if f.btn == 'true' %}
-    var btns = obj[{{ f.field | jsonify }}].split(";");
-    for (var i = 0, len = btns.length; i < len; i++) {
-        if(btns[i] != "") {
-        card += '<a class="btn btn-sm btn-secondary m-1 text-wrap" href="{{ page.url | relative_url }}#' + encodeURIComponent(btns[i].trim()) + '">' + btns[i].trim() + '</a>';
-        }
+
+    if (dateLabel || typeLabel) {
+        card += '<div class="browse-badges">';
+        if (dateLabel) card += '<span class="browse-badge">' + dateLabel + '</span>';
+        if (typeLabel) card += '<span class="browse-badge browse-badge--type">' + typeLabel + '</span>';
+        card += '</div>';
     }
-    {% else %}
-    card += obj[{{ f.field | jsonify }}];
-    {% endif %}
-    {% unless forloop.last %}card += '<br>';{% endunless %}
+
+    card += '<div class="browse-hover-overlay">';
+    if (creator || location) {
+        card += '<div class="browse-hover-meta">';
+        if (creator) card += '<p class="browse-hover-row"><span class="browse-hover-label">Creador:</span> ' + creator + '</p>';
+        if (location) card += '<p class="browse-hover-row"><span class="browse-hover-label">Lugar:</span> ' + location + '</p>';
+        card += '</div>';
     }
-    {% endunless %}{% endfor %}
-    card += '</p>';
-    // media type
-    if(obj.template && obj.template != "") {
-        mediaIcon = getIcon(obj.template,obj.format,"hidden");
-        card += '<p class="card-text"><small><a class="btn btn-sm btn-outline-secondary" href="{{ page.url | relative_url }}#' + encodeURIComponent(obj.template) + '">' + 
-        obj.template.toUpperCase().replace("_"," ") + ' ' + mediaIcon + '</a></small></p>';
-    }
-    // view button
-    card += '<hr><a href="' + itemHref + '" class="btn btn-sm btn-light" title="link to ' + obj.title + '">View Full Record</a>';
-    // close divs
-    card += '</div></div></div>';
-    // send back big string
+    card += '</div>';
+    card += '</div>';
+
+    card += '<div class="browse-caption"><h3 class="browse-title">' + obj.title + '</h3></div>';
+    card += '</a></div>';
     return card;
 }
 
