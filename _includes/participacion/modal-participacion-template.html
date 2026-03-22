@@ -1,11 +1,11 @@
-﻿<template id="participacion-modal-template">
+<template id="participacion-modal-template">
   <div id="modal-modo" class="modal">
     <div class="modal-overlay"></div>
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-header-main">
           <h2 id="modal-titulo" tabindex="-1">¿Cómo quieres participar?</h2>
-          <p class="modal-descripcion" id="modal-descripcion">Tu participación ayuda a mejorar las notas para futuros lectores.</p>
+          <p class="modal-descripcion" id="modal-descripcion">Elige una de las dos opciones. Si tienes dudas, revisa nuestrsa <a  href="{{ '/participa/guia/' | relative_url }}" target="_blank" rel="noopener noreferrer">guía de participación</a> y nuestra <a href="{{ '/privacidad/' | relative_url }}" target="_blank" rel="noopener noreferrer">Política de privacidad</a>.</p>
           <div id="modal-header-meta" class="modal-header-meta" style="display:none;"></div>
         </div>
         <div id="modal-header-actions" class="modal-header-actions" style="display:none;"></div>
@@ -39,7 +39,7 @@
           </p>
           <div class="botones-modal modal-actions">
             <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
-            <button type="submit" class="btn btn-primary">Comenzar</button>
+            <button type="submit" class="btn btn-dark">Comenzar</button>
           </div>
         </form>
       </div>
@@ -60,93 +60,127 @@
 
       <div id="form-colaborador-login" class="modo-form" style="display:none;">
         <form id="form-colaborador-login-datos">
-          <label>Email<input type="email" name="email" required placeholder="tu@email.com"></label>
+          <div class="mb-3">
+            <label for="login-email" class="form-label">Email <span class="required-mark" aria-hidden="true">*</span></label>
+            <input id="login-email" type="email" name="email" class="form-control" required placeholder="tu@email.com" autocomplete="email">
+          </div>
           <div class="botones-modal modal-actions">
             <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
-            <button type="submit" class="btn btn-primary">Identificarme</button>
+            <button type="submit" class="btn btn-dark">Identificarme</button>
           </div>
         </form>
       </div>
 
       <div id="form-colaborador-registro" class="modo-form" style="display:none;">
         <form id="form-colaborador-registro-datos">
-          <label>Email <span class="required-mark" aria-hidden="true">*</span>
-            <input type="email" name="email" required placeholder="tu@email.com" autocomplete="email">
-          </label>
-          <label class="label-derivado">Confirmar email <span class="required-mark" aria-hidden="true">*</span>
-            <input type="email" name="confirm_email" required placeholder="Repite tu email" autocomplete="email">
+          <div class="mb-3">
+            <label for="registro-email" class="form-label">Email <span class="required-mark" aria-hidden="true">*</span></label>
+            <input id="registro-email" type="email" name="email" class="form-control" required placeholder="tu@email.com" autocomplete="email">
+          </div>
+          <div class="mb-3">
+            <label for="registro-confirm-email" class="form-label label-derivado">Confirmar email <span class="required-mark" aria-hidden="true">*</span></label>
+            <input id="registro-confirm-email" type="email" name="confirm_email" class="form-control" required placeholder="Repite tu email" autocomplete="email">
             <small class="field-helper">Debe coincidir con el email anterior.</small>
-          </label>
-          <label>Nombre <span class="optional-note">(opcional)</span>
-            <input type="text" name="display_name" placeholder="María G." maxlength="50" autocomplete="name">
-          </label>
+          </div>
+          <div class="mb-3">
+            <label for="registro-display-name" class="form-label">Nombre <span class="optional-note">(opcional)</span></label>
+            <input id="registro-display-name" type="text" name="display_name" class="form-control" placeholder="María G." maxlength="50" autocomplete="name">
+          </div>
 
           <details class="modal-optional-group">
             <summary>
-              <span class="modal-optional-summary-text">Algunos datos más sobre ti <span class="optional-note">(opcional)</span></span>
+              <span class="field-group-title mb-0">Algunos datos más sobre ti <span class="optional-note">(opcional)</span></span>
               <i class="fa-solid fa-chevron-down modal-optional-summary-icon" aria-hidden="true"></i>
             </summary>
             <div class="modal-optional-content">
-              <label>Nivel de estudios
-                <select name="nivel_estudios">
-                  <option value="">Prefiero no decirlo</option>
-                  <option value="secundaria">Secundaria</option>
-                  <option value="grado">Grado universitario</option>
-                  <option value="posgrado">Máster/Posgrado</option>
-                  <option value="doctorado">Doctorado</option>
-                  <option value="otro">Otro</option>
-                </select>
-              </label>
-              <label>Disciplina
-                <select name="disciplina">
-                  <option value="">Prefiero no decirlo</option>
-                  <option value="filologia">Filología/Lengua/Literatura</option>
-                  <option value="historia">Historia</option>
-                  <option value="educacion">Educación</option>
-                  <option value="arte">Arte/Teatro</option>
-                  <option value="humanidades">Humanidades</option>
-                  <option value="ciencias_sociales">Ciencias Sociales</option>
-                  <option value="otro">Otra</option>
-                </select>
-              </label>
-              <label>Año de nacimiento
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="registro-nivel-estudios" class="form-label">Nivel de estudios</label>
+                  <select id="registro-nivel-estudios" name="nivel_estudios" class="form-select">
+                    <option value="">Prefiero no decirlo</option>
+                    <option value="secundaria">Secundaria</option>
+                    <option value="grado">Grado universitario</option>
+                    <option value="posgrado">Máster/Posgrado</option>
+                    <option value="doctorado">Doctorado</option>
+                    <option value="otro">Otro</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="registro-disciplina" class="form-label">Disciplina</label>
+                  <select id="registro-disciplina" name="disciplina" class="form-select">
+                    <option value="">Prefiero no decirlo</option>
+                    <option value="filologia">Filología/Lengua/Literatura</option>
+                    <option value="historia">Historia</option>
+                    <option value="educacion">Educación</option>
+                    <option value="arte">Arte/Teatro</option>
+                    <option value="humanidades">Humanidades</option>
+                    <option value="ciencias_sociales">Ciencias Sociales</option>
+                    <option value="otro">Otra</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <label for="registro-anio-nacimiento" class="form-label">Año de nacimiento</label>
                 <input
+                  id="registro-anio-nacimiento"
                   type="number"
                   name="anio_nacimiento"
+                  class="form-control"
                   min="1900"
                   max="2100"
                   step="1"
                   inputmode="numeric"
                   placeholder="1990"
                 >
-              </label>
+              </div>
 
-              <fieldset class="modal-checkbox-group">
-                <legend class="field-group-title">Relación con la obra</legend>
-                <label><input type="checkbox" name="relacion_obra" value="lectura"> Lectura</label>
-                <label><input type="checkbox" name="relacion_obra" value="espectador_teatro"> Espectador/a de teatro</label>
-                <label><input type="checkbox" name="relacion_obra" value="creacion_escenica"> Creación escénica</label>
-                <label><input type="checkbox" name="relacion_obra" value="docencia"> Docencia</label>
-                <label><input type="checkbox" name="relacion_obra" value="investigacion"> Investigación</label>
-                <label><input type="checkbox" name="relacion_obra" value="edicion_literaria"> Edición literaria</label>
-              </fieldset>
-
-              <p class="field-group-title">Ciudad y país de referencia</p>
+              <p class="field-group-title mt-4 mb-2">Lugar</p>
               <div class="geo-location-row geo-location-row--full">
                 <div>
-                  <input type="text" id="registro-city-input" placeholder="Ciudad (escribe y elige una de la lista)">
+                  <label for="registro-city-input" class="form-label">Ciudad</label>
+                  <input type="text" id="registro-city-input" class="form-control" placeholder="Escribe una ciudad y selecciona una opción">
                 </div>
                 <div>
-                  <input type="text" id="registro-country-display" readonly placeholder="País">
+                  <label for="registro-country-display" class="form-label">País <span class="optional-note">(automático)</span></label>
+                  <input type="text" id="registro-country-display" class="form-control" readonly placeholder="País">
                 </div>
                 <button type="button" class="btn btn-outline-dark btn-sm" id="registro-clear-city">Limpiar</button>
               </div>
-              <small class="field-helper">Opcional. Solo se usa si decides completarlo. Si escribes ciudad, selecciona una opción de la lista GeoNames.</small>
+              <small class="field-helper">Puedes indicar el lugar de donde eres, vives o el que prefieras compartir.</small>
               <input type="hidden" id="registro-city-name" name="city_name">
               <input type="hidden" id="registro-city-geoname-id" name="city_geoname_id">
               <input type="hidden" id="registro-country-name" name="country_name">
               <input type="hidden" id="registro-country-geoname-id" name="country_geoname_id">
               <p id="registro-geo-status" class="participa-inline-status" hidden aria-live="polite"></p>
+
+              <fieldset class="modal-checkbox-group mt-4">
+                <legend class="field-group-title mb-2">Relación con la obra</legend>
+                <label class="form-check mb-0">
+                  <input class="form-check-input" type="checkbox" name="relacion_obra" value="lectura">
+                  <span class="form-check-label">Lectura</span>
+                </label>
+                <label class="form-check mb-0">
+                  <input class="form-check-input" type="checkbox" name="relacion_obra" value="espectador_teatro">
+                  <span class="form-check-label">Espectador/a de teatro</span>
+                </label>
+                <label class="form-check mb-0">
+                  <input class="form-check-input" type="checkbox" name="relacion_obra" value="creacion_escenica">
+                  <span class="form-check-label">Creación escénica</span>
+                </label>
+                <label class="form-check mb-0">
+                  <input class="form-check-input" type="checkbox" name="relacion_obra" value="docencia">
+                  <span class="form-check-label">Docencia</span>
+                </label>
+                <label class="form-check mb-0">
+                  <input class="form-check-input" type="checkbox" name="relacion_obra" value="investigacion">
+                  <span class="form-check-label">Investigación</span>
+                </label>
+                <label class="form-check mb-0">
+                  <input class="form-check-input" type="checkbox" name="relacion_obra" value="edicion_literaria">
+                  <span class="form-check-label">Edición literaria</span>
+                </label>
+              </fieldset>
             </div>
           </details>
 
@@ -160,7 +194,7 @@
           </div>
           <div class="botones-modal modal-actions">
             <button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button>
-            <button type="submit" class="btn btn-primary">Registrarme</button>
+            <button type="submit" class="btn btn-dark">Registrarme</button>
           </div>
         </form>
       </div>

@@ -143,6 +143,8 @@
   font-family: inherit;
 }
 
+.modo-form .form-control,
+.modo-form .form-select,
 .modo-form select,
 .modo-form input[type="email"],
 .modo-form input[type="text"],
@@ -158,6 +160,8 @@
 
 .participa-form .form-control:focus,
 .participa-form .form-select:focus,
+.modo-form .form-control:focus,
+.modo-form .form-select:focus,
 .modo-form select:focus,
 .modo-form input[type="email"]:focus,
 .modo-form input[type="text"]:focus,
