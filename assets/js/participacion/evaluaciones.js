@@ -71,7 +71,7 @@ function crearBotonesConContadores(notaId, version, evaluaciones) {
     </div>
     <div class="evaluacion-comentario" style="display:none;">
       <textarea placeholder="[opcional] ¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota." rows="3"></textarea>
-      <button class="btn btn-primary btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
+      <button class="btn btn-dark btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
       <button class="btn btn-outline-dark btn-sm btn-cancelar-comentario">Cancelar</button>
     </div>
   `;

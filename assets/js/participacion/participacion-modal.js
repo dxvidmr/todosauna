@@ -572,7 +572,7 @@
     this._setHeaderActions('');
     this._showHeader(
       'Registrarse',
-      'Rellena el formulario para registrarte como colaborador/a y aceptar la política de privacidad.'
+      'Rellena el formulario para registrarte como colaborador/a y poder participar con tu perfil identificado.'
     );
     if (this.formRegistro) this.formRegistro.style.display = 'block';
   };
@@ -1027,7 +1027,7 @@
       : 'Todavía no has enviado testimonios ni documentos.';
 
     if (!viewModel.hasUploads) {
-      uploadsDetailHtml = escapeHtml('Todavia no has enviado testimonios ni documentos.');
+      uploadsDetailHtml = escapeHtml('Todavía no has enviado testimonios ni documentos.');
     }
 
     var uploadsActions = ''
@@ -1038,7 +1038,7 @@
 
     var summaryActions = ''
       + '<div class="modal-actions perfil-summary-actions">'
-      + '  <a class="btn btn-primary" href="/participa/">' + escapeHtml(stats.total_contribuciones > 0 ? 'Participa' : 'Empieza a participar') + '</a>'
+      + '  <a class="btn btn-primary" href="/participa/">' + escapeHtml(stats.total_contribuciones > 0 ? 'Participa' : 'Participa') + '</a>'
       + '</div>';
 
     var evaluationDetails = stats.total_evaluaciones > 0
