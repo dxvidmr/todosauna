@@ -123,14 +123,19 @@
   }
 
   function readPrivacySettings() {
+    var mostrarLugarUnificado = !!document.getElementById('privacy-mostrar-lugar')?.checked;
+    var mostrarCiudadEl = document.getElementById('privacy-mostrar-ciudad');
+    var mostrarPaisEl = document.getElementById('privacy-mostrar-pais');
+    var mostrarLugarTextoEl = document.getElementById('privacy-mostrar-lugar-texto');
+
     return {
       mostrar_nombre: !!document.getElementById('privacy-mostrar-nombre')?.checked,
-      mostrar_ciudad: !!document.getElementById('privacy-mostrar-ciudad')?.checked,
-      mostrar_pais: !!document.getElementById('privacy-mostrar-pais')?.checked,
+      mostrar_ciudad: mostrarCiudadEl ? !!mostrarCiudadEl.checked : mostrarLugarUnificado,
+      mostrar_pais: mostrarPaisEl ? !!mostrarPaisEl.checked : mostrarLugarUnificado,
       mostrar_fecha: !!document.getElementById('privacy-mostrar-fecha')?.checked,
       mostrar_rango_edad: !!document.getElementById('privacy-mostrar-rango-edad')?.checked,
       mostrar_contexto: !!document.getElementById('privacy-mostrar-contexto')?.checked,
-      mostrar_lugar_texto: !!document.getElementById('privacy-mostrar-lugar-texto')?.checked
+      mostrar_lugar_texto: mostrarLugarTextoEl ? !!mostrarLugarTextoEl.checked : mostrarLugarUnificado
     };
   }
 

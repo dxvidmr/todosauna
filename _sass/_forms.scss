@@ -56,10 +56,13 @@
 
 .participa-form .field-group-title,
 .modo-form .field-group-title {
-  margin: 0 0 6px;
-  color: $color-text;
-  font-size: 0.92rem;
-  font-weight: 600;
+  margin: 0 0 8px;
+  color: $color-text-secondary;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.25;
 }
 
 .field-helper {
@@ -73,6 +76,61 @@
 .field-helper--intro {
   margin-top: 0;
   margin-bottom: 10px;
+}
+
+.participa-form .creator-list {
+  display: grid;
+  gap: 10px;
+}
+
+.participa-form .creator-row {
+  display: flex;
+  gap: 10px;
+  align-items: end;
+  flex-wrap: nowrap;
+}
+
+.participa-form .creator-row-field {
+  min-width: 0;
+}
+
+.participa-form .creator-row-field--name {
+  flex: 3 1 0;
+  max-width: none;
+}
+
+.participa-form .creator-row-field--role {
+  flex: 2 1 0;
+  max-width: none;
+}
+
+.participa-form .creator-row > .btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  margin-left: auto;
+  margin-bottom: 0;
+  align-self: end;
+}
+
+@media (max-width: 767.98px) {
+  .participa-form .creator-row {
+    gap: 8px;
+  }
+
+  .participa-form .creator-row-field--name {
+    flex: 3 1 0;
+    max-width: none;
+  }
+
+  .participa-form .creator-row-field--role {
+    flex: 2 1 0;
+    max-width: none;
+  }
+
+  .participa-form .creator-row > .btn {
+    margin-left: auto;
+    margin-bottom: 0;
+  }
 }
 
 // Controles base
@@ -121,34 +179,14 @@
 .participa-form .form-check,
 .modo-form .form-check {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
 }
 
 .participa-form .form-check .form-check-input,
 .modo-form .form-check .form-check-input {
-  margin-top: 0.22rem;
+  margin-top: 0;
   flex: 0 0 auto;
-}
-
-.participa-privacy-grid {
-  display: grid;
-  gap: 8px;
-
-  label {
-    margin: 0;
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 0.92rem;
-    font-weight: 400;
-    color: $color-text-muted;
-  }
-
-  input[type="checkbox"] {
-    margin-top: 0.18rem;
-    flex: 0 0 auto;
-  }
 }
 
 .modal-legal-check {
@@ -229,13 +267,23 @@
 
 .geo-location-row--full {
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
-  align-items: center;
+  align-items: end;
+}
+
+.geo-location-row--full > .btn {
+  align-self: end;
+  margin-bottom: 0;
 }
 
 @media (max-width: 767.98px) {
   .geo-location-row--full {
     grid-template-columns: 1fr;
     align-items: stretch;
+  }
+
+  .geo-location-row--full > .btn {
+    justify-self: start;
+    align-self: start;
   }
 }
 
@@ -272,3 +320,4 @@
     background: $color-neutral-50;
   }
 }
+

@@ -42,6 +42,8 @@
 
   var rightsHolderWrap = document.getElementById('rights-holder-wrap');
   var rightsHolderInput = document.getElementById('contribucion-rights-holder');
+  var creatorsList = document.getElementById('contribucion-creadores-list');
+  var addCreatorButton = document.getElementById('btn-contribucion-add-creador');
 
   var hiddenLinkedTestimonioId = document.getElementById('contribucion-linked-testimonio-id');
 
@@ -67,6 +69,7 @@
   var uploadAbortController = null;
   var currentStagingId = null;
   var stagedFiles = [];
+  var creatorRowCount = creatorsList ? creatorsList.querySelectorAll('[data-creator-row]').length : 0;
 
   function setStatus(element, message, type) {
     if (!element) return;
@@ -107,6 +110,106 @@
       .filter(function (row) {
         return !!row.nombre;
       });
+  }
+
+  function getCreatorRows() {
+    if (!creatorsList) return [];
+    return Array.prototype.slice.call(creatorsList.querySelectorAll('[data-creator-row]'));
+  }
+
+  function syncCreatorRows() {
+    var rows = getCreatorRows();
+    rows.forEach(function (row) {
+      var removeButton = row.querySelector('[data-creator-remove]');
+      if (removeButton) {
+        removeButton.hidden = rows.length <= 1;
+      }
+    });
+  }
+
+  function createCreatorRow(nombre, rol) {
+    creatorRowCount += 1;
+
+    var row = document.createElement('div');
+    row.className = 'creator-row';
+    row.setAttribute('data-creator-row', '');
+
+    var nameWrap = document.createElement('div');
+    nameWrap.className = 'creator-row-field creator-row-field--name';
+    var nameLabel = document.createElement('label');
+    nameLabel.className = 'form-label mb-1';
+    nameLabel.textContent = 'Nombre';
+    var nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.className = 'form-control';
+    nameInput.id = 'contribucion-creador-nombre-' + creatorRowCount;
+    nameInput.setAttribute('data-creator-name', '');
+    nameInput.setAttribute('maxlength', '160');
+    nameInput.setAttribute('placeholder', 'Ej.: María Pérez');
+    if (nombre) nameInput.value = nombre;
+    nameLabel.setAttribute('for', nameInput.id);
+    nameWrap.appendChild(nameLabel);
+    nameWrap.appendChild(nameInput);
+
+    var roleWrap = document.createElement('div');
+    roleWrap.className = 'creator-row-field creator-row-field--role';
+    var roleLabel = document.createElement('label');
+    roleLabel.className = 'form-label mb-1';
+    roleLabel.textContent = 'Rol';
+    var roleInput = document.createElement('input');
+    roleInput.type = 'text';
+    roleInput.className = 'form-control';
+    roleInput.id = 'contribucion-creador-rol-' + creatorRowCount;
+    roleInput.setAttribute('data-creator-role', '');
+    roleInput.setAttribute('maxlength', '160');
+    roleInput.setAttribute('placeholder', 'Ej.: autora, fotógrafo, edición');
+    if (rol) roleInput.value = rol;
+    roleLabel.setAttribute('for', roleInput.id);
+    roleWrap.appendChild(roleLabel);
+    roleWrap.appendChild(roleInput);
+
+    var removeButton = document.createElement('button');
+    removeButton.type = 'button';
+    removeButton.className = 'btn btn-outline-dark btn-sm';
+    removeButton.setAttribute('data-creator-remove', '');
+    removeButton.textContent = 'Quitar';
+
+    row.appendChild(nameWrap);
+    row.appendChild(roleWrap);
+    row.appendChild(removeButton);
+
+    return row;
+  }
+
+  function addCreatorRow(nombre, rol) {
+    if (!creatorsList) return;
+    var row = createCreatorRow(nombre, rol);
+    creatorsList.appendChild(row);
+    syncCreatorRows();
+    return row;
+  }
+
+  function collectCreatorsFromRows() {
+    return getCreatorRows()
+      .map(function (row) {
+        var nameInput = row.querySelector('[data-creator-name]');
+        var roleInput = row.querySelector('[data-creator-role]');
+        var nombre = nullableText(nameInput ? nameInput.value : '');
+        var rol = nullableText(roleInput ? roleInput.value : '');
+        return { nombre: nombre, rol: rol };
+      })
+      .filter(function (row) {
+        return !!row.nombre;
+      });
+  }
+
+  function readCreators() {
+    if (creatorsList) {
+      return collectCreatorsFromRows();
+    }
+
+    var legacyField = document.getElementById('contribucion-creadores');
+    return parseCreators(legacyField ? legacyField.value : '');
   }
 
   function isUuid(value) {
@@ -403,28 +506,36 @@
     setStatus(statusStep1, '', '');
 
     var titleInput = document.getElementById('contribucion-titulo');
-    var consentInput = document.getElementById('contribucion-consent');
 
     if (titleInput && !titleInput.checkValidity()) {
       titleInput.reportValidity();
       return false;
     }
 
-    if (consentInput && !consentInput.checkValidity()) {
-      consentInput.reportValidity();
-      return false;
-    }
-
     if (!validateGeonamesSelection()) return false;
 
+    return true;
+  }
+
+  function validateStepTwoRequirements() {
     var rightsType = getRightsType();
+    var consentInput = document.getElementById('contribucion-consent');
+
     if (!rightsType) {
-      setStatus(statusStep1, 'Selecciona el tipo de derechos para continuar.', 'warning');
+      setStatus(statusStep2, 'Selecciona el tipo de derechos para continuar.', 'warning');
       return false;
     }
 
     if (rightsType === 'copyright' && !nullableText(rightsHolderInput ? rightsHolderInput.value : '')) {
-      setStatus(statusStep1, 'Debes indicar el titular del copyright.', 'warning');
+      setStatus(statusStep2, 'Debes indicar el titular del copyright.', 'warning');
+      if (rightsHolderInput && typeof rightsHolderInput.focus === 'function') {
+        rightsHolderInput.focus();
+      }
+      return false;
+    }
+
+    if (consentInput && !consentInput.checkValidity()) {
+      consentInput.reportValidity();
       return false;
     }
 
@@ -440,7 +551,7 @@
       staging_id: currentStagingId,
       titulo: nullableText(document.getElementById('contribucion-titulo')?.value),
       descripcion: nullableText(document.getElementById('contribucion-descripcion')?.value),
-      creadores: parseCreators(document.getElementById('contribucion-creadores')?.value),
+      creadores: readCreators(),
       fecha: nullableText(document.getElementById('contribucion-fecha')?.value),
       fecha_texto: nullableText(document.getElementById('contribucion-fecha-texto')?.value),
       ciudad_nombre: nullableText(cityNameField ? cityNameField.value : ''),
@@ -660,28 +771,33 @@
       return;
     }
 
+    if (!validateStepTwoRequirements()) {
+      setStep(2);
+      return;
+    }
+
     var modeReady = await ensureModeDefined(true);
     if (!modeReady) {
-      setStatus(statusStep1, 'Debes definir modo de participación para enviar la contribución.', 'warning');
-      setStep(1);
+      setStatus(statusStep2, 'Debes definir modo de participación para enviar la contribución.', 'warning');
+      setStep(2);
       return;
     }
 
     var ensuredSubmit = await ns.session.ensureSessionForWrite();
     if (!ensuredSubmit || !ensuredSubmit.ok) {
       setStatus(
-        statusStep1,
+        statusStep2,
         getErrorMessage(ensuredSubmit && ensuredSubmit.error, 'No se pudo preparar la sesión para enviar la contribución.', 'session_bootstrap'),
         'error'
       );
-      setStep(1);
+      setStep(2);
       return;
     }
 
     var payload = buildPayload();
     if (!payload.session_id) {
-      setStatus(statusStep1, 'No hay sesión activa. Recarga la página e inténtalo de nuevo.', 'error');
-      setStep(1);
+      setStatus(statusStep2, 'No hay sesión activa. Recarga la página e inténtalo de nuevo.', 'error');
+      setStep(2);
       return;
     }
 
@@ -761,6 +877,33 @@
       });
     }
 
+    if (addCreatorButton) {
+      addCreatorButton.addEventListener('click', function () {
+        var newRow = addCreatorRow('', '');
+        var nameInput = newRow ? newRow.querySelector('[data-creator-name]') : null;
+        if (nameInput && typeof nameInput.focus === 'function') {
+          nameInput.focus();
+        }
+      });
+    }
+
+    if (creatorsList) {
+      creatorsList.addEventListener('click', function (event) {
+        var target = event.target;
+        if (!target || typeof target.closest !== 'function') return;
+        var removeButton = target.closest('[data-creator-remove]');
+        if (!removeButton) return;
+
+        var rows = getCreatorRows();
+        if (rows.length <= 1) return;
+
+        var row = removeButton.closest('[data-creator-row]');
+        if (!row) return;
+        row.remove();
+        syncCreatorRows();
+      });
+    }
+
     var rightsRadios = document.querySelectorAll('input[name="contribucion-rights-type"]');
     rightsRadios.forEach(function (radio) {
       radio.addEventListener('change', syncRightsHolder);
@@ -795,6 +938,7 @@
     }
 
     bindEvents();
+    syncCreatorRows();
     syncRightsHolder();
     updateRecaptchaVisibility();
     setCurrentStagingId(stagingIdInput ? stagingIdInput.value : null);
