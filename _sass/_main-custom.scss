@@ -84,9 +84,9 @@
   color: $color-neutral-700;
 
   &.is-active {
-    background: $color-dark;
+    background: $color-primary;
     color: $color-light;
-    border-color: $color-dark;
+    border-color: $color-primary;
   }
 }
 

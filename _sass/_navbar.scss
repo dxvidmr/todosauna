@@ -126,7 +126,7 @@
     max-inline-size: calc(100vw - 2rem);
     border-radius: 50px;
     padding: 0.5rem 1.5rem;
-    --navbar-bg: #{$color-neutral-100};
+    --navbar-bg: #{$color-secondary-100};
     --navbar-text: #{$color-dark};
     --navbar-border-soft: #{mix($color-neutral-200, $color-dark, 88%)};
     --navbar-search-bg: #{$color-light};

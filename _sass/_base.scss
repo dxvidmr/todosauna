@@ -25,8 +25,12 @@ body {
     @if $base-font-family != "" { font-family: $base-font-family; }
     @if $base-font-size != "" { font-size: $base-font-size; }
     @if $text-color != "" { color: $text-color; }
-    background-color: $color-secondary-50;
+    background-color: $color-surface-page;
     font-weight: 300;
+}
+
+.modal-content {
+    background-color: $color-surface-raised;
 }
 
 /* Editorial text links:

@@ -542,7 +542,7 @@ tei-stage {
 
 .sugerencia-texto-seleccionado {
   padding: 12px 16px;
-  background: $color-light;
+  background: $color-surface-raised;
   border: 1px solid $color-neutral-200;
   border-radius: 6px;
   color: $color-text;
@@ -623,7 +623,7 @@ tei-stage {
 .participa-ui-dialog .modal-content,
 .sugerencia-modal .modal-content {
   position: relative;
-  background: $color-light;
+  background: $color-surface-raised;
   border-radius: 8px;
   padding: 32px;
   max-width: 800px;
@@ -718,8 +718,8 @@ tei-stage {
     align-items: center;
     padding: 6px 12px;
     border-radius: 999px;
-    background: $color-secondary-50;
-    color: $color-dark;
+    background: $color-secondary-100;
+    color: $color-text;
     font-size: 0.86rem;
     font-weight: 600;
     line-height: 1;
@@ -792,21 +792,26 @@ tei-stage {
   }
 
   .modo-opcion {
-    border: 2px solid $color-neutral-200;
+    border: 2px solid $color-secondary-200;
     border-radius: 8px;
+    background: $color-surface-page;
     padding: 20px;
     text-align: center;
     cursor: pointer;
     transition: all 0.2s;
 
     &:hover {
-      border-color: $color-dark;
-      box-shadow: 0 2px 8px rgba($color-dark, 0.15);
+      background: $color-surface-raised;
+      border-color: $color-secondary;
+      box-shadow: 0 2px 8px rgba($color-dark, 0.08);
     }
 
-    &:focus {
+    &:focus,
+    &:focus-visible {
       outline: none;
-      border-color: $color-dark;
+      background: $color-surface-raised;
+      border-color: $color-secondary;
+      box-shadow: 0 0 0 2px rgba($color-secondary, 0.28);
     }
 
     h3 {
@@ -849,10 +854,10 @@ tei-stage {
   }
 
   .modal-optional-group {
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid $color-secondary-200;
     border-radius: 12px;
     margin-bottom: 12px;
-    background: $color-light;
+    background: $color-surface-page;
 
     summary {
       display: flex;
@@ -949,6 +954,7 @@ tei-stage {
     display: flex;
     flex-direction: column;
     padding: 20px 22px;
+    border: 1px solid $color-secondary-200;
     border-radius: 18px;
     background: $color-secondary-100;
   }
@@ -1023,9 +1029,9 @@ tei-stage {
     flex-direction: column;
     gap: 12px;
     padding: 18px;
-    border: 1px solid $color-neutral-200;
+    border: 1px solid $color-secondary-200;
     border-radius: 18px;
-    background: $color-neutral-50;
+    background: $color-surface-page;
   }
 
   .perfil-activity-detail {

@@ -184,6 +184,7 @@
 .card-soft {
   border: none;
   border-radius: clamp(20px, 2vw, 30px);
+  background-color: $color-surface-raised;
   color: $color-text;
 }
 

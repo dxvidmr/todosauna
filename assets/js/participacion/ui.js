@@ -80,7 +80,7 @@
       ? (
         '<div class="modal-actions participa-ui-dialog-actions">' +
         '  <button type="button" class="btn btn-outline-dark participa-ui-cancel"></button>' +
-        '  <button type="button" class="btn btn-secondary participa-ui-confirm"></button>' +
+        '  <button type="button" class="btn btn-secondary-100 participa-ui-confirm"></button>' +
         '</div>'
       )
       : (
