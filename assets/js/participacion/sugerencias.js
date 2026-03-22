@@ -88,7 +88,7 @@ class SugerenciasNotas {
 
           <div class="sugerencia-botones">
             <button type="button" class="btn-cancelar-sugerencia btn btn-outline-dark">Cancelar</button>
-            <button type="button" class="btn-enviar-sugerencia btn btn-primary">
+            <button type="button" class="btn-enviar-sugerencia btn btn-dark">
               <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
               Enviar sugerencia
             </button>
@@ -140,6 +140,8 @@ class SugerenciasNotas {
    */
   manejarSeleccion(e) {
     const selection = window.getSelection();
+    if (!selection) return;
+
     const textoSeleccionado = selection.toString().trim();
 
     // No mostrar si no hay texto o es muy corto
@@ -147,8 +149,17 @@ class SugerenciasNotas {
       return;
     }
 
+    if (selection.rangeCount === 0) {
+      return;
+    }
+
+    const targetElement = e && e.target instanceof Element ? e.target : null;
+
     // No mostrar si el clic fue en el tooltip o modal
-    if (e.target.closest('.sugerencia-tooltip') || e.target.closest('.sugerencia-modal')) {
+    if (
+      targetElement &&
+      (targetElement.closest('.sugerencia-tooltip') || targetElement.closest('.sugerencia-modal'))
+    ) {
       return;
     }
 
@@ -164,7 +175,7 @@ class SugerenciasNotas {
       ? container.parentElement
       : container;
 
-    if (!zonaEdicion.contains(elementoContenedor)) {
+    if (!(elementoContenedor instanceof Element) || !zonaEdicion.contains(elementoContenedor)) {
       return;
     }
 
