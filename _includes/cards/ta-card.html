@@ -51,8 +51,11 @@
       {% unless rotator_seen contains candidate_token %}
         {% assign rotator_seen = rotator_seen | append: candidate_src | append: "|" %}
         {% assign candidate_src_url = candidate_src | relative_url %}
-        {% capture candidate_link_raw %}{% if item.parentid %}/items/{{ item.parentid }}.html#{{ item.objectid }}{% else %}/items/{{ item.objectid }}.html{% endif %}{% endcapture %}
-        {% assign candidate_link_url = candidate_link_raw | strip | relative_url %}
+        {% assign candidate_link_url = render_link_url | strip %}
+        {% if candidate_link_url == "" %}
+          {% capture candidate_link_raw %}{% if item.parentid %}/items/{{ item.parentid }}.html#{{ item.objectid }}{% else %}/items/{{ item.objectid }}.html{% endif %}{% endcapture %}
+          {% assign candidate_link_url = candidate_link_raw | strip | relative_url %}
+        {% endif %}
         {% assign candidate_alt = item.image_alt_text | default: item.title | default: item.description | strip | replace: "|", "/" %}
         {% if candidate_alt == "" %}
           {% assign candidate_alt = card.image_alt | default: card.title | default: "Imagen documental" %}
