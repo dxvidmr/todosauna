@@ -9,7 +9,7 @@ permalink: /participa/
     <div class="col-lg-10 text-center">
       <h1 class="display-5 fw-semibold mb-3">Participa en <i>Todos a una</i></h1>
       <p class="lead mb-0">
-        Tu colaboración ayuda a construir una edicion social del texto y a documentar su historias.
+        Tu colaboración ayuda a construir la edición social del texto y a documentar su historia.
       </p>
     </div>
   </div>
