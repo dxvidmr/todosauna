@@ -1888,7 +1888,7 @@
                título: El mal año
                descripción: En la plaza de Fuenteovejuna, Esteban y el regidor hablan del pósito, de la carestía y del mal año. La conversación dibuja un pueblo ocupado por sus necesidades cotidianas mientras el abuso señorial sigue creciendo.
           -->
-          <stage>Salen Esteban y Regidor I</stage>
+          <stage xml:id="stg-860">Salen Esteban y Regidor I</stage>
           <sp who="#esteban" xml:id="sp-193">
             <speaker>ESTEBAN</speaker>
             <l n="861" xml:id="l-861">Así tenga salud, como parece,</l>
@@ -1931,7 +1931,7 @@
                título: Leonelo habla de la imprenta
                descripción: Leonelo entra en la charla para presumir de estudios y de la reciente imprenta. El pasaje introduce un contraste cómico y cultista dentro del mundo aldeano.
           -->
-          <stage>Salen el licenciado Leonelo y Barrildo</stage>
+          <stage xml:id="stg-892">Salen el licenciado Leonelo y Barrildo</stage>
           <sp who="#leonelo" xml:id="sp-196">
             <speaker>LEONELO</speaker>
             <l n="893" xml:id="l-893">A fe que no ganéis la palmatoria{232},</l>
@@ -2007,7 +2007,7 @@
                título: Rumores en la plaza
                descripción: La plaza es el lugar de conservaciones sobre la boda, la dote, la economía doméstica y el estado de la villa.
           -->
-          <stage>Sale Juan Rojo, y otro labrador</stage>
+          <stage xml:id="stg-932">Sale Juan Rojo, y otro labrador</stage>
           <sp who="#juan_rojo" xml:id="sp-210">
             <speaker>JUAN</speaker>
             <l n="933" xml:id="l-933">No hay en cuatro haciendas para un dote{245},</l>
@@ -2028,7 +2028,7 @@
                título: "Dios guarde a la buena gente"
                descripción: Con esa fórmula de saludo entra Fernán Gómez en la plaza. Su presencia corta de golpe la charla cotidiana y coloca al pueblo en una posición de vigilancia.
           -->
-          <stage>Salen el Comendador, Ortuño y Flores</stage>
+          <stage xml:id="stg-940">Salen el Comendador, Ortuño y Flores</stage>
           <sp who="#comendador" xml:id="sp-214">
             <speaker>COMENDADOR</speaker>
             <l n="941" xml:id="l-941">Dios guarde la buena gente.</l></sp>
@@ -2219,7 +2219,7 @@
           <sp who="#esteban" xml:id="sp-257">
             <speaker>ESTEBAN</speaker>
             <l n="1024" xml:id="l-1024">Ya yo me voy por aquí.</l></sp>
-          <stage>Vanse</stage>
+          <stage xml:id="stg-1024">Vanse</stage>
           <!-- PASAJE 28
                título: Críticas a los villanos
                descripción: Después del choque en la plaza, el Comendador comenta con sus hombres el desprecio que siente por los villanos. A solas, revela mejor su lógica de poder y la impunidad con que piensa vengarse.
@@ -2375,7 +2375,7 @@
                título: Vuelta a Ciudad Real
                descripción: Un soldado trae noticias urgentes desde Ciudad Real. El Comendador debe abandonar la villa para acudir de nuevo a la guerra.
           -->
-          <stage>Sale Cimbranos, soldado</stage>
+          <stage xml:id="stg-1104">Sale Cimbranos, soldado</stage>
           <sp who="#cimbranos" xml:id="sp-287">
             <speaker>SOLDADO</speaker>
             <l n="1105" xml:id="l-1105">¿Está aquí el Comendador?</l></sp>
@@ -2431,8 +2431,8 @@
                título: Huyen de los soldados del Comendador
                descripción: Laurencia, Pascuala y Mengo entran huyendo de los soldados del Comendador, que se preparan para partir.
           -->
-          <stage>Vanse</stage>
-          <stage>Salen Mengo y Laurencia y Pascuala, huyendo</stage>
+          <stage xml:id="stg-1138-1">Vanse</stage>
+          <stage xml:id="stg-1138-2">Salen Mengo y Laurencia y Pascuala, huyendo</stage>
           <sp who="#pascuala" xml:id="sp-295">
             <speaker>PASCUALA</speaker>
             <l n="1139" xml:id="l-1139">No te apartes de nosotras.</l></sp>
@@ -2524,7 +2524,7 @@
                título: Jacinta pide socorro
                descripción: Jacinta irrumpe pidiendo auxilio mientras la persiguen los hombres del Comendador. Ni Laurencia ni Pascuala se ven capaces de defenderla, asustadas por su propia seguridad.
           -->
-          <stage>Sale Jacinta</stage>
+          <stage xml:id="stg-1186">Sale Jacinta</stage>
           <sp who="#jacinta" xml:id="sp-311">
             <speaker>JACINTA</speaker>
             <l n="1187" xml:id="l-1187">¡Dadme socorro, por Dios,</l>
@@ -2547,12 +2547,12 @@
             <l n="1196" xml:id="l-1196">Pues Jacinta, Dios te libre,</l>
             <l n="1197" xml:id="l-1197">que cuando contigo es libre,</l>
             <l n="1198" xml:id="l-1198">conmigo será crüel.</l></sp>
-          <stage>Vase</stage>
+          <stage xml:id="stg-1198">Vase</stage>
           <sp who="#pascuala" xml:id="sp-316">
             <speaker>PASCUALA</speaker>
             <l n="1199" xml:id="l-1199">Jacinta, yo no soy hombre</l>
             <l n="1200" xml:id="l-1200">que te puedo defender.</l></sp>
-          <stage>Vase</stage>
+          <stage xml:id="stg-1200">Vase</stage>
           <sp who="#mengo" xml:id="sp-317">
             <speaker>MENGO</speaker>
             <l n="1201" xml:id="l-1201">Yo sí lo tengo de ser,</l>
@@ -2575,7 +2575,7 @@
           <sp who="#mengo" xml:id="sp-321">
             <speaker>MENGO</speaker>
             <l n="1206" xml:id="l-1206">Piedras hay, Jacinta, aquí{306}.</l></sp>
-          <stage>Salen Flores y Ortuño</stage>
+          <stage xml:id="stg-1206">Salen Flores y Ortuño</stage>
           <sp who="#flores" xml:id="sp-322">
             <speaker>FLORES</speaker>
             <l n="1207" xml:id="l-1207">¿Por los pies pensabas irte?</l></sp>
@@ -2607,7 +2607,7 @@
                título: Azotes a Mengo
                descripción: El Comendador aparece, toma partido por sus hombres y manda azotar a Mengo. El castigo hace visible que en Fuenteovejuna no existe amparo legal contra la voluntad señorial.
           -->
-          <stage>Salen el Comendador y Cimbranos</stage>
+          <stage xml:id="stg-1218">Salen el Comendador y Cimbranos</stage>
           <sp who="#comendador" xml:id="sp-329">
             <speaker>COMENDADOR</speaker>
             <l n="1219" xml:id="l-1219">¿Qué es eso? ¿A cosas tan viles</l>
@@ -2680,7 +2680,7 @@
             <speaker>MENGO</speaker>
             <l n="1253" xml:id="l-1253">¡Cielos! ¿A hazañas tan feas</l>
             <l n="1254" xml:id="l-1254">queréis que castigos falten?</l></sp>
-          <stage>Vanse</stage>
+          <stage xml:id="stg-1254">Vanse</stage>
           <!-- PASAJE 36
                título: Jacinta resiste y es raptada
                descripción: Jacinta protesta, defiende su honra y suplica que la dejen en paz, pero termina raptada. La violencia es un mal general contra todas las mujeres del pueblo.
@@ -2747,7 +2747,7 @@
                título: Laurencia acepta a Frondoso
                descripción: Después del rapto de Jacinta, Laurencia acepta por fin a Frondoso. La decisión amorosa nace en un mundo ya herido por la violencia del Comendador, por lo que tiene también valor de alianza y refugio.
           -->                  
-          <stage>Llévanla y vanse, y salen Laurencia y Frondoso</stage>
+          <stage xml:id="stg-1278">Llévanla y vanse, y salen Laurencia y Frondoso</stage>
           <sp who="#laurencia" xml:id="sp-359">
             <speaker>LAURENCIA</speaker>
             <l n="1279" xml:id="l-1279">¿Cómo así a venir te atreves,</l>
@@ -2807,12 +2807,12 @@
           <sp who="#frondoso" xml:id="sp-366">
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-1318-b">¡En Dios confío!</l></sp>
-          <stage>Escóndense</stage>
+          <stage xml:id="stg-1318-1">Escóndense</stage>
           <!-- PASAJE 38
                título: La villa hace balance de agravios
                descripción: Esteban y el regidor repasan los abusos sufridos por la comunidad, hacen balance del daño acumulado y de la impotencia en que vive.
           -->
-          <stage>Salen Esteban, alcalde, y el Regidor</stage>
+          <stage xml:id="stg-1318-2">Salen Esteban, alcalde, y el Regidor</stage>
           <sp who="#esteban" xml:id="sp-367">
             <speaker>ALCALDE</speaker>
             <l n="1319" xml:id="l-1319">Fue su término de modo</l>
@@ -3032,7 +3032,7 @@
             <l n="1440" xml:id="l-1440">cosa que pasa en un día{351};</l>
             <l n="1441" xml:id="l-1441">que si no hay dote, a fe mía</l>
             <l n="1442" xml:id="l-1442">que se echa de menos después.</l></sp>
-          <stage>Vanse, y queda Frondoso y Laurencia</stage>
+          <stage xml:id="stg-1442">Vanse, y queda Frondoso y Laurencia</stage>
           <!-- PASAJE 41
                título: El gozo de los novios
                descripción: Laurencia y Frondoso quedan solos y celebran el compromiso ya aprobado. En medio de una obra cada vez más tensa, esta breve calma deja ver la intimidad posible de la pareja.
@@ -3049,12 +3049,12 @@
             <l n="1448" xml:id="l-1448">por los ojos de alegría,</l>
             <l n="1449" xml:id="l-1449">viéndote, Laurencia mía,</l>
             <l n="1450" xml:id="l-1450">en tan dulce posesión.</l></sp>
-          <stage>Vanse</stage>
+          <stage xml:id="stg-1450-1">Vanse</stage>
           <!-- PASAJE 42
                título: Derrota del Maestre
                descripción: Llegan noticias de la batalla a las afueras de Ciudad Real. La suerte del Maestre cambia, y con ella se prepara el retorno del Comendador derrotado a Fuenteovejuna.
           -->
-          <stage>Salen el Maestre, el Comendador, Flores y Ortuño</stage>
+          <stage xml:id="stg-1450-2">Salen el Maestre, el Comendador, Flores y Ortuño</stage>
           <sp who="#comendador" xml:id="sp-409">
             <speaker>COMENDADOR</speaker>
             <l n="1451" xml:id="l-1451">Huye, señor, que no hay otro remedio.</l></sp>
@@ -3077,72 +3077,72 @@
             <speaker>MAESTRE</speaker>
             <l n="1459" xml:id="l-1459">¿Qué puedo hacer, si Fortuna ciega{357}</l>
             <l n="1460" xml:id="l-1460">a quien hoy levantó, mañana humilla?</l></sp>
-          <stage>Dentro:</stage>      
-          <sp> <!-- SIN NUMERAR; A PARTIR DE AQUÍ ESTÁ EQUIVOCADA LA NUMERACIÓN de los <sp>, de los versos está bien -->
+          <stage xml:id="stg-1460">Dentro:</stage>      
+          <sp xml:id="sp-415">
             <speaker>[GENTE]</speaker>
-              <l n="1661">¡Vitoria por los Reyes de Castilla!</l>
+              <l n="1461" xml:id="l-1461">¡Vitoria por los Reyes de Castilla!</l>
           </sp>
-          <sp who="#maestre" xml:id="sp-415">
+          <sp who="#maestre" xml:id="sp-416">
             <speaker>MAESTRE</speaker>
             <l n="1462" xml:id="l-1462">Ya coronan de luces{358} las almenas,</l>
             <l n="1463" xml:id="l-1463">y las ventanas de las torres altas</l>
             <l n="1464" xml:id="l-1464">entoldan con pendones vitoriosos{359}.</l></sp>
-          <sp who="#comendador" xml:id="sp-416">
+          <sp who="#comendador" xml:id="sp-417">
             <speaker>COMENDADOR</speaker>
             <l n="1465" xml:id="l-1465">Bien pudieran, de sangre que les cuesta{360}.</l>
             <l n="1466" xml:id="l-1466">A fe que es más tragedia que no fiesta.</l></sp>
-          <sp who="#maestre" xml:id="sp-417">
+          <sp who="#maestre" xml:id="sp-418">
             <speaker>MAESTRE</speaker>
             <l n="1467" xml:id="l-1467">Yo vuelvo a Calatrava, Fernán Gómez.</l></sp>
-          <sp who="#comendador" xml:id="sp-418">
+          <sp who="#comendador" xml:id="sp-419">
             <speaker>COMENDADOR</speaker>
             <l n="1468" xml:id="l-1468">Y yo a Fuenteovejuna, mientras tratas</l>
             <l n="1469" xml:id="l-1469">o seguir esta parte de tus deudos,</l>
             <l n="1470" xml:id="l-1470">o reducir la tuya al Rey Católico{361}.</l></sp>
-          <sp who="#maestre" xml:id="sp-419">
+          <sp who="#maestre" xml:id="sp-420">
             <speaker>MAESTRE</speaker>
             <l n="1471" xml:id="l-1471">Yo te diré por cartas lo que intento.</l></sp>
-          <sp who="#comendador" xml:id="sp-420">
+          <sp who="#comendador" xml:id="sp-421">
             <speaker>COMENDADOR</speaker>
             <l n="1472" part="I" xml:id="l-1472-a">El tiempo ha de enseñarte{362}.</l></sp>
-          <sp who="#maestre" xml:id="sp-421">
+          <sp who="#maestre" xml:id="sp-422">
             <speaker>MAESTRE</speaker>
             <l part="F" xml:id="l-1472-b">¡Ah, pocos años,</l>
             <l n="1473" xml:id="l-1473">sujetos al rigor de sus engaños{363}!</l></sp>
-          <stage>Vanse</stage>
+          <stage xml:id="stg-1473-1">Vanse</stage>
           <!-- PASAJE 43
                título: Coplas de boda
                descripción: Comienza la boda de Laurencia y Frondoso con músicos, coplas y burlas de Mengo y Barrildo. La fiesta mezcla alegría popular y memoria del agravio, porque incluso en el banquete asoma la sombra del Comendador.
           -->
-          <stage>Sale la boda: músicos, Mengo, Frondoso, Laurencia, Pascuala, Barrildo y Esteban alcalde y Juan Rojo</stage>
-          <sp who="#musicos" xml:id="sp-422">
+          <stage xml:id="stg-1473-2">Sale la boda: músicos, Mengo, Frondoso, Laurencia, Pascuala, Barrildo y Esteban alcalde y Juan Rojo</stage>
+          <sp who="#musicos" xml:id="sp-423">
             <speaker>MÚSICOS</speaker>
             <l n="1474" xml:id="l-1474">¡Vivan muchos años</l>
             <l n="1475" xml:id="l-1475">los desposados!</l>
             <l n="1476" xml:id="l-1476">¡Vivan muchos años!</l></sp>
-          <sp who="#mengo" xml:id="sp-423">
+          <sp who="#mengo" xml:id="sp-424">
             <speaker>MENGO</speaker>
             <l n="1477" xml:id="l-1477">A fe que no os ha costado</l>
             <l n="1478" xml:id="l-1478">mucho trabajo el cantar.</l></sp>
-          <sp who="#barrildo" xml:id="sp-424">
+          <sp who="#barrildo" xml:id="sp-425">
             <speaker>BARRILDO</speaker>
             <l n="1479" xml:id="l-1479">¿Supiéraslo tú trovar{365}</l>
             <l n="1480" xml:id="l-1480">mejor que él está trovado?</l></sp>
-          <sp who="#frondoso" xml:id="sp-425">
+          <sp who="#frondoso" xml:id="sp-426">
             <speaker>FRONDOSO</speaker>
             <l n="1481" xml:id="l-1481">Mejor entiende de azotes</l>
             <l n="1482" xml:id="l-1482">Mengo que de versos ya.</l></sp>
-          <sp who="#mengo" xml:id="sp-426">
+          <sp who="#mengo" xml:id="sp-427">
             <speaker>MENGO</speaker>
             <l n="1483" xml:id="l-1483">Alguno en el valle está,</l>
             <l n="1484" xml:id="l-1484">para que no te alborotes{366},</l>
             <l n="1485" xml:id="l-1485">a quien el Comendador…</l></sp>
-          <sp who="#barrildo" xml:id="sp-427">
+          <sp who="#barrildo" xml:id="sp-428">
             <speaker>BARRILDO</speaker>
             <l n="1486" xml:id="l-1486">No lo digas, por tu vida,</l>
             <l n="1487" xml:id="l-1487">que este bárbaro homicida</l>
             <l n="1488" xml:id="l-1488">a todos quita el honor.</l></sp>
-          <sp who="#mengo" xml:id="sp-428">
+          <sp who="#mengo" xml:id="sp-429">
             <speaker>MENGO</speaker>
             <l n="1489" xml:id="l-1489">Que me azotasen a mí</l>
             <l n="1490" xml:id="l-1490">cien soldados aquel día…</l>
@@ -3154,19 +3154,19 @@
             <l n="1496" xml:id="l-1496">todos saben que es honrado,</l>
             <l n="1497" xml:id="l-1497">llena de tinta y de chinas{368},</l>
             <l n="1498" xml:id="l-1498">¿cómo se puede sufrir?</l></sp>
-          <sp who="#barrildo" xml:id="sp-429">
+          <sp who="#barrildo" xml:id="sp-430">
             <speaker>BARRILDO</speaker>
             <l n="1499" xml:id="l-1499">Haríalo por reír.</l></sp>
-          <sp who="#mengo" xml:id="sp-430">
+          <sp who="#mengo" xml:id="sp-431">
             <speaker>MENGO</speaker>
             <l n="1500" xml:id="l-1500">No hay risa con melecinas,</l>
             <l n="1501" xml:id="l-1501">que aunque es cosa saludable,</l>
             <l n="1502" xml:id="l-1502">yo me quiero morir luego.</l></sp>
-          <sp who="#frondoso" xml:id="sp-431">
+          <sp who="#frondoso" xml:id="sp-432">
             <speaker>FRONDOSO</speaker>
             <l n="1503" xml:id="l-1503">¡Vaya la copla, te ruego,</l>
             <l n="1504" xml:id="l-1504">si es la copla razonable{369}!</l></sp>
-          <sp who="#barrildo" xml:id="sp-432">
+          <sp who="#barrildo" xml:id="sp-433">
             <speaker>BARRILDO</speaker>
             <l n="1505" xml:id="l-1505">¡Vivan muchos años juntos</l>
             <l n="1506" xml:id="l-1506">los novios, ruego a los cielos,</l>
@@ -3175,7 +3175,7 @@
             <l n="1509" xml:id="l-1509">Lleven a entrambos difuntos,</l>
             <l n="1510" xml:id="l-1510">de puro vivir cansados.</l>
             <l n="1511" xml:id="l-1511">¡Vivan muchos años!</l></sp>
-          <sp who="#mengo" xml:id="sp-433">
+          <sp who="#mengo" xml:id="sp-434">
             <speaker>MENGO</speaker>
             <l n="1512" xml:id="l-1512">¡Maldiga el cielo el poeta</l>
             <l n="1513" xml:id="l-1513">que tal coplón arrojó!</l></sp>
@@ -3183,10 +3183,10 @@
                título: Bendición y canto nupcial
                descripción: Tras las bromas y los cantares, la celebración adquiere un tono más solemne. Juan Rojo y Esteban bendicen a los novios, y los músicos entonan un canto nupcial justo antes de la catástrofe.
           -->
-          <sp who="#barrildo" xml:id="sp-434">
+          <sp who="#barrildo" xml:id="sp-435">
             <speaker>BARRILDO</speaker>
             <l part="I" n="1514" xml:id="l-1514-a">¡Fue muy presto{371}!</l></sp>
-          <sp who="#mengo" xml:id="sp-435">
+          <sp who="#mengo" xml:id="sp-436">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-1514-b">Pienso yo</l>
             <l n="1515" xml:id="l-1515">una cosa desta seta{372}:</l>
@@ -3210,31 +3210,31 @@
             <l n="1533" xml:id="l-1533">apenas hay quien los tome;</l>
             <l n="1534" xml:id="l-1534">tanto, que sólo los come</l>
             <l n="1535" xml:id="l-1535">el mismo que los ha hecho.</l></sp>
-          <sp who="#barrildo" xml:id="sp-436">
+          <sp who="#barrildo" xml:id="sp-437">
             <speaker>BARRILDO</speaker>
             <l n="1536" xml:id="l-1536">¡Déjate ya de locuras!</l>
             <l n="1537" xml:id="l-1537">Deja los novios hablar.</l></sp>
-          <sp who="#laurencia" xml:id="sp-437">
+          <sp who="#laurencia" xml:id="sp-438">
             <speaker>LAURENCIA</speaker>
             <l n="1538" xml:id="l-1538">Las manos nos da a besar{379}.</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-438">
+          <sp who="#juan_rojo" xml:id="sp-439">
             <speaker>JUAN</speaker>
             <l n="1539" xml:id="l-1539">Hija, ¿mi mano procuras{380}?</l>
             <l n="1540" xml:id="l-1540">Pídela a tu padre luego{381}</l>
             <l n="1541" xml:id="l-1541">para ti y para Frondoso.</l></sp>
-          <sp who="#esteban" xml:id="sp-439">
+          <sp who="#esteban" xml:id="sp-440">
             <speaker>ESTEBAN</speaker>
             <l n="1542" xml:id="l-1542">Rojo, a ella y a su esposo,</l>
             <l n="1543" xml:id="l-1543">que se la dé el Cielo ruego</l>
             <l n="1544" xml:id="l-1544">con su larga bendición{382}.</l></sp>
-          <sp who="#frondoso" xml:id="sp-440">
+          <sp who="#frondoso" xml:id="sp-441">
             <speaker>FRONDOSO</speaker>
             <l n="1545" xml:id="l-1545">Los dos a los dos la echad{383}.</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-441">
+          <sp who="#juan_rojo" xml:id="sp-442">
             <speaker>JUAN</speaker>
             <l n="1546" xml:id="l-1546">¡Ea, tañed{384} y cantad,</l>
             <l n="1547" xml:id="l-1547">pues que para en uno son!</l></sp>
-          <sp who="#musicos" xml:id="sp-442">
+          <sp who="#musicos" xml:id="sp-443">
             <speaker>MÚSICOS</speaker>
             <l n="1548" xml:id="l-1548">Al val de Fuenteovejuna</l>
             <l n="1549" xml:id="l-1549">la niña en cabellos baja;{387}</l>
@@ -3265,37 +3265,37 @@
                título: El Comendador irrumpe en la boda
                descripción: El Comendador entra armado en plena boda y rompe la fiesta. La violencia invade el espacio más público y más legítimo de la comunidad.
           -->
-          <stage>Sale el Comendador, Flores, Ortuño y Cimbranos</stage>
-          <sp who="#comendador" xml:id="sp-443">
+          <stage xml:id="stg-1571">Sale el Comendador, Flores, Ortuño y Cimbranos</stage>
+          <sp who="#comendador" xml:id="sp-444">
             <speaker>COMENDADOR</speaker>
             <l n="1572" xml:id="l-1572">Estése la boda queda{392}</l>
             <l n="1573" xml:id="l-1573">y no se alborote nadie.</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-444">
+          <sp who="#juan_rojo" xml:id="sp-445">
             <speaker>JUAN</speaker>
             <l n="1574" xml:id="l-1574">No es juego aqueste, señor,</l>
             <l n="1575" xml:id="l-1575">y basta que tú lo mandes.</l>
             <l n="1576" xml:id="l-1576">¿Quieres lugar{393}? ¿Cómo vienes</l>
             <l n="1577" xml:id="l-1577">con tu belicoso alarde{394}?</l>
             <l n="1578" xml:id="l-1578">¿Venciste? Mas ¿qué pregunto?</l></sp>
-          <sp who="#frondoso" xml:id="sp-445">
+          <sp who="#frondoso" xml:id="sp-446">
             <speaker>FRONDOSO</speaker>
             <l n="1579" xml:id="l-1579">¡Muerto soy! ¡Cielos, libradme!</l></sp>
-          <sp who="#laurencia" xml:id="sp-446">
+          <sp who="#laurencia" xml:id="sp-447">
             <speaker>LAURENCIA</speaker>
             <l n="1580" xml:id="l-1580">Huye por aquí, Frondoso.</l></sp>
-          <sp who="#comendador" xml:id="sp-447">
+          <sp who="#comendador" xml:id="sp-448">
             <speaker>COMENDADOR</speaker>
             <l n="1581" xml:id="l-1581">Eso no. ¡Prendelde, atalde!</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-448">
+          <sp who="#juan_rojo" xml:id="sp-449">
             <speaker>JUAN</speaker>
             <l n="1582" xml:id="l-1582">Date, muchacho, a prisión.</l></sp>
-          <sp who="#frondoso" xml:id="sp-449">
+          <sp who="#frondoso" xml:id="sp-450">
             <speaker>FRONDOSO</speaker>
             <l n="1583" xml:id="l-1583">Pues ¿quieres tú que me maten?</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-450">
+          <sp who="#juan_rojo" xml:id="sp-451">
             <speaker>JUAN</speaker>
             <l part="I" n="1584" xml:id="l-1584-a">¿Por qué?</l></sp>
-          <sp who="#comendador" xml:id="sp-451">
+          <sp who="#comendador" xml:id="sp-452">
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-1584-b">No soy hombre yo</l>
             <l n="1585" xml:id="l-1585">que mato sin culpa a nadie,</l>
@@ -3305,18 +3305,18 @@
             <l n="1589" xml:id="l-1589">Llevarle mando a la cárcel,</l>
             <l n="1590" xml:id="l-1590">donde la culpa que tiene</l>
             <l n="1591" xml:id="l-1591">sentencie su mismo padre{395}.</l></sp>
-          <sp who="#pascuala" xml:id="sp-452">
+          <sp who="#pascuala" xml:id="sp-453">
             <speaker>PASCUALA</speaker>
             <l n="1592" xml:id="l-1592">Señor, mirad que se casa.</l></sp>
-          <sp who="#comendador" xml:id="sp-453">
+          <sp who="#comendador" xml:id="sp-454">
             <speaker>COMENDADOR</speaker>
             <l n="1593" xml:id="l-1593">¿Qué me obliga a que se case{396}?</l>
             <l n="1594" xml:id="l-1594">¿No hay otra gente en el pueblo?</l></sp>
-          <sp who="#pascuala" xml:id="sp-454">
+          <sp who="#pascuala" xml:id="sp-455">
             <speaker>PASCUALA</speaker>
             <l n="1595" xml:id="l-1595">Si os ofendió, perdonadle,</l>
             <l part="I" n="1596" xml:id="l-1596-a">por ser vos quien sois{397}.</l></sp>
-          <sp who="#comendador" xml:id="sp-455">
+          <sp who="#comendador" xml:id="sp-456">
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-1596-b">No es cosa,</l>
             <l n="1597" xml:id="l-1597">Pascuala, en que yo soy parte.</l>
@@ -3335,7 +3335,7 @@
                título: Esteban se enfrenta al Comendador
                descripción: Esteban intenta plantar cara a Fernán Gómez como alcalde y como padre de Laurencia. El choque muestra hasta qué punto el poder local ha quedado reducido ante la fuerza del señor.
           -->
-          <sp who="#esteban" xml:id="sp-456">
+          <sp who="#esteban" xml:id="sp-457">
             <speaker>ESTEBAN</speaker>
             <l n="1609" xml:id="l-1609">Supuesto que el disculparle</l>
             <l n="1610" xml:id="l-1610">ya puede tocar a un suegro,</l>
@@ -3345,17 +3345,17 @@
             <l n="1614" xml:id="l-1614">Porque si vos pretendéis</l>
             <l n="1615" xml:id="l-1615">su propia mujer quitarle,</l>
             <l n="1616" xml:id="l-1616">¿qué mucho que la defienda{401}?</l></sp>
-          <sp who="#comendador" xml:id="sp-457">
+          <sp who="#comendador" xml:id="sp-458">
             <speaker>COMENDADOR</speaker>
             <l n="1617" xml:id="l-1617">Majadero sois, Alcalde.</l></sp>
-          <sp who="#esteban" xml:id="sp-458">
+          <sp who="#esteban" xml:id="sp-459">
             <speaker>ESTEBAN</speaker>
             <l n="1618" xml:id="l-1618">Por vuestra virtud, señor{402}.</l></sp>
-          <sp who="#comendador" xml:id="sp-459">
+          <sp who="#comendador" xml:id="sp-460">
             <speaker>COMENDADOR</speaker>
             <l n="1619" xml:id="l-1619">Nunca yo quise quitarle</l>
             <l n="1620" xml:id="l-1620">su mujer, pues no lo era.</l></sp>
-          <sp who="#esteban" xml:id="sp-460">
+          <sp who="#esteban" xml:id="sp-461">
             <speaker>ESTEBAN</speaker>
             <l n="1621" xml:id="l-1621">¡Sí quisistes...! Y esto baste,</l>
             <l n="1622" xml:id="l-1622">que reyes hay en Castilla</l>
@@ -3369,23 +3369,23 @@
             <l n="1630" xml:id="l-1630">Póngasela el Rey al pecho,</l>
             <l n="1631" xml:id="l-1631">que para pechos reales</l>
             <l n="1632" xml:id="l-1632">es esa insignia, y no más.</l></sp>
-          <sp who="#comendador" xml:id="sp-461">
+          <sp who="#comendador" xml:id="sp-462">
             <speaker>COMENDADOR</speaker>
             <l n="1633" xml:id="l-1633">¡Hola{406}! ¡La vara quitalde!</l></sp>
-          <sp who="#esteban" xml:id="sp-462">
+          <sp who="#esteban" xml:id="sp-463">
             <speaker>ESTEBAN</speaker>
             <l n="1634" xml:id="l-1634">Tomad, señor, norabuena{407}.</l></sp>
-          <sp who="#comendador" xml:id="sp-463">
+          <sp who="#comendador" xml:id="sp-464">
             <speaker>COMENDADOR</speaker>
             <l n="1635" xml:id="l-1635">¡Pues con ella quiero dalle</l>
             <l n="1636" xml:id="l-1636">como a caballo brïoso!</l></sp>
-          <sp who="#esteban" xml:id="sp-464">
+          <sp who="#esteban" xml:id="sp-465">
             <speaker>ESTEBAN</speaker>
             <l n="1637" xml:id="l-1637">Por señor os sufro. Dadme.</l></sp>
-          <sp who="#pascuala" xml:id="sp-465">
+          <sp who="#pascuala" xml:id="sp-466">
             <speaker>PASCUALA</speaker>
             <l n="1638" xml:id="l-1638">¡A un viejo de palos das!</l></sp>
-          <sp who="#laurencia" xml:id="sp-466">
+          <sp who="#laurencia" xml:id="sp-467">
             <speaker>LAURENCIA</speaker>
             <l n="1639" xml:id="l-1639">Si le das porque es mi padre,</l>
             <l n="1640" xml:id="l-1640">¿qué vengas en él de mí?</l></sp>
@@ -3393,32 +3393,32 @@
                título: Prenden a Frondoso y se llevan a Laurencia
                descripción: Frondoso es apresado por haberse atrevido a desafiar al Comendador y Laurencia es llevada por la fuerza. El acto termina con la comunidad humillada en el momento mismo de la celebración.
           -->
-          <sp who="#comendador" xml:id="sp-467">
+          <sp who="#comendador" xml:id="sp-468">
             <speaker>COMENDADOR</speaker>
             <l n="1641" xml:id="l-1641">Llevadla, y haced que guarden</l>
             <l n="1642" xml:id="l-1642">su persona diez soldados.</l></sp>
-          <stage>Vase él y los suyos</stage>
-          <sp who="#esteban" xml:id="sp-468">
+          <stage xml:id="stg-1642">Vase él y los suyos</stage>
+          <sp who="#esteban" xml:id="sp-469">
             <speaker>ESTEBAN</speaker>
             <l n="1643" xml:id="l-1643">¡Justicia del cielo baje!</l></sp>
-          <stage>Vase</stage>
-          <sp who="#pascuala" xml:id="sp-469">
+          <stage xml:id="stg-1643">Vase</stage>
+          <sp who="#pascuala" xml:id="sp-470">
             <speaker>PASCUALA</speaker>
             <l n="1644" xml:id="l-1644">¡Volvióse en luto la boda!</l></sp>
-          <stage>Vase</stage>
-          <sp who="#barrildo" xml:id="sp-470">
+          <stage xml:id="stg-1644">Vase</stage>
+          <sp who="#barrildo" xml:id="sp-471">
             <speaker>BARRILDO</speaker>
             <l n="1645" xml:id="l-1645">¿No hay aquí un hombre que hable?</l></sp>
-          <sp who="#mengo" xml:id="sp-471">
+          <sp who="#mengo" xml:id="sp-472">
             <speaker>MENGO</speaker>
             <l n="1646" xml:id="l-1646">Yo tengo ya mis azotes,</l>
             <l n="1647" xml:id="l-1647">que aún se ven los cardenales{408}</l>
             <l n="1648" xml:id="l-1648">sin que un hombre vaya a Roma...</l>
             <l n="1649" xml:id="l-1649">Prueben otros a enojarle.</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-472">
+          <sp who="#juan_rojo" xml:id="sp-473">
             <speaker>JUAN</speaker>
             <l part="I" n="1650" xml:id="l-1650-a">Hablemos todos.</l></sp>
-          <sp who="#mengo" xml:id="sp-473">
+          <sp who="#mengo" xml:id="sp-474">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-1650-b">Señores,</l>
             <l n="1651" xml:id="l-1651">aquí todo el mundo calle:</l>
@@ -3430,37 +3430,37 @@
                título: El concejo vacila
                descripción: Tras el asalto a la boda, los hombres de Fuenteovejuna se reúnen en concejo. Debaten entre huir, quejarse, obedecer o resistir, y la escena muestra su vacilación antes del levantamiento.
           -->
-          <stage>Salen Esteban, Alonso y Barrildo</stage>
-          <sp who="#esteban" xml:id="sp-474">
+          <stage xml:id="stg-1653">Salen Esteban, Alonso y Barrildo</stage>
+          <sp who="#esteban" xml:id="sp-475">
             <speaker>ESTEBAN</speaker>
             <l part="I" n="1654" xml:id="l-1654-a">¿No han venido a la junta{411}?</l></sp>
-          <sp who="#barrildo" xml:id="sp-475">
+          <sp who="#barrildo" xml:id="sp-476">
             <speaker>BARRILDO</speaker>
             <l part="F" xml:id="l-1654-b">No han venido.</l></sp>
-          <sp who="#esteban" xml:id="sp-476">
+          <sp who="#esteban" xml:id="sp-477">
             <speaker>ESTEBAN</speaker>
             <l n="1655" xml:id="l-1655">Pues más apriesa{412} nuestro daño corre.</l></sp>
-          <sp who="#barrildo" xml:id="sp-477">
+          <sp who="#barrildo" xml:id="sp-478">
             <speaker>BARRILDO</speaker>
             <l n="1656" xml:id="l-1656">Ya está lo más{413} del pueblo prevenido.</l></sp>
-          <sp who="#esteban" xml:id="sp-478">
+          <sp who="#esteban" xml:id="sp-479">
             <speaker>ESTEBAN</speaker>
             <l n="1657" xml:id="l-1657">Frondoso con prisiones en la torre{414}</l>
             <l n="1658" xml:id="l-1658">y mi hija Laurencia en tanto aprieto,</l>
             <l n="1659" xml:id="l-1659">si la piedad de Dios no lo socorre…</l></sp>
-          <stage>Salen Juan Rojo y el Regidor</stage>
-          <sp who="#juan_rojo" xml:id="sp-479">
+          <stage xml:id="stg-1659">Salen Juan Rojo y el Regidor</stage>
+          <sp who="#juan_rojo" xml:id="sp-480">
             <speaker>JUAN ROJO</speaker>
             <l n="1660" xml:id="l-1660">¿De qué dais voces cuando importa tanto</l>
             <l n="1661" xml:id="l-1661">a nuestro bien, Esteban, el secreto?</l></sp>
-          <sp who="#esteban" xml:id="sp-480">
+          <sp who="#esteban" xml:id="sp-481">
             <speaker>ESTEBAN</speaker>
             <l n="1662" xml:id="l-1662">¡Que doy tan pocas es mayor espanto!</l></sp>
-          <stage>Sale Mengo</stage>
-          <sp who="#mengo" xml:id="sp-481">
+          <stage xml:id="stg-1662">Sale Mengo</stage>
+          <sp who="#mengo" xml:id="sp-482">
             <speaker>MENGO</speaker>
             <l n="1663" xml:id="l-1663">También vengo yo a hallarme en esta junta.</l></sp>
-          <sp who="#esteban" xml:id="sp-482">
+          <sp who="#esteban" xml:id="sp-483">
             <speaker>ESTEBAN</speaker>
             <l n="1664" xml:id="l-1664">Un hombre cuyas canas baña el llanto,</l>
             <l n="1665" xml:id="l-1665">labradores honrados, os pregunta</l>
@@ -3474,7 +3474,7 @@
             <l n="1673" xml:id="l-1673">¿No os lamentáis los unos de los otros?</l>
             <l n="1674" xml:id="l-1674">Pues si ya la tenéis todos perdida,</l>
             <l n="1675" xml:id="l-1675">¿a qué aguardáis? ¿Qué desventura es ésta?</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-483">
+          <sp who="#juan_rojo" xml:id="sp-484">
             <speaker>JUAN ROJO</speaker>
             <l n="1676" xml:id="l-1676">La mayor que en el mundo fue sufrida.</l>
             <l n="1677" xml:id="l-1677">Mas, pues ya se publica y manifiesta</l>
@@ -3482,24 +3482,24 @@
             <l n="1679" xml:id="l-1679">y su venida a Córdoba se apresta{417},</l>
             <l n="1680" xml:id="l-1680">vayan dos regidores a la villa{418}</l>
             <l n="1681" xml:id="l-1681">y, echándose a sus pies, pidan remedio{419}.</l></sp>
-          <sp who="#barrildo" xml:id="sp-484">
+          <sp who="#barrildo" xml:id="sp-485">
             <speaker>BARRILDO</speaker>
             <l n="1682" xml:id="l-1682">En tanto que Fernando, aquel que humilla</l>
             <l n="1683" xml:id="l-1683">ha tantos enemigos, otro medio</l>
             <l n="1684" xml:id="l-1684">será mejor, pues no podrá, ocupado,</l>
             <l n="1685" xml:id="l-1685">hacernos bien con tanta guerra en medio.</l></sp>
-          <sp who="#regidor" xml:id="sp-485">
+          <sp who="#regidor" xml:id="sp-486">
             <speaker>REGIDOR</speaker>
             <l n="1686" xml:id="l-1686">Si mi voto de vos fuera escuchado,</l>
             <l n="1687" xml:id="l-1687">desamparar{421} la villa doy por voto.</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-486">
+          <sp who="#juan_rojo" xml:id="sp-487">
             <speaker>JUAN ROJO</speaker>
             <l n="1688" xml:id="l-1688">¿Cómo es posible en tiempo limitado?</l></sp>
-          <sp who="#mengo" xml:id="sp-487">
+          <sp who="#mengo" xml:id="sp-488">
             <speaker>MENGO</speaker>
             <l n="1689" xml:id="l-1689">¡A la fe, que si entiende el alboroto,</l>
             <l n="1690" xml:id="l-1690">que ha de costar la junta alguna vida{422}!</l></sp>
-          <sp who="#regidor" xml:id="sp-488">
+          <sp who="#regidor" xml:id="sp-489">
             <speaker>REGIDOR</speaker>
             <l n="1691" xml:id="l-1691">Ya todo el árbol{423} de paciencia roto,</l>
             <l n="1692" xml:id="l-1692">corre la nave de temor perdida{424}.</l>
@@ -3508,30 +3508,30 @@
             <l n="1695" xml:id="l-1695">la patria en que vivís{425}, y en la cabeza</l>
             <l n="1696" xml:id="l-1696">la vara quiebran tan injustamente…</l>
             <l n="1697" xml:id="l-1697">¿Qué esclavo{427} se trató con más bajeza?</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-489">
+          <sp who="#juan_rojo" xml:id="sp-490">
             <speaker>JUAN ROJO</speaker>
             <l n="1698" xml:id="l-1698">¿Qué es lo que quieres tú que el pueblo intente?</l></sp>
-          <sp who="#regidor" xml:id="sp-490">
+          <sp who="#regidor" xml:id="sp-491">
             <speaker>REGIDOR</speaker>
             <l n="1699" xml:id="l-1699">Morir o dar la muerte a los tiranos,</l>
             <l n="1700" xml:id="l-1700">pues somos muchos y ellos poca gente.</l></sp>
-          <sp who="#barrildo" xml:id="sp-491">
+          <sp who="#barrildo" xml:id="sp-492">
             <speaker>BARRILDO</speaker>
             <l n="1701" xml:id="l-1701">¿Contra el señor las armas en las manos?</l></sp>
-          <sp who="#esteban" xml:id="sp-492">
+          <sp who="#esteban" xml:id="sp-493">
             <speaker>ESTEBAN</speaker>
             <l n="1702" xml:id="l-1702">El Rey solo es señor después del cielo</l>
             <l n="1703" xml:id="l-1703">y no bárbaros hombres inhumanos.</l>
             <l n="1704" xml:id="l-1704">Si Dios ayuda nuestro justo celo,</l>
             <l part="I" n="1705" xml:id="l-1705-a">¿qué nos ha de costar?</l></sp>
-          <sp who="#mengo" xml:id="sp-493">
+          <sp who="#mengo" xml:id="sp-494">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-1705-b">Mirad, señores,</l>
             <l n="1706" xml:id="l-1706">que vais en estas cosas con recelo.</l>
             <l n="1707" xml:id="l-1707">Puesto que por los simples labradores</l>
             <l n="1708" xml:id="l-1708">estoy aquí que más injurias pasan,</l>
             <l n="1709" xml:id="l-1709">más cuerdo represento sus temores{429}.</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-494">
+          <sp who="#juan_rojo" xml:id="sp-495">
             <speaker>JUAN ROJO</speaker>
             <l n="1710" xml:id="l-1710">Si nuestras desventuras se compasan{430},</l>
             <l n="1711" xml:id="l-1711">para perder las vidas, ¿qué aguardamos?</l>
@@ -3541,35 +3541,35 @@
                título: Laurencia irrumpe en el concejo
                descripción: Laurencia regresa maltrecha y entra en un espacio reservado a los hombres. Su sola aparición desbarata la pasividad del concejo y cambia la dirección del debate.
           -->
-          <stage>Sale Laurencia, desmelenada</stage>
-          <sp who="#laurencia" xml:id="sp-495">
+          <stage xml:id="stg-1713">Sale Laurencia, desmelenada</stage>
+          <sp who="#laurencia" xml:id="sp-496">
             <speaker>LAURENCIA</speaker>
             <l n="1714" xml:id="l-1714">Dejadme entrar, que bien puedo,</l>
             <l n="1715" xml:id="l-1715">en consejo de los hombres;</l>
             <l n="1716" xml:id="l-1716">que bien puede una mujer,</l>
             <l n="1717" xml:id="l-1717">si no a dar voto, a dar voces.</l>
             <l part="I" n="1718" xml:id="l-1718-a">¿Conocéisme?</l></sp>
-          <sp who="#esteban" xml:id="sp-496">
+          <sp who="#esteban" xml:id="sp-497">
             <speaker>ESTEBAN</speaker>
             <l part="F" xml:id="l-1718-b">¡Santo cielo!</l>
             <l part="I" n="1719" xml:id="l-1719-a">¿No es mi hija?</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-497">
+          <sp who="#juan_rojo" xml:id="sp-498">
             <speaker>JUAN ROJO</speaker>
             <l part="F" xml:id="l-1719-b">¿No conoces</l>
             <l part="I" n="1720" xml:id="l-1720-a">a Laurencia?</l></sp>
-          <sp who="#laurencia" xml:id="sp-498">
+          <sp who="#laurencia" xml:id="sp-499">
             <speaker>LAURENCIA</speaker>
             <l part="F" xml:id="l-1720-b">Vengo tal,</l>
             <l n="1721" xml:id="l-1721">que mi diferencia os pone</l>
             <l n="1722" xml:id="l-1722">en contingencia quién soy{432}.</l></sp>
-          <sp who="#esteban" xml:id="sp-499">
+          <sp who="#esteban" xml:id="sp-500">
             <speaker>ESTEBAN</speaker>
             <l part="I" n="1723" xml:id="l-1723-a">¡Hija mía!</l></sp>
-          <sp who="#laurencia" xml:id="sp-500">
+          <sp who="#laurencia" xml:id="sp-501">
             <speaker>LAURENCIA</speaker>
             <l part="F" xml:id="l-1723-b">No me nombres</l>
             <l part="I" n="1724" xml:id="l-1724-a">tu hija.</l></sp>
-          <sp who="#esteban" xml:id="sp-501">
+          <sp who="#esteban" xml:id="sp-502">
             <speaker>ESTEBAN</speaker>
             <l part="F" xml:id="l-1724-b">¿Por qué, mis ojos?</l>
             <l part="I" n="1725" xml:id="l-1725-a">¿Por qué?</l></sp>
@@ -3577,7 +3577,7 @@
                título: La arenga de Laurencia
                descripción: En su gran discurso, Laurencia convierte su ultraje personal en acusación contra toda la villa. Reprocha a los hombres su cobardía y los obliga a medir su falta de respuesta.
           -->
-          <sp who="#laurencia" xml:id="sp-502">
+          <sp who="#laurencia" xml:id="sp-503">
             <speaker>LAURENCIA</speaker>
             <l part="F" xml:id="l-1725-b">Por muchas razones,</l>
             <l n="1726" xml:id="l-1726">y sean las principales:</l>
@@ -3654,67 +3654,67 @@
                título: "Juntad el pueblo a una vez"
                descripción: Después de la arenga, los hombres deciden convocar a toda la comunidad y tomar las armas: se organiza la rebelión.
           -->
-          <sp who="#esteban" xml:id="sp-503">
+          <sp who="#esteban" xml:id="sp-504">
             <speaker>ESTEBAN</speaker>
             <l n="1796" xml:id="l-1796">Yo, hija, no soy de aquellos</l>
             <l n="1797" xml:id="l-1797">que permiten que los nombres</l>
             <l n="1798" xml:id="l-1798">con esos títulos viles.</l>
             <l n="1799" xml:id="l-1799">Iré solo, si se pone</l>
             <l n="1800" xml:id="l-1800">todo el mundo contra mí.</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-504">
+          <sp who="#juan_rojo" xml:id="sp-505">
             <speaker>JUAN ROJO</speaker>
             <l n="1801" xml:id="l-1801">Y yo, por más que me asombre{457}</l>
             <l n="1802" xml:id="l-1802">la grandeza del contrario.</l></sp>
-          <sp who="#regidor" xml:id="sp-505">
+          <sp who="#regidor" xml:id="sp-506">
             <speaker>REGIDOR</speaker>
             <l part="I" n="1803" xml:id="l-1803-a">¡Muramos todos!</l></sp>
-          <sp who="#barrildo" xml:id="sp-506">
+          <sp who="#barrildo" xml:id="sp-507">
             <speaker>BARRILDO</speaker>
             <l part="F" xml:id="l-1803-b">Descoge</l>
             <l n="1804" xml:id="l-1804">un lienzo al viento en un palo,</l>
             <l n="1805" xml:id="l-1805">y mueran estos inormes{459}.</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-507">
+          <sp who="#juan_rojo" xml:id="sp-508">
             <speaker>JUAN ROJO</speaker>
             <l n="1806" xml:id="l-1806">¿Qué orden pensáis tener?</l></sp>
-          <sp who="#mengo" xml:id="sp-508">
+          <sp who="#mengo" xml:id="sp-509">
             <speaker>MENGO</speaker>
             <l n="1807" xml:id="l-1807">Ir a matarle sin orden.</l>
             <l n="1808" xml:id="l-1808">Juntad el pueblo a una voz,</l>
             <l n="1809" xml:id="l-1809">que todos están conformes</l>
             <l n="1810" xml:id="l-1810">en que los tiranos mueran.</l></sp>
-          <sp who="#esteban" xml:id="sp-509">
+          <sp who="#esteban" xml:id="sp-510">
             <speaker>ESTEBAN</speaker>
             <l n="1811" xml:id="l-1811">Tomad espadas, lanzones{460},</l>
             <l n="1812" xml:id="l-1812">ballestas, chuzos{461} y palos.</l></sp>
-          <sp who="#mengo" xml:id="sp-510">
+          <sp who="#mengo" xml:id="sp-511">
             <speaker>MENGO</speaker>
             <l n="1813" xml:id="l-1813">¡Los reyes nuestros señores</l>
             <l part="I" n="1814" xml:id="l-1814-a">vivan!</l></sp>
-          <sp xml:id="sp-511">
+          <sp xml:id="sp-512">
             <speaker>TODOS</speaker>
             <l part="F" xml:id="l-1814-b">¡Vivan muchos años!</l></sp>
-          <sp who="#mengo" xml:id="sp-512">
+          <sp who="#mengo" xml:id="sp-513">
             <speaker>MENGO</speaker>
             <l n="1815" xml:id="l-1815">¡Mueran tiranos traidores!</l></sp>
-          <sp xml:id="sp-513">
+          <sp xml:id="sp-514">
             <speaker>TODOS</speaker>
             <l n="1816" xml:id="l-1816">¡Tiranos traidores, mueran!</l></sp>
-          <stage>Vanse todos</stage>
+          <stage xml:id="stg-1816">Vanse todos</stage>
           <!-- PASAJE 52
                título: "Una escuadra de mujeres"
                descripción: Laurencia no se conforma con mover a los hombres y llama también a las mujeres a combatir. La rebelión adquiere un carácter total y colectivo.
           -->
-          <sp who="#laurencia" xml:id="sp-514">
+          <sp who="#laurencia" xml:id="sp-515">
             <speaker>LAURENCIA</speaker>
             <l n="1817" xml:id="l-1817">Caminad, que el cielo os oye.</l>
             <l n="1818" xml:id="l-1818">¡Ah, mujeres de la villa!</l>
             <l n="1819" xml:id="l-1819">¡Acudid porque se cobre</l>
             <l n="1820" xml:id="l-1820">vuestro honor, acudid todas!</l></sp>
-          <stage>Salen Pascuala, Jacinta y otras mujeres</stage>
-          <sp who="#pascuala" xml:id="sp-515">
+          <stage xml:id="stg-1820">Salen Pascuala, Jacinta y otras mujeres</stage>
+          <sp who="#pascuala" xml:id="sp-516">
             <speaker>PASCUALA</speaker>
             <l n="1821" xml:id="l-1821">¿Qué es esto? ¿De qué das voces?</l></sp>
-          <sp who="#laurencia" xml:id="sp-516">
+          <sp who="#laurencia" xml:id="sp-517">
             <speaker>LAURENCIA</speaker>
             <l n="1822" xml:id="l-1822">¿No veis cómo todos van</l>
             <l n="1823" xml:id="l-1823">a matar a Fernán Gómez,</l>
@@ -3724,10 +3724,10 @@
             <l n="1827" xml:id="l-1827">de esta hazaña el honor gocen?</l>
             <l n="1828" xml:id="l-1828">¡Pues no son de las mujeres</l>
             <l n="1829" xml:id="l-1829">sus agravios los menores{462}!</l></sp>
-          <sp who="#jacinta" xml:id="sp-517">
+          <sp who="#jacinta" xml:id="sp-518">
             <speaker>JACINTA</speaker>
             <l n="1830" xml:id="l-1830">Di, pues: ¿qué es lo que pretendes?</l></sp>
-          <sp who="#laurencia" xml:id="sp-518">
+          <sp who="#laurencia" xml:id="sp-519">
             <speaker>LAURENCIA</speaker>
             <l n="1831" xml:id="l-1831">Que, puestas todas en orden,</l>
             <l n="1832" xml:id="l-1832">acometamos un hecho</l>
@@ -3735,33 +3735,33 @@
             <l n="1834" xml:id="l-1834">Jacinta, tu grande agravio</l>
             <l n="1835" xml:id="l-1835">que sea cabo responde</l>
             <l n="1836" xml:id="l-1836">de una escuadra de mujeres{463}.</l></sp>
-          <sp who="#jacinta" xml:id="sp-519">
+          <sp who="#jacinta" xml:id="sp-520">
             <speaker>JACINTA</speaker>
             <l n="1837" xml:id="l-1837">No son los tuyos menores.</l></sp>
-          <sp who="#laurencia" xml:id="sp-520">
+          <sp who="#laurencia" xml:id="sp-521">
             <speaker>LAURENCIA</speaker>
             <l n="1838" xml:id="l-1838">Pascuala, alférez{464} serás.</l></sp>
-          <sp who="#pascuala" xml:id="sp-521">
+          <sp who="#pascuala" xml:id="sp-522">
             <speaker>PASCUALA</speaker>
             <l n="1839" xml:id="l-1839">Pues déjame que enarbole{465}</l>
             <l n="1840" xml:id="l-1840">en un asta la bandera:</l>
             <l n="1841" xml:id="l-1841">verás si merezco el nombre.</l></sp>
-          <sp who="#laurencia" xml:id="sp-522">
+          <sp who="#laurencia" xml:id="sp-523">
             <speaker>LAURENCIA</speaker>
             <l n="1842" xml:id="l-1842">No hay espacio{466} para eso,</l>
             <l n="1843" xml:id="l-1843">pues la dicha nos socorre.</l>
             <l n="1844" xml:id="l-1844">Bien nos basta que llevemos</l>
             <l n="1845" xml:id="l-1845">nuestras tocas por pendones{467}.</l></sp>
-          <sp who="#pascuala" xml:id="sp-523">
+          <sp who="#pascuala" xml:id="sp-524">
             <speaker>PASCUALA</speaker>
             <l n="1846" xml:id="l-1846">Nombremos un capitán.</l></sp>
-          <sp who="#laurencia" xml:id="sp-524">
+          <sp who="#laurencia" xml:id="sp-525">
             <speaker>LAURENCIA</speaker>
             <l part="I" n="1847" xml:id="l-1847-a">Eso no.</l></sp>
-          <sp who="#pascuala" xml:id="sp-525">
+          <sp who="#pascuala" xml:id="sp-526">
             <speaker>PASCUALA</speaker>
             <l part="M" xml:id="l-1847-b">¿Por qué?</l></sp>
-          <sp who="#laurencia" xml:id="sp-526">
+          <sp who="#laurencia" xml:id="sp-527">
             <speaker>LAURENCIA</speaker>
             <l part="F" xml:id="l-1847-c">Que adonde</l>
             <l n="1848" xml:id="l-1848">asiste mi gran valor</l>
@@ -3770,276 +3770,276 @@
                título: Frondoso a punto de ser ahorcado
                descripción: Mientras el pueblo se organiza fuera, Frondoso está a punto de ser ahorcado por orden del Comendador. La escena concentra la urgencia del rescate y el tiempo mínimo que queda.
           -->
-          <stage>Vanse</stage>
-          <stage>Sale Frondoso, atadas las manos; Flores, Ortuño y Cimbranos y el Comendador</stage>
-          <sp who="#comendador" xml:id="sp-527">
+          <stage xml:id="stg-1849-1">Vanse</stage>
+          <stage xml:id="stg-1849-2">Sale Frondoso, atadas las manos; Flores, Ortuño y Cimbranos y el Comendador</stage>
+          <sp who="#comendador" xml:id="sp-528">
             <speaker>COMENDADOR</speaker>
             <l n="1850" xml:id="l-1850">De ese cordel que de las manos sobra</l>
             <l n="1851" xml:id="l-1851">quiero que le colguéis, por mayor pena{470}.</l></sp>
-          <sp who="#frondoso" xml:id="sp-528">
+          <sp who="#frondoso" xml:id="sp-529">
             <speaker>FRONDOSO</speaker>
             <l n="1852" xml:id="l-1852">¡Qué nombre, gran señor, tu sangre cobra!</l></sp>
-          <sp who="#comendador" xml:id="sp-529">
+          <sp who="#comendador" xml:id="sp-530">
             <speaker>COMENDADOR</speaker>
             <l n="1853" xml:id="l-1853">Colgalde luego en la primera almena{471}.</l></sp>
-          <sp who="#frondoso" xml:id="sp-530">
+          <sp who="#frondoso" xml:id="sp-531">
             <speaker>FRONDOSO</speaker>
             <l n="1854" xml:id="l-1854">Nunca fue mi intención poner por obra</l>
             <l part="I" n="1855" xml:id="l-1855-a">tu muerte entonces.</l></sp>
-          <sp who="#flores" xml:id="sp-531">
+          <sp who="#flores" xml:id="sp-532">
             <speaker>FLORES</speaker>
             <l part="F" xml:id="l-1855-b">Grande ruido suena.</l></sp>
-          <stage>Ruido suene</stage>
-          <sp who="#comendador" xml:id="sp-532">
+          <stage xml:id="stg-1855">Ruido suene</stage>
+          <sp who="#comendador" xml:id="sp-533">
             <speaker>COMENDADOR</speaker>
             <l part="I" n="1856" xml:id="l-1856-a">¿Rüido?</l></sp>
-          <sp who="#flores" xml:id="sp-533">
+          <sp who="#flores" xml:id="sp-534">
             <speaker>FLORES</speaker>
             <l part="F" xml:id="l-1856-b">Y de manera que interrompen</l>
             <l part="I" n="1857" xml:id="l-1857-a">tu justicia, señor.</l></sp>
-          <sp who="#ortuno" xml:id="sp-534">
+          <sp who="#ortuno" xml:id="sp-535">
             <speaker>ORTUÑO</speaker>
             <l part="F" xml:id="l-1857-b">Las puertas rompen.</l></sp>
-          <stage>Ruido</stage>
-          <sp who="#comendador" xml:id="sp-535">
+          <stage xml:id="stg-1857">Ruido</stage>
+          <sp who="#comendador" xml:id="sp-536">
             <speaker>COMENDADOR</speaker>
             <l n="1858" xml:id="l-1858">¡La puerta de mi casa, y siendo casa</l>
             <l part="I" n="1859" xml:id="l-1859-a">de la encomienda!</l></sp>
-          <sp who="#flores" xml:id="sp-536">
+          <sp who="#flores" xml:id="sp-537">
             <speaker>FLORES</speaker>
             <l part="F" xml:id="l-1859-b">El pueblo junto viene.</l></sp>
-          <stage>Dentro</stage>
-          <sp who="#juan_rojo" xml:id="sp-537">
+          <stage xml:id="stg-1859">Dentro</stage>
+          <sp who="#juan_rojo" xml:id="sp-538">
             <speaker>JUAN ROJO</speaker>
             <l n="1860" xml:id="l-1860">¡Rompe, derriba, hunde, quema, abrasa!</l></sp>
-          <sp who="#ortuno" xml:id="sp-538">
+          <sp who="#ortuno" xml:id="sp-539">
             <speaker>ORTUÑO</speaker>
             <l n="1861" xml:id="l-1861">Un popular motín mal se detiene.</l></sp>
-          <sp who="#comendador" xml:id="sp-539">
+          <sp who="#comendador" xml:id="sp-540">
             <speaker>COMENDADOR</speaker>
             <l part="I" n="1862" xml:id="l-1862-a">¿El pueblo contra mí?</l></sp>
-          <sp who="#flores" xml:id="sp-540">
+          <sp who="#flores" xml:id="sp-541">
             <speaker>FLORES</speaker>
             <l part="F" xml:id="l-1862-b">La furia pasa</l>
             <l n="1863" xml:id="l-1863">tan adelante, que las puertas tiene</l>
             <l part="I" n="1864" xml:id="l-1864-a">echadas por la tierra.</l></sp>
-          <sp who="#comendador" xml:id="sp-541">
+          <sp who="#comendador" xml:id="sp-542">
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-1864-b">Desatalde.</l>
             <l n="1865" xml:id="l-1865">Templa{472}, Frondoso, ese villano{473} Alcalde.</l></sp>
-          <sp who="#frondoso" xml:id="sp-542">
+          <sp who="#frondoso" xml:id="sp-543">
             <speaker>FRONDOSO</speaker>
             <l n="1866" xml:id="l-1866">Yo voy, señor, que amor les ha movido{474}.</l></sp>
-          <stage>Vase</stage>
+          <stage xml:id="stg-1866-1">Vase</stage>
           <!-- PASAJE 54
                título: El pueblo asalta la casa
                descripción: El pueblo irrumpe unido en la casa del Comendador y el alzamiento se hace visible en escena.
           -->
-          <stage>Dentro:</stage>
-          <sp who="#mengo" xml:id="sp-543">
+          <stage xml:id="stg-1866-2">Dentro:</stage>
+          <sp who="#mengo" xml:id="sp-544">
             <speaker>MENGO</speaker>
             <l n="1867" xml:id="l-1867">¡Vivan Fernando y Isabel, y mueran</l>
             <l part="I" n="1868" xml:id="l-1868-a">los traidores!</l></sp>
-          <sp who="#flores" xml:id="sp-544">
+          <sp who="#flores" xml:id="sp-545">
             <speaker>FLORES</speaker>
             <l part="F" xml:id="l-1868-b">Señor, por Dios te pido</l>
             <l part="I" n="1869" xml:id="l-1869-a">que no te hallen aquí.</l></sp>
-          <sp who="#comendador" xml:id="sp-545">
+          <sp who="#comendador" xml:id="sp-546">
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-1869-b">Si perseveran,</l>
             <l n="1870" xml:id="l-1870">este aposento es fuerte y defendido.</l>
             <l part="I" n="1871" xml:id="l-1871-a">Ellos se volverán.</l></sp>
-          <sp who="#flores" xml:id="sp-546">
+          <sp who="#flores" xml:id="sp-547">
             <speaker>FLORES</speaker>
             <l part="F" xml:id="l-1871-b">Cuando se alteran</l>
             <l n="1872" xml:id="l-1872">los pueblos agraviados, y resuelven{475},</l>
             <l n="1873" xml:id="l-1873">nunca sin sangre o sin venganza vuelven.</l></sp>
-          <sp who="#comendador" xml:id="sp-547">
+          <sp who="#comendador" xml:id="sp-548">
             <speaker>COMENDADOR</speaker>
             <l n="1874" xml:id="l-1874">En esta puerta, así como rastrillo{476},</l>
             <l n="1875" xml:id="l-1875">su furor con las armas defendamos.</l></sp>
-          <stage>Dentro:</stage>
-          <sp who="#frondoso" xml:id="sp-548">
+          <stage xml:id="stg-1875">Dentro:</stage>
+          <sp who="#frondoso" xml:id="sp-549">
             <speaker>FRONDOSO</speaker>
             <l part="I" n="1876" xml:id="l-1876-a">¡Viva Fuenteovejuna!</l></sp>
-          <sp who="#comendador" xml:id="sp-549">
+          <sp who="#comendador" xml:id="sp-550">
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-1876-b">¡Qué caudillo!</l>
             <l n="1877" xml:id="l-1877">Estoy porque a su furia acometamos{477}.</l></sp>
-          <sp who="#flores" xml:id="sp-550">
+          <sp who="#flores" xml:id="sp-551">
             <speaker>FLORES</speaker>
             <l n="1878" xml:id="l-1878">De la tuya, señor, me maravillo.</l></sp>
-          <stage>Salen todos</stage>
-          <sp who="#esteban" xml:id="sp-551">
+          <stage xml:id="stg-1878">Salen todos</stage>
+          <sp who="#esteban" xml:id="sp-552">
             <speaker>ESTEBAN</speaker>
             <l n="1879" xml:id="l-1879">Ya el tirano y los cómplices miramos.</l>
             <l n="1880" xml:id="l-1880">¡Fuenteovejuna, y los tiranos mueran!</l></sp>
-          <sp who="#comendador" xml:id="sp-552">
+          <sp who="#comendador" xml:id="sp-553">
             <speaker>COMENDADOR</speaker>
             <l part="I" n="1881" xml:id="l-1881-a">Pueblo, esperad.</l></sp>
-          <sp xml:id="sp-553">
+          <sp xml:id="sp-554">
             <speaker>TODOS</speaker>
             <l part="F" xml:id="l-1881-b">¡Agravios nunca esperan!</l></sp>
-          <sp who="#comendador" xml:id="sp-554">
+          <sp who="#comendador" xml:id="sp-555">
             <speaker>COMENDADOR</speaker>
             <l n="1882" xml:id="l-1882">Decídmelos a mí, que iré pagando,</l>
             <l n="1883" xml:id="l-1883">a fe de caballero, esos errores.</l></sp>
-          <sp xml:id="sp-555">
+          <sp xml:id="sp-556">
             <speaker>TODOS</speaker>
             <l n="1884" xml:id="l-1884">¡Fuenteovejuna! ¡Viva el Rey Fernando!</l>
             <l n="1885" xml:id="l-1885">¡Mueran malos cristianos y traidores!</l></sp>
-          <sp who="#comendador" xml:id="sp-556">
+          <sp who="#comendador" xml:id="sp-557">
             <speaker>COMENDADOR</speaker>
             <l n="1886" xml:id="l-1886">¿No me queréis oír? ¡Yo estoy hablando!</l>
             <l part="I" n="1887" xml:id="l-1887-a">¡Yo soy vuestro señor!</l></sp>
-          <sp xml:id="sp-557">
+          <sp xml:id="sp-558">
             <speaker>TODOS</speaker>
             <l part="F" xml:id="l-1887-b">¡Nuestros señores</l>
             <l part="I" n="1888" xml:id="l-1888-a">son los Reyes Católicos!</l></sp>
-          <sp who="#comendador" xml:id="sp-558">
+          <sp who="#comendador" xml:id="sp-559">
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-1888-b">Espera.</l></sp>
-          <sp xml:id="sp-559">
+          <sp xml:id="sp-560">
             <speaker>TODOS</speaker>
             <l n="1889" xml:id="l-1889">¡Fuenteovejuna, y Fernán Gómez muera!</l></sp>
           <!-- PASAJE 55
                título: Las mujeres entran en la venganza
                descripción: Las mujeres participan activamente en el castigo y reclaman su lugar en la represalia. El pasaje recuerda que la tiranía del Comendador tuvo sobre todo un rostro sexual y femenino.
           -->
-          <stage>Vanse, y salen las mujeres armadas</stage>
-          <sp who="#laurencia" xml:id="sp-560">
+          <stage xml:id="stg-1889">Vanse, y salen las mujeres armadas</stage>
+          <sp who="#laurencia" xml:id="sp-561">
             <speaker>LAURENCIA</speaker>
             <l n="1890" xml:id="l-1890">Parad en este puesto de esperanzas{479},</l>
             <l n="1891" xml:id="l-1891">soldados atrevidos, no mujeres.</l></sp>
-          <sp who="#pascuala" xml:id="sp-561">
+          <sp who="#pascuala" xml:id="sp-562">
             <speaker>PASCUALA</speaker>
             <l n="1892" xml:id="l-1892">¡Lo que mujeres son en las venganzas!</l>
             <l n="1893" xml:id="l-1893">En él beban su sangre, es bien que esperes{480}.</l></sp>
-          <sp who="#jacinta" xml:id="sp-562">
+          <sp who="#jacinta" xml:id="sp-563">
             <speaker>JACINTA</speaker>
             <l n="1894" xml:id="l-1894">¡Su cuerpo recojamos en las lanzas!</l></sp>
-          <sp who="#pascuala" xml:id="sp-563">
+          <sp who="#pascuala" xml:id="sp-564">
             <speaker>PASCUALA</speaker>
             <l n="1895" xml:id="l-1895">Todas son de esos mismos pareceres.</l></sp>
-          <stage>Dentro</stage>
-          <sp who="#esteban" xml:id="sp-564">
+          <stage xml:id="stg-1895">Dentro</stage>
+          <sp who="#esteban" xml:id="sp-565">
             <speaker>ESTEBAN</speaker>
             <l part="I" n="1896" xml:id="l-1896-a">¡Muere, traidor Comendador!</l></sp>
-          <stage>Dentro</stage>
-          <sp who="#comendador" xml:id="sp-565">
+          <stage xml:id="stg-1896">Dentro</stage>
+          <sp who="#comendador" xml:id="sp-566">
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-1896-b">¡Ya muero!</l>
             <l n="1897" xml:id="l-1897">¡Piedad, Señor, que en tu clemencia espero{482}!</l></sp>
-          <stage>Dentro</stage>
-          <sp who="#barrildo" xml:id="sp-566">
+          <stage xml:id="stg-1897">Dentro</stage>
+          <sp who="#barrildo" xml:id="sp-567">
             <speaker>BARRILDO</speaker>
             <l part="I" n="1898" xml:id="l-1898-a">Aquí está Flores.</l></sp>
-          <stage>Dentro</stage>
-          <sp who="#mengo" xml:id="sp-567">
+          <stage xml:id="stg-1898">Dentro</stage>
+          <sp who="#mengo" xml:id="sp-568">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-1898-b">Dale a ese bellaco,</l>
             <l n="1899" xml:id="l-1899">que ése fue el que me dio dos mil azotes.</l></sp>
-          <stage>Dentro</stage>
-          <sp who="#frondoso" xml:id="sp-568">
+          <stage xml:id="stg-1899">Dentro</stage>
+          <sp who="#frondoso" xml:id="sp-569">
             <speaker>FRONDOSO</speaker>
             <l n="1900" xml:id="l-1900">No me vengo si el alma no le saco{483}.</l></sp>
-          <sp who="#laurencia" xml:id="sp-569">
+          <sp who="#laurencia" xml:id="sp-570">
             <speaker>LAURENCIA</speaker>
             <l part="I" n="1901" xml:id="l-1901-a">¡No escusamos entrar{484}!</l></sp>
-          <sp who="#pascuala" xml:id="sp-570">
+          <sp who="#pascuala" xml:id="sp-571">
             <speaker>PASCUALA</speaker>
             <l part="F" xml:id="l-1901-b">No te alborotes.</l>
             <l part="I" n="1902" xml:id="l-1902-a">Bien es guardar la puerta.</l></sp>
-          <stage>Dentro</stage>
-          <sp who="#barrildo" xml:id="sp-571">
+          <stage xml:id="stg-1902">Dentro</stage>
+          <sp who="#barrildo" xml:id="sp-572">
             <speaker>BARRILDO</speaker>
             <l part="F" xml:id="l-1902-b">No me aplaco.</l>
             <l n="1903" xml:id="l-1903">¿Con lágrimas agora, marquesotes{485}?</l></sp>
-          <sp who="#laurencia" xml:id="sp-572">
+          <sp who="#laurencia" xml:id="sp-573">
             <speaker>LAURENCIA</speaker>
             <l n="1904" xml:id="l-1904">Pascuala, yo entro dentro, que la espada</l>
             <l n="1905" xml:id="l-1905">no ha de estar tan sujeta ni envainada.</l></sp>
-          <stage>Vase</stage>
-          <stage>Dentro</stage>
-          <sp who="#barrildo" xml:id="sp-573">
+          <stage xml:id="stg-1905-1">Vase</stage>
+          <stage xml:id="stg-1905-2">Dentro</stage>
+          <sp who="#barrildo" xml:id="sp-574">
             <speaker>BARRILDO</speaker>
             <l part="I" n="1906" xml:id="l-1906-a">Aquí está Ortuño.</l></sp>
-          <stage>Dentro</stage>
-          <sp who="#frondoso" xml:id="sp-574">
+          <stage xml:id="stg-1906-1">Dentro</stage>
+          <sp who="#frondoso" xml:id="sp-575">
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-1906-b">Córtale la cara.</l></sp>
           <!-- PASAJE 56
                título: Matan a Flores
                descripción: Flores cae a manos del pueblo en medio del asalto. La violencia se extiende también a los criados más cercanos del Comendador.
           -->
-          <stage>Sale Flores huyendo, y Mengo tras él</stage>
-          <sp who="#flores" xml:id="sp-575">
+          <stage xml:id="stg-1906-2">Sale Flores huyendo, y Mengo tras él</stage>
+          <sp who="#flores" xml:id="sp-576">
             <speaker>FLORES</speaker>
             <l n="1907" xml:id="l-1907">¡Mengo, piedad, que no soy yo el culpado!</l></sp>
-          <sp who="#mengo" xml:id="sp-576">
+          <sp who="#mengo" xml:id="sp-577">
             <speaker>MENGO</speaker>
             <l n="1908" xml:id="l-1908">Cuando ser alcahuete{486} no bastara,</l>
             <l n="1909" xml:id="l-1909">bastaba haberme el pícaro azotado.</l></sp>
-          <sp who="#pascuala" xml:id="sp-577">
+          <sp who="#pascuala" xml:id="sp-578">
             <speaker>PASCUALA</speaker>
             <l n="1910" xml:id="l-1910">¡Dánoslo a las mujeres, Mengo! ¡Para,</l>
             <l part="I" n="1911" xml:id="l-1911-a">acaba, por tu vida!</l></sp>
-          <sp who="#mengo" xml:id="sp-578">
+          <sp who="#mengo" xml:id="sp-579">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-1911-b">Ya está dado,</l>
             <l n="1912" xml:id="l-1912">que no le quiero yo mayor castigo.</l></sp>
-          <sp who="#pascuala" xml:id="sp-579">
+          <sp who="#pascuala" xml:id="sp-580">
             <speaker>PASCUALA</speaker>
             <l part="I" n="1913" xml:id="l-1913-a">Vengaré tus azotes.</l></sp>
-          <sp who="#mengo" xml:id="sp-580">
+          <sp who="#mengo" xml:id="sp-581">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-1913-b">Eso digo.</l></sp>
-          <sp who="#jacinta" xml:id="sp-581">
+          <sp who="#jacinta" xml:id="sp-582">
             <speaker>JACINTA</speaker>
             <l part="I" n="1914" xml:id="l-1914-a">¡Ea, muera el traidor!</l></sp>
-          <sp who="#flores" xml:id="sp-582">
+          <sp who="#flores" xml:id="sp-583">
             <speaker>FLORES</speaker>
             <l part="F" xml:id="l-1914-b">¿Entre mujeres?</l></sp>
-          <sp who="#jacinta" xml:id="sp-583">
+          <sp who="#jacinta" xml:id="sp-584">
             <speaker>JACINTA</speaker>
             <l part="I" n="1915" xml:id="l-1915-a">¿No le viene muy ancho{487}?</l></sp>
-          <sp who="#pascuala" xml:id="sp-584">
+          <sp who="#pascuala" xml:id="sp-585">
             <speaker>PASCUALA</speaker>
             <l part="F" xml:id="l-1915-b">¿Aqueso lloras?</l></sp>
-          <sp who="#jacinta" xml:id="sp-585">
+          <sp who="#jacinta" xml:id="sp-586">
             <speaker>JACINTA</speaker>
             <l n="1916" xml:id="l-1916">¡Muere, concertador de sus placeres{489}!</l></sp>
-          <sp who="#pascuala" xml:id="sp-586">
+          <sp who="#pascuala" xml:id="sp-587">
             <speaker>PASCUALA</speaker>
             <l part="I" n="1917" xml:id="l-1917-a">¡Ea, muera el traidor!</l></sp>
-          <sp who="#flores" xml:id="sp-587">
+          <sp who="#flores" xml:id="sp-588">
             <speaker>FLORES</speaker>
             <l part="F" xml:id="l-1917-b">¡Piedad, señoras!</l></sp>
           <!-- PASAJE 57
                título: Ortuño huye
                descripción: Ortuño logra escapar de la casa y sale de Fuenteovejuna con la noticia de la muerte del señor. Su huida hace posible que el conflicto llegue enseguida a la corte.
           -->
-          <stage>Sale Ortuño huyendo de Laurencia</stage>
-          <sp who="#ortuno" xml:id="sp-588">
+          <stage xml:id="stg-1917">Sale Ortuño huyendo de Laurencia</stage>
+          <sp who="#ortuno" xml:id="sp-589">
             <speaker>ORTUÑO</speaker>
             <l part="I" n="1918" xml:id="l-1918-a">Mira que no soy yo...</l></sp>
-          <sp who="#laurencia" xml:id="sp-589">
+          <sp who="#laurencia" xml:id="sp-590">
             <speaker>LAURENCIA</speaker>
             <l part="F" xml:id="l-1918-b">¡Ya sé quién eres!</l>
             <l n="1919" xml:id="l-1919">¡Entrad, teñid{490} las armas vencedoras</l>
             <l part="I" n="1920" xml:id="l-1920-a">en estos viles!</l></sp>
-          <sp who="#pascuala" xml:id="sp-590">
+          <sp who="#pascuala" xml:id="sp-591">
             <speaker>PASCUALA</speaker>
             <l part="F" xml:id="l-1920-b">¡Moriré matando!</l></sp>
-          <sp xml:id="sp-591">
+          <sp xml:id="sp-592">
             <speaker>TODAS</speaker>
             <l n="1921" xml:id="l-1921">¡Fuenteovejuna, y viva el Rey Fernando!</l></sp>
           <!-- PASAJE 58
                título: El palacio de los Reyes
                descripción: La acción vuelve al palacio real. Después de la violencia de la villa, la corte reaparece como espacio de autoridad.
           -->
-          <stage>Vanse y salen el rey Fernando y la reina doña Isabel, y Don Manrique, maestre</stage>
-          <sp who="#manrique" xml:id="sp-592">
+          <stage xml:id="stg-1921">Vanse y salen el rey Fernando y la reina doña Isabel, y Don Manrique, maestre</stage>
+          <sp who="#manrique" xml:id="sp-593">
             <speaker>MANRIQUE</speaker>
             <l n="1922" xml:id="l-1922">De modo la prevención</l>
             <l n="1923" xml:id="l-1923">fue, que el efeto esperado</l>
@@ -4073,8 +4073,8 @@
                título: Flores denuncia a Fuenteovejuna
                descripción: Flores, herido, comparece ante Fernando e Isabel para denunciar la muerte del Comendador. Su relato es parcial y truculento, y presenta la revuelta como crimen brutal de unos vasallos sin ley.
           -->
-          <stage>Sale Flores, herido</stage>
-          <sp who="#flores" xml:id="sp-593">
+          <stage xml:id="stg-1949">Sale Flores, herido</stage>
+          <sp who="#flores" xml:id="sp-594">
             <speaker>FLORES</speaker>
             <l n="1950" xml:id="l-1950">Católico rey Fernando,</l>
             <l n="1951" xml:id="l-1951">a quien el Cielo concede</l>
@@ -4084,10 +4084,10 @@
             <l n="1955" xml:id="l-1955">que se ha visto entre las gentes</l>
             <l n="1956" xml:id="l-1956">desde donde nace el sol</l>
             <l n="1957" xml:id="l-1957">hasta donde se escurece.</l></sp>
-          <sp who="#fernando" xml:id="sp-594">
+          <sp who="#fernando" xml:id="sp-595">
             <speaker>REY</speaker>
             <l part="I" n="1958" xml:id="l-1958-a">Repórtate{500}.</l></sp>
-          <sp who="#flores" xml:id="sp-595">
+          <sp who="#flores" xml:id="sp-596">
             <speaker>FLORES</speaker>
             <l part="F" xml:id="l-1958-b">Rey supremo,</l>
             <l n="1959" xml:id="l-1959">mis heridas no consienten</l>
@@ -4151,7 +4151,7 @@
                título: Los Reyes envían al pesquisidor
                descripción: Tras escuchar a Flores, los Reyes ordenan enviar un juez pesquisidor con apoyo armado. La respuesta regia abre el nuevo frente judicial al que tendrá que enfrentarse el pueblo.
           -->
-          <sp who="#fernando" xml:id="sp-596">
+          <sp who="#fernando" xml:id="sp-597">
             <speaker>REY</speaker>
             <l n="2016" xml:id="l-2016">Estar puedes confiado</l>
             <l n="2017" xml:id="l-2017">que sin castigo no queden.</l>
@@ -4171,16 +4171,16 @@
                título: El pueblo celebra la caída del tirano
                descripción: En Fuenteovejuna, los vecinos celebran la muerte del Comendador con coplas, música y signos de fidelidad a Isabel y Fernando.
           -->
-          <stage>Vanse, y salen los labradores y labradoras con la cabeza de Fernán Gómez en una lanza</stage>
-          <sp who="#musicos" xml:id="sp-597">
+          <stage xml:id="stg-2029">Vanse, y salen los labradores y labradoras con la cabeza de Fernán Gómez en una lanza</stage>
+          <sp who="#musicos" xml:id="sp-598">
             <speaker>MÚSICOS</speaker>
             <l n="2030" xml:id="l-2030">¡Muchos años vivan</l>
             <l n="2031" xml:id="l-2031">Isabel y Fernando,</l>
             <l n="2032" xml:id="l-2032">y mueran los tiranos!</l></sp>
-          <sp who="#barrildo" xml:id="sp-598">
+          <sp who="#barrildo" xml:id="sp-599">
             <speaker>BARRILDO</speaker>
             <l n="2033" xml:id="l-2033">Diga su copla Frondoso.</l></sp>
-          <sp who="#frondoso" xml:id="sp-599">
+          <sp who="#frondoso" xml:id="sp-600">
             <speaker>FRONDOSO</speaker>
             <l n="2034" xml:id="l-2034">Ya va mi copla, a la fe.</l>
             <l n="2035" xml:id="l-2035">Si le faltare algún pie{516},</l>
@@ -4193,18 +4193,18 @@
             <l n="2042" xml:id="l-2042">lleve a los dos de las manos.</l>
             <l n="2043" xml:id="l-2043">¡Vivan muchos años</l>
             <l n="2044" xml:id="l-2044">y mueran los tiranos!</l></sp>
-          <sp who="#laurencia" xml:id="sp-600">
+          <sp who="#laurencia" xml:id="sp-601">
             <speaker>LAURENCIA</speaker>
             <l part="I" n="2045" xml:id="l-2045-a">Diga Barrildo.</l></sp>
-          <sp who="#barrildo" xml:id="sp-601">
+          <sp who="#barrildo" xml:id="sp-602">
             <speaker>BARRILDO</speaker>
             <l part="F" xml:id="l-2045-b">Ya va,</l>
             <l n="2046" xml:id="l-2046">que a fe que la he pensado.</l></sp>
-          <sp who="#pascuala" xml:id="sp-602">
+          <sp who="#pascuala" xml:id="sp-603">
             <speaker>PASCUALA</speaker>
             <l n="2047" xml:id="l-2047">Si la dices con cuidado,</l>
             <l n="2048" xml:id="l-2048">buena y rebuena será.</l></sp>
-          <sp who="#barrildo" xml:id="sp-603">
+          <sp who="#barrildo" xml:id="sp-604">
             <speaker>BARRILDO</speaker>
             <l n="2049" xml:id="l-2049">¡Vivan los Reyes famosos{520}</l>
             <l n="2050" xml:id="l-2050">muchos años, pues que tienen</l>
@@ -4216,20 +4216,20 @@
             <l n="2056" xml:id="l-2056">MÚSICOS ¡Muchos años vivan</l>
             <l n="2057" xml:id="l-2057">Isabel y Fernando,</l>
             <l n="2058" xml:id="l-2058">y mueran los tiranos!</l></sp>
-          <sp who="#laurencia" xml:id="sp-604">
+          <sp who="#laurencia" xml:id="sp-605">
             <speaker>LAURENCIA</speaker>
             <l part="I" n="2059" xml:id="l-2059-a">Diga Mengo.</l></sp>
-          <sp who="#frondoso" xml:id="sp-605">
+          <sp who="#frondoso" xml:id="sp-606">
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-2059-b">Mengo diga.</l></sp>
-          <sp who="#mengo" xml:id="sp-606">
+          <sp who="#mengo" xml:id="sp-607">
             <speaker>MENGO</speaker>
             <l n="2060" xml:id="l-2060">Yo soy poeta donado{522}.</l></sp>
-          <sp who="#pascuala" xml:id="sp-607">
+          <sp who="#pascuala" xml:id="sp-608">
             <speaker>PASCUALA</speaker>
             <l n="2061" xml:id="l-2061">Mejor dirás, lastimado</l>
             <l n="2062" xml:id="l-2062">el envés de la barriga{523}.</l></sp>
-          <sp who="#mengo" xml:id="sp-608">
+          <sp who="#mengo" xml:id="sp-609">
             <speaker>MENGO</speaker>
             <l n="2063" xml:id="l-2063">Una mañana en domingo</l>
             <l n="2064" xml:id="l-2064">me mandó azotar aquél,</l>
@@ -4239,36 +4239,36 @@
             <l n="2068" xml:id="l-2068">¡vivan los Reyes Cristiánigos,</l>
             <l n="2069" xml:id="l-2069">y mueran los tiránigos!</l>
             <l n="2070" xml:id="l-2070">MÚSICOS ¡Vivan muchos años!</l></sp>
-          <sp who="#esteban" xml:id="sp-609">
+          <sp who="#esteban" xml:id="sp-610">
             <speaker>ESTEBAN</speaker>
             <l n="2071" xml:id="l-2071">Quita la cabeza allá{528}.</l></sp>
-          <sp who="#mengo" xml:id="sp-610">
+          <sp who="#mengo" xml:id="sp-611">
             <speaker>MENGO</speaker>
             <l n="2072" xml:id="l-2072">Cara tiene de ahorcado{529}.</l></sp>
-          <stage>Saca un escudo Juan Rojo con las armas</stage>
-          <sp who="#regidor" xml:id="sp-611">
+          <stage xml:id="stg-2072">Saca un escudo Juan Rojo con las armas</stage>
+          <sp who="#regidor" xml:id="sp-612">
             <speaker>REGIDOR</speaker>
             <l n="2073" xml:id="l-2073">Ya las armas han llegado.</l></sp>
-          <sp who="#esteban" xml:id="sp-612">
+          <sp who="#esteban" xml:id="sp-613">
             <speaker>ESTEBAN</speaker>
             <l n="2074" xml:id="l-2074">Mostrá las armas acá.</l></sp>
-          <sp who="#juan_rojo" xml:id="sp-613">
+          <sp who="#juan_rojo" xml:id="sp-614">
             <speaker>JUAN ROJO</speaker>
             <l n="2075" xml:id="l-2075">¿Adónde se han de poner?</l></sp>
-          <sp who="#regidor" xml:id="sp-614">
+          <sp who="#regidor" xml:id="sp-615">
             <speaker>REGIDOR</speaker>
             <l n="2076" xml:id="l-2076">Aquí, en el Ayuntamiento.</l></sp>
-          <sp who="#esteban" xml:id="sp-615">
+          <sp who="#esteban" xml:id="sp-616">
             <speaker>ESTEBAN</speaker>
             <l part="I" n="2077" xml:id="l-2077-a">¡Bravo escudo!</l></sp>
-          <sp who="#barrildo" xml:id="sp-616">
+          <sp who="#barrildo" xml:id="sp-617">
             <speaker>BARRILDO</speaker>
             <l part="F" xml:id="l-2077-b">¡Qué contento!</l></sp>
-          <sp who="#frondoso" xml:id="sp-617">
+          <sp who="#frondoso" xml:id="sp-618">
             <speaker>FRONDOSO</speaker>
             <l n="2078" xml:id="l-2078">Ya comienza a amanecer,</l>
             <l n="2079" xml:id="l-2079">con este sol, nuestro día.</l></sp>
-          <sp who="#esteban" xml:id="sp-618">
+          <sp who="#esteban" xml:id="sp-619">
             <speaker>ESTEBAN</speaker>
             <l n="2080" xml:id="l-2080">¡Vivan Castilla y León,</l>
             <l n="2081" xml:id="l-2081">y las barras de Aragón{531},</l>
@@ -4287,25 +4287,25 @@
             <l n="2090" xml:id="l-2090">y jornada que han de hacer{533}.</l>
             <l n="2091" xml:id="l-2091">Concertaos todos a una{534}</l>
             <l n="2092" xml:id="l-2092">en lo que habéis de decir.</l></sp>
-          <sp who="#frondoso" xml:id="sp-619">
+          <sp who="#frondoso" xml:id="sp-620">
             <speaker>FRONDOSO</speaker>
             <l part="I" n="2093" xml:id="l-2093-a">¿Qué es tu consejo?</l></sp>
-          <sp who="#esteban" xml:id="sp-620">
+          <sp who="#esteban" xml:id="sp-621">
             <speaker>ESTEBAN</speaker>
             <l part="F" xml:id="l-2093-b">Morir</l>
             <l n="2094" xml:id="l-2094">diciendo «¡Fuenteovejuna!»,</l>
             <l n="2095" xml:id="l-2095">y a nadie saquen de aquí.</l></sp>
-          <sp who="#frondoso" xml:id="sp-621">
+          <sp who="#frondoso" xml:id="sp-622">
             <speaker>FRONDOSO</speaker>
             <l n="2096" xml:id="l-2096">Es el camino derecho{536}:</l>
             <l n="2097" xml:id="l-2097">¡Fuenteovejuna lo ha hecho!</l></sp>
-          <sp who="#esteban" xml:id="sp-622">
+          <sp who="#esteban" xml:id="sp-623">
             <speaker>ESTEBAN</speaker>
             <l n="2098" xml:id="l-2098">¿Queréis responder así?</l></sp>
-          <sp xml:id="sp-623">
+          <sp xml:id="sp-624">
             <speaker>TODOS</speaker>
             <l part="I" n="2099" xml:id="l-2099-a">¡Sí!</l></sp>
-          <sp who="#esteban" xml:id="sp-624">
+          <sp who="#esteban" xml:id="sp-625">
             <speaker>ESTEBAN</speaker>
             <l part="F" xml:id="l-2099-b">Ahora pues, yo quiero ser</l>
             <l n="2100" xml:id="l-2100">agora el pesquisidor,</l>
@@ -4313,102 +4313,102 @@
             <l n="2102" xml:id="l-2102">en lo que habemos de hacer.</l>
             <l n="2103" xml:id="l-2103">Sea Mengo el que esté puesto</l>
             <l part="I" n="2104" xml:id="l-2104-a">en el tormento{539}.</l></sp>
-          <sp who="#mengo" xml:id="sp-625">
+          <sp who="#mengo" xml:id="sp-626">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2104-b">¿No hallaste</l>
             <l part="I" n="2105" xml:id="l-2105-a">otro más flaco{540}?</l></sp>
-          <sp who="#esteban" xml:id="sp-626">
+          <sp who="#esteban" xml:id="sp-627">
             <speaker>ESTEBAN</speaker>
             <l part="F" xml:id="l-2105-b">¿Pensaste</l>
             <l part="I" n="2106" xml:id="l-2106-a">que era de veras?</l></sp>
-          <sp who="#mengo" xml:id="sp-627">
+          <sp who="#mengo" xml:id="sp-628">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2106-b">Di presto.</l></sp>
-          <sp who="#esteban" xml:id="sp-628">
+          <sp who="#esteban" xml:id="sp-629">
             <speaker>ESTEBAN</speaker>
             <l n="2107" xml:id="l-2107">¿Quién mató al Comendador?</l></sp>
-          <sp who="#mengo" xml:id="sp-629">
+          <sp who="#mengo" xml:id="sp-630">
             <speaker>MENGO</speaker>
             <l n="2108" xml:id="l-2108">¡Fuenteovejuna lo hizo!</l></sp>
-          <sp who="#esteban" xml:id="sp-630">
+          <sp who="#esteban" xml:id="sp-631">
             <speaker>ESTEBAN</speaker>
             <l n="2109" xml:id="l-2109">¡Perro! ¿Si te martirizo?</l></sp>
-          <sp who="#mengo" xml:id="sp-631">
+          <sp who="#mengo" xml:id="sp-632">
             <speaker>MENGO</speaker>
             <l n="2110" xml:id="l-2110">Aunque me matéis, señor.</l></sp>
-          <sp who="#esteban" xml:id="sp-632">
+          <sp who="#esteban" xml:id="sp-633">
             <speaker>ESTEBAN</speaker>
             <l part="I" n="2111" xml:id="l-2111-a">¡Confiesa, ladrón!</l></sp>
-          <sp who="#mengo" xml:id="sp-633">
+          <sp who="#mengo" xml:id="sp-634">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2111-b">Confieso.</l></sp>
-          <sp who="#esteban" xml:id="sp-634">
+          <sp who="#esteban" xml:id="sp-635">
             <speaker>ESTEBAN</speaker>
             <l part="I" n="2112" xml:id="l-2112-a">Pues, ¿quién fue?</l></sp>
-          <sp who="#mengo" xml:id="sp-635">
+          <sp who="#mengo" xml:id="sp-636">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2112-b">¡Fuenteovejuna!</l></sp>
-          <sp who="#esteban" xml:id="sp-636">
+          <sp who="#esteban" xml:id="sp-637">
             <speaker>ESTEBAN</speaker>
             <l part="I" n="2113" xml:id="l-2113-a">¡Dalde otra vuelta{541}!</l></sp>
-          <sp who="#mengo" xml:id="sp-637">
+          <sp who="#mengo" xml:id="sp-638">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2113-b">Es ninguna.</l></sp>
-          <sp who="#esteban" xml:id="sp-638">
+          <sp who="#esteban" xml:id="sp-639">
             <speaker>ESTEBAN</speaker>
             <l n="2114" xml:id="l-2114">¡Cagajón para el proceso{543}!</l></sp>
           <!-- PASAJE 63
                título: Llega el pesquisidor
                descripción: Llega el juez pesquisidor para averiguar quién mató al Comendador. La presencia del enviado real pone a prueba la reciente unidad del pueblo.
           -->
-          <stage>Sale el Regidor</stage>
-          <sp who="#regidor" xml:id="sp-639">
+          <stage xml:id="stg-2114">Sale el Regidor</stage>
+          <sp who="#regidor" xml:id="sp-640">
             <speaker>REGIDOR</speaker>
             <l n="2115" xml:id="l-2115">¿Qué hacéis desta suerte aquí?</l></sp>
-          <sp who="#frondoso" xml:id="sp-640">
+          <sp who="#frondoso" xml:id="sp-641">
             <speaker>FRONDOSO</speaker>
             <l n="2116" xml:id="l-2116">¿Qué ha sucedido, Cuadrado?</l></sp>
-          <sp who="#regidor" xml:id="sp-641">
+          <sp who="#regidor" xml:id="sp-642">
             <speaker>REGIDOR</speaker>
             <l n="2117" xml:id="l-2117">Pesquisidor ha llegado.</l></sp>
-          <sp who="#esteban" xml:id="sp-642">
+          <sp who="#esteban" xml:id="sp-643">
             <speaker>ESTEBAN</speaker>
             <l n="2118" xml:id="l-2118">Echá todos por ahí.</l></sp>
-          <sp who="#regidor" xml:id="sp-643">
+          <sp who="#regidor" xml:id="sp-644">
             <speaker>REGIDOR</speaker>
             <l n="2119" xml:id="l-2119">Con él viene un capitán.</l></sp>
-          <sp who="#esteban" xml:id="sp-644">
+          <sp who="#esteban" xml:id="sp-645">
             <speaker>ESTEBAN</speaker>
             <l n="2120" xml:id="l-2120">Venga el diablo. Ya sabéis</l>
             <l n="2121" xml:id="l-2121">lo que responder tenéis.</l></sp>
-          <sp who="#regidor" xml:id="sp-645">
+          <sp who="#regidor" xml:id="sp-646">
             <speaker>REGIDOR</speaker>
             <l n="2122" xml:id="l-2122">El pueblo prendiendo van{545}</l>
             <l n="2123" xml:id="l-2123">sin dejar alma ninguna.</l></sp>
-          <sp who="#esteban" xml:id="sp-646">
+          <sp who="#esteban" xml:id="sp-647">
             <speaker>ESTEBAN</speaker>
             <l n="2124" xml:id="l-2124">Que no hay que tener temor.</l>
             <l n="2125" xml:id="l-2125">¿Quién mató al Comendador,</l>
             <l part="I" n="2126" xml:id="l-2126-a">Mengo?</l></sp>
-          <sp who="#mengo" xml:id="sp-647">
+          <sp who="#mengo" xml:id="sp-648">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2126-b">¿Quién? ¡Fuenteovejuna!</l></sp>
           <!-- PASAJE 64
                título: El Maestre recibe la noticia
                descripción: El Maestre de Calatrava se entera de la muerte de Fernán Gómez. La noticia empeora su situación ante los Reyes y reduce aún más su margen de autonomía.
           -->
-          <stage>Vanse y salen el Maestre y un soldado</stage>
-          <sp who="#maestre" xml:id="sp-648">
+          <stage xml:id="stg-2126">Vanse y salen el Maestre y un soldado</stage>
+          <sp who="#maestre" xml:id="sp-649">
             <speaker>MAESTRE</speaker>
             <l n="2127" xml:id="l-2127">¡Que tal caso ha sucedido{547}!</l>
             <l n="2128" xml:id="l-2128">Infelice fue su suerte,</l>
             <l n="2129" xml:id="l-2129">estoy por darte la muerte</l>
             <l n="2130" xml:id="l-2130">por la nueva que has traído{548}.</l></sp>
-          <sp who="#cimbranos" xml:id="sp-649">
+          <sp who="#cimbranos" xml:id="sp-650">
             <speaker>SOLDADO</speaker>
             <l n="2131" xml:id="l-2131">Yo, señor, soy mensajero,</l>
             <l n="2132" xml:id="l-2132">y enojarte no es mi intento{549}.</l></sp>
-          <sp who="#maestre" xml:id="sp-650">
+          <sp who="#maestre" xml:id="sp-651">
             <speaker>MAESTRE</speaker>
             <l n="2133" xml:id="l-2133">¡Que a tal tuvo atrevimiento</l>
             <l n="2134" xml:id="l-2134">un pueblo enojado y fiero!</l>
@@ -4420,13 +4420,13 @@
             <l n="2140" xml:id="l-2140">porque ellos al Rey se han dado,</l>
             <l n="2141" xml:id="l-2141">y no tener enojado</l>
             <l n="2142" xml:id="l-2142">al Rey es lo que te importa.</l></sp>
-          <sp who="#maestre" xml:id="sp-651">
+          <sp who="#maestre" xml:id="sp-652">
             <speaker>MAESTRE</speaker>
             <l n="2143" xml:id="l-2143">¿Cómo al Rey se pueden dar</l>
             <l n="2144" xml:id="l-2144">si de la encomienda son?</l>
             <l n="2145" xml:id="l-2145">SOLDADO Con él sobre esa razón</l>
             <l n="2146" xml:id="l-2146">podrás luego pleitear.</l></sp>
-          <sp who="#maestre" xml:id="sp-652">
+          <sp who="#maestre" xml:id="sp-653">
             <speaker>MAESTRE</speaker>
             <l n="2147" xml:id="l-2147">Por pleito ¿cuándo salió</l>
             <l n="2148" xml:id="l-2148">lo que él le entregó en sus manos{551}?</l>
@@ -4448,8 +4448,8 @@
                título: El soneto de Laurencia
                descripción: En un breve momento lírico, Laurencia expresa en forma de soneto el miedo que siente por Frondoso. En meido de la preocupación, la obra se detiene un instante en la intimidad de la pareja.
           -->
-          <stage>Vanse. Sale Laurencia sola</stage>
-          <sp who="#laurencia" xml:id="sp-653">
+          <stage xml:id="stg-2162">Vanse. Sale Laurencia sola</stage>
+          <sp who="#laurencia" xml:id="sp-654">
             <speaker>LAURENCIA</speaker>
             <l n="2163" xml:id="l-2163">Amando, recelar{553} daño en lo amado</l>
             <l n="2164" xml:id="l-2164">nueva pena de amor se considera,</l>
@@ -4469,27 +4469,27 @@
                título: Laurencia pide a Frondoso que huya
                descripción: Laurencia propone a Frondoso que huya para librarse del pesquisidor. Él se niega a salvarse a costa de abandonar a los demás, y así el amor queda ligado a la suerte común del pueblo.
           -->
-          <stage>Sale Frondoso</stage>
-          <sp who="#frondoso" xml:id="sp-654">
+          <stage xml:id="stg-2176">Sale Frondoso</stage>
+          <sp who="#frondoso" xml:id="sp-655">
             <speaker>FRONDOSO</speaker>
             <l part="I" n="2177" xml:id="l-2177-a">¡Mi Laurencia!</l></sp>
-          <sp who="#laurencia" xml:id="sp-655">
+          <sp who="#laurencia" xml:id="sp-656">
             <speaker>LAURENCIA</speaker>
             <l part="F" xml:id="l-2177-b">¡Esposo amado!</l>
             <l n="2178" xml:id="l-2178">¿Cómo estar aquí te atreves?</l></sp>
-          <sp who="#frondoso" xml:id="sp-656">
+          <sp who="#frondoso" xml:id="sp-657">
             <speaker>FRONDOSO</speaker>
             <l n="2179" xml:id="l-2179">¿Esas resistencias debes</l>
             <l n="2180" xml:id="l-2180">a mi amoroso cuidado?</l></sp>
-          <sp who="#laurencia" xml:id="sp-657">
+          <sp who="#laurencia" xml:id="sp-658">
             <speaker>LAURENCIA</speaker>
             <l n="2181" xml:id="l-2181">Mi bien, procura guardarte,</l>
             <l n="2182" xml:id="l-2182">porque tu daño recelo.</l></sp>
-          <sp who="#frondoso" xml:id="sp-658">
+          <sp who="#frondoso" xml:id="sp-659">
             <speaker>FRONDOSO</speaker>
             <l n="2183" xml:id="l-2183">No quiera, Laurencia, el cielo</l>
             <l n="2184" xml:id="l-2184">que tal llegue a disgustarte.</l></sp>
-          <sp who="#laurencia" xml:id="sp-659">
+          <sp who="#laurencia" xml:id="sp-660">
             <speaker>LAURENCIA</speaker>
             <l n="2185" xml:id="l-2185">¿No temes ver el rigor</l>
             <l n="2186" xml:id="l-2186">que por los demás sucede{558},</l>
@@ -4497,7 +4497,7 @@
             <l n="2188" xml:id="l-2188">aqueste pesquisidor?</l>
             <l n="2189" xml:id="l-2189">Procura guardar la vida.</l>
             <l n="2190" xml:id="l-2190">Huye tu daño, no esperes.</l></sp>
-          <sp who="#frondoso" xml:id="sp-660">
+          <sp who="#frondoso" xml:id="sp-661">
             <speaker>FRONDOSO</speaker>
             <l n="2191" xml:id="l-2191">¿Cómo? ¿Qué procure quieres</l>
             <l n="2192" xml:id="l-2192">cosa tan mal recebida?</l>
@@ -4513,168 +4513,168 @@
                título: "Fuenteovejuna lo hizo"
                descripción: Comienzan los interrogatorios bajo tormento. Esteban, un niño y Pascuala sufren la violencia del juez y, aun así, sostienen la respuesta colectiva que protege a todos.
           -->
-          <stage>Voces dentro</stage>
-          <sp who="#laurencia" xml:id="sp-661">
+          <stage xml:id="stg-2200">Voces dentro</stage>
+          <sp who="#laurencia" xml:id="sp-662">
             <speaker>LAURENCIA</speaker>
             <l n="2201" xml:id="l-2201">Voces parece que he oído,</l>
             <l n="2202" xml:id="l-2202">y son, si yo mal no siento,</l>
             <l n="2203" xml:id="l-2203">de alguno que dan tormento.</l>
             <l n="2204" xml:id="l-2204">Oye con atento oído.</l></sp>
-          <stage>Dice dentro el Juez y responden</stage>
-          <sp xml:id="sp-662">
+          <stage xml:id="stg-2204">Dice dentro el Juez y responden</stage>
+          <sp xml:id="sp-663">
             <speaker>JUEZ</speaker>
             <l n="2205" xml:id="l-2205">¡Decid la verdad, buen viejo{562}!</l></sp>
-          <sp who="#frondoso" xml:id="sp-663">
+          <sp who="#frondoso" xml:id="sp-664">
             <speaker>FRONDOSO</speaker>
             <l n="2206" xml:id="l-2206">Un viejo, Laurencia mía,</l>
             <l part="I" n="2207" xml:id="l-2207-a">atormentan.</l></sp>
-          <sp who="#laurencia" xml:id="sp-664">
+          <sp who="#laurencia" xml:id="sp-665">
             <speaker>LAURENCIA</speaker>
             <l part="F" xml:id="l-2207-b">¡Qué porfía!</l></sp>
-          <sp who="#esteban" xml:id="sp-665">
+          <sp who="#esteban" xml:id="sp-666">
             <speaker>ESTEBAN</speaker>
             <l part="I" n="2208" xml:id="l-2208-a">¡Déjenme un poco!</l></sp>
-          <sp xml:id="sp-666">
+          <sp xml:id="sp-667">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2208-b">Ya os dejo.</l>
             <l n="2209" xml:id="l-2209">Decid, ¿quién mató a Fernando?</l></sp>
-          <sp who="#esteban" xml:id="sp-667">
+          <sp who="#esteban" xml:id="sp-668">
             <speaker>ESTEBAN</speaker>
             <l n="2210" xml:id="l-2210">¡Fuenteovejuna lo hizo!</l></sp>
-          <sp who="#laurencia" xml:id="sp-668">
+          <sp who="#laurencia" xml:id="sp-669">
             <speaker>LAURENCIA</speaker>
             <l n="2211" xml:id="l-2211">Tu nombre, padre, eternizo.</l>
             <l n="2212" xml:id="l-2212">[...............................................]</l></sp>
-          <sp who="#frondoso" xml:id="sp-669">
+          <sp who="#frondoso" xml:id="sp-670">
             <speaker>FRONDOSO</speaker>
             <l part="I" n="2213" xml:id="l-2213-a">¡Bravo caso!</l></sp>
-          <sp xml:id="sp-670">
+          <sp xml:id="sp-671">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2213-b">¡Ese muchacho</l>
             <l n="2214" xml:id="l-2214">aprieta! ¡Perro, yo sé</l>
             <l n="2215" xml:id="l-2215">que lo sabes! ¡Di quien fue!</l>
             <l n="2216" xml:id="l-2216">¿Callas? ¡Aprieta, borracho!</l>
             <l n="2217" xml:id="l-2217">NIÑO Fuenteovejuna, señor.</l></sp>
-          <sp xml:id="sp-671">
+          <sp xml:id="sp-672">
             <speaker>JUEZ</speaker>
             <l n="2218" xml:id="l-2218">¡Por vida del Rey, villanos,</l>
             <l n="2219" xml:id="l-2219">que os ahorque con mis manos!</l>
             <l n="2220" xml:id="l-2220">¿Quién mató al Comendador?</l></sp>
-          <sp who="#frondoso" xml:id="sp-672">
+          <sp who="#frondoso" xml:id="sp-673">
             <speaker>FRONDOSO</speaker>
             <l n="2221" xml:id="l-2221">¡Que a un niño le den tormento</l>
             <l n="2222" xml:id="l-2222">y niegue de aquesta suerte!</l></sp>
-          <sp who="#laurencia" xml:id="sp-673">
+          <sp who="#laurencia" xml:id="sp-674">
             <speaker>LAURENCIA</speaker>
             <l part="I" n="2223" xml:id="l-2223-a">¡Bravo pueblo!</l></sp>
-          <sp who="#frondoso" xml:id="sp-674">
+          <sp who="#frondoso" xml:id="sp-675">
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-2223-b">Bravo y fuerte.</l></sp>
-          <sp xml:id="sp-675">
+          <sp xml:id="sp-676">
             <speaker>JUEZ</speaker>
             <l n="2224" xml:id="l-2224">Esa mujer al momento</l>
             <l n="2225" xml:id="l-2225">en ese potro tened{564}.</l>
             <l n="2226" xml:id="l-2226">¡Dale esa mancuerda luego{565}!</l></sp>
-          <sp who="#laurencia" xml:id="sp-676">
+          <sp who="#laurencia" xml:id="sp-677">
             <speaker>LAURENCIA</speaker>
             <l n="2227" xml:id="l-2227">Ya está de cólera ciego.</l></sp>
-          <sp xml:id="sp-677">
+          <sp xml:id="sp-678">
             <speaker>JUEZ</speaker>
             <l n="2228" xml:id="l-2228">¡Que os he de matar, creed,</l>
             <l n="2229" xml:id="l-2229">en este potro, villanos!</l>
             <l n="2230" xml:id="l-2230">¿Quién mató al Comendador?</l></sp>
-          <sp who="#pascuala" xml:id="sp-678">
+          <sp who="#pascuala" xml:id="sp-679">
             <speaker>PASCUALA</speaker>
             <l n="2231" xml:id="l-2231">Fuenteovejuna, señor.</l></sp>
-          <sp xml:id="sp-679">
+          <sp xml:id="sp-680">
             <speaker>JUEZ</speaker>
             <l part="I" n="2232" xml:id="l-2232-a">¡Dale!</l></sp>
-          <sp who="#frondoso" xml:id="sp-680">
+          <sp who="#frondoso" xml:id="sp-681">
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-2232-b">Pensamientos vanos.</l></sp>
-          <sp who="#laurencia" xml:id="sp-681">
+          <sp who="#laurencia" xml:id="sp-682">
             <speaker>LAURENCIA</speaker>
             <l n="2233" xml:id="l-2233">Pascuala niega, Frondoso.</l></sp>
-          <sp who="#frondoso" xml:id="sp-682">
+          <sp who="#frondoso" xml:id="sp-683">
             <speaker>FRONDOSO</speaker>
             <l n="2234" xml:id="l-2234">Niegan niños, ¿qué te espantas{566}?</l></sp>
-          <sp xml:id="sp-683">
+          <sp xml:id="sp-684">
             <speaker>JUEZ</speaker>
             <l n="2235" xml:id="l-2235">Parece que los encantas{567}.</l>
             <l part="I" n="2236" xml:id="l-2236-a">¡Aprieta!</l></sp>
-          <sp who="#pascuala" xml:id="sp-684">
+          <sp who="#pascuala" xml:id="sp-685">
             <speaker>PASCUALA</speaker>
             <l part="F" xml:id="l-2236-b">¡Ay cielo piadoso!</l></sp>
-          <sp xml:id="sp-685">
+          <sp xml:id="sp-686">
             <speaker>JUEZ</speaker>
             <l n="2237" xml:id="l-2237">¡Aprieta, infame! ¿Estás sordo?</l></sp>
-          <sp who="#pascuala" xml:id="sp-686">
+          <sp who="#pascuala" xml:id="sp-687">
             <speaker>PASCUALA</speaker>
             <l n="2238" xml:id="l-2238">Fuenteovejuna lo hizo.</l></sp>
           <!-- PASAJE 68
                título: Mengo resiste el tormento
                descripción: Cuando el juez hace pasar a Mengo, parece que la cadena de resistencia puede romperse. Sin embargo, también el gracioso soporta el castigo y remata la consigna común con su irónico "Fuenteovejunica".
           -->
-          <sp xml:id="sp-687">
+          <sp xml:id="sp-688">
             <speaker>JUEZ</speaker>
             <l n="2239" xml:id="l-2239">¡Traedme aquel más rollizo!</l>
             <l n="2240" xml:id="l-2240">¡Ese desnudo{568}, ese gordo!</l></sp>
-          <sp who="#laurencia" xml:id="sp-688">
+          <sp who="#laurencia" xml:id="sp-689">
             <speaker>LAURENCIA</speaker>
             <l n="2241" xml:id="l-2241">Pobre Mengo. Él es sin duda.</l></sp>
-          <sp who="#frondoso" xml:id="sp-689">
+          <sp who="#frondoso" xml:id="sp-690">
             <speaker>FRONDOSO</speaker>
             <l n="2242" xml:id="l-2242">Temo que ha de confesar.</l></sp>
-          <sp who="#mengo" xml:id="sp-690">
+          <sp who="#mengo" xml:id="sp-691">
             <speaker>MENGO</speaker>
             <l part="I" n="2243" xml:id="l-2243-a">¡Ay, ay!</l></sp>
-          <sp xml:id="sp-691">
+          <sp xml:id="sp-692">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2243-b">¡Comienza a apretar!</l></sp>
-          <sp who="#mengo" xml:id="sp-692">
+          <sp who="#mengo" xml:id="sp-693">
             <speaker>MENGO</speaker>
             <l part="I" n="2244" xml:id="l-2244-a">¡Ay!</l></sp>
-          <sp xml:id="sp-693">
+          <sp xml:id="sp-694">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2244-b">¿Es menester ayuda?</l></sp>
-          <sp who="#mengo" xml:id="sp-694">
+          <sp who="#mengo" xml:id="sp-695">
             <speaker>MENGO</speaker>
             <l part="I" n="2245" xml:id="l-2245-a">¡Ay, ay!</l></sp>
-          <sp xml:id="sp-695">
+          <sp xml:id="sp-696">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2245-b">¿Quién mató, villano,</l>
             <l n="2246" xml:id="l-2246">al señor Comendador?</l></sp>
-          <sp who="#mengo" xml:id="sp-696">
+          <sp who="#mengo" xml:id="sp-697">
             <speaker>MENGO</speaker>
             <l n="2247" xml:id="l-2247">¡Ay! ¡Yo lo diré, señor!</l></sp>
-          <sp xml:id="sp-697">
+          <sp xml:id="sp-698">
             <speaker>JUEZ</speaker>
             <l n="2248" xml:id="l-2248">Afloja un poco la mano.</l></sp>
-          <sp who="#frondoso" xml:id="sp-698">
+          <sp who="#frondoso" xml:id="sp-699">
             <speaker>FRONDOSO</speaker>
             <l part="I" n="2249" xml:id="l-2249-a">Él confiesa.</l></sp>
-          <sp xml:id="sp-699">
+          <sp xml:id="sp-700">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2249-b">Al palo aplica</l>
             <l part="I" n="2250" xml:id="l-2250-a">la espalda.</l></sp>
-          <sp who="#mengo" xml:id="sp-700">
+          <sp who="#mengo" xml:id="sp-701">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2250-b">Quedo, que yo</l>
             <l part="I" n="2251" xml:id="l-2251-a">lo diré.</l></sp>
-          <sp xml:id="sp-701">
+          <sp xml:id="sp-702">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2251-b">¿Quién le mató?</l></sp>
-          <sp who="#mengo" xml:id="sp-702">
+          <sp who="#mengo" xml:id="sp-703">
             <speaker>MENGO</speaker>
             <l n="2252" xml:id="l-2252">Señor, Fuenteovejunica.</l></sp>
-          <sp xml:id="sp-703">
+          <sp xml:id="sp-704">
             <speaker>JUEZ</speaker>
             <l n="2253" xml:id="l-2253">¿Hay tan gran bellaquería?</l>
             <l n="2254" xml:id="l-2254">Del dolor se están burlando.</l>
             <l n="2255" xml:id="l-2255">En quien estaba esperando,</l>
             <l n="2256" xml:id="l-2256">niega con mayor porfía.</l>
             <l n="2257" xml:id="l-2257">Dejaldos, que estoy cansado.</l></sp>
-          <sp who="#frondoso" xml:id="sp-704">
+          <sp who="#frondoso" xml:id="sp-705">
             <speaker>FRONDOSO</speaker>
             <l n="2258" xml:id="l-2258">¡Oh Mengo, bien te haga Dios!</l>
             <l n="2259" xml:id="l-2259">Temor que tuve de dos,</l>
@@ -4683,152 +4683,152 @@
                título: Mengo triunfante
                descripción: Después del tormento, Mengo sale rodeado de vecinos que lo agasajan como a un héroe. El dolor sufrido se transforma en comicidad y celebración de la firmeza popular.
           -->
-          <stage>Salen, con Mengo, Barrildo y el Regidor</stage>
-          <sp who="#barrildo" xml:id="sp-705">
+          <stage xml:id="stg-2260">Salen, con Mengo, Barrildo y el Regidor</stage>
+          <sp who="#barrildo" xml:id="sp-706">
             <speaker>BARRILDO</speaker>
             <l part="I" n="2261" xml:id="l-2261-a">¡Vítor, Mengo!</l></sp>
-          <sp who="#regidor" xml:id="sp-706">
+          <sp who="#regidor" xml:id="sp-707">
             <speaker>REGIDOR</speaker>
             <l part="F" xml:id="l-2261-b">Y con razón.</l></sp>
-          <sp who="#barrildo" xml:id="sp-707">
+          <sp who="#barrildo" xml:id="sp-708">
             <speaker>BARRILDO</speaker>
             <l part="I" n="2262" xml:id="l-2262-a">¡Mengo, vítor!</l></sp>
-          <sp who="#frondoso" xml:id="sp-708">
+          <sp who="#frondoso" xml:id="sp-709">
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-2262-b">Eso digo.</l></sp>
-          <sp who="#mengo" xml:id="sp-709">
+          <sp who="#mengo" xml:id="sp-710">
             <speaker>MENGO</speaker>
             <l part="I" n="2263" xml:id="l-2263-a">¡Ay, ay!</l></sp>
-          <sp who="#barrildo" xml:id="sp-710">
+          <sp who="#barrildo" xml:id="sp-711">
             <speaker>BARRILDO</speaker>
             <l part="F" xml:id="l-2263-b">Toma, bebe, amigo.</l>
             <l part="I" n="2264" xml:id="l-2264-a">Come.</l></sp>
-          <sp who="#mengo" xml:id="sp-711">
+          <sp who="#mengo" xml:id="sp-712">
             <speaker>MENGO</speaker>
             <l part="M" xml:id="l-2264-b">¡Ay, ay! ¿Qué es?</l></sp>
-          <sp who="#barrildo" xml:id="sp-712">
+          <sp who="#barrildo" xml:id="sp-713">
             <speaker>BARRILDO</speaker>
             <l part="F" xml:id="l-2264-c">Diacitrón.</l></sp>
-          <sp who="#mengo" xml:id="sp-713">
+          <sp who="#mengo" xml:id="sp-714">
             <speaker>MENGO</speaker>
             <l part="I" n="2265" xml:id="l-2265-a">¡Ay, ay!</l></sp>
-          <sp who="#frondoso" xml:id="sp-714">
+          <sp who="#frondoso" xml:id="sp-715">
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-2265-b">Echa de beber.</l></sp>
-          <sp who="#barrildo" xml:id="sp-715">
+          <sp who="#barrildo" xml:id="sp-716">
             <speaker>BARRILDO</speaker>
             <l n="2266" xml:id="l-2266">De comer y beber va.</l></sp>
-          <sp who="#frondoso" xml:id="sp-716">
+          <sp who="#frondoso" xml:id="sp-717">
             <speaker>FRONDOSO</speaker>
             <l n="2267" xml:id="l-2267">Bien lo cuela{574}. Bueno está.</l></sp>
-          <sp who="#laurencia" xml:id="sp-717">
+          <sp who="#laurencia" xml:id="sp-718">
             <speaker>LAURENCIA</speaker>
             <l n="2268" xml:id="l-2268">Dale otra vez a comer.</l></sp>
-          <sp who="#mengo" xml:id="sp-718">
+          <sp who="#mengo" xml:id="sp-719">
             <speaker>MENGO</speaker>
             <l part="I" n="2269" xml:id="l-2269-a">¡Ay, ay!</l></sp>
-          <sp who="#barrildo" xml:id="sp-719">
+          <sp who="#barrildo" xml:id="sp-720">
             <speaker>BARRILDO</speaker>
             <l part="F" xml:id="l-2269-b">Ésta va por mí.</l></sp>
-          <sp who="#laurencia" xml:id="sp-720">
+          <sp who="#laurencia" xml:id="sp-721">
             <speaker>LAURENCIA</speaker>
             <l n="2270" xml:id="l-2270">Solenemente lo embebe.</l></sp>
-          <sp who="#frondoso" xml:id="sp-721">
+          <sp who="#frondoso" xml:id="sp-722">
             <speaker>FRONDOSO</speaker>
             <l n="2271" xml:id="l-2271">El que bien niega bien bebe{575}.</l></sp>
-          <sp who="#barrildo" xml:id="sp-722">
+          <sp who="#barrildo" xml:id="sp-723">
             <speaker>BARRILDO</speaker>
             <l part="I" n="2272" xml:id="l-2272-a">¿Quieres otra?</l></sp>
-          <sp who="#mengo" xml:id="sp-723">
+          <sp who="#mengo" xml:id="sp-724">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2272-b">¡Ay, ay! ¡Sí, sí!</l></sp>
-          <sp who="#frondoso" xml:id="sp-724">
+          <sp who="#frondoso" xml:id="sp-725">
             <speaker>FRONDOSO</speaker>
             <l n="2273" xml:id="l-2273">Bebe, que bien lo mereces.</l></sp>
-          <sp who="#laurencia" xml:id="sp-725">
+          <sp who="#laurencia" xml:id="sp-726">
             <speaker>LAURENCIA</speaker>
             <l n="2274" xml:id="l-2274">A vez por vuelta las cuela{576}.</l></sp>
-          <sp who="#frondoso" xml:id="sp-726">
+          <sp who="#frondoso" xml:id="sp-727">
             <speaker>FRONDOSO</speaker>
             <l n="2275" xml:id="l-2275">Arrópale{577}, que se hiela.</l></sp>
-          <sp who="#barrildo" xml:id="sp-727">
+          <sp who="#barrildo" xml:id="sp-728">
             <speaker>BARRILDO</speaker>
             <l part="I" n="2276" xml:id="l-2276-a">¿Quieres más?</l></sp>
-          <sp who="#mengo" xml:id="sp-728">
+          <sp who="#mengo" xml:id="sp-729">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2276-b">Sí, otras tres veces.</l>
             <l part="I" n="2277" xml:id="l-2277-a">¡Ay, ay!</l></sp>
-          <sp who="#frondoso" xml:id="sp-729">
+          <sp who="#frondoso" xml:id="sp-730">
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-2277-b">Si hay vino pregunta.</l></sp>
-          <sp who="#barrildo" xml:id="sp-730">
+          <sp who="#barrildo" xml:id="sp-731">
             <speaker>BARRILDO</speaker>
             <l n="2278" xml:id="l-2278">Sí hay, bebe a tu placer,</l>
             <l n="2279" xml:id="l-2279">que quien niega ha de beber.</l>
             <l part="I" n="2280" xml:id="l-2280-a">¿Qué tiene{579}?</l></sp>
-          <sp who="#mengo" xml:id="sp-731">
+          <sp who="#mengo" xml:id="sp-732">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2280-b">Una cierta punta.</l>
             <l n="2281" xml:id="l-2281">Vamos, que me arromadizo{581}.</l></sp>
-          <sp who="#frondoso" xml:id="sp-732">
+          <sp who="#frondoso" xml:id="sp-733">
             <speaker>FRONDOSO</speaker>
             <l n="2282" xml:id="l-2282">Que le acuestes es mejor.</l>
             <l n="2283" xml:id="l-2283">¿Quién mató al Comendador?</l></sp>
-          <sp who="#mengo" xml:id="sp-733">
+          <sp who="#mengo" xml:id="sp-734">
             <speaker>MENGO</speaker>
             <l n="2284" xml:id="l-2284">Fuenteovejunica lo hizo.</l></sp>
-          <stage>Vanse</stage>
+          <stage xml:id="stg-2284">Vanse</stage>
           <!-- PASAJE 70
                título: Frondoso y Laurencia se reencuentran
                descripción: Frondoso y Laurencia vuelven a hablar a solas tras la prueba del tormento, mostrándonos más de su intimidad amorosa.
           -->
-          <sp who="#frondoso" xml:id="sp-734">
+          <sp who="#frondoso" xml:id="sp-735">
             <speaker>FRONDOSO</speaker>
             <l n="2285" xml:id="l-2285">Justo es que honores le den.</l>
             <l n="2286" xml:id="l-2286">Pero decidme, mi amor,</l>
             <l n="2287" xml:id="l-2287">¿quién mató al Comendador?</l></sp>
-          <sp who="#laurencia" xml:id="sp-735">
+          <sp who="#laurencia" xml:id="sp-736">
             <speaker>LAURENCIA</speaker>
             <l n="2288" xml:id="l-2288">Fuenteovejuna, mi bien.</l></sp>
-          <sp who="#frondoso" xml:id="sp-736">
+          <sp who="#frondoso" xml:id="sp-737">
             <speaker>FRONDOSO</speaker>
             <l part="I" n="2289" xml:id="l-2289-a">¿Quién le mató?</l></sp>
-          <sp who="#laurencia" xml:id="sp-737">
+          <sp who="#laurencia" xml:id="sp-738">
             <speaker>LAURENCIA</speaker>
             <l part="F" xml:id="l-2289-b">Dasme espanto.</l>
             <l n="2290" xml:id="l-2290">Pues Fuenteovejuna fue.</l></sp>
-          <sp who="#frondoso" xml:id="sp-738">
+          <sp who="#frondoso" xml:id="sp-739">
             <speaker>FRONDOSO</speaker>
             <l n="2291" xml:id="l-2291">Y yo, ¿con qué te maté?</l></sp>
-          <sp who="#laurencia" xml:id="sp-739">
+          <sp who="#laurencia" xml:id="sp-740">
             <speaker>LAURENCIA</speaker>
             <l n="2292" xml:id="l-2292">¿Con qué? Con quererte tanto.</l></sp>
           <!-- PASAJE 71
                título: Los Reyes revisan Castilla
                descripción: Antes del desenlace de Fuenteovejuna, los Reyes vuelven a tratar la situación general de Castilla. La obra recuerda aquí que la historia local se inserta en un proceso mayor de consolidación monárquica.
           -->
-          <stage>Vanse, y salen el Rey y la Reina y Manrique</stage>
-          <sp who="#isabel" xml:id="sp-740">
+          <stage xml:id="stg-2292">Vanse, y salen el Rey y la Reina y Manrique</stage>
+          <sp who="#isabel" xml:id="sp-741">
             <speaker>ISABEL</speaker>
             <l n="2293" xml:id="l-2293">No entendí, señor, hallaros</l>
             <l n="2294" xml:id="l-2294">aquí, y es buena mi suerte.</l></sp>
-          <sp who="#fernando" xml:id="sp-741">
+          <sp who="#fernando" xml:id="sp-742">
             <speaker>REY</speaker>
             <l n="2295" xml:id="l-2295">En nueva gloria{584} convierte</l>
             <l n="2296" xml:id="l-2296">mi vista el bien de miraros.</l>
             <l n="2297" xml:id="l-2297">Iba a Portugal de paso</l>
             <l n="2298" xml:id="l-2298">y llegar aquí fue fuerza.</l></sp>
-          <sp who="#isabel" xml:id="sp-742">
+          <sp who="#isabel" xml:id="sp-743">
             <speaker>ISABEL</speaker>
             <l n="2299" xml:id="l-2299">Vuestra majestad le tuerza{585},</l>
             <l n="2300" xml:id="l-2300">siendo conveniente el caso.</l></sp>
-          <sp who="#fernando" xml:id="sp-743">
+          <sp who="#fernando" xml:id="sp-744">
             <speaker>REY</speaker>
             <l n="2301" xml:id="l-2301">¿Cómo dejáis a Castilla?</l></sp>
-          <sp who="#isabel" xml:id="sp-744">
+          <sp who="#isabel" xml:id="sp-745">
             <speaker>ISABEL</speaker>
             <l n="2302" xml:id="l-2302">En paz queda, quieta y llana{586}.</l></sp>
-          <sp who="#fernando" xml:id="sp-745">
+          <sp who="#fernando" xml:id="sp-746">
             <speaker>REY</speaker>
             <l n="2303" xml:id="l-2303">Siendo vos la que la allana,</l>
             <l n="2304" xml:id="l-2304">no lo tengo a maravilla.</l></sp>
@@ -4836,23 +4836,23 @@
                título: El Maestre pide perdón
                descripción: El Maestre comparece ante Fernando e Isabel para pedir perdón por su conducta política. Reconoce su error y acepta reordenarse bajo la autoridad real.
           -->
-          <stage>Sale don Manrique</stage>
-          <sp who="#manrique" xml:id="sp-746">
+          <stage xml:id="stg-2304">Sale don Manrique</stage>
+          <sp who="#manrique" xml:id="sp-747">
             <speaker>MANRIQUE</speaker>
             <l n="2305" xml:id="l-2305">Para ver vuestra presencia</l>
             <l n="2306" xml:id="l-2306">el Maestre de Calatrava,</l>
             <l n="2307" xml:id="l-2307">que aquí de llegar acaba,</l>
             <l n="2308" xml:id="l-2308">pide que le deis licencia.</l></sp>
-          <sp who="#isabel" xml:id="sp-747">
+          <sp who="#isabel" xml:id="sp-748">
             <speaker>ISABEL</speaker>
             <l n="2309" xml:id="l-2309">Verle tenía deseado.</l></sp>
-          <sp who="#manrique" xml:id="sp-748">
+          <sp who="#manrique" xml:id="sp-749">
             <speaker>MANRIQUE</speaker>
             <l n="2310" xml:id="l-2310">Mi fe, señora, os empeño{587},</l>
             <l n="2311" xml:id="l-2311">que, aunque es en edad pequeño,</l>
             <l n="2312" xml:id="l-2312">es valeroso soldado.</l></sp>
-          <stage>Sale el Maestre</stage>
-          <sp who="#maestre" xml:id="sp-749">
+          <stage xml:id="stg-2312">Sale el Maestre</stage>
+          <sp who="#maestre" xml:id="sp-750">
             <speaker>MAESTRE</speaker>
             <l n="2313" xml:id="l-2313">Rodrigo Téllez Girón,</l>
             <l n="2314" xml:id="l-2314">que de loaros no acaba,</l>
@@ -4882,19 +4882,19 @@
             <l n="2338" xml:id="l-2338">en serviros emplearé,</l>
             <l n="2339" xml:id="l-2339">junto con la firma y fe</l>
             <l n="2340" xml:id="l-2340">de en mi vida disgustaros{594}.</l></sp>
-          <sp who="#fernando" xml:id="sp-750">
+          <sp who="#fernando" xml:id="sp-751">
             <speaker>REY</speaker>
             <l n="2341" xml:id="l-2341">Alzad, Maestre, del suelo;</l>
             <l n="2342" xml:id="l-2342">que siempre que hayáis venido,</l>
             <l n="2343" xml:id="l-2343">seréis muy bien recebido.</l></sp>
-          <sp who="#maestre" xml:id="sp-751">
+          <sp who="#maestre" xml:id="sp-752">
             <speaker>MAESTRE</speaker>
             <l n="2344" xml:id="l-2344">Sois de afligidos consuelo.</l></sp>
-          <sp who="#isabel" xml:id="sp-752">
+          <sp who="#isabel" xml:id="sp-753">
             <speaker>ISABEL</speaker>
             <l n="2345" xml:id="l-2345">Vos con valor peregrino{595}</l>
             <l n="2346" xml:id="l-2346">sabéis bien decir y hacer.</l></sp>
-          <sp who="#maestre" xml:id="sp-753">
+          <sp who="#maestre" xml:id="sp-754">
             <speaker>MAESTRE</speaker>
             <l n="2347" xml:id="l-2347">Vos sois una bella Ester</l>
             <l n="2348" xml:id="l-2348">y vos un Jerjes divino{596}.</l></sp>
@@ -4902,31 +4902,31 @@
                título: El pesquisidor fracasa
                descripción: El pesquisidor presenta su informe y admite que no ha conseguido quebrar la versión común del pueblo. Ni siquiera el tormento ha permitido aislar culpables individuales.
           -->
-          <stage>Sale Manrique</stage>
-          <sp who="#manrique" xml:id="sp-754">
+          <stage xml:id="stg-2348">Sale Manrique</stage>
+          <sp who="#manrique" xml:id="sp-755">
             <speaker>MANRIQUE</speaker>
             <l n="2349" xml:id="l-2349">Señor, el pesquisidor</l>
             <l n="2350" xml:id="l-2350">que a Fuenteovejuna ha ido,</l>
             <l n="2351" xml:id="l-2351">con el despacho{597} ha venido</l>
             <l n="2352" xml:id="l-2352">a verse ante tu valor.</l></sp>
-          <sp who="#fernando" xml:id="sp-755">
+          <sp who="#fernando" xml:id="sp-756">
             <speaker>REY</speaker>
             <l n="2353" xml:id="l-2353">Sed juez de estos agresores.</l></sp>
-          <sp who="#maestre" xml:id="sp-756">
+          <sp who="#maestre" xml:id="sp-757">
             <speaker>MAESTRE</speaker>
             <l n="2354" xml:id="l-2354">Si a vos, señor, no mirara,</l>
             <l n="2355" xml:id="l-2355">sin duda les enseñara</l>
             <l n="2356" xml:id="l-2356">a matar comendadores{598}.</l></sp>
-          <sp who="#fernando" xml:id="sp-757">
+          <sp who="#fernando" xml:id="sp-758">
             <speaker>REY</speaker>
             <l n="2357" xml:id="l-2357">Eso ya no os toca a vos.</l></sp>
-          <sp who="#isabel" xml:id="sp-758">
+          <sp who="#isabel" xml:id="sp-759">
             <speaker>ISABEL</speaker>
             <l n="2358" xml:id="l-2358">Yo confieso que he de ver</l>
             <l n="2359" xml:id="l-2359">el cargo en vuestro poder,</l>
             <l n="2360" xml:id="l-2360">si me lo concede Dios.</l></sp>
-          <stage>Sale el juez</stage>
-          <sp xml:id="sp-759">
+          <stage xml:id="stg-2360">Sale el juez</stage>
+          <sp xml:id="sp-760">
             <speaker>JUEZ</speaker>
             <l n="2361" xml:id="l-2361">A Fuenteovejuna fui</l>
             <l n="2362" xml:id="l-2362">de la suerte que has mandado,</l>
@@ -4955,28 +4955,28 @@
             <l n="2385" xml:id="l-2385">Todos vienen ante ti</l>
             <l n="2386" xml:id="l-2386">para más certificarte:</l>
             <l n="2387" xml:id="l-2387">dellos podrás informarte{603}.</l></sp>
-          <sp who="#fernando" xml:id="sp-760">
+          <sp who="#fernando" xml:id="sp-761">
             <speaker>REY</speaker>
             <l n="2388" xml:id="l-2388">Que entren, pues vienen, les di{604}.</l></sp>
           <!-- PASAJE 74
                título: Fuenteovejuna ante los Reyes
                descripción: Los vecinos de Fuenteovejuna comparecen por fin ante los Reyes y explican los abusos del Comendador. La comunidad defiende su actuación como respuesta extrema a una larga tiranía.
           -->
-          <stage>Salen los dos Alcaldes, Frondoso, las mujeres, y los villanos que quisieren</stage>
-          <sp who="#laurencia" xml:id="sp-761">
+          <stage xml:id="stg-2388">Salen los dos Alcaldes, Frondoso, las mujeres, y los villanos que quisieren</stage>
+          <sp who="#laurencia" xml:id="sp-762">
             <speaker>LAURENCIA</speaker>
             <l n="2389" xml:id="l-2389">¿Aquéstos los reyes son?</l></sp>
-          <sp who="#frondoso" xml:id="sp-762">
+          <sp who="#frondoso" xml:id="sp-763">
             <speaker>FRONDOSO</speaker>
             <l n="2390" xml:id="l-2390">Y en Castilla poderosos.</l></sp>
-          <sp who="#laurencia" xml:id="sp-763">
+          <sp who="#laurencia" xml:id="sp-764">
             <speaker>LAURENCIA</speaker>
             <l n="2391" xml:id="l-2391">Por mi fe, que son hermosos:</l>
             <l n="2392" xml:id="l-2392">¡bendígalos San Antón!</l></sp>
-          <sp who="#isabel" xml:id="sp-764">
+          <sp who="#isabel" xml:id="sp-765">
             <speaker>ISABEL</speaker>
             <l n="2393" xml:id="l-2393">¿Los agresores son éstos?</l></sp>
-          <sp who="#esteban" xml:id="sp-765">
+          <sp who="#esteban" xml:id="sp-766">
             <speaker>ALC. ESTEBAN</speaker>
             <l n="2394" xml:id="l-2394">Fuenteovejuna, señora,</l>
             <l n="2395" xml:id="l-2395">que humildes llegan agora</l>
@@ -4989,7 +4989,7 @@
             <l n="2402" xml:id="l-2402">Las haciendas nos robaba</l>
             <l n="2403" xml:id="l-2403">y las doncellas forzaba,</l>
             <l n="2404" xml:id="l-2404">siendo de piedad extraño{605}.</l></sp>
-          <sp who="#frondoso" xml:id="sp-766">
+          <sp who="#frondoso" xml:id="sp-767">
             <speaker>FRONDOSO</speaker>
             <l n="2405" xml:id="l-2405">Tanto, que aquesta zagala,</l>
             <l n="2406" xml:id="l-2406">que el Cielo me ha concedido,</l>
@@ -5003,7 +5003,7 @@
             <l n="2414" xml:id="l-2414">ella, que en virtud florece,</l>
             <l n="2415" xml:id="l-2415">ya manifiesto parece</l>
             <l n="2416" xml:id="l-2416">lo que pudiera pasar{606}.</l></sp>
-          <sp who="#mengo" xml:id="sp-767">
+          <sp who="#mengo" xml:id="sp-768">
             <speaker>MENGO</speaker>
             <l n="2417" xml:id="l-2417">¿No es ya tiempo que hable yo?</l>
             <l n="2418" xml:id="l-2418">Si me dais licencia, entiendo</l>
@@ -5029,7 +5029,7 @@
                título: El final sin castigo
                descripción: Al no poder señalarse un culpable singular y atendiendo a los agravios sufridos, los Reyes perdonan a Fuenteovejuna. La obra se cierra con una solución política que confirma la fuerza del sujeto colectivo.
           -->
-          <sp who="#esteban" xml:id="sp-768">
+          <sp who="#esteban" xml:id="sp-769">
             <speaker>ALC. ESTEBAN</speaker>
             <l n="2437" xml:id="l-2437">Señor, tuyos ser queremos.</l>
             <l n="2438" xml:id="l-2438">Rey nuestro eres natural,</l>
@@ -5039,7 +5039,7 @@
             <l n="2442" xml:id="l-2442">y que veas esperamos</l>
             <l n="2443" xml:id="l-2443">que en este caso te damos</l>
             <l n="2444" xml:id="l-2444">por abono{615} la inocencia.</l></sp>
-          <sp who="#fernando" xml:id="sp-769">
+          <sp who="#fernando" xml:id="sp-770">
             <speaker>REY</speaker>
             <l n="2445" xml:id="l-2445">Pues no puede averiguarse</l>
             <l n="2446" xml:id="l-2446">el suceso por escrito,</l>
@@ -5049,13 +5049,13 @@
             <l n="2450" xml:id="l-2450">en mí, pues de mí se vale,</l>
             <l n="2451" xml:id="l-2451">hasta ver si acaso sale</l>
             <l n="2452" xml:id="l-2452">comendador que la herede{617}.</l></sp>
-          <sp who="#frondoso" xml:id="sp-770">
+          <sp who="#frondoso" xml:id="sp-771">
             <speaker>FRONDOSO</speaker>
             <l n="2453" xml:id="l-2453">Su majestad habla, en fin,</l>
             <l n="2454" xml:id="l-2454">como quien tanto ha acertado.</l>
             <l n="2455" xml:id="l-2455">Y aquí, discreto senado{618},</l>
             <l n="2456" xml:id="l-2456">Fuenteovejuna da fin{619}.</l></sp>
-          <stage>FINIS</stage>
+          <stage xml:id="stg-2456">FINIS</stage>
         </div>
       </div>
     </body>
