@@ -8,14 +8,20 @@ custom-foot: participacion/scripts-testimonios-publicos.html
 
 <section class="archivo-testimonios-page" id="archivo-testimonios-page" data-csv-url="{{ '/assets/data/testimonios-export.csv' | relative_url }}" data-items-base="{{ '/items/' | relative_url }}">
   <div class="archivo-testimonios-shell">
-    <header class="archivo-testimonios-header card card-soft ui-thin-border p-3 p-md-4">
-      <p class="ui-eyebrow mb-2">Archivo · Testimonios</p>
-      <h1 class="mb-2">Archivo de la memoria</h1>
-      <p class="mb-0">
-        Descubre testimonios publicados de lectoras, lectores, investigadoras, investigadores y comunidades
-        vinculadas a <i>Fuenteovejuna</i>.
-      </p>
-    </header>
+    <section class="py-2 py-md-3">
+      <div class="row justify-content-center mb-4 mb-md-5">
+        <div class="col-lg-10 text-center">
+          <h1 class="display-5 fw-semibold mb-3">Colección de testimonios</h1>
+          <p class="lead mb-0">
+            Explora testimonios publicados de personas que han leído, interpretado o investigado sobre <i>Fuenteovejuna</i>.
+          </p>
+          <p class="mt-3 mb-0 small text-muted">
+            Conoce cómo está organizada la colección
+            <a href="{{ '/acerca-de/' | relative_url }}">aquí</a>.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <section class="archivo-testimonios-controls card card-soft ui-thin-border p-3">
       <div class="row g-3">
