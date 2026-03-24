@@ -954,7 +954,7 @@ tei-stage {
     display: flex;
     flex-direction: column;
     padding: 20px 22px;
-    border: 1px solid $color-secondary-200;
+    border: 0px solid $color-secondary-200;
     border-radius: 18px;
     background: $color-secondary-100;
   }
@@ -1029,7 +1029,7 @@ tei-stage {
     flex-direction: column;
     gap: 12px;
     padding: 18px;
-    border: 1px solid $color-secondary-200;
+    border: 0px solid $color-secondary-200;
     border-radius: 18px;
     background: $color-surface-page;
   }
@@ -1186,6 +1186,20 @@ tei-seg.note-target {
 
 // Estilos para el display de notas
 .note-display {
+  .note-rich-text term,
+  term {
+    font-weight: 600;
+  }
+
+  .note-rich-text em,
+  .note-rich-text i {
+    font-style: italic;
+  }
+
+  .note-rich-text strong,
+  .note-rich-text b {
+    font-weight: 700;
+  }
   
   .note-header {
     display: flex;
@@ -1206,6 +1220,14 @@ tei-seg.note-target {
     font-weight: 500;
     border-radius: 12px;
     text-transform: capitalize;
+    cursor: help;
+    outline: none;
+    transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+
+    &[data-tooltip]:focus-visible {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 0.15rem rgba($color-primary, 0.18);
+    }
   }
   
   .note-badge-type,
@@ -1213,6 +1235,63 @@ tei-seg.note-target {
     background-color: $color-neutral-100;
     color: $color-dark;
     border: 1px solid $color-neutral-200;
+  }
+}
+
+.note-badge-tooltip {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9500;
+  max-width: min(34ch, calc(100vw - 24px));
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px;
+  background: $color-dark;
+  color: $color-light;
+  box-shadow: $shadow-md;
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.35;
+  text-align: left;
+  pointer-events: none;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.note-badge-tooltip::after {
+  content: '';
+  position: absolute;
+  left: var(--note-badge-tooltip-arrow-left, 50%);
+  transform: translateX(-50%);
+  border-style: solid;
+}
+
+.note-badge-tooltip[data-placement="top"]::after {
+  top: 100%;
+  border-width: 6px 6px 0 6px;
+  border-color: $color-dark transparent transparent transparent;
+}
+
+.note-badge-tooltip[data-placement="bottom"]::after {
+  bottom: 100%;
+  border-width: 0 6px 6px 6px;
+  border-color: transparent transparent $color-dark transparent;
+}
+
+[data-home-note-text] {
+  term {
+    font-weight: 600;
+  }
+
+  em,
+  i {
+    font-style: italic;
+  }
+
+  strong,
+  b {
+    font-weight: 700;
   }
 }
 

@@ -4,8 +4,220 @@
 var TIPO_NOTA_MAP = {
   lexica: 'léxica', parafrasis: 'paráfrasis', historica: 'histórica',
   geografica: 'geográfica', mitologica: 'mitológica', estilistica: 'estilística',
-  escenica: 'escénica', ecdotica: 'ecdótica', realia: 'realia'
+  escenica: 'escénica', ecdotica: 'ecdótica', realia: 'realia',
+  dramaturgica: 'dramatúrgica'
 };
+
+var TIPO_NOTA_DESC_MAP = {
+  lexica: 'Glosa léxica, semántica y fraseológica.',
+  parafrasis: 'Reformulación del sentido global o aclaración sintáctica.',
+  realia: 'Cultura material, usos e instituciones presupuestas.',
+  historica: 'Personajes, hechos y cronología relevantes.',
+  geografica: 'Identificación e interpretación de lugares.',
+  mitologica: 'Tradición clásica, bíblica y hagiográfica.',
+  intertextual: 'Fuentes, paralelos, tópicos, motivos y tradición popular.',
+  estilistica: 'Figuras, juegos de palabras y recursos expresivos.',
+  ecdotica: 'Variantes y decisiones de fijación textual.',
+  dramaturgica: 'Acción, conflicto, función del parlamento y estructura escénica.',
+  escenica: 'Representación, gesto, movimiento y acotación implícita.'
+};
+
+function escapeHtmlAttribute(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function buildNoteBadgeHTML(kind, value) {
+  if (!value) return '';
+
+  var label = TIPO_NOTA_MAP[value] || value;
+  var description = TIPO_NOTA_DESC_MAP[value] || '';
+  var tooltipAttrs = description
+    ? ' data-tooltip="' + escapeHtmlAttribute(description) + '" aria-label="' + escapeHtmlAttribute(label + '. ' + description) + '"'
+    : '';
+
+  return '<span class="note-badge note-badge-' + kind + '" tabindex="0"' + tooltipAttrs + '>' + label + '</span>';
+}
+
+function initNoteBadgeTooltip() {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+  if (window.__noteBadgeTooltipState) return;
+
+  var tooltipId = 'note-badge-tooltip';
+  var offsetPx = 10;
+  var viewportGutter = 12;
+  var state = {
+    tooltipEl: null,
+    activeBadge: null
+  };
+
+  function ensureTooltip() {
+    if (state.tooltipEl && document.body.contains(state.tooltipEl)) return state.tooltipEl;
+
+    var tooltipEl = document.getElementById(tooltipId);
+    if (!tooltipEl) {
+      tooltipEl = document.createElement('div');
+      tooltipEl.id = tooltipId;
+      tooltipEl.className = 'note-badge-tooltip';
+      tooltipEl.setAttribute('role', 'tooltip');
+      tooltipEl.setAttribute('aria-hidden', 'true');
+      tooltipEl.hidden = true;
+      document.body.appendChild(tooltipEl);
+    }
+
+    state.tooltipEl = tooltipEl;
+    return tooltipEl;
+  }
+
+  function positionTooltip(badge, tooltipEl) {
+    if (!badge || !tooltipEl) return;
+
+    var rect = badge.getBoundingClientRect();
+    var viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+    var viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+    var tooltipRect = tooltipEl.getBoundingClientRect();
+    var placeAbove = rect.top >= tooltipRect.height + offsetPx + viewportGutter;
+    var placement = placeAbove ? 'top' : 'bottom';
+    var left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+    var minLeft = viewportGutter;
+    var maxLeft = Math.max(viewportGutter, viewportWidth - tooltipRect.width - viewportGutter);
+
+    left = Math.min(Math.max(left, minLeft), maxLeft);
+
+    var top = placement === 'top'
+      ? rect.top - tooltipRect.height - offsetPx
+      : rect.bottom + offsetPx;
+
+    var maxTop = Math.max(viewportGutter, viewportHeight - tooltipRect.height - viewportGutter);
+    top = Math.min(Math.max(top, viewportGutter), maxTop);
+
+    tooltipEl.style.left = Math.round(left) + 'px';
+    tooltipEl.style.top = Math.round(top) + 'px';
+    tooltipEl.setAttribute('data-placement', placement);
+
+    var arrowLeft = (rect.left + (rect.width / 2)) - left;
+    var arrowSafeLeft = Math.min(
+      Math.max(arrowLeft, 12),
+      Math.max(12, tooltipRect.width - 12)
+    );
+    tooltipEl.style.setProperty('--note-badge-tooltip-arrow-left', Math.round(arrowSafeLeft) + 'px');
+  }
+
+  function hideTooltip() {
+    var tooltipEl = ensureTooltip();
+    if (state.activeBadge) {
+      state.activeBadge.removeAttribute('aria-describedby');
+    }
+
+    state.activeBadge = null;
+    tooltipEl.hidden = true;
+    tooltipEl.textContent = '';
+    tooltipEl.setAttribute('aria-hidden', 'true');
+    tooltipEl.removeAttribute('data-placement');
+    tooltipEl.style.removeProperty('left');
+    tooltipEl.style.removeProperty('top');
+    tooltipEl.style.removeProperty('--note-badge-tooltip-arrow-left');
+  }
+
+  function showTooltip(badge) {
+    if (!badge || !badge.matches('.note-badge[data-tooltip]')) return;
+
+    var description = badge.getAttribute('data-tooltip');
+    if (!description) {
+      hideTooltip();
+      return;
+    }
+
+    var tooltipEl = ensureTooltip();
+    if (state.activeBadge && state.activeBadge !== badge) {
+      state.activeBadge.removeAttribute('aria-describedby');
+    }
+
+    state.activeBadge = badge;
+    tooltipEl.textContent = description;
+    tooltipEl.hidden = false;
+    tooltipEl.setAttribute('aria-hidden', 'false');
+    badge.setAttribute('aria-describedby', tooltipId);
+    positionTooltip(badge, tooltipEl);
+  }
+
+  function resolveBadge(target) {
+    if (!(target instanceof Element)) return null;
+    return target.closest('.note-badge[data-tooltip]');
+  }
+
+  function handleMouseOver(event) {
+    var badge = resolveBadge(event.target);
+    if (!badge) return;
+
+    var fromBadge = resolveBadge(event.relatedTarget);
+    if (fromBadge === badge) return;
+    showTooltip(badge);
+  }
+
+  function handleMouseOut(event) {
+    var badge = resolveBadge(event.target);
+    if (!badge) return;
+
+    var toBadge = resolveBadge(event.relatedTarget);
+    if (toBadge === badge) return;
+    if (state.activeBadge === badge) hideTooltip();
+  }
+
+  function handleFocusIn(event) {
+    var badge = resolveBadge(event.target);
+    if (!badge) return;
+    showTooltip(badge);
+  }
+
+  function handleFocusOut(event) {
+    var badge = resolveBadge(event.target);
+    if (!badge) return;
+
+    var nextBadge = resolveBadge(event.relatedTarget);
+    if (nextBadge === badge) return;
+    if (state.activeBadge === badge) hideTooltip();
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === 'Escape' && state.activeBadge) {
+      hideTooltip();
+    }
+  }
+
+  function handleViewportChange() {
+    if (state.activeBadge) hideTooltip();
+  }
+
+  document.addEventListener('mouseover', handleMouseOver);
+  document.addEventListener('mouseout', handleMouseOut);
+  document.addEventListener('focusin', handleFocusIn);
+  document.addEventListener('focusout', handleFocusOut);
+  document.addEventListener('keydown', handleKeyDown);
+  window.addEventListener('resize', handleViewportChange);
+  window.addEventListener('scroll', handleViewportChange, true);
+
+  window.__noteBadgeTooltipState = state;
+}
+
+function sanitizeNoteHtml(html) {
+  var rawHtml = String(html == null ? '' : html);
+  var hasPurify = window.DOMPurify && typeof window.DOMPurify.sanitize === 'function';
+  if (!hasPurify) return rawHtml;
+
+  return window.DOMPurify.sanitize(rawHtml, {
+    ALLOWED_TAGS: ['term', 'em', 'strong', 'i', 'b'],
+    ALLOWED_ATTR: []
+  });
+}
+
+function setNoteRichText(target, html) {
+  if (!target) return;
+  target.innerHTML = sanitizeNoteHtml(html);
+}
 
 // Parsear target TEI: "#seg-1 #l-5" => ['seg-1', 'l-5']
 function parseTargetString(targetAttr) {
@@ -213,17 +425,18 @@ function markWrapperEventsAttached(wrapper) {
 
 function buildNoteBadgesHTML(type, subtype) {
   var html = '';
-  if (type) html += '<span class="note-badge note-badge-type">' + (TIPO_NOTA_MAP[type] || type) + '</span>';
-  if (subtype) html += '<span class="note-badge note-badge-subtype">' + (TIPO_NOTA_MAP[subtype] || subtype) + '</span>';
+  if (type) html += buildNoteBadgeHTML('type', type);
+  if (subtype) html += buildNoteBadgeHTML('subtype', subtype);
   return html;
 }
 
 function buildNoteDisplayHTML(params) {
   var noteId = params.noteId || '', text = params.text || '', badges = params.badgesHTML || '';
+  var safeText = sanitizeNoteHtml(text);
   return (
     '<div class="note-display" data-note-id="' + noteId + '">' +
       '<div class="note-header">' + (badges ? '<div class="note-badges">' + badges + '</div>' : '') + '</div>' +
-      '<p class="fs-6">' + text + '</p>' +
+      '<p class="fs-6 note-rich-text">' + safeText + '</p>' +
       '<div class="note-footer"></div>' +
     '</div>'
   );
@@ -355,6 +568,7 @@ function applyNoteHighlights(container, notes, options) {
 }
 
 if (typeof window !== 'undefined') {
+  initNoteBadgeTooltip();
   window.TIPO_NOTA_MAP = TIPO_NOTA_MAP;
   window.applyNoteHighlights = applyNoteHighlights;
   window.collectNoteTargetMeta = collectNoteTargetMeta;
@@ -365,6 +579,7 @@ if (typeof window !== 'undefined') {
   window.markCurrentNoteInText = markCurrentNoteInText;
   window.buildNoteBadgesHTML = buildNoteBadgesHTML;
   window.buildNoteDisplayHTML = buildNoteDisplayHTML;
+  window.setNoteRichText = setNoteRichText;
   window.buildSkeletonLoadingHTML = buildSkeletonLoadingHTML;
   window.buildNotePanelHTML = buildNotePanelHTML;
 }
@@ -374,7 +589,7 @@ export {
   collectNoteTargetMeta, buildReadingOrderNoteIds, pickPrimaryNoteIdForClick,
   findElementByXmlId, resolveTargetElements,
   ensureNoteWrapper, addNoteGroup, markWrapperEventsAttached,
-  buildNoteBadgesHTML, buildNoteDisplayHTML, buildSkeletonLoadingHTML, buildNotePanelHTML,
-  highlightNoteInText, highlightAllRelatedGroups,
+  buildNoteBadgesHTML, buildNoteDisplayHTML, buildSkeletonLoadingHTML, buildNotePanelHTML, setNoteRichText,
+  highlightNoteInText, highlightAllRelatedGroups, initNoteBadgeTooltip,
   markCurrentNoteInText, applyNoteHighlights
 };

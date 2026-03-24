@@ -47,34 +47,37 @@
       <classDecl>
         <taxonomy xml:id="tipologiaNotas">
           <category xml:id="lexica">
-            <catDesc>Nota léxica y semántica: explicación de términos, significados literales y contextuales, frases hechas y expresiones idiomáticas.</catDesc>
+            <catDesc>Nota léxica y semántica: glosa de palabras, giros, paremias y sentidos contextuales.</catDesc>
           </category>
           <category xml:id="parafrasis">
-            <catDesc>Nota de paráfrasis o traducción: explicación del sentido global de pasajes complejos, aclaración sintáctica cuando dificulte la comprensión.</catDesc>
+            <catDesc>Nota de paráfrasis o traducción: reformulación del sentido global o aclaración sintáctica.</catDesc>
           </category>
           <category xml:id="realia">
-            <catDesc>Nota de realia (cultural y contextual): referencias a objetos, costumbres, instituciones de la época, prácticas sociales, ceremonias, vestimenta.</catDesc>
+            <catDesc>Nota de realia: cultura material, usos sociales e instituciones presupuestas.</catDesc>
           </category>
           <category xml:id="historica">
-            <catDesc>Nota histórica: personajes históricos mencionados, acontecimientos y contexto político, referencias cronológicas.</catDesc>
+            <catDesc>Nota histórica: personajes, hechos y referencias cronológicas necesarias para situar el pasaje.</catDesc>
           </category>
           <category xml:id="geografica">
-            <catDesc>Nota geográfica: identificación de lugares mencionados, topónimos y su relevancia en la obra.</catDesc>
+            <catDesc>Nota geográfica: identificación e interpretación de lugares y topónimos.</catDesc>
           </category>
           <category xml:id="mitologica">
-            <catDesc>Nota mitológica y bíblica: referencias a la mitología clásica, alusiones bíblicas y hagiográficas, figuras y episodios religiosos.</catDesc>
+            <catDesc>Nota mitológica y bíblica: tradición clásica, bíblica y hagiográfica relevante para la alusión.</catDesc>
           </category>
           <category xml:id="intertextual">
-            <catDesc>Nota intertextual: fuentes literarias identificables, lugares paralelos en otras obras de Lope o contemporáneas, alusiones a otros textos, autores o tradiciones literarias, tópicos y motivos literarios.</catDesc>
-          </category>
-          <category xml:id="ecdotica">
-            <catDesc>Nota ecdótica o textual: variantes textuales significativas, decisiones editoriales que requieren justificación, problemas métricos o de puntuación, pasajes corruptos o faltantes.</catDesc>
-          </category>
-          <category xml:id="escenica">
-            <catDesc>Nota escénica y de representación: acotaciones implícitas, indicaciones sobre puesta en escena, gestualidad y movimiento, referencias a convenciones teatrales del Siglo de Oro o soluciones escénicas de montajes reales.</catDesc>
+            <catDesc>Nota intertextual: fuentes, paralelos, tópicos, motivos y tradición popular.</catDesc>
           </category>
           <category xml:id="estilistica">
-            <catDesc>Nota estilística y retórica: figuras retóricas, recursos estilísticos, juegos de palabras y dobles sentidos con función literaria, observaciones métricas no ecdóticas.</catDesc>
+            <catDesc>Nota estilística y retórica: figuras, juegos de palabras y recursos expresivos.</catDesc>
+          </category>
+          <category xml:id="ecdotica">
+            <catDesc>Nota ecdótica o textual: variantes y decisiones de fijación textual.</catDesc>
+          </category>
+          <category xml:id="dramaturgica">
+            <catDesc>Nota dramatúrgica: acción, conflicto, función dramática y estructura de la escena.</catDesc>
+          </category>
+          <category xml:id="escenica">
+            <catDesc>Nota escénica y de representación: gesto, movimiento, representación y acotaciones implícitas.</catDesc>
           </category>
         </taxonomy>
       </classDecl>
@@ -129,7 +132,7 @@
   target="#seg-5-1"
   type="historica"
   n="1.0">
-  <term>Fernán Gómez de Guzmán:</term> personaje histórico mencionado en las crónicas históricas en que se basó Lope de Vega para esta obra (􀄺Guía didáctica).
+  <term>Fernán Gómez de Guzmán:</term> personaje histórico mencionado en las crónicas históricas en que se basó Lope de Vega para esta obra.
 </note>
 
 <note
@@ -223,7 +226,7 @@
 
 <note
   xml:id="n-56-1"
-  target="#l-56 #l-57 #l-58 #l-59a"
+  target="#l-56 #l-57 #l-58 #l-59-a"
   type="parafrasis"
   subtype="historica"
   n="1.0">
@@ -412,7 +415,7 @@
 
 <note
   xml:id="n-166-1"
-  target="#l-166a #l-167 #l-168"
+  target="#l-166-a #l-167 #l-168"
   type="parafrasis"
   subtype="realia"
   n="1.0">
@@ -815,7 +818,7 @@
 <note
   xml:id="n-316-1"
   target="#seg-316-1"
-  type="lexia"
+  type="lexica"
   n="1.0">
   <term>corcovado</term>: ‘jorobado’.
 </note>
@@ -1414,8 +1417,7 @@
 <note
   xml:id="n-561-2"
   target="#seg-561-2"
-  type="realia
-  "
+  type="realia"
   n="1.0">
   La cecina era un tipo de carne salada, secada al aire, al sol o al humo.
 </note>
@@ -1439,7 +1441,7 @@
 <note
   xml:id="n-567-1"
   target="#seg-567-1"
-  type="lexico"
+  type="lexica"
   subtype="realia"
   n="1.0">
   jaeces: adornos de cintas con que se trenzan las crines del caballo.
@@ -1817,7 +1819,7 @@
 <note
   xml:id="n-752-1"
   target="#seg-752-1 #l-753 #l-754"
-  type="parfrasis"
+  type="parafrasis"
   n="1.0">
   que tomo... la vida: ‘pongo en peligro mi vida’. Frondoso se siente mortalmente herido por los desdenes de Laurencia.
 </note>
@@ -1874,9 +1876,9 @@
 <note
   xml:id="n-781-1"
   target="#seg-781-1"
-  type="dramatica"
+  type="dramaturgica"
   subtype="estilistica"
-  n="1.0"> <!-- //DUDA declarada ya como dramatica aunque falta por crear el tipo -->
+  n="1.0">
   La escena de caza adquiere carácter simbólico al comparar el Comendador a Laurencia con una gama. La alegoría de la caza de amor es frecuente en el romancero y en la lírica tradicional.
 </note>
 
@@ -1908,7 +1910,7 @@
 <note
   xml:id="n-811-1"
   target="#l-811 #l-812"
-  type="realaia"
+  type="realia"
   subtype="estilistica"
   n="1.0">
   La cruz es la del hábito de la Orden de Calatrava. Es juego de palabras con el que Laurencia denuncia la hipocresía del Comendador. Probablemente, la muchacha esté también recordando los refranes “Detrás de la cruz está el diablo” y “La cruz en los pechos y el diablo en los hechos”, que también se refieren a la hipocresía.

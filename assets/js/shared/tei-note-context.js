@@ -10,6 +10,65 @@ function normalizeWhitespace(value) {
   return toText(value).replace(/\s+/g, ' ').trim();
 }
 
+function escapeHtml(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function serializeHiNode(node, innerHtml) {
+  const rend = toText(node && typeof node.getAttribute === 'function' ? node.getAttribute('rend') : '').toLowerCase();
+  const hasBold = rend.includes('bold') || rend.includes('negr');
+  const hasItalic = rend.includes('italic') || rend.includes('cursiv');
+
+  if (hasBold && hasItalic) {
+    return '<strong><em>' + innerHtml + '</em></strong>';
+  }
+  if (hasBold) {
+    return '<strong>' + innerHtml + '</strong>';
+  }
+  if (hasItalic) {
+    return '<em>' + innerHtml + '</em>';
+  }
+  return innerHtml;
+}
+
+function serializeInlineNoteNode(node) {
+  if (!node) return '';
+
+  if (node.nodeType === 3) {
+    return escapeHtml(node.nodeValue).replace(/\s+/g, ' ');
+  }
+
+  if (node.nodeType !== 1) {
+    return '';
+  }
+
+  const innerHtml = Array.from(node.childNodes || []).map(serializeInlineNoteNode).join('');
+  const localName = getLocalName(node);
+
+  if (localName === 'term') {
+    return '<term>' + innerHtml + '</term>';
+  }
+
+  if (localName === 'hi') {
+    return serializeHiNode(node, innerHtml);
+  }
+
+  return innerHtml;
+}
+
+function serializeNoteNodeHtml(noteNode) {
+  if (!noteNode || !noteNode.childNodes) return '';
+  return Array.from(noteNode.childNodes)
+    .map(serializeInlineNoteNode)
+    .join('')
+    .trim();
+}
+
 function getLocalName(node) {
   return String(node && node.localName ? node.localName : '').toLowerCase();
 }
@@ -337,7 +396,7 @@ function extractNotesFromXml(notesDoc, teiIndex, maxVerses) {
     const noteNode = noteNodes[i];
     const noteId = getXmlId(noteNode);
     const target = toText(noteNode.getAttribute('target'));
-    const text = normalizeWhitespace(noteNode.textContent);
+    const text = serializeNoteNodeHtml(noteNode);
 
     if (!noteId || !target || !text) continue;
 
@@ -380,5 +439,6 @@ async function loadStaticNotesWithContext(options) {
 }
 
 export {
-  loadStaticNotesWithContext
+  loadStaticNotesWithContext,
+  serializeNoteNodeHtml
 };

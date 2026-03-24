@@ -84,7 +84,7 @@ lectura_dynamic_recenter: true
                         <select id="numeracion-versos" class="form-select form-select-sm w-auto">
                             <option value="cada5" selected>Cada 5 versos</option>
                             <option value="todos">Todos los versos</option>
-                            <option value="ninguno">Ninguno</option>
+                            <option value="ninguna">Ninguna</option>
                         </select>
                     </div>
                     <div class="option-item">
@@ -118,13 +118,13 @@ lectura_dynamic_recenter: true
                 </div>
                 <hr class="info-divider">
                 <div class="info-links">
-                    <a href="../criterios-editoriales.html" class="info-link">
+                    <a href="../acerca-de" class="info-link">
                         <i class="fa-solid fa-book-open me-2"></i> Criterios editoriales
                     </a>
-                    <a href="../codificacion-tei.html" class="info-link">
+                    <a href="../datos" class="info-link">
                         <i class="fa-solid fa-code me-2"></i> Codificación TEI-XML
                     </a>
-                    <a href="../laboratorio-de-notas/" class="info-link">
+                    <a href="../laboratorio/" class="info-link">
                         <i class="fa-solid fa-flask me-2"></i> Laboratorio de notas
                     </a>
                 </div>

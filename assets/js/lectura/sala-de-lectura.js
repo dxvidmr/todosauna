@@ -1,6 +1,7 @@
 import { createTextZoomController } from './text-zoom.js';
 import { aplicarNumeracionVersos, alignSplitVerses } from './utils.js';
 import { cargarNotasActivas } from '../participacion/notas.js';
+import { serializeNoteNodeHtml } from '../shared/tei-note-context.js';
 import {
     applyNoteHighlights,
     collectNoteTargetMeta,
@@ -652,7 +653,7 @@ document.addEventListener("DOMContentLoaded", function() {
         noteContentDiv.dataset.currentNoteId = noteXmlId;
         noteContentDiv.innerHTML = buildNotePanelHTML({
             dockAttrs: 'data-eval-state="loading"',
-            bodyHTML: buildNoteDisplayHTML({ noteId: noteXmlId, text: noteToShow.textContent.trim(), badgesHTML }),
+            bodyHTML: buildNoteDisplayHTML({ noteId: noteXmlId, text: serializeNoteNodeHtml(noteToShow), badgesHTML }),
             dockHTML: renderizarDockEvaluacionLoading()
         });
         renderPanelHeaderActions();

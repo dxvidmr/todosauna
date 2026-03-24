@@ -113,7 +113,7 @@ function alignSplitVerses(container) {
 /**
  * Aplicar numeración de versos
  * @param {HTMLElement} container - Contenedor con elementos tei-l
- * @param {string} modo - 'todos' | 'cada5' | 'ninguno'
+ * @param {string} modo - 'todos' | 'cada5' | 'ninguna'
  */
 function aplicarNumeracionVersos(container, modo = 'cada5') {
     if (!container) return;

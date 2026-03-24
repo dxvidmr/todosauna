@@ -6,7 +6,8 @@ import {
 import {
   applyNoteHighlights,
   markCurrentNoteInText,
-  buildNoteBadgesHTML
+  buildNoteBadgesHTML,
+  setNoteRichText
 } from './lectura/notas-dom.js';
 import { alignSplitVerses } from './lectura/utils.js';
 import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
@@ -473,7 +474,7 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
       this.setOverlayVisible(false);
 
       if (this.noteText) {
-        this.noteText.textContent = toText(note.texto_nota);
+        setNoteRichText(this.noteText, note.texto_nota);
       }
       if (this.noteBadges) {
         this.noteBadges.innerHTML = buildNoteBadgesHTML(note.type, note.subtype);
