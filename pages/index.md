@@ -26,7 +26,7 @@ custom-foot: js/home-explore-grid-js.html
 <section id="explore-section" class="explore-section">
   <div class="explore-content">
     <h2 class="explore-title text-center">
-      Descubre y <a href="{{ '/participa/' | relative_url }}" class="btn btn-primary explore-title-cta">participa</a> de la historia de <i>Fuenteovejuna</i>
+      Explora el sitio
     </h2>
 
     {% assign home_cards = site.data.home_cards | sort: "order_desktop" %}

@@ -38,7 +38,7 @@ navbar_behavior: fixed
     <div class="bienvenida-opciones">
       <div class="opcion-modo" data-modo="secuencial">
         <div class="opcion-contenido">
-          <h3>Modo <span class="text-primary">secuencial</span></h3>
+          <h3>Modo secuencial</h3>
           <p class="text-neutral-700">Recorre los pasajes en orden cronológico de la obra</p>
         </div>
         <div class="opcion-accion">
@@ -48,7 +48,7 @@ navbar_behavior: fixed
       
       <div class="opcion-modo" data-modo="aleatorio">
         <div class="opcion-contenido">
-          <h3>Modo <span class="text-primary">aleatorio</span></h3>
+          <h3>Modo aleatorio</h3>
           <p class="text-neutral-700">Sorpréndete con un pasaje al azar de la obra</p>
         </div>
         <div class="opcion-accion">

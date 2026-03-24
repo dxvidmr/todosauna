@@ -140,6 +140,7 @@
 
 .explore-section {
   --explore-stack-gap: clamp(30px, 5.6vh, 70px);
+  --explore-content-gap: clamp(16px, 2.6vh, 28px);
   --explore-pad-top: clamp(60px, 20vh, 150px);
   --explore-pad-bottom: clamp(56px, 10vh, 140px);
   --explore-title-size: clamp(1.7rem, min(5.2vw, 5.8vh), 3.2rem);
@@ -162,7 +163,7 @@
   width: min(100%, 1240px);
   padding-inline: clamp(10px, 2.5vw, 24px);
   display: grid;
-  gap: var(--explore-stack-gap);
+  gap: var(--explore-content-gap);
 }
 
 .explore-title {
