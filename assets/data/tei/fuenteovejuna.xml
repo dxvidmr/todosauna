@@ -138,6 +138,10 @@
             <roleDesc>licenciado por Salamanca</roleDesc></castItem></castList>
         <div type="act" n="1">
           <head type="act-head">ACTO PRIMERO</head>
+          <!-- PASAJE 1
+               título: El Comendador llega a Almagro
+               descripción: La obra se abre en Almagro. Fernán Gómez llega a la villa donde reside el joven maestre Rodrigo Téllez Girón y se irrita porque nadie ha salido a recibirle con la cortesía que cree merecer.
+          -->
           <stage xml:id="stg-1">Salen el Comendador, Flores y Ortuño criados</stage>
           <sp who="#comendador" xml:id="sp-1">
             <speaker>COMENDADOR</speaker>
@@ -220,6 +224,10 @@
           <sp who="#comendador" xml:id="sp-14">
             <speaker>COMENDADOR</speaker>
             <l n="40" xml:id="l-40">Quiero ver lo que hay en él.</l></sp>
+          <!-- PASAJE 2
+               título: Fernán Gómez aconseja al Maestre
+               descripción: El Maestre pide disculpas por no haber acudido al recibimiento. Fernán Gómez aprovecha la conversación para tratar de orientarlo políticamente y empujarlo a tomar Ciudad Real en favor de Juana la Beltraneja.
+          -->
           <stage xml:id="stg-40">Sale el Maestre de Calatrava y acompañamiento</stage>
           <sp who="#maestre" xml:id="sp-15">
             <speaker>MAESTRE</speaker>
@@ -374,7 +382,11 @@
             <l n="138" xml:id="l-138">y vos, Girón soberano,</l>
             <l n="139" xml:id="l-139">capa del templo inmortal</l>
             <l n="140" xml:id="l-140">de vuestros claros pasados.</l></sp>
-          <sp who="#maestre" xml:id="sp-25">
+          <!-- PASAJE 3
+               título: El Maestre acepta atacar Ciudad Real
+               descripción: Todavía en Almagro, Rodrigo Téllez Girón acepta la empresa militar y quiere probar que su juventud no le resta valor. La conversación deja preparada la mudanza de la acción hacia Fuenteovejuna.
+          -->
+            <sp who="#maestre" xml:id="sp-25">
             <speaker>MAESTRE</speaker>
             <l n="141" xml:id="l-141">Fernán Gómez, estad cierto</l>
             <l n="142" xml:id="l-142">
@@ -436,7 +448,11 @@
             <l n="172" xml:id="l-172">
               poner la lanza en el 
               <seg xml:id="seg-172-1">ristre</seg>.</l></sp>
-          <stage xml:id="stg-172">
+            <!-- PASAJE 4
+                 título: Laurencia y Pascuala temen al Comendador
+                 descripción: La acción se traslada a Fuenteovejuna. Laurencia y Pascuala conversan sobre el regreso del Comendador y sobre el peligro que su presencia supone para las mujeres de la villa.
+            -->
+            <stage xml:id="stg-172">
             <seg xml:id="seg-172Acot-1">Vanse y salen</seg>
              Pascuala y Laurencia</stage>
           <sp who="#laurencia" xml:id="sp-30">
@@ -543,6 +559,10 @@
           <sp who="#laurencia" xml:id="sp-46">
             <speaker>LAURENCIA</speaker>
             <l n="215" xml:id="l-215">Soy, aunque polla, muy dura</l>
+          <!-- PASAJE 5
+               título: Alabanza de aldea
+               descripción: En el mismo espacio aldeano, Laurencia defiende la vida del campo frente a los artificios cortesanos. El pasaje fija su carácter y subraya el contraste entre la aldea y la corte.
+          -->
             <l n="216" xml:id="l-216">yo para su reverencia.</l>
             <l n="217" xml:id="l-217">
               Pardiez, más 
@@ -636,6 +656,10 @@
           <sp who="#pascuala" xml:id="sp-49">
             <speaker>PASCUALA</speaker>
             <l n="274" xml:id="l-274">Lo mismo digo, Laurencia.</l></sp>
+          <!-- PASAJE 6
+               título: Llegan Frondoso, Mengo y Barrildo
+               descripción: Llegan los mozos con una disputa ya empezada. Su entrada abre un bloque más ligero en el que el lenguaje amoroso y la agudeza verbal pasan al primer plano.
+          -->
           <stage xml:id="stg-274">Salen Mengo y Barrildo y Frondoso</stage>
           <sp who="#frondoso" xml:id="sp-50">
             <speaker>FRONDOSO</speaker>
@@ -679,6 +703,10 @@
           <sp who="#frondoso" xml:id="sp-56">
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-289-b">Pues lleguemos.</l>
+          <!-- PASAJE 7
+               título: Inversión de valores
+               descripción: Frondoso se burla de los rodeos y eufemismos con que se nombran ciertas cosas en la corte. La conversación contrapone la franqueza aldeana a una cultura cortesana que altera el valor de las palabras.
+          -->
             <l n="290" xml:id="l-290">¡Dios os guarde, hermosas damas!</l></sp>
           <sp who="#laurencia" xml:id="sp-57">
             <speaker>LAURENCIA</speaker>
@@ -782,7 +810,11 @@
             <speaker>MENGO</speaker>
             <l n="351" xml:id="l-351">Apostaré que la sal</l>
             <l n="352" xml:id="l-352">la echó el cura con el puño.</l></sp>
-          <sp who="#laurencia" xml:id="sp-65">
+          <!-- PASAJE 8
+               título: Debate sobre el amor
+               descripción: Los jóvenes de Fuenteovejuna convierten la charla en un debate sobre qué es amar. Entre bromas, doctrina y pullas, Mengo discute la existencia del amor desinteresado y Laurencia insiste en la defensa de su honra.
+          -->
+            <sp who="#laurencia" xml:id="sp-65">
             <speaker>LAURENCIA</speaker>
             <l n="353" xml:id="l-353">¿Qué contienda os ha traído,</l>
             <l n="354" xml:id="l-354">si no es que mal lo entendí?</l></sp>
@@ -988,6 +1020,10 @@
             <l n="444" xml:id="l-444">
               ¿Qué mayor que ese 
               <seg xml:id="seg-444-1">desdén</seg>?</l></sp>
+          <!-- PASAJE 9
+               título: Llegada de Flores
+               descripción: Flores entra en el corro cuando la discusión amorosa aún sigue viva. Su llegada anuncia noticias de la guerra y cambia el tono de la escena.
+          -->
           <stage xml:id="stg-444">Sale Flores</stage>
           <sp who="#flores" xml:id="sp-104">
             <speaker>FLORES</speaker>
@@ -1022,6 +1058,10 @@
             <speaker>FLORES</speaker>
             <l n="455" xml:id="l-455">¿Quién lo dirá como yo,</l>
             <l n="456" xml:id="l-456">siendo mis ojos testigos?</l>
+          <!-- PASAJE 10
+               título: Flores cuenta la toma de Ciudad Real
+               descripción: Flores relata cómo el Maestre y Fernán Gómez han tomado Ciudad Real. Su narración presenta la empresa militar como una hazaña y prepara el regreso triunfal del Comendador a la villa.
+          -->
             <l n="457" xml:id="l-457">Para emprender la jornada</l>
             <l n="458" xml:id="l-458">de esta ciudad, que ya tiene</l>
             <l n="459" xml:id="l-459">nombre de Ciudad Real,</l>
@@ -1144,6 +1184,10 @@
               <seg xml:id="seg-523-1">saco</seg>
                de la ciudad</l>
             <l n="524" xml:id="l-524">el de su hacienda parece.</l>
+            <!-- PASAJE 11
+                 título: Llega el Comendador victorioso
+                 descripción: El Comendador vuelve a Fuenteovejuna después de la campaña. El pueblo sale a recibirlo con música y alabanzas, en una ceremonia pública de obediencia.
+            -->
             <l n="525" xml:id="l-525">Mas ya la música suena:</l>
             <l n="526" xml:id="l-526">
               <seg xml:id="seg-526-1">recebilde</seg>
@@ -1182,6 +1226,10 @@
             <l n="547" xml:id="l-547">Aún no muestra una parte del que siente.</l>
             <l n="548" xml:id="l-548">Pero ¿qué mucho que seáis amado,</l>
             <l part="I" n="549" xml:id="l-549-a">mereciéndolo vos?</l></sp>
+          <!-- PASAJE 12
+               título: Regalos al Comendador
+               descripción: Esteban y los vecinos ofrecen al Comendador los presentes de la villa. Bajo el homenaje se percibe la desigualdad entre señor y vasallos y el peso político de esa sumisión.
+          -->
           <sp who="#esteban" xml:id="sp-114">
             <speaker>ESTEBAN</speaker>
             <l part="F" xml:id="l-549-b">Fuenteovejuna,</l>
@@ -1245,7 +1293,11 @@
               <seg xml:id="seg-576-1">pecho</seg></l>
             <l n="577" xml:id="l-577">de voluntades que tenéis ganadas;</l>
             <l n="578" xml:id="l-578">y a vos y a vuestra casa ¡buen provecho!</l></sp>
-          <sp who="#comendador" xml:id="sp-115">
+          <!-- PASAJE 13
+               título: Se retira el pueblo
+               descripción: Terminada la ofrenda, el grupo se dispersa y la ceremonia oficial se deshace. Esa retirada deja expuestas a Laurencia y Pascuala.
+          -->
+            <sp who="#comendador" xml:id="sp-115">
             <speaker>COMENDADOR</speaker>
             <l n="579" xml:id="l-579">Estoy muy agradecido.</l>
             <l n="580" xml:id="l-580">Id, Regimiento, en buen hora.</l></sp>
@@ -1274,6 +1326,10 @@
           <l n="593" xml:id="l-593">de rendir las tierras,</l>
           <l n="594" xml:id="l-594">y matar los hombres.</l>
           <stage xml:id="stg-594">Vanse</stage>
+          <!-- PASAJE 14
+               título: El Comendador acosa a Laurencia y Pascuala
+               descripción: Fernán Gómez aprovecha la soledad de la escena para importunar a Laurencia y Pascuala.
+          -->
           <sp who="#comendador" xml:id="sp-119">
             <speaker>COMENDADOR</speaker>
             <l n="595" xml:id="l-595">Esperad vosotras dos.</l></sp>
@@ -1345,6 +1401,10 @@
           <sp who="#comendador" xml:id="sp-136">
             <speaker>COMENDADOR</speaker>
             <l n="617" xml:id="l-617">(Si entraren, Ortuño, cierra.)</l></sp>
+          <!-- PASAJE 15
+               título: Laurencia y Pascuala se libran
+               descripción: Laurencia y Pascuala rechazan entrar con el Comendador y esquivan también a sus criados.
+          -->
           <sp who="#laurencia" xml:id="sp-137">
             <speaker>LAURENCIA</speaker>
             <l n="618" xml:id="l-618">Flores, dejadnos pasar.</l></sp>
@@ -1391,7 +1451,12 @@
             <l n="633" xml:id="l-633">o con paciencia ha de estar,</l>
             <l n="634" xml:id="l-634">
               o ha de despedirse 
-              <seg xml:id="seg-634-1">presto</seg>.</l></sp>
+              <seg xml:id="seg-634-1">presto</seg>.</l>
+          </sp>
+          <!-- PASAJE 16
+               título: Los Reyes atienden la guerra
+               descripción: La acción pasa a la corte de los Reyes Católicos. Fernando e Isabel aparecen ocupados por la guerra de sucesión y sitúan los sucesos de la villa dentro de un marco político más amplio.
+          -->
           <stage xml:id="stg-634">
             Vanse los dos y 
             <seg xml:id="seg-634Acot-1">salgan el rey don Fernando, la reina doña Isabel, Manrique y acompañamiento</seg></stage>
@@ -1399,15 +1464,13 @@
             <speaker>ISABEL</speaker>
             <l n="635" xml:id="l-635">Digo, señor, que conviene</l>
             <l n="636" xml:id="l-636">el no haber descuido en esto,</l>
-            <l n="637" xml:id="l-637">
-              por ver 
-              <seg xml:id="seg-637-1">Alfonso</seg>
-               en tal puesto,</l>
+            <l n="637" xml:id="l-637">por ver <seg xml:id="seg-637-1">Alfonso</seg> en tal puesto,</l>
             <l n="638" xml:id="l-638">y su ejército previene.</l>
             <l n="639" xml:id="l-639">Y es bien ganar por la mano</l>
             <l n="640" xml:id="l-640">antes que el daño veamos;</l>
             <l n="641" xml:id="l-641">que si no lo remediamos,</l>
-            <l n="642" xml:id="l-642">el ser muy cierto está llano.</l></sp>
+            <l n="642" xml:id="l-642">el ser muy cierto está llano.</l>
+          </sp>
           <sp who="#fernando" xml:id="sp-147">
             <speaker>REY</speaker>
             <l n="643" xml:id="l-643">De Navarra y Aragón</l>
@@ -1428,6 +1491,10 @@
           <sp who="#fernando" xml:id="sp-150">
             <speaker>REY</speaker>
             <l n="654" xml:id="l-654">No les nieguen mi presencia.</l></sp>
+          <!-- PASAJE 17
+               título: Ciudad Real pide amparo
+               descripción: Dos regidores de Ciudad Real comparecen ante los Reyes para pedir socorro. Relatan el cerco y la ocupación de la ciudad y señalan a Fernán Gómez como responsable decisivo del ataque.
+          -->
           <stage xml:id="stg-654">Salen dos regidores de Ciudad Real</stage>
           <sp who="#regidor" xml:id="sp-151">
             <speaker>REGIDOR I</speaker>
@@ -1488,6 +1555,10 @@
             <l n="696" xml:id="l-696">Señor, el no haberle es cierto,</l>
             <l n="697" xml:id="l-697">pues no escapó ningún noble</l>
             <l n="698" xml:id="l-698">de preso, herido o de muerto.</l></sp>
+          <!-- PASAJE 18
+               título: Los Reyes mandan socorrer Ciudad Real
+               descripción: Tras escuchar a los regidores, Isabel y Fernando deciden responder con rapidez. La escena convierte la queja de Ciudad Real en una orden militar concreta contra los hombres de la Orden.
+          -->
           <sp who="#isabel" xml:id="sp-156">
             <speaker>ISABEL</speaker>
             <l n="699" xml:id="l-699">Ese caso no requiere</l>
@@ -1529,6 +1600,10 @@
             <speaker>ISABEL</speaker>
             <l n="721" xml:id="l-721">Partiendo vos a la empresa,</l>
             <l n="722" xml:id="l-722">seguro está el buen suceso.</l></sp>
+          <!-- PASAJE 19
+               título: Laurencia y Frondoso a solas
+               descripción: La acción regresa a Fuenteovejuna y deja solos a Laurencia y Frondoso. El mozo insiste en su amor y Laurencia, aunque aún se defiende, deja ver que la relación empieza a cambiar.
+          -->
           <stage xml:id="stg-722">Vanse todos y salen Laurencia y Frondoso</stage>
           <sp who="#laurencia" xml:id="sp-160">
             <speaker>LAURENCIA</speaker>
@@ -1613,7 +1688,11 @@
             <l n="772" xml:id="l-772">Dilo a mi tío Juan Rojo;</l>
             <l n="773" xml:id="l-773">que, aunque no te quiero bien,</l>
             <l n="774" xml:id="l-774">ya tengo algunos asomos.</l></sp>
-          <sp who="#frondoso" xml:id="sp-167">
+          <!-- PASAJE 20
+               título: Asalto del Comendador
+               descripción: Cuando Laurencia queda sola, el Comendador intenta forzarla en el campo. La persecución confirma que su deseo no conoce límites ni respeto por la honra ajena.
+          -->
+            <sp who="#frondoso" xml:id="sp-167">
             <speaker>FRONDOSO</speaker>
             <l n="775" xml:id="l-775">¡Ay de mí! El señor es éste.</l></sp>
           <sp who="#laurencia" xml:id="sp-168">
@@ -1693,6 +1772,10 @@
             <speaker>LAURENCIA</speaker>
             <l part="F" xml:id="l-818-b">¡Cómo!</l>
             <l n="819" xml:id="l-819">¿Eso hacéis? ¿Estáis en vos?</l></sp>
+          <!-- PASAJE 21
+               título: Frondoso defiende a Laurencia
+               descripción: Frondoso interviene para salvar a Laurencia y se atreve a encarar al Comendador con su propia ballesta. Frondoso y Laurencia quedan unidos frente a la furia del Comendador.
+          -->
           <stage xml:id="stg-819">Sale Frondoso y toma la ballesta</stage>
           <sp who="#comendador" xml:id="sp-176">
             <speaker>COMENDADOR</speaker>
@@ -1797,9 +1880,14 @@
                con él!</l>
             <l n="860" xml:id="l-860">
               ¡Vive el Cielo, que me 
-              <seg xml:id="seg-860-1">corro</seg>!</l></sp></div>
+              <seg xml:id="seg-860-1">corro</seg>!</l></sp>
+        </div>
         <div type="act" n="2">
           <head type="act-head">ACTO SEGUNDO</head>
+          <!-- PASAJE 22
+               título: El mal año
+               descripción: En la plaza de Fuenteovejuna, Esteban y el regidor hablan del pósito, de la carestía y del mal año. La conversación dibuja un pueblo ocupado por sus necesidades cotidianas mientras el abuso señorial sigue creciendo.
+          -->
           <stage>Salen Esteban y Regidor I</stage>
           <sp who="#esteban" xml:id="sp-193">
             <speaker>ESTEBAN</speaker>
@@ -1839,6 +1927,10 @@
             <l n="890" xml:id="l-890">y que habrá muchos tigres en Hircania{231}.</l>
             <l n="891" xml:id="l-891">Y al cabo al cabo, se siembre o no se siembre,</l>
             <l n="892" xml:id="l-892">el año se remata por diciembre.</l></sp>
+          <!-- PASAJE 23
+               título: Leonelo habla de la imprenta
+               descripción: Leonelo entra en la charla para presumir de estudios y de la reciente imprenta. El pasaje introduce un contraste cómico y cultista dentro del mundo aldeano.
+          -->
           <stage>Salen el licenciado Leonelo y Barrildo</stage>
           <sp who="#leonelo" xml:id="sp-196">
             <speaker>LEONELO</speaker>
@@ -1911,6 +2003,10 @@
           <sp who="#barrildo" xml:id="sp-209">
             <speaker>BARRILDO</speaker>
             <l n="932" xml:id="l-932">Dejaldo y asentaos, que estáis mohíno{244}.</l></sp>
+          <!-- PASAJE 24
+               título: Rumores en la plaza
+               descripción: La plaza es el lugar de conservaciones sobre la boda, la dote, la economía doméstica y el estado de la villa.
+          -->
           <stage>Sale Juan Rojo, y otro labrador</stage>
           <sp who="#juan_rojo" xml:id="sp-210">
             <speaker>JUAN</speaker>
@@ -1928,6 +2024,10 @@
             <speaker>LABRADOR</speaker>
             <l n="939" xml:id="l-939">¿Quién fue cual él tan bárbaro y lascivo?</l>
             <l n="940" xml:id="l-940">Colgado le vea yo de aquel olivo.</l></sp>
+          <!-- PASAJE 25
+               título: "Dios guarde a la buena gente"
+               descripción: Con esa fórmula de saludo entra Fernán Gómez en la plaza. Su presencia corta de golpe la charla cotidiana y coloca al pueblo en una posición de vigilancia.
+          -->
           <stage>Salen el Comendador, Ortuño y Flores</stage>
           <sp who="#comendador" xml:id="sp-214">
             <speaker>COMENDADOR</speaker>
@@ -1969,6 +2069,10 @@
             <l n="956" xml:id="l-956">Pardiez, que puede correr</l>
             <l n="957" xml:id="l-957">a un lado de un delincuente</l>
             <l n="958" xml:id="l-958">o de un cobarde en quistión.</l></sp>
+          <!-- PASAJE 26
+               título: El Comendador pide a Laurencia
+               descripción: El Comendador se interesa públicamente por Laurencia delante de Esteban y los vecinos. Lo que parece un comentario cortés cambia enseguida en una exigencia humillante dirigida a un padre que no puede responder como igual.
+          -->
           <sp who="#comendador" xml:id="sp-224">
             <speaker>COMENDADOR</speaker>
             <l n="959" xml:id="l-959">Quisiera en esta ocasión</l>
@@ -2020,6 +2124,10 @@
             <l part="F" xml:id="l-978-b">Señor,</l>
             <l n="979" xml:id="l-979">debajo de vuestro honor</l>
             <l n="980" xml:id="l-980">vivir el pueblo desea.</l>
+          <!-- PASAJE 27
+               título: "¿Vosotros honor tenéis?"
+               descripción: La conversación degenera en agravio. Fernán Gómez niega que los villanos tengan honor y convierte el deseo sobre Laurencia en un insulto colectivo contra todo el pueblo.
+          -->
             <l n="981" xml:id="l-981">Mirad que en Fuenteovejuna</l>
             <l n="982" xml:id="l-982">hay gente muy principal.</l></sp>
           <sp who="#leonelo" xml:id="sp-236">
@@ -2112,6 +2220,10 @@
             <speaker>ESTEBAN</speaker>
             <l n="1024" xml:id="l-1024">Ya yo me voy por aquí.</l></sp>
           <stage>Vanse</stage>
+          <!-- PASAJE 28
+               título: Críticas a los villanos
+               descripción: Después del choque en la plaza, el Comendador comenta con sus hombres el desprecio que siente por los villanos. A solas, revela mejor su lógica de poder y la impunidad con que piensa vengarse.
+          -->
           <sp who="#comendador" xml:id="sp-258">
             <speaker>COMENDADOR</speaker>
             <l n="1025" xml:id="l-1025">¿Qué os parece desta gente?</l></sp>
@@ -2174,6 +2286,10 @@
             <l n="1058" xml:id="l-1058">que hasta que llegue ocasión,</l>
             <l n="1059" xml:id="l-1059">al freno de la razón</l>
             <l n="1060" xml:id="l-1060">hago la venganza estar.</l>
+          <!-- PASAJE 29
+               título: Las "fáciles mujeres" del Comendador
+               descripción: Fernán Gómez enumera los tipos de mujeres que cree fáciles de rendir y presume de sus conquistas. La escena retrata con cinismo la relación entre deseo, fuerza y desprecio.
+          -->
             <l n="1061" xml:id="l-1061">¿Qué hay de Pascuala?</l></sp>
           <sp who="#flores" xml:id="sp-271">
             <speaker>FLORES</speaker>
@@ -2255,6 +2371,10 @@
             <l n="1102" xml:id="l-1102">al hombre más obligado</l>
             <l n="1103" xml:id="l-1103">es haber poco costado</l>
             <l n="1104" xml:id="l-1104">lo que pudo desear{288}.</l></sp>
+          <!-- PASAJE 30
+               título: Vuelta a Ciudad Real
+               descripción: Un soldado trae noticias urgentes desde Ciudad Real. El Comendador debe abandonar la villa para acudir de nuevo a la guerra.
+          -->
           <stage>Sale Cimbranos, soldado</stage>
           <sp who="#cimbranos" xml:id="sp-287">
             <speaker>SOLDADO</speaker>
@@ -2305,7 +2425,12 @@
             <l n="1137" xml:id="l-1137">Ciudad Real es del Rey.</l></sp>
           <sp who="#comendador" xml:id="sp-294">
             <speaker>COMENDADOR</speaker>
-            <l n="1138" xml:id="l-1138">No hayas miedo que lo sea.</l></sp>
+            <l n="1138" xml:id="l-1138">No hayas miedo que lo sea.</l>
+          </sp>
+          <!-- PASAJE 31
+               título: Huyen de los soldados del Comendador
+               descripción: Laurencia, Pascuala y Mengo entran huyendo de los soldados del Comendador, que se preparan para partir.
+          -->
           <stage>Vanse</stage>
           <stage>Salen Mengo y Laurencia y Pascuala, huyendo</stage>
           <sp who="#pascuala" xml:id="sp-295">
@@ -2336,6 +2461,10 @@
             <l n="1150" xml:id="l-1150">Sangrienta fiera le nombra{295},</l>
             <l n="1151" xml:id="l-1151">arsénico y pestilencia</l>
             <l part="I" n="1152" xml:id="l-1152-a">del lugar.</l></sp>
+          <!-- PASAJE 32
+               título: Laurencia recuerda a Frondoso
+               descripción: Ya a salvo por un momento, Laurencia recuerda cómo Frondoso la defendió en el episodio de la ballesta. Al contar lo sucedido, reconoce implícitamente que su opinión sobre él ha empezado a cambiar.
+          -->
           <sp who="#mengo" xml:id="sp-302">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-1152-b">Hanme contado</l>
@@ -2391,6 +2520,10 @@
             <l part="F" xml:id="l-1184-b">No,</l>
             <l n="1185" xml:id="l-1185">que parece que le dio</l>
             <l n="1186" xml:id="l-1186">de una tigre la aspereza{303}.</l></sp>
+          <!-- PASAJE 33
+               título: Jacinta pide socorro
+               descripción: Jacinta irrumpe pidiendo auxilio mientras la persiguen los hombres del Comendador. Ni Laurencia ni Pascuala se ven capaces de defenderla, asustadas por su propia seguridad.
+          -->
           <stage>Sale Jacinta</stage>
           <sp who="#jacinta" xml:id="sp-311">
             <speaker>JACINTA</speaker>
@@ -2424,6 +2557,10 @@
             <speaker>MENGO</speaker>
             <l n="1201" xml:id="l-1201">Yo sí lo tengo de ser,</l>
             <l n="1202" xml:id="l-1202">porque tengo el ser y el nombre.</l>
+          <!-- PASAJE 34
+               título: Mengo defiende a Jacinta
+               descripción: Mengo sale en defensa de Jacinta y se enfrenta como puede a los criados. Su gesto mezcla comicidad y valentía, y muestra que incluso el personaje gracioso está dispuesto a resistir.
+          -->
             <l n="1203" xml:id="l-1203">Llégate, Jacinta, a mí.</l></sp>
           <sp who="#jacinta" xml:id="sp-318">
             <speaker>JACINTA</speaker>
@@ -2466,6 +2603,10 @@
             <l n="1216" xml:id="l-1216">¡Voto al sol, si me emberrincho,</l>
             <l n="1217" xml:id="l-1217">y el cáñamo me descincho,</l>
             <l n="1218" xml:id="l-1218">que la llevéis bien vendida{307}!</l></sp>
+          <!-- PASAJE 35
+               título: Azotes a Mengo
+               descripción: El Comendador aparece, toma partido por sus hombres y manda azotar a Mengo. El castigo hace visible que en Fuenteovejuna no existe amparo legal contra la voluntad señorial.
+          -->
           <stage>Salen el Comendador y Cimbranos</stage>
           <sp who="#comendador" xml:id="sp-329">
             <speaker>COMENDADOR</speaker>
@@ -2540,6 +2681,10 @@
             <l n="1253" xml:id="l-1253">¡Cielos! ¿A hazañas tan feas</l>
             <l n="1254" xml:id="l-1254">queréis que castigos falten?</l></sp>
           <stage>Vanse</stage>
+          <!-- PASAJE 36
+               título: Jacinta resiste y es raptada
+               descripción: Jacinta protesta, defiende su honra y suplica que la dejen en paz, pero termina raptada. La violencia es un mal general contra todas las mujeres del pueblo.
+          -->
           <sp who="#comendador" xml:id="sp-345">
             <speaker>COMENDADOR</speaker>
             <l n="1255" xml:id="l-1255">Tú, villana, ¿por qué huyes?</l>
@@ -2596,11 +2741,13 @@
           <sp who="#jacinta" xml:id="sp-358">
             <speaker>JACINTA</speaker>
             <l n="1277" xml:id="l-1277">Apelo de tu crueldad</l>
-            <l n="1278" xml:id="l-1278">
-              
-                            a la justicia divina{316}.
-                            
-              <stage>Llévanla y vanse, y salen Laurencia y Frondoso</stage></l></sp>
+            <l n="1278" xml:id="l-1278">a la justicia divina{316}.</l>
+          </sp>
+          <!-- PASAJE 37
+               título: Laurencia acepta a Frondoso
+               descripción: Después del rapto de Jacinta, Laurencia acepta por fin a Frondoso. La decisión amorosa nace en un mundo ya herido por la violencia del Comendador, por lo que tiene también valor de alianza y refugio.
+          -->                  
+          <stage>Llévanla y vanse, y salen Laurencia y Frondoso</stage>
           <sp who="#laurencia" xml:id="sp-359">
             <speaker>LAURENCIA</speaker>
             <l n="1279" xml:id="l-1279">¿Cómo así a venir te atreves,</l>
@@ -2661,6 +2808,10 @@
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-1318-b">¡En Dios confío!</l></sp>
           <stage>Escóndense</stage>
+          <!-- PASAJE 38
+               título: La villa hace balance de agravios
+               descripción: Esteban y el regidor repasan los abusos sufridos por la comunidad, hacen balance del daño acumulado y de la impotencia en que vive.
+          -->
           <stage>Salen Esteban, alcalde, y el Regidor</stage>
           <sp who="#esteban" xml:id="sp-367">
             <speaker>ALCALDE</speaker>
@@ -2712,6 +2863,10 @@
             <l n="1350" xml:id="l-1350">deste valle la encontraron—</l>
             <l n="1351" xml:id="l-1351">después de sus insolencias,</l>
             <l n="1352" xml:id="l-1352">a sus crïados la dio{334}.</l></sp>
+          <!-- PASAJE 39
+               título: Frondoso pide la mano de Laurencia
+               descripción: Frondoso pide formalmente la mano de Laurencia a Esteban.
+          -->
           <sp who="#regidor" xml:id="sp-375">
             <speaker>REGIDOR</speaker>
             <l part="I" n="1353" xml:id="l-1353-a">Aquí hay gente. ¿Quién es?</l></sp>
@@ -2799,6 +2954,10 @@
             <speaker>FRONDOSO</speaker>
             <l n="1405" xml:id="l-1405">Justo es, que no hace bien</l>
             <l n="1406" xml:id="l-1406">quien los gustos atropella{343}.</l></sp>
+          <!-- PASAJE 40
+               título: Esteban consulta a Laurencia
+               descripción: Esteban pregunta a Laurencia si acepta el enlace antes de decidir nada. El pasaje subraya que el acuerdo matrimonial necesita también la voluntad expresa de la novia.
+          -->
           <sp who="#esteban" xml:id="sp-390">
             <speaker>ESTEBAN</speaker>
             <l part="I" n="1407" xml:id="l-1407-a">¡Hija! ¡Laurencia!</l></sp>
@@ -2874,6 +3033,10 @@
             <l n="1441" xml:id="l-1441">que si no hay dote, a fe mía</l>
             <l n="1442" xml:id="l-1442">que se echa de menos después.</l></sp>
           <stage>Vanse, y queda Frondoso y Laurencia</stage>
+          <!-- PASAJE 41
+               título: El gozo de los novios
+               descripción: Laurencia y Frondoso quedan solos y celebran el compromiso ya aprobado. En medio de una obra cada vez más tensa, esta breve calma deja ver la intimidad posible de la pareja.
+          -->
           <sp who="#laurencia" xml:id="sp-407">
             <speaker>LAURENCIA</speaker>
             <l n="1443" xml:id="l-1443">Di, Frondoso, ¿estás contento?</l></sp>
@@ -2887,6 +3050,10 @@
             <l n="1449" xml:id="l-1449">viéndote, Laurencia mía,</l>
             <l n="1450" xml:id="l-1450">en tan dulce posesión.</l></sp>
           <stage>Vanse</stage>
+          <!-- PASAJE 42
+               título: Derrota del Maestre
+               descripción: Llegan noticias de la batalla a las afueras de Ciudad Real. La suerte del Maestre cambia, y con ella se prepara el retorno del Comendador derrotado a Fuenteovejuna.
+          -->
           <stage>Salen el Maestre, el Comendador, Flores y Ortuño</stage>
           <sp who="#comendador" xml:id="sp-409">
             <speaker>COMENDADOR</speaker>
@@ -2910,38 +3077,43 @@
             <speaker>MAESTRE</speaker>
             <l n="1459" xml:id="l-1459">¿Qué puedo hacer, si Fortuna ciega{357}</l>
             <l n="1460" xml:id="l-1460">a quien hoy levantó, mañana humilla?</l></sp>
-          <stage>Dentro:</stage>
-          
-[GENTE] ¡Vitoria por los Reyes de Castilla!
-                    
+          <stage>Dentro:</stage>      
+          <sp> <!-- SIN NUMERAR; A PARTIR DE AQUÍ ESTÁ EQUIVOCADA LA NUMERACIÓN de los <sp>, de los versos está bien -->
+            <speaker>[GENTE]</speaker>
+              <l n="1661">¡Vitoria por los Reyes de Castilla!</l>
+          </sp>
           <sp who="#maestre" xml:id="sp-415">
             <speaker>MAESTRE</speaker>
-            <l n="1461" xml:id="l-1461">Ya coronan de luces{358} las almenas,</l>
-            <l n="1462" xml:id="l-1462">y las ventanas de las torres altas</l>
-            <l n="1463" xml:id="l-1463">entoldan con pendones vitoriosos{359}.</l></sp>
+            <l n="1462" xml:id="l-1462">Ya coronan de luces{358} las almenas,</l>
+            <l n="1463" xml:id="l-1463">y las ventanas de las torres altas</l>
+            <l n="1464" xml:id="l-1464">entoldan con pendones vitoriosos{359}.</l></sp>
           <sp who="#comendador" xml:id="sp-416">
             <speaker>COMENDADOR</speaker>
-            <l n="1464" xml:id="l-1464">Bien pudieran, de sangre que les cuesta{360}.</l>
-            <l n="1465" xml:id="l-1465">A fe que es más tragedia que no fiesta.</l></sp>
+            <l n="1465" xml:id="l-1465">Bien pudieran, de sangre que les cuesta{360}.</l>
+            <l n="1466" xml:id="l-1466">A fe que es más tragedia que no fiesta.</l></sp>
           <sp who="#maestre" xml:id="sp-417">
             <speaker>MAESTRE</speaker>
-            <l n="1466" xml:id="l-1466">Yo vuelvo a Calatrava, Fernán Gómez.</l></sp>
+            <l n="1467" xml:id="l-1467">Yo vuelvo a Calatrava, Fernán Gómez.</l></sp>
           <sp who="#comendador" xml:id="sp-418">
             <speaker>COMENDADOR</speaker>
-            <l n="1467" xml:id="l-1467">Y yo a Fuenteovejuna, mientras tratas</l>
-            <l n="1468" xml:id="l-1468">o seguir esta parte de tus deudos,</l>
-            <l n="1469" xml:id="l-1469">o reducir la tuya al Rey Católico{361}.</l></sp>
+            <l n="1468" xml:id="l-1468">Y yo a Fuenteovejuna, mientras tratas</l>
+            <l n="1469" xml:id="l-1469">o seguir esta parte de tus deudos,</l>
+            <l n="1470" xml:id="l-1470">o reducir la tuya al Rey Católico{361}.</l></sp>
           <sp who="#maestre" xml:id="sp-419">
             <speaker>MAESTRE</speaker>
-            <l n="1470" xml:id="l-1470">Yo te diré por cartas lo que intento.</l></sp>
+            <l n="1471" xml:id="l-1471">Yo te diré por cartas lo que intento.</l></sp>
           <sp who="#comendador" xml:id="sp-420">
             <speaker>COMENDADOR</speaker>
-            <l n="1471" xml:id="l-1471">El tiempo ha de enseñarte{362}.</l></sp>
+            <l n="1472" part="I" xml:id="l-1472-a">El tiempo ha de enseñarte{362}.</l></sp>
           <sp who="#maestre" xml:id="sp-421">
             <speaker>MAESTRE</speaker>
-            <l n="1472" xml:id="l-1472">¡Ah, pocos años,</l>
+            <l part="F" xml:id="l-1472-b">¡Ah, pocos años,</l>
             <l n="1473" xml:id="l-1473">sujetos al rigor de sus engaños{363}!</l></sp>
           <stage>Vanse</stage>
+          <!-- PASAJE 43
+               título: Coplas de boda
+               descripción: Comienza la boda de Laurencia y Frondoso con músicos, coplas y burlas de Mengo y Barrildo. La fiesta mezcla alegría popular y memoria del agravio, porque incluso en el banquete asoma la sombra del Comendador.
+          -->
           <stage>Sale la boda: músicos, Mengo, Frondoso, Laurencia, Pascuala, Barrildo y Esteban alcalde y Juan Rojo</stage>
           <sp who="#musicos" xml:id="sp-422">
             <speaker>MÚSICOS</speaker>
@@ -3007,6 +3179,10 @@
             <speaker>MENGO</speaker>
             <l n="1512" xml:id="l-1512">¡Maldiga el cielo el poeta</l>
             <l n="1513" xml:id="l-1513">que tal coplón arrojó!</l></sp>
+          <!-- PASAJE 44
+               título: Bendición y canto nupcial
+               descripción: Tras las bromas y los cantares, la celebración adquiere un tono más solemne. Juan Rojo y Esteban bendicen a los novios, y los músicos entonan un canto nupcial justo antes de la catástrofe.
+          -->
           <sp who="#barrildo" xml:id="sp-434">
             <speaker>BARRILDO</speaker>
             <l part="I" n="1514" xml:id="l-1514-a">¡Fue muy presto{371}!</l></sp>
@@ -3083,7 +3259,12 @@
             <l n="1568" xml:id="l-1568">«¿Para qué te ascondes,</l>
             <l n="1569" xml:id="l-1569">niña gallarda?</l>
             <l n="1570" xml:id="l-1570">Que mis linces deseos</l>
-            <l n="1571" xml:id="l-1571">paredes pasan».</l></sp>
+            <l n="1571" xml:id="l-1571">paredes pasan».</l>
+          </sp>
+          <!-- PASAJE 45
+               título: El Comendador irrumpe en la boda
+               descripción: El Comendador entra armado en plena boda y rompe la fiesta. La violencia invade el espacio más público y más legítimo de la comunidad.
+          -->
           <stage>Sale el Comendador, Flores, Ortuño y Cimbranos</stage>
           <sp who="#comendador" xml:id="sp-443">
             <speaker>COMENDADOR</speaker>
@@ -3150,6 +3331,10 @@
             <l n="1606" xml:id="l-1606">al Comendador mayor</l>
             <l n="1607" xml:id="l-1607">—¡qué vasallos tan leales!—</l>
             <l n="1608" xml:id="l-1608">puso una ballesta al pecho.</l></sp>
+          <!-- PASAJE 46
+               título: Esteban se enfrenta al Comendador
+               descripción: Esteban intenta plantar cara a Fernán Gómez como alcalde y como padre de Laurencia. El choque muestra hasta qué punto el poder local ha quedado reducido ante la fuerza del señor.
+          -->
           <sp who="#esteban" xml:id="sp-456">
             <speaker>ESTEBAN</speaker>
             <l n="1609" xml:id="l-1609">Supuesto que el disculparle</l>
@@ -3204,6 +3389,10 @@
             <speaker>LAURENCIA</speaker>
             <l n="1639" xml:id="l-1639">Si le das porque es mi padre,</l>
             <l n="1640" xml:id="l-1640">¿qué vengas en él de mí?</l></sp>
+          <!-- PASAJE 47
+               título: Prenden a Frondoso y se llevan a Laurencia
+               descripción: Frondoso es apresado por haberse atrevido a desafiar al Comendador y Laurencia es llevada por la fuerza. El acto termina con la comunidad humillada en el momento mismo de la celebración.
+          -->
           <sp who="#comendador" xml:id="sp-467">
             <speaker>COMENDADOR</speaker>
             <l n="1641" xml:id="l-1641">Llevadla, y haced que guarden</l>
@@ -3237,6 +3426,10 @@
             <l n="1653" xml:id="l-1653">me puso los atabales{409}!</l></sp></div>
         <div type="act" n="3">
           <head type="act-head">ACTO TERCERO</head>
+          <!-- PASAJE 48
+               título: El concejo vacila
+               descripción: Tras el asalto a la boda, los hombres de Fuenteovejuna se reúnen en concejo. Debaten entre huir, quejarse, obedecer o resistir, y la escena muestra su vacilación antes del levantamiento.
+          -->
           <stage>Salen Esteban, Alonso y Barrildo</stage>
           <sp who="#esteban" xml:id="sp-474">
             <speaker>ESTEBAN</speaker>
@@ -3344,6 +3537,10 @@
             <l n="1711" xml:id="l-1711">para perder las vidas, ¿qué aguardamos?</l>
             <l n="1712" xml:id="l-1712">¡Las casas y las viñas nos abrasan!</l>
             <l n="1713" xml:id="l-1713">¡Tiranos son! ¡A la venganza vamos!</l></sp>
+          <!-- PASAJE 49
+               título: Laurencia irrumpe en el concejo
+               descripción: Laurencia regresa maltrecha y entra en un espacio reservado a los hombres. Su sola aparición desbarata la pasividad del concejo y cambia la dirección del debate.
+          -->
           <stage>Sale Laurencia, desmelenada</stage>
           <sp who="#laurencia" xml:id="sp-495">
             <speaker>LAURENCIA</speaker>
@@ -3376,6 +3573,10 @@
             <speaker>ESTEBAN</speaker>
             <l part="F" xml:id="l-1724-b">¿Por qué, mis ojos?</l>
             <l part="I" n="1725" xml:id="l-1725-a">¿Por qué?</l></sp>
+          <!-- PASAJE 50
+               título: La arenga de Laurencia
+               descripción: En su gran discurso, Laurencia convierte su ultraje personal en acusación contra toda la villa. Reprocha a los hombres su cobardía y los obliga a medir su falta de respuesta.
+          -->
           <sp who="#laurencia" xml:id="sp-502">
             <speaker>LAURENCIA</speaker>
             <l part="F" xml:id="l-1725-b">Por muchas razones,</l>
@@ -3449,6 +3650,10 @@
             <l n="1793" xml:id="l-1793">esta villa honrada y torne</l>
             <l n="1794" xml:id="l-1794">aquel siglo de amazonas{455},</l>
             <l n="1795" xml:id="l-1795">eterno espanto del orbe{456}.</l></sp>
+          <!-- PASAJE 51
+               título: "Juntad el pueblo a una vez"
+               descripción: Después de la arenga, los hombres deciden convocar a toda la comunidad y tomar las armas: se organiza la rebelión.
+          -->
           <sp who="#esteban" xml:id="sp-503">
             <speaker>ESTEBAN</speaker>
             <l n="1796" xml:id="l-1796">Yo, hija, no soy de aquellos</l>
@@ -3495,6 +3700,10 @@
             <speaker>TODOS</speaker>
             <l n="1816" xml:id="l-1816">¡Tiranos traidores, mueran!</l></sp>
           <stage>Vanse todos</stage>
+          <!-- PASAJE 52
+               título: "Una escuadra de mujeres"
+               descripción: Laurencia no se conforma con mover a los hombres y llama también a las mujeres a combatir. La rebelión adquiere un carácter total y colectivo.
+          -->
           <sp who="#laurencia" xml:id="sp-514">
             <speaker>LAURENCIA</speaker>
             <l n="1817" xml:id="l-1817">Caminad, que el cielo os oye.</l>
@@ -3557,6 +3766,10 @@
             <l part="F" xml:id="l-1847-c">Que adonde</l>
             <l n="1848" xml:id="l-1848">asiste mi gran valor</l>
             <l n="1849" xml:id="l-1849">no hay Cides ni Rodamontes{468}.</l></sp>
+          <!-- PASAJE 53
+               título: Frondoso a punto de ser ahorcado
+               descripción: Mientras el pueblo se organiza fuera, Frondoso está a punto de ser ahorcado por orden del Comendador. La escena concentra la urgencia del rescate y el tiempo mínimo que queda.
+          -->
           <stage>Vanse</stage>
           <stage>Sale Frondoso, atadas las manos; Flores, Ortuño y Cimbranos y el Comendador</stage>
           <sp who="#comendador" xml:id="sp-527">
@@ -3618,6 +3831,10 @@
             <speaker>FRONDOSO</speaker>
             <l n="1866" xml:id="l-1866">Yo voy, señor, que amor les ha movido{474}.</l></sp>
           <stage>Vase</stage>
+          <!-- PASAJE 54
+               título: El pueblo asalta la casa
+               descripción: El pueblo irrumpe unido en la casa del Comendador y el alzamiento se hace visible en escena.
+          -->
           <stage>Dentro:</stage>
           <sp who="#mengo" xml:id="sp-543">
             <speaker>MENGO</speaker>
@@ -3685,6 +3902,10 @@
           <sp xml:id="sp-559">
             <speaker>TODOS</speaker>
             <l n="1889" xml:id="l-1889">¡Fuenteovejuna, y Fernán Gómez muera!</l></sp>
+          <!-- PASAJE 55
+               título: Las mujeres entran en la venganza
+               descripción: Las mujeres participan activamente en el castigo y reclaman su lugar en la represalia. El pasaje recuerda que la tiranía del Comendador tuvo sobre todo un rostro sexual y femenino.
+          -->
           <stage>Vanse, y salen las mujeres armadas</stage>
           <sp who="#laurencia" xml:id="sp-560">
             <speaker>LAURENCIA</speaker>
@@ -3747,6 +3968,10 @@
           <sp who="#frondoso" xml:id="sp-574">
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-1906-b">Córtale la cara.</l></sp>
+          <!-- PASAJE 56
+               título: Matan a Flores
+               descripción: Flores cae a manos del pueblo en medio del asalto. La violencia se extiende también a los criados más cercanos del Comendador.
+          -->
           <stage>Sale Flores huyendo, y Mengo tras él</stage>
           <sp who="#flores" xml:id="sp-575">
             <speaker>FLORES</speaker>
@@ -3790,6 +4015,10 @@
           <sp who="#flores" xml:id="sp-587">
             <speaker>FLORES</speaker>
             <l part="F" xml:id="l-1917-b">¡Piedad, señoras!</l></sp>
+          <!-- PASAJE 57
+               título: Ortuño huye
+               descripción: Ortuño logra escapar de la casa y sale de Fuenteovejuna con la noticia de la muerte del señor. Su huida hace posible que el conflicto llegue enseguida a la corte.
+          -->
           <stage>Sale Ortuño huyendo de Laurencia</stage>
           <sp who="#ortuno" xml:id="sp-588">
             <speaker>ORTUÑO</speaker>
@@ -3805,6 +4034,10 @@
           <sp xml:id="sp-591">
             <speaker>TODAS</speaker>
             <l n="1921" xml:id="l-1921">¡Fuenteovejuna, y viva el Rey Fernando!</l></sp>
+          <!-- PASAJE 58
+               título: El palacio de los Reyes
+               descripción: La acción vuelve al palacio real. Después de la violencia de la villa, la corte reaparece como espacio de autoridad.
+          -->
           <stage>Vanse y salen el rey Fernando y la reina doña Isabel, y Don Manrique, maestre</stage>
           <sp who="#manrique" xml:id="sp-592">
             <speaker>MANRIQUE</speaker>
@@ -3836,6 +4069,10 @@
             <l n="1947" xml:id="l-1947">el daño que nos recela{499},</l>
             <l n="1948" xml:id="l-1948">y como fiel centinela</l>
             <l n="1949" xml:id="l-1949">el bien del reino procura.</l></sp>
+          <!-- PASAJE 59
+               título: Flores denuncia a Fuenteovejuna
+               descripción: Flores, herido, comparece ante Fernando e Isabel para denunciar la muerte del Comendador. Su relato es parcial y truculento, y presenta la revuelta como crimen brutal de unos vasallos sin ley.
+          -->
           <stage>Sale Flores, herido</stage>
           <sp who="#flores" xml:id="sp-593">
             <speaker>FLORES</speaker>
@@ -3910,6 +4147,10 @@
             <l n="2013" xml:id="l-2013">los bárbaros delincuentes:</l>
             <l n="2014" xml:id="l-2014">mira que su sangre a voces</l>
             <l n="2015" xml:id="l-2015">pide que tu rigor{511} prueben.</l></sp>
+          <!-- PASAJE 60
+               título: Los Reyes envían al pesquisidor
+               descripción: Tras escuchar a Flores, los Reyes ordenan enviar un juez pesquisidor con apoyo armado. La respuesta regia abre el nuevo frente judicial al que tendrá que enfrentarse el pueblo.
+          -->
           <sp who="#fernando" xml:id="sp-596">
             <speaker>REY</speaker>
             <l n="2016" xml:id="l-2016">Estar puedes confiado</l>
@@ -3926,6 +4167,10 @@
             <l n="2027" xml:id="l-2027">castigo ejemplar requiere.</l>
             <l n="2028" xml:id="l-2028">Y curad a ese soldado</l>
             <l n="2029" xml:id="l-2029">de las heridas que tiene.</l></sp>
+          <!-- PASAJE 61
+               título: El pueblo celebra la caída del tirano
+               descripción: En Fuenteovejuna, los vecinos celebran la muerte del Comendador con coplas, música y signos de fidelidad a Isabel y Fernando.
+          -->
           <stage>Vanse, y salen los labradores y labradoras con la cabeza de Fernán Gómez en una lanza</stage>
           <sp who="#musicos" xml:id="sp-597">
             <speaker>MÚSICOS</speaker>
@@ -4028,6 +4273,10 @@
             <l n="2080" xml:id="l-2080">¡Vivan Castilla y León,</l>
             <l n="2081" xml:id="l-2081">y las barras de Aragón{531},</l>
             <l n="2082" xml:id="l-2082">y muera la tiranía</l>
+          <!-- PASAJE 62
+               título: "Concertaos todos a una"
+               descripción: Cuando amanece y la euforia empieza a remitir, Esteban impone una estrategia común. El pueblo acuerda responder con una sola voz si vienen a investigar lo sucedido.
+          -->
             <l n="2083" xml:id="l-2083">Advertid, Fuenteovejuna,</l>
             <l n="2084" xml:id="l-2084">a las palabras de un viejo,</l>
             <l n="2085" xml:id="l-2085">que el admitir su consejo</l>
@@ -4108,6 +4357,10 @@
           <sp who="#esteban" xml:id="sp-638">
             <speaker>ESTEBAN</speaker>
             <l n="2114" xml:id="l-2114">¡Cagajón para el proceso{543}!</l></sp>
+          <!-- PASAJE 63
+               título: Llega el pesquisidor
+               descripción: Llega el juez pesquisidor para averiguar quién mató al Comendador. La presencia del enviado real pone a prueba la reciente unidad del pueblo.
+          -->
           <stage>Sale el Regidor</stage>
           <sp who="#regidor" xml:id="sp-639">
             <speaker>REGIDOR</speaker>
@@ -4140,6 +4393,10 @@
           <sp who="#mengo" xml:id="sp-647">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2126-b">¿Quién? ¡Fuenteovejuna!</l></sp>
+          <!-- PASAJE 64
+               título: El Maestre recibe la noticia
+               descripción: El Maestre de Calatrava se entera de la muerte de Fernán Gómez. La noticia empeora su situación ante los Reyes y reduce aún más su margen de autonomía.
+          -->
           <stage>Vanse y salen el Maestre y un soldado</stage>
           <sp who="#maestre" xml:id="sp-648">
             <speaker>MAESTRE</speaker>
@@ -4187,6 +4444,10 @@
             <l n="2160" xml:id="l-2160">honor quien puede obligarme,</l>
             <l n="2161" xml:id="l-2161">y importa no descuidarme</l>
             <l n="2162" xml:id="l-2162">en tan honrado interés.</l></sp>
+          <!-- PASAJE 65
+               título: El soneto de Laurencia
+               descripción: En un breve momento lírico, Laurencia expresa en forma de soneto el miedo que siente por Frondoso. En meido de la preocupación, la obra se detiene un instante en la intimidad de la pareja.
+          -->
           <stage>Vanse. Sale Laurencia sola</stage>
           <sp who="#laurencia" xml:id="sp-653">
             <speaker>LAURENCIA</speaker>
@@ -4204,6 +4465,10 @@
             <l n="2174" xml:id="l-2174">Al bien suyo se inclina mi deseo.</l>
             <l n="2175" xml:id="l-2175">Si está presente, está cierta mi pena;</l>
             <l n="2176" xml:id="l-2176">si está en ausencia, está cierta mi muerte{557}.</l></sp>
+          <!-- PASAJE 66
+               título: Laurencia pide a Frondoso que huya
+               descripción: Laurencia propone a Frondoso que huya para librarse del pesquisidor. Él se niega a salvarse a costa de abandonar a los demás, y así el amor queda ligado a la suerte común del pueblo.
+          -->
           <stage>Sale Frondoso</stage>
           <sp who="#frondoso" xml:id="sp-654">
             <speaker>FRONDOSO</speaker>
@@ -4244,6 +4509,10 @@
             <l n="2198" xml:id="l-2198">que por evitar mi daño,</l>
             <l n="2199" xml:id="l-2199">sea con mi sangre estraño{560}</l>
             <l n="2200" xml:id="l-2200">en tan terrible ocasión.</l></sp>
+          <!-- PASAJE 67
+               título: "Fuenteovejuna lo hizo"
+               descripción: Comienzan los interrogatorios bajo tormento. Esteban, un niño y Pascuala sufren la violencia del juez y, aun así, sostienen la respuesta colectiva que protege a todos.
+          -->
           <stage>Voces dentro</stage>
           <sp who="#laurencia" xml:id="sp-661">
             <speaker>LAURENCIA</speaker>
@@ -4342,6 +4611,10 @@
           <sp who="#pascuala" xml:id="sp-686">
             <speaker>PASCUALA</speaker>
             <l n="2238" xml:id="l-2238">Fuenteovejuna lo hizo.</l></sp>
+          <!-- PASAJE 68
+               título: Mengo resiste el tormento
+               descripción: Cuando el juez hace pasar a Mengo, parece que la cadena de resistencia puede romperse. Sin embargo, también el gracioso soporta el castigo y remata la consigna común con su irónico "Fuenteovejunica".
+          -->
           <sp xml:id="sp-687">
             <speaker>JUEZ</speaker>
             <l n="2239" xml:id="l-2239">¡Traedme aquel más rollizo!</l>
@@ -4406,6 +4679,10 @@
             <l n="2258" xml:id="l-2258">¡Oh Mengo, bien te haga Dios!</l>
             <l n="2259" xml:id="l-2259">Temor que tuve de dos,</l>
             <l n="2260" xml:id="l-2260">el tuyo me le ha quitado{571}.</l></sp>
+          <!-- PASAJE 69
+               título: Mengo triunfante
+               descripción: Después del tormento, Mengo sale rodeado de vecinos que lo agasajan como a un héroe. El dolor sufrido se transforma en comicidad y celebración de la firmeza popular.
+          -->
           <stage>Salen, con Mengo, Barrildo y el Regidor</stage>
           <sp who="#barrildo" xml:id="sp-705">
             <speaker>BARRILDO</speaker>
@@ -4501,6 +4778,10 @@
             <speaker>MENGO</speaker>
             <l n="2284" xml:id="l-2284">Fuenteovejunica lo hizo.</l></sp>
           <stage>Vanse</stage>
+          <!-- PASAJE 70
+               título: Frondoso y Laurencia se reencuentran
+               descripción: Frondoso y Laurencia vuelven a hablar a solas tras la prueba del tormento, mostrándonos más de su intimidad amorosa.
+          -->
           <sp who="#frondoso" xml:id="sp-734">
             <speaker>FRONDOSO</speaker>
             <l n="2285" xml:id="l-2285">Justo es que honores le den.</l>
@@ -4522,6 +4803,10 @@
           <sp who="#laurencia" xml:id="sp-739">
             <speaker>LAURENCIA</speaker>
             <l n="2292" xml:id="l-2292">¿Con qué? Con quererte tanto.</l></sp>
+          <!-- PASAJE 71
+               título: Los Reyes revisan Castilla
+               descripción: Antes del desenlace de Fuenteovejuna, los Reyes vuelven a tratar la situación general de Castilla. La obra recuerda aquí que la historia local se inserta en un proceso mayor de consolidación monárquica.
+          -->
           <stage>Vanse, y salen el Rey y la Reina y Manrique</stage>
           <sp who="#isabel" xml:id="sp-740">
             <speaker>ISABEL</speaker>
@@ -4547,6 +4832,10 @@
             <speaker>REY</speaker>
             <l n="2303" xml:id="l-2303">Siendo vos la que la allana,</l>
             <l n="2304" xml:id="l-2304">no lo tengo a maravilla.</l></sp>
+          <!-- PASAJE 72
+               título: El Maestre pide perdón
+               descripción: El Maestre comparece ante Fernando e Isabel para pedir perdón por su conducta política. Reconoce su error y acepta reordenarse bajo la autoridad real.
+          -->
           <stage>Sale don Manrique</stage>
           <sp who="#manrique" xml:id="sp-746">
             <speaker>MANRIQUE</speaker>
@@ -4609,6 +4898,10 @@
             <speaker>MAESTRE</speaker>
             <l n="2347" xml:id="l-2347">Vos sois una bella Ester</l>
             <l n="2348" xml:id="l-2348">y vos un Jerjes divino{596}.</l></sp>
+          <!-- PASAJE 73
+               título: El pesquisidor fracasa
+               descripción: El pesquisidor presenta su informe y admite que no ha conseguido quebrar la versión común del pueblo. Ni siquiera el tormento ha permitido aislar culpables individuales.
+          -->
           <stage>Sale Manrique</stage>
           <sp who="#manrique" xml:id="sp-754">
             <speaker>MANRIQUE</speaker>
@@ -4665,6 +4958,10 @@
           <sp who="#fernando" xml:id="sp-760">
             <speaker>REY</speaker>
             <l n="2388" xml:id="l-2388">Que entren, pues vienen, les di{604}.</l></sp>
+          <!-- PASAJE 74
+               título: Fuenteovejuna ante los Reyes
+               descripción: Los vecinos de Fuenteovejuna comparecen por fin ante los Reyes y explican los abusos del Comendador. La comunidad defiende su actuación como respuesta extrema a una larga tiranía.
+          -->
           <stage>Salen los dos Alcaldes, Frondoso, las mujeres, y los villanos que quisieren</stage>
           <sp who="#laurencia" xml:id="sp-761">
             <speaker>LAURENCIA</speaker>
@@ -4728,6 +5025,10 @@
             <l n="2434" xml:id="l-2434">porque el cuero se me curta,</l>
             <l n="2435" xml:id="l-2435">polvos de arrayán y murta{613}</l>
             <l n="2436" xml:id="l-2436">más que vale mi cortijo{614}.</l></sp>
+          <!-- PASAJE 75
+               título: El final sin castigo
+               descripción: Al no poder señalarse un culpable singular y atendiendo a los agravios sufridos, los Reyes perdonan a Fuenteovejuna. La obra se cierra con una solución política que confirma la fuerza del sujeto colectivo.
+          -->
           <sp who="#esteban" xml:id="sp-768">
             <speaker>ALC. ESTEBAN</speaker>
             <l n="2437" xml:id="l-2437">Señor, tuyos ser queremos.</l>
@@ -4754,4 +5055,9 @@
             <l n="2454" xml:id="l-2454">como quien tanto ha acertado.</l>
             <l n="2455" xml:id="l-2455">Y aquí, discreto senado{618},</l>
             <l n="2456" xml:id="l-2456">Fuenteovejuna da fin{619}.</l></sp>
-          <stage>FINIS</stage></div></div></body></text></TEI>
+          <stage>FINIS</stage>
+        </div>
+      </div>
+    </body>
+  </text>
+</TEI>
