@@ -10,24 +10,24 @@ item-meta: true
     {% include item/breadcrumbs.html %}
     <div class="my-0 h5 small">{{ page.display_template | replace: "_", " " | upcase }} {% if page.display_template == "compound_object" or page.display_template == "multiple" %}{% assign children = site.data[site.metadata] | where_exp: 'item','item.parentid == page.objectid' %} ({{ children | size }} Items){% endif %}</div>
     <h2 class="mb-3">{{ page.title }} 
-        {% unless page.display_template == 'record' %}<a href="#metadata" class="ms-5 btn btn-sm btn-outline-dark small">Item Info 
+        <!--{% unless page.display_template == 'record' %}<a href="#metadata" class="ms-5 btn btn-sm btn-outline-dark small">Item Info 
             <svg class="bi icon-sprite" role="img" aria-label="Jump to Item Info">
                 <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#arrow-down"/>
             </svg>
-        </a>{% endunless %}
+        </a>{% endunless %}-->
     </h2>
 
     <div class="row justify-content-center">
         <div class="col-12 col-md-10">
+            <div class="row item-page-main g-4 align-items-start">
+                <div class="col-12 col-lg-5 item-page-media">
+                    {{ content }}
+                </div>
 
-        {{ content }}
-
-        </div>
-
-        <div class="col-12 col-md-10" id="metadata">
-
-            {% include item/metadata.html %}
-
+                <div class="col-12 col-lg-7 item-page-metadata" id="metadata">
+                    {% include item/metadata.html %}
+                </div>
+            </div>
         </div>
 
         <div class="col-md-5 py-4">

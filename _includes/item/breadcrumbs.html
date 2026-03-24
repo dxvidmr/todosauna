@@ -1,11 +1,11 @@
 {% comment %}
 
     Adds Bootstrap styled breadcrumbs to page.
-    By default the crumbs are: Home (index.html) / Items (browse.html) / current page title (from the metadata, truncated to 10 words max).
+    By default the crumbs are: Archivo / Documentos / current item id.
 
 {%- endcomment -%}
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a class="text-dark" href="{{ '/' | relative_url }}">Home</a></li>
-    <li class="breadcrumb-item"><a class="text-dark" href="{{ '/browse.html' | relative_url }}">Items</a></li>
-    <li class="breadcrumb-item active text-dark" aria-current="page">{{ page.title | truncatewords: 10 }}</li>
+    <li class="breadcrumb-item"><a class="breadcrumb-link text-dark" href="{{ '/archivo/' | relative_url }}">Archivo</a></li>
+    <li class="breadcrumb-item"><a class="breadcrumb-link text-dark" href="{{ '/archivo/documentos/' | relative_url }}">Documentos</a></li>
+    <li class="breadcrumb-item active text-dark" aria-current="page">{{ page.objectid | default: page.title | truncatewords: 10 }}</li>
 </ol>

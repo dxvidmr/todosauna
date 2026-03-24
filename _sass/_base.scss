@@ -39,7 +39,7 @@ body {
    - default behavior: secondary text color + subtle bottom highlight on hover
 */
 $editorial-link-scope:
-    ":where(main, .modal, .modal-content, .participa-ui-dialog, #modal-modo, [role='dialog'], [aria-modal='true'], dialog) :where(p, li, dd, dt, blockquote, figcaption, small, h1, h2, h3, h4, h5, h6, label, .form-check-label) a[href]:not(.btn):not(.nav-link):not(.dropdown-item):not(.stretched-link):not(.ta-card):not(.info-link):not([role='button'])";
+    ":where(main, .modal, .modal-content, .participa-ui-dialog, #modal-modo, [role='dialog'], [aria-modal='true'], dialog) :where(p, li, dd, dt, blockquote, figcaption, small, h1, h2, h3, h4, h5, h6, label, .form-check-label) a[href]:not(.btn):not(.nav-link):not(.dropdown-item):not(.stretched-link):not(.ta-card):not(.info-link):not(.breadcrumb-link):not([role='button'])";
 $editorial-link-color: $color-text-secondary !default;
 $editorial-link-highlight-color: rgba($editorial-link-color, 0.28) !default;
 $editorial-link-highlight-idle-height: 0.12em !default;
