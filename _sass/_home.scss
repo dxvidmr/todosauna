@@ -63,6 +63,14 @@
   }
 }
 
+.hero-subtitle {
+  padding-left: var(--hero-inline-gutter);
+  margin: clamp(14px, 2.8vh, 24px) 0 0;
+  color: $color-text-secondary;
+  font-size: clamp(0.95rem, 1.8vw, 1.12rem);
+  line-height: 1.45;
+}
+
 .hero-scroll {
   display: flex;
   flex-direction: column;

@@ -15,9 +15,10 @@ custom-foot: js/home-explore-grid-js.html
     <div class="hero-image">
       <img src="{{ '/assets/img/hero/hero.jpg' | relative_url }}" alt="Fuenteovejuna">
     </div>
+    <p class="hero-subtitle">Accede al universo de <i>Fuenteovejuna</i>, la obra teatral de Lope de Vega.</p>
   </div>
   <div class="hero-scroll" onclick="if(window.NavbarBehavior) window.NavbarBehavior.showNavbar(); document.getElementById('explore-section').scrollIntoView({behavior: 'smooth'});">
-    <span>Explorar el sitio</span>
+    <span></span>
     <i class="fa-solid fa-chevron-down"></i>
   </div>
 </section>
