@@ -173,7 +173,7 @@
           <stage xml:id="stg-1">Salen el Comendador, Flores y Ortuño criados</stage>
           <sp who="#comendador" xml:id="sp-1">
             <speaker>COMENDADOR</speaker>
-            <l n="1" xml:id="l-1">¿Sabe el <seg xml:id="seg-1-1">Maestre</seg>que estoy</l>
+            <l n="1" xml:id="l-1">¿Sabe el <seg xml:id="seg-1-1">Maestre</seg> que estoy</l>
             <l part="I" n="2" xml:id="l-2-a">en la 
               <seg xml:id="seg-2-1">villa</seg>?</l>
           </sp>
