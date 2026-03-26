@@ -219,15 +219,26 @@ function setNoteRichText(target, html) {
   target.innerHTML = sanitizeNoteHtml(html);
 }
 
-// Parsear target TEI: "#seg-1 #l-5" => ['seg-1', 'l-5']
+// Parsear target TEI y normalizar punteros:
+// "#seg-1 #l-5" => ['seg-1', 'l-5']
+// "fo:seg-1 fo:l-5" => ['seg-1', 'l-5']
+// "fuenteovejuna.xml#seg-1" => ['seg-1']
+function normalizeTargetToken(token) {
+  var value = (token || '').toString().trim();
+  if (!value) return '';
+  if (value.indexOf('#') !== -1) return value.slice(value.lastIndexOf('#') + 1).trim();
+  if (/^[A-Za-z][A-Za-z0-9+.-]*:[^/].*$/.test(value)) return value.slice(value.indexOf(':') + 1).trim();
+  return value.replace(/^#/, '');
+}
+
 function parseTargetString(targetAttr) {
   if (!targetAttr) return [];
-  return targetAttr.split(/\s+/).map(function (t) { return t.replace('#', ''); }).filter(function (t) { return t; });
+  return targetAttr.split(/\s+/).map(normalizeTargetToken).filter(function (t) { return t; });
 }
 
 // Resolver variantes de ids de verso: l-59a <-> l-59-a
 function buildXmlIdCandidates(xmlId) {
-  var id = (xmlId || '').toString().trim().replace(/^#/, '');
+  var id = normalizeTargetToken(xmlId);
   if (!id) return [];
 
   var candidates = [id];

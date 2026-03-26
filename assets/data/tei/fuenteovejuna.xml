@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="es">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -25,8 +25,26 @@
           <publisher>PPU</publisher>
           <pubPlace>Barcelona</pubPlace>
           <date when="2009">2009</date></bibl></sourceDesc></fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>Texto base en TEI de <title>Fuenteovejuna</title> preparado para la edición digital anotada del proyecto. Este archivo se vincula con las anotaciones conservadas en <ref target="notas.xml">notas.xml</ref>.</p>
+      </projectDesc>
+      <editorialDecl>
+        <p>La marcación con identificadores <att>xml:id</att> en versos, segmentos, parlamentos y acotaciones permite el enlace desde el archivo externo de notas.</p>
+      </editorialDecl>
+    </encodingDesc>
     <profileDesc>
+      <creation>
+        <date when="2025-01-07">2025-01-07</date>
+      </creation>
+      <langUsage>
+        <language ident="es">Español</language>
+      </langUsage>
       <particDesc>
+        <listPerson type="responsibility">
+          <person xml:id="DMR">
+            <persName>David Merino Recalde</persName></person>
+        </listPerson>
         <listPerson>
           <person xml:id="comendador">
             <persName>Fernán Gómez de Guzmán</persName></person>
@@ -76,7 +94,16 @@
           <personGrp xml:id="musicos">
             <name>Músicos</name></personGrp>
           <personGrp xml:id="labradores">
-            <name>Labradores</name></personGrp></listPerson></particDesc></profileDesc></teiHeader>
+            <name>Labradores</name></personGrp></listPerson></particDesc></profileDesc>
+    <revisionDesc>
+      <change when="2026-03-26" who="#DMR">Se completa el teiHeader con metadatos de proyecto, lengua y responsabilidad editorial.</change>
+      <change when="2026-03-24" who="#DMR">Se añade la referencia <gi>xml-model</gi> que faltaba al esquema TEI.</change>
+      <change when="2026-03-24" who="#DMR">Se corrigen la numeración de parlamentos y versos en un tramo del texto y se añaden identificadores <att>xml:id</att> a acotaciones antes no identificadas.</change>
+      <change when="2026-03-24" who="#DMR">Se incorporan comentarios descriptivos de pasajes para segmentar el texto para el 'Laboratorio de notas'.</change>
+      <change when="2026-03-17" who="#DMR">Se ajusta el encabezado de la comedia con una presentación tipográfica más próxima al impreso base.</change>
+      <change when="2026-01-26" who="#DMR">Se integra el texto base TEI de <title>Fuenteovejuna</title> en el sitio web del proyecto.</change>
+      <change when="2025-01-07" who="#DMR">Creación inicial del texto base TEI en un entorno de trabajo anterior a su incorporación al repositorio actual.</change>
+    </revisionDesc></teiHeader>
   <text>
     <body>
       <div type="comedia">
@@ -146,13 +173,10 @@
           <stage xml:id="stg-1">Salen el Comendador, Flores y Ortuño criados</stage>
           <sp who="#comendador" xml:id="sp-1">
             <speaker>COMENDADOR</speaker>
-            <l n="1" xml:id="l-1">
-              ¿Sabe el 
-              <seg xml:id="seg-1-1">Maestre</seg>
-               que estoy</l>
-            <l part="I" n="2" xml:id="l-2-a">
-              en la 
-              <seg xml:id="seg-2-1">villa</seg>?</l></sp>
+            <l n="1" xml:id="l-1">¿Sabe el <seg xml:id="seg-1-1">Maestre</seg>que estoy</l>
+            <l part="I" n="2" xml:id="l-2-a">en la 
+              <seg xml:id="seg-2-1">villa</seg>?</l>
+          </sp>
           <sp who="#flores" xml:id="sp-2">
             <speaker>FLORES</speaker>
             <l part="F" xml:id="l-2-b">Ya lo sabe.</l></sp>

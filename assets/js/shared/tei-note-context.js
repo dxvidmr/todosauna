@@ -123,7 +123,15 @@ async function loadXmlDocument(url) {
 }
 
 function normalizeTargetToken(token) {
-  return toText(token).replace(/^#/, '');
+  const value = toText(token);
+  if (!value) return '';
+  if (value.includes('#')) {
+    return value.slice(value.lastIndexOf('#') + 1).trim();
+  }
+  if (/^[A-Za-z][A-Za-z0-9+.-]*:[^/].*$/.test(value)) {
+    return value.slice(value.indexOf(':') + 1).trim();
+  }
+  return value.replace(/^#/, '');
 }
 
 function normalizeTargetCandidates(rawId) {
