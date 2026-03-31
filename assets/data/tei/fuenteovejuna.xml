@@ -1918,38 +1918,38 @@
             <speaker>ESTEBAN</speaker>
             <l n="861" xml:id="l-861">Así tenga salud, como parece,</l>
             <l n="862" xml:id="l-862">que no se saque más agora el pósito.</l>
-            <l n="863" xml:id="l-863">El año apunta mal, y el tiempo crece{222},</l>
+            <l n="863" xml:id="l-863">El año apunta mal, y el tiempo crece,</l>
             <l n="864" xml:id="l-864">y es mejor que el sustento esté en depósito,</l>
-            <l n="865" xml:id="l-865">aunque lo contradicen más de trece{223}.</l></sp>
+            <l n="865" xml:id="l-865">aunque lo contradicen <seg xml:id="seg-865-1">más de trece</seg>.</l></sp>
           <sp who="#regidor" xml:id="sp-194">
             <speaker>REGIDOR I</speaker>
             <l n="866" xml:id="l-866">Yo siempre he sido, al fin, deste propósito,</l>
-            <l n="867" xml:id="l-867">en gobernar en paz esta república{224}.</l></sp>
+            <l n="867" xml:id="l-867">en gobernar en paz <seg xml:id="seg-867-1">esta república</seg>.</l></sp>
           <sp who="#esteban" xml:id="sp-195">
             <speaker>ESTEBAN</speaker>
             <l n="868" xml:id="l-868">Hagamos dello a Fernán Gómez súplica.</l>
             <l n="869" xml:id="l-869">No se puede sufrir que estos astrólogos</l>
             <l n="870" xml:id="l-870">en las cosas futuras, y ignorantes,</l>
             <l n="871" xml:id="l-871">nos quieran persuadir con largos prólogos</l>
-            <l n="872" xml:id="l-872">los secretos a Dios sólo importantes{225}.</l>
+            <l n="872" xml:id="l-872">los secretos a Dios sólo importantes.</l>
             <l n="873" xml:id="l-873">¡Bueno es que, presumiendo de teólogos,</l>
             <l n="874" xml:id="l-874">hagan un tiempo el que después y antes!</l>
             <l n="875" xml:id="l-875">Y pidiendo el presente lo importante,</l>
-            <l n="876" xml:id="l-876">al más sabio veréis más ignorante{226}.</l>
+            <l n="876" xml:id="l-876">al más sabio veréis más ignorante.</l>
             <l n="877" xml:id="l-877">¿Tienen ellos las nubes en su casa</l>
-            <l n="878" xml:id="l-878">y el proceder de las celestes lumbres{227}?</l>
+            <l n="878" xml:id="l-878">y el proceder de las celestes lumbres?</l>
             <l n="879" xml:id="l-879">¿Por dónde ven lo que en el cielo pasa,</l>
             <l n="880" xml:id="l-880">para darnos con ello pesadumbres?</l>
-            <l n="881" xml:id="l-881">Ellos en el sembrar nos ponen tasa{228}:</l>
-            <l n="882" xml:id="l-882">daca{229} el trigo, cebada y las legumbres,</l>
+            <l n="881" xml:id="l-881">Ellos en el sembrar nos <seg xml:id="seg-881-1">ponen tasa</seg>:</l>
+            <l n="882" xml:id="l-882"><seg xml:id="seg-882-1">daca</seg> el trigo, cebada y las legumbres,</l>
             <l n="883" xml:id="l-883">calabazas, pepinos y mostazas...</l>
-            <l n="884" xml:id="l-884">¡Ellos son, a la fe, las calabazas!</l>
+            <l n="884" xml:id="l-884">¡Ellos son, a la fe, las <seg xml:id="seg-884-1">calabazas</seg>!</l>
             <l n="885" xml:id="l-885">Luego cuentan que muere una cabeza,</l>
             <l n="886" xml:id="l-886">y después viene a ser en Trasilvania;</l>
             <l n="887" xml:id="l-887">que el vino será poco, y la cerveza</l>
             <l n="888" xml:id="l-888">sobrará por las partes de Alemania;</l>
             <l n="889" xml:id="l-889">que se helará en Gascuña la cereza,</l>
-            <l n="890" xml:id="l-890">y que habrá muchos tigres en Hircania{231}.</l>
+            <l n="890" xml:id="l-890">y que habrá muchos tigres en Hircania.</l>
             <l n="891" xml:id="l-891">Y al cabo al cabo, se siembre o no se siembre,</l>
             <l n="892" xml:id="l-892">el año se remata por diciembre.</l></sp>
           <!-- PASAJE 23
@@ -1959,8 +1959,8 @@
           <stage xml:id="stg-892">Salen el licenciado Leonelo y Barrildo</stage>
           <sp who="#leonelo" xml:id="sp-196">
             <speaker>LEONELO</speaker>
-            <l n="893" xml:id="l-893">A fe que no ganéis la palmatoria{232},</l>
-            <l n="894" xml:id="l-894">porque ya está ocupado el mentidero{233}.</l></sp>
+            <l n="893" xml:id="l-893">A fe que no ganéis la palmatoria,</l>
+            <l n="894" xml:id="l-894">porque ya está ocupado el <seg xml:id="seg-894-1">mentidero</seg>.</l></sp>
           <sp who="#barrildo" xml:id="sp-197">
             <speaker>BARRILDO</speaker>
             <l part="I" n="895" xml:id="l-895-a">¿Cómo os fue en Salamanca?</l></sp>
@@ -1969,10 +1969,10 @@
             <l part="F" xml:id="l-895-b">Es larga historia.</l></sp>
           <sp who="#barrildo" xml:id="sp-199">
             <speaker>BARRILDO</speaker>
-            <l part="I" n="896" xml:id="l-896-a">Un Bártulo seréis{234}.</l></sp>
+            <l part="I" n="896" xml:id="l-896-a">Un <seg xml:id="seg-896-1">Bártulo</seg> seréis.</l></sp>
           <sp who="#leonelo" xml:id="sp-200">
             <speaker>LEONELO</speaker>
-            <l part="F" xml:id="l-896-b">Ni aun un barbero.</l>
+            <l part="F" xml:id="l-896-b">Ni aun un <seg xml:id="seg-896-1">barbero</seg>.</l>
             <l n="897" xml:id="l-897">Es, como digo, cosa muy notoria</l>
             <l n="898" xml:id="l-898">en esta facultad lo que os refiero.</l></sp>
           <sp who="#barrildo" xml:id="sp-201">

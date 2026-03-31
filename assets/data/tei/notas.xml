@@ -2040,131 +2040,136 @@
 
 <!--NOTAS ACTO SEGUNDO-->
 <note
-  xml:id=""
-  target="#"
-  type="escenica"
-  n="1.0"> <!-- //DUDA ¿o dramática? -->
-  220 La acción se desarrolla ahora en la plaza de Fuenteovejuna. El Regidor Iº debe de ser el Cuadrado de los vv. 2114-2116.
+  xml:id="n-860Acot-1"
+  target="fo:stg-860"
+  type="dramaturgica"
+  n="1.0"> 
+  La acción se desarrolla ahora en la plaza de Fuenteovejuna. El Regidor Iº debe de ser el Cuadrado de los vv. 2114-2116.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-861-1"
+  target="fo:l-861 fo:l-862"
+  type="parafrasis"
+  subtype="realia"
   n="1.0">
-  221 Esto es, ‘Que yo conserve la salud, como así parece, si atino cuando aconsejo que no se saquee más el granero municipal (pósito)’, donde se almacenaba el grano para hacer frente a los períodos de escasez. La primera parte del enunciado, (Así tenga salud, como parece) es una fórmula enfática.
+  Esto es, ‘Que yo conserve la salud, como así parece, si atino cuando aconsejo que no se saquee más el granero municipal (pósito)’, donde se almacenaba el grano para hacer frente a los períodos de escasez. La primera parte del enunciado, (Así tenga salud, como parece) es una fórmula enfática.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-863-1"
+  target="fo:l-863"
+  type="parafrasis"
   n="1.0">
-  222 El año apunta mal o se prevén malas cosechas. No hay unanimidad acerca del significado del sintagma el tiempo crece, que se ha interpretado como ‘el día alarga’ (y por tanto se aproxima el tiempo de la siega), ‘la sequía aumenta’ o ‘el tiempo empeora’.
+  <term>El año apunta mal</term> o se prevén malas cosechas. No hay unanimidad acerca del significado del sintagma <term>el tiempo crece</term>, que se ha interpretado como ‘el día alarga’ (y por tanto se aproxima el tiempo de la siega), ‘la sequía aumenta’ o ‘el tiempo empeora’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-865-1"
+  target="fo:stg-865-1"
+  type="lexica"
   n="1.0">
-  223 más de trece: ‘muchos’.
+  <term>más de trece</term>: ‘muchos’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-867-1"
+  target="fo:seg-867-1"
+  type="lexica"
   n="1.0">
-  224 esta república: ‘este pueblo’.
+  <term>esta república</term>: ‘este pueblo’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-869-1"
+  target="fo:l-869 fo:l-870 fo:l-871 fo:l-872"
+  type="parafrasis"
+  subtype="realia"
   n="1.0">
-  225 Esteban manifiesta su desconfianza hacia los astrólogos que pretenden convencer con argumentos prolijos (largos prólogos) sobre aquello que es por definición ignorado (ignorantes) y cuyo conocimiento compete sólo a Dios. Como se verá en el v. 881 y ss., el motivo del comentario es la práctica, común en la época, de echar mano de pronósticos meteorológicos para tomar decisiones sobre la siembra.
+  Esteban manifiesta su desconfianza hacia los <term>astrólogos</term> que pretenden convencer con argumentos prolijos (<term>largos prólogos</term>) sobre aquello que es por definición ignorado (<term>ignorantes</term>) y cuyo conocimiento compete sólo a Dios. Como se verá en el v. 881 y ss., el motivo del comentario es la práctica, común en la época, de echar mano de pronósticos meteorológicos para tomar decisiones sobre la siembra.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-873-1"
+  target="fo:l-873 fo:l-874 fo:l-875 fo:l-876"
+  type="parafrasis"
   n="1.0">
-  226 Esteban enfatiza que es intolerable que los astrólogos se hagan los teólogos al identificar el pasado (después) y el futuro (antes), cuando ignoran las urgencias del presente.
+  Esteban enfatiza que es intolerable que los astrólogos se hagan los <term>teólogos</term> al identificar el pasado (<term>después</term>) y el futuro (<term>antes</term>), cuando ignoran las urgencias del presente.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-878-1"
+  target="fo:l-878"
+  type="parafrasis"
   n="1.0">
-  227 ‘y el designio de planetas y estrellas’.
+  ‘y el designio de planetas y estrellas’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-881-1"
+  target="fo:seg-881-1"
+  type="lexica"
   n="1.0">
-  228 ponen tasa: ‘ponen precio’, porque exigen parte de la cosecha como pago de los pronósticos.
+  <term>ponen tasa</term>: ‘ponen precio’, porque exigen parte de la cosecha como pago de los pronósticos.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-882-1"
+  target="fo:seg-882-1"
+  type="lexica"
   n="1.0">
-  229 daca: ‘da acá’.
+  <term>daca</term>: ‘da acá’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-884-1"
+  target="fo:seg-884-1"
+  type="estilistca"
   n="1.0">
-  230 calabazas: aquí ‘ignorantes’. Es juego de palabras con el verso anterior.
+  <term>calabazas</term>: aquí ‘ignorantes’. Es juego de palabras con el verso anterior.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-885-1"
+  target="fo:l-885 fo:l-886 fo:l-887 fo:l-888 fo:l-889 fo:l-890"
+  type="parafrasis"
+  subtype="realia"
   n="1.0">
-  231 Esteban remata su queja denunciando la impostura de los astrólogos. Si fallan, por ejemplo, al pronosticar la muerte de alguien importante (cabeza), se defienden diciendo que esta ha tenido lugar en Transilvania, lugar alejado y entonces muy conflictivo. Si, por el contrario, aciertan, a la postre los pronósticos no son más que lugares comunes, como la abundancia de cerveza en Alemania, los habituales problemas de la cosecha de cerezas en la provincia francesa de Gascuña, o la desde antiguo ponderadísima abundancia de tigres en Hircania, Asia Menor.
+  Esteban remata su queja denunciando la impostura de los astrólogos. Si fallan, por ejemplo, al pronosticar la muerte de alguien importante (<term>cabeza</term>), se defienden diciendo que esta ha tenido lugar en <term>Transilvania</term>, lugar alejado y entonces muy conflictivo. Si, por el contrario, aciertan, a la postre los pronósticos no son más que lugares comunes, como la abundancia de <term>cerveza</term> en Alemania, los habituales problemas de la cosecha de cerezas en la provincia francesa de <term>Gascuña</term>, o la desde antiguo ponderadísima abundancia de tigres en <term>Hircania</term>, Asia Menor.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-893"
+  target="fo:l-893"
+  type="parafrasis"
+  subtype="realia"
   n="1.0">
-  232 A fe que no ganéis la palmatoria, es decir, no sois el primero en llegar. En las escuelas, ganaba la palmatoria, palma con la que se aplicaban los castigos corporales, el muchacho que llegaba el primero a clase.
+  <term>A fe que no ganéis la palmatoria</term>, es decir, no sois el primero en llegar. En las escuelas, ganaba la palmatoria, palma con la que se aplicaban los castigos corporales, el muchacho que llegaba el primero a clase.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-894-1"
+  target="fo:seg-894-1"
+  type="lexica"
+  subtype="realia"
   n="1.0">
-  233 El mentidero era el lugar de la plaza donde la gente se reunía a charlar.
+  El <term>mentidero</term> era el lugar de la plaza donde la gente se reunía a charlar.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-896-1"
+  target="fo:seg-896-1"
+  type="realia"
   n="1.0">
-  234 Por el nombre de Bártulo se conocía a Bartolo de Sassoferrato, un importante jurisconsulto boloñés del siglo XIV, cuyas obras fueron usadas como libros de texto por estudiantes de leyes como Leonelo.
+  Por el nombre de <term>Bártulo</term> se conocía a Bartolo de Sassoferrato, un importante jurisconsulto boloñés del siglo XIV, cuyas obras fueron usadas como libros de texto por estudiantes de leyes como Leonelo.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-896-1"
+  target="fo:seg-896-1"
+  type="realia"
   n="1.0">
-  235 barbero: además de afeitar, los barberos trabajaban como practicantes y cirujanos.
+  <term>barbero</term>: además de afeitar, los barberos trabajaban como practicantes y cirujanos.
 </note>
 
 <note
