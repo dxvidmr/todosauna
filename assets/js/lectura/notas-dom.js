@@ -30,6 +30,23 @@ function escapeHtmlAttribute(value) {
     .replace(/>/g, '&gt;');
 }
 
+function normalizeAnaCategories(value) {
+  var source = Array.isArray(value)
+    ? value
+    : String(value == null ? '' : value).split(/\s+/);
+  var seen = Object.create(null);
+  var categories = [];
+
+  source.forEach(function (entry) {
+    var token = String(entry == null ? '' : entry).trim().replace(/^#/, '');
+    if (!token || seen[token]) return;
+    seen[token] = true;
+    categories.push(token);
+  });
+
+  return categories;
+}
+
 function buildNoteBadgeHTML(kind, value) {
   if (!value) return '';
 
@@ -434,11 +451,10 @@ function markWrapperEventsAttached(wrapper) {
   return true;
 }
 
-function buildNoteBadgesHTML(type, subtype) {
-  var html = '';
-  if (type) html += buildNoteBadgeHTML('type', type);
-  if (subtype) html += buildNoteBadgeHTML('subtype', subtype);
-  return html;
+function buildNoteBadgesHTML(ana) {
+  return normalizeAnaCategories(ana)
+    .map(function (category) { return buildNoteBadgeHTML('ana', category); })
+    .join('');
 }
 
 function buildNoteDisplayHTML(params) {
@@ -581,6 +597,7 @@ function applyNoteHighlights(container, notes, options) {
 if (typeof window !== 'undefined') {
   initNoteBadgeTooltip();
   window.TIPO_NOTA_MAP = TIPO_NOTA_MAP;
+  window.normalizeAnaCategories = normalizeAnaCategories;
   window.applyNoteHighlights = applyNoteHighlights;
   window.collectNoteTargetMeta = collectNoteTargetMeta;
   window.buildReadingOrderNoteIds = buildReadingOrderNoteIds;
@@ -596,7 +613,7 @@ if (typeof window !== 'undefined') {
 }
 
 export {
-  TIPO_NOTA_MAP, parseTargetString, sortNotesBySpecificity,
+  TIPO_NOTA_MAP, normalizeAnaCategories, parseTargetString, sortNotesBySpecificity,
   collectNoteTargetMeta, buildReadingOrderNoteIds, pickPrimaryNoteIdForClick,
   findElementByXmlId, resolveTargetElements,
   ensureNoteWrapper, addNoteGroup, markWrapperEventsAttached,

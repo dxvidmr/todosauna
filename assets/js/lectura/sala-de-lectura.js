@@ -639,8 +639,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         
         const badgesHTML = buildNoteBadgesHTML(
-            noteToShow.getAttribute('type'),
-            noteToShow.getAttribute('subtype')
+            noteToShow.getAttribute('ana')
         );
         
         // Actualizar estado de navegación

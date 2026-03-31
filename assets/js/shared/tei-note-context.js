@@ -1,3 +1,5 @@
+import { normalizeAnaCategories } from '../lectura/notas-dom.js';
+
 const XML_NS = 'http://www.w3.org/XML/1998/namespace';
 const xmlCache = new Map();
 const SINGLE_TARGET_LINE_RADIUS = 3;
@@ -414,8 +416,7 @@ function extractNotesFromXml(notesDoc, teiIndex, maxVerses) {
     notes.push({
       nota_id: noteId,
       texto_nota: text,
-      type: toText(noteNode.getAttribute('type')),
-      subtype: toText(noteNode.getAttribute('subtype')),
+      ana: normalizeAnaCategories(noteNode.getAttribute('ana')),
       target,
       context,
       version: '1.0',

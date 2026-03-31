@@ -477,7 +477,7 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
         setNoteRichText(this.noteText, note.texto_nota);
       }
       if (this.noteBadges) {
-        this.noteBadges.innerHTML = buildNoteBadgesHTML(note.type, note.subtype);
+        this.noteBadges.innerHTML = buildNoteBadgesHTML(note.ana);
         const hasBadges = this.noteBadges.innerHTML.trim() !== '';
         this.noteBadges.hidden = !hasBadges;
         if (this.noteBadgesMeta) {

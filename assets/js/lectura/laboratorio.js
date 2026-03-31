@@ -777,7 +777,7 @@ class EditorSocial {
     const pasajeId = this.pasajes[this.pasajeActualIndex]?.id;
     const yaEvaluada = this.notasEvaluadas.has(nota.nota_id);
 
-    const badgesHTML = buildNoteBadgesHTML(nota.type, nota.subtype);
+    const badgesHTML = buildNoteBadgesHTML(nota.ana);
 
     // Obtener estadisticas de evaluaciones
     const evaluaciones = typeof obtenerEvaluacionesStats === 'function'
