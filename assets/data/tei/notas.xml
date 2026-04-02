@@ -4223,51 +4223,51 @@
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1934-1"
+  target="fo:seg-1934-1"
+  ana="#lexica"
   n="1.0">
-  496 discreto: ‘de buen juicio, justo’.
+  <term>discreto</term>: ‘de buen juicio, justo’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1941-1"
+  target="fo:l-1941"
+  ana="#parafrasis"
   n="1.0">
-  497 El Rey considera que el enemigo reúne un ejército.
+  El Rey considera que el enemigo reúne un ejército.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1943-1"
+  target="fo:seg-1943-1"
+  ana="#lexica"
   n="1.0">
-  498 asistente: presente respaldando militarmente.
+  <term>asistente</term>: presente respaldando militarmente.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1946-1"
+  target="fo:l-1946 fo:l-1947"
+  ana="#parafrasis"
   n="1.0">
-  499 ‘Porque con esto evita el daño que tememos’.
+  ‘Porque con esto evita el daño que tememos’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1958-1"
+  target="fo:l-1958-aº"
+  ana="#lexica"
   n="1.0">
   500 repórtate: ‘cálmate’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1967-1"
+  target="fo:seg-1967-1"
+  ana="#lexica"
   n="1.0">
-  501 aleves: ‘traidores’.
+  501 <term>aleves</term>: ‘traidores’.
 </note>
 
 <note
