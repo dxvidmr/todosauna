@@ -4256,10 +4256,10 @@
 
 <note
   xml:id="n-1958-1"
-  target="fo:l-1958-aº"
+  target="fo:l-1958-a"
   ana="#lexica"
   n="1.0">
-  500 repórtate: ‘cálmate’.
+  <term>repórtate</term>: ‘cálmate’.
 </note>
 
 <note
@@ -4267,954 +4267,993 @@
   target="fo:seg-1967-1"
   ana="#lexica"
   n="1.0">
-  501 <term>aleves</term>: ‘traidores’.
+  <term>aleves</term>: ‘traidores’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1969-1"
+  target="fo:l-1969"
+  ana="#parafrasis"
   n="1.0">
-  502 ‘con poca justificación se revelan’.
+  ‘con poca justificación se revelan’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1971-1"
+  target="fo:seg-1971-1 fo:l-1971"
+  ana="#lexica #parafrasis"
   n="1.0">
-  503 acumula: ‘atribuye’. ‘Que le atribuye el pueblo’.
+  <term>acumula</term>: ‘atribuye’. ‘Que le atribuye el pueblo’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1980-1"
+  target="fo:seg-1980-1"
+  ana="#parafrasis"
   n="1.0">
-  504 Se refiere a la cruz bordada en el pecho del Comendador.
+  Se refiere a la cruz bordada en el pecho del Comendador.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1984-1"
+  target="fo:seg-1984-1"
+  ana="#lexica"
   n="1.0">
-  505 picas: ‘lanzas’.
+  <term>picas</term>: ‘lanzas’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1987-1"
+  target="fo:seg-1987-1"
+  ana="#lexica #parafrasis"
   n="1.0">
-  506 a porfía: ‘rivalizando’. Se indica que competían entre sí por injuriar al Comendador.
+  <term>a porfía</term>: ‘rivalizando’. Se indica que competían entre sí por injuriar al Comendador.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1988-1"
+  target="fo:seg-1988-1"
+  ana="#lexica #realia #intertextual"
   n="1.0">
-  507 mesa: ‘arranca’. Arrancar las barbas era considerado una grave deshonra. Este castigo remite a la Crónica de Rades, donde se menciona que al comendador Fernán Gómez ‘le arrancaron las barbas y cabellos con grande crueldad’.
+  <term>mesa</term>: ‘arranca’. Arrancar las barbas era considerado una grave deshonra. Este castigo remite a la Crónica de Rades, donde se menciona que al comendador Fernán Gómez ‘le arrancaron las barbas y cabellos con grande crueldad’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1990-1"
+  target="fo:l-1990 fo:l-1991 fo:l-1992"
+  ana="#dramaturgica"
   n="1.0">
-  508 Esto sugiere que han descuartizado al Comendador, de manera tal que son las orejas la parte más grande que ha quedado de su cuerpo.
+  Esto sugiere que han descuartizado al Comendador, de manera tal que son las orejas la parte más grande que ha quedado de su cuerpo.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-1994-1"
+  target="fo:seg-1994-1"
+  ana="#realia #dramaturgica"
   n="1.0">
   509 Las armas hacen referencia a los escudos y emblemas. El pueblo busca borrar las armas que pertenecían a Fernán Gómez y representaban su linaje (pues les ofenden, les avergüenzan), y colocar, en su lugar, las reales armas, es decir, las de los Reyes Católicos.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2009-1"
+  target="fo:l-2009"
+  ana="#parafrasis"
   n="1.0">
-  510 ‘Para que te informase’.
+  ‘Para que te informase’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2015-1"
+  target="fo:seg-2015-1"
+  ana="#lexica"
   n="1.0">
   511 rigor: ‘dureza’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2020-1"
+  target="fo:seg-2020-1"
+  ana="#lexica"
   n="1.0">
   512 luego: ‘inmediatamente’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2020-2"
+  target="fo:seg-2020-2"
+  ana="#realia"
   n="1.0">
-  513 Se trata de un ‘juez pesquisidor’, el que era enviado a investigar sobre algún delito o reo.
+  Se trata de un ‘juez pesquisidor’, el que era enviado a investigar sobre algún delito o reo.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2029-1"
+  target="fo:seg-2029-1"
+  ana="#escenica"
   n="1.0">
-  514 Normalmente este tipo de cabezas se hacían con cera o cartón.
+  Normalmente este tipo de cabezas se hacían con cera o cartón.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2029-2"
+  target="fo:stg-2029"
+  ana="#dramaturgica"
   n="1.0">
-  515 La acción, de nuevo, transcurre en la plaza de Fuenteovejuna.
+  La acción, de nuevo, transcurre en la plaza de Fuenteovejuna.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2035-1"
+  target="fo:seg-2035-1"
+  ana="#lexica"
   n="1.0">
-  516 pie: El término puede significar tanto ‘sílaba’ como ‘verso’. Curiosamente, la copla presenta alguna irregularidad, como la rima imperfecta entre los términos manos, años y tiranos. Además, a la copla de Frondoso no le falta, sino que le sobra un verso en comparación con las que a continuación cantan Barrildo y Mengo.
+  <term>pie</term>: El término puede significar tanto ‘sílaba’ como ‘verso’. Curiosamente, la copla presenta alguna irregularidad, como la rima imperfecta entre los términos manos, años y tiranos. Además, a la copla de Frondoso no le falta, sino que le sobra un verso en comparación con las que a continuación cantan Barrildo y Mengo.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2037-1"
+  target="fo:l-2037 fo:l-2038 fo:l-2039 fo:l-2040 fo:l-2041 fo:l-2042 fo:l-2043 fo:l-2044"
+  ana="#ectdotica #estilistica"
   n="1.0">
-  517 curioso: ‘esmerado, cuidadoso’.
+  Curiosamente, la copla presenta alguna irregularidad, como la rima imperfecta entre los términos manos, años y tiranos. Además, a la copla de Frondoso no le falta, sino que le sobra un verso en comparación con las que a continuación cantan Barrildo y Mengo.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2036-1"
+  target="fo:seg-2036-1"
+  ana="#lexica"
   n="1.0">
-  518 Se trata de una expresión típica de las canciones de boda (véase v. 738). En esta ocasión se alude a la unión política de los Reyes Católicos.
+  <seg>curioso</seg>: ‘esmerado, cuidadoso’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2039-1"
+  target="fo:seg-2039-1"
+  ana="#lexica #intertextual"
   n="1.0">
-  519 El arcángel san Miguel es el encargado de decidir qué almas serán llevadas ante Dios.
+  Se trata de una expresión típica de las canciones de boda (véase v. 738). En esta ocasión se alude a la unión política de los Reyes Católicos.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2041-1"
+  target="fo:seg-2041-1"
+  ana="#mitologica"
   n="1.0">
-  520 famosos: ‘ilustres’.
+  El arcángel san Miguel es el encargado de decidir qué almas serán llevadas ante Dios.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2049-1"
+  target="fo:seg-2049-1"
+  ana="#lexica"
   n="1.0">
-  521 Gigantes y enanos aparecían habitualmente en los populares libros de caballerías encarnando la maldad.
+  <term>famosos</term>: ‘ilustres’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2054-1"
+  target="fo:l-2054"
+  ana="#intertextual"
   n="1.0">
-  522 poeta donado: ‘aficionado, no profesional’. En rigor el donado o ‘lego’ entraba en una orden o congregación religiosa, sin opción a las sagradas órdenes, para dedicarse al servicio de la misma.
+  <term>Gigantes</term> y <term>enanos</term> aparecían habitualmente en los populares libros de caballerías encarnando la maldad.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2060-1"
+  target="fo:seg-2060-1"
+  ana="#lexica #realia"
   n="1.0">
-  523 Eufemismo con el que se refiere a sus nalgas, donde recibió los latigazos que le dieron los hombres del Comendador. Lo que opina Pascuala es que Mengo debería considerarse más propiamente un ‘poeta azotado en las nalgas’ que un ‘poeta aficionado’.
+  <term>poeta donado</term>: ‘aficionado, no profesional’. En rigor el donado o ‘lego’ entraba en una orden o congregación religiosa, sin opción a las sagradas órdenes, para dedicarse al servicio de la misma.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2062-1"
+  target="fo:l-2062"
+  ana="#estilistica #parafrasis #dramaturgica"
   n="1.0">
-  524 aquél: ‘el Comendador’. Mengo, al decir estos versos, señalaría la cabeza del Comendador que portaban en una lanza.
+  Eufemismo con el que se refiere a sus nalgas, donde recibió los latigazos que le dieron los hombres del Comendador. Lo que opina Pascuala es que Mengo debería considerarse más propiamente un ‘poeta azotado en las nalgas’ que un ‘poeta aficionado’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2064-1"
+  target="fo:seg-2064-1"
+  ana="#escenica"
   n="1.0">
-  525 rabel: metáfora con la que se designa, una vez más, a las nalgas que, probablemente, se equipararían con el dorso abombado y abultado de algunas variedades de estos instrumentos.
+  <term>aquél</term>: ‘el Comendador’. Mengo, al decir estos versos, señalaría la cabeza del Comendador que portaban en una lanza.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2065-1"
+  target="fo:seg-2065-1"
+  ana="#"
   n="1.0">
-  526 Verso cuyo significado no queda claro. Podría entenderse en el sentido más recto de curar las heridas causadas por los azotes recibidos con untos o grasas. Sin embargo, y siempre teniendo presente ese castigo, podría estar indicando metafóricamente que ya está listo para probar el buen gobierno de los Reyes Católicos, pues el pringar era antes que el asar y el comer. Por último, podría también referirse a su situación actual, donde él da los azotes y no los recibe.
+  <term>rabel</term>: metáfora con la que se designa, una vez más, a las nalgas que, probablemente, se equipararían con el dorso abombado y abultado de algunas variedades de estos instrumentos.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2067-1"
+  target="fo:l-2067"
+  ana="#parafrasis #estilistica #dramaturgica"
   n="1.0">
-  527 Cristiánigos: tanto esta palabra como el tiránigos del verso siguiente son términos deformados en boca de Mengo que forman dos versos esdrújulos para cerrar la copla de forma cómica.
+  Verso cuyo significado no queda claro. Podría entenderse en el sentido más recto de curar las heridas causadas por los azotes recibidos con untos o grasas. Sin embargo, y siempre teniendo presente ese castigo, podría estar indicando metafóricamente que ya está listo para probar el buen gobierno de los Reyes Católicos, pues el pringar era antes que el asar y el comer. Por último, podría también referirse a su situación actual, donde él da los azotes y no los recibe.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2068-1"
+  target="fo:seg-2068-1"
+  ana="#estilistica #dramaturgica"
   n="1.0">
-  528 Una vez más, se hace referencia a la cabeza del Comendador.
+  <term>Cristiánigos</term>: tanto esta palabra como el tiránigos del verso siguiente son términos deformados en boca de Mengo que forman dos versos esdrújulos para cerrar la copla de forma cómica.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2071-1"
+  target="fo:l-2071"
+  ana="#escenica"
   n="1.0">
-  529 Es decir, de malhechor, pues la pena de muerte por ahorcamiento se aplicaba a los villanos, mientras que los nobles eran decapitados.
+  Una vez más, se hace referencia a la cabeza del Comendador.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2072-1"
+  target="fo:l-2072"
+  ana="#realia"
   n="1.0">
-  530 las armas: hay que entender ‘armas reales’. Juan Rojo saca el escudo de los Reyes Católicos para manifestar la decisión del pueblo de dejar de estar sujeto a la encomienda de la Orden de Calatrava y supeditarse estrictamente al poder real.
+  Es decir, de malhechor, pues la pena de muerte por ahorcamiento se aplicaba a los villanos, mientras que los nobles eran decapitados.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2072Acot-1"
+  target="fo:seg-2072Acot-1"
+  ana="#"
   n="1.0">
-  531 las barras de Aragón: el matrimonio de Isabel de Castilla y Fernando de Aragón trajo consigo la unión política de ambos reinos. El escudo de este último, todavía en uso, está formado por cuatro palos o barras de color rojo sobre fondo de oro.
+  <term>las armas</term>: hay que entender ‘armas reales’. Juan Rojo saca el escudo de los Reyes Católicos para manifestar la decisión del pueblo de dejar de estar sujeto a la encomienda de la Orden de Calatrava y supeditarse estrictamente al poder real.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2081-1"
+  target="fo:seg-2081-1"
+  ana="#historica"
   n="1.0">
-  532 Advertid: ‘prestad atención’.
+  <term>las barras de Aragón</term>: el matrimonio de Isabel de Castilla y Fernando de Aragón trajo consigo la unión política de ambos reinos. El escudo de este último, todavía en uso, está formado por cuatro palos o barras de color rojo sobre fondo de oro.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2083-1"
+  target="fo:seg-2083-1"
+  ana="#lexica"
   n="1.0">
-  533 ‘y más teniendo en cuenta que van a pasar cerca de aquí en su viaje’. Al estar próximos a Fuenteovejuna era lógico pensar que quisieran intervenir en el caso del asesinato del Comendador.
+  <term>Advertid</term>: ‘prestad atención’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2089-1"
+  target="fo:l-2089 fo:l-2090"
+  ana="#parafrasis"
   n="1.0">
-  534 a una: ‘juntamente’.
+  ‘y más teniendo en cuenta que van a pasar cerca de aquí en su viaje’. Al estar próximos a Fuenteovejuna era lógico pensar que quisieran intervenir en el caso del asesinato del Comendador.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2091-1"
+  target="fo:seg-2091-1"
+  ana="#lexica"
   n="1.0">
-  535 Qué: ‘Cuál’.
+  <term>a una</term>: ‘juntamente’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2093-1"
+  target="fo:seg-2093-1"
+  ana="#lexica"
   n="1.0">
-  536 ‘Es la forma correcta de actuar’.
+  <term>Qué</term>: ‘Cuál’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2096-1"
+  target="fo:l-2096"
+  ana="#parafrasis"
   n="1.0">
-  537 La alternancia entre el uso de Ahora y agora se debe a cuestiones métricas, ya que mientras el primero debe contarse como bisílabo no permite realizar una sinéresis, el segundo es trisílabo.
+  ‘Es la forma correcta de actuar’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2099-1"
+  target="fo:seg-2099-1 fo:seg-2100-1"
+  ana="#ecdotica"
   n="1.0">
-  538 habemos: ‘hemos’. Era forma habitual en el Siglo de Oro.
+  537 La alternancia entre el uso de <term>Ahora</term> y <term>agora</term> se debe a cuestiones métricas, ya que mientras el primero debe contarse como bisílabo no permite realizar una sinéresis, el segundo es trisílabo.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2102-1"
+  target="fo:seg-2102-1"
+  ana="#lexica"
   n="1.0">
-  539 Esteban, para preparar la coartada, quiere simular un interrogatorio actuando él como si fuera el juez y Mengo el detenido. Los interrogatorios en este tipo de procesos conllevaban el uso de la tortura contra el reo, que a veces terminaba confesando delitos que no había cometido para librarse del sufrimiento provocado.
+  <term>habemos</term>: ‘hemos’. Era forma habitual en el Siglo de Oro.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2099-1"
+  target="fo:l-2099-b fo:l-2100 l-2101 fo:l-2102 fo:l-2103 fo:l-2104-a"
+  ana="#parafrasis #realia"
   n="1.0">
-  540 Juego con el doble sentido de la palabra flaco. Por una parte, se opone al aspecto físico de Mengo que, como veremos en los vv. 2239-2240, es gordo y, por otra, ha de entenderse en su significado de ‘débil, cobarde’.
+  Esteban, para preparar la coartada, quiere simular un interrogatorio actuando él como si fuera el juez y Mengo el detenido. Los interrogatorios en este tipo de procesos conllevaban el uso de la tortura contra el reo, que a veces terminaba confesando delitos que no había cometido para librarse del sufrimiento provocado.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2104-1"
+  target="fo:l-2104-b fo:l-2105-a"
+  ana="#estilistica #dramaturgica"
   n="1.0">
-  541 otra vuelta: la tortura se llevaba a cabo en el denominado potro. En este instrumento formado por un bastidor o una banqueta el preso era atado por todo el cuerpo, incluyendo las extremidades, con fuertes cuerdas que al ser giradas por unos tornos producían opresión en el cuerpo y la dislocación de las extremidades.
+  Juego con el doble sentido de la palabra <term>flaco</term>. Por una parte, se opone al aspecto físico de Mengo que, como veremos en los vv. 2239-2240, es gordo y, por otra, ha de entenderse en su significado de ‘débil, cobarde’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2113-1"
+  target="fo:seg-2113-1"
+  ana="#realia"
   n="1.0">
-  542 Es ninguna: ‘No me hace ningún efecto’.
+  <term>otra vuelta</term>: la tortura se llevaba a cabo en el denominado potro. En este instrumento formado por un bastidor o una banqueta el preso era atado por todo el cuerpo, incluyendo las extremidades, con fuertes cuerdas que al ser giradas por unos tornos producían opresión en el cuerpo y la dislocación de las extremidades.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2113-2"
+  target="fo:l-2113-b"
+  ana="#parafrasis"
   n="1.0">
-  543 ‘¡A la mierda el proceso criminal!’. Cagajón: es el estiércol de caballos, burros y otros animales.
+  <term>Es ninguna</term>: ‘No me hace ningún efecto’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2114-1"
+  target="fo:l-2114"
+  ana="#parafrasis #lexica"
   n="1.0">
-  544 El Regidor estaba ya en escena. Quizás saliera tras su intervención del v. 2076 y Lope no lo señalara por descuido.
+  543 ‘¡A la mierda el proceso criminal!’. <term>Cagajón</term>: es el estiércol de caballos, burros y otros animales.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2114Acot-1"
+  target="fo:stg-2114"
+  ana="#dramaturgica"
   n="1.0">
-  545 ‘Están deteniendo a todos los habitantes del pueblo’.
+  El Regidor estaba ya en escena. Quizás saliera tras su intervención del v. 2076 y Lope no lo señalara por descuido.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2122-1"
+  target="fo:l-2122"
+  ana="#parafrasis"
   n="1.0">
-  546 La acción ahora transcurre en una sala del castillo de la Orden de Calatrava.
+  ‘Están deteniendo a todos los habitantes del pueblo’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2126-1"
+  target="fo:seg-2126-1"
+  ana="#dramaturgica"
   n="1.0">
-  547 ‘¡Que eso haya sucedido!’.
+  La acción ahora transcurre en una sala del castillo de la Orden de Calatrava.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2127-1"
+  target="fo:l-2127"
+  ana="#parafrasis"
   n="1.0">
-  548 Evocación del recurso literario del asesinato del portador de malas noticias.
+  ‘¡Que eso haya sucedido!’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2129-1"
+  target="fo:l-2129 fo:l-2130"
+  ana="#intertextual"
   n="1.0">
-  549 intento: ‘intención’.
+  Evocación del recurso literario del asesinato del portador de malas noticias.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2132-1"
+  target="fo:seg-2132-1"
+  ana="#lexica"
   n="1.0">
-  550 ‘se han declarado súbditos del Rey’.
+  <term>intento</term>: ‘intención’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2140-1"
+  target="fo:l-2140"
+  ana="#parafrasis"
   n="1.0">
-  551 Versos de interpretación dudosa. Es muy probable que el Maestre se esté preguntando en qué momento se ha hecho pleito sobre lo que el Rey ha puesto en manos de la encomienda.
+  ‘se han declarado súbditos del Rey’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2147-1"
+  target="fo:l-2147 fo:l-2148"
+  ana="#parafrasis"
   n="1.0">
-  552 La escena vuelve a Fuenteovejuna.
+  Versos de interpretación dudosa. Es muy probable que el Maestre se esté preguntando en qué momento se ha hecho pleito sobre lo que el Rey ha puesto en manos de la encomienda.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2162Acot-1"
+  target="fo:seg-2162Acot-1"
+  ana="#dramaturgica"
   n="1.0">
-  553 recelar: ‘temer’.
+  La escena vuelve a Fuenteovejuna.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2163-1"
+  target="fo:seg-2163-1"
+  ana="#lexica"
   n="1.0">
-  554 ‘es una gran pena comprobar cómo el temor puede arrebatarle a una el ser amado’.
+  <term>recelar</term>: ‘temer’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2167-1"
+  target="fo:l-2167 fo:l-2168 fo:l-2169 fo:l-2170"
+  ana="#parafrasis"
   n="1.0">
-  555 esposo: ‘prometido, amado’.
+  ‘es una gran pena comprobar cómo el temor puede arrebatarle a una el ser amado’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2171-1"
+  target="fo:seg-2171-1"
+  ana="#lexica"
   n="1.0">
-  556 ‘El peligro que presiento me hace temer el daño de mi prometido’.
+  <term>esposo</term>: ‘prometido, amado’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2171-2"
+  target="fo:seg-2171-2 fo:l-2172"
+  ana="#parafrasis"
   n="1.0">
-  557 La idea de que la separación del ser amado produce una muerte metafórica es un tópico proveniente del amor cortés.
+  ‘El peligro que presiento me hace temer el daño de mi prometido’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2176-1"
+  target="fo:l-2176"
+  ana="#intertextual"
   n="1.0">
-  558 ‘que sufrirán los demás’.
+  La idea de que la separación del ser amado produce una muerte metafórica es un tópico proveniente del amor cortés.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2186-1"
+  target="fo:l-2186"
+  ana="#parafrasis"
   n="1.0">
-  559 puesto en razón: ‘razonable’.
+  ‘que sufrirán los demás’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2197-1"
+  target="fo:seg-2197-1"
+  ana="#lexica"
   n="1.0">
-  560 ‘que me porte con los míos como si me fueran ajenos, como si no los conociera’.
+  <term>puesto en razón</term>: ‘razonable’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2198-1"
+  target="fo:l-2198 fo:l-2199 fo:l-2200"
+  ana="#parafrasis"
   n="1.0">
-  561 La escena se presenta en un doble plano, situándose dentro los hechos más violentos de tortura, y sobre el escenario Laurencia y Frondoso que comentan lo que el público oye pero no ve. Lo mismo sucedió en la escena del asesinato del Comendador (vv. 1896-1900).
+  ‘que me porte con los míos como si me fueran ajenos, como si no los conociera’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2204Acot-1"
+  target="fo:stg-2204"
+  ana="#escenica #dramaturgica"
   n="1.0">
-  562 buen viejo: hay que entender la expresión con un valor despectivo.
+  La escena se presenta en un doble plano, situándose dentro los hechos más violentos de tortura, y sobre el escenario Laurencia y Frondoso que comentan lo que el público oye pero no ve. Lo mismo sucedió en la escena del asesinato del Comendador (vv. 1896-1900).
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2205-1"
+  target="fo:seg-2205-1"
+  ana="#estilistica"
   n="1.0">
-  563 El Juez se dirige al verdugo que está encargado de realizar la tortura para que gire el torno del potro. Más adelante le llamará borracho e infame porque, aunque la profesión de verdugo era necesaria, se consideraba despreciable.
+  <term>buen viejo</term>: hay que entender la expresión con un valor despectivo.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2216-1"
+  target="fo:seg-2216-1"
+  ana="#parafrasis #realia"
   n="1.0">
-  564 ‘atadla al potro’.
+  El Juez se dirige al verdugo que está encargado de realizar la tortura para que gire el torno del potro. Más adelante le llamará borracho e infame porque, aunque la profesión de verdugo era necesaria, se consideraba despreciable.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2225-1"
+  target="fo:l-2225"
+  ana="#parafrasis"
   n="1.0">
-  565 luego: ‘ya, inmediatamente’. Dar mancuerda: mientras el torturado estaba inmovilizado en el potro, el verdugo hacía girar unos tornos que apretaban las ligaduras que el prisionero tenía atadas alrededor de su cuerpo y le estiraban sus miembros en sentido opuesto.
+  ‘atadla al potro’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2226-1"
+  target="fo:seg-2226-1"
+  ana="#realia"
   n="1.0">
-  566 espantas: ‘admiras’.
+  <term>Dar mancuerda</term>: mientras el torturado estaba inmovilizado en el potro, el verdugo hacía girar unos tornos que apretaban las ligaduras que el prisionero tenía atadas alrededor de su cuerpo y le estiraban sus miembros en sentido opuesto.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2226-2"
+  target="fo:seg-2226-2"
+  ana="#lexica"
   n="1.0">
-  567 encantas: ‘deleitas, embelesas’. Una vez más, el Juez se dirige al verdugo y muestra su extrañeza ante la falta de exteriorización de dolor por parte de los torturados.
+  <term>luego</term>: ‘ya, inmediatamente’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2234-1"
+  target="fo:seg-2234-1"
+  ana="#lexica"
   n="1.0">
-  568 desnudo: ‘en paños menores, mal vestido’.
+  <term>espantas</term>: ‘admiras’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2235-1"
+  target="fo:seg-2235-1"
+  ana="#lexica #dramaturgica"
   n="1.0">
-  569 El Juez ordena a su ayudante que haga girar el torno para dislocar los hombros de Mengo.
+  <term>encantas</term>: ‘deleitas, embelesas’. Una vez más, el Juez se dirige al verdugo y muestra su extrañeza ante la falta de exteriorización de dolor por parte de los torturados.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2240-1"
+  target="fo:seg-2240-1"
+  ana="#lexica"
   n="1.0">
-  570 Quedo: ‘Quieto’. Mengo se dirige al verdugo para que pare el tormento pues supuestamente se ha decidido a confesar.
+  <term>desnudo</term>: ‘en paños menores, mal vestido’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2243-1"
+  target="fo:l-2243-b"
+  ana="#escenica #dramaturgica"
   n="1.0">
-  571 ‘Tu poco miedo me ha quitado el que yo tenía por dos personas’. No queda claro si esas dos personas son él y Laurencia o las que acaban de ser torturadas.
+  El Juez ordena a su ayudante que haga girar el torno para dislocar los hombros de Mengo.
 </note>
+<note
+  xml:id="n-2250-1"
+  target="fo:seg-2250-b"
+  ana="#lexica"
+  n="1.0">
+  <term>Quedo</term>: ‘quieto’.
+</note>
+
+<note
+  xml:id="n-2250-2"
+  target="fo:l-2250-b fo:l-2251-a"
+  ana="#dramaturgica"
+  n="1.0">
+  Mengo se dirige al verdugo para que pare el tormento pues supuestamente se ha decidido a confesar.
+</note>
+
+<note
+  xml:id="n-2259-1"
+  target="fo:l-2259 fo:l-2260"
+  ana="#parafrasis"
+  n="1.0">
+  ‘Tu poco miedo me ha quitado el que yo tenía por dos personas’. No queda claro si esas dos personas son él y Laurencia o las que acaban de ser torturadas.
+</note>
+
+<note
+  xml:id="n-2261-1"
+  target="fo:seg-2261-1"
+  ana="#lexica"
+  n="1.0">
+  <term>Vítor</term>: interjección de alegría.
+</note>
+
+<note
+  xml:id="n-2264-1"
+  target="fo:l-2264-c"
+  ana="#realia"
+  n="1.0">
+  <term>Diacitrón</term>: confitura muy apreciada en la época hecha a partir de un fruto muy similar al limón llamado cidra.
+</note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2267-1"
+  target="fo:seg-2267-1"
+  ana="#parafrasis"
   n="1.0">
-  572 Vítor: interjección de alegría.
+  ‘Bebe el vino en abundancia’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2267-2"
+  target="fo:seg-2267-1"
+  ana="#intertextual"
   n="1.0">
-  573 Diacitrón: confitura muy apreciada en la época hecha a partir de un fruto muy similar al limón llamado cidra.
+  Refrán inventado sobre el modelo habitual «El que...» o «Quien...».
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2274-1"
+  target="fo:l-2274"
+  ana="#parafrasis"
   n="1.0">
-  574 ‘Bebe el vino en abundancia’.
+  Esto es, ‘Bebe una vez por cada vuelta que le aplicaron en el potro’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2275-1"
+  target="fo:seg-2275-1"
+  ana="#lexica #estilistica"
   n="1.0">
-  575 Refrán inventado sobre el modelo habitual «El que...» o «Quien...».
+  <term>Arrópale</term>: juego de palabras en el sentido ‘Échale arrope, sírvele vino’, por un lado, y ‘Abrígale’, por otro.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2277-1"
+  target="fo:l-2277-a fo:l-2277-b"
+  ana="#estilistica"
   n="1.0">
-  576 Esto es, ‘Bebe una vez por cada vuelta que le aplicaron en el potro’.
+  Nuevo juego de palabras, en esta ocasión entre la interjección de dolor y la forma del verbo <hi rend="italic">haber</hi>.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2280-1"
+  target="fo:l-2280-a"
+  ana="#escenica"
   n="1.0">
-  577 Arrópale: juego de palabras en el sentido ‘Échale arrope, sírvele vino’, por un lado, y ‘Abrígale’, por otro.
+  Se refiere al vino. Barrildo hace la pregunta al ver los gestos que hace Mengo al beber.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2280-2"
+  target="fo:l-2280-b"
+  ana="#parafrasis"
   n="1.0">
-  578 Nuevo juego de palabras, en esta ocasión entre la interjección de dolor y la forma del verbo haber.
+  ‘Un ligero sabor agrio o avinagrado’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2281-1"
+  target="fo:seg-2281-1"
+  ana="#lexica #dramaturgica"
   n="1.0">
-  579 Se refiere al vino. Barrildo hace la pregunta al ver los gestos que hace Mengo al beber.
+  <term>me arromadizo</term>: ‘me resfrío, me acatarro’. Mengo sigue la broma que había hecho Frondoso en su intervención del <ref target="fo:l-2275">v. 2275</ref>.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2292Acot-1"
+  target="fo:seg-2292Acot-1"
+  ana="#dramaturgica"
   n="1.0">
-  580 ‘Un ligero sabor agrio o avinagrado’.
+  La escena tiene lugar en el Palacio Real.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2293-1"
+  target="fo:seg-2293-1"
+  ana="#lexica"
   n="1.0">
-  581 me arromadizo: ‘me resfrío, me acatarro’. Mengo sigue la broma que había hecho Frondoso en su intervención del v. 2275.
+  <term>entendí</term>: ‘pensé’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2295-1"
+  target="fo:seg-2295-1"
+  ana="#lexica"
   n="1.0">
-  582 La escena tiene lugar en el Palacio Real.
+  <term>gloria</term>: ‘gozo’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2299-1"
+  target="fo:seg-2299-1"
+  ana="#lexica"
   n="1.0">
-  583 entendí: ‘pensé’.
+  <term>le tuerza</term>: ‘lo tuerza’, el paso.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2302-1"
+  target="fo:l-2302"
+  ana="#historica"
   n="1.0">
-  584 gloria: ‘gozo’.
+  Realmente, los Reyes Católicos no lograron la pacificación de Castilla hasta 1477, un año después.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2310-1"
+  target="fo:l-2310"
+  ana="#parafrasis"
   n="1.0">
-  585 le tuerza: ‘lo tuerza’, el paso.
+  ‘Mi palabra, señora, os doy’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2313-1"
+  target="fo:l-2313 fo:l-2314 fo:l-2315 fo:l-2316"
+  ana="#historica #dramaturgica"
   n="1.0">
-  586 Realmente, los Reyes Católicos no lograron la pacificación de Castilla hasta 1477, un año después.
+  Para dar mayor cohesión dramática a la obra, Lope altera la cronología histórica, puesto que realmente don Rodrigo, según la <hi rend="italic">Crónica de Rades</hi>, se reconcilió con los Reyes Católicos varios años después.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2321-1"
+  target="fo:seg-2321-1"
+  ana="#parafrasis"
   n="1.0">
-  587 ‘Mi palabra, señora, os doy’.
+  <term>Fernando</term>: ‘Fernán Gómez’, el Comendador.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2323-1"
+  target="fo:seg-2323-1"
+  ana="#lexica #estilistica"
   n="1.0">
-  588 Para dar mayor cohesión dramática a la obra, Lope altera la cronología histórica, puesto que realmente don Rodrigo, según la Crónica de Rades, se reconcilió con los Reyes Católicos varios años después.
+  <term>injusto fiel</term>: parece referirse a que la ambición hizo que el <term>fiel</term> (aguja de la balanza que indica el peso) se desequilibrase en la balanza de la conducta.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2324-1"
+  target="fo:seg-2324-1"
+  ana="#lexica"
   n="1.0">
-  589 Fernando: ‘Fernán Gómez’, el Comendador.
+  <term>demando</term>: ‘pido’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2327-1"
+  target="fo:seg-2327-1"
+  ana="#lexica"
   n="1.0">
-  590 injusto fiel: parece referirse a que la ambición hizo que el fiel (aguja de la balanza que indica el peso) se desequilibrase en la balanza de la conducta.
+  <term>me certifico</term>: ‘os aseguro, declaro formalmente’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2330-1"
+  target="fo:l-2330"
+  ana="#parafrasis"
   n="1.0">
-  591 demando: ‘pido’.
+  El Maestre murió en 1482, sirviendo a los Reyes Católicos en la Guerra de Granada.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2333-1"
+  target="fo:seg-2333-1"
+  ana="#parafrasis"
   n="1.0">
-  592 me certifico: ‘os aseguro, declaro formalmente’.
+  <term>sacándola apenas</term>: ‘nada más la haya sacado’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2337-1"
+  target="fo:seg-2337-1 fo:seg-2340-1"
+  ana="#estilistica"
   n="1.0">
-  593 sacándola apenas: ‘nada más la haya sacado’.
+  Nótese que <term>disgustaros</term> es un caso de rima imperfecta con <term>soldados</term>.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2339-1"
+  target="fo:l-2339 fo:l-2340"
+  ana="#parafrasis"
   n="1.0">
-  594 Es decir, ‘con el compromiso y la esperanza de no disgustaros nunca’. Nótese que disgustaros es un caso de rima imperfecta con soldados. El Maestre murió en 1482, sirviendo a los Reyes Católicos en la Guerra de Granada.
+  Es decir, ‘con el compromiso y la esperanza de no disgustaros nunca’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2345-1"
+  target="fo:seg-2345-1"
+  ana="#lexica"
   n="1.0">
-  595 peregrino: ‘especial, fuera de lo común’.
+  <term>peregrino</term>: ‘especial, fuera de lo común’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2347-1"
+  target="fo:l-2347 fo:l-2348"
+  ana="#mitologica"
   n="1.0">
-  596 El Maestre compara a los Reyes Católicos con estos dos personajes bíblicos. Jerjes I fue rey de Persia en el siglo V a. C. y un célebre guerrero, y su esposa Ester salvó al pueblo judío de la persecución del visir Amán.
+  El Maestre compara a los Reyes Católicos con estos dos personajes bíblicos. Jerjes I fue rey de Persia en el siglo V a. C. y un célebre guerrero, y su esposa Ester salvó al pueblo judío de la persecución del visir Amán.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2351-1"
+  target="fo:seg-2351-1"
+  ana="#lexica"
   n="1.0">
-  597 despacho: ‘encargo’.
+  <term>despacho</term>: ‘encargo’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2354-1"
+  target="fo:l-2354 fo:l-2355 fo:l-2356"
+  ana="#estilistica"
   n="1.0">
-  598 Estas palabras del Maestre deben entenderse en clave irónica.
+  Estas palabras del Maestre deben entenderse en clave irónica.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2362-1"
+  target="fo:seg-2362-1"
+  ana="#lexica"
   n="1.0">
-  599 suerte: ‘forma’.
+  <term>suerte</term>: ‘forma’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2364-1"
+  target="fo:seg-2364-1"
+  ana="#lexica"
   n="1.0">
-  600 asistí: ‘cumplí con mi cometido’.
+  <term>asistí</term>: ‘cumplí con mi cometido’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2371-1"
+  target="fo:seg-2371-1"
+  ana="#lexica"
   n="1.0">
-  601 en pidiendo: ‘cuando se les pregunta’.
+  <term>en pidiendo</term>: ‘cuando se les pregunta’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2379-1"
+  target="fo:seg-2379-1"
+  ana="#lexica"
   n="1.0">
-  602 inquirido: ‘averiguado’.
+  <term>inquirido</term>: ‘averiguado’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2386-1"
+  target="fo:seg-2386-1"
+  ana="#lexica"
   n="1.0">
-  603 certificarte: ‘confirmarte que es cierto’.
+  <term>certificarte</term>: ‘confirmarte que es cierto’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2388-1"
+  target="fo:seg-2388-1"
+  ana="#lexica"
   n="1.0">
-  604 les di: ‘diles’.
+  <term>les di</term>: ‘diles’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2404-1"
+  target="fo:l-2404"
+  ana="#parafrasis"
   n="1.0">
-  605 siendo de piedad extraño: ‘no teniendo compasión’.
+  <term>siendo de piedad extraño</term>: ‘no teniendo compasión’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2415-1"
+  target="fo:l-2413 fo:l-2414 fo:l-2415 fo:l-2416"
+  ana="#dramaturgica #parafrasis"
   n="1.0">
-  606 Frondoso sostiene que Laurencia logró evitar la violación del Comendador y sus criados, aunque resulta inverosímil que ella sola pudiese hacer frente al asalto de varios hombres. Probablemente, Frondoso mienta porque continúa considerando a su esposa tan pura moral y espiritualmente como antes de sufrir el agravio, puesto que la joven siempre se había resistido a cualquier proposición deshonesta.
+  Frondoso sostiene que Laurencia logró evitar la violación del Comendador y sus criados, aunque resulta inverosímil que ella sola pudiese hacer frente al asalto de varios hombres. Probablemente, Frondoso mienta porque continúa considerando a su esposa tan pura moral y espiritualmente como antes de sufrir el agravio, puesto que la joven siempre se había resistido a cualquier proposición deshonesta.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2425-1"
+  target="fo:seg-2425-1"
+  ana="#historica"
   n="1.0">
-  607 El emperador romano Nerón (siglo I d. C.), como paradigma de hombre cruel, lascivo y tirano por antonomasia, es equiparado al Comendador.
+  El emperador romano Nerón (siglo I d. C.), como paradigma de hombre cruel, lascivo y tirano por antonomasia, es equiparado al Comendador.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2427-1"
+  target="fo:seg-2427-1"
+  ana="#lexica"
   n="1.0">
-  608 el reverso: aquí, eufemismo que equivale a ‘el trasero’.
+  <term>el reverso</term>: aquí, eufemismo que equivale a ‘el trasero’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2428-1"
+  target="fo:seg-2428-1"
+  ana="#estilistica #lexica #parafrasis"
   n="1.0">
-  609 rueda de salmón: ‘rodaja de salmón’. Es decir, los azotes que le propinaron le han dejado el trasero enrojecido.
+  <term>rueda de salmón</term>: ‘rodaja de salmón’. Es decir, los azotes que le propinaron le han dejado el trasero enrojecido.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2429-1"
+  target="fo:seg-2429-1"
+  ana="#lexica"
   n="1.0">
-  610 atabales: ‘nalgas’, jocosamente.
+  <term>atabales</term>: ‘nalgas’, jocosamente.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2433-1"
+  target="fo:seg-2433-1"
+  ana="#lexica"
   n="1.0">
-  611 prolijo: ‘duradero’.
+  <term>prolijo</term>: ‘duradero’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2434-1"
+  target="fo:seg-2434-1"
+  ana="#lexica"
   n="1.0">
-  612 cuero: ‘piel’.
+  <term>cuero</term>: ‘piel’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2435-1"
+  target="fo:seg-2435-1"
+  ana="#lexica"
   n="1.0">
-  613 El arrayán y la murta (arrayán pequeño) son plantas que por sus propiedades curativas se empleaban para elaborar medicamentos.
+  613 El <term>arrayán y la murta</term> (arrayán pequeño) son plantas que por sus propiedades curativas se empleaban para elaborar medicamentos.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2436-1"
+  target="fo:seg-2436-1"
+  ana="#lexica"
   n="1.0">
-  614 cortijo: es la casa de labradores humildes.
+  <term>cortijo</term>: es la casa de labradores humildes.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2444-1"
+  target="fo:seg-2444-1"
+  ana="#lexica"
   n="1.0">
-  615 abono: ‘garantía, fianza’.
+  <term>abono</term>: ‘garantía, fianza’.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2445-1"
+  target="fo:l-2445 fo:l-2446 fo:l-2447 fo:l-2448"
+  ana="#dramaturgica"
   n="1.0">
-  616 El Rey, como antes había hecho el juez encargado (vv. 2381-2384), condena absolutamente el crimen. Si perdona al pueblo es simplemente por la falta de pruebas que permitan identificar a los verdaderos responsables.
+  El Rey, como antes había hecho el juez encargado (<ref target="fo:l-2381 fo:l-2382 fo:l-2383 fo:l-2384">vv. 2381-2384</ref>), condena absolutamente el crimen. Si perdona al pueblo es simplemente por la falta de pruebas que permitan identificar a los verdaderos responsables.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2451-1"
+  target="fo:l-2451 fo:l-2452"
+  ana="#historica"
   n="1.0">
-  617 En realidad, según la Crónica de Rades, la villa pasó a estar bajo la jurisdicción de la ciudad de Córdoba.
+  En realidad, según la <hi rend="italic">Crónica de Rades</hi>, la villa pasó a estar bajo la jurisdicción de la ciudad de Córdoba.
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2455-1"
+  target="fo:seg-2455-1"
+  ana="#escenica"
   n="1.0">
-  618 senado: término con el que se hacía referencia al público al final de las comedias
+  <term>senado</term>: término con el que se hacía referencia al público al final de las comedias
 </note>
 
 <note
-  xml:id=""
-  target="#"
-  type=""
+  xml:id="n-2456-1"
+  target="fo:l-2456"
+  ana="#escenica"
   n="1.0">
-  619 Era habitual que las piezas teatrales terminasen apelando directamente al público y citando el título de la obra.
+  Era habitual que las piezas teatrales terminasen apelando directamente al público y citando el título de la obra.
 </note>
 
 </div>
 </body>
-  </text>
+</text>
 </TEI>
