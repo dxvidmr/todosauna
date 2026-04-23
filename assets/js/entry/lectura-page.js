@@ -1,6 +1,7 @@
 ﻿import '../lectura/CETEI.js';
 import '../lectura/sala-de-lectura.js';
 import '../participacion/lectura-evaluacion.js';
+import '../participacion/modal-shell.js';
 import '../participacion/sugerencias.js';
 
 function bootstrapLecturaXml() {

@@ -13,6 +13,7 @@ class SugerenciasNotas {
   constructor() {
     this.tooltip = null;
     this.modal = null;
+    this.modalController = null;
     this.seleccionActual = null;
     this.source = this.detectarSource();
     this.isSubmitting = false;
@@ -36,6 +37,11 @@ class SugerenciasNotas {
 
   usarTooltipAnclado() {
     return this.isNarrowLayout();
+  }
+
+  sincronizarEstadoTooltip(isVisible) {
+    if (this.source !== 'laboratorio') return;
+    window.editorSocial?.setSuggestionTooltipActive?.(!!isVisible && this.usarTooltipAnclado());
   }
 
   resolverTargetSeleccion(eventoOTarget) {
@@ -102,14 +108,32 @@ class SugerenciasNotas {
    * Crear el modal de sugerencia
    */
   crearModal() {
-    this.modal = document.createElement('div');
-    this.modal.className = 'modal sugerencia-modal';
-    this.modal.innerHTML = `
-      <div class="modal-overlay"></div>
-      <div class="modal-content sugerencia-modal-content">
-        <button class="modal-close" type="button" aria-label="Cerrar">&times;</button>
-        <h2><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Sugerir nota</h2>
-        <p class="modal-descripcion">\u00bfCrees que este texto necesita una nota explicativa? Cu\u00e9ntanos por qu\u00e9.</p>
+    const modalShell = window.Participacion?.modalShell;
+    if (!modalShell || typeof modalShell.create !== 'function') {
+      console.error('Participacion.modalShell no esta disponible para sugerencias');
+      return;
+    }
+
+    this.modalController = modalShell.create({
+      modalClassName: 'sugerencia-modal',
+      contentClassName: 'sugerencia-modal-content sugerencia-modal-shell',
+      labelledBy: 'sugerencia-modal-titulo',
+      describedBy: 'sugerencia-modal-descripcion',
+      closeButtonClassName: 'btn-circular modal-shell-close sugerencia-modal-close',
+      closeButtonLabel: 'Cerrar sugerencia',
+      closeButtonHtml: '<i class="fa-solid fa-xmark" aria-hidden="true"></i>',
+      initialFocusSelector: '#sugerencia-comentario',
+      restoreFocus: false,
+      bodyHtml: `
+        <div class="modal-header has-content">
+          <div class="modal-header-main">
+            <h2 id="sugerencia-modal-titulo">
+              <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
+              Sugerir nota
+            </h2>
+            <p id="sugerencia-modal-descripcion" class="modal-descripcion">\u00bfCrees que este texto necesita una nota explicativa? Cu\u00e9ntanos por qu\u00e9.</p>
+          </div>
+        </div>
 
         <div class="sugerencia-form">
           <label class="sugerencia-label">Texto seleccionado</label>
@@ -123,30 +147,25 @@ class SugerenciasNotas {
             rows="4"
           ></textarea>
 
-          <div class="sugerencia-botones">
-            <button type="button" class="btn-cancelar-sugerencia btn btn-outline-dark">Cancelar</button>
+          <div class="modal-actions sugerencia-botones">
+            <button type="button" class="btn-cancelar-sugerencia btn btn-outline-dark" data-modal-close="true">Cancelar</button>
             <button type="button" class="btn-enviar-sugerencia btn btn-dark">
               <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-              Enviar sugerencia
+              Enviar
             </button>
           </div>
         </div>
-      </div>
-    `;
-    document.body.appendChild(this.modal);
-
-    // Listeners del modal
-    this.modal.querySelector('.modal-overlay').addEventListener('click', () => this.cerrarModal());
-    this.modal.querySelector('.modal-close').addEventListener('click', () => this.cerrarModal());
-    this.modal.querySelector('.btn-cancelar-sugerencia').addEventListener('click', () => this.cerrarModal());
-    this.modal.querySelector('.btn-enviar-sugerencia').addEventListener('click', () => this.enviarSugerencia());
-
-    // Cerrar con Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.modal.classList.contains('show')) {
-        this.cerrarModal();
+      `,
+      onAfterClose: () => {
+        this.seleccionActual = null;
+        this.sincronizarEstadoTooltip(false);
       }
     });
+
+    this.modal = this.modalController?.modal || null;
+    if (!this.modal) return;
+
+    this.modal.querySelector('.btn-enviar-sugerencia')?.addEventListener('click', () => this.enviarSugerencia());
   }
 
   /**
@@ -269,8 +288,14 @@ class SugerenciasNotas {
     const textColumn = document.querySelector('.text-column');
     if (textColumn) return textColumn;
 
+    if (this.source === 'laboratorio') {
+      const pasajeActivo = window.editorSocial?.getPasajeContainer?.();
+      if (pasajeActivo instanceof Element) return pasajeActivo;
+    }
+
     // Laboratorio: contenedor del pasaje
-    const pasajeContainer = document.querySelector('.pasaje-container');
+    const pasajeContainer = document.querySelector('[data-lab-shell][data-shell-visible="true"] [data-lab-pasaje-container]')
+      || document.querySelector('.pasaje-container');
     if (pasajeContainer) return pasajeContainer;
 
     return null;
@@ -319,6 +344,7 @@ class SugerenciasNotas {
       tooltip.style.top = '';
       tooltip.style.left = '50%';
       tooltip.style.display = 'block';
+      this.sincronizarEstadoTooltip(true);
       return;
     }
 
@@ -337,6 +363,7 @@ class SugerenciasNotas {
     tooltip.style.top = `${top}px`;
     tooltip.style.left = `${left}px`;
     tooltip.style.display = 'block';
+    this.sincronizarEstadoTooltip(true);
   }
 
   /**
@@ -347,13 +374,14 @@ class SugerenciasNotas {
     this.tooltip.style.top = '';
     this.tooltip.style.left = '';
     this.tooltip.style.display = 'none';
+    this.sincronizarEstadoTooltip(false);
   }
 
   /**
    * Abrir el modal de sugerencia
    */
   abrirModal() {
-    if (!this.seleccionActual) return;
+    if (!this.seleccionActual || !this.modal || !this.modalController) return;
 
     // Llenar el texto seleccionado
     const textoDiv = this.modal.querySelector('#sugerencia-texto');
@@ -362,22 +390,15 @@ class SugerenciasNotas {
     // Limpiar comentario anterior
     this.modal.querySelector('#sugerencia-comentario').value = '';
 
-    // Mostrar modal
-    this.modal.classList.add('show');
     this.ocultarTooltip();
-
-    // Focus en textarea
-    setTimeout(() => {
-      this.modal.querySelector('#sugerencia-comentario').focus();
-    }, 100);
+    this.modalController.open();
   }
 
   /**
    * Cerrar el modal
    */
   cerrarModal() {
-    this.modal.classList.remove('show');
-    this.seleccionActual = null;
+    this.modalController?.close();
   }
 
   /**

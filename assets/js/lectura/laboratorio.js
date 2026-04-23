@@ -58,16 +58,24 @@ class EditorSocial {
     this.pasajesVisitados = new Set();
     
     // Referencias DOM
+    this.layoutEls = [];
+    this.ui = {
+      desktop: null,
+      mobile: null
+    };
+    this.activeShell = null;
     this.pasajeContent = null;
     this.notaContent = null;
     this.bienvenidaContainer = null;
-    this.laboratorioLayout = null;
     this.wrapperEl = null;
     this.navWrapper = null;
     this.notesBackdrop = null;
     this.notasColumn = null;
+    this.notasContainerEl = null;
     this.btnNotasSheetToggle = null;
     this.btnCerrarNotas = null;
+    this.fragmentoActual = null;
+    this.isSuggestionTooltipActive = false;
     // Zoom del pasaje (sesion actual)
     this.labFontSizePercent = DEFAULT_ZOOM_PERCENT;
     this.labFontMin = MIN_ZOOM_PERCENT;
@@ -76,7 +84,17 @@ class EditorSocial {
     this.textZoomController = null;
     this.resizeAdjustTimer = null;
     this.participationStateListenerBound = false;
+    this.mobileSheetDrag = {
+      active: false,
+      pointerId: null,
+      startY: 0,
+      currentDelta: 0,
+      captureEl: null,
+      resetTimer: null
+    };
     this.handleParticipationStateChanged = this.handleParticipationStateChanged.bind(this);
+    this.handleMobileSheetPointerMove = this.handleMobileSheetPointerMove.bind(this);
+    this.handleMobileSheetPointerEnd = this.handleMobileSheetPointerEnd.bind(this);
   }
 
   notifyFeedback(message, type, duration) {
@@ -151,16 +169,10 @@ class EditorSocial {
     console.log('Inicializando Editor Social...');
 
     // Referencias DOM
-    this.pasajeContent = document.getElementById('pasaje-content');
-    this.notaContent = document.getElementById('nota-content');
     this.bienvenidaContainer = document.getElementById('laboratorio-bienvenida');
-    this.laboratorioLayout = document.querySelector('.laboratorio-layout');
     this.wrapperEl = document.querySelector('.laboratorio-wrapper');
     this.navWrapper = document.querySelector('.nav-wrapper');
-    this.notesBackdrop = document.getElementById('laboratorio-notas-backdrop');
-    this.notasColumn = document.getElementById('laboratorio-notas-sheet');
-    this.btnNotasSheetToggle = document.getElementById('btn-notas-sheet-toggle');
-    this.btnCerrarNotas = document.getElementById('btn-notas-cerrar');
+    this.initializeShellUI();
     this.setupTextZoomController();
     this.syncResponsiveState();
 
@@ -258,12 +270,166 @@ class EditorSocial {
     }
   }
 
+  buildShellUI(shell) {
+    const root = document.querySelector(`[data-lab-shell="${shell}"]`);
+    if (!root) return null;
+
+    return {
+      shell,
+      root,
+      pasajeContainer: root.querySelector('[data-lab-pasaje-container]'),
+      pasajeContent: root.querySelector('[data-lab-pasaje-content]'),
+      noteColumn: root.querySelector('[data-lab-note-column]'),
+      noteSheet: root.querySelector('[data-lab-note-sheet]'),
+      noteContent: root.querySelector('[data-lab-note-content]'),
+      notesBackdrop: root.querySelector('[data-lab-notes-backdrop]'),
+      btnNotesToggle: root.querySelector('[data-lab-notes-toggle]'),
+      btnNotesClose: root.querySelector('[data-lab-notes-close]'),
+      btnPrevPassage: root.querySelector('[data-lab-prev-passage]'),
+      btnNextPassage: root.querySelector('[data-lab-next-passage]'),
+      btnPrevNote: root.querySelector('[data-lab-note-prev]'),
+      btnNextNote: root.querySelector('[data-lab-note-next]'),
+      noteDragHandle: root.querySelector('[data-lab-note-drag-handle]'),
+      fontDisplay: root.querySelector('[data-lab-font-display]'),
+      fontDecrease: root.querySelector('[data-lab-font-decrease]'),
+      fontIncrease: root.querySelector('[data-lab-font-increase]'),
+      noteFooter: root.querySelector('[data-lab-note-footer]'),
+      controlsShell: root.querySelector('[data-lab-controls-shell]')
+    };
+  }
+
+  initializeShellUI() {
+    this.ui.desktop = this.buildShellUI('desktop');
+    this.ui.mobile = this.buildShellUI('mobile');
+    this.layoutEls = this.getAllUIs()
+      .map(ui => ui.root)
+      .filter(Boolean);
+    this.activeShell = this.getActiveShell();
+    this.refreshActiveUIRefs();
+  }
+
+  getAllUIs() {
+    return Object.values(this.ui).filter(Boolean);
+  }
+
+  getShellUI(shell) {
+    return this.ui[shell] || null;
+  }
+
+  getActiveShell() {
+    return this.isNarrowLayout() ? 'mobile' : 'desktop';
+  }
+
+  getActiveUI() {
+    return this.getShellUI(this.activeShell || this.getActiveShell());
+  }
+
+  refreshActiveUIRefs() {
+    const ui = this.getActiveUI();
+    this.pasajeContent = ui?.pasajeContent || null;
+    this.notaContent = ui?.noteContent || null;
+    this.notesBackdrop = ui?.notesBackdrop || null;
+    this.notasColumn = ui?.noteColumn || null;
+    this.notasContainerEl = ui?.noteSheet || null;
+    this.btnNotasSheetToggle = this.ui.mobile?.btnNotesToggle || null;
+    this.btnCerrarNotas = this.ui.mobile?.btnNotesClose || null;
+    return ui;
+  }
+
+  setTextForAll(selector, value) {
+    const text = String(value);
+    this.getAllUIs().forEach((ui) => {
+      ui.root.querySelectorAll(selector).forEach((el) => {
+        el.textContent = text;
+      });
+    });
+  }
+
+  toggleDisplayForAll(selector, displayValue) {
+    this.getAllUIs().forEach((ui) => {
+      ui.root.querySelectorAll(selector).forEach((el) => {
+        el.style.display = displayValue;
+      });
+    });
+  }
+
+  getDefaultNotePanelHTML() {
+    return buildNotePanelHTML({
+      dockAttrs: 'data-eval-state="idle"',
+      bodyHTML: '<p class="placeholder-text">Haz clic en un texto subrayado o usa las flechas para ver las notas</p>',
+      dockHTML: '<p class="note-dock-placeholder"></p>'
+    });
+  }
+
+  clearShellContent(ui) {
+    if (!ui) return;
+    if (ui.pasajeContent) {
+      ui.pasajeContent.innerHTML = '<div class="loading">Cargando pasaje...</div>';
+    }
+    if (ui.noteContent) {
+      ui.noteContent.innerHTML = this.getDefaultNotePanelHTML();
+    }
+  }
+
+  clearInactiveShells() {
+    const activeUI = this.getActiveUI();
+    this.getAllUIs().forEach((ui) => {
+      if (ui !== activeUI) {
+        this.clearShellContent(ui);
+      }
+    });
+  }
+
+  async rerenderActiveShell() {
+    if (!this.pasajeActual || !this.fragmentoActual) return;
+
+    this.refreshActiveUIRefs();
+    this.clearInactiveShells();
+    await this.renderizarPasaje(this.fragmentoActual, this.pasajeActual);
+    this.aplicarHighlights();
+
+    if (this.notasPasaje.length === 0) {
+      this.renderizarEstadoNotaPanel(
+        'No hay notas en este pasaje',
+        'Sin evaluaciones disponibles en este pasaje'
+      );
+    } else if (this.notaActualIndex >= 0) {
+      const notaActual = this.notasPasaje[this.notaActualIndex];
+      this.renderizarNotaActual(notaActual);
+      this.marcarNotaActualEnTexto(notaActual.nota_id, { autoScroll: false });
+    } else {
+      this.renderizarEstadoNotaPanel('', '');
+    }
+
+    this.actualizarContadores();
+    this.actualizarBarraProgreso();
+    this.actualizarBarraProgresoNotas();
+    this.actualizarBotonesNavegacion();
+    this.actualizarBotonesNavegacionPasajes();
+    this.actualizarBotonNotasSheet();
+  }
+
+  setSuggestionTooltipActive(isActive) {
+    this.isSuggestionTooltipActive = !!isActive;
+
+    if (this.wrapperEl) {
+      this.wrapperEl.setAttribute(
+        'data-lab-suggestion-active',
+        this.isSuggestionTooltipActive ? 'true' : 'false'
+      );
+    }
+  }
+
   getTeiPasajeContainer() {
-    return document.getElementById('tei-pasaje');
+    return this.getActiveUI()?.pasajeContent?.querySelector('#tei-pasaje')
+      || document.querySelector('[data-lab-shell][data-shell-visible="true"] #tei-pasaje')
+      || document.getElementById('tei-pasaje');
   }
 
   getPasajeContainer() {
-    return document.querySelector('.pasaje-container');
+    return this.getActiveUI()?.pasajeContainer
+      || document.querySelector('[data-lab-shell][data-shell-visible="true"] [data-lab-pasaje-container]')
+      || document.querySelector('.pasaje-container');
   }
 
   isNarrowLayout() {
@@ -286,37 +452,40 @@ class EditorSocial {
     return this.notasPasaje.length > 0 ? 0 : -1;
   }
 
+  actualizarModoBadges(etiqueta) {
+    document.querySelectorAll('[data-lab-mode-badge]').forEach((badge) => {
+      badge.textContent = etiqueta;
+    });
+  }
+
   actualizarBotonNotasSheet() {
-    if (!this.btnNotasSheetToggle) return;
+    const toggleButton = this.ui.mobile?.btnNotesToggle;
+    if (!toggleButton) return;
 
-    const labelEl = this.btnNotasSheetToggle.querySelector('span');
+    const labelEl = toggleButton.querySelector('[data-lab-note-toggle-label]');
     const hasNotes = this.notasPasaje.length > 0;
-    let label = 'Abrir notas';
 
-    if (!hasNotes) {
-      label = 'Sin notas';
-    } else if (this.isNarrowLayout() && this.isNoteSheetOpen) {
-      label = 'Cerrar notas';
-    } else if (this.notaActualIndex >= 0) {
-      label = `Ver nota ${this.notaActualIndex + 1}/${this.notasPasaje.length}`;
-    }
-
-    this.btnNotasSheetToggle.disabled = !hasNotes;
-    this.btnNotasSheetToggle.setAttribute(
+    toggleButton.disabled = !hasNotes;
+    toggleButton.setAttribute(
       'aria-expanded',
       this.isNarrowLayout() && this.isNoteSheetOpen ? 'true' : 'false'
     );
 
     if (labelEl) {
-      labelEl.textContent = label;
+      labelEl.textContent = 'Notas';
     }
   }
 
   syncResponsiveState() {
+    const previousShell = this.activeShell;
     const isNarrow = this.isNarrowLayout();
+    this.activeShell = this.getActiveShell();
+    const shellChanged = previousShell !== this.activeShell;
+    const activeUI = this.refreshActiveUIRefs();
 
     if (!isNarrow) {
       this.isNoteSheetOpen = false;
+      this.resetMobileNoteSheetDrag();
     }
 
     if (this.wrapperEl) {
@@ -327,18 +496,28 @@ class EditorSocial {
       );
     }
 
-    if (this.notasColumn) {
-      this.notasColumn.setAttribute(
+    this.setSuggestionTooltipActive(this.isSuggestionTooltipActive && isNarrow && !this.isNoteSheetOpen);
+
+    this.getAllUIs().forEach((ui) => {
+      ui.root.setAttribute('data-shell-visible', ui === activeUI ? 'true' : 'false');
+    });
+
+    const mobileUI = this.ui.mobile;
+    if (mobileUI?.noteColumn) {
+      mobileUI.noteColumn.setAttribute('aria-hidden', 'false');
+    }
+    if (mobileUI?.noteSheet) {
+      mobileUI.noteSheet.setAttribute(
         'aria-hidden',
-        isNarrow ? String(!this.isNoteSheetOpen) : 'false'
+        isNarrow ? String(!this.isNoteSheetOpen) : 'true'
       );
     }
-
-    if (this.notesBackdrop) {
-      this.notesBackdrop.hidden = !(isNarrow && this.isNoteSheetOpen);
+    if (mobileUI?.notesBackdrop) {
+      mobileUI.notesBackdrop.hidden = !(isNarrow && this.isNoteSheetOpen);
     }
 
     this.actualizarBotonNotasSheet();
+    return shellChanged;
   }
 
   openNoteSheet(options = {}) {
@@ -351,6 +530,12 @@ class EditorSocial {
     }
 
     if (this.isNarrowLayout()) {
+      this.resetMobileNoteSheetDrag();
+      if (window.sugerenciasNotas?.ocultarTooltip) {
+        window.sugerenciasNotas.ocultarTooltip();
+      }
+      this.setSuggestionTooltipActive(false);
+
       let targetIndex = this.notaActualIndex;
       const currentNote = targetIndex >= 0 ? this.notasPasaje[targetIndex] : null;
 
@@ -375,12 +560,19 @@ class EditorSocial {
 
   closeNoteSheet(options = {}) {
     const focusPasaje = !!options.focusPasaje;
+    const focusFooter = !!options.focusFooter;
 
+    this.resetMobileNoteSheetDrag();
     this.isNoteSheetOpen = false;
     this.syncResponsiveState();
 
     if (focusPasaje) {
       this.getPasajeContainer()?.focus({ preventScroll: true });
+      return;
+    }
+
+    if (focusFooter) {
+      this.ui.mobile?.btnNotesToggle?.focus({ preventScroll: true });
     }
   }
 
@@ -393,6 +585,136 @@ class EditorSocial {
     this.openNoteSheet({ preferPending: true });
   }
 
+  startMobileSheetDrag(event) {
+    if (!this.isNarrowLayout() || !this.isNoteSheetOpen) return;
+    if (event.button !== undefined && event.button !== 0) return;
+
+    const noteSheet = this.ui.mobile?.noteSheet;
+    if (!noteSheet) return;
+
+    this.resetMobileSheetDragListeners();
+
+    if (this.mobileSheetDrag.resetTimer) {
+      clearTimeout(this.mobileSheetDrag.resetTimer);
+      this.mobileSheetDrag.resetTimer = null;
+    }
+
+    this.mobileSheetDrag.active = true;
+    this.mobileSheetDrag.pointerId = event.pointerId;
+    this.mobileSheetDrag.startY = event.clientY;
+    this.mobileSheetDrag.currentDelta = 0;
+    this.mobileSheetDrag.captureEl = event.currentTarget instanceof Element ? event.currentTarget : null;
+
+    noteSheet.classList.add('is-dragging');
+
+    if (this.mobileSheetDrag.captureEl?.setPointerCapture) {
+      try {
+        this.mobileSheetDrag.captureEl.setPointerCapture(event.pointerId);
+      } catch (_error) {
+        // Best effort.
+      }
+    }
+
+    window.addEventListener('pointermove', this.handleMobileSheetPointerMove, { passive: false });
+    window.addEventListener('pointerup', this.handleMobileSheetPointerEnd);
+    window.addEventListener('pointercancel', this.handleMobileSheetPointerEnd);
+    event.preventDefault();
+  }
+
+  handleMobileSheetPointerMove(event) {
+    if (!this.mobileSheetDrag.active || event.pointerId !== this.mobileSheetDrag.pointerId) return;
+
+    const noteSheet = this.ui.mobile?.noteSheet;
+    if (!noteSheet) return;
+
+    const delta = Math.max(0, event.clientY - this.mobileSheetDrag.startY);
+    const backdrop = this.ui.mobile?.notesBackdrop;
+    this.mobileSheetDrag.currentDelta = delta;
+
+    noteSheet.style.transform = `translateY(${delta}px)`;
+    noteSheet.style.opacity = String(Math.max(0.62, 1 - (delta / 360)));
+
+    if (backdrop) {
+      backdrop.style.opacity = String(Math.max(0, 1 - (delta / 220)));
+    }
+
+    event.preventDefault();
+  }
+
+  handleMobileSheetPointerEnd(event) {
+    if (!this.mobileSheetDrag.active || event.pointerId !== this.mobileSheetDrag.pointerId) return;
+
+    const noteSheet = this.ui.mobile?.noteSheet;
+    const backdrop = this.ui.mobile?.notesBackdrop;
+    const threshold = noteSheet
+      ? Math.min(180, Math.max(84, noteSheet.offsetHeight * 0.2))
+      : 96;
+    const shouldClose = this.mobileSheetDrag.currentDelta >= threshold;
+
+    if (this.mobileSheetDrag.captureEl?.releasePointerCapture) {
+      try {
+        this.mobileSheetDrag.captureEl.releasePointerCapture(event.pointerId);
+      } catch (_error) {
+        // Best effort.
+      }
+    }
+
+    this.resetMobileSheetDragListeners();
+
+    if (shouldClose) {
+      this.closeNoteSheet({ focusPasaje: true });
+      return;
+    }
+
+    if (noteSheet) {
+      noteSheet.style.transform = 'translateY(0)';
+      noteSheet.style.opacity = '1';
+      noteSheet.classList.add('is-dragging');
+    }
+
+    if (backdrop) {
+      backdrop.style.opacity = '1';
+    }
+
+    this.mobileSheetDrag.resetTimer = window.setTimeout(() => {
+      this.resetMobileNoteSheetDrag();
+    }, 220);
+  }
+
+  resetMobileSheetDragListeners() {
+    window.removeEventListener('pointermove', this.handleMobileSheetPointerMove);
+    window.removeEventListener('pointerup', this.handleMobileSheetPointerEnd);
+    window.removeEventListener('pointercancel', this.handleMobileSheetPointerEnd);
+  }
+
+  resetMobileNoteSheetDrag() {
+    const noteSheet = this.ui.mobile?.noteSheet;
+    const backdrop = this.ui.mobile?.notesBackdrop;
+
+    if (this.mobileSheetDrag.resetTimer) {
+      clearTimeout(this.mobileSheetDrag.resetTimer);
+      this.mobileSheetDrag.resetTimer = null;
+    }
+
+    this.resetMobileSheetDragListeners();
+
+    if (noteSheet) {
+      noteSheet.style.transform = '';
+      noteSheet.style.opacity = '';
+      noteSheet.classList.remove('is-dragging');
+    }
+
+    if (backdrop) {
+      backdrop.style.opacity = '';
+    }
+
+    this.mobileSheetDrag.active = false;
+    this.mobileSheetDrag.pointerId = null;
+    this.mobileSheetDrag.startY = 0;
+    this.mobileSheetDrag.currentDelta = 0;
+    this.mobileSheetDrag.captureEl = null;
+  }
+
   setupTextZoomController() {
     if (this.textZoomController) {
       this.textZoomController.sync();
@@ -402,7 +724,7 @@ class EditorSocial {
 
     this.textZoomController = createTextZoomController({
       target: () => this.getTeiPasajeContainer(),
-      display: document.getElementById('lab-font-size-display'),
+      display: this.ui.desktop?.fontDisplay || document.getElementById('lab-font-size-display'),
       defaultPercent: this.labFontSizePercent,
       minPercent: this.labFontMin,
       maxPercent: this.labFontMax,
@@ -430,7 +752,7 @@ class EditorSocial {
   }
 
   tieneOverflowHorizontalPasaje() {
-    const pasajeContainer = document.querySelector('.pasaje-container');
+    const pasajeContainer = this.getPasajeContainer();
     const teiContainer = this.getTeiPasajeContainer();
 
     if (!pasajeContainer || !teiContainer) return false;
@@ -472,13 +794,12 @@ class EditorSocial {
     this.aplicarEstadoVista('welcome');
     this.closeNoteSheet();
     this.pasajeActual = null;
+    this.fragmentoActual = null;
 
     if (this.bienvenidaContainer) {
       this.bienvenidaContainer.style.display = 'flex';
     }
-    if (this.laboratorioLayout) {
-      this.laboratorioLayout.classList.remove('active');
-    }
+    this.layoutEls.forEach((layout) => layout.classList.remove('active'));
   }
 
   /**
@@ -491,9 +812,7 @@ class EditorSocial {
     if (this.bienvenidaContainer) {
       this.bienvenidaContainer.style.display = 'none';
     }
-    if (this.laboratorioLayout) {
-      this.laboratorioLayout.classList.add('active');
-    }
+    this.layoutEls.forEach((layout) => layout.classList.add('active'));
   }
 
   async asegurarModoAntesDeIniciarLaboratorio() {
@@ -548,23 +867,19 @@ class EditorSocial {
     this.actualizarModoControlesFranja('secuencial');
     
     // Actualizar badge de modo
-    const badgeElement = document.getElementById('modo-actual-badge');
-    if (badgeElement) {
-      badgeElement.textContent = 'Secuencial';
-    }
+    this.actualizarModoBadges('Secuencial');
     
     // Mostrar barra de progreso
-    const barraContainer = document.getElementById('barra-progreso-container');
-    if (barraContainer) {
-      barraContainer.style.display = 'block';
-    }
+    this.toggleDisplayForAll('[data-lab-passage-progress-container]', 'block');
     
     // Mostrar botón anterior
-    const btnAnterior = document.getElementById('btn-anterior');
-    if (btnAnterior) {
-      btnAnterior.style.display = 'inline-flex';
-    }
+    this.getAllUIs().forEach((ui) => {
+      if (ui.btnPrevPassage) {
+        ui.btnPrevPassage.style.display = 'inline-flex';
+      }
+    });
 
+    this.actualizarBotonesNavegacionPasajes();
     this.actualizarBotonNotasSheet();
     // Cargar primer pasaje
     await this.cargarPasaje(0);
@@ -580,23 +895,19 @@ class EditorSocial {
     this.actualizarModoControlesFranja('aleatorio');
     
     // Actualizar badge de modo
-    const badgeElement = document.getElementById('modo-actual-badge');
-    if (badgeElement) {
-      badgeElement.textContent = 'Aleatorio';
-    }
+    this.actualizarModoBadges('Aleatorio');
     
     // Ocultar barra de progreso
-    const barraContainer = document.getElementById('barra-progreso-container');
-    if (barraContainer) {
-      barraContainer.style.display = 'none';
-    }
+    this.toggleDisplayForAll('[data-lab-passage-progress-container]', 'none');
     
     // Ocultar botón anterior
-    const btnAnterior = document.getElementById('btn-anterior');
-    if (btnAnterior) {
-      btnAnterior.style.display = 'none';
-    }
+    this.getAllUIs().forEach((ui) => {
+      if (ui.btnPrevPassage) {
+        ui.btnPrevPassage.style.display = 'none';
+      }
+    });
 
+    this.actualizarBotonesNavegacionPasajes();
     this.actualizarBotonNotasSheet();
     // Cargar pasaje aleatorio
     await this.cargarPasajeAleatorio();
@@ -643,13 +954,15 @@ class EditorSocial {
    * Actualizar barra de progreso (solo modo secuencial)
    */
   actualizarBarraProgreso() {
-    if (this.modoNavegacion !== 'secuencial') return;
+    const progreso = this.modoNavegacion === 'secuencial' && this.pasajes.length > 0
+      ? ((this.pasajeActualIndex + 1) / this.pasajes.length) * 100
+      : 0;
 
-    const barraFill = document.getElementById('barra-progreso-fill');
-    if (barraFill && this.pasajes.length > 0) {
-      const progreso = ((this.pasajeActualIndex + 1) / this.pasajes.length) * 100;
-      barraFill.style.width = `${progreso}%`;
-    }
+    this.getAllUIs().forEach((ui) => {
+      ui.root.querySelectorAll('[data-lab-passage-progress-fill]').forEach((barraFill) => {
+        barraFill.style.width = `${progreso}%`;
+      });
+    });
   }
 
   /**
@@ -657,20 +970,15 @@ class EditorSocial {
    * Usa el estado interno (notas evaluadas / total) para el porcentaje
    */
   actualizarBarraProgresoNotas() {
-    const barraFill = document.getElementById('barra-progreso-notas-fill');
-    if (!barraFill) return;
-
     const total = Math.max(1, this.notasPasaje.length);
-    const evaluadas = this.notasEvaluadas ? this.notasEvaluadas.size : (parseInt(document.getElementById('notas-evaluadas')?.textContent) || 0);
-
+    const evaluadas = this.notasEvaluadas ? this.notasEvaluadas.size : 0;
     const porcentaje = (evaluadas / total) * 100;
-    barraFill.style.width = `${porcentaje}%`;
 
-    // Mantener consistencia visual: también actualizar valor del span si es necesario
-    const notasEvaluadasSpan = document.getElementById('notas-evaluadas');
-    const notasTotalesSpan = document.getElementById('notas-totales');
-    if (notasEvaluadasSpan) notasEvaluadasSpan.textContent = evaluadas;
-    if (notasTotalesSpan) notasTotalesSpan.textContent = this.notasPasaje.length;
+    this.getAllUIs().forEach((ui) => {
+      ui.root.querySelectorAll('[data-lab-note-progress-fill], [data-lab-note-progress-fill-collapsed]').forEach((barraFill) => {
+        barraFill.style.width = `${porcentaje}%`;
+      });
+    });
   }
 
   /**
@@ -691,7 +999,7 @@ class EditorSocial {
     }
 
     this.pasajes = data ?? [];
-    document.getElementById('pasajes-totales').textContent = this.pasajes.length;
+    this.setTextForAll('[data-lab-passages-total]', this.pasajes.length);
     console.log(`${this.pasajes.length} pasajes cargados`);
   }
 
@@ -720,7 +1028,7 @@ class EditorSocial {
     this.pasajeActual = pasaje;
 
     // Actualizar UI
-    document.getElementById('pasaje-actual').textContent = index + 1;
+    this.setTextForAll('[data-lab-passage-current]', index + 1);
     
     // Actualizar barra de progreso (solo modo secuencial)
     this.actualizarBarraProgreso();
@@ -737,6 +1045,10 @@ class EditorSocial {
       console.error('No se pudo extraer el fragmento');
       return;
     }
+
+    this.fragmentoActual = fragmento;
+    this.refreshActiveUIRefs();
+    this.clearInactiveShells();
 
     // Renderizar con CETEI
     await this.renderizarPasaje(fragmento, pasaje);
@@ -919,7 +1231,7 @@ class EditorSocial {
     const nota = this.notasPasaje[index];
 
     // Actualizar indicador de posicion
-    document.getElementById('nota-actual-index').textContent = index + 1;
+    this.setTextForAll('[data-lab-note-index]', index + 1);
 
     // Marcar en el texto
     this.marcarNotaActualEnTexto(nota.nota_id, {
@@ -1044,7 +1356,7 @@ class EditorSocial {
         if (this.isNarrowLayout()) {
           this.closeNoteSheet();
         }
-        document.getElementById('btn-siguiente')?.focus({ preventScroll: true });
+        this.getActiveUI()?.btnNextPassage?.focus({ preventScroll: true });
         mostrarToast('¡Pasaje completado!', 3000);
       }, 600);
     }
@@ -1057,14 +1369,16 @@ class EditorSocial {
     const total = this.notasPasaje.length;
     const evaluadas = this.notasEvaluadas.size;
 
-    document.getElementById('notas-totales').textContent = total;
-    document.getElementById('notas-evaluadas').textContent = evaluadas;
-    document.getElementById('notas-pasaje-total').textContent = total;
+    this.setTextForAll('[data-lab-notes-total]', total);
+    this.setTextForAll('[data-lab-notes-evaluated]', evaluadas);
+    this.setTextForAll('[data-lab-notes-passage-total]', total);
+    this.setTextForAll('[data-lab-notes-total-resumen]', total);
+    this.setTextForAll('[data-lab-notes-evaluated-resumen]', evaluadas);
     
     if (this.notaActualIndex >= 0) {
-      document.getElementById('nota-actual-index').textContent = this.notaActualIndex + 1;
+      this.setTextForAll('[data-lab-note-index]', this.notaActualIndex + 1);
     } else {
-      document.getElementById('nota-actual-index').textContent = '0';
+      this.setTextForAll('[data-lab-note-index]', 0);
     }
 
     // Actualizar barra de progreso de notas tras cambiar contadores
@@ -1076,15 +1390,18 @@ class EditorSocial {
    * Actualizar estado de botones de navegacion
    */
   actualizarBotonesNavegacion() {
-    const btnAnterior = document.getElementById('btn-nota-anterior');
-    const btnSiguiente = document.getElementById('btn-nota-siguiente');
+    const hasNotes = this.notasPasaje.length > 0;
+    const canOpenFirst = this.notaActualIndex === -1 && hasNotes;
 
-    if (btnAnterior) {
-      btnAnterior.disabled = this.notaActualIndex <= 0;
-    }
-    if (btnSiguiente) {
-      btnSiguiente.disabled = this.notaActualIndex >= this.notasPasaje.length - 1;
-    }
+    this.getAllUIs().forEach((ui) => {
+      if (ui.btnPrevNote) {
+        ui.btnPrevNote.disabled = !hasNotes || this.notaActualIndex <= 0;
+      }
+
+      if (ui.btnNextNote) {
+        ui.btnNextNote.disabled = !hasNotes || (!canOpenFirst && this.notaActualIndex >= this.notasPasaje.length - 1);
+      }
+    });
   }
 
   /**
@@ -1102,64 +1419,69 @@ class EditorSocial {
    * Configurar event listeners de controles
    */
   setupEventListeners() {
-    // Navegacion de notas
-    document.getElementById('btn-nota-anterior')?.addEventListener('click', () => {
-      if (this.notaActualIndex > 0) {
-        this.navegarANota(this.notaActualIndex - 1);
-      }
-    });
+    this.getAllUIs().forEach((ui) => {
+      ui.btnPrevNote?.addEventListener('click', () => {
+        if (this.notaActualIndex > 0) {
+          this.navegarANota(this.notaActualIndex - 1);
+        }
+      });
 
-    document.getElementById('btn-nota-siguiente')?.addEventListener('click', () => {
-      if (this.notaActualIndex < this.notasPasaje.length - 1) {
-        this.navegarANota(this.notaActualIndex + 1);
-      } else if (this.notaActualIndex === -1 && this.notasPasaje.length > 0) {
-        // Si no hay nota seleccionada, ir a la primera
-        this.navegarANota(0);
-      }
-    });
+      ui.btnNextNote?.addEventListener('click', () => {
+        if (this.notaActualIndex < this.notasPasaje.length - 1) {
+          this.navegarANota(this.notaActualIndex + 1);
+        } else if (this.notaActualIndex === -1 && this.notasPasaje.length > 0) {
+          this.navegarANota(0);
+        }
+      });
 
-    // Navegacion de pasajes
-    document.getElementById('btn-anterior')?.addEventListener('click', () => {
-      this.pasajeAnterior();
-    });
+      ui.btnPrevPassage?.addEventListener('click', () => {
+        this.pasajeAnterior();
+      });
 
-    document.getElementById('btn-siguiente')?.addEventListener('click', () => {
-      this.siguientePasaje();
-    });
+      ui.btnNextPassage?.addEventListener('click', () => {
+        this.siguientePasaje();
+      });
 
-    this.btnNotasSheetToggle?.addEventListener('click', () => {
-      this.toggleNoteSheet();
-    });
+      ui.btnNotesToggle?.addEventListener('click', () => {
+        this.toggleNoteSheet();
+      });
 
-    this.btnCerrarNotas?.addEventListener('click', () => {
-      this.closeNoteSheet({ focusPasaje: true });
-    });
+      ui.btnNotesClose?.addEventListener('click', () => {
+        this.closeNoteSheet({ focusPasaje: true });
+      });
 
-    this.notesBackdrop?.addEventListener('click', () => {
-      this.closeNoteSheet({ focusPasaje: true });
+      ui.notesBackdrop?.addEventListener('click', () => {
+        this.closeNoteSheet({ focusPasaje: true });
+      });
+
+      ui.noteDragHandle?.addEventListener('pointerdown', (event) => {
+        this.startMobileSheetDrag(event);
+      });
     });
 
     // Botón cambiar modo
-    document.getElementById('btn-cambiar-modo')?.addEventListener('click', async () => {
-      const shouldChangeMode = await this.confirmFeedback({
-        title: 'Cambiar modo',
-        message: 'Volver\u00e1s a la pantalla de selecci\u00f3n para elegir de nuevo entre modo secuencial o aleatorio.',
-        confirmText: 'Cambiar modo',
-        cancelText: 'Cancelar',
-        variant: 'warning'
-      });
+    document.querySelectorAll('[data-cambiar-modo]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const shouldChangeMode = await this.confirmFeedback({
+          title: 'Cambiar modo',
+          message: 'Volver\u00e1s a la pantalla de selecci\u00f3n para elegir de nuevo entre modo secuencial o aleatorio.',
+          confirmText: 'Cambiar modo',
+          cancelText: 'Cancelar',
+          variant: 'warning'
+        });
 
-      if (shouldChangeMode) {
-        this.volverABienvenida();
-      }
+        if (shouldChangeMode) {
+          this.volverABienvenida();
+        }
+      });
     });
 
     // Controles de zoom del pasaje
-    document.getElementById('lab-font-increase')?.addEventListener('click', () => {
+    this.ui.desktop?.fontIncrease?.addEventListener('click', () => {
       this.intentarAumentarZoomSinOverflow();
     });
 
-    document.getElementById('lab-font-decrease')?.addEventListener('click', () => {
+    this.ui.desktop?.fontDecrease?.addEventListener('click', () => {
       if (!this.textZoomController) return;
       this.textZoomController.decrease();
       this.labFontSizePercent = this.textZoomController.getPercent();
@@ -1171,8 +1493,11 @@ class EditorSocial {
         clearTimeout(this.resizeAdjustTimer);
       }
 
-      this.resizeAdjustTimer = setTimeout(() => {
-        this.syncResponsiveState();
+      this.resizeAdjustTimer = setTimeout(async () => {
+        const shellChanged = this.syncResponsiveState();
+        if (shellChanged) {
+          await this.rerenderActiveShell();
+        }
         this.ajustarZoomHastaNoOverflow();
       }, 120);
     }, { passive: true });
@@ -1199,10 +1524,7 @@ class EditorSocial {
     if (!detail?.sessionChanged) return;
 
     this.notasEvaluadas.clear();
-
-    if (document.getElementById('notas-totales')) {
-      this.actualizarContadores();
-    }
+    this.actualizarContadores();
 
     const notaActual = this.notaActualIndex >= 0 ? this.notasPasaje[this.notaActualIndex] : null;
     if (notaActual) {
@@ -1224,39 +1546,46 @@ class EditorSocial {
   }
 
   actualizarModoControlesFranja(modo) {
-    const franja = document.querySelector('.laboratorio-controles-franja');
-    if (!franja) return;
+    this.getAllUIs().forEach((ui) => {
+      if (!ui.controlsShell) return;
 
-    if (modo) {
-      franja.setAttribute('data-modo', modo);
-    } else {
-      franja.removeAttribute('data-modo');
-    }
+      if (modo) {
+        ui.controlsShell.setAttribute('data-modo', modo);
+      } else {
+        ui.controlsShell.removeAttribute('data-modo');
+      }
+    });
   }
 
   /**
    * Actualizar estado de botones de navegación de pasajes
    */
   actualizarBotonesNavegacionPasajes() {
-    const btnAnterior = document.getElementById('btn-anterior');
-    const btnSiguiente = document.getElementById('btn-siguiente');
+    this.getAllUIs().forEach((ui) => {
+      const btnAnterior = ui.btnPrevPassage;
+      const btnSiguiente = ui.btnNextPassage;
 
-    if (this.modoNavegacion === 'secuencial') {
       if (btnAnterior) {
-        btnAnterior.disabled = this.pasajeActualIndex <= 0;
+        btnAnterior.style.display = this.modoNavegacion === 'secuencial' ? 'inline-flex' : 'none';
+        btnAnterior.disabled = this.modoNavegacion !== 'secuencial' || this.pasajeActualIndex <= 0;
       }
-      if (btnSiguiente) {
+
+      if (!btnSiguiente) return;
+
+      if (this.modoNavegacion === 'secuencial') {
         btnSiguiente.disabled = this.pasajeActualIndex >= this.pasajes.length - 1;
         btnSiguiente.innerHTML = '<span>Siguiente</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i>';
         btnSiguiente.setAttribute('aria-label', 'Siguiente pasaje');
-      }
-    } else if (this.modoNavegacion === 'aleatorio') {
-      if (btnSiguiente) {
+      } else if (this.modoNavegacion === 'aleatorio') {
         btnSiguiente.disabled = false;
         btnSiguiente.innerHTML = '<i class="fa-solid fa-shuffle" aria-hidden="true"></i><span>Otro aleatorio</span>';
         btnSiguiente.setAttribute('aria-label', 'Otro pasaje aleatorio');
+      } else {
+        btnSiguiente.disabled = false;
+        btnSiguiente.innerHTML = '<span>Siguiente</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i>';
+        btnSiguiente.setAttribute('aria-label', 'Siguiente pasaje');
       }
-    }
+    });
   }
 
   /**
@@ -1290,8 +1619,11 @@ class EditorSocial {
    * Mostrar pantalla de finalizacion
    */
   mostrarFinalizacion() {
-    const layout = document.querySelector('.laboratorio-layout');
+    const layout = this.getActiveUI()?.root;
+    if (!layout) return;
+
     this.closeNoteSheet();
+    this.clearInactiveShells();
     layout.innerHTML = `
       <div style="text-align: center; padding: 80px 20px; max-width: 600px; margin: 0 auto;">
         <h1 style="font-size: 3rem; color: var(--success); margin-bottom: 20px;">Felicidades!</h1>

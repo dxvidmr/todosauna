@@ -13,12 +13,12 @@
     right: 0;
     display: flex;
     justify-content: center;
-    padding: 1rem 1rem 0;
+    padding: var(--floating-nav-top-pad) var(--floating-nav-inline-pad) 0;
     z-index: 1000;
     pointer-events: none; 
     
     @media (max-width: 991.98px) {
-        padding: 1rem;
+        padding: var(--floating-nav-top-pad) var(--floating-nav-inline-pad);
     }
     
     // ========================================
@@ -77,15 +77,15 @@
 // Variante compacta: solo cambia el estado colapsado
 .nav-wrapper[data-navbar-variant="compact"]:not(.menu-expanded):not(.menu-closing) {
     justify-content: flex-end;
-    padding-right: clamp(12px, 2vw, 24px);
-    padding-left: clamp(12px, 2vw, 24px);
+    padding-right: var(--compact-navbar-inline-pad);
+    padding-left: var(--compact-navbar-inline-pad);
 
     .navbar-floating {
         inline-size: max-content;
         width: auto;
         max-width: none;
-        padding: 0.5rem;
-        min-block-size: calc(2.5rem + 1rem);
+        padding: var(--compact-navbar-floating-pad);
+        min-block-size: calc(var(--compact-navbar-toggle-size) + (var(--compact-navbar-floating-pad) * 2));
         background: transparent !important;
         background-image: none !important;
         box-shadow: none;
@@ -102,8 +102,8 @@
     .navbar-header-actions {
         margin-left: 0;
         gap: 0;
-        min-inline-size: 2.5rem;
-        min-block-size: 2.5rem;
+        min-inline-size: var(--compact-navbar-toggle-size);
+        min-block-size: var(--compact-navbar-toggle-size);
     }
 
     .navbar-brand,
@@ -270,14 +270,22 @@
 }
 
 @media (max-width: 340px) {
+    :root {
+        --floating-nav-top-pad: 0.75rem;
+        --floating-nav-inline-pad: 0.5rem;
+        --compact-navbar-inline-pad: 0.5rem;
+        --compact-navbar-toggle-size: 2.25rem;
+        --compact-navbar-floating-pad: 0.45rem;
+    }
+
     .nav-wrapper {
-        padding: 0.75rem 0.5rem 0;
+        padding: var(--floating-nav-top-pad) var(--floating-nav-inline-pad) 0;
     }
 
     .navbar-floating {
         inline-size: calc(100% - 1rem);
         width: calc(100% - 1rem);
-        padding: 0.45rem 0.9rem;
+        padding: var(--compact-navbar-floating-pad) 0.9rem;
     }
 
     .navbar-header {
@@ -294,10 +302,10 @@
 
     .navbar-toggler,
     .navbar-close-button {
-        inline-size: 2.25rem;
-        block-size: 2.25rem;
-        min-inline-size: 2.25rem;
-        min-block-size: 2.25rem;
+        inline-size: var(--compact-navbar-toggle-size);
+        block-size: var(--compact-navbar-toggle-size);
+        min-inline-size: var(--compact-navbar-toggle-size);
+        min-block-size: var(--compact-navbar-toggle-size);
         padding: 0;
     }
 }
@@ -547,10 +555,10 @@
 .navbar-close-button {
     border: 1px solid transparent;
     border-radius: 50%;
-    inline-size: 2.5rem;
-    block-size: 2.5rem;
-    min-inline-size: 2.5rem;
-    min-block-size: 2.5rem;
+    inline-size: var(--compact-navbar-toggle-size);
+    block-size: var(--compact-navbar-toggle-size);
+    min-inline-size: var(--compact-navbar-toggle-size);
+    min-block-size: var(--compact-navbar-toggle-size);
     padding: 0;
     margin: 0;
     position: relative;
@@ -600,10 +608,12 @@
 .navbar-toggler-icon {
     display: block;
     width: 1.25rem;
-    height: 2px;
+    height: var(--compact-navbar-icon-line-thickness);
     border-radius: 999px;
     background: currentColor;
-    box-shadow: 0 -0.38rem 0 currentColor, 0 0.38rem 0 currentColor;
+    box-shadow:
+        0 calc(var(--compact-navbar-icon-line-offset) * -1) 0 currentColor,
+        0 var(--compact-navbar-icon-line-offset) 0 currentColor;
 }
 
 .navbar-close-button {

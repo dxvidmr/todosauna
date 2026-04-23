@@ -11,6 +11,23 @@
   --layout-rail-max: 1240px;
   --layout-inline-gutter: clamp(16px, 2.4vw, 36px);
   --overlay-nav-gap: clamp(16px, 2.8vh, 34px);
+  --floating-nav-top-pad: 1rem;
+  --floating-nav-inline-pad: 1rem;
+  --compact-navbar-inline-pad: clamp(12px, 2vw, 24px);
+  --compact-navbar-toggle-size: 2.5rem;
+  --compact-navbar-floating-pad: 0.5rem;
+  --compact-navbar-icon-line-thickness: 2px;
+  --compact-navbar-icon-line-offset: 0.38rem;
+  --compact-navbar-icon-stack-size: calc(
+    var(--compact-navbar-icon-line-thickness) + (var(--compact-navbar-icon-line-offset) * 2)
+  );
+  --compact-navbar-button-top-offset: calc(
+    var(--floating-nav-top-pad) + var(--compact-navbar-floating-pad)
+  );
+  --compact-navbar-icon-top-offset: calc(
+    var(--compact-navbar-button-top-offset) +
+    ((var(--compact-navbar-toggle-size) - var(--compact-navbar-icon-stack-size)) / 2)
+  );
   --color-dark: #{$color-dark};
   --color-light: #{$color-light};
   --color-primary: #{$color-primary};

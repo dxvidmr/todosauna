@@ -473,7 +473,8 @@ tei-stage {
 .sugerencia-tooltip.is-anchored {
   position: fixed;
   left: 50%;
-  bottom: max(12px, calc(env(safe-area-inset-bottom) + 12px));
+  bottom: max(8px, calc(env(safe-area-inset-bottom) + 8px));
+  width: min(calc(100vw - 20px), 720px);
   transform: translateX(-50%);
 }
 
@@ -515,17 +516,30 @@ tei-stage {
 }
 
 // Modal de sugerencia
-.sugerencia-modal-content {
-  max-width: 500px;
-  
-  h2 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    
-    i {
-      color: $color-dark;
-    }
+.sugerencia-modal .sugerencia-modal-shell {
+  max-width: 520px;
+  width: min(92vw, 520px);
+  border-radius: 18px;
+  padding: 44px 22px 18px;
+}
+
+.sugerencia-modal .modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px 16px;
+  margin-bottom: 24px;
+  padding-right: 52px;
+}
+
+.sugerencia-modal .modal-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  line-height: 1.25;
+
+  i {
+    color: $color-dark;
   }
 }
 
@@ -551,7 +565,7 @@ tei-stage {
   padding: 12px 16px;
   background: $color-surface-raised;
   border: 1px solid $color-neutral-200;
-  border-radius: 6px;
+  border-radius: 12px;
   color: $color-text;
   line-height: 1.5;
   max-height: 150px;
@@ -564,7 +578,7 @@ tei-stage {
   width: 100%;
   padding: 12px;
   border: 1px solid $color-neutral-200;
-  border-radius: 6px;
+  border-radius: 12px;
   font-family: inherit;
   font-size: 14px;
   resize: vertical;
@@ -583,33 +597,32 @@ tei-stage {
 
 .sugerencia-botones {
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: nowrap;
   gap: 10px;
   margin-top: 8px;
 }
 
-@media (max-width: 575.98px) {
-  .nota-evaluacion.is-commenting {
-    .evaluacion-comentario,
-    .nota-content .evaluacion-comentario {
-      grid-template-columns: 1fr;
-    }
-  }
+.sugerencia-botones .btn {
+  flex: 1 1 0;
+  min-width: 0;
+}
 
-  .sugerencia-modal .sugerencia-modal-content {
-    width: calc(100% - 16px);
-    padding: 24px 18px 18px;
-    border-radius: 18px;
+@media (max-width: 640px) {
+  .sugerencia-modal .sugerencia-modal-shell {
+    width: min(94vw, 520px);
+    padding: 40px 16px 14px;
   }
+}
 
-  .sugerencia-botones {
-    flex-direction: column-reverse;
-    align-items: stretch;
-  }
-
-  .sugerencia-botones .btn {
-    width: 100%;
-  }
+.sugerencia-tooltip.is-anchored .btn-sugerir-nota {
+  width: 100%;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 24px;
+  background: $color-primary;
+  color: $color-light;
+  box-shadow: $shadow-md;
 }
 
 
@@ -671,18 +684,38 @@ tei-stage {
   }
 }
 
-.sugerencia-modal .sugerencia-modal-content {
-  max-width: 500px;
-}
-
 #modal-modo .modal-close,
 #modal-modo .modal-shell-close,
 .participa-ui-dialog .modal-shell-close,
-.sugerencia-modal .modal-close {
+.sugerencia-modal .modal-shell-close {
   @include buttons.btn-circular-base;
   position: absolute;
   top: 16px;
   right: 16px;
+}
+
+#modal-modo,
+.sugerencia-modal {
+  .modal-header-main {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .modal-actions,
+  .modal-header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .modal-descripcion {
+    color: $color-text-muted;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
 }
 
 #modal-modo {
@@ -706,10 +739,6 @@ tei-stage {
 
   .modal-header-main {
     grid-area: main;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
   }
 
   .modal-header-meta {
@@ -717,13 +746,6 @@ tei-stage {
     flex-wrap: wrap;
     align-items: center;
     gap: 8px 12px;
-  }
-
-  .modal-actions,
-  .modal-header-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
   }
 
   .modal-header-actions {
@@ -759,13 +781,6 @@ tei-stage {
   .modal-header-meta-item {
     color: $color-text-muted;
     font-size: 0.92rem;
-  }
-
-  .modal-descripcion {
-    color: $color-text-muted;
-    margin: 0;
-    font-size: 0.9rem;
-    line-height: 1.45;
   }
 
   #modal-titulo {
@@ -1266,10 +1281,6 @@ tei-seg.note-target {
     color: $color-dark;
     border: 1px solid $color-neutral-200;
   }
-}
-
-.sugerencia-tooltip.is-anchored .btn-sugerir-nota {
-  padding: 10px 16px;
 }
 
 .note-badge-tooltip {

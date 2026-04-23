@@ -96,15 +96,15 @@ test.describe('TEI shared typography', () => {
     await expect(page.locator('#lab-font-size-display')).toHaveText('105%');
   });
 
-  test('lectura no applies a smaller mobile-only base than laboratorio', async ({ page }) => {
+  test('laboratorio uses a more compact mobile base and hides local zoom controls', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
 
     const lecturaMetrics = await getLecturaMetrics(page);
     const laboratorioMetrics = await getLaboratorioMetrics(page);
 
-    expect(lecturaMetrics.display).toBe('100%');
     expect(laboratorioMetrics.display).toBe('100%');
-    expect(lecturaMetrics.fontSize).toBeCloseTo(laboratorioMetrics.fontSize, 1);
-    expect(lecturaMetrics.lineHeight).toBeCloseTo(laboratorioMetrics.lineHeight, 1);
+    expect(laboratorioMetrics.fontSize).toBeLessThan(lecturaMetrics.fontSize);
+    expect(laboratorioMetrics.lineHeight / laboratorioMetrics.fontSize).toBeCloseTo(1.6, 1);
+    await expect(page.locator('.laboratorio-wrapper .lab-font-controls')).toBeHidden();
   });
 });
