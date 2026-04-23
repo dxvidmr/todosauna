@@ -20,7 +20,7 @@ import {
   buildNoteDisplayHTML,
   buildNotePanelHTML
 } from './notas-dom.js';
-import { cargarNotasActivas } from '../participacion/notas.js';
+import { cargarNotasActivas, filtrarNotasPorXmlIds } from '../participacion/notas.js';
 import {
   obtenerEvaluacionesStats,
   attachEvaluationListeners,
@@ -43,11 +43,13 @@ class EditorSocial {
     this.pasajeActualIndex = 0;
     this.pasajes = [];
     this.xmlDoc = null;
+    this.pasajeActual = null;
     
     // Estado de notas del pasaje actual
     this.notasPasaje = [];
     this.notaActualIndex = -1;
     this.notasEvaluadas = new Set();
+    this.isNoteSheetOpen = false;
     
     // Modo de navegación: 'secuencial' | 'aleatorio'
     this.modoNavegacion = null;
@@ -62,6 +64,10 @@ class EditorSocial {
     this.laboratorioLayout = null;
     this.wrapperEl = null;
     this.navWrapper = null;
+    this.notesBackdrop = null;
+    this.notasColumn = null;
+    this.btnNotasSheetToggle = null;
+    this.btnCerrarNotas = null;
     // Zoom del pasaje (sesion actual)
     this.labFontSizePercent = DEFAULT_ZOOM_PERCENT;
     this.labFontMin = MIN_ZOOM_PERCENT;
@@ -109,7 +115,6 @@ class EditorSocial {
     if (!window.Participacion?.modal?.open) return;
     await window.Participacion.modal.open(options || {});
   }
-
   /**
    * Carga dinamica de CETEI.js si no esta disponible.
    */
@@ -152,7 +157,12 @@ class EditorSocial {
     this.laboratorioLayout = document.querySelector('.laboratorio-layout');
     this.wrapperEl = document.querySelector('.laboratorio-wrapper');
     this.navWrapper = document.querySelector('.nav-wrapper');
+    this.notesBackdrop = document.getElementById('laboratorio-notas-backdrop');
+    this.notasColumn = document.getElementById('laboratorio-notas-sheet');
+    this.btnNotasSheetToggle = document.getElementById('btn-notas-sheet-toggle');
+    this.btnCerrarNotas = document.getElementById('btn-notas-cerrar');
     this.setupTextZoomController();
+    this.syncResponsiveState();
 
     // Cargar pasajes desde Supabase
     await this.cargarPasajes();
@@ -179,6 +189,8 @@ class EditorSocial {
     // Event listeners para controles del laboratorio
     this.setupEventListeners();
     this.bindParticipationStateListener();
+    this.actualizarBotonNotasSheet();
+    this.syncResponsiveState();
 
     console.log('Editor Social inicializado');
   }
@@ -248,6 +260,137 @@ class EditorSocial {
 
   getTeiPasajeContainer() {
     return document.getElementById('tei-pasaje');
+  }
+
+  getPasajeContainer() {
+    return document.querySelector('.pasaje-container');
+  }
+
+  isNarrowLayout() {
+    return typeof window !== 'undefined' && window.matchMedia('(max-width: 991.98px)').matches;
+  }
+
+  scrollPasajeToStart() {
+    const pasajeContainer = this.getPasajeContainer();
+    if (!pasajeContainer) return;
+    pasajeContainer.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }
+
+  getPrimerIndiceNotaPendiente() {
+    for (let i = 0; i < this.notasPasaje.length; i++) {
+      if (!this.notasEvaluadas.has(this.notasPasaje[i].nota_id)) {
+        return i;
+      }
+    }
+
+    return this.notasPasaje.length > 0 ? 0 : -1;
+  }
+
+  actualizarBotonNotasSheet() {
+    if (!this.btnNotasSheetToggle) return;
+
+    const labelEl = this.btnNotasSheetToggle.querySelector('span');
+    const hasNotes = this.notasPasaje.length > 0;
+    let label = 'Abrir notas';
+
+    if (!hasNotes) {
+      label = 'Sin notas';
+    } else if (this.isNarrowLayout() && this.isNoteSheetOpen) {
+      label = 'Cerrar notas';
+    } else if (this.notaActualIndex >= 0) {
+      label = `Ver nota ${this.notaActualIndex + 1}/${this.notasPasaje.length}`;
+    }
+
+    this.btnNotasSheetToggle.disabled = !hasNotes;
+    this.btnNotasSheetToggle.setAttribute(
+      'aria-expanded',
+      this.isNarrowLayout() && this.isNoteSheetOpen ? 'true' : 'false'
+    );
+
+    if (labelEl) {
+      labelEl.textContent = label;
+    }
+  }
+
+  syncResponsiveState() {
+    const isNarrow = this.isNarrowLayout();
+
+    if (!isNarrow) {
+      this.isNoteSheetOpen = false;
+    }
+
+    if (this.wrapperEl) {
+      this.wrapperEl.setAttribute('data-lab-layout', isNarrow ? 'narrow' : 'wide');
+      this.wrapperEl.setAttribute(
+        'data-lab-notes-open',
+        isNarrow && this.isNoteSheetOpen ? 'true' : 'false'
+      );
+    }
+
+    if (this.notasColumn) {
+      this.notasColumn.setAttribute(
+        'aria-hidden',
+        isNarrow ? String(!this.isNoteSheetOpen) : 'false'
+      );
+    }
+
+    if (this.notesBackdrop) {
+      this.notesBackdrop.hidden = !(isNarrow && this.isNoteSheetOpen);
+    }
+
+    this.actualizarBotonNotasSheet();
+  }
+
+  openNoteSheet(options = {}) {
+    const preferPending = !!options.preferPending;
+
+    if (!this.notasPasaje.length) {
+      this.isNoteSheetOpen = false;
+      this.syncResponsiveState();
+      return false;
+    }
+
+    if (this.isNarrowLayout()) {
+      let targetIndex = this.notaActualIndex;
+      const currentNote = targetIndex >= 0 ? this.notasPasaje[targetIndex] : null;
+
+      if (
+        targetIndex < 0 ||
+        !currentNote ||
+        (preferPending && this.notasEvaluadas.has(currentNote.nota_id))
+      ) {
+        targetIndex = preferPending ? this.getPrimerIndiceNotaPendiente() : 0;
+      }
+
+      if (targetIndex >= 0 && targetIndex !== this.notaActualIndex) {
+        this.navegarANota(targetIndex, { openSheet: false });
+      }
+
+      this.isNoteSheetOpen = true;
+      this.syncResponsiveState();
+    }
+
+    return true;
+  }
+
+  closeNoteSheet(options = {}) {
+    const focusPasaje = !!options.focusPasaje;
+
+    this.isNoteSheetOpen = false;
+    this.syncResponsiveState();
+
+    if (focusPasaje) {
+      this.getPasajeContainer()?.focus({ preventScroll: true });
+    }
+  }
+
+  toggleNoteSheet() {
+    if (this.isNarrowLayout() && this.isNoteSheetOpen) {
+      this.closeNoteSheet({ focusPasaje: true });
+      return;
+    }
+
+    this.openNoteSheet({ preferPending: true });
   }
 
   setupTextZoomController() {
@@ -327,6 +470,8 @@ class EditorSocial {
    */
   mostrarPantallaBienvenida() {
     this.aplicarEstadoVista('welcome');
+    this.closeNoteSheet();
+    this.pasajeActual = null;
 
     if (this.bienvenidaContainer) {
       this.bienvenidaContainer.style.display = 'flex';
@@ -341,6 +486,7 @@ class EditorSocial {
    */
   ocultarPantallaBienvenida() {
     this.aplicarEstadoVista('mode');
+    this.syncResponsiveState();
 
     if (this.bienvenidaContainer) {
       this.bienvenidaContainer.style.display = 'none';
@@ -417,7 +563,9 @@ class EditorSocial {
     const btnAnterior = document.getElementById('btn-anterior');
     if (btnAnterior) {
       btnAnterior.style.display = 'inline-flex';
-    }    
+    }
+
+    this.actualizarBotonNotasSheet();
     // Cargar primer pasaje
     await this.cargarPasaje(0);
   }
@@ -447,7 +595,9 @@ class EditorSocial {
     const btnAnterior = document.getElementById('btn-anterior');
     if (btnAnterior) {
       btnAnterior.style.display = 'none';
-    }    
+    }
+
+    this.actualizarBotonNotasSheet();
     // Cargar pasaje aleatorio
     await this.cargarPasajeAleatorio();
   }
@@ -564,8 +714,10 @@ class EditorSocial {
     this.notasPasaje = [];
     this.notaActualIndex = -1;
     this.notasEvaluadas.clear();
+    this.isNoteSheetOpen = false;
 
     const pasaje = this.pasajes[index];
+    this.pasajeActual = pasaje;
 
     // Actualizar UI
     document.getElementById('pasaje-actual').textContent = index + 1;
@@ -575,6 +727,8 @@ class EditorSocial {
     
     // Actualizar botones de navegación
     this.actualizarBotonesNavegacionPasajes();
+    this.actualizarBotonNotasSheet();
+    this.syncResponsiveState();
 
     // Extraer fragmento del XML
     const fragmento = extraerFragmento(this.xmlDoc, pasaje);
@@ -586,6 +740,7 @@ class EditorSocial {
 
     // Renderizar con CETEI
     await this.renderizarPasaje(fragmento, pasaje);
+    this.scrollPasajeToStart();
 
     // Cargar notas y aplicar highlights
     await this.cargarYAplicarNotas(fragmento, pasaje);
@@ -681,6 +836,9 @@ class EditorSocial {
         ''
       );
     }
+
+    this.actualizarBotonNotasSheet();
+    this.syncResponsiveState();
   }
 
   renderizarEstadoNotaPanel(mensajeContenido, mensajeDock) {
@@ -698,6 +856,8 @@ class EditorSocial {
       bodyHTML: displayHtml,
       dockHTML: dockHtml
     });
+
+    this.actualizarBotonNotasSheet();
   }
 
   /**
@@ -739,18 +899,22 @@ class EditorSocial {
   /**
    * Marcar nota actual en el texto
    */
-  marcarNotaActualEnTexto(notaId) {
+  marcarNotaActualEnTexto(notaId, options = {}) {
     const teiContainer = this.getTeiPasajeContainer();
     if (!teiContainer) return;
-    markCurrentNoteInText(teiContainer, notaId, { clearAllActive: true, autoScroll: true });
+    markCurrentNoteInText(teiContainer, notaId, {
+      clearAllActive: true,
+      autoScroll: options.autoScroll !== false
+    });
   }
 
   /**
    * Navegar a una nota especifica por indice
    */
-  navegarANota(index) {
+  navegarANota(index, options = {}) {
     if (index < 0 || index >= this.notasPasaje.length) return;
 
+    const shouldOpenSheet = options.openSheet !== false && this.isNarrowLayout();
     this.notaActualIndex = index;
     const nota = this.notasPasaje[index];
 
@@ -758,7 +922,9 @@ class EditorSocial {
     document.getElementById('nota-actual-index').textContent = index + 1;
 
     // Marcar en el texto
-    this.marcarNotaActualEnTexto(nota.nota_id);
+    this.marcarNotaActualEnTexto(nota.nota_id, {
+      autoScroll: options.autoScroll !== false
+    });
 
     // Actualizar botones de navegacion
     this.actualizarBotonesNavegacion();
@@ -768,6 +934,12 @@ class EditorSocial {
 
     // Actualizar barra de progreso de notas
     this.actualizarBarraProgresoNotas();
+    if (shouldOpenSheet) {
+      this.isNoteSheetOpen = true;
+      this.syncResponsiveState();
+    } else {
+      this.actualizarBotonNotasSheet();
+    }
   }
 
   /**
@@ -812,6 +984,8 @@ class EditorSocial {
       dockHTML: dockHtml
     });
 
+    this.actualizarBotonNotasSheet();
+
     // Adjuntar event listeners si no esta evaluada
     if (!yaEvaluada) {
       const container = this.notaContent.querySelector('.note-eval-dock') || this.notaContent;
@@ -838,6 +1012,7 @@ class EditorSocial {
     const nota = this.notasPasaje.find(n => n.nota_id === notaId);
     if (nota) {
       this.renderizarNotaActual(nota);
+      this.actualizarBotonNotasSheet();
     }
 
     mostrarToast('Evaluación guardada', 2000);
@@ -866,6 +1041,10 @@ class EditorSocial {
     // Todas evaluadas
     if (this.notasEvaluadas.size === this.notasPasaje.length) {
       setTimeout(() => {
+        if (this.isNarrowLayout()) {
+          this.closeNoteSheet();
+        }
+        document.getElementById('btn-siguiente')?.focus({ preventScroll: true });
         mostrarToast('¡Pasaje completado!', 3000);
       }, 600);
     }
@@ -890,6 +1069,7 @@ class EditorSocial {
 
     // Actualizar barra de progreso de notas tras cambiar contadores
     this.actualizarBarraProgresoNotas();
+    this.actualizarBotonNotasSheet();
   }
 
   /**
@@ -947,6 +1127,18 @@ class EditorSocial {
       this.siguientePasaje();
     });
 
+    this.btnNotasSheetToggle?.addEventListener('click', () => {
+      this.toggleNoteSheet();
+    });
+
+    this.btnCerrarNotas?.addEventListener('click', () => {
+      this.closeNoteSheet({ focusPasaje: true });
+    });
+
+    this.notesBackdrop?.addEventListener('click', () => {
+      this.closeNoteSheet({ focusPasaje: true });
+    });
+
     // Botón cambiar modo
     document.getElementById('btn-cambiar-modo')?.addEventListener('click', async () => {
       const shouldChangeMode = await this.confirmFeedback({
@@ -980,9 +1172,17 @@ class EditorSocial {
       }
 
       this.resizeAdjustTimer = setTimeout(() => {
+        this.syncResponsiveState();
         this.ajustarZoomHastaNoOverflow();
       }, 120);
     }, { passive: true });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      if (!this.isNarrowLayout() || !this.isNoteSheetOpen) return;
+      event.preventDefault();
+      this.closeNoteSheet({ focusPasaje: true });
+    });
 
     // Actualizar botones iniciales
     this.actualizarBotonesNavegacion();
@@ -1008,6 +1208,8 @@ class EditorSocial {
     if (notaActual) {
       this.renderizarNotaActual(notaActual);
     }
+
+    this.actualizarBotonNotasSheet();
   }
 
   /**
@@ -1017,6 +1219,7 @@ class EditorSocial {
     this.modoNavegacion = null;
     this.pasajesVisitados.clear();
     this.actualizarModoControlesFranja(null);
+    this.closeNoteSheet();
     this.mostrarPantallaBienvenida();
   }
 
@@ -1064,6 +1267,7 @@ class EditorSocial {
     
     if (this.pasajeActualIndex > 0) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      this.scrollPasajeToStart();
       this.cargarPasaje(this.pasajeActualIndex - 1);
     }
   }
@@ -1073,6 +1277,7 @@ class EditorSocial {
    */
   siguientePasaje() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.scrollPasajeToStart();
     
     if (this.modoNavegacion === 'secuencial') {
       this.cargarPasaje(this.pasajeActualIndex + 1);
@@ -1086,6 +1291,7 @@ class EditorSocial {
    */
   mostrarFinalizacion() {
     const layout = document.querySelector('.laboratorio-layout');
+    this.closeNoteSheet();
     layout.innerHTML = `
       <div style="text-align: center; padding: 80px 20px; max-width: 600px; margin: 0 auto;">
         <h1 style="font-size: 3rem; color: var(--success); margin-bottom: 20px;">Felicidades!</h1>
@@ -1108,6 +1314,7 @@ class EditorSocial {
 // Inicializar cuando el DOM este listo
 document.addEventListener('DOMContentLoaded', async () => {
   window.editorSocial = new EditorSocial();
+  window.laboratorioNotas = window.editorSocial;
   await window.editorSocial.init();
 });
 

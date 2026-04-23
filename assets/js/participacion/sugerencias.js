@@ -16,6 +16,8 @@ class SugerenciasNotas {
     this.seleccionActual = null;
     this.source = this.detectarSource();
     this.isSubmitting = false;
+    this.selectionReviewTimer = null;
+    this.lastSelectionTarget = null;
   }
 
   /**
@@ -26,6 +28,41 @@ class SugerenciasNotas {
       return 'laboratorio';
     }
     return 'lectura';
+  }
+
+  isNarrowLayout() {
+    return typeof window !== 'undefined' && window.matchMedia('(max-width: 991.98px)').matches;
+  }
+
+  usarTooltipAnclado() {
+    return this.isNarrowLayout();
+  }
+
+  resolverTargetSeleccion(eventoOTarget) {
+    if (eventoOTarget instanceof Element) {
+      return eventoOTarget;
+    }
+
+    if (eventoOTarget && eventoOTarget.target instanceof Element) {
+      return eventoOTarget.target;
+    }
+
+    return null;
+  }
+
+  programarRevisionSeleccion(eventoOTarget, delay = 20) {
+    const target = this.resolverTargetSeleccion(eventoOTarget);
+    if (target) {
+      this.lastSelectionTarget = target;
+    }
+
+    if (this.selectionReviewTimer) {
+      clearTimeout(this.selectionReviewTimer);
+    }
+
+    this.selectionReviewTimer = setTimeout(() => {
+      this.manejarSeleccion(this.lastSelectionTarget);
+    }, delay);
   }
 
   /**
@@ -118,8 +155,21 @@ class SugerenciasNotas {
   setupEventListeners() {
     // Detectar fin de seleccion de texto
     document.addEventListener('mouseup', (e) => {
-      // Pequeno delay para que la seleccion se complete
-      setTimeout(() => this.manejarSeleccion(e), 10);
+      this.programarRevisionSeleccion(e, 10);
+    });
+
+    document.addEventListener('pointerup', (e) => {
+      if (e.pointerType === 'mouse') return;
+      this.programarRevisionSeleccion(e, 30);
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      this.programarRevisionSeleccion(e, 40);
+    }, { passive: true });
+
+    document.addEventListener('selectionchange', () => {
+      if (!this.usarTooltipAnclado()) return;
+      this.programarRevisionSeleccion(this.lastSelectionTarget, 30);
     });
 
     // Cerrar tooltip al hacer clic fuera
@@ -128,6 +178,14 @@ class SugerenciasNotas {
         this.ocultarTooltip();
       }
     });
+
+    document.addEventListener('pointerdown', (e) => {
+      const target = e.target instanceof Element ? e.target : null;
+      if (!target) return;
+      if (!this.tooltip.contains(target) && !target.closest('.sugerencia-modal')) {
+        this.ocultarTooltip();
+      }
+    }, { passive: true });
 
     // Cerrar tooltip al hacer scroll
     document.addEventListener('scroll', () => {
@@ -146,14 +204,16 @@ class SugerenciasNotas {
 
     // No mostrar si no hay texto o es muy corto
     if (!textoSeleccionado || textoSeleccionado.length < 3) {
+      this.ocultarTooltip();
       return;
     }
 
     if (selection.rangeCount === 0) {
+      this.ocultarTooltip();
       return;
     }
 
-    const targetElement = e && e.target instanceof Element ? e.target : null;
+    const targetElement = this.resolverTargetSeleccion(e);
 
     // No mostrar si el clic fue en el tooltip o modal
     if (
@@ -165,7 +225,10 @@ class SugerenciasNotas {
 
     // Verificar que la seleccion esta dentro de la zona de edicion
     const zonaEdicion = this.obtenerZonaEdicion();
-    if (!zonaEdicion) return;
+    if (!zonaEdicion) {
+      this.ocultarTooltip();
+      return;
+    }
 
     const range = selection.getRangeAt(0);
     const container = range.commonAncestorContainer;
@@ -176,11 +239,13 @@ class SugerenciasNotas {
       : container;
 
     if (!(elementoContenedor instanceof Element) || !zonaEdicion.contains(elementoContenedor)) {
+      this.ocultarTooltip();
       return;
     }
 
     // No mostrar si se selecciona dentro de una nota existente (note-wrapper)
     if (elementoContenedor.closest('.note-wrapper')) {
+      this.ocultarTooltip();
       return;
     }
 
@@ -245,6 +310,17 @@ class SugerenciasNotas {
    */
   mostrarTooltip(rect) {
     const tooltip = this.tooltip;
+    if (!tooltip) return;
+
+    const usarAnclado = this.usarTooltipAnclado();
+    tooltip.classList.toggle('is-anchored', usarAnclado);
+
+    if (usarAnclado) {
+      tooltip.style.top = '';
+      tooltip.style.left = '50%';
+      tooltip.style.display = 'block';
+      return;
+    }
 
     // Posicionar tooltip encima de la seleccion
     const tooltipHeight = 40;
@@ -267,6 +343,9 @@ class SugerenciasNotas {
    * Ocultar el tooltip
    */
   ocultarTooltip() {
+    this.tooltip.classList.remove('is-anchored');
+    this.tooltip.style.top = '';
+    this.tooltip.style.left = '';
     this.tooltip.style.display = 'none';
   }
 
@@ -308,6 +387,10 @@ class SugerenciasNotas {
     // En laboratorio, el pasaje actual esta en window.laboratorioNotas
     if (window.laboratorioNotas && window.laboratorioNotas.pasajeActual) {
       return window.laboratorioNotas.pasajeActual.id;
+    }
+
+    if (window.editorSocial && window.editorSocial.pasajeActual) {
+      return window.editorSocial.pasajeActual.id;
     }
     return null;
   }

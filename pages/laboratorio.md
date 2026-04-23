@@ -68,6 +68,7 @@ navbar_behavior: fixed
 
 <!-- Contenido principal: Layout de dos columnas -->
 <div class="laboratorio-layout">
+  <div id="laboratorio-notas-backdrop" class="laboratorio-notas-backdrop" hidden></div>
   
   <!-- Header del laboratorio (fuera de las columnas) -->
   <div class="laboratorio-header">
@@ -90,7 +91,7 @@ navbar_behavior: fixed
     <div class="laboratorio-pasaje-column">
       
       <!-- Contenedor del pasaje -->
-      <div class="pasaje-container">
+      <div class="pasaje-container" tabindex="-1">
         <div id="pasaje-content">
           <div class="loading">Cargando pasaje...</div>
         </div>
@@ -120,6 +121,15 @@ navbar_behavior: fixed
           </div>
 
           <div class="laboratorio-franja-der">
+            <button
+              id="btn-notas-sheet-toggle"
+              type="button"
+              class="btn btn-dark btn-sm btn-notas-sheet"
+              aria-controls="laboratorio-notas-sheet"
+              aria-expanded="false">
+              <i class="fa-solid fa-note-sticky" aria-hidden="true"></i>
+              <span>Abrir notas</span>
+            </button>
             <div class="lab-font-controls" aria-label="Tamano del texto del pasaje">
             <button id="lab-font-decrease" class="btn-circular" type="button" aria-label="Reducir tamano del texto">
               <i class="fa-solid fa-minus" aria-hidden="true"></i>
@@ -132,14 +142,15 @@ navbar_behavior: fixed
           </div>
         </div>
       </div>
-      
+    
     </div>
     
     <!-- Columna derecha: Notas -->
-    <div class="laboratorio-notas-column">
+    <div id="laboratorio-notas-sheet" class="laboratorio-notas-column" aria-hidden="false">
       
       <!-- Container de notas (mismo estilo que pasaje-container) -->
       <div class="notas-container">
+        <div class="notas-sheet-handle" aria-hidden="true"></div>
         
         <!-- Navegación entre notas (como note-panel-header) -->
         <div class="notas-navegacion">
@@ -155,15 +166,20 @@ navbar_behavior: fixed
             </button>
           </div>
 
-          <div class="notas-resumen-evaluacion">
-            <div id="barra-progreso-notas-container" class="barra-progreso-container">
-              <div class="barra-progreso">
-                <div id="barra-progreso-notas-fill" class="barra-progreso-fill" style="width: 0%"></div>
+          <div class="notas-panel-meta">
+            <div class="notas-resumen-evaluacion">
+              <div id="barra-progreso-notas-container" class="barra-progreso-container">
+                <div class="barra-progreso">
+                  <div id="barra-progreso-notas-fill" class="barra-progreso-fill" style="width: 0%"></div>
+                </div>
+              </div>
+              <div class="notas-contador-abajo">
+                <span id="notas-evaluadas">0</span> de <span id="notas-totales">0</span> evaluadas
               </div>
             </div>
-            <div class="notas-contador-abajo">
-              <span id="notas-evaluadas">0</span> de <span id="notas-totales">0</span> evaluadas
-            </div>
+            <button id="btn-notas-cerrar" class="btn-circular btn-cerrar-notas" type="button" aria-label="Cerrar panel de notas">
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
           </div>
         </div>
         

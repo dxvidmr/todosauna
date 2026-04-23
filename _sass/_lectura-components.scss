@@ -470,6 +470,13 @@ tei-stage {
   animation: fadeInUp 0.15s ease;
 }
 
+.sugerencia-tooltip.is-anchored {
+  position: fixed;
+  left: 50%;
+  bottom: max(12px, calc(env(safe-area-inset-bottom) + 12px));
+  transform: translateX(-50%);
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -579,6 +586,30 @@ tei-stage {
   justify-content: flex-end;
   gap: 10px;
   margin-top: 8px;
+}
+
+@media (max-width: 575.98px) {
+  .nota-evaluacion.is-commenting {
+    .evaluacion-comentario,
+    .nota-content .evaluacion-comentario {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .sugerencia-modal .sugerencia-modal-content {
+    width: calc(100% - 16px);
+    padding: 24px 18px 18px;
+    border-radius: 18px;
+  }
+
+  .sugerencia-botones {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .sugerencia-botones .btn {
+    width: 100%;
+  }
 }
 
 
@@ -1235,6 +1266,10 @@ tei-seg.note-target {
     color: $color-dark;
     border: 1px solid $color-neutral-200;
   }
+}
+
+.sugerencia-tooltip.is-anchored .btn-sugerir-nota {
+  padding: 10px 16px;
 }
 
 .note-badge-tooltip {
