@@ -1,7 +1,7 @@
 // ============================================
 // COMPONENTES COMPARTIDOS LECTURA/LABORATORIO
 // Modal, evaluaciones, sugerencias, etc.
-// Contratos reutilizables (sin layout de pÃ¡gina).
+// Contratos reutilizables (sin layout de pagina).
 // ============================================
 
 @use "variables" as *;
@@ -109,7 +109,7 @@ tei-stage {
   color: $color-text-muted;
   
   &::before {
-    content: 'â³';
+    content: '\23F3';
     display: block;
     font-size: 48px;
     margin-bottom: 10px;
@@ -201,7 +201,7 @@ tei-stage {
 }
 
 // ============================================
-// EVALUACIÃ“N DE NOTAS
+// EVALUACION DE NOTAS
 // ============================================
 
 .nota-evaluacion,
@@ -244,7 +244,7 @@ tei-stage {
   white-space: nowrap;
 }
 
-// Botones de evaluaciÃ³n (usan clases Bootstrap base)
+// Botones de evaluacion (usan clases Bootstrap base)
 .btn-evaluar,
 .btn-util,
 .btn-mejorable {
@@ -374,7 +374,7 @@ tei-stage {
   }
 }
 
-// Ãrea de comentario
+// Area de comentario
 .evaluacion-comentario,
 .nota-content .evaluacion-comentario {
   margin-top: 12px;
@@ -445,7 +445,7 @@ tei-stage {
 
 
 
-// Ajustes especÃ­ficos para laboratorio
+// Ajustes especificos para laboratorio
 .nota-content {
   
   .evaluacion-comentario button {
@@ -632,69 +632,6 @@ tei-stage {
 // ============================================
 
 #modal-modo,
-.participa-ui-dialog,
-.sugerencia-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 10000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-#modal-modo.show,
-.participa-ui-dialog.show,
-.sugerencia-modal.show {
-  display: flex;
-}
-
-#modal-modo .modal-overlay,
-.participa-ui-dialog .modal-overlay,
-.sugerencia-modal .modal-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: $color-overlay;
-  z-index: 1;
-}
-
-#modal-modo .modal-content,
-.participa-ui-dialog .modal-content,
-.sugerencia-modal .modal-content {
-  position: relative;
-  background: $color-surface-raised;
-  border-radius: 8px;
-  padding: 32px;
-  max-width: 800px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: $shadow-md;
-  pointer-events: auto;
-  z-index: 2;
-
-  h2 {
-    margin: 0;
-    color: $color-text;
-  }
-}
-
-#modal-modo .modal-close,
-#modal-modo .modal-shell-close,
-.participa-ui-dialog .modal-shell-close,
-.sugerencia-modal .modal-shell-close {
-  @include buttons.btn-circular-base;
-  position: absolute;
-  top: 16px;
-  right: 16px;
-}
-
-#modal-modo,
 .sugerencia-modal {
   .modal-header-main {
     min-width: 0;
@@ -793,6 +730,7 @@ tei-stage {
     line-height: 1.03;
   }
 
+  &[data-view="profile"] .ta-modal__dialog,
   &[data-view="profile"] .modal-content {
     max-width: 920px;
   }
@@ -1174,7 +1112,9 @@ tei-stage {
     grid-template-columns: 1fr;
   }
 
+  #modal-modo .ta-modal__dialog,
   #modal-modo .modal-content,
+  .participa-ui-dialog .ta-modal__dialog,
   .participa-ui-dialog .modal-content {
     padding: 24px 20px;
     margin: 10px;

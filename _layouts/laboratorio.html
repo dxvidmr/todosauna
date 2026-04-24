@@ -18,9 +18,7 @@
         {{ content }}
       </div>
     </main>
-    
-    <!-- Modal container para participación -->
-    <div id="modal-container"></div>
+    {% include ui/modal-root.html %}
     
     {% include foot.html %}
     <script type="module" src="{{ '/assets/js/entry/navbar.js' | relative_url }}"></script>

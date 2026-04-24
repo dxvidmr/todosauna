@@ -774,8 +774,7 @@ function submitAdvancedSearch(event) {
     
     // Close modal
     try {
-        const modal = bootstrap.Modal.getInstance(document.getElementById('advancedSearchModal'));
-        modal?.hide();
+        window.TA?.modal?.close('#advancedSearchModal');
     } catch (e) {
         console.error('Could not close modal:', e);
     }
@@ -857,7 +856,7 @@ function displayActiveFilters(searchCriteria) {
         Add Field
     `;
     addButton.addEventListener('click', () => {
-        new bootstrap.Modal(document.getElementById('advancedSearchModal')).show();
+        window.TA?.modal?.open('#advancedSearchModal');
     });
     
     container.appendChild(addButton);
@@ -1051,7 +1050,7 @@ function setupEventHandlers() {
         
         if (field === 'advanced') {
             e.target.value = 'all';
-            new bootstrap.Modal(document.getElementById('advancedSearchModal')).show();
+            window.TA?.modal?.open('#advancedSearchModal');
             return;
         }
         
@@ -1067,7 +1066,7 @@ function setupEventHandlers() {
             const selectedField = document.getElementById('selectedField');
             
             if (field === 'advanced') {
-                new bootstrap.Modal(document.getElementById('advancedSearchModal')).show();
+                window.TA?.modal?.open('#advancedSearchModal');
                 return;
             }
             
@@ -1140,7 +1139,7 @@ function setupEventHandlers() {
     // Advanced search modal handler
     const advancedSearchModal = document.getElementById('advancedSearchModal');
     if (advancedSearchModal) {
-        advancedSearchModal.addEventListener('show.bs.modal', function() {
+        const syncAdvancedSearchModal = function() {
             // Reflect hash-based search in modal
             if (window.location.hash && !window.location.search) {
                 const hash = decodeURIComponent(location.hash.substr(1));
@@ -1159,7 +1158,9 @@ function setupEventHandlers() {
                 
                 updateAdvancedSearchModal([{boolean: 'AND', field: field, value: query}]);
             }
-        });
+        };
+
+        advancedSearchModal.addEventListener('ta:modal:open', syncAdvancedSearchModal);
     }
 
     // Masonry relayout on lazyloaded images and resize

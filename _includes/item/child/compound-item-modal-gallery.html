@@ -29,25 +29,25 @@
                     <!-- child object modal button -->
                     <a id="item-{{ forloop.index }}"
                         role="button"
-                        data-bs-toggle="modal"
                         href="#{{ child.objectid }}"
-                        onclick="window.location.hash='{{ child.objectid }}'"
+                        data-ta-modal-target="#{{ child.objectid }}"
                         class="btn btn-sm btn-outline-secondary small stretched-link">
                         {{ child.display_template | upcase | default: "Item" }} <svg class="bi icon-sprite" fill="currentColor" aria-hidden="true"><use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-{{ child.display_template | default: 'file'}}"/></svg>
                     </a> 
 
                     <!-- child object modal -->
-                    <div class="modal fade" id="{{ child.objectid }}" tabindex="-1" role="dialog" aria-labelledby="{{ child.objectid }}ModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-xxl">
-                            <div class="modal-content text-start">
+                    {% capture stopMedia %}{% if child.display_template == 'video' %}{% if child.object_location contains 'vimeo' %}vimeo{% elsif child.object_location contains 'youtu' %}youtube{% else %}video{% endif %}{% elsif child.display_template == 'audio' %}audio{% else %}{% endif %}{% endcapture %}
+                    <div class="ta-modal compound-child-modal" id="{{ child.objectid }}" data-ta-modal="true" data-ta-modal-size="full" {% if stopMedia != '' %}data-stop-media-type="{{ stopMedia }}"{% endif %} role="dialog" aria-labelledby="{{ child.objectid }}ModalLabel" aria-hidden="true">
+                        <div class="ta-modal__overlay modal-overlay"></div>
+                        <div class="ta-modal__dialog compound-child-modal__dialog text-start">
 
-                                <div class="modal-header ">
+                                <div class="ta-modal__header modal-header">
                                     <div class="modal-title w-100" id="{{ child.objectid }}ModalLabel">
                                         <div class="row">
-                                            {% capture stopMedia %}{% if child.display_template == 'video' %}{% if child.object_location contains 'vimeo' %}vimeo{% elsif child.object_location contains 'youtu' %}youtube{% else %}video{% endif %}{% elsif child.display_template == 'audio' %}audio{% else %}{% endif %}{% endcapture %}
                                             <div class="col-12 text-end">
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                                onclick="{% if stopMedia != '' %}stopMedia('{{ child.objectid }}','{{ stopMedia }}');{% endif %}history.pushState('', '', window.location.pathname)"></button>
+                                                <button type="button" class="btn-circular compound-child-close" data-ta-modal-close="true" aria-label="Close">
+                                                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                                                </button>
                                             </div>
                                             {% capture next_index %}{% if forloop.index == forloop.length %}0{% else %}{{ forloop.index0 | plus: 1 }}{% endif %}{% endcapture %}
                                             {% assign next_index = next_index | times: 1 %}
@@ -56,7 +56,7 @@
                                             {% capture next_item_id %}{{ children[next_index].objectid }}{% endcapture %}
                                             {% capture prev_item_id %}{{ children[prev_index].objectid }}{% endcapture %}
                                             <div class="col-1 col-md-2">
-                                                <button data-bs-target="#{{ prev_item_id }}" data-bs-toggle="modal" onclick="{% if stopMedia != '' %}stopMedia('{{ child.objectid }}','{{ stopMedia }}');{% endif %}window.location.hash='{{ prev_item_id }}'" class="btn btn-outline-dark btn-sm prev-child-button" >
+                                                <button type="button" data-ta-modal-target="#{{ prev_item_id }}" data-ta-modal-replace="true" class="btn btn-outline-dark btn-sm prev-child-button" >
                                                     <svg class="bi icon-sprite" role="img" aria-label="Previous Item">
                                                         <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#arrow-left"/>
                                                     </svg>
@@ -70,7 +70,7 @@
                                                 </h3>
                                             </div>
                                             <div class="col-1 col-md-2 text-end">
-                                                <button  data-bs-target="#{{ next_item_id }}" data-bs-toggle="modal" onclick="{% if stopMedia != '' %}stopMedia('{{ child.objectid }}','{{ stopMedia }}');{% endif %}window.location.hash='{{ next_item_id }}'" class="ms-md-5 btn btn-outline-dark btn-sm next-child-button">
+                                                <button type="button" data-ta-modal-target="#{{ next_item_id }}" data-ta-modal-replace="true" class="ms-md-5 btn btn-outline-dark btn-sm next-child-button">
                                                     <span class="d-none d-md-inline">Next Item</span>
                                                     <svg class="bi icon-sprite" role="img" aria-label="Next Item">
                                                         <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#arrow-right"/>
@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
 
-                                <div class="modal-body">
+                                <div class="ta-modal__body compound-child-modal__body">
                                     <div class="row">
                                         <div class="col-md-8">
                                             <div class="card mb-4 text-center">
@@ -125,7 +125,6 @@
                                     </div>
                                 </div>
 
-                            </div>
                         </div>
                     </div>
                     <!-- end child modal -->
@@ -142,22 +141,65 @@ function stopMedia(objectid, type) {
     // stop media based on type
     if (type == "audio") {
         const mediaElement = document.querySelector(`#${ objectid } audio`);
-        mediaElement.pause();
+        if (mediaElement) mediaElement.pause();
         //mediaElement.currentTime = 0;
     }
     if (type == "video") {
         const mediaElement = document.querySelector(`#${ objectid } video`);
-        mediaElement.pause();
+        if (mediaElement) mediaElement.pause();
         //mediaElement.currentTime = 0;   
     }
     if (type == "youtube") {
         const mediaElement = document.querySelector(`#${ objectid } iframe`);
-        const message = JSON.stringify({ event: 'command', func: 'pauseVideo', args: '' });
-        mediaElement.contentWindow.postMessage(message, '*');
+        if (mediaElement && mediaElement.contentWindow) {
+            const message = JSON.stringify({ event: 'command', func: 'pauseVideo', args: '' });
+            mediaElement.contentWindow.postMessage(message, '*');
+        }
     }
     if (type == "vimeo") {
         const mediaElement = document.querySelector(`#${ objectid } iframe`);
-        mediaElement.contentWindow.postMessage('{"method":"pause"}', '*');
+        if (mediaElement && mediaElement.contentWindow) {
+            mediaElement.contentWindow.postMessage('{"method":"pause"}', '*');
+        }
     }
-} 
+}
+
+(function () {
+    const initCompoundChildModals = function () {
+    const clearHash = function () {
+        history.replaceState(history.state, '', window.location.pathname + window.location.search);
+    };
+
+    document.querySelectorAll('.compound-child-modal[data-ta-modal="true"]').forEach(function (modal) {
+        modal.addEventListener('ta:modal:open', function () {
+            history.replaceState(history.state, '', `#${modal.id}`);
+        });
+
+        modal.addEventListener('ta:modal:after-close', function (event) {
+            const mediaType = modal.getAttribute('data-stop-media-type');
+            if (mediaType) {
+                stopMedia(modal.id, mediaType);
+            }
+
+            const result = event && event.detail ? event.detail.result : null;
+            if (!(result && result.replacedBy)) {
+                clearHash();
+            }
+        });
+    });
+
+    if (window.location.hash && window.TA?.modal) {
+        const target = document.querySelector(window.location.hash);
+        if (target && target.matches('.compound-child-modal[data-ta-modal="true"]')) {
+            window.TA.modal.open(target);
+        }
+    }
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCompoundChildModals, { once: true });
+    } else {
+        initCompoundChildModals();
+    }
+})();
 </script>

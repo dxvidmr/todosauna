@@ -1,19 +1,20 @@
 <template id="participacion-modal-template">
-  <div id="modal-modo" class="modal">
-    <div class="modal-overlay"></div>
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="modal-header-main">
+  <div id="modal-modo" class="ta-modal" data-ta-modal="true" data-ta-modal-size="lg">
+    <div class="ta-modal__overlay modal-overlay"></div>
+    <div class="ta-modal__dialog modal-content">
+      <button id="modal-modo-close" class="btn-circular ta-modal__close" type="button" aria-label="Cerrar modal" data-ta-modal-close="true">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+      <div class="ta-modal__header modal-header">
+        <div class="ta-modal__header-main modal-header-main">
           <h2 id="modal-titulo" tabindex="-1">¿Cómo quieres participar?</h2>
           <p class="modal-descripcion" id="modal-descripcion">Elige una de las dos opciones. Si tienes dudas, revisa nuestrsa <a  href="{{ '/participa/guia/' | relative_url }}" target="_blank" rel="noopener noreferrer">guía de participación</a> y nuestra <a href="{{ '/privacidad/' | relative_url }}" target="_blank" rel="noopener noreferrer">Política de privacidad</a>.</p>
-          <div id="modal-header-meta" class="modal-header-meta" style="display:none;"></div>
+          <div id="modal-header-meta" class="ta-modal__header-meta modal-header-meta" style="display:none;"></div>
         </div>
-        <div id="modal-header-actions" class="modal-header-actions" style="display:none;"></div>
-        <button id="modal-modo-close" class="btn-circular" type="button" aria-label="Cerrar modal" data-modal-close="true">
-          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-        </button>
+        <div id="modal-header-actions" class="ta-modal__header-actions modal-header-actions" style="display:none;"></div>
       </div>
 
+      <div class="ta-modal__body">
       <div class="modo-opciones">
         <div class="modo-opcion" data-modo="anonimo" role="button" tabindex="0">
           <div class="modo-header">
@@ -200,6 +201,7 @@
       </div>
 
       <div id="perfil-participacion" class="modo-form perfil-participacion" style="display:none;"></div>
+      </div>
     </div>
   </div>
 </template>

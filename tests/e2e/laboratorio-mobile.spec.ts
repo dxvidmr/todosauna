@@ -17,6 +17,7 @@ const DESKTOP_SHELL = '[data-lab-shell="desktop"]';
 
 async function startLaboratorioSecuencial(page: Page): Promise<void> {
   await page.goto('/participa/laboratorio/');
+  await expect(page.locator('#ta-modal-root')).toHaveCount(1);
   await waitForSessionReady(page);
   await page.waitForFunction(() => !!(window as any).editorSocial);
   await forceAnonMode(page);
@@ -273,6 +274,7 @@ test('touch text selection replaces the collapsed note footer with the anchored 
   await page.locator('.sugerencia-tooltip.is-anchored .btn-sugerir-nota').click();
   const modal = page.locator('.sugerencia-modal.show');
   await expect(modal).toBeVisible();
+  await expect(page.locator('#ta-modal-root .sugerencia-modal')).toBeVisible();
   await expect(modal.locator('.modal-header')).toBeVisible();
   await expect(modal.locator('.modal-shell-close .fa-xmark')).toBeVisible();
   await expect(modal.locator('#sugerencia-texto')).not.toHaveText('');

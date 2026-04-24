@@ -1,0 +1,56 @@
+{% assign modal_id = include.id %}
+{% assign modal_title = include.title | default: '' %}
+{% assign modal_description = include.description | default: '' %}
+{% assign modal_size = include.size | default: 'md' %}
+{% assign modal_class = include.class | default: '' %}
+{% assign dialog_class = include.dialog_class | default: '' %}
+{% assign body_class = include.body_class | default: '' %}
+{% assign footer_class = include.footer_class | default: '' %}
+{% assign title_id = include.title_id | default: modal_id | append: '-title' %}
+{% assign description_id = include.description_id | default: modal_id | append: '-description' %}
+
+<div
+  id="{{ modal_id }}"
+  class="ta-modal {{ modal_class | strip }}"
+  data-ta-modal="true"
+  data-ta-modal-size="{{ modal_size }}"
+  {% if include.close_on_overlay != nil %}data-ta-modal-close-on-overlay="{{ include.close_on_overlay }}"{% endif %}
+  {% if include.close_on_escape != nil %}data-ta-modal-close-on-escape="{{ include.close_on_escape }}"{% endif %}
+  {% if include.lock_scroll != nil %}data-ta-modal-lock-scroll="{{ include.lock_scroll }}"{% endif %}
+  role="dialog"
+  aria-modal="true"
+  {% if modal_title != '' %}aria-labelledby="{{ title_id }}"{% endif %}
+  {% if modal_description != '' %}aria-describedby="{{ description_id }}"{% endif %}
+>
+  <div class="ta-modal__overlay modal-overlay"></div>
+  <div class="ta-modal__dialog modal-content {{ dialog_class | strip }}">
+    {% if include.close_button != false %}
+    <button type="button" class="btn-circular ta-modal__close" aria-label="{{ include.close_label | default: 'Cerrar modal' }}" data-ta-modal-close="true">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+    {% endif %}
+
+    {% if modal_title != '' or modal_description != '' or include.header_meta or include.header_actions %}
+    <div class="ta-modal__header modal-header{% if include.header_meta or include.header_actions %} has-content{% endif %}">
+      <div class="ta-modal__header-main modal-header-main">
+        {% if modal_title != '' %}<h2 id="{{ title_id }}">{{ modal_title }}</h2>{% endif %}
+        {% if modal_description != '' %}<p id="{{ description_id }}" class="ta-modal__description modal-descripcion">{{ modal_description }}</p>{% endif %}
+        {% if include.header_meta %}<div class="ta-modal__header-meta modal-header-meta">{{ include.header_meta }}</div>{% endif %}
+      </div>
+      {% if include.header_actions %}<div class="ta-modal__header-actions modal-header-actions">{{ include.header_actions }}</div>{% endif %}
+    </div>
+    {% endif %}
+
+    {% if include.body %}
+    <div class="ta-modal__body {{ body_class | strip }}">
+      {{ include.body }}
+    </div>
+    {% endif %}
+
+    {% if include.footer %}
+    <div class="ta-modal__footer {{ footer_class | strip }}">
+      {{ include.footer }}
+    </div>
+    {% endif %}
+  </div>
+</div>

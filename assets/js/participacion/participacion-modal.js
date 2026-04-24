@@ -341,7 +341,7 @@
     }
 
     this.modal = this.shell.modal;
-    this.modalContent = this.modal.querySelector('.modal-content');
+    this.modalContent = this.modal.querySelector('.ta-modal__dialog');
     this.modalHeader = this.modal.querySelector('.modal-header');
     this.modalTitle = this.modal.querySelector('#modal-titulo');
     this.modalDescription = this.modal.querySelector('#modal-descripcion');

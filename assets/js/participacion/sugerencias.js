@@ -148,7 +148,7 @@ class SugerenciasNotas {
           ></textarea>
 
           <div class="modal-actions sugerencia-botones">
-            <button type="button" class="btn-cancelar-sugerencia btn btn-outline-dark" data-modal-close="true">Cancelar</button>
+            <button type="button" class="btn-cancelar-sugerencia btn btn-outline-dark" data-ta-modal-close="true">Cancelar</button>
             <button type="button" class="btn-enviar-sugerencia btn btn-dark">
               <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
               Enviar

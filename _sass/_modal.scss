@@ -1,0 +1,239 @@
+@use "variables" as *;
+@use "buttons" as buttons;
+
+#ta-modal-root {
+  position: relative;
+  z-index: 10000;
+}
+
+body.ta-modal-scroll-locked {
+  overflow: hidden;
+}
+
+.ta-modal {
+  --ta-modal-max-width: 720px;
+
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.ta-modal.show {
+  display: flex;
+}
+
+.ta-modal__overlay,
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: $color-overlay;
+  z-index: 1;
+}
+
+.ta-modal__dialog,
+.ta-modal .modal-content,
+.participa-ui-dialog .ta-modal__dialog,
+#modal-modo .ta-modal__dialog,
+.sugerencia-modal .ta-modal__dialog {
+  position: relative;
+  z-index: 2;
+  width: min(92vw, var(--ta-modal-max-width));
+  max-width: var(--ta-modal-max-width);
+  max-height: min(90vh, calc(100dvh - 32px));
+  overflow-y: auto;
+  background: $color-surface-raised;
+  border-radius: 18px;
+  padding: 44px 22px 18px;
+  box-shadow: $shadow-md;
+  pointer-events: auto;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    color: $color-text;
+  }
+}
+
+.ta-modal__dialog:focus-visible {
+  outline: 2px solid rgba($color-primary, 0.28);
+  outline-offset: 2px;
+}
+
+.ta-modal[data-ta-modal-size="sm"] {
+  --ta-modal-max-width: 430px;
+}
+
+.ta-modal[data-ta-modal-size="md"] {
+  --ta-modal-max-width: 720px;
+}
+
+.ta-modal[data-ta-modal-size="lg"] {
+  --ta-modal-max-width: 920px;
+}
+
+.ta-modal[data-ta-modal-size="xl"] {
+  --ta-modal-max-width: 1080px;
+}
+
+.ta-modal[data-ta-modal-size="full"] {
+  --ta-modal-max-width: 1280px;
+}
+
+.ta-modal[data-ta-modal-size="full"] .ta-modal__dialog {
+  max-height: min(94vh, calc(100dvh - 24px));
+}
+
+.ta-modal__close,
+.modal-shell-close {
+  @include buttons.btn-circular-base;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.ta-modal__header,
+.modal-header.ta-modal__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px 16px;
+  margin-bottom: 24px;
+  padding-right: 52px;
+}
+
+.ta-modal__header-main {
+  min-width: 0;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ta-modal__title {
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  line-height: 1.15;
+}
+
+.ta-modal__header-meta,
+.modal-header-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.ta-modal__header-meta-item,
+.modal-header-meta-item {
+  color: $color-text-muted;
+  font-size: 0.92rem;
+}
+
+.ta-modal__header-actions,
+.modal-header-actions,
+.ta-modal__actions,
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ta-modal__body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ta-modal__footer {
+  margin-top: 16px;
+}
+
+.ta-modal__footer > .ta-modal__actions,
+.ta-modal__footer > .modal-actions {
+  justify-content: flex-end;
+}
+
+.ta-modal__description,
+.modal-descripcion {
+  margin: 0;
+  color: $color-text-muted;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.ta-modal__body > :last-child,
+.ta-modal__footer > :last-child {
+  margin-bottom: 0;
+}
+
+.ta-media-modal {
+  --ta-modal-max-width: 980px;
+}
+
+.ta-media-modal .ta-modal__body {
+  gap: 18px;
+}
+
+.ta-media-modal .ta-modal__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.compound-child-modal {
+  --ta-modal-max-width: 1280px;
+}
+
+.compound-child-modal .ta-modal__dialog {
+  width: min(96vw, var(--ta-modal-max-width));
+  max-height: min(94vh, calc(100dvh - 24px));
+  padding: 22px 22px 18px;
+}
+
+.compound-child-modal .ta-modal__header {
+  margin-bottom: 18px;
+  padding-right: 0;
+}
+
+.compound-child-modal .modal-title {
+  width: 100%;
+}
+
+.compound-child-modal__body {
+  gap: 12px;
+}
+
+.compound-child-close {
+  @include buttons.btn-circular-base;
+}
+
+@media (max-width: 640px) {
+  .ta-modal {
+    padding: 10px;
+  }
+
+  .ta-modal__dialog,
+  .ta-modal .modal-content {
+    width: min(94vw, var(--ta-modal-max-width));
+    max-height: min(94vh, calc(100dvh - 20px));
+    padding: 40px 16px 14px;
+  }
+
+  .compound-child-modal .ta-modal__dialog {
+    width: min(96vw, var(--ta-modal-max-width));
+    padding: 18px 16px 14px;
+  }
+
+  .compound-child-modal .ta-modal__header,
+  .ta-media-modal .ta-modal__footer {
+    gap: 10px;
+  }
+}

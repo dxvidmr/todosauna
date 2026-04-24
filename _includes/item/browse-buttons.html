@@ -27,7 +27,7 @@
 
   function leftModalArrowPressed() {
     // Get the modal element.
-    var modalshow = document.querySelector(".modal.show");
+    var modalshow = document.querySelector(".ta-modal.show, .modal.show");
     // If the modal exists, get the prev button element.
     if (modalshow) {
       const prevButton = modalshow.querySelector(".prev-child-button");
@@ -40,7 +40,7 @@
 
   function rightModalArrowPressed() {
     // Get the modal element.
-    var modalshow = document.querySelector(".modal.show");
+    var modalshow = document.querySelector(".ta-modal.show, .modal.show");
     // If the modal exists, get the prev button element.
     if (modalshow) {
       const nextButton = modalshow.querySelector(".next-child-button");
@@ -53,7 +53,7 @@
 
   function isModalShown() {
     // Get the modal element.
-    const modal = document.querySelector(".modal.show");
+    const modal = document.querySelector(".ta-modal.show, .modal.show");
 
     // Check if the modal has the "show" class.
     return modal && modal.classList.contains("show");

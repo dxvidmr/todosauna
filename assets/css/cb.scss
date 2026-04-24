@@ -46,6 +46,7 @@ $theme-link-color: {{ site.data.theme.link-color | default: '""' }};
 @use "cards-grid";
 @use "buttons";
 @use "navbar";
+@use "modal";
 
 /* Estilos para Sala de Lectura y Laboratorio de Notas */
 @use "lectura-variables";

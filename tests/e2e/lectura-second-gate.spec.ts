@@ -4,6 +4,7 @@ import { waitForSessionReady } from './helpers/participacion';
 test.describe('F10.1 smoke - lectura second contribution gate', () => {
   test('allows first contribution and prompts on second when mode is unasked', async ({ page }) => {
     await page.goto('/lectura/');
+    await expect(page.locator('#ta-modal-root')).toHaveCount(1);
     await waitForSessionReady(page);
 
     const resetState = await page.evaluate(async () => {
@@ -32,6 +33,8 @@ test.describe('F10.1 smoke - lectura second contribution gate', () => {
     });
 
     await expect(page.locator('#modal-modo.show')).toBeVisible();
+    await expect(page.locator('#ta-modal-root #modal-modo')).toBeVisible();
+    await expect(page.locator('#modal-modo')).toHaveClass(/ta-modal/);
     await expect(page.locator('#modal-modo')).toHaveAttribute('data-context', 'lectura-second-contribution');
 
     await page.locator('#modal-modo .modo-opcion[data-modo="anonimo"]').click();
