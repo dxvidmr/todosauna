@@ -12,6 +12,10 @@ function normalizeWhitespace(value) {
   return toText(value).replace(/\s+/g, ' ').trim();
 }
 
+function normalizeChangeRef(value) {
+  return toText(value).replace(/^#/, '');
+}
+
 function escapeHtml(value) {
   return String(value == null ? '' : value)
     .replace(/&/g, '&amp;')
@@ -406,6 +410,7 @@ function extractNotesFromXml(notesDoc, teiIndex, maxVerses) {
     const noteNode = noteNodes[i];
     const noteId = getXmlId(noteNode);
     const target = toText(noteNode.getAttribute('target'));
+    const noteChange = normalizeChangeRef(noteNode.getAttribute('change'));
     const text = serializeNoteNodeHtml(noteNode);
 
     if (!noteId || !target || !text) continue;
@@ -415,16 +420,47 @@ function extractNotesFromXml(notesDoc, teiIndex, maxVerses) {
 
     notes.push({
       nota_id: noteId,
+      nota_change: noteChange,
       texto_nota: text,
       ana: normalizeAnaCategories(noteNode.getAttribute('ana')),
       target,
       context,
-      version: '1.0',
       evaluaciones: { total: 0, utiles: 0, mejorables: 0 }
     });
   }
 
   return notes;
+}
+
+function loadTeiNotesFromDocument(notesDoc) {
+  const noteNodes = getNodesByLocalName(notesDoc, 'note');
+  const notes = [];
+
+  for (let i = 0; i < noteNodes.length; i += 1) {
+    const noteNode = noteNodes[i];
+    const noteId = getXmlId(noteNode);
+    const target = toText(noteNode.getAttribute('target'));
+    const noteChange = normalizeChangeRef(noteNode.getAttribute('change'));
+    const text = serializeNoteNodeHtml(noteNode);
+
+    if (!noteId || !target || !text) continue;
+
+    notes.push({
+      nota_id: noteId,
+      nota_change: noteChange,
+      texto_nota: text,
+      ana: normalizeAnaCategories(noteNode.getAttribute('ana')),
+      target,
+      evaluaciones: { total: 0, utiles: 0, mejorables: 0 }
+    });
+  }
+
+  return notes;
+}
+
+async function loadTeiNotes(options = {}) {
+  const notesDoc = options.notesDoc || await loadXmlDocument(toText(options.notesUrl));
+  return loadTeiNotesFromDocument(notesDoc);
 }
 
 async function loadStaticNotesWithContext(options) {
@@ -448,6 +484,12 @@ async function loadStaticNotesWithContext(options) {
 }
 
 export {
+  getXmlId,
+  loadTeiNotes,
+  loadTeiNotesFromDocument,
+  loadXmlDocument,
   loadStaticNotesWithContext,
+  normalizeChangeRef,
+  normalizeTargetToken,
   serializeNoteNodeHtml
 };

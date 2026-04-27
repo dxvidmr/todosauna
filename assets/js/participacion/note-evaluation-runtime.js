@@ -1,4 +1,11 @@
 import { renderNoteEvalLoading } from '../shared/note-panel.js';
+import {
+  buildNoteEvaluationKey,
+  getCachedNoteRecord,
+  normalizeEvalCounts,
+  normalizeNoteChange,
+  setCachedNoteEvaluationCounts
+} from './notas.js';
 
 const pendingEvaluaciones = new Set();
 
@@ -22,20 +29,6 @@ function getParticipationUserMessage(error, context, fallback) {
   return 'Error inesperado';
 }
 
-function normalizeEvalCounts(value) {
-  const source = value && typeof value === 'object' ? value : {};
-  return {
-    total: Number(source.total || 0),
-    utiles: Number(source.utiles || 0),
-    mejorables: Number(source.mejorables || 0)
-  };
-}
-
-function getCachedNoteRecord(notaId) {
-  if (!notaId || !Array.isArray(window.notasActivasCache)) return null;
-  return window.notasActivasCache.find((note) => note.nota_id === notaId) || null;
-}
-
 function getEvaluationRoot(container) {
   if (!container || typeof container.closest !== 'function') return null;
   return (
@@ -55,47 +48,36 @@ function createEvaluatedMarkup() {
   return '<div class="nota-ya-evaluada"><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Nota evaluada</div>';
 }
 
-function obtenerEvaluacionesStats(notaId, notaData = null) {
-  if (notaData && notaData.evaluaciones) {
-    return normalizeEvalCounts(notaData.evaluaciones);
-  }
+function getResolvedNoteChange(noteData = {}, fallback = '') {
+  return normalizeNoteChange(
+    noteData?.nota_change ||
+    noteData?.noteChange ||
+    fallback
+  );
+}
 
-  const notaEnCache = getCachedNoteRecord(notaId);
-  if (notaEnCache && notaEnCache.evaluaciones) {
-    return normalizeEvalCounts(notaEnCache.evaluaciones);
-  }
+function getCachedCounts(notaId, noteChange) {
+  const cached = getCachedNoteRecord(notaId, noteChange);
+  return normalizeEvalCounts(cached?.evaluaciones);
+}
 
-  return normalizeEvalCounts();
+function obtenerEvaluacionesStats(notaId, noteData = null, noteChange = '') {
+  const resolvedChange = getResolvedNoteChange(noteData, noteChange);
+  if (noteData && noteData.evaluaciones) {
+    return normalizeEvalCounts(noteData.evaluaciones);
+  }
+  return getCachedCounts(notaId, resolvedChange);
 }
 
 async function getNoteEvaluationMeta(notaId, noteData = null) {
-  const counts = normalizeEvalCounts(
-    noteData?.evaluaciones || getCachedNoteRecord(notaId)?.evaluaciones
-  );
-
-  let version = String(
-    noteData?.version ||
-    getCachedNoteRecord(notaId)?.version ||
-    ''
-  ).trim();
-
-  if (!version) {
-    const apiV2 = getApiV2();
-    if (apiV2 && typeof apiV2.getNotaVersion === 'function') {
-      try {
-        const { data, error } = await apiV2.getNotaVersion(notaId);
-        if (!error && data?.version) {
-          version = String(data.version).trim();
-        }
-      } catch (error) {
-        console.warn('No se pudo obtener la version de la nota:', notaId, error);
-      }
-    }
-  }
+  const resolvedChange = getResolvedNoteChange(noteData);
+  const cachedCounts = getCachedCounts(notaId, resolvedChange);
+  const counts = normalizeEvalCounts(noteData?.evaluaciones || cachedCounts);
 
   return {
     noteId: notaId,
-    version,
+    noteChange: resolvedChange,
+    noteKey: buildNoteEvaluationKey(notaId, resolvedChange),
     counts
   };
 }
@@ -113,20 +95,21 @@ async function loadSessionEvaluatedNoteIds(sessionId) {
     const { data, error } = await apiV2.getSessionEvaluatedNotes(safeSessionId);
     if (error || !Array.isArray(data)) return ids;
     data.forEach((row) => {
-      const noteId = String(row?.nota_id || '').trim();
-      if (noteId) ids.add(noteId);
+      const noteKey = buildNoteEvaluationKey(row?.nota_id, row?.nota_change);
+      if (noteKey) ids.add(noteKey);
     });
   } catch (error) {
-    console.warn('No se pudieron cargar notas evaluadas de la sesion:', error);
+    console.warn('No se pudieron cargar notas evaluadas de la sesión:', error);
   }
 
   return ids;
 }
 
-function updateDockState(dockEl, state, noteId) {
+function updateDockState(dockEl, state, noteId, noteChange = '') {
   if (!dockEl) return;
   dockEl.dataset.evalState = state;
   dockEl.dataset.evalNoteId = noteId || '';
+  dockEl.dataset.evalNoteChange = normalizeNoteChange(noteChange);
 }
 
 function renderEvaluationState(dockEl, options = {}) {
@@ -134,9 +117,10 @@ function renderEvaluationState(dockEl, options = {}) {
 
   const state = String(options.state || 'idle').trim() || 'idle';
   const noteId = String(options.noteId || '').trim();
+  const noteChange = normalizeNoteChange(options.noteChange);
   const message = String(options.message || '').trim();
 
-  updateDockState(dockEl, state, noteId);
+  updateDockState(dockEl, state, noteId, noteChange);
 
   if (state === 'loading') {
     dockEl.innerHTML = renderNoteEvalLoading();
@@ -163,8 +147,9 @@ function renderEvaluationState(dockEl, options = {}) {
   return dockEl;
 }
 
-function crearBotonesConContadores(notaId, version, evaluaciones) {
+function crearBotonesConContadores(notaId, noteChange, evaluaciones) {
   const counts = normalizeEvalCounts(evaluaciones);
+  const safeChange = normalizeNoteChange(noteChange);
   const badgeSinEvaluaciones = counts.total === 0
     ? '<span class="eval-badge-empty">Sin evaluaciones</span>'
     : '';
@@ -175,12 +160,12 @@ function crearBotonesConContadores(notaId, version, evaluaciones) {
       ${badgeSinEvaluaciones}
     </div>
     <div class="evaluacion-botones">
-      <button class="btn btn-outline-dark btn-evaluar btn-util" data-nota-id="${notaId}" data-version="${version}">
+      <button class="btn btn-outline-dark btn-evaluar btn-util" data-nota-id="${notaId}" data-note-change="${safeChange}">
         <span class="btn-contador">${counts.utiles}</span>
         <i class="fa-solid fa-heart" aria-hidden="true"></i>
         Útil
       </button>
-      <button class="btn btn-outline-dark btn-evaluar btn-mejorable" data-nota-id="${notaId}" data-version="${version}">
+      <button class="btn btn-outline-dark btn-evaluar btn-mejorable" data-nota-id="${notaId}" data-note-change="${safeChange}">
         <span class="btn-contador">${counts.mejorables}</span>
         <i class="fa-solid fa-heart-crack" aria-hidden="true"></i>
         Mejorable
@@ -213,64 +198,52 @@ function updateCountersInScope(scopeEl, evaluaciones) {
   }
 }
 
-function actualizarContadorLocal(notaId, vote, options = {}) {
-  if (!Array.isArray(window.notasActivasCache)) {
-    window.notasActivasCache = [];
-  }
+function actualizarContadorLocal(notaId, noteChange, vote, options = {}) {
+  const currentCounts = getCachedCounts(notaId, noteChange);
+  const nextCounts = {
+    total: currentCounts.total + 1,
+    utiles: currentCounts.utiles + ((vote === 'up' || vote === 'util') ? 1 : 0),
+    mejorables: currentCounts.mejorables + ((vote === 'down' || vote === 'mejorable') ? 1 : 0)
+  };
 
-  let nota = window.notasActivasCache.find((entry) => entry.nota_id === notaId);
-  if (!nota) {
-    nota = {
-      nota_id: notaId,
-      evaluaciones: normalizeEvalCounts()
-    };
-    window.notasActivasCache.push(nota);
-  }
-
-  nota.evaluaciones = normalizeEvalCounts(nota.evaluaciones);
-  nota.evaluaciones.total += 1;
-  if (vote === 'up' || vote === 'util') {
-    nota.evaluaciones.utiles += 1;
-  } else if (vote === 'down' || vote === 'mejorable') {
-    nota.evaluaciones.mejorables += 1;
-  }
+  setCachedNoteEvaluationCounts(notaId, noteChange, nextCounts);
 
   const scopeRoot = options.scopeEl || null;
   const dock = getDockForScope(scopeRoot);
   const updateRoot = getEvaluationRoot(scopeRoot) || dock || scopeRoot;
   if (updateRoot) {
-    updateCountersInScope(updateRoot, nota.evaluaciones);
+    updateCountersInScope(updateRoot, nextCounts);
   }
 
-  return normalizeEvalCounts(nota.evaluaciones);
+  return normalizeEvalCounts(nextCounts);
 }
 
-function setEvaluationBusy(notaId, isBusy, scopeEl) {
-  const key = String(notaId || '');
+function setEvaluationBusy(noteKey, isBusy, scopeEl) {
+  const key = String(noteKey || '');
   if (!key) return;
 
   const root = scopeEl || document;
   root.querySelectorAll('.nota-evaluacion').forEach((block) => {
-    if (String(block.dataset.noteId || '') !== key) return;
+    if (String(block.dataset.noteKey || '') !== key) return;
     block.querySelectorAll('button').forEach((btn) => { btn.disabled = !!isBusy; });
     block.querySelectorAll('textarea').forEach((area) => { area.readOnly = !!isBusy; });
   });
 }
 
-function mostrarEvaluadaFeedback(container, notaId) {
+function mostrarEvaluadaFeedback(container, notaId, noteChange = '') {
   if (!container) return;
 
   const dock = getDockForScope(container);
   container.outerHTML = createEvaluatedMarkup();
   if (dock) {
-    updateDockState(dock, 'evaluated', notaId);
+    updateDockState(dock, 'evaluated', notaId, noteChange);
   }
 }
 
 function attachEvaluationListeners(
   container,
   notaId,
-  version,
+  noteChange,
   registrarCallback,
   feedbackCallback,
   options = {}
@@ -287,17 +260,20 @@ function attachEvaluationListeners(
     container;
   const scopeEl = options.scopeEl || getDockForScope(container) || container;
   const dock = getDockForScope(evaluacionRoot || scopeEl);
+  const noteKey = buildNoteEvaluationKey(notaId, noteChange);
   let isSubmitting = false;
   const btnEnviarDefaultHtml = btnEnviar ? btnEnviar.innerHTML : '';
 
   if (!btnUtil || !btnMejorable || !evaluacionRoot) {
-    console.warn('Botones de evaluacion no encontrados');
+    console.warn('Botones de evaluación no encontrados');
     return;
   }
 
   if (!evaluacionRoot.dataset.noteId) {
     evaluacionRoot.dataset.noteId = String(notaId || '');
   }
+  evaluacionRoot.dataset.noteChange = normalizeNoteChange(noteChange);
+  evaluacionRoot.dataset.noteKey = noteKey;
 
   const setSubmittingState = (value) => {
     isSubmitting = !!value;
@@ -325,7 +301,7 @@ function attachEvaluationListeners(
 
   const enterCommentMode = () => {
     evaluacionRoot.classList.add('is-commenting');
-    if (dock) updateDockState(dock, 'commenting', notaId);
+    if (dock) updateDockState(dock, 'commenting', notaId, noteChange);
     if (comentarioDiv) comentarioDiv.style.display = 'block';
     textarea?.focus();
   };
@@ -333,7 +309,7 @@ function attachEvaluationListeners(
   const exitCommentMode = ({ clear = false } = {}) => {
     evaluacionRoot.classList.remove('is-commenting');
     if (dock && dock.dataset.evalState !== 'evaluated') {
-      updateDockState(dock, 'ready', notaId);
+      updateDockState(dock, 'ready', notaId, noteChange);
     }
     if (comentarioDiv) {
       comentarioDiv.style.display = 'none';
@@ -350,17 +326,17 @@ function attachEvaluationListeners(
 
     let exito = false;
     try {
-      exito = await registrarCallback(notaId, version, 'up', null);
+      exito = await registrarCallback(notaId, noteChange, 'up', null);
     } catch (error) {
-      console.error('Error enviando evaluacion util:', error);
+      console.error('Error enviando evaluación útil:', error);
     } finally {
       if (!exito) setSubmittingState(false);
     }
 
     if (exito) {
-      actualizarContadorLocal(notaId, 'up', { scopeEl: evaluacionRoot });
+      actualizarContadorLocal(notaId, noteChange, 'up', { scopeEl: evaluacionRoot });
       if (typeof feedbackCallback === 'function') {
-        feedbackCallback(notaId, 'up', {
+        feedbackCallback(notaId, noteChange, 'up', {
           container: evaluacionRoot,
           dockEl: dock,
           scopeEl
@@ -387,17 +363,17 @@ function attachEvaluationListeners(
 
     let exito = false;
     try {
-      exito = await registrarCallback(notaId, version, 'down', comentario);
+      exito = await registrarCallback(notaId, noteChange, 'down', comentario || null);
     } catch (error) {
-      console.error('Error enviando comentario de evaluacion:', error);
+      console.error('Error enviando comentario de evaluación:', error);
     } finally {
       if (!exito) setSubmittingState(false);
     }
 
     if (exito) {
-      actualizarContadorLocal(notaId, 'down', { scopeEl: evaluacionRoot });
+      actualizarContadorLocal(notaId, noteChange, 'down', { scopeEl: evaluacionRoot });
       if (typeof feedbackCallback === 'function') {
-        feedbackCallback(notaId, 'down', {
+        feedbackCallback(notaId, noteChange, 'down', {
           container: evaluacionRoot,
           dockEl: dock,
           scopeEl
@@ -409,7 +385,8 @@ function attachEvaluationListeners(
 
 async function submitNoteEvaluationShared(opciones) {
   const notaId = opciones.notaId;
-  const lockKey = String(notaId || '');
+  const noteChange = normalizeNoteChange(opciones.noteChange);
+  const lockKey = buildNoteEvaluationKey(notaId, noteChange) || String(notaId || '');
   if (lockKey && pendingEvaluaciones.has(lockKey)) return false;
 
   const source = opciones.source || 'lectura';
@@ -419,7 +396,7 @@ async function submitNoteEvaluationShared(opciones) {
     const canContinue = await flow.ensureModeForSecondLecturaContribution();
     if (!canContinue) {
       if (typeof window.mostrarToast === 'function') {
-        window.mostrarToast('Para continuar debes elegir modo de participacion', 2600);
+        window.mostrarToast('Para continuar debes elegir modo de participación', 2600);
       }
       return false;
     }
@@ -442,9 +419,9 @@ async function submitNoteEvaluationShared(opciones) {
         const ensureMessage = getParticipationUserMessage(
           ensured && ensured.error,
           'session_bootstrap',
-          'No se pudo preparar la sesion para enviar la evaluacion'
+          'No se pudo preparar la sesión para enviar la evaluación'
         );
-        window.mostrarToast(ensureMessage || 'No se pudo preparar la sesion', 3000);
+        window.mostrarToast(ensureMessage || 'No se pudo preparar la sesión', 3000);
       }
       return false;
     }
@@ -469,15 +446,15 @@ async function submitNoteEvaluationShared(opciones) {
       session_id: sessionData.session_id,
       pasaje_id: opciones.pasajeId || null,
       nota_id: notaId,
-      nota_version: opciones.version,
+      nota_change: noteChange,
       vote: opciones.vote,
       comment: opciones.comentario || null
     });
 
     if (result.error) {
-      const message = getParticipationUserMessage(result.error, 'evaluacion', 'Error al enviar evaluacion');
+      const message = getParticipationUserMessage(result.error, 'evaluacion', 'Error al enviar evaluación');
       if (typeof window.mostrarToast === 'function') {
-        window.mostrarToast(message || 'Error al enviar evaluacion', 3000);
+        window.mostrarToast(message || 'Error al enviar evaluación', 3000);
       }
       return false;
     }
@@ -512,6 +489,10 @@ function disableEvaluationControls(block) {
   }
 }
 
+function getMissingChangeMessage(options = {}) {
+  return options.missingChangeMessage || 'Esta nota aún no tiene un estado editorial evaluable.';
+}
+
 async function mountNoteEvaluationDock(options = {}) {
   const dockEl = options.dockEl;
   if (!dockEl) return null;
@@ -521,51 +502,65 @@ async function mountNoteEvaluationDock(options = {}) {
     renderEvaluationState(dockEl, {
       state: 'idle',
       noteId: '',
+      noteChange: '',
       message: options.message || ''
     });
     return null;
   }
 
+  const noteData = options.noteData || {};
+  const requestedNoteChange = getResolvedNoteChange({
+    ...noteData,
+    nota_change: options.noteChange || noteData.nota_change || noteData.noteChange
+  });
+  const noteKey = buildNoteEvaluationKey(noteId, requestedNoteChange);
+
   if (options.alreadyEvaluated) {
     renderEvaluationState(dockEl, {
       state: 'evaluated',
-      noteId
+      noteId,
+      noteChange: requestedNoteChange
     });
     return {
       state: 'evaluated',
-      noteId
+      noteId,
+      noteChange: requestedNoteChange,
+      noteKey
     };
   }
 
   renderEvaluationState(dockEl, {
     state: 'loading',
-    noteId
+    noteId,
+    noteChange: requestedNoteChange
   });
 
   const isStale = typeof options.isStale === 'function'
     ? options.isStale
     : () => false;
 
-  const noteData = options.noteData || {};
   const meta = await getNoteEvaluationMeta(noteId, {
     ...noteData,
-    version: options.version || noteData.version,
+    nota_change: requestedNoteChange,
     evaluaciones: options.counts || noteData.evaluaciones
   });
 
   if (!dockEl.isConnected || isStale()) return null;
 
-  if (!meta.version) {
+  if (!meta.noteChange) {
     renderEvaluationState(dockEl, {
       state: 'error',
       noteId,
-      message: options.message || 'No se pudo cargar la evaluacion. Vuelve a intentarlo mas tarde.'
+      noteChange: '',
+      message: getMissingChangeMessage(options)
     });
     if (typeof options.onError === 'function') {
       options.onError({
         noteId,
+        noteChange: '',
+        noteKey: '',
         dockEl,
-        reason: 'missing-version'
+        reason: 'missing-change'
       });
     }
     return null;
@@ -574,10 +569,12 @@ async function mountNoteEvaluationDock(options = {}) {
   const block = document.createElement('div');
   block.className = 'nota-evaluacion';
   block.dataset.noteId = noteId;
-  block.innerHTML = crearBotonesConContadores(noteId, meta.version, meta.counts);
+  block.dataset.noteChange = meta.noteChange;
+  block.dataset.noteKey = meta.noteKey;
+  block.innerHTML = crearBotonesConContadores(noteId, meta.noteChange, meta.counts);
 
   dockEl.innerHTML = '';
-  updateDockState(dockEl, 'ready', noteId);
+  updateDockState(dockEl, 'ready', noteId, meta.noteChange);
   dockEl.appendChild(block);
 
   if (options.mode === 'readonly') {
@@ -591,7 +588,8 @@ async function mountNoteEvaluationDock(options = {}) {
     return {
       state: 'readonly',
       noteId,
-      version: meta.version,
+      noteChange: meta.noteChange,
+      noteKey: meta.noteKey,
       counts: meta.counts,
       block
     };
@@ -600,21 +598,22 @@ async function mountNoteEvaluationDock(options = {}) {
   attachEvaluationListeners(
     block,
     noteId,
-    meta.version,
-    (currentNoteId, version, vote, comment) => submitNoteEvaluationShared({
+    meta.noteChange,
+    (currentNoteId, currentNoteChange, vote, comment) => submitNoteEvaluationShared({
       notaId: currentNoteId,
-      version,
+      noteChange: currentNoteChange,
       vote,
       comentario: comment || null,
       source: options.source || 'lectura',
       pasajeId: options.pasajeId || null,
       scopeEl: options.scopeEl || dockEl
     }),
-    (currentNoteId, vote, context) => {
+    (currentNoteId, currentNoteChange, vote, context) => {
       if (typeof options.onSuccess === 'function') {
         options.onSuccess({
           noteId: currentNoteId,
-          version: meta.version,
+          noteChange: currentNoteChange,
+          noteKey: buildNoteEvaluationKey(currentNoteId, currentNoteChange),
           vote,
           counts: meta.counts,
           dockEl,
@@ -623,7 +622,7 @@ async function mountNoteEvaluationDock(options = {}) {
         return;
       }
 
-      mostrarEvaluadaFeedback(context?.container || block, currentNoteId);
+      mostrarEvaluadaFeedback(context?.container || block, currentNoteId, currentNoteChange);
     },
     {
       scopeEl: options.scopeEl || dockEl
@@ -633,7 +632,8 @@ async function mountNoteEvaluationDock(options = {}) {
   return {
     state: 'ready',
     noteId,
-    version: meta.version,
+    noteChange: meta.noteChange,
+    noteKey: meta.noteKey,
     counts: meta.counts,
     block
   };

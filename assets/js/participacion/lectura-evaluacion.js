@@ -1,4 +1,5 @@
 import { mostrarToast } from '../lectura/utils.js';
+import { buildNoteEvaluationKey } from './notas.js';
 import {
   getSessionData,
   loadSessionEvaluatedNoteIds,
@@ -65,16 +66,22 @@ class EdicionEvaluacion {
     }
   }
 
-  estaEvaluada(notaId) {
-    return this.notasEvaluadasLocal.has(notaId) || this.notasEvaluadasBD.has(notaId);
+  estaEvaluada(notaId, noteChange) {
+    const noteKey = buildNoteEvaluationKey(notaId, noteChange);
+    return !!noteKey && (
+      this.notasEvaluadasLocal.has(noteKey) ||
+      this.notasEvaluadasBD.has(noteKey)
+    );
   }
 
-  isRenderStale(noteContentDiv, notaId, renderSeq) {
+  isRenderStale(noteContentDiv, notaId, noteChange, renderSeq) {
     if (!noteContentDiv) return true;
     if (renderSeq !== this.evalRenderSeq) return true;
     if ((noteContentDiv.dataset.currentNoteId || '') !== notaId) return true;
+    if ((noteContentDiv.dataset.currentNoteChange || '') !== noteChange) return true;
     const currentDisplayId = noteContentDiv.querySelector('.note-display')?.dataset?.noteId || '';
-    return currentDisplayId !== notaId;
+    const currentDisplayChange = noteContentDiv.querySelector('.note-display')?.dataset?.noteChange || '';
+    return currentDisplayId !== notaId || currentDisplayChange !== noteChange;
   }
 
   async addEvaluationButtons(noteContentDiv) {
@@ -83,6 +90,7 @@ class EdicionEvaluacion {
 
     const noteDisplay = host.querySelector('.note-display');
     const notaId = noteDisplay?.dataset?.noteId || null;
+    const noteChange = noteDisplay?.dataset?.noteChange || '';
     const dock = host.querySelector('.note-eval-dock') || host;
     if (!dock) return;
 
@@ -96,12 +104,14 @@ class EdicionEvaluacion {
     }
 
     host.dataset.currentNoteId = notaId;
+    host.dataset.currentNoteChange = noteChange;
     const renderSeq = ++this.evalRenderSeq;
 
-    if (this.estaEvaluada(notaId)) {
+    if (this.estaEvaluada(notaId, noteChange)) {
       renderEvaluationState(dock, {
         state: 'evaluated',
-        noteId: notaId
+        noteId: notaId,
+        noteChange
       });
       return;
     }
@@ -109,27 +119,32 @@ class EdicionEvaluacion {
     await mountNoteEvaluationDock({
       dockEl: dock,
       noteId: notaId,
+      noteChange,
       source: 'lectura',
       scopeEl: host,
       alreadyEvaluated: false,
-      isStale: () => this.isRenderStale(host, notaId, renderSeq),
-      onSuccess: ({ noteId: currentNoteId, vote, container }) => {
-        this.mostrarFeedback(container, vote, currentNoteId);
+      isStale: () => this.isRenderStale(host, notaId, noteChange, renderSeq),
+      onSuccess: ({ noteId: currentNoteId, noteChange: currentNoteChange, vote, container }) => {
+        this.mostrarFeedback(container, vote, currentNoteId, currentNoteChange);
       },
-      onError: () => {
-        if (this.isRenderStale(host, notaId, renderSeq)) return;
+      onError: ({ reason }) => {
+        if (this.isRenderStale(host, notaId, noteChange, renderSeq) || reason === 'missing-change') return;
         renderEvaluationState(dock, {
           state: 'error',
           noteId: notaId,
+          noteChange,
           message: 'No se pudo cargar la evaluacion. Vuelve a intentarlo en otro momento.'
         });
       }
     });
   }
 
-  mostrarFeedback(container, vote, notaId) {
-    this.notasEvaluadasLocal.add(notaId);
-    mostrarEvaluadaFeedback(container, notaId);
+  mostrarFeedback(container, vote, notaId, noteChange) {
+    const noteKey = buildNoteEvaluationKey(notaId, noteChange);
+    if (noteKey) {
+      this.notasEvaluadasLocal.add(noteKey);
+    }
+    mostrarEvaluadaFeedback(container, notaId, noteChange);
     mostrarToast(vote === 'up' ? 'Nota marcada como util' : 'Gracias por tu feedback', 2000);
   }
 }

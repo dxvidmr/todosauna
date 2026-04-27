@@ -191,33 +191,36 @@ $$;
 ALTER FUNCTION "public"."rpc_get_global_stats"() OWNER TO "postgres";
 
 
-CREATE OR REPLACE FUNCTION "public"."rpc_get_note_eval_counts"() RETURNS TABLE("nota_id" "text", "total" bigint, "utiles" bigint, "mejorables" bigint)
+CREATE OR REPLACE FUNCTION "public"."rpc_get_note_eval_counts"() RETURNS TABLE("nota_id" "text", "nota_change" "text", "total" bigint, "utiles" bigint, "mejorables" bigint)
     LANGUAGE "sql" SECURITY DEFINER
     SET "search_path" TO 'public'
     AS $$
   select
     e.nota_id,
+    e.nota_change,
     count(*)::bigint as total,
     count(*) filter (where e.vote = 'up')::bigint as utiles,
     count(*) filter (where e.vote = 'down')::bigint as mejorables
   from public.evaluaciones e
   where e.event_type = 'nota_eval'
     and e.nota_id is not null
-  group by e.nota_id;
+    and e.nota_change is not null
+  group by e.nota_id, e.nota_change;
 $$;
 
 
 ALTER FUNCTION "public"."rpc_get_note_eval_counts"() OWNER TO "postgres";
 
 
-CREATE OR REPLACE FUNCTION "public"."rpc_get_session_evaluated_notes"("p_session_id" "uuid") RETURNS TABLE("nota_id" "text")
+CREATE OR REPLACE FUNCTION "public"."rpc_get_session_evaluated_notes"("p_session_id" "uuid") RETURNS TABLE("nota_id" "text", "nota_change" "text")
     LANGUAGE "sql" SECURITY DEFINER
     SET "search_path" TO 'public'
     AS $$
-  select distinct e.nota_id
+  select distinct e.nota_id, e.nota_change
   from public.evaluaciones e
   where e.session_id = p_session_id
-    and e.nota_id is not null;
+    and e.nota_id is not null
+    and e.nota_change is not null;
 $$;
 
 
@@ -243,7 +246,7 @@ $$;
 ALTER FUNCTION "public"."rpc_get_session_stats"("p_session_id" "uuid") OWNER TO "postgres";
 
 
-CREATE OR REPLACE FUNCTION "public"."rpc_submit_participation_event"("p_source" "text", "p_event_type" "text", "p_session_id" "uuid", "p_pasaje_id" integer DEFAULT NULL::integer, "p_nota_id" "text" DEFAULT NULL::"text", "p_nota_version" numeric DEFAULT NULL::numeric, "p_target_xmlid" "text" DEFAULT NULL::"text", "p_vote" "text" DEFAULT NULL::"text", "p_selected_text" "text" DEFAULT NULL::"text", "p_comment" "text" DEFAULT NULL::"text") RETURNS TABLE("id" integer)
+CREATE OR REPLACE FUNCTION "public"."rpc_submit_participation_event"("p_source" "text", "p_event_type" "text", "p_session_id" "uuid", "p_pasaje_id" integer DEFAULT NULL::integer, "p_nota_id" "text" DEFAULT NULL::"text", "p_nota_change" "text" DEFAULT NULL::"text", "p_target_xmlid" "text" DEFAULT NULL::"text", "p_vote" "text" DEFAULT NULL::"text", "p_selected_text" "text" DEFAULT NULL::"text", "p_comment" "text" DEFAULT NULL::"text") RETURNS TABLE("id" integer)
     LANGUAGE "plpgsql" SECURITY DEFINER
     SET "search_path" TO 'public'
     AS $$
@@ -267,6 +270,9 @@ begin
     if p_nota_id is null or length(trim(p_nota_id)) = 0 then
       raise exception 'nota_id es obligatorio para nota_eval';
     end if;
+    if p_nota_change is null or length(trim(p_nota_change)) = 0 then
+      raise exception 'nota_change es obligatorio para nota_eval';
+    end if;
     if v_vote not in ('up', 'down') then
       raise exception 'vote invalido para nota_eval';
     end if;
@@ -279,7 +285,7 @@ begin
     session_id,
     pasaje_id,
     nota_id,
-    nota_version,
+    nota_change,
     target_xmlid,
     vote,
     selected_text,
@@ -292,7 +298,7 @@ begin
     p_session_id,
     p_pasaje_id,
     nullif(trim(coalesce(p_nota_id, '')), ''),
-    p_nota_version,
+    nullif(trim(coalesce(p_nota_change, '')), ''),
     nullif(trim(coalesce(p_target_xmlid, '')), ''),
     case when v_vote = '' then null else v_vote end,
     nullif(trim(coalesce(p_selected_text, '')), ''),
@@ -307,7 +313,7 @@ end;
 $$;
 
 
-ALTER FUNCTION "public"."rpc_submit_participation_event"("p_source" "text", "p_event_type" "text", "p_session_id" "uuid", "p_pasaje_id" integer, "p_nota_id" "text", "p_nota_version" numeric, "p_target_xmlid" "text", "p_vote" "text", "p_selected_text" "text", "p_comment" "text") OWNER TO "postgres";
+ALTER FUNCTION "public"."rpc_submit_participation_event"("p_source" "text", "p_event_type" "text", "p_session_id" "uuid", "p_pasaje_id" integer, "p_nota_id" "text", "p_nota_change" "text", "p_target_xmlid" "text", "p_vote" "text", "p_selected_text" "text", "p_comment" "text") OWNER TO "postgres";
 
 SET default_tablespace = '';
 
@@ -335,7 +341,7 @@ CREATE TABLE IF NOT EXISTS "public"."evaluaciones" (
     "session_id" "uuid" NOT NULL,
     "pasaje_id" integer,
     "nota_id" "text",
-    "nota_version" numeric(3,1),
+    "nota_change" "text",
     "target_xmlid" "text",
     "vote" "text",
     "comment" "text",
@@ -365,93 +371,6 @@ ALTER SEQUENCE "public"."evaluaciones_id_seq" OWNER TO "postgres";
 
 
 ALTER SEQUENCE "public"."evaluaciones_id_seq" OWNED BY "public"."evaluaciones"."id";
-
-
-
-CREATE TABLE IF NOT EXISTS "public"."notas" (
-    "id" integer NOT NULL,
-    "nota_id" "text" NOT NULL,
-    "target" "text" NOT NULL,
-    "version" numeric(3,1) DEFAULT 1.0 NOT NULL,
-    "active" boolean DEFAULT true NOT NULL,
-    "type" "text" NOT NULL,
-    "subtype" "text",
-    "texto_nota" "text" NOT NULL,
-    "created_at" timestamp with time zone DEFAULT "now"()
-);
-
-
-ALTER TABLE "public"."notas" OWNER TO "postgres";
-
-
-CREATE OR REPLACE VIEW "public"."notas_activas" AS
- SELECT "id",
-    "nota_id",
-    "target",
-    "version",
-    "active",
-    "type",
-    "subtype",
-    "texto_nota",
-    "created_at"
-   FROM "public"."notas"
-  WHERE ("active" = true);
-
-
-ALTER VIEW "public"."notas_activas" OWNER TO "postgres";
-
-
-CREATE SEQUENCE IF NOT EXISTS "public"."notas_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE "public"."notas_id_seq" OWNER TO "postgres";
-
-
-ALTER SEQUENCE "public"."notas_id_seq" OWNED BY "public"."notas"."id";
-
-
-
-CREATE TABLE IF NOT EXISTS "public"."pasajes" (
-    "id" integer NOT NULL,
-    "orden" integer NOT NULL,
-    "inicio_elemento" "text" NOT NULL,
-    "inicio_xmlid" "text" NOT NULL,
-    "fin_elemento" "text" NOT NULL,
-    "fin_xmlid" "text" NOT NULL,
-    "acto" smallint NOT NULL,
-    "titulo" "text" NOT NULL,
-    "descripcion" "text",
-    "created_at" timestamp with time zone DEFAULT "now"(),
-    "version" numeric(4,1) DEFAULT 1.0 NOT NULL,
-    "active" boolean DEFAULT true NOT NULL,
-    CONSTRAINT "pasajes_fin_elemento_check" CHECK (("fin_elemento" = ANY (ARRAY['l'::"text", 'sp'::"text", 'stage'::"text"]))),
-    CONSTRAINT "pasajes_inicio_elemento_check" CHECK (("inicio_elemento" = ANY (ARRAY['l'::"text", 'sp'::"text", 'stage'::"text"])))
-);
-
-
-ALTER TABLE "public"."pasajes" OWNER TO "postgres";
-
-
-CREATE SEQUENCE IF NOT EXISTS "public"."pasajes_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE "public"."pasajes_id_seq" OWNER TO "postgres";
-
-
-ALTER SEQUENCE "public"."pasajes_id_seq" OWNED BY "public"."pasajes"."id";
-
 
 
 CREATE TABLE IF NOT EXISTS "public"."proyecto_activo" (
@@ -496,15 +415,6 @@ ALTER TABLE "public"."sesiones" OWNER TO "postgres";
 ALTER TABLE ONLY "public"."evaluaciones" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."evaluaciones_id_seq"'::"regclass");
 
 
-
-ALTER TABLE ONLY "public"."notas" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."notas_id_seq"'::"regclass");
-
-
-
-ALTER TABLE ONLY "public"."pasajes" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."pasajes_id_seq"'::"regclass");
-
-
-
 ALTER TABLE ONLY "public"."proyecto_activo" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."proyecto_activo_id_seq"'::"regclass");
 
 
@@ -521,27 +431,6 @@ ALTER TABLE ONLY "public"."colaboradores"
 
 ALTER TABLE ONLY "public"."evaluaciones"
     ADD CONSTRAINT "evaluaciones_pkey" PRIMARY KEY ("id");
-
-
-
-ALTER TABLE ONLY "public"."notas"
-    ADD CONSTRAINT "notas_nota_id_version_key" UNIQUE ("nota_id", "version");
-
-
-
-ALTER TABLE ONLY "public"."notas"
-    ADD CONSTRAINT "notas_pkey" PRIMARY KEY ("id");
-
-
-
-ALTER TABLE ONLY "public"."pasajes"
-    ADD CONSTRAINT "pasajes_orden_key" UNIQUE ("orden");
-
-
-
-ALTER TABLE ONLY "public"."pasajes"
-    ADD CONSTRAINT "pasajes_pkey" PRIMARY KEY ("id");
-
 
 
 ALTER TABLE ONLY "public"."proyecto_activo"
@@ -562,7 +451,7 @@ CREATE INDEX "idx_evaluaciones_event_type" ON "public"."evaluaciones" USING "btr
 
 
 
-CREATE INDEX "idx_evaluaciones_nota" ON "public"."evaluaciones" USING "btree" ("nota_id", "nota_version");
+CREATE INDEX "idx_evaluaciones_nota" ON "public"."evaluaciones" USING "btree" ("nota_id", "nota_change");
 
 
 
@@ -590,30 +479,6 @@ CREATE INDEX "idx_evaluaciones_timestamp" ON "public"."evaluaciones" USING "btre
 
 
 
-CREATE INDEX "idx_notas_active" ON "public"."notas" USING "btree" ("active");
-
-
-
-CREATE INDEX "idx_notas_nota_id" ON "public"."notas" USING "btree" ("nota_id");
-
-
-
-CREATE INDEX "idx_notas_type" ON "public"."notas" USING "btree" ("type");
-
-
-
-CREATE INDEX "idx_pasajes_active" ON "public"."pasajes" USING "btree" ("active") WHERE ("active" = true);
-
-
-
-CREATE INDEX "idx_pasajes_acto" ON "public"."pasajes" USING "btree" ("acto");
-
-
-
-CREATE INDEX "idx_pasajes_orden" ON "public"."pasajes" USING "btree" ("orden");
-
-
-
 CREATE INDEX "idx_sesiones_collaborator_id" ON "public"."sesiones" USING "btree" ("collaborator_id");
 
 
@@ -630,15 +495,6 @@ CREATE INDEX "idx_sesiones_nivel_estudios" ON "public"."sesiones" USING "btree" 
 
 
 
-CREATE UNIQUE INDEX "pasajes_orden_active_unique" ON "public"."pasajes" USING "btree" ("orden") WHERE ("active" = true);
-
-
-
-ALTER TABLE ONLY "public"."evaluaciones"
-    ADD CONSTRAINT "evaluaciones_pasaje_id_fkey" FOREIGN KEY ("pasaje_id") REFERENCES "public"."pasajes"("id");
-
-
-
 ALTER TABLE ONLY "public"."evaluaciones"
     ADD CONSTRAINT "evaluaciones_session_id_fkey" FOREIGN KEY ("session_id") REFERENCES "public"."sesiones"("session_id") ON DELETE CASCADE;
 
@@ -649,28 +505,10 @@ ALTER TABLE ONLY "public"."sesiones"
 
 
 
-CREATE POLICY "Allow public read notas" ON "public"."notas" FOR SELECT TO "anon" USING (true);
-
-
-
-CREATE POLICY "Permitir lectura pública de notas" ON "public"."notas" FOR SELECT TO "anon" USING (true);
-
-
-
 ALTER TABLE "public"."colaboradores" ENABLE ROW LEVEL SECURITY;
 
 
 ALTER TABLE "public"."evaluaciones" ENABLE ROW LEVEL SECURITY;
-
-
-ALTER TABLE "public"."notas" ENABLE ROW LEVEL SECURITY;
-
-
-ALTER TABLE "public"."pasajes" ENABLE ROW LEVEL SECURITY;
-
-
-CREATE POLICY "pasajes_public_select" ON "public"."pasajes" FOR SELECT TO "authenticated", "anon" USING ((COALESCE("active", true) = true));
-
 
 
 ALTER TABLE "public"."proyecto_activo" ENABLE ROW LEVEL SECURITY;
@@ -735,10 +573,10 @@ GRANT ALL ON FUNCTION "public"."rpc_get_session_stats"("p_session_id" "uuid") TO
 
 
 
-REVOKE ALL ON FUNCTION "public"."rpc_submit_participation_event"("p_source" "text", "p_event_type" "text", "p_session_id" "uuid", "p_pasaje_id" integer, "p_nota_id" "text", "p_nota_version" numeric, "p_target_xmlid" "text", "p_vote" "text", "p_selected_text" "text", "p_comment" "text") FROM PUBLIC;
-GRANT ALL ON FUNCTION "public"."rpc_submit_participation_event"("p_source" "text", "p_event_type" "text", "p_session_id" "uuid", "p_pasaje_id" integer, "p_nota_id" "text", "p_nota_version" numeric, "p_target_xmlid" "text", "p_vote" "text", "p_selected_text" "text", "p_comment" "text") TO "anon";
-GRANT ALL ON FUNCTION "public"."rpc_submit_participation_event"("p_source" "text", "p_event_type" "text", "p_session_id" "uuid", "p_pasaje_id" integer, "p_nota_id" "text", "p_nota_version" numeric, "p_target_xmlid" "text", "p_vote" "text", "p_selected_text" "text", "p_comment" "text") TO "authenticated";
-GRANT ALL ON FUNCTION "public"."rpc_submit_participation_event"("p_source" "text", "p_event_type" "text", "p_session_id" "uuid", "p_pasaje_id" integer, "p_nota_id" "text", "p_nota_version" numeric, "p_target_xmlid" "text", "p_vote" "text", "p_selected_text" "text", "p_comment" "text") TO "service_role";
+REVOKE ALL ON FUNCTION "public"."rpc_submit_participation_event"("p_source" "text", "p_event_type" "text", "p_session_id" "uuid", "p_pasaje_id" integer, "p_nota_id" "text", "p_nota_change" "text", "p_target_xmlid" "text", "p_vote" "text", "p_selected_text" "text", "p_comment" "text") FROM PUBLIC;
+GRANT ALL ON FUNCTION "public"."rpc_submit_participation_event"("p_source" "text", "p_event_type" "text", "p_session_id" "uuid", "p_pasaje_id" integer, "p_nota_id" "text", "p_nota_change" "text", "p_target_xmlid" "text", "p_vote" "text", "p_selected_text" "text", "p_comment" "text") TO "anon";
+GRANT ALL ON FUNCTION "public"."rpc_submit_participation_event"("p_source" "text", "p_event_type" "text", "p_session_id" "uuid", "p_pasaje_id" integer, "p_nota_id" "text", "p_nota_change" "text", "p_target_xmlid" "text", "p_vote" "text", "p_selected_text" "text", "p_comment" "text") TO "authenticated";
+GRANT ALL ON FUNCTION "public"."rpc_submit_participation_event"("p_source" "text", "p_event_type" "text", "p_session_id" "uuid", "p_pasaje_id" integer, "p_nota_id" "text", "p_nota_change" "text", "p_target_xmlid" "text", "p_vote" "text", "p_selected_text" "text", "p_comment" "text") TO "service_role";
 
 
 
@@ -753,36 +591,6 @@ GRANT ALL ON TABLE "public"."evaluaciones" TO "service_role";
 GRANT ALL ON SEQUENCE "public"."evaluaciones_id_seq" TO "anon";
 GRANT ALL ON SEQUENCE "public"."evaluaciones_id_seq" TO "authenticated";
 GRANT ALL ON SEQUENCE "public"."evaluaciones_id_seq" TO "service_role";
-
-
-
-GRANT ALL ON TABLE "public"."notas" TO "anon";
-GRANT ALL ON TABLE "public"."notas" TO "authenticated";
-GRANT ALL ON TABLE "public"."notas" TO "service_role";
-
-
-
-GRANT ALL ON TABLE "public"."notas_activas" TO "service_role";
-GRANT SELECT ON TABLE "public"."notas_activas" TO "anon";
-GRANT SELECT ON TABLE "public"."notas_activas" TO "authenticated";
-
-
-
-GRANT ALL ON SEQUENCE "public"."notas_id_seq" TO "anon";
-GRANT ALL ON SEQUENCE "public"."notas_id_seq" TO "authenticated";
-GRANT ALL ON SEQUENCE "public"."notas_id_seq" TO "service_role";
-
-
-
-GRANT ALL ON TABLE "public"."pasajes" TO "service_role";
-GRANT SELECT ON TABLE "public"."pasajes" TO "anon";
-GRANT SELECT ON TABLE "public"."pasajes" TO "authenticated";
-
-
-
-GRANT ALL ON SEQUENCE "public"."pasajes_id_seq" TO "anon";
-GRANT ALL ON SEQUENCE "public"."pasajes_id_seq" TO "authenticated";
-GRANT ALL ON SEQUENCE "public"."pasajes_id_seq" TO "service_role";
 
 
 
@@ -836,8 +644,6 @@ ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TAB
 -- ============================================
 -- SECURITY HARDENING (SQUASHED FROM REMOTE DELTA)
 -- ============================================
-
-drop policy "pasajes_public_select" on "public"."pasajes";
 
 revoke delete on table "public"."colaboradores" from "anon";
 
@@ -895,30 +701,6 @@ revoke truncate on table "public"."evaluaciones" from "authenticated";
 
 revoke update on table "public"."evaluaciones" from "authenticated";
 
-revoke delete on table "public"."pasajes" from "anon";
-
-revoke insert on table "public"."pasajes" from "anon";
-
-revoke references on table "public"."pasajes" from "anon";
-
-revoke trigger on table "public"."pasajes" from "anon";
-
-revoke truncate on table "public"."pasajes" from "anon";
-
-revoke update on table "public"."pasajes" from "anon";
-
-revoke delete on table "public"."pasajes" from "authenticated";
-
-revoke insert on table "public"."pasajes" from "authenticated";
-
-revoke references on table "public"."pasajes" from "authenticated";
-
-revoke trigger on table "public"."pasajes" from "authenticated";
-
-revoke truncate on table "public"."pasajes" from "authenticated";
-
-revoke update on table "public"."pasajes" from "authenticated";
-
 revoke delete on table "public"."sesiones" from "anon";
 
 revoke insert on table "public"."sesiones" from "anon";
@@ -947,13 +729,6 @@ revoke truncate on table "public"."sesiones" from "authenticated";
 
 revoke update on table "public"."sesiones" from "authenticated";
 
-
-  create policy "pasajes_public_select"
-  on "public"."pasajes"
-  as permissive
-  for select
-  to anon, authenticated
-using ((COALESCE(active, true) = true));
 
 
 

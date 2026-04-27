@@ -16,7 +16,7 @@ create or replace function "public"."rpc_submit_participation_event"(
   "p_session_id" "uuid",
   "p_pasaje_id" integer default null::integer,
   "p_nota_id" "text" default null::"text",
-  "p_nota_version" numeric default null::numeric,
+  "p_nota_change" "text" default null::"text",
   "p_target_xmlid" "text" default null::"text",
   "p_vote" "text" default null::"text",
   "p_selected_text" "text" default null::"text",
@@ -48,6 +48,9 @@ begin
     if p_nota_id is null or length(trim(p_nota_id)) = 0 then
       raise exception 'nota_id es obligatorio para nota_eval';
     end if;
+    if p_nota_change is null or length(trim(p_nota_change)) = 0 then
+      raise exception 'nota_change es obligatorio para nota_eval';
+    end if;
     if v_vote not in ('up', 'down') then
       raise exception 'vote invalido para nota_eval';
     end if;
@@ -71,7 +74,7 @@ begin
     session_id,
     pasaje_id,
     nota_id,
-    nota_version,
+    nota_change,
     target_xmlid,
     vote,
     selected_text,
@@ -84,7 +87,7 @@ begin
     p_session_id,
     p_pasaje_id,
     nullif(trim(coalesce(p_nota_id, '')), ''),
-    p_nota_version,
+    nullif(trim(coalesce(p_nota_change, '')), ''),
     nullif(trim(coalesce(p_target_xmlid, '')), ''),
     case when v_vote = '' then null else v_vote end,
     nullif(trim(coalesce(p_selected_text, '')), ''),
@@ -115,7 +118,7 @@ alter function "public"."rpc_submit_participation_event"(
   "p_session_id" "uuid",
   "p_pasaje_id" integer,
   "p_nota_id" "text",
-  "p_nota_version" numeric,
+  "p_nota_change" "text",
   "p_target_xmlid" "text",
   "p_vote" "text",
   "p_selected_text" "text",
@@ -128,7 +131,7 @@ revoke all on function "public"."rpc_submit_participation_event"(
   "p_session_id" "uuid",
   "p_pasaje_id" integer,
   "p_nota_id" "text",
-  "p_nota_version" numeric,
+  "p_nota_change" "text",
   "p_target_xmlid" "text",
   "p_vote" "text",
   "p_selected_text" "text",
@@ -141,7 +144,7 @@ grant all on function "public"."rpc_submit_participation_event"(
   "p_session_id" "uuid",
   "p_pasaje_id" integer,
   "p_nota_id" "text",
-  "p_nota_version" numeric,
+  "p_nota_change" "text",
   "p_target_xmlid" "text",
   "p_vote" "text",
   "p_selected_text" "text",
@@ -154,7 +157,7 @@ grant all on function "public"."rpc_submit_participation_event"(
   "p_session_id" "uuid",
   "p_pasaje_id" integer,
   "p_nota_id" "text",
-  "p_nota_version" numeric,
+  "p_nota_change" "text",
   "p_target_xmlid" "text",
   "p_vote" "text",
   "p_selected_text" "text",
@@ -167,7 +170,7 @@ grant all on function "public"."rpc_submit_participation_event"(
   "p_session_id" "uuid",
   "p_pasaje_id" integer,
   "p_nota_id" "text",
-  "p_nota_version" numeric,
+  "p_nota_change" "text",
   "p_target_xmlid" "text",
   "p_vote" "text",
   "p_selected_text" "text",

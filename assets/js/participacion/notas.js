@@ -1,113 +1,155 @@
 import { extraerXmlIdsDelFragmento } from '../lectura/pasajes.js';
+import {
+  loadTeiNotes,
+  normalizeChangeRef,
+  normalizeTargetToken
+} from '../shared/tei-note-context.js';
 
-// ============================================
-// GESTION DE NOTAS
-// ============================================
+const NOTES_XML_URL = new URL('../../data/tei/notas.xml', import.meta.url).toString();
 
 function getParticipacionApiV2() {
   return window.Participacion?.apiV2 || null;
 }
 
-/**
- * Cargar todas las notas activas (con cache)
- */
-async function cargarNotasActivas() {
-  if (window.notasActivasCache) {
-    console.log('Notas activas desde cache');
-    return window.notasActivasCache;
+function normalizeEvalCounts(value) {
+  const source = value && typeof value === 'object' ? value : {};
+  return {
+    total: Number(source.total || 0),
+    utiles: Number(source.utiles || 0),
+    mejorables: Number(source.mejorables || 0)
+  };
+}
+
+function normalizeNoteChange(value) {
+  return normalizeChangeRef(value);
+}
+
+function buildNoteEvaluationKey(notaId, noteChange) {
+  const safeNoteId = String(notaId || '').trim();
+  const safeNoteChange = normalizeNoteChange(noteChange);
+  return safeNoteId && safeNoteChange ? `${safeNoteId}::${safeNoteChange}` : '';
+}
+
+function getCachedNotes() {
+  return Array.isArray(window.notasTeiCache) ? window.notasTeiCache : null;
+}
+
+function setCachedNotes(notes) {
+  window.notasTeiCache = Array.isArray(notes) ? notes : [];
+  return window.notasTeiCache;
+}
+
+function getCachedNoteRecord(notaId, noteChange = '') {
+  const cached = getCachedNotes();
+  if (!cached || !notaId) return null;
+
+  const safeNoteId = String(notaId || '').trim();
+  const safeNoteChange = normalizeNoteChange(noteChange);
+
+  if (safeNoteChange) {
+    return cached.find((note) => (
+      String(note?.nota_id || '').trim() === safeNoteId
+      && normalizeNoteChange(note?.nota_change) === safeNoteChange
+    )) || null;
   }
 
+  return cached.find((note) => String(note?.nota_id || '').trim() === safeNoteId) || null;
+}
+
+function setCachedNoteEvaluationCounts(notaId, noteChange, counts) {
+  const safeCounts = normalizeEvalCounts(counts);
+  const record = getCachedNoteRecord(notaId, noteChange);
+  if (!record) return safeCounts;
+  record.evaluaciones = safeCounts;
+  return safeCounts;
+}
+
+async function hydrateEvaluationCounts(notes) {
   const apiV2 = getParticipacionApiV2();
-  if (!apiV2 || typeof apiV2.getNotasActivas !== 'function') {
-    console.error('apiV2 no disponible para cargar notas');
-    return [];
-  }
-
-  const { data: notas, error } = await apiV2.getNotasActivas();
-  if (error) {
-    console.error('Error al cargar notas:', error);
-    return [];
+  if (!apiV2 || typeof apiV2.getNoteEvalCounts !== 'function') {
+    notes.forEach((note) => {
+      note.evaluaciones = normalizeEvalCounts();
+    });
+    return notes;
   }
 
   try {
     const { data: evaluacionesAgg, error: evalError } = await apiV2.getNoteEvalCounts();
-
-    if (!evalError && Array.isArray(evaluacionesAgg)) {
-      const contadores = {};
-      evaluacionesAgg.forEach((row) => {
-        if (!row.nota_id) return;
-        contadores[row.nota_id] = {
-          total: Number(row.total || 0),
-          utiles: Number(row.utiles || 0),
-          mejorables: Number(row.mejorables || 0)
-        };
+    if (evalError || !Array.isArray(evaluacionesAgg)) {
+      notes.forEach((note) => {
+        note.evaluaciones = normalizeEvalCounts();
       });
-
-      notas.forEach((nota) => {
-        nota.evaluaciones = contadores[nota.nota_id] || { total: 0, utiles: 0, mejorables: 0 };
-      });
-    } else {
-      notas.forEach((nota) => {
-        nota.evaluaciones = { total: 0, utiles: 0, mejorables: 0 };
-      });
+      return notes;
     }
-  } catch (err) {
-    console.warn('No se pudieron cargar contadores de evaluaciones:', err);
-    notas.forEach((nota) => {
-      nota.evaluaciones = { total: 0, utiles: 0, mejorables: 0 };
+
+    const contadores = new Map();
+    evaluacionesAgg.forEach((row) => {
+      const key = buildNoteEvaluationKey(row?.nota_id, row?.nota_change);
+      if (!key) return;
+      contadores.set(key, normalizeEvalCounts(row));
+    });
+
+    notes.forEach((note) => {
+      const key = buildNoteEvaluationKey(note.nota_id, note.nota_change);
+      note.evaluaciones = contadores.get(key) || normalizeEvalCounts();
+    });
+  } catch (_error) {
+    notes.forEach((note) => {
+      note.evaluaciones = normalizeEvalCounts();
     });
   }
 
-  window.notasActivasCache = notas;
-  console.log(`${notas.length} notas activas cargadas`);
-  return notas;
+  return notes;
 }
 
-/**
- * Filtrar notas que aplican a un conjunto de xml:ids
- */
-function filtrarNotasPorXmlIds(todasNotas, xmlIds) {
-  return todasNotas.filter((nota) => {
-    const targetsNota = nota.target
-      .split(' ')
-      .map((t) => t.replace('#', ''));
+async function cargarNotasActivas(options = {}) {
+  if (!options.force) {
+    const cached = getCachedNotes();
+    if (cached) return cached;
+  }
 
-    return targetsNota.some((t) => xmlIds.includes(t));
+  const notesDoc = options.notesDoc || window.notasXML || null;
+  const notes = await loadTeiNotes({
+    notesDoc,
+    notesUrl: options.notesUrl || NOTES_XML_URL
+  });
+
+  await hydrateEvaluationCounts(notes);
+  return setCachedNotes(notes);
+}
+
+function filtrarNotasPorXmlIds(todasNotas, xmlIds) {
+  const wanted = new Set((xmlIds || []).map((xmlId) => normalizeTargetToken(xmlId)).filter(Boolean));
+  if (!wanted.size) return [];
+
+  return (todasNotas || []).filter((nota) => {
+    const targetsNota = String(nota?.target || '')
+      .split(/\s+/)
+      .map((token) => normalizeTargetToken(token))
+      .filter(Boolean);
+
+    return targetsNota.some((targetId) => wanted.has(targetId));
   });
 }
 
-/**
- * Cargar notas de un pasaje especifico
- */
-async function cargarNotasPasaje(xmlDoc, pasaje, fragmento) {
+async function cargarNotasPasaje(_xmlDoc, _pasaje, fragmento) {
   const todasNotas = await cargarNotasActivas();
   const xmlIdsDelPasaje = extraerXmlIdsDelFragmento(fragmento);
-  const notasDelPasaje = filtrarNotasPorXmlIds(todasNotas, xmlIdsDelPasaje);
-
-  console.log(`${notasDelPasaje.length} notas para este pasaje`);
-  return notasDelPasaje;
+  return filtrarNotasPorXmlIds(todasNotas, xmlIdsDelPasaje);
 }
 
-/**
- * Invalidar cache de notas (util despues de evaluar)
- */
 function invalidarCacheNotas() {
-  window.notasActivasCache = null;
-  console.log('Cache de notas invalidada');
-}
-
-console.log('Notas.js cargado');
-
-if (typeof window !== 'undefined') {
-  window.cargarNotasActivas = cargarNotasActivas;
-  window.filtrarNotasPorXmlIds = filtrarNotasPorXmlIds;
-  window.cargarNotasPasaje = cargarNotasPasaje;
-  window.invalidarCacheNotas = invalidarCacheNotas;
+  window.notasTeiCache = null;
 }
 
 export {
+  buildNoteEvaluationKey,
   cargarNotasActivas,
-  filtrarNotasPorXmlIds,
   cargarNotasPasaje,
-  invalidarCacheNotas
+  filtrarNotasPorXmlIds,
+  getCachedNoteRecord,
+  invalidarCacheNotas,
+  normalizeEvalCounts,
+  normalizeNoteChange,
+  setCachedNoteEvaluationCounts
 };

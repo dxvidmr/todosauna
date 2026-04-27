@@ -462,10 +462,14 @@ function buildNoteBadgesHTML(ana) {
 }
 
 function buildNoteDisplayHTML(params) {
-  var noteId = params.noteId || '', text = params.text || '', badges = params.badgesHTML || '';
+  var noteId = params.noteId || '',
+    noteChange = params.noteChange || '',
+    text = params.text || '',
+    badges = params.badgesHTML || '';
   var safeText = sanitizeNoteHtml(text);
   return renderSharedNoteDisplay({
     noteId: noteId,
+    noteChange: noteChange,
     textHtml: safeText,
     badgesHtml: badges
   });

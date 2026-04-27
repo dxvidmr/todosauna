@@ -488,18 +488,16 @@ document.addEventListener("DOMContentLoaded", function() {
     
     let teiLoaded = false;
     let notasLoaded = false;
-    let notasSupabaseLoaded = false;
+    let notasEvalLoaded = false;
 
     // Función para verificar si todo está listo y procesar
     async function checkAndProcess() {
-        console.log('checkAndProcess:', { teiLoaded, notasLoaded, notasSupabaseLoaded, notasXML: !!window.notasXML });
+        console.log('checkAndProcess:', { teiLoaded, notasLoaded, notasEvalLoaded, notasXML: !!window.notasXML });
         if (teiLoaded && notasLoaded && window.notasXML) {
-            // Cargar notas desde Supabase (para obtener contadores de evaluaciones)
-            if (!notasSupabaseLoaded) {
-                console.log('Cargando notas desde Supabase...');
-                await cargarNotasActivas();
-                notasSupabaseLoaded = true;
-                console.log('✓ Notas de Supabase cargadas con contadores');
+            // Cargar metadata de evaluacion desde XML + Supabase
+            if (!notasEvalLoaded) {
+                await cargarNotasActivas({ notesDoc: window.notasXML });
+                notasEvalLoaded = true;
             }
             
             console.log('Todo cargado, procesando notas...');
@@ -642,6 +640,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const badgesHTML = buildNoteBadgesHTML(
             noteToShow.getAttribute('ana')
         );
+        const noteChange = (noteToShow.getAttribute('change') || '').replace(/^#/, '');
         
         // Actualizar estado de navegación
         window.edicionNotas.notaActualId = noteXmlId;
@@ -652,8 +651,14 @@ document.addEventListener("DOMContentLoaded", function() {
          
         renderNotePanel(noteContentDiv, {
             currentNoteId: noteXmlId,
+            currentNoteChange: noteChange,
             dockState: 'loading',
-            bodyHTML: buildNoteDisplayHTML({ noteId: noteXmlId, text: serializeNoteNodeHtml(noteToShow), badgesHTML }),
+            bodyHTML: buildNoteDisplayHTML({
+                noteId: noteXmlId,
+                noteChange,
+                text: serializeNoteNodeHtml(noteToShow),
+                badgesHTML
+            }),
             dockHTML: renderizarDockEvaluacionLoading()
         });
         void edicionEvaluacion.addEvaluationButtons(noteContentDiv);

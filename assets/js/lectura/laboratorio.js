@@ -23,16 +23,21 @@ import {
   buildNoteBadgesHTML,
   buildNoteDisplayHTML
 } from './notas-dom.js';
-import { cargarNotasActivas, filtrarNotasPorXmlIds } from '../participacion/notas.js';
+import {
+  buildNoteEvaluationKey,
+  cargarNotasActivas,
+  filtrarNotasPorXmlIds
+} from '../participacion/notas.js';
 import {
   obtenerEvaluacionesStats,
-  getApiV2,
   mountNoteEvaluationDock
 } from '../participacion/note-evaluation-runtime.js';
 import {
   obtenerEstadisticasGlobales,
   renderizarEstadisticasGlobales
 } from '../participacion/laboratorio-stats.js';
+
+const LAB_PASAJES_URL = new URL('../../data/pasajes/fuenteovejuna.json', import.meta.url).toString();
 
 // ============================================
 // EDITOR SOCIAL (JUEGO DE EVALUACION)
@@ -176,7 +181,7 @@ class EditorSocial {
     this.setupTextZoomController();
     this.syncResponsiveState();
 
-    // Cargar pasajes desde Supabase
+    // Cargar pasajes desde asset estático derivado del XML
     await this.cargarPasajes();
 
     // Cargar XML de Fuenteovejuna (se cachea)
@@ -430,7 +435,7 @@ class EditorSocial {
 
   getPrimerIndiceNotaPendiente() {
     for (let i = 0; i < this.notasPasaje.length; i++) {
-      if (!this.notasEvaluadas.has(this.notasPasaje[i].nota_id)) {
+      if (!this.notasEvaluadas.has(buildNoteEvaluationKey(this.notasPasaje[i].nota_id, this.notasPasaje[i].nota_change))) {
         return i;
       }
     }
@@ -528,7 +533,7 @@ class EditorSocial {
       if (
         targetIndex < 0 ||
         !currentNote ||
-        (preferPending && this.notasEvaluadas.has(currentNote.nota_id))
+        (preferPending && this.notasEvaluadas.has(buildNoteEvaluationKey(currentNote.nota_id, currentNote.nota_change)))
       ) {
         targetIndex = preferPending ? this.getPrimerIndiceNotaPendiente() : 0;
       }
@@ -968,23 +973,26 @@ class EditorSocial {
   }
 
   /**
-   * Cargar lista de pasajes desde Supabase
+   * Cargar lista de pasajes desde asset estático
    */
   async cargarPasajes() {
-    const apiV2 = getApiV2();
-    if (!apiV2 || typeof apiV2.getPasajes !== 'function') {
-      this.notifyFeedback('Error al cargar pasajes. API no disponible.', 'error', 3200);
-      return;
-    }
-    const { data, error } = await apiV2.getPasajes();
+    try {
+      const response = await fetch(LAB_PASAJES_URL);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
 
-    if (error) {
+      const data = await response.json();
+      this.pasajes = Array.isArray(data)
+        ? data.slice().sort((a, b) => Number(a?.orden || 0) - Number(b?.orden || 0))
+        : [];
+    } catch (error) {
       console.error('Error al cargar pasajes:', error);
-      this.notifyFeedback('Error al cargar pasajes. Verifica tu conexión.', 'error', 3200);
+      this.pasajes = [];
+      this.notifyFeedback('Error al cargar pasajes. Verifica el asset local.', 'error', 3200);
       return;
     }
 
-    this.pasajes = data ?? [];
     this.setTextForAll('[data-lab-passages-total]', this.pasajes.length);
     console.log(`${this.pasajes.length} pasajes cargados`);
   }
@@ -1237,23 +1245,26 @@ class EditorSocial {
    */
   renderizarNotaActual(nota) {
     const pasajeId = this.pasajes[this.pasajeActualIndex]?.id;
-    const yaEvaluada = this.notasEvaluadas.has(nota.nota_id);
+    const noteKey = buildNoteEvaluationKey(nota.nota_id, nota.nota_change);
+    const yaEvaluada = this.notasEvaluadas.has(noteKey);
 
     const badgesHTML = buildNoteBadgesHTML(nota.ana);
 
     // Obtener estadisticas de evaluaciones
     const evaluaciones = typeof obtenerEvaluacionesStats === 'function'
-      ? obtenerEvaluacionesStats(nota.nota_id, nota)
+      ? obtenerEvaluacionesStats(nota.nota_id, nota, nota.nota_change)
       : { total: 0, utiles: 0, mejorables: 0 };
 
     const noteDisplayHtml = buildNoteDisplayHTML({
       noteId: nota.nota_id,
+      noteChange: nota.nota_change,
       text: nota.texto_nota,
       badgesHTML
     });
 
     renderNotePanel(this.notaContent, {
       currentNoteId: nota.nota_id,
+      currentNoteChange: nota.nota_change || '',
       dockState: yaEvaluada ? 'evaluated' : 'loading',
       bodyHTML: noteDisplayHtml,
       dockHTML: yaEvaluada
@@ -1269,15 +1280,15 @@ class EditorSocial {
     void mountNoteEvaluationDock({
       dockEl: dock,
       noteId: nota.nota_id,
-      version: nota.version,
+      noteChange: nota.nota_change,
       counts: evaluaciones,
       noteData: nota,
       source: 'laboratorio',
       pasajeId,
       scopeEl: this.notaContent,
       alreadyEvaluated: false,
-      onSuccess: ({ noteId: currentNoteId }) => {
-        this.marcarNotaComoEvaluada(currentNoteId);
+      onSuccess: ({ noteId: currentNoteId, noteChange: currentNoteChange }) => {
+        this.marcarNotaComoEvaluada(currentNoteId, currentNoteChange);
         this.avanzarSiguienteNotaPendiente();
       },
       onError: () => {
@@ -1289,8 +1300,8 @@ class EditorSocial {
   /**
    * Marcar nota como evaluada
    */
-  marcarNotaComoEvaluada(notaId) {
-    this.notasEvaluadas.add(notaId);
+  marcarNotaComoEvaluada(notaId, noteChange) {
+    this.notasEvaluadas.add(buildNoteEvaluationKey(notaId, noteChange));
     this.actualizarContadores();
     
     // Re-renderizar la nota actual para mostrar estado evaluado
@@ -1309,7 +1320,7 @@ class EditorSocial {
   avanzarSiguienteNotaPendiente() {
     // Buscar siguiente nota no evaluada
     for (let i = this.notaActualIndex + 1; i < this.notasPasaje.length; i++) {
-      if (!this.notasEvaluadas.has(this.notasPasaje[i].nota_id)) {
+      if (!this.notasEvaluadas.has(buildNoteEvaluationKey(this.notasPasaje[i].nota_id, this.notasPasaje[i].nota_change))) {
         setTimeout(() => this.navegarANota(i), 500);
         return;
       }
@@ -1317,7 +1328,7 @@ class EditorSocial {
 
     // Si no hay mas, buscar desde el principio
     for (let i = 0; i < this.notaActualIndex; i++) {
-      if (!this.notasEvaluadas.has(this.notasPasaje[i].nota_id)) {
+      if (!this.notasEvaluadas.has(buildNoteEvaluationKey(this.notasPasaje[i].nota_id, this.notasPasaje[i].nota_change))) {
         setTimeout(() => this.navegarANota(i), 500);
         return;
       }

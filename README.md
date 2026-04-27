@@ -31,6 +31,8 @@ Este repositorio contiene el sitio web público (Jekyll + CollectionBuilder como
 - `pages/`: páginas públicas.
 - `_includes/participacion/`: plantillas UI de participación.
 - `assets/js/participacion/`: lógica de sesión, modal, formularios y API.
+- `assets/data/tei/`: fuente editorial TEI del texto base y las notas.
+- `assets/data/pasajes/`: artefactos JSON derivados del TEI para el laboratorio.
 - `supabase/migrations/`: historial de migraciones SQL.
 - `docs/`: documentación funcional y operativa (de CB y propia).
 - `tests/e2e/`: smoke tests E2E.
@@ -81,6 +83,12 @@ También disponibles:
 
 - `npm run test:e2e:headed`
 - `npm run test:e2e:ci`
+
+## Datos editoriales
+
+- Las notas y los pasajes del laboratorio se derivan de los XML TEI en `assets/data/tei/`.
+- Supabase conserva solo eventos de participación y sus agregados; ya no almacena catálogos editoriales de notas o pasajes.
+- `scripts/generate-pasajes-fuenteovejuna.mjs` genera `assets/data/pasajes/fuenteovejuna.json` para consumo del frontend.
 
 ## Flujo recomendado de migraciones
 

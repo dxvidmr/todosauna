@@ -2,6 +2,7 @@ import {
   loadSessionEvaluatedNoteIds,
   mountNoteEvaluationDock
 } from './participacion/note-evaluation-runtime.js';
+import { buildNoteEvaluationKey } from './participacion/notas.js';
 import {
   applyNoteHighlights,
   markCurrentNoteInText,
@@ -177,7 +178,6 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
       this.evaluatedNoteIds = new Set();
       this.activeNote = null;
       this.countMap = new Map();
-      this.versionMap = new Map();
       this.hasEvaluationApi = false;
       this.isEvaluationEnabled = false;
       this.ceteiProcessor = null;
@@ -241,7 +241,6 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
       this.hasEvaluationApi = false;
       this.isEvaluationEnabled = false;
       this.countMap = new Map();
-      this.versionMap = new Map();
       this.evaluatedNoteIds = new Set();
 
       const api = this.getApi();
@@ -249,29 +248,19 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
       this.hasEvaluationApi = true;
 
       try {
-        const [countsResult, activeNotesResult] = await Promise.all([
-          api.getNoteEvalCounts(),
-          api.getNotasActivas()
+        const [countsResult] = await Promise.all([
+          api.getNoteEvalCounts()
         ]);
 
         if (!countsResult.error && Array.isArray(countsResult.data)) {
           countsResult.data.forEach((row) => {
-            const noteId = toText(row.nota_id);
-            if (!noteId) return;
-            this.countMap.set(noteId, {
+            const noteKey = buildNoteEvaluationKey(row?.nota_id, row?.nota_change);
+            if (!noteKey) return;
+            this.countMap.set(noteKey, {
               total: Number(row.total || 0),
               utiles: Number(row.utiles || 0),
               mejorables: Number(row.mejorables || 0)
             });
-          });
-        }
-
-        if (!activeNotesResult.error && Array.isArray(activeNotesResult.data)) {
-          activeNotesResult.data.forEach((note) => {
-            const noteId = toText(note.nota_id);
-            const version = toText(note.version || '1.0');
-            if (!noteId) return;
-            this.versionMap.set(noteId, version || '1.0');
           });
         }
       } catch (_error) {
@@ -292,8 +281,9 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
     hydrateNotesWithEvalData() {
       this.notes = this.notes.map((note) => ({
         ...note,
-        version: this.versionMap.get(note.nota_id) || note.version || '1.0',
-        evaluaciones: this.countMap.get(note.nota_id) || note.evaluaciones || { total: 0, utiles: 0, mejorables: 0 }
+        evaluaciones: this.countMap.get(buildNoteEvaluationKey(note.nota_id, note.nota_change))
+          || note.evaluaciones
+          || { total: 0, utiles: 0, mejorables: 0 }
       }));
     }
 
@@ -318,7 +308,7 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
 
     pickNextNote() {
       const candidates = this.isEvaluationEnabled
-        ? this.notes.filter((note) => !this.evaluatedNoteIds.has(note.nota_id))
+        ? this.notes.filter((note) => !this.evaluatedNoteIds.has(buildNoteEvaluationKey(note.nota_id, note.nota_change)))
         : this.notes.slice();
       if (!candidates.length) return null;
 
@@ -428,11 +418,15 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
       }
     }
 
-    handleVoteSuccess(noteId) {
-      this.evaluatedNoteIds.add(noteId);
+    handleVoteSuccess(noteId, noteChange) {
+      const noteKey = buildNoteEvaluationKey(noteId, noteChange);
+      if (noteKey) {
+        this.evaluatedNoteIds.add(noteKey);
+      }
       if (this.controls) {
         this.controls.dataset.evalState = 'evaluated';
         this.controls.dataset.evalNoteId = noteId;
+        this.controls.dataset.evalNoteChange = noteChange || '';
         this.controls.innerHTML = '<div class="nota-ya-evaluada"><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Nota evaluada</div>';
       }
       this.setStatus('', '');
@@ -470,19 +464,19 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
         void mountNoteEvaluationDock({
           dockEl: this.controls,
           noteId: note.nota_id,
-          version: note.version,
+          noteChange: note.nota_change,
           counts: note.evaluaciones || { total: 0, utiles: 0, mejorables: 0 },
           noteData: note,
           source: 'lectura',
           scopeEl: this.controls,
-          alreadyEvaluated: this.evaluatedNoteIds.has(note.nota_id),
-          onSuccess: ({ noteId: currentNoteId }) => this.handleVoteSuccess(currentNoteId)
+          alreadyEvaluated: this.evaluatedNoteIds.has(buildNoteEvaluationKey(note.nota_id, note.nota_change)),
+          onSuccess: ({ noteId: currentNoteId, noteChange: currentNoteChange }) => this.handleVoteSuccess(currentNoteId, currentNoteChange)
         });
       } else {
         void mountNoteEvaluationDock({
           dockEl: this.controls,
           noteId: note.nota_id,
-          version: note.version,
+          noteChange: note.nota_change,
           counts: note.evaluaciones || { total: 0, utiles: 0, mejorables: 0 },
           noteData: note,
           mode: 'readonly',

@@ -37,11 +37,12 @@ function buildNotePanelMarkup(options = {}) {
 
 function renderNoteDisplay(params = {}) {
   const noteId = params.noteId || '';
+  const noteChange = params.noteChange || '';
   const textHtml = toHtmlString(params.textHtml || params.text);
   const badgesHtml = toHtmlString(params.badgesHtml || params.badgesHTML);
 
   return (
-    `<div class="note-display" data-note-id="${noteId}">` +
+    `<div class="note-display" data-note-id="${noteId}" data-note-change="${noteChange}">` +
       '<div class="note-header">' +
         (badgesHtml ? `<div class="note-badges">${badgesHtml}</div>` : '') +
       '</div>' +
@@ -68,8 +69,12 @@ function renderNotePanel(host, options = {}) {
   const currentNoteId = typeof options.currentNoteId === 'string'
     ? options.currentNoteId
     : '';
+  const currentNoteChange = typeof options.currentNoteChange === 'string'
+    ? options.currentNoteChange
+    : '';
 
   host.dataset.currentNoteId = currentNoteId;
+  host.dataset.currentNoteChange = currentNoteChange;
   host.innerHTML = buildNotePanelMarkup(options);
   return host;
 }
@@ -92,7 +97,8 @@ function renderNotePlaceholder(host, options = {}) {
     dockHtml,
     dockState: options.dockState || (options.dockMessage ? 'error' : 'idle'),
     dockAttrs: options.dockAttrs,
-    currentNoteId: options.currentNoteId || ''
+    currentNoteId: options.currentNoteId || '',
+    currentNoteChange: options.currentNoteChange || ''
   });
 }
 

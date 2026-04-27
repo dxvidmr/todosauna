@@ -230,33 +230,6 @@
       );
     },
 
-    async getPasajes() {
-      return callQuery(function (client) {
-        return client
-          .from('pasajes')
-          .select('*')
-          .order('orden', { ascending: true });
-      });
-    },
-
-    async getNotasActivas() {
-      return callQuery(function (client) {
-        return client
-          .from('notas_activas')
-          .select('*');
-      });
-    },
-
-    async getNotaVersion(notaId) {
-      return callQuery(function (client) {
-        return client
-          .from('notas_activas')
-          .select('version')
-          .eq('nota_id', notaId)
-          .single();
-      }, { single: true });
-    },
-
     async submitParticipationEvent(payload) {
       var input = payload || {};
       return callRpc(
@@ -267,7 +240,7 @@
           p_session_id: input.session_id,
           p_pasaje_id: input.pasaje_id || null,
           p_nota_id: input.nota_id || null,
-          p_nota_version: input.nota_version || null,
+          p_nota_change: input.nota_change || null,
           p_target_xmlid: input.target_xmlid || null,
           p_vote: input.vote || null,
           p_selected_text: input.selected_text || null,
@@ -285,7 +258,7 @@
         session_id: input.session_id,
         pasaje_id: input.pasaje_id || null,
         nota_id: input.nota_id,
-        nota_version: input.nota_version,
+        nota_change: input.nota_change,
         target_xmlid: null,
         vote: input.vote,
         selected_text: null,
@@ -301,7 +274,7 @@
         session_id: input.session_id,
         pasaje_id: input.pasaje_id || null,
         nota_id: null,
-        nota_version: null,
+        nota_change: null,
         target_xmlid: input.target_xmlid || null,
         vote: null,
         selected_text: input.selected_text || null,

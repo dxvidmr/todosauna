@@ -1,21 +1,38 @@
 import { getApiV2 } from './note-evaluation-runtime.js';
+import { cargarNotasActivas } from './notas.js';
 
 async function obtenerEstadisticasGlobales() {
   try {
     const apiV2 = getApiV2();
-    if (!apiV2 || typeof apiV2.getGlobalStats !== 'function') {
-      throw new Error('API de participacion no disponible');
-    }
+    const [notes, statsResult] = await Promise.all([
+      cargarNotasActivas(),
+      apiV2 && typeof apiV2.getGlobalStats === 'function'
+        ? apiV2.getGlobalStats()
+        : Promise.resolve({ data: null, error: null })
+    ]);
 
-    const { data, error } = await apiV2.getGlobalStats();
-    if (error || !data) {
-      throw error || new Error('Respuesta vacia en estadisticas globales');
-    }
+    const aggregated = Array.isArray(notes)
+      ? notes.reduce((acc, note) => {
+        const counts = note?.evaluaciones || {};
+        acc.totalEvaluaciones += Number(counts.total || 0);
+        acc.utiles += Number(counts.utiles || 0);
+        acc.mejorables += Number(counts.mejorables || 0);
+        return acc;
+      }, {
+        totalEvaluaciones: 0,
+        utiles: 0,
+        mejorables: 0
+      })
+      : {
+        totalEvaluaciones: 0,
+        utiles: 0,
+        mejorables: 0
+      };
 
-    const totalEvaluaciones = Number(data.total_evaluaciones || 0);
-    const utiles = Number(data.utiles || 0);
-    const mejorables = Number(data.mejorables || 0);
-    const totalSugerencias = Number(data.total_sugerencias || 0);
+    const totalEvaluaciones = aggregated.totalEvaluaciones;
+    const utiles = aggregated.utiles;
+    const mejorables = aggregated.mejorables;
+    const totalSugerencias = Number(statsResult?.data?.total_sugerencias || 0);
     const total = utiles + mejorables;
 
     return {
