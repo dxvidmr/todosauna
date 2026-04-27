@@ -51,6 +51,8 @@ $theme-link-color: {{ site.data.theme.link-color | default: '""' }};
 /* Estilos para Sala de Lectura y Laboratorio de Notas */
 @use "lectura-variables";
 @use "lectura";
+@use "note-panel";
+@use "note-evaluation";
 @use "lectura-components";
 @use "laboratorio";
 

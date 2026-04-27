@@ -3,7 +3,7 @@ import {
   getApiV2,
   getSessionData,
   getParticipationUserMessage
-} from './evaluaciones.js';
+} from './note-evaluation-runtime.js';
 // ============================================
 // SISTEMA DE SUGERENCIAS DE NOTAS FALTANTES
 // Permite a usuarios sugerir donde faltan notas

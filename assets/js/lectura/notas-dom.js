@@ -1,6 +1,10 @@
 // notas-dom.js — Utilidades compartidas para manipulación DOM de notas
 // en contenedores TEI (CETEIcean). Usado por sala-de-lectura.js y laboratorio.js.
 
+import {
+  renderNoteDisplay as renderSharedNoteDisplay
+} from '../shared/note-panel.js';
+
 var TIPO_NOTA_MAP = {
   lexica: 'léxica', parafrasis: 'paráfrasis', historica: 'histórica',
   geografica: 'geográfica', mitologica: 'mitológica', estilistica: 'estilística',
@@ -460,41 +464,11 @@ function buildNoteBadgesHTML(ana) {
 function buildNoteDisplayHTML(params) {
   var noteId = params.noteId || '', text = params.text || '', badges = params.badgesHTML || '';
   var safeText = sanitizeNoteHtml(text);
-  return (
-    '<div class="note-display" data-note-id="' + noteId + '">' +
-      '<div class="note-header">' + (badges ? '<div class="note-badges">' + badges + '</div>' : '') + '</div>' +
-      '<p class="fs-6 note-rich-text">' + safeText + '</p>' +
-      '<div class="note-footer"></div>' +
-    '</div>'
-  );
-}
-
-function buildSkeletonLoadingHTML() {
-  return (
-    '<div class="lectura-note-eval-loading" data-eval-loading="true" aria-hidden="true">' +
-      '<span class="lectura-skeleton-line is-title"></span>' +
-      '<div class="lectura-skeleton-btnrow">' +
-        '<span class="lectura-skeleton-btn"></span><span class="lectura-skeleton-btn"></span>' +
-      '</div>' +
-    '</div>'
-  );
-}
-
-function buildNotePanelHTML(options) {
-  var bodyHTML = options && options.bodyHTML ? options.bodyHTML : '';
-  var dockHTML = options && options.dockHTML ? options.dockHTML : '';
-  var dockAttrs = options && options.dockAttrs ? options.dockAttrs : '';
-
-  return (
-    '<div class="note-panel-layout">' +
-      '<div class="note-panel-scroll">' +
-        bodyHTML +
-      '</div>' +
-      '<div class="note-eval-dock"' + (dockAttrs ? ' ' + dockAttrs : '') + '>' +
-        dockHTML +
-      '</div>' +
-    '</div>'
-  );
+  return renderSharedNoteDisplay({
+    noteId: noteId,
+    textHtml: safeText,
+    badgesHtml: badges
+  });
 }
 
 // Toggle .note-active en wrappers que contienen noteId
@@ -596,20 +570,6 @@ function applyNoteHighlights(container, notes, options) {
 
 if (typeof window !== 'undefined') {
   initNoteBadgeTooltip();
-  window.TIPO_NOTA_MAP = TIPO_NOTA_MAP;
-  window.normalizeAnaCategories = normalizeAnaCategories;
-  window.applyNoteHighlights = applyNoteHighlights;
-  window.collectNoteTargetMeta = collectNoteTargetMeta;
-  window.buildReadingOrderNoteIds = buildReadingOrderNoteIds;
-  window.pickPrimaryNoteIdForClick = pickPrimaryNoteIdForClick;
-  window.highlightNoteInText = highlightNoteInText;
-  window.highlightAllRelatedGroups = highlightAllRelatedGroups;
-  window.markCurrentNoteInText = markCurrentNoteInText;
-  window.buildNoteBadgesHTML = buildNoteBadgesHTML;
-  window.buildNoteDisplayHTML = buildNoteDisplayHTML;
-  window.setNoteRichText = setNoteRichText;
-  window.buildSkeletonLoadingHTML = buildSkeletonLoadingHTML;
-  window.buildNotePanelHTML = buildNotePanelHTML;
 }
 
 export {
@@ -617,7 +577,7 @@ export {
   collectNoteTargetMeta, buildReadingOrderNoteIds, pickPrimaryNoteIdForClick,
   findElementByXmlId, resolveTargetElements,
   ensureNoteWrapper, addNoteGroup, markWrapperEventsAttached,
-  buildNoteBadgesHTML, buildNoteDisplayHTML, buildSkeletonLoadingHTML, buildNotePanelHTML, setNoteRichText,
+  buildNoteBadgesHTML, buildNoteDisplayHTML, setNoteRichText,
   highlightNoteInText, highlightAllRelatedGroups, initNoteBadgeTooltip,
   markCurrentNoteInText, applyNoteHighlights
 };

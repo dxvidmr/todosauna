@@ -1,6 +1,12 @@
 import { createTextZoomController } from './text-zoom.js';
 import { aplicarNumeracionVersos, alignSplitVerses } from './utils.js';
 import { cargarNotasActivas } from '../participacion/notas.js';
+import { edicionEvaluacion } from '../participacion/lectura-evaluacion.js';
+import {
+    renderNoteEvalLoading,
+    renderNotePanel,
+    renderNotePlaceholder
+} from '../shared/note-panel.js';
 import { serializeNoteNodeHtml } from '../shared/tei-note-context.js';
 import {
     applyNoteHighlights,
@@ -10,9 +16,7 @@ import {
     highlightAllRelatedGroups,
     buildNoteBadgesHTML,
     buildNoteDisplayHTML,
-    buildNotePanelHTML,
-    markCurrentNoteInText,
-    buildSkeletonLoadingHTML
+    markCurrentNoteInText
 } from './notas-dom.js';
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -612,22 +616,19 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log('Notas procesadas correctamente');
 
         // Inicializar sistema de evaluación
-        if (window.edicionEvaluacion) {
-            window.edicionEvaluacion.init();
-        }
+        void edicionEvaluacion.init();
     } // ← Fin de processNotes()
 
     function renderizarDockEvaluacionLoading() {
-        return buildSkeletonLoadingHTML();
+        return renderNoteEvalLoading();
     }
 
     function renderizarPlaceholderNota(noteContentDiv, mensaje) {
-        noteContentDiv.dataset.currentNoteId = '';
-        noteContentDiv.innerHTML = buildNotePanelHTML({
-            dockAttrs: 'data-eval-state="idle"',
-            bodyHTML: `<p class="placeholder-text">${mensaje}</p>`,
-            dockHTML: '<p class="note-dock-placeholder"></p>'
+        renderNotePlaceholder(noteContentDiv, {
+            bodyMessage: mensaje,
+            dockState: 'idle'
         });
+        void edicionEvaluacion.addEvaluationButtons(noteContentDiv);
         renderPanelHeaderActions();
     }
     
@@ -649,12 +650,13 @@ document.addEventListener("DOMContentLoaded", function() {
         // Marcar nota activa en el texto (persistente)
         marcarNotaActivaEnTexto(noteXmlId, teiContainer);
          
-        noteContentDiv.dataset.currentNoteId = noteXmlId;
-        noteContentDiv.innerHTML = buildNotePanelHTML({
-            dockAttrs: 'data-eval-state="loading"',
+        renderNotePanel(noteContentDiv, {
+            currentNoteId: noteXmlId,
+            dockState: 'loading',
             bodyHTML: buildNoteDisplayHTML({ noteId: noteXmlId, text: serializeNoteNodeHtml(noteToShow), badgesHTML }),
             dockHTML: renderizarDockEvaluacionLoading()
         });
+        void edicionEvaluacion.addEvaluationButtons(noteContentDiv);
         renderPanelHeaderActions();
     }
     

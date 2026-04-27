@@ -1,0 +1,246 @@
+@use "variables" as *;
+
+// ============================================
+// SHARED NOTE EVALUATION DOCK
+// ============================================
+
+.note-eval-dock .nota-evaluacion.is-commenting {
+  min-height: var(--note-eval-comment-min-height, auto);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.nota-evaluacion,
+.nota-content .nota-evaluacion {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  overflow: visible;
+}
+
+.evaluacion-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  color: $color-text-muted;
+  margin-bottom: 8px;
+}
+
+.evaluacion-botones {
+  display: flex;
+  gap: 8px;
+}
+
+.eval-badge-empty {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 3px 8px;
+  border: 1px solid $color-neutral-200;
+  border-radius: 999px;
+  background: $color-neutral-100;
+  color: $color-text-muted;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.btn-evaluar,
+.btn-util,
+.btn-mejorable {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: $color-dark;
+  background: transparent;
+  border-color: $color-neutral-200;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+
+  i {
+    font-size: 0.95em;
+    transition: color 0.2s ease;
+  }
+
+  &.btn-outline-dark:not(.votado):hover {
+    background: $color-neutral-100;
+    border-color: $color-neutral-400;
+    color: $color-dark;
+  }
+
+  &.btn-outline-dark:not(.votado):focus {
+    background: $color-neutral-100;
+    border-color: $color-neutral-400;
+    color: $color-dark;
+    box-shadow: none;
+  }
+
+  &.btn-outline-dark:not(.votado):focus-visible {
+    background: $color-neutral-100;
+    border-color: $color-neutral-400;
+    color: $color-dark;
+    box-shadow: 0 0 0 0.14rem rgba($color-dark, 0.08);
+    outline: none;
+  }
+
+  &.btn-outline-dark:not(.votado):active {
+    background: $color-neutral-200;
+    border-color: $color-neutral-400;
+    color: $color-dark;
+    box-shadow: none;
+  }
+}
+
+.btn-contador {
+  display: inline-block;
+  min-width: 20px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: normal;
+  font-size: 0.85em;
+}
+
+.btn-util i {
+  color: $color-success;
+}
+
+.btn-mejorable i {
+  color: $color-danger;
+}
+
+.btn-util .btn-contador {
+  background: transparent;
+  color: mix(black, $color-success, 35%);
+}
+
+.btn-mejorable .btn-contador {
+  background: transparent;
+  color: $color-danger;
+}
+
+.btn-util.votado {
+  background-color: $color-success-light !important;
+  border-color: $color-success !important;
+  color: $color-success !important;
+  cursor: default;
+
+  i {
+    color: $color-success;
+  }
+
+  .btn-contador {
+    background: transparent;
+    color: $color-success;
+  }
+}
+
+.btn-mejorable.votado {
+  background-color: $color-danger-100 !important;
+  border-color: $color-danger !important;
+  color: $color-danger !important;
+  cursor: default;
+
+  i {
+    color: $color-danger;
+  }
+
+  .btn-contador {
+    background: transparent;
+    color: $color-danger;
+  }
+}
+
+.nota-ya-evaluada,
+.note-eval-dock .nota-ya-evaluada {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  padding: 10px 12px;
+  background: $color-neutral-100;
+  border-radius: 6px;
+  color: $color-dark;
+  font-weight: 500;
+  margin: 0;
+
+  i {
+    margin: 0;
+  }
+}
+
+.evaluacion-comentario,
+.nota-content .evaluacion-comentario {
+  margin-top: 12px;
+  animation: slideDown 0.3s ease;
+
+  textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid $color-neutral-200;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 13px;
+    resize: vertical;
+    margin-bottom: 8px;
+    min-height: 60px;
+
+    &:focus {
+      outline: none;
+      border-color: $color-light;
+    }
+  }
+}
+
+.nota-evaluacion.is-commenting {
+  .evaluacion-header,
+  .evaluacion-botones,
+  .eval-badge-empty {
+    display: none !important;
+  }
+
+  .evaluacion-comentario,
+  .nota-content .evaluacion-comentario {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+    margin-top: 0;
+    animation: none;
+  }
+
+  .evaluacion-comentario textarea,
+  .nota-content .evaluacion-comentario textarea {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+    min-height: 58px;
+    max-height: 110px;
+    overflow-y: auto;
+    resize: vertical;
+  }
+
+  .evaluacion-comentario .btn,
+  .nota-content .evaluacion-comentario .btn {
+    margin: 0 !important;
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

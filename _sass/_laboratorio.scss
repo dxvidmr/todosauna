@@ -666,6 +666,16 @@ body.laboratorio-page.laboratorio-mode-active {
     overflow: visible;
     display: flex;
     flex-direction: column;
+
+    .evaluacion-comentario button {
+      margin-top: 10px;
+      margin-right: 8px;
+    }
+
+    .nota-evaluada {
+      padding: 16px;
+      border-radius: 6px;
+    }
   }
 
   .note-eval-dock {

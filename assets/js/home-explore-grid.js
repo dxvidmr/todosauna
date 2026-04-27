@@ -1,8 +1,7 @@
 import {
-  crearBotonesConContadores,
-  attachEvaluationListeners,
-  registrarEvaluacion
-} from './participacion/evaluaciones.js';
+  loadSessionEvaluatedNoteIds,
+  mountNoteEvaluationDock
+} from './participacion/note-evaluation-runtime.js';
 import {
   applyNoteHighlights,
   markCurrentNoteInText,
@@ -299,12 +298,11 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
     }
 
     async loadEvaluatedNoteIds() {
-      const api = this.getApi();
       const session = window.Participacion && window.Participacion.session
         ? window.Participacion.session
         : null;
 
-      if (!api || !session || typeof session.getPublicSessionData !== 'function') {
+      if (!session || typeof session.getPublicSessionData !== 'function') {
         this.evaluatedNoteIds = new Set();
         return;
       }
@@ -315,17 +313,7 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
         return;
       }
 
-      const evaluatedResult = await api.getSessionEvaluatedNotes(sessionData.session_id);
-      if (evaluatedResult.error || !Array.isArray(evaluatedResult.data)) {
-        this.evaluatedNoteIds = new Set();
-        return;
-      }
-
-      this.evaluatedNoteIds = new Set(
-        evaluatedResult.data
-          .map((row) => toText(row.nota_id))
-          .filter(Boolean)
-      );
+      this.evaluatedNoteIds = await loadSessionEvaluatedNoteIds(sessionData.session_id);
     }
 
     pickNextNote() {
@@ -440,24 +428,6 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
       }
     }
 
-    renderReadOnlyControls(block) {
-      block.classList.add('is-readonly');
-      const buttons = block.querySelectorAll('button');
-      buttons.forEach((button) => {
-        button.disabled = true;
-        button.setAttribute('aria-disabled', 'true');
-      });
-      const textareas = block.querySelectorAll('textarea');
-      textareas.forEach((textarea) => {
-        textarea.disabled = true;
-        textarea.readOnly = true;
-      });
-      const commentBox = block.querySelector('.evaluacion-comentario');
-      if (commentBox) {
-        commentBox.style.display = 'none';
-      }
-    }
-
     handleVoteSuccess(noteId) {
       this.evaluatedNoteIds.add(noteId);
       if (this.controls) {
@@ -496,41 +466,29 @@ import { loadStaticNotesWithContext } from './shared/tei-note-context.js';
         return;
       }
 
-      const block = document.createElement('div');
-      block.className = 'nota-evaluacion';
-      block.setAttribute('data-note-id', note.nota_id);
-      block.innerHTML = crearBotonesConContadores(
-        note.nota_id,
-        note.version,
-        note.evaluaciones || { total: 0, utiles: 0, mejorables: 0 }
-      );
-
-      this.controls.innerHTML = '';
-      this.controls.dataset.evalState = 'ready';
-      this.controls.dataset.evalNoteId = note.nota_id;
-      this.controls.appendChild(block);
-
       if (this.isEvaluationEnabled) {
-        attachEvaluationListeners(
-          block,
-          note.nota_id,
-          note.version,
-          (notaId, version, vote, comment) => registrarEvaluacion({
-            notaId: notaId,
-            version: version,
-            vote: vote,
-            comentario: comment || null,
-            source: 'lectura',
-            scopeEl: this.controls
-          }),
-          () => this.handleVoteSuccess(note.nota_id)
-        );
+        void mountNoteEvaluationDock({
+          dockEl: this.controls,
+          noteId: note.nota_id,
+          version: note.version,
+          counts: note.evaluaciones || { total: 0, utiles: 0, mejorables: 0 },
+          noteData: note,
+          source: 'lectura',
+          scopeEl: this.controls,
+          alreadyEvaluated: this.evaluatedNoteIds.has(note.nota_id),
+          onSuccess: ({ noteId: currentNoteId }) => this.handleVoteSuccess(currentNoteId)
+        });
       } else {
-        this.renderReadOnlyControls(block);
-        const readonlyMessage = document.createElement('p');
-        readonlyMessage.className = 'home-eval-readonly';
-        readonlyMessage.textContent = 'La evaluacion no esta disponible ahora mismo.';
-        this.controls.appendChild(readonlyMessage);
+        void mountNoteEvaluationDock({
+          dockEl: this.controls,
+          noteId: note.nota_id,
+          version: note.version,
+          counts: note.evaluaciones || { total: 0, utiles: 0, mejorables: 0 },
+          noteData: note,
+          mode: 'readonly',
+          alreadyEvaluated: false,
+          readonlyMessage: 'La evaluacion no esta disponible ahora mismo.'
+        });
       }
 
       if (!this.isEvaluationEnabled) {

@@ -13,26 +13,26 @@ import {
 } from './text-zoom.js';
 import { extraerFragmento, extraerXmlIdsDelFragmento } from './pasajes.js';
 import {
+  renderNotePanel,
+  renderNotePlaceholder
+} from '../shared/note-panel.js';
+import {
   applyNoteHighlights,
   highlightNoteInText,
   markCurrentNoteInText,
   buildNoteBadgesHTML,
-  buildNoteDisplayHTML,
-  buildNotePanelHTML
+  buildNoteDisplayHTML
 } from './notas-dom.js';
 import { cargarNotasActivas, filtrarNotasPorXmlIds } from '../participacion/notas.js';
 import {
   obtenerEvaluacionesStats,
-  attachEvaluationListeners,
-  actualizarContadorLocal,
-  obtenerEstadisticasGlobales,
-  renderizarEstadisticasGlobales,
-  registrarEvaluacion as registrarEvaluacionShared,
-  crearBotonesConContadores,
   getApiV2,
-  getSessionData,
-  getParticipationUserMessage
-} from '../participacion/evaluaciones.js';
+  mountNoteEvaluationDock
+} from '../participacion/note-evaluation-runtime.js';
+import {
+  obtenerEstadisticasGlobales,
+  renderizarEstadisticasGlobales
+} from '../participacion/laboratorio-stats.js';
 
 // ============================================
 // EDITOR SOCIAL (JUEGO DE EVALUACION)
@@ -219,17 +219,8 @@ class EditorSocial {
     }
 
     try {
-      // Usar la función del módulo evaluaciones-stats
-      if (typeof obtenerEstadisticasGlobales === 'function') {
-        const stats = await obtenerEstadisticasGlobales();
-        
-        // Renderizar con la función del módulo
-        if (typeof renderizarEstadisticasGlobales === 'function') {
-          renderizarEstadisticasGlobales(container, stats);
-        }
-      } else {
-        throw new Error('Función obtenerEstadisticasGlobales no disponible');
-      }
+      const stats = await obtenerEstadisticasGlobales();
+      renderizarEstadisticasGlobales(container, stats);
     } catch (error) {
       console.error('Error al cargar estadísticas:', error);
       container.innerHTML = `
@@ -353,21 +344,16 @@ class EditorSocial {
     });
   }
 
-  getDefaultNotePanelHTML() {
-    return buildNotePanelHTML({
-      dockAttrs: 'data-eval-state="idle"',
-      bodyHTML: '<p class="placeholder-text">Haz clic en un texto subrayado o usa las flechas para ver las notas</p>',
-      dockHTML: '<p class="note-dock-placeholder"></p>'
-    });
-  }
-
   clearShellContent(ui) {
     if (!ui) return;
     if (ui.pasajeContent) {
       ui.pasajeContent.innerHTML = '<div class="loading">Cargando pasaje...</div>';
     }
     if (ui.noteContent) {
-      ui.noteContent.innerHTML = this.getDefaultNotePanelHTML();
+      renderNotePlaceholder(ui.noteContent, {
+        bodyMessage: 'Haz clic en un texto subrayado o usa las flechas para ver las notas',
+        dockState: 'idle'
+      });
     }
   }
 
@@ -1155,18 +1141,10 @@ class EditorSocial {
 
   renderizarEstadoNotaPanel(mensajeContenido, mensajeDock) {
     if (!this.notaContent) return;
-
-    const displayHtml = mensajeContenido
-      ? `<p class="placeholder-text">${mensajeContenido}</p>`
-      : '';
-    const dockHtml = mensajeDock
-      ? `<p class="note-dock-placeholder">${mensajeDock}</p>`
-      : '';
-
-    this.notaContent.innerHTML = buildNotePanelHTML({
-      dockAttrs: `data-eval-state="${mensajeDock ? 'error' : 'idle'}"`,
-      bodyHTML: displayHtml,
-      dockHTML: dockHtml
+    renderNotePlaceholder(this.notaContent, {
+      bodyMessage: mensajeContenido,
+      dockMessage: mensajeDock,
+      dockState: mensajeDock ? 'error' : 'idle'
     });
 
     this.actualizarBotonNotasSheet();
@@ -1274,44 +1252,39 @@ class EditorSocial {
       badgesHTML
     });
 
-    let dockHtml = '';
-    if (yaEvaluada) {
-      dockHtml = `
-        <div class="nota-ya-evaluada">
-          <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
-          Nota evaluada
-        </div>
-      `;
-    } else {
-      dockHtml = `
-        <div class="nota-evaluacion" data-note-id="${nota.nota_id}">
-          ${crearBotonesConContadores(nota.nota_id, nota.version, evaluaciones)}
-        </div>
-      `;
-    }
-
-    this.notaContent.innerHTML = buildNotePanelHTML({
-      dockAttrs: `data-eval-state="${yaEvaluada ? 'evaluated' : 'ready'}"`,
+    renderNotePanel(this.notaContent, {
+      currentNoteId: nota.nota_id,
+      dockState: yaEvaluada ? 'evaluated' : 'loading',
       bodyHTML: noteDisplayHtml,
-      dockHTML: dockHtml
+      dockHTML: yaEvaluada
+        ? '<div class="nota-ya-evaluada"><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Nota evaluada</div>'
+        : ''
     });
 
     this.actualizarBotonNotasSheet();
 
-    // Adjuntar event listeners si no esta evaluada
-    if (!yaEvaluada) {
-      const container = this.notaContent.querySelector('.note-eval-dock') || this.notaContent;
-      attachEvaluationListeners(
-        container,
-        nota.nota_id,
-        nota.version,
-        (nId, ver, vote, comment) => this.registrarEvaluacion(nId, ver, vote, comment, pasajeId),
-        (nId, vote) => {
-          this.marcarNotaComoEvaluada(nId);
-          this.avanzarSiguienteNotaPendiente();
-        }
-      );
-    }
+    if (yaEvaluada) return;
+
+    const dock = this.notaContent.querySelector('.note-eval-dock') || this.notaContent;
+    void mountNoteEvaluationDock({
+      dockEl: dock,
+      noteId: nota.nota_id,
+      version: nota.version,
+      counts: evaluaciones,
+      noteData: nota,
+      source: 'laboratorio',
+      pasajeId,
+      scopeEl: this.notaContent,
+      alreadyEvaluated: false,
+      onSuccess: ({ noteId: currentNoteId }) => {
+        this.marcarNotaComoEvaluada(currentNoteId);
+        this.avanzarSiguienteNotaPendiente();
+      },
+      onError: () => {
+        if (!dock.isConnected) return;
+        dock.dataset.evalState = 'error';
+      }
+    });
   }
   /**
    * Marcar nota como evaluada
@@ -1407,14 +1380,6 @@ class EditorSocial {
   /**
    * Registrar evaluacion en Supabase (delega a función compartida)
    */
-  async registrarEvaluacion(notaId, version, vote, comentario, pasajeId) {
-    return registrarEvaluacionShared({
-      notaId, version, vote, comentario, pasajeId,
-      source: 'laboratorio',
-      scopeEl: this.notaContent
-    });
-  }
-
   /**
    * Configurar event listeners de controles
    */

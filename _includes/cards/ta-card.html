@@ -167,20 +167,24 @@ ta-card{% if type == "media" or type == "rotator" %} ta-card--media{% else %} ta
         </section>
         <section class="home-eval-panel home-eval-panel--note note-panel-host" aria-label="Nota">
           <p class="home-eval-panel-label">{{ card.note_label | default: "Nota" }}</p>
-          <div class="home-eval-panel-layout note-panel-layout">
-            <div class="home-eval-note-scroll note-panel-scroll">
-              <div class="home-eval-note-meta note-display" hidden>
-                <div class="note-header">
-                  <div class="note-badges" data-home-note-badges hidden></div>
-                </div>
+          {% capture home_eval_note_body %}
+            <div class="home-eval-note-meta note-display" hidden>
+              <div class="note-header">
+                <div class="note-badges" data-home-note-badges hidden></div>
               </div>
-              <p class="home-eval-note" data-home-note-text>{{ card.loading_text | default: "Cargando nota..." }}</p>
-              <p class="home-eval-status" data-home-eval-status aria-live="polite"></p>
             </div>
-            <div class="home-eval-controls note-eval-dock" data-home-eval-controls data-eval-state="idle">
-              <p class="note-dock-placeholder"></p>
-            </div>
-          </div>
+            <p class="home-eval-note" data-home-note-text>{{ card.loading_text | default: "Cargando nota..." }}</p>
+            <p class="home-eval-status" data-home-eval-status aria-live="polite"></p>
+          {% endcapture %}
+          {% include ui/note-panel-shell.html
+            class="home-eval-panel-shell note-panel-host"
+            layout_class="home-eval-panel-layout note-panel-layout"
+            scroll_class="home-eval-note-scroll note-panel-scroll"
+            dock_class="home-eval-controls note-eval-dock"
+            body_html=home_eval_note_body
+            dock_state="idle"
+            dock_attrs='data-home-eval-controls'
+          %}
         </section>
       </div>
       <div class="home-eval-overlay" data-home-eval-overlay hidden>

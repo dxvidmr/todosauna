@@ -1,0 +1,78 @@
+@use "variables" as *;
+
+// ============================================
+// SHARED NOTE PANEL SHELL
+// ============================================
+
+.note-panel-host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: visible;
+}
+
+.note-panel-layout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--note-panel-layout-gap, 8px);
+}
+
+.note-panel-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: var(--note-panel-scroll-pr, 4px);
+}
+
+.note-eval-dock {
+  flex-shrink: 0;
+  min-width: 0;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-top: 1px solid $color-neutral-200;
+  padding-top: var(--note-eval-dock-pt, 8px);
+  gap: var(--note-eval-dock-gap, 0);
+  min-height: auto;
+}
+
+.note-eval-dock[data-eval-state="loading"],
+.note-eval-dock[data-eval-state="commenting"] {
+  min-height: var(--note-eval-dock-active-min-height, auto);
+}
+
+.note-eval-dock[data-eval-state="evaluated"],
+.note-eval-dock[data-eval-state="error"] {
+  min-height: auto;
+  gap: 0;
+}
+
+.note-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--note-nav-controls-gap, 8px);
+  min-width: 0;
+}
+
+.note-nav-controls .nota-posicion {
+  font-size: var(--note-nav-pos-size, 0.85rem);
+  color: $color-text-muted;
+  font-weight: 500;
+  min-width: var(--note-nav-pos-min-width, 0);
+  text-align: center;
+  line-height: var(--note-nav-pos-line-height, 1.2);
+  white-space: var(--note-nav-pos-white-space, nowrap);
+}
+
+.note-dock-placeholder {
+  margin: 0;
+  text-align: center;
+  font-size: 0.82rem;
+  color: $color-text-muted;
+  font-style: italic;
+}

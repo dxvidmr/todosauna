@@ -27,16 +27,12 @@ lectura_dynamic_recenter: true
         <!-- Contenido de las pestañas -->
         <div class="tab-content active" id="tab-notas">
             <div id="panelNotas">
-                <div id="noteContent" class="note-panel-host">
-                    <div class="note-panel-layout">
-                        <div class="note-panel-scroll">
-                            <p class="placeholder-text">Haz clic en el texto subrayado para ver las notas.</p>
-                        </div>
-                        <div class="note-eval-dock" data-eval-state="idle">
-                            <p class="note-dock-placeholder"></p>
-                        </div>
-                    </div>
-                </div>
+                {% include ui/note-panel-shell.html
+                  id="noteContent"
+                  class="note-panel-host"
+                  body_message="Haz clic en el texto subrayado para ver las notas."
+                  dock_state="idle"
+                %}
             </div>
         </div>
         <div class="tab-content" id="tab-navegación">

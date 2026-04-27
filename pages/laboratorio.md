@@ -172,16 +172,13 @@ navbar_behavior: fixed
           </div>
         </div>
 
-        <div id="nota-content" class="nota-content note-panel-host" data-lab-note-content>
-          <div class="note-panel-layout">
-            <div class="note-panel-scroll">
-              <p class="placeholder-text">Haz clic en un texto subrayado o usa las flechas para ver las notas</p>
-            </div>
-            <div class="note-eval-dock">
-              <p class="note-dock-placeholder"></p>
-            </div>
-          </div>
-        </div>
+        {% include ui/note-panel-shell.html
+          id="nota-content"
+          class="nota-content note-panel-host"
+          attrs='data-lab-note-content'
+          body_message="Haz clic en un texto subrayado o usa las flechas para ver las notas"
+          dock_state="idle"
+        %}
 
         <div class="notas-instrucciones">
           <p><i class="fa-solid fa-info-circle" aria-hidden="true"></i> Haz clic en el texto subrayado para evaluar una nota, o navega con las flechas. Si consideras que falta una nota, selecciona el texto y deja tu sugerencia. <a href="{{ '/participa/guia/' | relative_url }}">Guía completa</a>.</p>
@@ -307,16 +304,13 @@ navbar_behavior: fixed
           </div>
         </div>
 
-        <div id="nota-content-mobile" class="nota-content note-panel-host" data-lab-note-content>
-          <div class="note-panel-layout">
-            <div class="note-panel-scroll">
-              <p class="placeholder-text">Haz clic en un texto subrayado o usa las flechas para ver las notas</p>
-            </div>
-            <div class="note-eval-dock">
-              <p class="note-dock-placeholder"></p>
-            </div>
-          </div>
-        </div>
+        {% include ui/note-panel-shell.html
+          id="nota-content-mobile"
+          class="nota-content note-panel-host"
+          attrs='data-lab-note-content'
+          body_message="Haz clic en un texto subrayado o usa las flechas para ver las notas"
+          dock_state="idle"
+        %}
 
         <div class="notas-instrucciones">
           <p><i class="fa-solid fa-info-circle" aria-hidden="true"></i> Haz clic en el texto subrayado para evaluar una nota, o navega con las flechas. Si consideras que falta una nota, selecciona el texto y deja tu sugerencia. <a href="{{ '/participa/guia/' | relative_url }}">Guía completa</a>.</p>

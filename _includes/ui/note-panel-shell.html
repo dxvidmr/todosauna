@@ -1,0 +1,33 @@
+{% assign shell_id = include.id | default: "" %}
+{% assign shell_class = include.class | default: "note-panel-host" %}
+{% assign shell_attrs = include.attrs | default: "" %}
+{% assign layout_class = include.layout_class | default: "note-panel-layout" %}
+{% assign scroll_class = include.scroll_class | default: "note-panel-scroll" %}
+{% assign dock_class = include.dock_class | default: "note-eval-dock" %}
+{% assign body_html = include.body_html | default: "" %}
+{% assign body_message = include.body_message | default: "" %}
+{% assign dock_html = include.dock_html | default: "" %}
+{% assign dock_message = include.dock_message | default: "" %}
+{% assign dock_state = include.dock_state | default: "idle" %}
+{% assign dock_attrs = include.dock_attrs | default: "" %}
+
+<div{% if shell_id != "" %} id="{{ shell_id }}"{% endif %} class="{{ shell_class }}"{% if shell_attrs != "" %} {{ shell_attrs }}{% endif %}>
+  <div class="{{ layout_class }}">
+    <div class="{{ scroll_class }}">
+      {% if body_html != "" %}
+        {{ body_html }}
+      {% elsif body_message != "" %}
+        <p class="placeholder-text">{{ body_message }}</p>
+      {% endif %}
+    </div>
+    <div class="{{ dock_class }}" data-eval-state="{{ dock_state }}"{% if dock_attrs != "" %} {{ dock_attrs }}{% endif %}>
+      {% if dock_html != "" %}
+        {{ dock_html }}
+      {% elsif dock_message != "" %}
+        <p class="note-dock-placeholder">{{ dock_message }}</p>
+      {% else %}
+        <p class="note-dock-placeholder"></p>
+      {% endif %}
+    </div>
+  </div>
+</div>
