@@ -822,11 +822,11 @@ class EditorSocial {
    * Setup listeners para botones de modo
    */
   setupBienvenidaListeners() {
-    const botonesModo = document.querySelectorAll('.btn-iniciar-modo');
+    const botonesModo = document.querySelectorAll('[data-lab-start-mode]');
     
     botonesModo.forEach(boton => {
       boton.addEventListener('click', () => {
-        const modo = boton.dataset.modo || boton.closest('.opcion-modo')?.dataset.modo;
+        const modo = boton.dataset.modo;
         void this.iniciarModoDesdeBienvenida(modo);
       });
     });

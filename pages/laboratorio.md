@@ -12,6 +12,13 @@ navbar_behavior: fixed
     
     <!-- Lado izquierdo: Explicación -->
     <div class="bienvenida-explicacion">
+      <img
+        src="{{ '/assets/img/laboratorio.gif' | relative_url }}"
+        alt="Demostración de uso del Laboratorio de notas"
+        class="img-fluid w-100 d-block"
+        loading="eager"
+        decoding="async">
+
       <div class="explicacion-seccion">
         <h3>¿Qué es?</h3>
         <p>Un espacio colaborativo donde puedes leer pasajes de <em>Fuenteovejuna</em> y evaluar si las notas explicativas te resultan útiles para entender la obra.</p>
@@ -31,30 +38,29 @@ navbar_behavior: fixed
           <li>También puedes seleccionar cualquier fragmento del texto y sugerir nuevas notas</li>
           <li>Continúa con el siguiente pasaje</li>
         </ol>
+        <p class="mt-3 mb-0">
+          Consulta la <a href="{{ '/participa/guia/' | relative_url }}">guía de participación</a> para ver toda la información.
+        </p>
       </div>
     </div>
     
     <!-- Lado derecho: Opciones de entrada -->
     <div class="bienvenida-opciones">
-      <div class="opcion-modo" data-modo="secuencial">
-        <div class="opcion-contenido">
-          <h3>Modo secuencial</h3>
-          <p class="text-neutral-700">Recorre los pasajes en orden cronológico de la obra</p>
+      <article class="card card-soft ui-thin-border">
+        <div class="card-body d-flex flex-column p-3">
+          <h3 class="h5">Modo secuencial</h3>
+          <p class="text-neutral-700 mb-3">Recorre los pasajes en orden cronológico de la obra</p>
+          <button type="button" class="btn btn-dark align-self-start mt-auto" data-lab-start-mode data-modo="secuencial">Iniciar</button>
         </div>
-        <div class="opcion-accion">
-          <button type="button" class="btn btn-primary btn-xl btn-iniciar-modo" data-modo="secuencial">Iniciar</button>
-        </div>
-      </div>
+      </article>
       
-      <div class="opcion-modo" data-modo="aleatorio">
-        <div class="opcion-contenido">
-          <h3>Modo aleatorio</h3>
-          <p class="text-neutral-700">Sorpréndete con un pasaje al azar de la obra</p>
+      <article class="card card-soft ui-thin-border">
+        <div class="card-body d-flex flex-column p-3">
+          <h3 class="h5">Modo aleatorio</h3>
+          <p class="text-neutral-700 mb-3">Sorpréndete con un pasaje al azar de la obra</p>
+          <button type="button" class="btn btn-dark align-self-start mt-auto" data-lab-start-mode data-modo="aleatorio">Iniciar</button>
         </div>
-        <div class="opcion-accion">
-          <button type="button" class="btn btn-primary btn-xl btn-iniciar-modo" data-modo="aleatorio">Iniciar</button>
-        </div>
-      </div>
+      </article>
       
       <div class="stats-globales stats-globales--parked bg-neutral-100">
         <div class="loading-stats-container">
