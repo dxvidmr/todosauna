@@ -456,6 +456,25 @@ document.addEventListener("DOMContentLoaded", function() {
         'tei-milestone[unit="metrical-section"]',
         'tei-milestone[unit="metrical-subsection"]'
     ].join(', ');
+    const METRICAL_UNIT_CONFIG = {
+        stanza: {
+            startClass: 'metrical-start-stanza',
+            markerClass: 'stanza',
+            labelClass: 'stanza'
+        },
+        'metrical-section': {
+            startClass: 'metrical-start-section',
+            markerClass: 'section',
+            labelClass: 'section'
+        },
+        'metrical-subsection': {
+            startClass: 'metrical-start-subsection',
+            markerClass: 'subsection',
+            labelClass: 'subsection'
+        }
+    };
+    const METRICAL_START_CLASSES = Object.values(METRICAL_UNIT_CONFIG).map(config => config.startClass);
+    const METRICAL_ACTIVE_VERSE_SELECTOR = METRICAL_START_CLASSES.map(className => `tei-l.${className}`).join(', ');
 
     function humanizeMetricalCategory(category) {
         return String(category || '')
@@ -486,9 +505,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!container) return;
 
         const categoryMap = buildMetricalCategoryMap(container);
-        const milestones = container.querySelectorAll(
-            'tei-milestone[unit="metrical-section"], tei-milestone[unit="metrical-subsection"]'
-        );
+        const milestones = container.querySelectorAll(STANZA_MILESTONE_SELECTOR);
 
         milestones.forEach(milestone => {
             const categories = normalizeAnaCategories(milestone.getAttribute('ana') || '');
@@ -507,15 +524,133 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function setStanzaSeparatorsVisible(visible, container) {
+    function clearRenderedMetricalDecorations(container) {
+        if (!container) return;
+
+        container.querySelectorAll('span[data-metrical-rendered="true"]').forEach(node => {
+            node.remove();
+        });
+        if (!METRICAL_ACTIVE_VERSE_SELECTOR) return;
+
+        container.querySelectorAll(METRICAL_ACTIVE_VERSE_SELECTOR).forEach(verse => {
+            METRICAL_START_CLASSES.forEach(className => verse.classList.remove(className));
+            verse.classList.remove('metrical-start-shared');
+        });
+    }
+
+    function collectMetricalStarts(container) {
+        if (!container) return [];
+
+        const milestones = Array.from(container.querySelectorAll(STANZA_MILESTONE_SELECTOR));
+        if (!milestones.length) return [];
+
+        const orderedNodes = Array.from(container.querySelectorAll(`tei-l, ${STANZA_MILESTONE_SELECTOR}`));
+        const firstVerseByMilestone = new WeakMap();
+        let nextVerse = null;
+
+        for (let index = orderedNodes.length - 1; index >= 0; index -= 1) {
+            const node = orderedNodes[index];
+            if (node.matches?.('tei-l')) {
+                nextVerse = node;
+                continue;
+            }
+            firstVerseByMilestone.set(node, nextVerse);
+        }
+
+        return milestones
+            .map(milestone => ({
+                milestone,
+                targetVerse: firstVerseByMilestone.get(milestone) || null
+            }))
+            .filter(item => !!item.targetVerse);
+    }
+
+    function renderMetricalDecorations(container) {
+        if (!container) return;
+
+        const metricalStarts = collectMetricalStarts(container);
+        if (!metricalStarts.length) return;
+
+        const verseState = new Map();
+        metricalStarts.forEach(({ milestone, targetVerse }) => {
+            const unit = (milestone.getAttribute('unit') || '').trim();
+            const config = METRICAL_UNIT_CONFIG[unit];
+            if (!config || !targetVerse) return;
+
+            let state = verseState.get(targetVerse);
+            if (!state) {
+                state = {
+                    units: new Set(),
+                    labels: Object.create(null)
+                };
+                verseState.set(targetVerse, state);
+            }
+
+            state.units.add(unit);
+
+            const label = (milestone.getAttribute('data-metrical-label') || '').trim();
+            if (label && !state.labels[unit]) {
+                state.labels[unit] = label;
+            }
+        });
+
+        verseState.forEach((state, verse) => {
+            const units = Array.from(state.units);
+            units.forEach(unit => {
+                const config = METRICAL_UNIT_CONFIG[unit];
+                if (!config) return;
+                verse.classList.add(config.startClass);
+
+                const marker = document.createElement('span');
+                marker.className = `metrical-marker metrical-marker--${config.markerClass}`;
+                marker.setAttribute('aria-hidden', 'true');
+                marker.setAttribute('data-metrical-rendered', 'true');
+                verse.appendChild(marker);
+            });
+
+            if (units.length > 1) {
+                verse.classList.add('metrical-start-shared');
+            }
+
+            let labelIndex = 0;
+            ['metrical-section', 'metrical-subsection', 'stanza'].forEach(unit => {
+                const label = state.labels[unit];
+                if (!label) return;
+
+                const config = METRICAL_UNIT_CONFIG[unit];
+                const labelNode = document.createElement('span');
+                labelNode.className = `metrical-label metrical-label--${config.labelClass}`;
+                labelNode.textContent = label;
+                labelNode.setAttribute('title', label);
+                labelNode.setAttribute('aria-hidden', 'true');
+                labelNode.setAttribute('data-metrical-rendered', 'true');
+                labelNode.style.setProperty('--metrical-label-index', String(labelIndex));
+                labelIndex += 1;
+                verse.appendChild(labelNode);
+            });
+        });
+    }
+
+    function prepareMetricalMilestones(container, visible) {
         const scope = container || teiContainer || document;
         if (!scope) return;
 
         ensureMetricalLabels(scope);
-        const milestones = scope.querySelectorAll(STANZA_MILESTONE_SELECTOR);
-        milestones.forEach(milestone => {
-            milestone.classList.toggle('show-line', !!visible);
-        });
+        clearRenderedMetricalDecorations(scope);
+
+        if (visible) {
+            renderMetricalDecorations(scope);
+        }
+    }
+
+    function areMetricalDecorationsVisible(container) {
+        const scope = container || teiContainer || document;
+        if (!scope || !METRICAL_ACTIVE_VERSE_SELECTOR) return false;
+        return !!scope.querySelector(METRICAL_ACTIVE_VERSE_SELECTOR);
+    }
+
+    function setStanzaSeparatorsVisible(visible, container) {
+        prepareMetricalMilestones(container, !!visible);
     }
     
     // Botón para mostrar/ocultar estrofas
@@ -533,8 +668,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const toggleButton = document.getElementById("toggleLines");
     if (toggleButton) {
         toggleButton.addEventListener("click", function() {
-            const milestones = teiContainer.querySelectorAll(STANZA_MILESTONE_SELECTOR);
-            const shouldShow = Array.from(milestones).some(milestone => !milestone.classList.contains('show-line'));
+            const shouldShow = !areMetricalDecorationsVisible(teiContainer);
 
             setStanzaSeparatorsVisible(shouldShow, teiContainer);
             this.textContent = shouldShow ? 'Ocultar estrofas' : 'Mostrar estrofas';

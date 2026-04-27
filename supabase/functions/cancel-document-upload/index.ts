@@ -3,10 +3,6 @@ import { deleteFromAppsScript } from "../_shared/apps-script.ts";
 import { corsHeaders, errorResponse, isOptions, jsonResponse, parseJsonBody } from "../_shared/http.ts";
 import { getAdminClient } from "../_shared/supabase-admin.ts";
 
-type SessionRow = {
-  session_id: string;
-};
-
 type StagingRow = {
   staging_id: string;
   session_id: string;
@@ -15,18 +11,68 @@ type StagingRow = {
   cleanup_attempts: number;
 };
 
+type StagedFile = {
+  drive_file_id: string;
+  name: string;
+  mime: string;
+  size: number;
+};
+
 function isUuid(value: string): boolean {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
 }
 
-function extractDriveFileIds(filesRaw: unknown): string[] {
+function normalizeRequestedFileIds(fileIdsRaw: unknown): string[] | null {
+  if (fileIdsRaw === undefined || fileIdsRaw === null) return null;
+  if (!Array.isArray(fileIdsRaw)) {
+    throw new Error("file_ids debe ser un array de strings");
+  }
+
+  const unique = new Set<string>();
+  for (const raw of fileIdsRaw) {
+    const id = String(raw || "").trim();
+    if (!id) {
+      throw new Error("file_ids contiene IDs vacíos");
+    }
+    unique.add(id);
+  }
+
+  const values = Array.from(unique);
+  if (!values.length) {
+    throw new Error("file_ids no puede estar vacío");
+  }
+  return values;
+}
+
+function normalizeStagedFiles(filesRaw: unknown): StagedFile[] {
   if (!Array.isArray(filesRaw)) return [];
   return filesRaw
     .map((raw) => {
-      if (!raw || typeof raw !== "object") return "";
-      return String((raw as Record<string, unknown>).drive_file_id || "").trim();
+      const row = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
+      return {
+        drive_file_id: String(row.drive_file_id || "").trim(),
+        name: String(row.name || "").trim(),
+        mime: String(row.mime || "").trim().toLowerCase(),
+        size: Number(row.size || 0),
+      };
     })
-    .filter(Boolean);
+    .filter((row) => !!row.drive_file_id);
+}
+
+function computeTotalBytes(files: StagedFile[]): number {
+  return files.reduce((sum, file) => {
+    const size = Number(file.size || 0);
+    return sum + (Number.isFinite(size) && size > 0 ? size : 0);
+  }, 0);
+}
+
+function mapPublicFiles(files: StagedFile[]): Array<{ drive_file_id: string; name: string; mime: string; size: number }> {
+  return files.map((file) => ({
+    drive_file_id: file.drive_file_id,
+    name: file.name,
+    mime: file.mime,
+    size: file.size,
+  }));
 }
 
 serve(async (req: Request): Promise<Response> => {
@@ -46,6 +92,17 @@ serve(async (req: Request): Promise<Response> => {
 
   const sessionId = String(body.session_id || "").trim();
   const stagingId = String(body.staging_id || "").trim();
+
+  let requestedFileIds: string[] | null;
+  try {
+    requestedFileIds = normalizeRequestedFileIds(body.file_ids);
+  } catch (error) {
+    return errorResponse(
+      error instanceof Error ? error.message : "file_ids inválido",
+      400,
+      "invalid_file_ids",
+    );
+  }
 
   if (!isUuid(sessionId)) {
     return errorResponse("session_id inválido", 400, "invalid_session_id");
@@ -81,14 +138,89 @@ serve(async (req: Request): Promise<Response> => {
   if (!stagingRow) {
     return errorResponse("staging_id no encontrado", 404, "staging_not_found");
   }
-  if (stagingRow.session_id !== sessionId) {
+  const typedStagingRow = stagingRow as StagingRow;
+  if (typedStagingRow.session_id !== sessionId) {
     return errorResponse("staging no pertenece a la sesión", 403, "staging_forbidden");
   }
-  if (stagingRow.status === "finalized") {
+  if (typedStagingRow.status === "finalized") {
     return errorResponse("No se puede cancelar un staging finalizado", 409, "staging_already_finalized");
   }
 
-  const fileIds = extractDriveFileIds(stagingRow.files);
+  const stagedFiles = normalizeStagedFiles(typedStagingRow.files);
+
+  if (requestedFileIds) {
+    const stagedFileIdSet = new Set(stagedFiles.map((file) => file.drive_file_id));
+    const unknownIds = requestedFileIds.filter((id) => !stagedFileIdSet.has(id));
+    if (unknownIds.length) {
+      return errorResponse(
+        "Algunos file_ids no pertenecen al staging indicado",
+        400,
+        "file_ids_not_in_staging",
+        unknownIds.join(", "),
+      );
+    }
+
+    const deleteResult = await deleteFromAppsScript(requestedFileIds, stagingId);
+    if (!deleteResult.ok) {
+      await admin
+        .from("contribuciones_upload_staging")
+        .update({
+          cleanup_attempts: Number(typedStagingRow.cleanup_attempts || 0) + 1,
+          last_error: deleteResult.error || "Error eliminando archivos en Apps Script",
+        })
+        .eq("staging_id", stagingId);
+
+      return errorResponse(
+        "No se pudieron eliminar los archivos solicitados",
+        502,
+        "apps_script_delete_failed",
+        deleteResult.error || null,
+      );
+    }
+
+    const removedIds = new Set<string>([...deleteResult.deleted, ...deleteResult.not_found]);
+    const remainingFiles = stagedFiles.filter((file) => !removedIds.has(file.drive_file_id));
+    const nextStatus = remainingFiles.length > 0 ? "uploaded" : "issued";
+    const totalBytes = computeTotalBytes(remainingFiles);
+
+    const { error: updatePartialError } = await admin
+      .from("contribuciones_upload_staging")
+      .update({
+        status: nextStatus,
+        files: remainingFiles,
+        file_count: remainingFiles.length,
+        total_bytes: totalBytes,
+        last_error: null,
+      })
+      .eq("staging_id", stagingId);
+
+    if (updatePartialError) {
+      return errorResponse(
+        "No se pudo actualizar staging tras borrado parcial",
+        500,
+        "staging_update_failed",
+        updatePartialError.message,
+      );
+    }
+
+    return jsonResponse({
+      ok: true,
+      staging_id: stagingId,
+      status: nextStatus,
+      file_count: remainingFiles.length,
+      total_bytes: totalBytes,
+      files: mapPublicFiles(remainingFiles),
+      delete_summary: {
+        attempted: requestedFileIds.length,
+        deleted: deleteResult.deleted.length,
+        not_found: deleteResult.not_found.length,
+        success: true,
+        error: null,
+      },
+    });
+  }
+
+  const fileIds = stagedFiles.map((file) => file.drive_file_id).filter(Boolean);
   const deleteResult = await deleteFromAppsScript(fileIds, stagingId);
   const lastError = deleteResult.ok ? null : (deleteResult.error || "Error eliminando archivos en Apps Script");
 
@@ -96,7 +228,7 @@ serve(async (req: Request): Promise<Response> => {
     .from("contribuciones_upload_staging")
     .update({
       status: "cancelled",
-      cleanup_attempts: Number(stagingRow.cleanup_attempts || 0) + 1,
+      cleanup_attempts: Number(typedStagingRow.cleanup_attempts || 0) + 1,
       last_error: lastError,
     })
     .eq("staging_id", stagingId);

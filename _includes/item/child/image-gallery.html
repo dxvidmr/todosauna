@@ -8,5 +8,5 @@
 {%- endcomment -%}
 <a id="{{ child.objectid }}" class="spotlight gallery-img" {% if child.object_location %}data-download="true"{% endif %} title="{{ child.title | escape }}" href="{{ child.image_small | default: child.object_location | relative_url }}">
     <img src="{{ child.image_small | default: child.object_location | relative_url }}" alt="{{ child.image_alt_text | default: child.description | default: child.title | escape }}" class="img-fluid">
-    <div><small class="text-dark">Click to view full screen</small></div>
+    <div><small class="text-dark">Haz clic para ver en pantalla completa</small></div>
 </a>

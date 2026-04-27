@@ -35,6 +35,7 @@
   var uploadButtonDefaultHtml = uploadButton ? uploadButton.innerHTML : 'Subir archivos';
   var localFilesInput = document.getElementById('contribucion-archivos-locales');
   var uploadedFilesList = document.getElementById('contribucion-archivos-subidos-lista');
+  var noFilesNotice = document.getElementById('contribucion-no-files-notice');
   var recaptchaWrap = document.getElementById('contribucion-recaptcha-wrap');
   var recaptchaLabel = recaptchaWrap ? recaptchaWrap.querySelector('p') : null;
   var recaptchaWidgetContainer = document.getElementById('contribucion-recaptcha-widget');
@@ -66,6 +67,7 @@
   var isUploading = false;
   var cancelRequested = false;
   var isCancellingUpload = false;
+  var isDeletingFile = false;
   var uploadAbortController = null;
   var currentStagingId = null;
   var stagedFiles = [];
@@ -145,7 +147,7 @@
     nameInput.id = 'contribucion-creador-nombre-' + creatorRowCount;
     nameInput.setAttribute('data-creator-name', '');
     nameInput.setAttribute('maxlength', '160');
-    nameInput.setAttribute('placeholder', 'Ej.: María Pérez');
+    nameInput.setAttribute('placeholder', 'Ej.: MarÃ­a PÃ©rez');
     if (nombre) nameInput.value = nombre;
     nameLabel.setAttribute('for', nameInput.id);
     nameWrap.appendChild(nameLabel);
@@ -162,7 +164,7 @@
     roleInput.id = 'contribucion-creador-rol-' + creatorRowCount;
     roleInput.setAttribute('data-creator-role', '');
     roleInput.setAttribute('maxlength', '160');
-    roleInput.setAttribute('placeholder', 'Ej.: autora, fotógrafo, edición');
+    roleInput.setAttribute('placeholder', 'Ej.: autora, fotÃ³grafo, ediciÃ³n');
     if (rol) roleInput.value = rol;
     roleLabel.setAttribute('for', roleInput.id);
     roleWrap.appendChild(roleLabel);
@@ -359,8 +361,11 @@
       emptyItem.className = 'list-group-item text-muted';
       emptyItem.textContent = 'Aún no hay archivos subidos.';
       uploadedFilesList.appendChild(emptyItem);
+      if (noFilesNotice) noFilesNotice.hidden = false;
       return;
     }
+
+    if (noFilesNotice) noFilesNotice.hidden = true;
 
     stagedFiles.forEach(function (file) {
       var item = document.createElement('li');
@@ -379,8 +384,20 @@
       badge.className = 'badge text-bg-success';
       badge.textContent = 'Subido';
 
+      var removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.className = 'btn btn-outline-dark btn-sm';
+      removeButton.setAttribute('data-uploaded-file-remove', file.drive_file_id || '');
+      removeButton.textContent = isDeletingFile ? 'Eliminando...' : 'Eliminar';
+      removeButton.disabled = isDeletingFile || isUploading || isSubmitting || isCancellingUpload;
+
+      var actions = document.createElement('div');
+      actions.className = 'd-flex align-items-center gap-2';
+      actions.appendChild(badge);
+      actions.appendChild(removeButton);
+
       item.appendChild(main);
-      item.appendChild(badge);
+      item.appendChild(actions);
       uploadedFilesList.appendChild(item);
     });
   }
@@ -426,11 +443,19 @@
     var modeDefined = !!(ns.session && ns.session.isModeDefined && ns.session.isModeDefined());
     if (gate) gate.hidden = modeDefined;
 
-    var disablePrimary = isSubmitting;
+    var disablePrimary = isSubmitting || isDeletingFile;
+    var disableFileActions = isDeletingFile || isUploading || isSubmitting || isCancellingUpload;
     if (nextButton) nextButton.disabled = disablePrimary;
     if (uploadButton) uploadButton.disabled = disablePrimary || isUploading;
     if (cancelUploadButton) cancelUploadButton.disabled = disablePrimary || isCancellingUpload;
-    if (submitButton) submitButton.disabled = disablePrimary || isUploading || !hasUploadReady();
+    if (submitButton) submitButton.disabled = disablePrimary || isUploading || isCancellingUpload;
+    if (uploadedFilesList) {
+      var removeButtons = uploadedFilesList.querySelectorAll('[data-uploaded-file-remove]');
+      Array.prototype.forEach.call(removeButtons, function (button) {
+        button.disabled = disableFileActions;
+        button.textContent = isDeletingFile ? 'Eliminando...' : 'Eliminar';
+      });
+    }
   }
 
   function handleParticipationStateChanged(event) {
@@ -461,7 +486,7 @@
 
   async function ensureModeDefined(openIfMissing) {
     if (!ns.session || !ns.apiV2) {
-      setStatus(statusStep1, 'La capa de participación no está disponible.', 'error');
+      setStatus(statusStep1, 'La capa de participaciÃ³n no estÃ¡ disponible.', 'error');
       return false;
     }
 
@@ -494,7 +519,7 @@
     }
 
     if (!selectedCityId || !selectedCountryId) {
-      setInlineStatus('Selecciona una ciudad válida de GeoNames o borra el campo.', 'error');
+      setInlineStatus('Selecciona una ciudad vÃ¡lida de GeoNames o borra el campo.', 'error');
       return false;
     }
 
@@ -518,15 +543,16 @@
   }
 
   function validateStepTwoRequirements() {
+    var requiresRights = hasUploadReady();
     var rightsType = getRightsType();
     var consentInput = document.getElementById('contribucion-consent');
 
-    if (!rightsType) {
+    if (requiresRights && !rightsType) {
       setStatus(statusStep2, 'Selecciona el tipo de derechos para continuar.', 'warning');
       return false;
     }
 
-    if (rightsType === 'copyright' && !nullableText(rightsHolderInput ? rightsHolderInput.value : '')) {
+    if (requiresRights && rightsType === 'copyright' && !nullableText(rightsHolderInput ? rightsHolderInput.value : '')) {
       setStatus(statusStep2, 'Debes indicar el titular del copyright.', 'warning');
       if (rightsHolderInput && typeof rightsHolderInput.focus === 'function') {
         rightsHolderInput.focus();
@@ -545,10 +571,12 @@
   function buildPayload() {
     var sessionId = getSessionId();
     var rightsType = getRightsType();
+    var withFiles = hasUploadReady();
+    var payloadRightsType = withFiles ? rightsType : null;
 
     return {
       session_id: sessionId,
-      staging_id: currentStagingId,
+      staging_id: withFiles ? currentStagingId : null,
       titulo: nullableText(document.getElementById('contribucion-titulo')?.value),
       descripcion: nullableText(document.getElementById('contribucion-descripcion')?.value),
       creadores: readCreators(),
@@ -560,8 +588,9 @@
       pais_geoname_id: nullableText(countryIdField ? countryIdField.value : ''),
       lugar_texto: nullableText(document.getElementById('contribucion-lugar-texto')?.value),
       linked_archive_refs: parseLines(document.getElementById('contribucion-linked-refs')?.value),
-      rights_type: rightsType,
-      rights_holder: rightsType === 'copyright' ? nullableText(rightsHolderInput ? rightsHolderInput.value : '') : null,
+      rights_type: payloadRightsType,
+      rights_holder: payloadRightsType === 'copyright' ? nullableText(rightsHolderInput ? rightsHolderInput.value : '') : null,
+      drive_file_ids: withFiles ? null : [],
       privacy_consent: !!document.getElementById('contribucion-consent')?.checked,
       privacy_consent_version: CONSENT_VERSION,
       privacy_consent_at: new Date().toISOString()
@@ -569,7 +598,7 @@
   }
 
   async function handleUploadClick() {
-    if (isUploading || isCancellingUpload) return;
+    if (isUploading || isCancellingUpload || isDeletingFile) return;
 
     setStatus(statusStep2, '', '');
     var files = localFilesInput && localFilesInput.files ? Array.from(localFilesInput.files) : [];
@@ -580,7 +609,7 @@
 
     var adapter = getUploadAdapter();
     if (!adapter || typeof adapter.uploadFiles !== 'function') {
-      setStatus(statusStep2, 'El adaptador de subida no está disponible.', 'error');
+      setStatus(statusStep2, 'El adaptador de subida no estÃ¡ disponible.', 'error');
       return;
     }
 
@@ -588,7 +617,7 @@
     if (!ensuredUpload || !ensuredUpload.ok) {
       setStatus(
         statusStep2,
-        getErrorMessage(ensuredUpload && ensuredUpload.error, 'No se pudo preparar la sesión para subir archivos.', 'session_bootstrap'),
+        getErrorMessage(ensuredUpload && ensuredUpload.error, 'No se pudo preparar la sesiÃ³n para subir archivos.', 'session_bootstrap'),
         'error'
       );
       return;
@@ -596,7 +625,7 @@
 
     var sessionId = getSessionId();
     if (!sessionId) {
-      setStatus(statusStep2, 'No hay sesión activa disponible. Recarga la página.', 'error');
+      setStatus(statusStep2, 'No hay sesiÃ³n activa disponible. Recarga la pÃ¡gina.', 'error');
       return;
     }
 
@@ -650,7 +679,7 @@
       renderUploadedFiles();
 
       if (localFilesInput) localFilesInput.value = '';
-      setStatus(statusStep2, 'Archivos subidos y validados. Ya puedes enviar la contribución.', 'success');
+      setStatus(statusStep2, 'Archivos subidos y validados. Ya puedes enviar la contribuciÃ³n.', 'success');
     } catch (error) {
       if (cancelRequested || isUploadAbortedError(error)) {
         var remoteCancelError = await cancelRemoteStaging(adapter, sessionId, currentStagingId);
@@ -684,7 +713,7 @@
   }
 
   async function handleCancelUpload() {
-    if (isSubmitting || isCancellingUpload) return;
+    if (isSubmitting || isCancellingUpload || isDeletingFile) return;
     setStatus(statusStep2, '', '');
 
     var adapter = getUploadAdapter();
@@ -726,6 +755,62 @@
     }
   }
 
+  async function handleDeleteUploadedFile(driveFileId) {
+    var targetId = nullableText(driveFileId);
+    if (!targetId) return;
+    if (isSubmitting || isUploading || isCancellingUpload || isDeletingFile) return;
+
+    var adapter = getUploadAdapter();
+    var sessionId = getSessionId();
+    if (!adapter || typeof adapter.cancelUpload !== 'function') {
+      setStatus(statusStep2, 'La operacion de borrado no esta disponible.', 'error');
+      return;
+    }
+    if (!sessionId || !currentStagingId) {
+      setStatus(statusStep2, 'No hay una subida activa para borrar archivos.', 'warning');
+      return;
+    }
+
+    setStatus(statusStep2, 'Eliminando archivo subido...', 'info');
+    isDeletingFile = true;
+    updateGateVisibility();
+    renderUploadedFiles();
+
+    try {
+      var response = await adapter.cancelUpload({
+        session_id: sessionId,
+        staging_id: currentStagingId,
+        file_ids: [targetId]
+      });
+
+      if (response.error || !response.data) {
+        throw response.error || new Error('No se pudo eliminar el archivo');
+      }
+
+      if (response.data.staging_id) {
+        setCurrentStagingId(response.data.staging_id);
+      }
+      stagedFiles = Array.isArray(response.data.files) ? response.data.files : [];
+      renderUploadedFiles();
+
+      if (stagedFiles.length > 0) {
+        setStatus(statusStep2, 'Archivo eliminado. Los demas archivos siguen listos para enviar.', 'success');
+      } else {
+        setStatus(statusStep2, 'Archivo eliminado. Puedes subir nuevos archivos o enviar solo datos.', 'info');
+      }
+    } catch (error) {
+      setStatus(
+        statusStep2,
+        getErrorMessage(error, 'No se pudo eliminar el archivo seleccionado.', 'contribucion_delete_file'),
+        'error'
+      );
+    } finally {
+      isDeletingFile = false;
+      updateGateVisibility();
+      renderUploadedFiles();
+    }
+  }
+
   async function maybeLinkTestimonio(contribucionId) {
     var testimonioId = nullableText(hiddenLinkedTestimonioId ? hiddenLinkedTestimonioId.value : '');
     if (!testimonioId || !isUuid(testimonioId)) {
@@ -744,16 +829,16 @@
     });
 
     if (response.error || !response.data || !response.data.vinculo_id) {
-      setStatus(linkStatus, 'La contribución se guardó, pero no se pudo crear el vínculo con el testimonio.', 'warning');
+      setStatus(linkStatus, 'La contribuciÃ³n se guardÃ³, pero no se pudo crear el vÃ­nculo con el testimonio.', 'warning');
       return;
     }
 
-    setStatus(linkStatus, 'La contribución quedó vinculada al testimonio indicado.', 'success');
+    setStatus(linkStatus, 'La contribuciÃ³n quedÃ³ vinculada al testimonio indicado.', 'success');
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
-    if (isSubmitting) return;
+    if (isSubmitting || isDeletingFile) return;
 
     setStatus(statusStep1, '', '');
     setStatus(statusStep2, '', '');
@@ -764,13 +849,6 @@
       return;
     }
 
-    if (!hasUploadReady()) {
-      setStatus(statusStep2, 'Primero sube y valida al menos un archivo.', 'warning');
-      setStep(2);
-      updateGateVisibility();
-      return;
-    }
-
     if (!validateStepTwoRequirements()) {
       setStep(2);
       return;
@@ -778,7 +856,7 @@
 
     var modeReady = await ensureModeDefined(true);
     if (!modeReady) {
-      setStatus(statusStep2, 'Debes definir modo de participación para enviar la contribución.', 'warning');
+      setStatus(statusStep2, 'Debes definir modo de participaciÃ³n para enviar la contribuciÃ³n.', 'warning');
       setStep(2);
       return;
     }
@@ -787,7 +865,7 @@
     if (!ensuredSubmit || !ensuredSubmit.ok) {
       setStatus(
         statusStep2,
-        getErrorMessage(ensuredSubmit && ensuredSubmit.error, 'No se pudo preparar la sesión para enviar la contribución.', 'session_bootstrap'),
+        getErrorMessage(ensuredSubmit && ensuredSubmit.error, 'No se pudo preparar la sesiÃ³n para enviar la contribuciÃ³n.', 'session_bootstrap'),
         'error'
       );
       setStep(2);
@@ -795,16 +873,26 @@
     }
 
     var payload = buildPayload();
+    var hasFiles = hasUploadReady();
     if (!payload.session_id) {
-      setStatus(statusStep2, 'No hay sesión activa. Recarga la página e inténtalo de nuevo.', 'error');
+      setStatus(statusStep2, 'No hay sesiÃ³n activa. Recarga la pÃ¡gina e intÃ©ntalo de nuevo.', 'error');
       setStep(2);
       return;
     }
 
-    if (!payload.staging_id) {
-      setStatus(statusStep2, 'No hay staging activo para el envío.', 'error');
+    if (hasFiles && !payload.staging_id) {
+      setStatus(statusStep2, 'No hay staging activo para el envÃ­o.', 'error');
       setStep(2);
       return;
+    }
+
+    if (!hasFiles) {
+      var confirmed = window.confirm('¿Confirmas envío solo con datos y sin archivos?');
+      if (!confirmed) {
+        setStatus(statusStep2, 'Envio cancelado. Puedes revisar los datos antes de enviar.', 'info');
+        setStep(2);
+        return;
+      }
     }
 
     isSubmitting = true;
@@ -812,9 +900,11 @@
     if (submitButton) submitButton.textContent = 'Enviando...';
 
     try {
-      var response = await ns.apiV2.submitContribucionStaged(payload);
+      var response = hasFiles
+        ? await ns.apiV2.submitContribucionStaged(payload)
+        : await ns.apiV2.submitContribucion(payload);
       if (response.error || !response.data || !response.data.contribucion_id) {
-        throw response.error || new Error('No se pudo guardar la contribución');
+        throw response.error || new Error('No se pudo guardar la contribuciÃ³n');
       }
 
       var contribucionId = response.data.contribucion_id;
@@ -831,12 +921,12 @@
       if (gate) gate.hidden = true;
       if (successPanel) successPanel.hidden = false;
     } catch (error) {
-      var errorMessage = getErrorMessage(error, 'No se pudo enviar la contribución.', 'contribucion_submit');
+      var errorMessage = getErrorMessage(error, 'No se pudo enviar la contribuciÃ³n.', 'contribucion_submit');
       setStatus(statusStep2, errorMessage, 'error');
       setStep(2);
     } finally {
       isSubmitting = false;
-      if (submitButton) submitButton.textContent = 'Enviar contribución';
+      if (submitButton) submitButton.textContent = 'Enviar contribuciÃ³n';
       updateGateVisibility();
     }
   }
@@ -877,6 +967,17 @@
       });
     }
 
+    if (uploadedFilesList) {
+      uploadedFilesList.addEventListener('click', function (event) {
+        var target = event.target;
+        if (!target || typeof target.closest !== 'function') return;
+        var removeButton = target.closest('[data-uploaded-file-remove]');
+        if (!removeButton) return;
+        var driveFileId = removeButton.getAttribute('data-uploaded-file-remove');
+        void handleDeleteUploadedFile(driveFileId);
+      });
+    }
+
     if (addCreatorButton) {
       addCreatorButton.addEventListener('click', function () {
         var newRow = addCreatorRow('', '');
@@ -914,14 +1015,14 @@
 
   async function init() {
     if (!ns.session || !ns.apiV2) {
-      setStatus(statusStep1, 'No se pudo inicializar la capa de participación.', 'error');
+      setStatus(statusStep1, 'No se pudo inicializar la capa de participaciÃ³n.', 'error');
       return;
     }
 
     var testimonioId = getLinkedTestimonioFromUrl();
     if (hiddenLinkedTestimonioId && testimonioId) {
       hiddenLinkedTestimonioId.value = testimonioId;
-      setStatus(statusStep1, 'Esta contribución se vinculará automáticamente con el testimonio indicado.', 'info');
+      setStatus(statusStep1, 'Esta contribuciÃ³n se vincularÃ¡ automÃ¡ticamente con el testimonio indicado.', 'info');
     }
 
     if (ns.geo && typeof ns.geo.attachCityAutocomplete === 'function') {

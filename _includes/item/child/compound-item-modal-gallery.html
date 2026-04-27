@@ -32,7 +32,7 @@
                         href="#{{ child.objectid }}"
                         data-ta-modal-target="#{{ child.objectid }}"
                         class="btn btn-sm btn-outline-secondary small stretched-link">
-                        {{ child.display_template | upcase | default: "Item" }} <svg class="bi icon-sprite" fill="currentColor" aria-hidden="true"><use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-{{ child.display_template | default: 'file'}}"/></svg>
+                        {{ child.display_template | upcase | default: "Elemento" }} <svg class="bi icon-sprite" fill="currentColor" aria-hidden="true"><use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-{{ child.display_template | default: 'file'}}"/></svg>
                     </a> 
 
                     <!-- child object modal -->
@@ -45,7 +45,7 @@
                                     <div class="modal-title w-100" id="{{ child.objectid }}ModalLabel">
                                         <div class="row">
                                             <div class="col-12 text-end">
-                                                <button type="button" class="btn-circular compound-child-close" data-ta-modal-close="true" aria-label="Close">
+                                                <button type="button" class="btn-circular compound-child-close" data-ta-modal-close="true" aria-label="Cerrar">
                                                     <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                                                 </button>
                                             </div>
@@ -57,22 +57,22 @@
                                             {% capture prev_item_id %}{{ children[prev_index].objectid }}{% endcapture %}
                                             <div class="col-1 col-md-2">
                                                 <button type="button" data-ta-modal-target="#{{ prev_item_id }}" data-ta-modal-replace="true" class="btn btn-outline-dark btn-sm prev-child-button" >
-                                                    <svg class="bi icon-sprite" role="img" aria-label="Previous Item">
+                                                    <svg class="bi icon-sprite" role="img" aria-label="Elemento anterior">
                                                         <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#arrow-left"/>
                                                     </svg>
-                                                    <span class="d-none d-md-inline">Previous Item</span>
+                                                    <span class="d-none d-md-inline">Anterior</span>
                                                 </button>
                                             </div>
                                             <div class="col-9 col-md-8 text-center">
                                                 <h3 class="h5">{{ page.title }} 
                                                     <span class="d-none d-md-inline">-</span><span class="d-md-none"><br></span>
-                                                    Item {{ forloop.index }} of {{ children | size }}
+                                                    Elemento {{ forloop.index }} de {{ children | size }}
                                                 </h3>
                                             </div>
                                             <div class="col-1 col-md-2 text-end">
                                                 <button type="button" data-ta-modal-target="#{{ next_item_id }}" data-ta-modal-replace="true" class="ms-md-5 btn btn-outline-dark btn-sm next-child-button">
-                                                    <span class="d-none d-md-inline">Next Item</span>
-                                                    <svg class="bi icon-sprite" role="img" aria-label="Next Item">
+                                                    <span class="d-none d-md-inline">Siguiente</span>
+                                                    <svg class="bi icon-sprite" role="img" aria-label="Elemento siguiente">
                                                         <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#arrow-right"/>
                                                     </svg>
                                                 </button>

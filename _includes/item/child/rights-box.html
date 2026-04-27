@@ -4,12 +4,12 @@
 
 {%- endcomment -%}
 <div class="card mb-2">
-    <div class="card-header">Rights</div>
+    <div class="card-header">Derechos</div>
     <div class="card-body">
         <dl>
-            {% if child.rights %}<dt>Rights:</dt>
+            {% if child.rights %}<dt>Derechos:</dt>
             <dd>{{ child.rights }}</dd>{% endif %}
-            {% if child.rightsstatement %}<dt>Standardized Rights:</dt>
+            {% if child.rightsstatement %}<dt>Derechos estandarizados:</dt>
             <dd><a href="{{ child.rightsstatement }}">{{ child.rightsstatement }}</a>
             </dd>{% endif %}
         </dl>

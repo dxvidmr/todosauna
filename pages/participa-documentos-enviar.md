@@ -138,6 +138,9 @@ custom-foot: participacion/scripts-contribucion-form.html
         <fieldset class="participa-fieldset">
           <legend>Archivos listos para envío</legend>
           <ul id="contribucion-archivos-subidos-lista" class="list-group mb-0"></ul>
+          <div id="contribucion-no-files-notice" class="alert alert-warning py-2 px-3 mt-3 mb-0" hidden>
+            Se enviará solo información descriptiva, sin adjuntar archivo.
+          </div>
         </fieldset>
 
         <fieldset class="participa-fieldset">

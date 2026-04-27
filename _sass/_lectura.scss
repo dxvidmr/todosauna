@@ -999,7 +999,6 @@ tei-sp {
 .lectura-wrapper .text-column tei-sp > tei-milestone[unit="metrical-section"],
 .lectura-wrapper .text-column tei-sp > tei-milestone[unit="metrical-subsection"] {
   grid-column: 2;
-  grid-row: 1;
   align-self: start;
 }
 
@@ -1031,54 +1030,44 @@ tei-milestone[unit="metrical-subsection"] {
   display: none;
 }
 
-tei-milestone[unit="stanza"].show-line,
-tei-milestone[unit="metrical-section"].show-line,
-tei-milestone[unit="metrical-subsection"].show-line {
-  display: block;
+tei-l.metrical-start-stanza,
+tei-l.metrical-start-section,
+tei-l.metrical-start-subsection {
   position: relative;
-  height: 0;
-  width: 100%;
-  margin: 0;
-  pointer-events: none;
 }
 
-tei-milestone[unit="stanza"]::after,
-tei-milestone[unit="metrical-section"]::after {
-  content: "";
+tei-l > .metrical-marker {
   position: absolute;
   left: 0;
   right: 0;
-  top: -0.12rem;
-  border-top: 1px dotted rgba($color-neutral-400, 0.55);
+  top: -0.08rem;
+  border-top: 1px dotted rgba($color-neutral-400, 0.38);
+  pointer-events: none;
+  z-index: 2;
 }
 
-tei-milestone[unit="metrical-section"][data-metrical-label]:not([data-metrical-label=""])::before {
-  content: attr(data-metrical-label);
-  position: absolute;
-  right: var(--lectura-verse-gutter);
-  top: -0.9rem;
-  color: rgba($color-text-muted, 0.82);
-  font-size: 0.7rem;
-  letter-spacing: 0.01em;
-  line-height: 1.2;
-  text-align: right;
-  white-space: nowrap;
+tei-l > .metrical-marker.metrical-marker--section {
+  border-top-style: solid;
+  border-top-color: rgba($color-neutral-400, 0.7);
+  z-index: 1;
 }
 
-tei-milestone[unit="metrical-subsection"]::after {
-  content: "";
-  position: absolute;
+tei-l > .metrical-marker.metrical-marker--subsection {
   left: 58%;
   right: 0;
-  top: -0.06rem;
-  border-top: 1px dotted rgba($color-neutral-400, 0.35);
+  border-top-color: rgba($color-neutral-400, 0.26);
+  z-index: 3;
 }
 
-tei-milestone[unit="metrical-subsection"][data-metrical-label]:not([data-metrical-label=""])::before {
-  content: attr(data-metrical-label);
+tei-l.metrical-start-shared > .metrical-marker {
+  top: -0.08rem;
+}
+
+tei-l > .metrical-label {
   position: absolute;
   right: var(--lectura-verse-gutter);
-  top: -0.7rem;
+  top: -0.62rem;
+  transform: translateY(calc(var(--metrical-label-index, 0) * -0.82rem));
   color: rgba($color-text-muted, 0.72);
   font-size: 0.62rem;
   font-style: italic;
@@ -1086,6 +1075,17 @@ tei-milestone[unit="metrical-subsection"][data-metrical-label]:not([data-metrica
   line-height: 1.15;
   text-align: right;
   white-space: nowrap;
+  pointer-events: none;
+  z-index: 4;
+}
+
+tei-l > .metrical-label.metrical-label--section {
+  top: -0.7rem;
+  color: rgba($color-text-muted, 0.82);
+  font-size: 0.7rem;
+  font-style: normal;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
 }
 
 // ============================================

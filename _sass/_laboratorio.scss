@@ -44,84 +44,12 @@ body.laboratorio-page.laboratorio-mode-active {
 // ============================================
 
 .laboratorio-bienvenida {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
   padding: var(--lab-welcome-top) var(--lab-inline-gutter) var(--lab-welcome-bottom);
   background: $color-light;
 }
 
-.bienvenida-container {
-  width: min(100%, var(--lab-rail-max));
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
-  grid-template-areas:
-    "titulo titulo"
-    "explicacion opciones";
-  gap: clamp(26px, 3vw, 54px) clamp(30px, 4vw, 72px);
-}
-
-.bienvenida-titulo {
-  grid-area: titulo;
-  margin: 0;
-  font-size: clamp(2rem, 4.4vw, 3rem);
-  color: $color-text;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  text-align: center;
-
-  i {
-    color: $color-dark;
-    font-size: clamp(1.7rem, 3.6vw, 2.4rem);
-  }
-}
-
-.bienvenida-explicacion {
-  grid-area: explicacion;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(14px, 2vh, 22px);
-  min-width: 0;
-}
-
-.explicacion-seccion {
-  padding: clamp(18px, 2.4vh, 26px);
-
-  h3 {
-    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
-    color: $color-dark;
-    margin-bottom: 10px;
-  }
-
-  p {
-    font-size: clamp(0.96rem, 1.25vw, 1.06rem);
-    line-height: 1.7;
-    color: $color-text-secondary;
-    margin-bottom: 0;
-  }
-
-  ol {
-    margin: 0 0 0 20px;
-    line-height: 1.7;
-    color: $color-text-secondary;
-    padding-left: 0;
-  }
-
-  li {
-    margin-bottom: 6px;
-    font-size: clamp(0.95rem, 1.2vw, 1.04rem);
-  }
-}
-
-.bienvenida-opciones {
-  grid-area: opciones;
-  display: flex;
-  flex-direction: column;
-  align-self: start;
-  gap: clamp(18px, 2.8vh, 28px);
-  min-width: 0;
+.laboratorio-bienvenida > .container-xl {
+  max-width: var(--lab-rail-max);
 }
 
 // ============================================
@@ -841,30 +769,6 @@ body.laboratorio-page.laboratorio-mode-active {
     --lab-welcome-bottom: clamp(30px, 6vh, 58px);
     --lab-active-bottom-pad: calc(env(safe-area-inset-bottom) + 118px);
     --tei-text-base-size: 0.88rem;
-  }
-
-  .laboratorio-bienvenida {
-    padding-inline: clamp(12px, 4vw, 18px);
-  }
-
-  .bienvenida-container {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "titulo"
-      "explicacion"
-      "opciones";
-    gap: 20px;
-  }
-
-  .bienvenida-titulo {
-    justify-content: flex-start;
-    text-align: left;
-    font-size: clamp(1.75rem, 8.2vw, 2.35rem);
-  }
-
-  .explicacion-seccion {
-    padding: 16px;
-    border-radius: 16px;
   }
 
   .stats-globales {
