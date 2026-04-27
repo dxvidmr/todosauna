@@ -9,6 +9,8 @@
     const navBackdrop = document.getElementById('navBackdrop');
     const btnFlotante = document.getElementById('btn-modo-usuario');
     const root = document.documentElement;
+    const mainElement = document.querySelector('main#maincontent');
+    const lecturaWrapper = document.querySelector('.lectura-wrapper');
 
     if (!navbar) return;
 
@@ -19,11 +21,48 @@
     let isMenuExpanded = false;
     const scrollThreshold = 10;
     const scrollTriggerDistance = 100;
+    const scrolledClassThreshold = 18;
 
     let lastNavbarHeight = 0;
     let isMenuClosing = false;
     let closeHeightSyncTimer = null;
     let closeHeightTransitionHandler = null;
+
+    function applyScrolledState(scrollTop) {
+        if (!navbar) return;
+        navbar.classList.toggle('is-scrolled', scrollTop > scrolledClassThreshold);
+    }
+
+    function getCurrentScrollTop() {
+        const windowScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
+        const bodyScroll = document.body ? document.body.scrollTop : 0;
+        const mainScroll = mainElement ? mainElement.scrollTop : 0;
+        const lecturaScroll = lecturaWrapper ? lecturaWrapper.scrollTop : 0;
+        return Math.max(windowScroll, bodyScroll, mainScroll, lecturaScroll);
+    }
+
+    function bindScrollSources(handler) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+            handler(scrollTop);
+        }, { passive: true });
+
+        document.body.addEventListener('scroll', function() {
+            handler(document.body.scrollTop || 0);
+        }, { passive: true });
+
+        if (mainElement) {
+            mainElement.addEventListener('scroll', function() {
+                handler(mainElement.scrollTop || 0);
+            }, { passive: true });
+        }
+
+        if (lecturaWrapper) {
+            lecturaWrapper.addEventListener('scroll', function() {
+                handler(lecturaWrapper.scrollTop || 0);
+            }, { passive: true });
+        }
+    }
 
     function updateMenuButtonState() {
         const isExpandedVisual = !!(mainNav && (mainNav.classList.contains('expanded') || mainNav.classList.contains('is-closing')));
@@ -103,6 +142,8 @@
         isNavbarVisible = false;
 
         function handleScroll(scrollTop) {
+            applyScrolledState(scrollTop);
+
             if (scrollTop > scrollTriggerDistance && !isNavbarVisible) {
                 navbar.classList.add('visible');
                 isNavbarVisible = true;
@@ -114,20 +155,15 @@
             lastScrollTop = scrollTop;
         }
 
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            handleScroll(scrollTop);
-        }, { passive: true });
-
-        document.body.addEventListener('scroll', function() {
-            handleScroll(document.body.scrollTop);
-        }, { passive: true });
+        bindScrollSources(handleScroll);
     }
 
     function initAutoHide() {
         isNavbarVisible = true;
 
         function handleScroll(scrollTop) {
+            applyScrolledState(scrollTop);
+
             if (isMenuExpanded) {
                 return;
             }
@@ -152,33 +188,20 @@
             lastScrollTop = scrollTop;
         }
 
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            handleScroll(scrollTop);
-        }, { passive: true });
-
-        document.body.addEventListener('scroll', function() {
-            handleScroll(document.body.scrollTop);
-        }, { passive: true });
-
-        const mainElement = document.querySelector('main#maincontent');
-        if (mainElement) {
-            mainElement.addEventListener('scroll', function() {
-                handleScroll(mainElement.scrollTop);
-            }, { passive: true });
-        }
-
-        const lecturaWrapper = document.querySelector('.lectura-wrapper');
-        if (lecturaWrapper) {
-            lecturaWrapper.addEventListener('scroll', function() {
-                handleScroll(lecturaWrapper.scrollTop);
-            }, { passive: true });
-        }
+        bindScrollSources(handleScroll);
     }
 
     function initFixed() {
         isNavbarVisible = true;
+
+        function handleScroll(scrollTop) {
+            applyScrolledState(scrollTop);
+        }
+
+        bindScrollSources(handleScroll);
     }
+
+    applyScrolledState(getCurrentScrollTop());
 
     switch (navbarBehavior) {
         case 'hidden-on-load':
