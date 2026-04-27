@@ -739,6 +739,191 @@ html:has(.lectura-wrapper) {
   }
 }
 
+.nav-section-search {
+  margin-bottom: 1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba($color-neutral-200, 0.6);
+}
+
+.lectura-search-form {
+  .form-label {
+    margin-bottom: 0.4rem;
+    font-size: 0.82rem;
+    color: $color-text-muted-dark;
+  }
+}
+
+.lectura-search-controls {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.lectura-search-input-wrap {
+  position: relative;
+
+  .form-control {
+    padding-right: 2.2rem;
+  }
+}
+
+.lectura-search-clear-btn {
+  position: absolute;
+  top: 50%;
+  right: 0.36rem;
+  transform: translateY(-50%);
+  width: 1.52rem;
+  height: 1.52rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: $color-text-muted;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba($color-neutral-200, 0.82);
+    color: $color-dark;
+    outline: none;
+  }
+}
+
+.lectura-search-status {
+  margin: 0.55rem 0 0.45rem;
+  font-size: 0.78rem;
+  color: $color-text-muted;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.lectura-search-results {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.lectura-search-empty {
+  margin: 0;
+  color: $color-text-muted;
+  font-size: 0.85rem;
+}
+
+.lectura-search-group {
+  border: 1px solid rgba($color-neutral-200, 0.6);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba($color-secondary-50, 0.55);
+}
+
+.lectura-search-group-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.42rem 0.62rem;
+  background: rgba($color-neutral-200, 0.65);
+  border-bottom: 1px solid rgba($color-neutral-200, 0.55);
+
+  h4 {
+    margin: 0;
+    font-size: 0.76rem;
+    color: $color-text-muted-dark;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  span {
+    min-width: 1.4rem;
+    padding: 0.05rem 0.35rem;
+    border-radius: 999px;
+    background: rgba($color-light, 0.9);
+    border: 1px solid rgba($color-neutral-200, 0.7);
+    text-align: center;
+    font-size: 0.72rem;
+    color: $color-text-muted-dark;
+  }
+}
+
+.lectura-search-group-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.lectura-search-result-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba($color-neutral-200, 0.7);
+  background: transparent;
+  text-align: left;
+  padding: 0.58rem 0.65rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: rgba($color-neutral-100, 0.72);
+    outline: none;
+  }
+}
+
+.lectura-search-result-kind {
+  display: inline-flex;
+  margin-bottom: 0.18rem;
+  padding: 0.02rem 0.36rem;
+  border-radius: 999px;
+  background: rgba($color-neutral-200, 0.75);
+  font-size: 0.67rem;
+  letter-spacing: 0.02em;
+  color: $color-text-muted-dark;
+}
+
+.lectura-search-result-title {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: $color-text;
+}
+
+.lectura-search-result-meta {
+  margin-top: 0.08rem;
+  font-size: 0.73rem;
+  color: $color-text-muted-dark;
+}
+
+.lectura-search-result-preview {
+  margin-top: 0.2rem;
+  font-size: 0.76rem;
+  line-height: 1.32;
+  color: $color-text-muted;
+}
+
+.search-target-hit {
+  animation: lecturaSearchTargetPulse 1.2s ease;
+}
+
+@keyframes lecturaSearchTargetPulse {
+  0% {
+    background-color: rgba($color-secondary-200, 0.15);
+  }
+  20% {
+    background-color: rgba($color-secondary-200, 0.42);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
 // ============================================
 // NAVEGACIÓN DE NOTAS EN PANEL
 // ============================================
@@ -871,7 +1056,7 @@ tei-standoff {
 
 .lectura-wrapper .text-column tei-head[type="comedia-head"] {
   font-family: "Metamorphous";
-  font-size: clamp(2.8em, min(8vw, 11vh), 7em);
+  font-size: clamp(2.8em, min(8vw, 11vh), 6em);
   display: block;
   text-align: left;
   margin-block: 1em 1.3em;
@@ -1080,7 +1265,7 @@ tei-l > .metrical-label {
 }
 
 tei-l > .metrical-label.metrical-label--section {
-  top: -0.7rem;
+  top: -0.88rem;
   color: rgba($color-text-muted, 0.82);
   font-size: 0.7rem;
   font-style: normal;

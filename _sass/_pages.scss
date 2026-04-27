@@ -17,6 +17,22 @@ $toc-a-color: $color-dark !default;
 /* item page */
 .gallery-img {
     cursor: pointer;
+    text-decoration: none;
+    background-image: none;
+    background-size: 0 0;
+    padding: 0;
+
+    &:hover,
+    &:focus-visible,
+    &:active {
+        text-decoration: none;
+        background-image: none;
+        background-size: 0 0;
+    }
+
+    small {
+        text-decoration: none;
+    }
 }
 #item-nav {
     a { 
@@ -68,6 +84,89 @@ $toc-a-color: $color-dark !default;
 .item-page-media > .mb-4,
 .item-page-media > div {
     margin-bottom: 0 !important;
+}
+
+.item-metadata-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.item-metadata-section {
+    padding: 0.95rem 1rem;
+    border: 1px solid rgba($color-dark, 0.12);
+    border-radius: 0.75rem;
+    background: rgba($color-secondary-50, 0.48);
+}
+
+.item-metadata-title {
+    margin: 0 0 0.6rem 0;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.item-metadata-section dl {
+    margin-bottom: 0;
+}
+
+.item-metadata-section dt.field {
+    margin-top: 0.5rem;
+    font-weight: 600;
+}
+
+.item-metadata-section dt.field:first-of-type {
+    margin-top: 0;
+}
+
+.item-metadata-section dd.field-value {
+    margin-bottom: 0.35rem;
+}
+
+.item-tag-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.item-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.26rem 0.62rem;
+    border: 1px solid rgba($color-dark, 0.14);
+    border-radius: 999px;
+    background: $color-light;
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+.item-tag-label {
+    color: $color-neutral-700;
+    font-weight: 600;
+}
+
+.item-tag a {
+    text-decoration: none;
+}
+
+.metadata-link-list {
+    margin: 0;
+    padding-left: 1rem;
+    display: grid;
+    gap: 0.35rem;
+}
+
+.technical-data-card {
+    dl dt {
+        margin-top: 0.45rem;
+        font-weight: 600;
+    }
+
+    dl dt:first-of-type {
+        margin-top: 0;
+    }
 }
 
 @media (min-width: 992px) {
@@ -849,4 +948,41 @@ $toc-a-color: $color-dark !default;
     p:last-child {
         margin-bottom: 0;
     }
+}
+
+/* global search page */
+.site-search-results-groups {
+    display: grid;
+    gap: 1rem;
+}
+
+.site-search-result-group {
+    border: 1px solid rgba($color-dark, 0.12);
+    border-radius: 14px;
+    padding: 0.8rem 0.9rem;
+    background: rgba($color-secondary-50, 0.45);
+}
+
+.site-search-result-group-head h3 {
+    color: $color-dark;
+}
+
+.site-search-result-item + .site-search-result-item {
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid rgba($color-neutral-200, 0.6);
+}
+
+.site-search-result-title {
+    font-size: 1rem;
+}
+
+.site-search-result-meta {
+    color: $color-text-muted-dark;
+    font-size: 0.82rem;
+}
+
+.site-search-result-preview {
+    color: $color-text-muted;
+    font-size: 0.9rem;
 }

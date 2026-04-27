@@ -1,59 +1,9 @@
-﻿{%- assign fields = site.data.config-search -%}
-{%- assign index_fields = fields | where: 'index','true' -%}
 <script src="{{ site.lib-assets | default: '/assets/lib' | relative_url }}/lunr.min.js"></script>
-<script type="module">
-import store from '{{ '/assets/js/lunr-store.js' | relative_url }}';
-
-var idx = window.lunr(function () {
-  this.ref('id');
-  {% for f in index_fields %}
-  this.field({{ f.field | jsonify }});
-  {% endfor %}
-
-  for (var item in store) {
-    this.add({
-      {% for f in index_fields %}
-      {{ f.field | jsonify }}: store[item][{{ f.field | jsonify }}],
-      {% endfor %}
-      id: item
-    });
-  }
-});
-
-function lunr_search () {
-  var resultdiv = document.querySelector('#lunrResults');
-  var query = document.querySelector('#lunrSearchBox').value;
-  var result = idx.search(query);
-
-  resultdiv.innerHTML = '';
-  var newresults = '<tr><td><h4 class="mt-3">' + result.length + ' Result(s) found</h4></td></tr>';
-  for (var item in result) {
-    var ref = result[item].ref;
-    var searchitem =
-      '<tr>'+
-          '<td>' +
-            {% assign display = fields | where: 'display','true' %}
-            {% for d in display %}
-            {% if forloop.first %}
-            '<p class="h4"><a href="{{ "/items/" | relative_url }}' + store[ref].id + '">' + store[ref][{{ fields[0].field | jsonify }}]  + '</a></p>' +
-            '<p class="ms-3">';
-              {% else %}
-              if(store[ref][{{ d.field | jsonify }}]) {
-                searchitem += store[ref][{{ d.field | jsonify }}] + '<br> '; }
-              {% endif %}{% endfor %}
-              searchitem += '</p></td>' +
-      '</tr>';
-    newresults += searchitem;
-  }
-  resultdiv.innerHTML = newresults;
-}
-
-window.lunr_search = lunr_search;
-
-if (window.location.search) {
-  var queryString = decodeURIComponent(window.location.search.substring(1).split('=')[1]);
-  var input = document.querySelector('#lunrSearchBox');
-  if (input) input.value = queryString;
-  lunr_search();
-}
+<script>
+  window.TASearchConfig = {
+    teiUrl: {{ '/assets/data/tei/fuenteovejuna.xml' | relative_url | jsonify }},
+    notesUrl: {{ '/assets/data/tei/notas.xml' | relative_url | jsonify }},
+    lecturaUrl: {{ '/lectura/' | relative_url | jsonify }}
+  };
 </script>
+<script type="module" src="{{ '/assets/js/search/site-search-page.js' | relative_url }}"></script>

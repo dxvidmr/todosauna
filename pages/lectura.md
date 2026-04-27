@@ -37,6 +37,32 @@ lectura_dynamic_recenter: true
         </div>
         <div class="tab-content" id="tab-navegación">
             <div class="navegación-panel">
+                <div class="nav-section nav-section-search">
+                    <form id="lectura-search-form" class="lectura-search-form" role="search">
+                        <label for="lectura-search-input" class="form-label mb-1">Buscar en texto y notas</label>
+                        <div class="lectura-search-controls">
+                            <div class="lectura-search-input-wrap">
+                                <input
+                                    type="search"
+                                    id="lectura-search-input"
+                                    class="form-control"
+                                    placeholder="Ej.: Laurencia, mozas, honra"
+                                    aria-label="Buscar en lectura y notas">
+                                <button
+                                    class="lectura-search-clear-btn"
+                                    type="button"
+                                    id="lectura-search-clear"
+                                    aria-label="Limpiar búsqueda"
+                                    title="Limpiar búsqueda"
+                                    hidden>
+                                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <p id="lectura-search-status" class="lectura-search-status" aria-live="polite"></p>
+                    <div id="lectura-search-results" class="lectura-search-results" aria-live="polite"></div>
+                </div>
                 <div class="nav-section">
                     <div class="structure-nav">
                         <button class="btn-nav-item" data-target-type="head" data-target-attr="type" data-target-value="comedia-head">

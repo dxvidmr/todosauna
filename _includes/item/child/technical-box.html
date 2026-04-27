@@ -1,0 +1,41 @@
+{% assign has_technical_data = false %}
+{% if child.objectid %}
+{% assign has_technical_data = true %}
+{% elsif child.format %}
+{% assign has_technical_data = true %}
+{% elsif child.language %}
+{% assign has_technical_data = true %}
+{% elsif child.url %}
+{% assign has_technical_data = true %}
+{% elsif child.iiif %}
+{% assign has_technical_data = true %}
+{% endif %}
+{% if has_technical_data %}
+<div class="card technical-data-card">
+    <div class="card-header">Datos técnicos</div>
+    <div class="card-body">
+        <dl class="mb-0">
+            {% if child.objectid %}
+            <dt>Identificador propio</dt>
+            <dd>{{ child.objectid }}</dd>
+            {% endif %}
+            {% if child.format %}
+            <dt>Formato</dt>
+            <dd>{{ child.format }}</dd>
+            {% endif %}
+            {% if child.language %}
+            <dt>Idioma</dt>
+            <dd>{{ child.language }}</dd>
+            {% endif %}
+            {% if child.url %}
+            <dt>Recurso digital externo</dt>
+            <dd><a href="{{ child.url }}">{{ child.url }}</a></dd>
+            {% endif %}
+            {% if child.iiif %}
+            <dt>Manifiesto IIIF</dt>
+            <dd><a href="{{ child.iiif }}">{{ child.iiif }}</a></dd>
+            {% endif %}
+        </dl>
+    </div>
+</div>
+{% endif %}

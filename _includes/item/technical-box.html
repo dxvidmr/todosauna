@@ -1,0 +1,50 @@
+{% assign has_technical_data = false %}
+{% assign external_url = include.external_url | default: "" %}
+{% if external_url == "" %}
+{% assign page_row_for_url = site.data[site.metadata] | where: "objectid", page.objectid | first %}
+{% if page_row_for_url %}
+{% if page_row_for_url.url %}
+{% assign external_url = page_row_for_url.url %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% if page.objectid %}
+{% assign has_technical_data = true %}
+{% elsif page.format %}
+{% assign has_technical_data = true %}
+{% elsif page.language %}
+{% assign has_technical_data = true %}
+{% elsif external_url != "" %}
+{% assign has_technical_data = true %}
+{% elsif page.iiif %}
+{% assign has_technical_data = true %}
+{% endif %}
+{% if has_technical_data %}
+<div class="card technical-data-card">
+    <div class="card-header">Datos técnicos</div>
+    <div class="card-body">
+        <dl class="mb-0">
+            {% if page.objectid %}
+            <dt>Identificador propio</dt>
+            <dd>{{ page.objectid }}</dd>
+            {% endif %}
+            {% if page.format %}
+            <dt>Formato</dt>
+            <dd>{{ page.format }}</dd>
+            {% endif %}
+            {% if page.language %}
+            <dt>Idioma</dt>
+            <dd>{{ page.language }}</dd>
+            {% endif %}
+            {% if external_url != "" %}
+            <dt>Recurso digital externo</dt>
+            <dd><a href="{{ external_url }}">{{ external_url }}</a></dd>
+            {% endif %}
+            {% if page.iiif %}
+            <dt>Manifiesto IIIF</dt>
+            <dd><a href="{{ page.iiif }}">{{ page.iiif }}</a></dd>
+            {% endif %}
+        </dl>
+    </div>
+</div>
+{% endif %}

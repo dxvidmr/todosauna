@@ -6,11 +6,12 @@
 <div class="card">
     <div class="card-header">Derechos</div>
     <div class="card-body">
+        {% assign standardized_rights = page.rightsstatement | default: page.rightstatement %}
         <dl>
             {% if page.rights %}<dt>Derechos:</dt>
             <dd>{{ page.rights }}</dd>{% endif %}
-            {% if page.rightsstatement %}<dt>Derechos estandarizados:</dt>
-            <dd><a href="{{ page.rightsstatement }}">{{ page.rightsstatement }}</a>
+            {% if standardized_rights %}<dt>Derechos estandarizados:</dt>
+            <dd><a href="{{ standardized_rights }}">{{ standardized_rights }}</a>
             </dd>{% endif %}
         </dl>
     </div>

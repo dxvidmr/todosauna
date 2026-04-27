@@ -19,6 +19,13 @@ import {
     markCurrentNoteInText,
     normalizeAnaCategories
 } from './notas-dom.js';
+import {
+    SOURCE_TYPE_LABELS,
+    buildIndex,
+    groupResultsBySourceType,
+    searchIndex
+} from '../search/lunr-core.js';
+import { buildLecturaSearchDocsFromSources } from '../search/lectura-search-docs.js';
 
 document.addEventListener("DOMContentLoaded", function() {
     // Referencias globales
@@ -681,10 +688,41 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const teiContainer = document.getElementById("TEI");
     const noteContentDiv = document.getElementById("noteContent");
+    const lecturaSearchForm = document.getElementById('lectura-search-form');
+    const lecturaSearchInput = document.getElementById('lectura-search-input');
+    const lecturaSearchClearButton = document.getElementById('lectura-search-clear');
+    const lecturaSearchStatus = document.getElementById('lectura-search-status');
+    const lecturaSearchResults = document.getElementById('lectura-search-results');
     
     let teiLoaded = false;
     let notasLoaded = false;
     let notasEvalLoaded = false;
+    let lecturaSearchIndexState = null;
+    let pendingSearchTarget = null;
+
+    function parsePendingSearchTarget() {
+        const params = new URLSearchParams(window.location.search || '');
+        const rawTarget = String(params.get('ta_target') || '').trim();
+        if (!rawTarget) return null;
+
+        const [rawType, ...restParts] = rawTarget.split(':');
+        const targetType = String(rawType || '').trim().toLowerCase();
+        const targetId = restParts.join(':').trim();
+        if (!targetType || !targetId) return null;
+        if (targetType !== 'verse' && targetType !== 'note') return null;
+
+        return { targetType, targetId };
+    }
+
+    function clearPendingSearchTargetFromUrl() {
+        const url = new URL(window.location.href);
+        if (!url.searchParams.has('ta_target')) return;
+        url.searchParams.delete('ta_target');
+        window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
+    }
+
+    pendingSearchTarget = parsePendingSearchTarget();
+    bindLecturaSearchEvents();
 
     // Función para verificar si todo está listo y procesar
     async function checkAndProcess() {
@@ -698,6 +736,8 @@ document.addEventListener("DOMContentLoaded", function() {
             
             console.log('Todo cargado, procesando notas...');
             processNotes();
+            initializeLecturaSearchIndex();
+            consumePendingSearchTarget();
             // ← NOTA: Ya NO ponemos nada aquí, todo va dentro de processNotes()
         }
     }
@@ -916,6 +956,270 @@ document.addEventListener("DOMContentLoaded", function() {
     // Función para marcar nota activa en el texto (persistente)
     function marcarNotaActivaEnTexto(noteId, teiContainer) {
         markCurrentNoteInText(teiContainer, noteId, { clearAllActive: false, autoScroll: false });
+    }
+
+    function escapeHtml(value) {
+        return String(value == null ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function normalizeWhitespace(value) {
+        return String(value == null ? '' : value).replace(/\s+/g, ' ').trim();
+    }
+
+    function setLecturaSearchStatus(message) {
+        if (!lecturaSearchStatus) return;
+        lecturaSearchStatus.textContent = message || '';
+    }
+
+    function syncLecturaSearchClearButtonVisibility() {
+        if (!(lecturaSearchInput instanceof HTMLInputElement) || !(lecturaSearchClearButton instanceof HTMLButtonElement)) return;
+        const hasValue = !!normalizeWhitespace(lecturaSearchInput.value);
+        lecturaSearchClearButton.hidden = !hasValue;
+        lecturaSearchClearButton.setAttribute('aria-hidden', hasValue ? 'false' : 'true');
+    }
+
+    function findNoteById(noteId) {
+        if (!window.notasXML || !noteId) return null;
+        const notes = window.notasXML.getElementsByTagName('note');
+        for (let note of notes) {
+            if (note.getAttribute('xml:id') === noteId || note.getAttribute('id') === noteId) {
+                return note;
+            }
+        }
+        return null;
+    }
+
+    function findVerseNodeById(verseId) {
+        if (!teiContainer || !verseId) return null;
+        const lines = teiContainer.querySelectorAll('tei-l');
+        for (let line of lines) {
+            const xmlId = line.getAttribute('xml:id') || '';
+            const plainId = line.getAttribute('id') || '';
+            if (xmlId === verseId || plainId === verseId) {
+                return line;
+            }
+        }
+        return null;
+    }
+
+    function flashSearchTarget(element) {
+        if (!element) return;
+        element.classList.add('search-target-hit');
+        window.setTimeout(() => {
+            element.classList.remove('search-target-hit');
+        }, 1600);
+    }
+
+    function goToVerseTarget(verseId) {
+        const verseNode = findVerseNodeById(verseId);
+        if (!verseNode) return false;
+        verseNode.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+        flashSearchTarget(verseNode);
+        return true;
+    }
+
+    function goToNoteTarget(noteId, options = {}) {
+        const noteNode = findNoteById(noteId);
+        if (!noteNode) return false;
+
+        mostrarNotaEnPanel(noteNode, noteId, teiContainer, noteContentDiv);
+        const wrapper = teiContainer.querySelector(`[data-note-groups*="${noteId}"]`);
+        if (wrapper) {
+            wrapper.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+            if (options.flash !== false) {
+                flashSearchTarget(wrapper);
+            }
+        }
+        return true;
+    }
+
+    function consumePendingSearchTarget() {
+        if (!pendingSearchTarget) return;
+
+        const { targetType, targetId } = pendingSearchTarget;
+        let resolved = false;
+        if (targetType === 'verse') {
+            resolved = goToVerseTarget(targetId);
+        } else if (targetType === 'note') {
+            resolved = goToNoteTarget(targetId, { flash: true });
+        }
+
+        if (resolved) {
+            clearPendingSearchTargetFromUrl();
+            pendingSearchTarget = null;
+        }
+    }
+
+    function renderLecturaSearchEmpty(message) {
+        if (!lecturaSearchResults) return;
+        const safeMessage = normalizeWhitespace(message || '');
+        if (!safeMessage) {
+            lecturaSearchResults.innerHTML = '';
+            return;
+        }
+        lecturaSearchResults.innerHTML = `<p class="lectura-search-empty">${escapeHtml(safeMessage)}</p>`;
+    }
+
+    function buildResultItemHtml(result) {
+        const doc = result?.doc || {};
+        const sourceLabel = SOURCE_TYPE_LABELS[doc.sourceType] || doc.sourceType || 'Resultado';
+        const title = escapeHtml(doc.title || 'Sin título');
+        const preview = escapeHtml(doc.preview || doc.body || '');
+        const meta = escapeHtml(doc.meta || '');
+        const targetType = escapeHtml(doc.targetType || '');
+        const targetId = escapeHtml(doc.targetId || '');
+
+        return `
+            <button type="button" class="lectura-search-result-item" data-target-type="${targetType}" data-target-id="${targetId}">
+                <span class="lectura-search-result-kind">${escapeHtml(sourceLabel)}</span>
+                <span class="lectura-search-result-title">${title}</span>
+                ${meta ? `<span class="lectura-search-result-meta">${meta}</span>` : ''}
+                ${preview ? `<span class="lectura-search-result-preview">${preview}</span>` : ''}
+            </button>
+        `;
+    }
+
+    function renderLecturaSearchResults(results, query) {
+        if (!lecturaSearchResults) return;
+
+        if (!results.length) {
+            renderLecturaSearchEmpty(`Sin resultados para "${query}".`);
+            return;
+        }
+
+        const grouped = groupResultsBySourceType(results);
+        const groupsMarkup = [];
+        ['lectura-verse', 'lectura-note'].forEach(sourceType => {
+            const items = grouped.get(sourceType);
+            if (!items?.length) return;
+
+            const itemsMarkup = items.map(buildResultItemHtml).join('');
+            const label = SOURCE_TYPE_LABELS[sourceType] || sourceType;
+            groupsMarkup.push(`
+                <section class="lectura-search-group" data-source-type="${escapeHtml(sourceType)}">
+                    <header class="lectura-search-group-head">
+                        <h4>${escapeHtml(label)}</h4>
+                        <span>${items.length}</span>
+                    </header>
+                    <div class="lectura-search-group-body">
+                        ${itemsMarkup}
+                    </div>
+                </section>
+            `);
+        });
+
+        lecturaSearchResults.innerHTML = groupsMarkup.join('');
+    }
+
+    function runLecturaSearch() {
+        if (!lecturaSearchInput || !lecturaSearchIndexState) return;
+
+        const query = normalizeWhitespace(lecturaSearchInput.value);
+        syncLecturaSearchClearButtonVisibility();
+        if (!query) {
+            setLecturaSearchStatus('');
+            renderLecturaSearchEmpty('');
+            return;
+        }
+
+        const results = searchIndex(lecturaSearchIndexState, query, {
+            limit: 40,
+            sourceTypeBoost: {
+                'lectura-verse': 1.06,
+                'lectura-note': 1.14
+            }
+        });
+
+        setLecturaSearchStatus(`${results.length} resultado(s) para "${query}".`);
+        renderLecturaSearchResults(results, query);
+    }
+
+    function bindLecturaSearchEvents() {
+        if (!(lecturaSearchForm instanceof HTMLFormElement) || !(lecturaSearchInput instanceof HTMLInputElement)) return;
+
+        lecturaSearchForm.addEventListener('submit', event => {
+            event.preventDefault();
+            runLecturaSearch();
+        });
+
+        lecturaSearchInput.addEventListener('input', () => {
+            syncLecturaSearchClearButtonVisibility();
+            if (!normalizeWhitespace(lecturaSearchInput.value)) {
+                setLecturaSearchStatus('');
+                renderLecturaSearchEmpty('');
+                return;
+            }
+            runLecturaSearch();
+        });
+
+        lecturaSearchClearButton?.addEventListener('click', () => {
+            lecturaSearchInput.value = '';
+            syncLecturaSearchClearButtonVisibility();
+            setLecturaSearchStatus('');
+            renderLecturaSearchEmpty('');
+            lecturaSearchInput.focus();
+        });
+
+        lecturaSearchResults?.addEventListener('click', event => {
+            const trigger = event.target instanceof Element
+                ? event.target.closest('.lectura-search-result-item')
+                : null;
+            if (!trigger) return;
+
+            const targetType = normalizeWhitespace(trigger.getAttribute('data-target-type'));
+            const targetId = normalizeWhitespace(trigger.getAttribute('data-target-id'));
+            if (!targetType || !targetId) return;
+
+            if (targetType === 'verse') {
+                goToVerseTarget(targetId);
+                return;
+            }
+
+            if (targetType === 'note') {
+                goToNoteTarget(targetId, { flash: false });
+            }
+        });
+
+        syncLecturaSearchClearButtonVisibility();
+    }
+
+    function initializeLecturaSearchIndex() {
+        if (!lecturaSearchInput || !lecturaSearchResults) return;
+
+        if (typeof window.lunr !== 'function') {
+            setLecturaSearchStatus('Lunr no está disponible en esta vista.');
+            renderLecturaSearchEmpty('No se pudo activar la búsqueda en lectura.');
+            return;
+        }
+
+        const docs = buildLecturaSearchDocsFromSources({
+            textRoot: teiContainer,
+            notesRoot: window.notasXML,
+            baseUrl: '/lectura/'
+        });
+
+        if (!docs.length) {
+            setLecturaSearchStatus('No hay contenido indexable todavía.');
+            renderLecturaSearchEmpty('No hay contenido indexable todavía.');
+            return;
+        }
+
+        lecturaSearchIndexState = buildIndex(docs, {
+            fields: [
+                { name: 'search_title', from: 'title', boost: 8 },
+                { name: 'search_body', from: 'body', boost: 4 },
+                { name: 'search_meta', from: 'meta', boost: 2 }
+            ]
+        });
+
+        setLecturaSearchStatus('');
+        renderLecturaSearchEmpty('');
+        syncLecturaSearchClearButtonVisibility();
     }
     
     

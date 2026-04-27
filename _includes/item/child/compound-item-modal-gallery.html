@@ -113,13 +113,50 @@
                                             {% include item/child/metadata.html %}
                                         </div>
                                     </div>
-                                    <div class="row justify-content-center mt-4">
-                                        <div class="col-md-5 py-4">
+                                    <div class="row mt-4">
+                                        <div class="col-12 py-4">
                                             {% include item/child/citation-box.html %}
                                         </div>
-                                        {% if child.rights or child.rightsstatement %}
-                                        <div class="col-md-5 py-4">
-                                            {% include item/child/rights-box.html %}
+                                        {% assign has_child_rights = false %}
+                                        {% if child.rights %}
+                                        {% assign has_child_rights = true %}
+                                        {% elsif child.rightsstatement %}
+                                        {% assign has_child_rights = true %}
+                                        {% elsif child.rightstatement %}
+                                        {% assign has_child_rights = true %}
+                                        {% endif %}
+                                        {% assign has_child_technical = false %}
+                                        {% if child.objectid %}
+                                        {% assign has_child_technical = true %}
+                                        {% elsif child.format %}
+                                        {% assign has_child_technical = true %}
+                                        {% elsif child.language %}
+                                        {% assign has_child_technical = true %}
+                                        {% elsif child.url %}
+                                        {% assign has_child_technical = true %}
+                                        {% elsif child.iiif %}
+                                        {% assign has_child_technical = true %}
+                                        {% endif %}
+                                        {% assign show_child_bottom_panels = false %}
+                                        {% if has_child_rights %}
+                                        {% assign show_child_bottom_panels = true %}
+                                        {% elsif has_child_technical %}
+                                        {% assign show_child_bottom_panels = true %}
+                                        {% endif %}
+                                        {% if show_child_bottom_panels %}
+                                        <div class="col-12 pb-4">
+                                            <div class="row g-4">
+                                                {% if has_child_rights %}
+                                                <div class="{% if has_child_technical %}col-12 col-lg-6{% else %}col-12{% endif %}">
+                                                    {% include item/child/rights-box.html %}
+                                                </div>
+                                                {% endif %}
+                                                {% if has_child_technical %}
+                                                <div class="{% if has_child_rights %}col-12 col-lg-6{% else %}col-12{% endif %}">
+                                                    {% include item/child/technical-box.html %}
+                                                </div>
+                                                {% endif %}
+                                            </div>
                                         </div>
                                         {% endif %}
                                     </div>

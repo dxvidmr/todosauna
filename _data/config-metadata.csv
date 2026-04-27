@@ -3,13 +3,29 @@ title,Título,,,DCTERMS.title,headline
 creator,Creador,,,DCTERMS.creator,creator
 date,Fecha,,,DCTERMS.date,dateCreated
 description,Descripción,,,DCTERMS.description,description
+type,Tipo,true,,DCTERMS.type,
+subtype,Subtipo,true,,,
 subject,Temas,true,,DCTERMS.subject,keywords
+historical_context,Contexto histórico,true,,,
+reception_form,Forma de recepción,true,,,
+depicted,Elementos representados,,,,
+source,Origen,,,,
+identifier,ID Origen,,,,
 location,Lugar,,,,contentLocation
+city,Ciudad,,,,
+country,País,,,,
 latitude,Latitud,,,,
 longitude,Longitud,,,,
-source,Fuente,,,,
-identifier,Identificador de fuente,,,,
-type,Tipo,,,DCTERMS.type,
 format,Formato,,,,encodingFormat
 language,Idioma,,,DCTERMS.language,
-rightsstatement,,,,DCTERMS.rights,license
+object_location,Recurso digital,,true,,contentUrl
+relation,Objetos relacionados,,,,
+url,URL externa,,true,,
+iiif,Manifiesto IIIF,,true,,
+database_record,Registro de base de datos,,true,,
+objectid,ID de objeto,,,,
+parentid,ID de objeto padre,,,,
+display_template,Plantilla de visualización,,,,
+display_order,Orden de visualización,,,,
+rightsstatement,Derechos estandarizados,,true,DCTERMS.rights,license
+rightstatement,Derechos estandarizados,,true,DCTERMS.rights,license

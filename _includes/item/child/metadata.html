@@ -5,21 +5,208 @@
     
 {%- endcomment -%}
 {%- assign fields = site.data.config-metadata | where_exp: 'item', 'item.display_name != nil' -%}
-<div id="item-metadata">
-    <dl>
-        {% for f in fields %}{% if child[f.field] %}
-        <dt class="field">{{ f.display_name }}:</dt>
-        <dd class="field-value">
-            {% if f.browse_link == "true" %}
-            {% assign topics = child[f.field] | split: ";" %}
-            {% for t in topics %}
-            <a class="me-3" href="{{ t | strip | url_param_escape | prepend: '/browse.html#' | relative_url }}">{{ t | strip }}</a>
+{%- assign hidden_main_fields = "title,type,subtype,subject,historical_context,reception_form,depicted,relation,rights,rightsstatement,rightstatement,objectid,parentid,display_template,display_order,filename,image_small,image_thumb,image_alt_text,format,language,url,iiif,database_record,object_location" | split: "," -%}
+<div id="item-metadata" class="item-metadata-grid">
+    <section class="item-metadata-section">
+        <h3 class="item-metadata-title">Información principal</h3>
+        <dl>
+            {% for f in fields %}
+            {% assign field_name = f.field | strip %}
+            {% assign raw_value = child[field_name] %}
+            {% assign skip_field = false %}
+            {% for hidden in hidden_main_fields %}
+            {% if field_name == hidden %}
+            {% assign skip_field = true %}
+            {% endif %}
             {% endfor %}
-            {% elsif f.external_link == "true" %}
-            <a href="{{ child[f.field] }}">{{ child[f.field] }}</a>
+            {% if raw_value and skip_field != true %}
+            <dt class="field">{{ f.display_name }}</dt>
+            <dd class="field-value">
+                {% if f.browse_link == "true" %}
+                {% assign topics = raw_value | split: ";" %}
+                {% for t in topics %}
+                {% assign topic_value = t | strip %}
+                {% if topic_value != "" %}
+                <a class="me-3" href="{{ topic_value | url_param_escape | prepend: ':' | prepend: field_name | prepend: '/browse.html#' | relative_url }}">{{ topic_value }}</a>
+                {% endif %}
+                {% endfor %}
+                {% elsif f.external_link == "true" %}
+                <a href="{{ raw_value }}">{{ raw_value }}</a>
+                {% else %}
+                {{ raw_value | replace: '""','"' }}
+                {% endif %}
+            </dd>
+            {% endif %}
+            {% endfor %}
+        </dl>
+    </section>
+
+    {% if child.type or child.subtype or child.subject or child.historical_context or child.reception_form %}
+    <section class="item-metadata-section">
+        <h3 class="item-metadata-title">Etiquetado</h3>
+        <ul class="item-tag-list">
+            {% if child.type or child.subtype %}
+            <li class="item-tag">
+                <span class="item-tag-label">Tipo</span>
+                {% assign type_value = child.type | default: "" | strip %}
+                {% assign subtype_value = child.subtype | default: "" | strip %}
+                {% if type_value != "" and subtype_value != "" %}
+                {% assign type_label = type_value | append: " (" | append: subtype_value | append: ")" %}
+                {% elsif type_value != "" %}
+                {% assign type_label = type_value %}
+                {% else %}
+                {% assign type_label = subtype_value %}
+                {% endif %}
+                {% if type_value != "" %}
+                <a href="{{ type_value | url_param_escape | prepend: ':type' | prepend: '/browse.html#' | relative_url }}">{{ type_label | strip }}</a>
+                {% else %}
+                {{ type_label | strip }}
+                {% endif %}
+            </li>
+            {% endif %}
+
+            {% if child.subject %}
+            {% assign subjects = child.subject | split: ";" %}
+            {% for subject_raw in subjects %}
+            {% assign subject = subject_raw | strip %}
+            {% if subject != "" %}
+            <li class="item-tag">
+                <span class="item-tag-label">Tema</span>
+                <a href="{{ subject | url_param_escape | prepend: ':subject' | prepend: '/browse.html#' | relative_url }}">{{ subject }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            {% if child.historical_context %}
+            {% assign historical_terms = child.historical_context | split: ";" %}
+            {% for historical_raw in historical_terms %}
+            {% assign historical_term = historical_raw | strip %}
+            {% if historical_term != "" %}
+            <li class="item-tag">
+                <span class="item-tag-label">Contexto</span>
+                <a href="{{ historical_term | url_param_escape | prepend: ':historical_context' | prepend: '/browse.html#' | relative_url }}">{{ historical_term }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            {% if child.reception_form %}
+            {% assign reception_terms = child.reception_form | split: ";" %}
+            {% for reception_raw in reception_terms %}
+            {% assign reception_term = reception_raw | strip %}
+            {% if reception_term != "" %}
+            <li class="item-tag">
+                <span class="item-tag-label">Recepción</span>
+                <a href="{{ reception_term | url_param_escape | prepend: ':reception_form' | prepend: '/browse.html#' | relative_url }}">{{ reception_term }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if child.depicted %}
+    <section class="item-metadata-section">
+        <h3 class="item-metadata-title">Elementos representados</h3>
+        <ul class="metadata-link-list">
+            {% assign depicted_tokens = child.depicted | replace: ";", "|" | split: "|" %}
+            {% for token_raw in depicted_tokens %}
+            {% assign token = token_raw | strip %}
+            {% if token != "" %}
+            {% assign depicted_label = token %}
+            {% assign depicted_target = "" %}
+            {% if token contains "=>" %}
+            {% assign depicted_parts = token | split: "=>" %}
+            {% assign depicted_label = depicted_parts | first | strip %}
+            {% assign depicted_target = depicted_parts | last | strip %}
             {% else %}
-            {{ child[f.field] | replace: '""','"' }}{% endif %}
-        </dd>
-        {% endif %}{% endfor %}
-    </dl>
+            {% assign depicted_target = token %}
+            {% endif %}
+            {% assign range_start = depicted_target %}
+            {% assign range_end = "" %}
+            {% if depicted_target contains ".." %}
+            {% assign range_parts = depicted_target | split: ".." %}
+            {% assign range_start = range_parts | first | strip %}
+            {% assign range_end = range_parts | last | strip %}
+            {% endif %}
+            {% assign range_end_clean = range_end | remove: "#" %}
+            {% assign depicted_href = "" %}
+            {% assign related_depicted_item = nil %}
+            {% if range_start | slice: 0, 4 == "http" %}
+            {% assign depicted_href = range_start %}
+            {% elsif range_start contains "/lectura/" %}
+            {% assign depicted_href = range_start | relative_url %}
+            {% elsif range_start | slice: 0, 1 == "#" %}
+            {% assign depicted_href = "/lectura/" | append: range_start | relative_url %}
+            {% elsif range_start | slice: 0, 3 == "obj" %}
+            {% assign related_depicted_item = site.data[site.metadata] | where: "objectid", range_start | first %}
+            {% if related_depicted_item %}
+            {% assign depicted_href = "/items/" | append: related_depicted_item.objectid | append: ".html" | relative_url %}
+            {% if token contains "=>" %}
+            {% else %}
+            {% assign depicted_label = related_depicted_item.title | default: related_depicted_item.objectid %}
+            {% endif %}
+            {% endif %}
+            {% endif %}
+            <li>
+                {% if depicted_href != "" %}
+                <a href="{{ depicted_href }}">{{ depicted_label }}</a>
+                {% else %}
+                {{ depicted_label }}
+                {% endif %}
+                {% if range_end_clean != "" %}
+                <span class="text-muted small">(hasta {{ range_end_clean }})</span>
+                {% endif %}
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if child.relation %}
+    <section class="item-metadata-section">
+        <h3 class="item-metadata-title">Objetos relacionados</h3>
+        <ul class="metadata-link-list">
+            {% assign relation_tokens = child.relation | replace: ";", "|" | split: "|" %}
+            {% for relation_raw in relation_tokens %}
+            {% assign relation_token = relation_raw | strip %}
+            {% if relation_token != "" %}
+            {% assign relation_label = relation_token %}
+            {% assign relation_target = relation_token %}
+            {% if relation_token contains "=>" %}
+            {% assign relation_parts = relation_token | split: "=>" %}
+            {% assign relation_label = relation_parts | first | strip %}
+            {% assign relation_target = relation_parts | last | strip %}
+            {% endif %}
+            {% assign relation_href = "" %}
+            {% assign related_item = nil %}
+            {% if relation_target | slice: 0, 4 == "http" %}
+            {% assign relation_href = relation_target %}
+            {% elsif relation_target | slice: 0, 1 == "#" %}
+            {% assign relation_href = "/lectura/" | append: relation_target | relative_url %}
+            {% elsif relation_target | slice: 0, 3 == "obj" %}
+            {% assign related_item = site.data[site.metadata] | where: "objectid", relation_target | first %}
+            {% if related_item %}
+            {% assign relation_href = "/items/" | append: related_item.objectid | append: ".html" | relative_url %}
+            {% if relation_token contains "=>" %}
+            {% else %}
+            {% assign relation_label = related_item.title | default: related_item.objectid %}
+            {% endif %}
+            {% endif %}
+            {% endif %}
+            <li>
+                {% if relation_href != "" %}
+                <a href="{{ relation_href }}">{{ relation_label }}</a>
+                {% else %}
+                {{ relation_label }}
+                {% endif %}
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
 </div>
