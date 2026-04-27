@@ -7,7 +7,7 @@ import {
 } from './lunr-core.js';
 import { buildLecturaSearchDocsFromUrls } from './lectura-search-docs.js';
 
-const SOURCE_RENDER_ORDER = ['page', 'collection', 'lectura-verse', 'lectura-note'];
+const SOURCE_RENDER_ORDER = ['page', 'collection', 'lectura-verse', 'lectura-stage', 'lectura-note'];
 
 function escapeHtml(value) {
   return String(value == null ? '' : value)
@@ -120,6 +120,7 @@ async function createUnifiedIndex(statusHost) {
       page: 1.05,
       collection: 1,
       'lectura-verse': 1.1,
+      'lectura-stage': 1.08,
       'lectura-note': 1.12
     }
   });

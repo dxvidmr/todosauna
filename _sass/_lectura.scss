@@ -758,6 +758,10 @@ html:has(.lectura-wrapper) {
   gap: 0.45rem;
 }
 
+.lectura-search-actions {
+  display: none !important;
+}
+
 .lectura-search-input-wrap {
   position: relative;
 
@@ -863,7 +867,7 @@ html:has(.lectura-wrapper) {
   border-bottom: 1px solid rgba($color-neutral-200, 0.7);
   background: transparent;
   text-align: left;
-  padding: 0.58rem 0.65rem;
+  padding: 0.42rem 0.58rem;
   cursor: pointer;
   transition: background-color 0.2s ease;
 
@@ -879,7 +883,7 @@ html:has(.lectura-wrapper) {
 }
 
 .lectura-search-result-kind {
-  display: inline-flex;
+  display: none;
   margin-bottom: 0.18rem;
   padding: 0.02rem 0.36rem;
   border-radius: 999px;
@@ -890,8 +894,9 @@ html:has(.lectura-wrapper) {
 }
 
 .lectura-search-result-title {
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   font-weight: 600;
+  line-height: 1.24;
   color: $color-text;
 }
 
@@ -902,10 +907,14 @@ html:has(.lectura-wrapper) {
 }
 
 .lectura-search-result-preview {
-  margin-top: 0.2rem;
-  font-size: 0.76rem;
-  line-height: 1.32;
+  margin-top: 0.08rem;
+  font-size: 0.73rem;
+  line-height: 1.25;
   color: $color-text-muted;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .search-target-hit {

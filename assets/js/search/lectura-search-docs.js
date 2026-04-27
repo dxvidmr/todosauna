@@ -11,7 +11,7 @@ function normalizeWhitespace(value) {
 function truncateText(value, maxLength) {
   const text = normalizeWhitespace(value);
   if (text.length <= maxLength) return text;
-  return `${text.slice(0, Math.max(0, maxLength - 1)).trim()}…`;
+  return `${text.slice(0, Math.max(0, maxLength - 3)).trim()}...`;
 }
 
 function getXmlId(node) {
@@ -23,18 +23,11 @@ function getXmlId(node) {
   );
 }
 
-function getSpeakerForLine(lineNode) {
-  if (!lineNode || typeof lineNode.closest !== 'function') return '';
-  const speechNode = lineNode.closest('tei-sp, sp');
+function getSpeakerForNode(node) {
+  if (!node || typeof node.closest !== 'function') return '';
+  const speechNode = node.closest('tei-sp, sp');
   if (!speechNode || typeof speechNode.querySelector !== 'function') return '';
   return normalizeWhitespace(speechNode.querySelector('tei-speaker, speaker')?.textContent || '');
-}
-
-function parseAnaTokens(value) {
-  return normalizeWhitespace(value)
-    .split(/\s+/)
-    .map(token => token.replace(/^#/, '').trim())
-    .filter(Boolean);
 }
 
 function buildVerseDocs(textRoot, baseUrl) {
@@ -48,11 +41,10 @@ function buildVerseDocs(textRoot, baseUrl) {
 
     const lineId = getXmlId(lineNode) || normalizeWhitespace(lineNode.getAttribute('id')) || `line-${index + 1}`;
     const lineNumber = normalizeWhitespace(lineNode.getAttribute('n') || '');
-    const speaker = getSpeakerForLine(lineNode);
+    const speaker = getSpeakerForNode(lineNode);
     const title = lineNumber ? `Verso ${lineNumber}` : `Verso ${index + 1}`;
     const metaParts = [];
     if (speaker) metaParts.push(`Intervención: ${speaker}`);
-    if (lineNumber) metaParts.push(`n. ${lineNumber}`);
 
     docs.push({
       id: `lectura-verse:${lineId}`,
@@ -72,6 +64,40 @@ function buildVerseDocs(textRoot, baseUrl) {
   return docs;
 }
 
+function buildStageDocs(textRoot, baseUrl) {
+  if (!textRoot || typeof textRoot.querySelectorAll !== 'function') return [];
+  const stageNodes = Array.from(textRoot.querySelectorAll('tei-stage, stage'));
+  const docs = [];
+
+  stageNodes.forEach((stageNode, index) => {
+    const body = normalizeWhitespace(stageNode.textContent || '');
+    if (!body) return;
+
+    const stageId = getXmlId(stageNode) || normalizeWhitespace(stageNode.getAttribute('id')) || `stage-${index + 1}`;
+    const stageNumber = normalizeWhitespace(stageNode.getAttribute('n') || '');
+    const speaker = getSpeakerForNode(stageNode);
+    const title = stageNumber ? `Acotación ${stageNumber}` : `Acotación ${index + 1}`;
+    const metaParts = [];
+    if (speaker) metaParts.push(`Intervención: ${speaker}`);
+
+    docs.push({
+      id: `lectura-stage:${stageId}`,
+      sourceType: 'lectura-stage',
+      title,
+      body,
+      meta: metaParts.join(' · '),
+      url: `${baseUrl}?ta_target=${encodeURIComponent(`stage:${stageId}`)}`,
+      preview: truncateText(body, 220),
+      targetType: 'stage',
+      targetId: stageId,
+      stageNumber,
+      speaker
+    });
+  });
+
+  return docs;
+}
+
 function buildNoteDocs(notesRoot, baseUrl) {
   if (!notesRoot || typeof notesRoot.querySelectorAll !== 'function') return [];
   const noteNodes = Array.from(notesRoot.querySelectorAll('note, tei-note'));
@@ -81,19 +107,14 @@ function buildNoteDocs(notesRoot, baseUrl) {
     const noteId = getXmlId(noteNode) || normalizeWhitespace(noteNode.getAttribute('id')) || `note-${index + 1}`;
     const body = normalizeWhitespace(noteNode.textContent || '');
     if (!body) return;
-
-    const anaTokens = parseAnaTokens(noteNode.getAttribute('ana') || '');
-    const targetTokens = parseAnaTokens((noteNode.getAttribute('target') || '').replace(/#/g, ''));
-    const metaParts = [];
-    if (anaTokens.length) metaParts.push(`Tipos: ${anaTokens.join(', ')}`);
-    if (targetTokens.length) metaParts.push(`Destino: ${targetTokens.join(', ')}`);
+    const title = truncateText(body, 96) || 'Nota';
 
     docs.push({
       id: `lectura-note:${noteId}`,
       sourceType: 'lectura-note',
-      title: `Nota ${noteId}`,
+      title,
       body,
-      meta: metaParts.join(' · '),
+      meta: '',
       url: `${baseUrl}?ta_target=${encodeURIComponent(`note:${noteId}`)}`,
       preview: truncateText(body, 220),
       targetType: 'note',
@@ -107,6 +128,7 @@ function buildNoteDocs(notesRoot, baseUrl) {
 export function buildLecturaSearchDocsFromSources({ textRoot, notesRoot, baseUrl = '/lectura/' } = {}) {
   return [
     ...buildVerseDocs(textRoot, baseUrl),
+    ...buildStageDocs(textRoot, baseUrl),
     ...buildNoteDocs(notesRoot, baseUrl)
   ];
 }

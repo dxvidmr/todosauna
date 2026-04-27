@@ -15,7 +15,7 @@ export function normalizeSearchText(value) {
 
 function ensureLunrAvailable() {
   if (typeof window === 'undefined' || typeof window.lunr !== 'function') {
-    throw new Error('Lunr no está disponible en window.lunr');
+    throw new Error('Lunr no estÃ¡ disponible en window.lunr');
   }
   return window.lunr;
 }
@@ -107,7 +107,7 @@ export function searchIndex(indexState, query, options) {
         }
       });
     } catch (error) {
-      // Ignorar variantes inválidas; pasamos a la siguiente.
+      // Ignorar variantes invÃ¡lidas; pasamos a la siguiente.
     }
   });
 
@@ -147,5 +147,6 @@ export const SOURCE_TYPE_LABELS = {
   page: 'Páginas',
   collection: 'Colección',
   'lectura-verse': 'Lectura · Versos',
+  'lectura-stage': 'Lectura · Acotaciones',
   'lectura-note': 'Lectura · Notas'
 };
