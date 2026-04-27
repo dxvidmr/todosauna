@@ -130,14 +130,6 @@ class EditorSocial {
     return false;
   }
 
-  isModeDefined() {
-    return !!window.Participacion?.session?.isModeDefined?.();
-  }
-
-  async openParticipationModal(options) {
-    if (!window.Participacion?.modal?.open) return;
-    await window.Participacion.modal.open(options || {});
-  }
   /**
    * Carga dinamica de CETEI.js si no esta disponible.
    */
@@ -806,25 +798,17 @@ class EditorSocial {
     this.layoutEls.forEach((layout) => layout.classList.add('active'));
   }
 
-  async asegurarModoAntesDeIniciarLaboratorio() {
-    if (this.isModeDefined()) return true;
-
-    await this.openParticipationModal({
-      context: 'laboratorio-before-mode',
-      reason: 'before-start'
-    });
-
-    return this.isModeDefined();
+  async prepararSesionAntesDeIniciarLaboratorio() {
+    if (window.Participacion?.session?.init) {
+      await window.Participacion.session.init();
+    }
+    return true;
   }
 
   async iniciarModoDesdeBienvenida(modo) {
     if (modo !== 'secuencial' && modo !== 'aleatorio') return;
 
-    const canStart = await this.asegurarModoAntesDeIniciarLaboratorio();
-    if (!canStart) {
-      mostrarToast('Para empezar debes elegir modo de participación', 2600);
-      return;
-    }
+    await this.prepararSesionAntesDeIniciarLaboratorio();
 
     if (modo === 'secuencial') {
       await this.iniciarModoSecuencial();

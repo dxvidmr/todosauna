@@ -54,6 +54,20 @@ async function ensureJugablePasaje(page: Page, minNotes: number): Promise<void> 
   await page.waitForSelector(`${MOBILE_SHELL} [data-note-groups]`);
 }
 
+test('starting laboratorio with an active session does not force the participation modal', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/participa/laboratorio/');
+  await expect(page.locator('#ta-modal-root')).toHaveCount(1);
+  await waitForSessionReady(page);
+  await forceAnonMode(page);
+
+  await page.locator('.btn-iniciar-modo[data-modo="secuencial"]').click();
+
+  await page.waitForSelector('#tei-pasaje');
+  await expect(page.locator('.laboratorio-wrapper')).toHaveAttribute('data-laboratorio-view', 'mode');
+  await expect(page.locator('#modal-modo.show')).toHaveCount(0);
+});
+
 for (const viewport of narrowViewports) {
   test(`mobile shell stays independent and keeps passage scrollable on ${viewport.name}`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });

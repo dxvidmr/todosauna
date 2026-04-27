@@ -392,21 +392,16 @@ async function submitNoteEvaluationShared(opciones) {
   const source = opciones.source || 'lectura';
   const flow = window.Participacion?.flow;
 
-  if (source === 'lectura' && flow?.ensureModeForSecondLecturaContribution) {
+  if (
+    (source === 'lectura' || source === 'laboratorio') &&
+    flow?.ensureModeForSecondLecturaContribution
+  ) {
     const canContinue = await flow.ensureModeForSecondLecturaContribution();
     if (!canContinue) {
       if (typeof window.mostrarToast === 'function') {
         window.mostrarToast('Para continuar debes elegir modo de participación', 2600);
       }
       return false;
-    }
-  } else if (source === 'laboratorio') {
-    const session = window.Participacion?.session;
-    if (!session?.isModeDefined?.() && window.Participacion?.modal?.open) {
-      await window.Participacion.modal.open({
-        context: 'laboratorio-before-mode',
-        reason: 'during-evaluation'
-      });
     }
   }
 
@@ -459,8 +454,11 @@ async function submitNoteEvaluationShared(opciones) {
       return false;
     }
 
-    if (source === 'lectura' && flow?.incrementLecturaParticipationCount) {
-      flow.incrementLecturaParticipationCount({ source: 'lectura' });
+    if (
+      (source === 'lectura' || source === 'laboratorio') &&
+      flow?.incrementLecturaParticipationCount
+    ) {
+      flow.incrementLecturaParticipationCount({ source });
     }
 
     return true;
