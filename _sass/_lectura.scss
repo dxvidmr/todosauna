@@ -995,6 +995,14 @@ tei-sp {
   column-gap: 20px;
 }
 
+.lectura-wrapper .text-column tei-sp > tei-milestone[unit="stanza"],
+.lectura-wrapper .text-column tei-sp > tei-milestone[unit="metrical-section"],
+.lectura-wrapper .text-column tei-sp > tei-milestone[unit="metrical-subsection"] {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+}
+
 tei-stage {
   margin-left: 170px;
 }
@@ -1017,17 +1025,67 @@ tei-quote {
   text-align: center;
 }
 
-tei-milestone[unit="stanza"]::after {
-  content: "";
+tei-milestone[unit="stanza"],
+tei-milestone[unit="metrical-section"],
+tei-milestone[unit="metrical-subsection"] {
   display: none;
-  border-bottom: 1px dotted $color-neutral-400;
-  width: 75%;
-  margin-bottom: 10px;
-  margin-top: 10px;
 }
 
-tei-milestone[unit="stanza"].show-line::after {
+tei-milestone[unit="stanza"].show-line,
+tei-milestone[unit="metrical-section"].show-line,
+tei-milestone[unit="metrical-subsection"].show-line {
   display: block;
+  position: relative;
+  height: 0;
+  width: 100%;
+  margin: 0;
+  pointer-events: none;
+}
+
+tei-milestone[unit="stanza"]::after,
+tei-milestone[unit="metrical-section"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -0.12rem;
+  border-top: 1px dotted rgba($color-neutral-400, 0.55);
+}
+
+tei-milestone[unit="metrical-section"][data-metrical-label]:not([data-metrical-label=""])::before {
+  content: attr(data-metrical-label);
+  position: absolute;
+  right: var(--lectura-verse-gutter);
+  top: -0.9rem;
+  color: rgba($color-text-muted, 0.82);
+  font-size: 0.7rem;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-align: right;
+  white-space: nowrap;
+}
+
+tei-milestone[unit="metrical-subsection"]::after {
+  content: "";
+  position: absolute;
+  left: 58%;
+  right: 0;
+  top: -0.06rem;
+  border-top: 1px dotted rgba($color-neutral-400, 0.35);
+}
+
+tei-milestone[unit="metrical-subsection"][data-metrical-label]:not([data-metrical-label=""])::before {
+  content: attr(data-metrical-label);
+  position: absolute;
+  right: var(--lectura-verse-gutter);
+  top: -0.7rem;
+  color: rgba($color-text-muted, 0.72);
+  font-size: 0.62rem;
+  font-style: italic;
+  letter-spacing: 0.015em;
+  line-height: 1.15;
+  text-align: right;
+  white-space: nowrap;
 }
 
 // ============================================
@@ -1334,6 +1392,13 @@ tei-milestone[unit="stanza"].show-line::after {
   }
   
   .lectura-wrapper .text-column tei-sp > tei-l {
+    grid-column: 1 / -1;
+    margin-left: var(--left-guide);
+  }
+
+  .lectura-wrapper .text-column tei-sp > tei-milestone[unit="stanza"],
+  .lectura-wrapper .text-column tei-sp > tei-milestone[unit="metrical-section"],
+  .lectura-wrapper .text-column tei-sp > tei-milestone[unit="metrical-subsection"] {
     grid-column: 1 / -1;
     margin-left: var(--left-guide);
   }

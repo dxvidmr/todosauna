@@ -35,14 +35,17 @@ $toc-a-color: $color-dark !default;
 }
 
 .breadcrumb-link {
+    color: inherit;
     text-decoration: none;
+    background: none;
+    cursor: pointer;
 
     &:hover,
     &:focus-visible,
     &:active {
         text-decoration: none;
         background: none;
-        color: $color-text;
+        color: $color-primary;
     }
 }
 .compound-thumb {
@@ -632,21 +635,25 @@ $toc-a-color: $color-dark !default;
     bottom: 0;
     z-index: 99;
     width: 100%;
-    background-color: var(--bs-body-bg);
+    background-color: $color-surface-page;
 }
 #about-toc-title {
     button { 
         width: 100%;
-        background-color: $color-neutral-200;
+        background-color: $color-surface-page;
+        color: $color-text;
+        border-color: rgba($color-dark, 0.14);
     }
 }
 #about-toc-list {
     padding: 1rem 3rem;
+    background-color: $color-surface-page;
 }
 .jekyll-toc-list { 
     list-style: none;
     padding-left: 0;
     font-style: italic;
+    background-color: $color-surface-page;
 
     ul, ol {
         padding-left: 0;
@@ -669,6 +676,27 @@ $toc-a-color: $color-dark !default;
 
     a {
         color: $toc-a-color;
+        text-decoration: none;
+        background-image: none;
+        background-color: transparent;
+        transition: none;
+
+        &:visited {
+            color: $toc-a-color;
+            text-decoration: none;
+            background-image: none;
+            background-color: transparent;
+        }
+
+        &:hover,
+        &:focus-visible,
+        &:active {
+            color: $color-primary;
+            text-decoration: none;
+            background-image: none;
+            background-color: transparent;
+            outline: none;
+        }
     }
 }
 #about-contents-wrapper { 
@@ -702,11 +730,19 @@ $toc-a-color: $color-dark !default;
             font-weight: bold;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            margin: 1.5rem 0 1rem;
+        h1,
+        h2 {
+            margin: 2.4rem 0 1rem;
         }
 
-        p, .about-narrowed-content, .narrow-content, hr, .footnotes, ol, ul, blockquote {
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 1.8rem 0 0.85rem;
+        }
+
+        .about-narrowed-content, .narrow-content {
             max-width: 750px;
         }
     }
@@ -724,6 +760,7 @@ $toc-a-color: $color-dark !default;
     #about-toc-list { 
         display: block; 
         padding: 2rem 0 2rem 1rem;
+        background-color: $color-surface-page;
     }
     .jekyll-toc-list { 
         padding: 1rem;
@@ -732,6 +769,7 @@ $toc-a-color: $color-dark !default;
         max-height: 90vh;
         overflow-y: auto;
         font-style: italic;
+        background-color: $color-surface-page;
 
         ul, ol {
             padding-left: 0;
@@ -783,5 +821,32 @@ $toc-a-color: $color-dark !default;
     }
     .feature-include {
         text-align: center;
+    }
+}
+
+/* Guide FAQ cards */
+.guide-faq-list {
+    margin-top: 0.75rem;
+}
+
+.guide-faq-card {
+    border-color: rgba($color-dark, 0.12);
+    background-color: rgba($color-secondary-50, 0.62);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.04);
+
+    .card-body {
+        padding: 0.95rem 1rem;
+    }
+
+    h3,
+    h4,
+    h5 {
+        color: $color-dark;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
     }
 }

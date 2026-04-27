@@ -32,6 +32,77 @@
       <editorialDecl>
         <p>La marcación con identificadores <att>xml:id</att> en versos, segmentos, parlamentos y acotaciones permite el enlace desde el archivo externo de notas.</p>
       </editorialDecl>
+      <classDecl>
+        <taxonomy xml:id="metrica">
+          <category xml:id="redondilla">
+            <catDesc>Redondilla</catDesc>
+          </category>
+          <category xml:id="romance">
+            <catDesc>Romance</catDesc>
+          </category>
+          <category xml:id="romancillo">
+            <catDesc>Romance hexasílabo (romancillo)</catDesc>
+          </category>
+          <category xml:id="terceto-encadenado">
+            <catDesc>Tercetos encadenados</catDesc>
+          </category>
+          <category xml:id="cuarteto">
+            <catDesc>Cuarteto</catDesc>
+          </category>
+          <category xml:id="octava-real">
+            <catDesc>Octava real</catDesc>
+          </category>
+          <category xml:id="endecasilabo-suelto">
+            <catDesc>Endecasílabos sueltos</catDesc>
+          </category>
+          <category xml:id="estribillo">
+            <catDesc>Estribillo</catDesc>
+          </category>
+          <category xml:id="copla">
+            <catDesc>Copla</catDesc>
+          </category>
+          <category xml:id="copla-arte-menor">
+            <catDesc>Copla de arte menor</catDesc>
+          </category>
+          <category xml:id="soneto">
+            <catDesc>Soneto</catDesc>
+          </category>
+        </taxonomy>
+        <taxonomy xml:id="rima">
+          <category xml:id="rima-ao">
+            <catDesc>Rima á-o</catDesc>
+          </category>
+          <category xml:id="rima-ee">
+            <catDesc>Rima é-e</catDesc>
+          </category>
+          <category xml:id="rima-oe">
+            <catDesc>Rima ó-e</catDesc>
+          </category>
+          <category xml:id="rima-eo">
+            <catDesc>Rima é-o</catDesc>
+          </category>
+          <category xml:id="rima-oo">
+            <catDesc>Rima ó-o</catDesc>
+          </category>
+          <category xml:id="rima-ea">
+            <catDesc>Rima é-a</catDesc>
+          </category>
+          <category xml:id="rima-ae">
+            <catDesc>Rima á-e</catDesc>
+          </category>
+        </taxonomy>
+        <taxonomy xml:id="irregularidades">
+          <category xml:id="remate-cuarteto">
+            <catDesc>Rematado con cuarteto</catDesc>
+          </category>
+          <category xml:id="estribillo-seguidilla">
+            <catDesc>Estribillo en forma de seguidilla</catDesc>
+          </category>
+          <category xml:id="pareado-final">
+            <catDesc>Pareado final</catDesc>
+          </category>
+        </taxonomy>
+      </classDecl>
     </encodingDesc>
     <profileDesc>
       <creation>
@@ -173,6 +244,8 @@
           <stage xml:id="stg-1">Salen el Comendador, Flores y Ortuño criados</stage>
           <sp who="#comendador" xml:id="sp-1">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="metrical-section" n="1-68" ana="#redondilla"/>
+            <milestone unit="stanza"/>
             <l n="1" xml:id="l-1">¿Sabe el <seg xml:id="seg-1-1">Maestre</seg> que estoy</l>
             <l part="I" n="2" xml:id="l-2-a">en la 
               <seg xml:id="seg-2-1">villa</seg>?</l>
@@ -188,6 +261,7 @@
           <sp who="#comendador" xml:id="sp-4">
             <speaker>COMENDADOR</speaker>
             <l n="4" xml:id="l-4">¿Y sabe también que soy</l>
+            <milestone unit="stanza"/>
             <l n="5" xml:id="l-5">
               <seg xml:id="seg-5-1">Fernán Gómez de Guzmán</seg>?</l></sp>
           <sp who="#flores" xml:id="sp-5">
@@ -197,6 +271,7 @@
             <speaker>COMENDADOR</speaker>
             <l n="7" xml:id="l-7">Cuando no sepa mi nombre,</l>
             <l n="8" xml:id="l-8">¿no le sobra el que me dan</l>
+            <milestone unit="stanza"/>
             <l n="9" xml:id="l-9">
               de 
               <seg xml:id="seg-9-1">Comendador Mayor</seg>?</l></sp>
@@ -207,6 +282,7 @@
           <sp who="#comendador" xml:id="sp-8">
             <speaker>COMENDADOR</speaker>
             <l n="12" xml:id="l-12">¡Conquistará poco amor!</l>
+            <milestone unit="stanza"/>
             <l n="13" xml:id="l-13">Es llave la cortesía</l>
             <l n="14" xml:id="l-14">
               para 
@@ -215,32 +291,38 @@
             <l n="16" xml:id="l-16">la necia descortesía.</l></sp>
           <sp who="#ortuno" xml:id="sp-9">
             <speaker>ORTUÑO</speaker>
+            <milestone unit="stanza"/>
             <l n="17" xml:id="l-17">Si supiese un descortés</l>
             <l n="18" xml:id="l-18">cómo lo aborrecen todos</l>
             <l n="19" xml:id="l-19">y querrían de mil modos</l>
             <l n="20" xml:id="l-20">poner la boca a sus pies</l>
+            <milestone unit="stanza"/>
             <l n="21" xml:id="l-21">antes que serlo ninguno,</l>
             <l n="22" xml:id="l-22">se dejaría morir.</l></sp>
           <sp who="#flores" xml:id="sp-10">
             <speaker>FLORES</speaker>
             <l n="23" xml:id="l-23">¡Qué cansado es de sufrir!</l>
             <l n="24" xml:id="l-24">¡Qué áspero y qué importuno!</l>
+            <milestone unit="stanza"/>
             <l n="25" xml:id="l-25">Llaman la descortesía</l>
             <l n="26" xml:id="l-26">«necedad» en los iguales,</l>
             <l n="27" xml:id="l-27">porque es entre desiguales</l>
             <l n="28" xml:id="l-28">linaje de tiranía.</l>
+            <milestone unit="stanza"/>
             <l n="29" xml:id="l-29">Aquí no te toca nada,</l>
             <l n="30" xml:id="l-30">que un muchacho aún no ha llegado</l>
             <l n="31" xml:id="l-31">a saber qué es ser amado.</l></sp>
           <sp who="#comendador" xml:id="sp-11">
             <speaker>COMENDADOR</speaker>
             <l n="32" xml:id="l-32">La obligación de la espada,</l>
+            <milestone unit="stanza"/>
             <l n="33" xml:id="l-33">que le ciñó el mismo día</l>
             <l n="34" xml:id="l-34">que la cruz de Calatrava</l>
             <l n="35" xml:id="l-35">le cubrió el pecho, bastaba</l>
             <l n="36" xml:id="l-36">para aprender cortesía.</l></sp>
           <sp who="#flores" xml:id="sp-12">
             <speaker>FLORES</speaker>
+            <milestone unit="stanza"/>
             <l n="37" xml:id="l-37">Si te han puesto mal con él,</l>
             <l n="38" xml:id="l-38">presto le conocerás.</l></sp>
           <sp who="#ortuno" xml:id="sp-13">
@@ -256,6 +338,7 @@
           <stage xml:id="stg-40">Sale el Maestre de Calatrava y acompañamiento</stage>
           <sp who="#maestre" xml:id="sp-15">
             <speaker>MAESTRE</speaker>
+            <milestone unit="stanza"/>
             <l n="41" xml:id="l-41">Perdonad, por vida mía,</l>
             <l n="42" xml:id="l-42">Fernán Gómez de Guzmán,</l>
             <l n="43" xml:id="l-43">
@@ -266,12 +349,14 @@
           <sp who="#comendador" xml:id="sp-16">
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-44-b">Tenía</l>
+            <milestone unit="stanza"/>
             <l n="45" xml:id="l-45">muy justa queja de vos,</l>
             <l n="46" xml:id="l-46">
               que 
               <seg xml:id="seg-46-1">el amor y la crïanza</seg></l>
             <l n="47" xml:id="l-47">me daban más confïanza,</l>
             <l n="48" xml:id="l-48">por ser, cual somos los dos,</l>
+            <milestone unit="stanza"/>
             <l n="49" xml:id="l-49">vos Maestre en Calatrava,</l>
             <l n="50" xml:id="l-50">yo vuestro Comendador</l>
             <l n="51" xml:id="l-51">y muy vuestro servidor.</l></sp>
@@ -279,6 +364,7 @@
             <speaker>MAESTRE</speaker>
             <l n="52" xml:id="l-52">
               <seg xml:id="seg-52-1">Seguro</seg>, Fernando, estaba</l>
+            <milestone unit="stanza"/>
             <l n="53" xml:id="l-53">de vuestra buena venida.</l>
             <l n="54" xml:id="l-54">Quiero volveros a dar</l>
             <l part="I" n="55" xml:id="l-55-a">los brazos.</l></sp>
@@ -286,6 +372,7 @@
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-55-b">Debéisme honrar,</l>
             <l n="56" xml:id="l-56">que he puesto por vos la vida</l>
+            <milestone unit="stanza"/>
             <l n="57" xml:id="l-57">entre diferencias tantas</l>
             <l n="58" xml:id="l-58">hasta suplir vuestra edad</l>
             <l part="I" n="59" xml:id="l-59-a">el Pontífice.</l></sp>
@@ -293,6 +380,7 @@
             <speaker>MAESTRE</speaker>
             <l part="F" xml:id="l-59-b">Es verdad.</l>
             <l n="60" xml:id="l-60">Y por las señales santas</l>
+            <milestone unit="stanza"/>
             <l n="61" xml:id="l-61">que a los dos cruzan el pecho,</l>
             <l n="62" xml:id="l-62">que os lo pago en estimaros</l>
             <l n="63" xml:id="l-63">y como a mi padre honraros.</l></sp>
@@ -301,6 +389,7 @@
             <l n="64" xml:id="l-64">De vos estoy satisfecho.</l></sp>
           <sp who="#maestre" xml:id="sp-21">
             <speaker>MAESTRE</speaker>
+            <milestone unit="stanza"/>
             <l n="65" xml:id="l-65">¿Qué hay de guerra por allá?</l></sp>
           <sp who="#comendador" xml:id="sp-22">
             <speaker>COMENDADOR</speaker>
@@ -311,6 +400,7 @@
             <l n="68" xml:id="l-68">Decid, que ya lo estoy, ya.</l></sp>
           <sp who="#comendador" xml:id="sp-24">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="metrical-section" n="69-140" ana="#romance #rima-ao"/>
             <l n="69" xml:id="l-69">Gran Maestre, don Rodrigo</l>
             <l n="70" xml:id="l-70">Téllez Girón, que a tan alto</l>
             <l n="71" xml:id="l-71">lugar os trajo el valor</l>
@@ -412,22 +502,27 @@
           -->
             <sp who="#maestre" xml:id="sp-25">
             <speaker>MAESTRE</speaker>
+            <milestone unit="metrical-section" n="141-456" ana="#redondilla"/>
+            <milestone unit="stanza"/>
             <l n="141" xml:id="l-141">Fernán Gómez, estad cierto</l>
             <l n="142" xml:id="l-142">
               que en esta 
               <seg xml:id="seg-142-1">parcialidad</seg>,</l>
             <l n="143" xml:id="l-143">porque veo que es verdad,</l>
             <l n="144" xml:id="l-144">con mis deudos me concierto.</l>
+            <milestone unit="stanza"/>
             <l n="145" xml:id="l-145">Y si importa, como paso,</l>
             <l n="146" xml:id="l-146">a Ciudad Real mi intento,</l>
             <l n="147" xml:id="l-147">veréis que como violento</l>
             <l n="148" xml:id="l-148">rayo sus muros abraso.</l>
+            <milestone unit="stanza"/>
             <l n="149" xml:id="l-149">No porque es muerto mi tío</l>
             <l n="150" xml:id="l-150">piensen de mis pocos años</l>
             <l n="151" xml:id="l-151">
               los propios y los 
               <seg xml:id="seg-151-1">estraños</seg></l>
             <l n="152" xml:id="l-152">que murió con él mi brío.</l>
+            <milestone unit="stanza"/>
             <l n="153" xml:id="l-153">Sacaré la blanca espada</l>
             <l n="154" xml:id="l-154">para que quede su luz</l>
             <l n="155" xml:id="l-155">
@@ -435,6 +530,7 @@
               <seg xml:id="seg-155-1">la color</seg>
                de la cruz,</l>
             <l n="156" xml:id="l-156">de roja sangre bañada.</l>
+            <milestone unit="stanza"/>
             <l n="157" xml:id="l-157">
               Vos, 
               <seg xml:id="seg-157-1">a donde</seg>
@@ -447,10 +543,12 @@
               que si 
               <seg xml:id="seg-160-1">dellos</seg>
                os servís,</l>
+            <milestone unit="stanza"/>
             <l n="161" xml:id="l-161">pelearán como leones.</l>
             <l n="162" xml:id="l-162">Ya veis que en Fuenteovejuna</l>
             <l n="163" xml:id="l-163">hay gente humilde, y alguna</l>
             <l n="164" xml:id="l-164">no enseñada en escuadrones,</l>
+            <milestone unit="stanza"/>
             <l n="165" xml:id="l-165">sino en campos y labranzas.</l></sp>
           <sp who="#maestre" xml:id="sp-27">
             <speaker>MAESTRE</speaker>
@@ -464,6 +562,7 @@
               <seg xml:id="seg-168-1">mudanzas</seg>.</l></sp>
           <sp who="#maestre" xml:id="sp-29">
             <speaker>MAESTRE</speaker>
+            <milestone unit="stanza"/>
             <l n="169" xml:id="l-169">Vuestra gente se registre,</l>
             <l n="170" xml:id="l-170">
               que 
@@ -481,6 +580,7 @@
              Pascuala y Laurencia</stage>
           <sp who="#laurencia" xml:id="sp-30">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="173" xml:id="l-173">¡Mas que nunca acá volviera!</l></sp>
           <sp who="#pascuala" xml:id="sp-31">
             <speaker>PASCUALA</speaker>
@@ -492,6 +592,7 @@
             <l n="176" xml:id="l-176">más pesadumbre te diera.</l></sp>
           <sp who="#laurencia" xml:id="sp-32">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="177" xml:id="l-177">
               ¡
               <seg xml:id="seg-177-1">Plega</seg>
@@ -501,6 +602,7 @@
             <speaker>PASCUALA</speaker>
             <l n="179" xml:id="l-179">Yo, Laurencia, he visto alguna</l>
             <l n="180" xml:id="l-180">tan brava, y pienso que más,</l>
+            <milestone unit="stanza"/>
             <l n="181" xml:id="l-181">y tenía el corazón</l>
             <l n="182" xml:id="l-182">
               <seg xml:id="seg-182-1">brando</seg>
@@ -513,12 +615,14 @@
               <seg xml:id="seg-184-1">condición</seg>?</l></sp>
           <sp who="#pascuala" xml:id="sp-35">
             <speaker>PASCUALA</speaker>
+            <milestone unit="stanza"/>
             <l n="185" xml:id="l-185">¡Anda ya! Que nadie diga:</l>
             <l n="186" xml:id="l-186">«desta agua no beberé».</l></sp>
           <sp who="#laurencia" xml:id="sp-36">
             <speaker>LAURENCIA</speaker>
             <l n="187" xml:id="l-187">¡Voto al sol que lo diré,</l>
             <l n="188" xml:id="l-188">aunque el mundo me desdiga!</l>
+            <milestone unit="stanza"/>
             <l n="189" xml:id="l-189">
               ¿
               <seg xml:id="seg-189-1">A qué efeto</seg>
@@ -531,12 +635,14 @@
           <sp who="#laurencia" xml:id="sp-38">
             <speaker>LAURENCIA</speaker>
             <l n="192" xml:id="l-192">Luego la infamia condeno.</l>
+            <milestone unit="stanza"/>
             <l n="193" xml:id="l-193">¡Cuántas mozas en la villa,</l>
             <l n="194" xml:id="l-194">del Comendador fïadas,</l>
             <l n="195" xml:id="l-195">andan ya descalabradas!</l></sp>
           <sp who="#pascuala" xml:id="sp-39">
             <speaker>PASCUALA</speaker>
             <l n="196" xml:id="l-196">Tendré yo por maravilla</l>
+            <milestone unit="stanza"/>
             <l n="197" xml:id="l-197">que te escapes de su mano.</l></sp>
           <sp who="#laurencia" xml:id="sp-40">
             <speaker>LAURENCIA</speaker>
@@ -545,6 +651,7 @@
               porque 
               <seg xml:id="seg-199-1">ha que me sigue un mes</seg>,</l>
             <l n="200" xml:id="l-200">y todo, Pascuala, en vano.</l>
+            <milestone unit="stanza"/>
             <l n="201" xml:id="l-201">Aquel Flores, su alcahuete,</l>
             <l n="202" xml:id="l-202">y Ortuño, aquel socarrón,</l>
             <l n="203" xml:id="l-203">
@@ -555,10 +662,12 @@
               <seg xml:id="seg-204-1">sarta</seg>
                y un 
               <seg xml:id="seg-204-2">copete</seg>.</l>
+            <milestone unit="stanza"/>
             <l n="205" xml:id="l-205">Dijéronme tantas cosas</l>
             <l n="206" xml:id="l-206">de Fernando, su señor,</l>
             <l n="207" xml:id="l-207">que me pusieron temor;</l>
             <l n="208" xml:id="l-208">mas no serán poderosas</l>
+            <milestone unit="stanza"/>
             <l n="209" xml:id="l-209">para contrastar mi pecho.</l></sp>
           <sp who="#pascuala" xml:id="sp-41">
             <speaker>PASCUALA</speaker>
@@ -573,6 +682,7 @@
           <sp who="#pascuala" xml:id="sp-43">
             <speaker>PASCUALA</speaker>
             <l part="F" xml:id="l-212-b">Y yo sospecho</l>
+            <milestone unit="stanza"/>
             <l n="213" xml:id="l-213">que te han de engañar, Laurencia.</l></sp>
           <sp who="#laurencia" xml:id="sp-44">
             <speaker>LAURENCIA</speaker>
@@ -588,6 +698,7 @@
                descripción: En el mismo espacio aldeano, Laurencia defiende la vida del campo frente a los artificios cortesanos. El pasaje fija su carácter y subraya el contraste entre la aldea y la corte.
           -->
             <l n="216" xml:id="l-216">yo para su reverencia.</l>
+            <milestone unit="stanza"/>
             <l n="217" xml:id="l-217">
               Pardiez, más 
               <seg xml:id="seg-217-1">precio</seg>
@@ -597,6 +708,7 @@
               un pedazo de 
               <seg xml:id="seg-219-1">lunada</seg></l>
             <l n="220" xml:id="l-220">al huego para comer,</l>
+            <milestone unit="stanza"/>
             <l n="221" xml:id="l-221">
               con tanto 
               <seg xml:id="seg-221-1">zalacatón</seg></l>
@@ -605,18 +717,22 @@
             <l n="224" xml:id="l-224">
               del 
               <seg xml:id="seg-224-1">pegado cangilón</seg>;</l>
+            <milestone unit="stanza"/>
             <l n="225" xml:id="l-225">y más precio al mediodía</l>
             <l n="226" xml:id="l-226">ver la vaca entre las coles,</l>
             <l n="227" xml:id="l-227">haciendo mil caracoles</l>
             <l n="228" xml:id="l-228">con espumosa armonía;</l>
+            <milestone unit="stanza"/>
             <l n="229" xml:id="l-229">y concertar, si el camino</l>
             <l n="230" xml:id="l-230">me ha llegado a causar pena,</l>
             <l n="231" xml:id="l-231">casar una berenjena</l>
             <l n="232" xml:id="l-232">con otro tanto tocino;</l>
+            <milestone unit="stanza"/>
             <l n="233" xml:id="l-233">y después un pasatarde,</l>
             <l n="234" xml:id="l-234">mientras la cena se aliña,</l>
             <l n="235" xml:id="l-235">de una cuerda de mi viña</l>
             <l n="236" xml:id="l-236">(que Dios de pedrisco guarde);</l>
+            <milestone unit="stanza"/>
             <l n="237" xml:id="l-237">
               y cenar un 
               <seg xml:id="seg-237-1">salpicón</seg></l>
@@ -625,12 +741,14 @@
             <l n="240" xml:id="l-240">
               y al 
               <seg xml:id="seg-240-1">«inducas tentación»</seg></l>
+            <milestone unit="stanza"/>
             <l n="241" xml:id="l-241">
               <seg xml:id="seg-241-1">rezalle</seg>
                mis devociones;</l>
             <l n="242" xml:id="l-242">que cuantas raposerías,</l>
             <l n="243" xml:id="l-243">con su amor y sus porfías,</l>
             <l n="244" xml:id="l-244">tienen estos bellacones,</l>
+            <milestone unit="stanza"/>
             <l n="245" xml:id="l-245">
               porque 
               <seg xml:id="seg-245-1">todo su cuidado</seg></l>
@@ -641,14 +759,17 @@
             <l n="248" xml:id="l-248">y amanecer con enfado.</l></sp>
           <sp who="#pascuala" xml:id="sp-47">
             <speaker>PASCUALA</speaker>
+            <milestone unit="stanza"/>
             <l n="249" xml:id="l-249">Tienes, Laurencia, razón,</l>
             <l n="250" xml:id="l-250">que, en dejando de querer,</l>
             <l n="251" xml:id="l-251">más ingratos suelen ser</l>
             <l n="252" xml:id="l-252">que al villano el gorrïón.</l>
+            <milestone unit="stanza"/>
             <l n="253" xml:id="l-253">En el invierno, que el frío</l>
             <l n="254" xml:id="l-254">tiene los campos helados,</l>
             <l n="255" xml:id="l-255">decienden de los tejados,</l>
             <l n="256" xml:id="l-256">diciéndole «tío, tío»,</l>
+            <milestone unit="stanza"/>
             <l n="257" xml:id="l-257">hasta llegar a comer</l>
             <l n="258" xml:id="l-258">las migajas de la mesa;</l>
             <l n="259" xml:id="l-259">
@@ -656,16 +777,19 @@
               <seg xml:id="seg-259-1">luego</seg>
                que el frío cesa,</l>
             <l n="260" xml:id="l-260">y el campo ven florecer,</l>
+            <milestone unit="stanza"/>
             <l n="261" xml:id="l-261">no bajan diciendo «tío»,</l>
             <l n="262" xml:id="l-262">del beneficio olvidados,</l>
             <l n="263" xml:id="l-263">mas saltando en los tejado</l>
             <l n="264" xml:id="l-264">
               dicen: 
               <seg xml:id="seg-264-1">«judío, judío»</seg>.</l>
+            <milestone unit="stanza"/>
             <l n="265" xml:id="l-265">Pues tales los hombres son:</l>
             <l n="266" xml:id="l-266">cuando nos han menester,</l>
             <l n="267" xml:id="l-267">somos su vida, su ser,</l>
             <l n="268" xml:id="l-268">su alma, su corazón;</l>
+            <milestone unit="stanza"/>
             <l n="269" xml:id="l-269">
               pero pasadas las 
               <seg xml:id="seg-269-1">ascuas</seg>,</l>
@@ -676,6 +800,7 @@
               <seg xml:id="seg-272-1">el nombre de las Pascuas</seg>.</l></sp>
           <sp who="#laurencia" xml:id="sp-48">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="273" xml:id="l-273">No fïarse de ninguno.</l></sp>
           <sp who="#pascuala" xml:id="sp-49">
             <speaker>PASCUALA</speaker>
@@ -693,6 +818,7 @@
             <l n="276" xml:id="l-276">andas, Barrildo, importuno.</l></sp>
           <sp who="#barrildo" xml:id="sp-51">
             <speaker>BARRILDO</speaker>
+            <milestone unit="stanza"/>
             <l n="277" xml:id="l-277">A lo menos aquí está</l>
             <l n="278" xml:id="l-278">quien nos dirá lo más cierto.</l></sp>
           <sp who="#mengo" xml:id="sp-52">
@@ -701,6 +827,7 @@
               Pues hagamos un 
               <seg xml:id="seg-279-1">concierto</seg></l>
             <l n="280" xml:id="l-280">antes que lleguéis allá,</l>
+            <milestone unit="stanza"/>
             <l n="281" xml:id="l-281">
               y es que si 
               <seg xml:id="seg-281-1">juzgan por mí</seg>,</l>
@@ -711,6 +838,7 @@
           <sp who="#barrildo" xml:id="sp-53">
             <speaker>BARRILDO</speaker>
             <l n="284" xml:id="l-284">Desde aquí digo que sí.</l>
+            <milestone unit="stanza"/>
             <l n="285" xml:id="l-285">Mas si pierdes, ¿qué darás?</l></sp>
           <sp who="#mengo" xml:id="sp-54">
             <speaker>MENGO</speaker>
@@ -723,6 +851,7 @@
             <l n="288" xml:id="l-288">porque yo le estimo en más.</l></sp>
           <sp who="#barrildo" xml:id="sp-55">
             <speaker>BARRILDO</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="289" xml:id="l-289-a">¡Soy contento!</l></sp>
           <sp who="#frondoso" xml:id="sp-56">
             <speaker>FRONDOSO</speaker>
@@ -741,22 +870,26 @@
               Andar 
               <seg xml:id="seg-292-1">al uso</seg>
                queremos:</l>
+            <milestone unit="stanza"/>
             <l n="293" xml:id="l-293">al bachiller, licenciado;</l>
             <l n="294" xml:id="l-294">
               al ciego, tuerto; al 
               <seg xml:id="seg-294-1">bisojo</seg>,</l>
             <l n="295" xml:id="l-295">bizco; resentido al cojo,</l>
             <l n="296" xml:id="l-296">y buen hombre al descuidado.</l>
+            <milestone unit="stanza"/>
             <l n="297" xml:id="l-297">Al ignorante, sesudo;</l>
             <l n="298" xml:id="l-298">
               al mal galán, 
               <seg xml:id="seg-298-1">soldadesca</seg>;</l>
             <l n="299" xml:id="l-299">a la boca grande, fresca,</l>
             <l n="300" xml:id="l-300">y al ojo pequeño, agudo.</l>
+            <milestone unit="stanza"/>
             <l n="301" xml:id="l-301">Al pleitista, diligente;</l>
             <l n="302" xml:id="l-302">gracioso al entremetido;</l>
             <l n="303" xml:id="l-303">al hablador, entendido,</l>
             <l n="304" xml:id="l-304">y al insufrible, valiente.</l>
+            <milestone unit="stanza"/>
             <l n="305" xml:id="l-305">
               Al cobarde, 
               <seg xml:id="seg-305-1">parapoco</seg></l>
@@ -765,26 +898,31 @@
               compañero al que es un 
               <seg xml:id="seg-307-1">jarro</seg>,</l>
             <l n="308" xml:id="l-308">y desenfadado al loco.</l>
+            <milestone unit="stanza"/>
             <l n="309" xml:id="l-309">Gravedad al descontento;</l>
             <l n="310" xml:id="l-310">a la calva, autoridad;</l>
             <l n="311" xml:id="l-311">donaire a la necedad,</l>
             <l n="312" xml:id="l-312">y al pie grande, buen cimiento.</l>
+            <milestone unit="stanza"/>
             <l n="313" xml:id="l-313">Al buboso, resfrïado;</l>
             <l n="314" xml:id="l-314">comedido al arrogante;</l>
             <l n="315" xml:id="l-315">al ingenioso, constante;</l>
             <l n="316" xml:id="l-316">
               al 
               <seg xml:id="seg-316-1">corcovado</seg>, cargado.</l>
+            <milestone unit="stanza"/>
             <l n="317" xml:id="l-317">Esto llamaros imito,</l>
             <l n="318" xml:id="l-318">damas, sin pasar de aquí,</l>
             <l n="319" xml:id="l-319">porque fuera hablar así</l>
             <l n="320" xml:id="l-320">proceder en infinito.</l></sp>
           <sp who="#laurencia" xml:id="sp-59">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="321" xml:id="l-321">Allá en la ciudad, Frondoso,</l>
             <l n="322" xml:id="l-322">llámase por cortesía</l>
             <l n="323" xml:id="l-323">de esa suerte; y a fe mía,</l>
             <l n="324" xml:id="l-324">que hay otro más riguroso</l>
+            <milestone unit="stanza"/>
             <l n="325" xml:id="l-325">y peor vocabulario</l>
             <l n="326" xml:id="l-326">en las lenguas descorteses.</l></sp>
           <sp who="#frondoso" xml:id="sp-60">
@@ -793,6 +931,7 @@
           <sp who="#laurencia" xml:id="sp-61">
             <speaker>LAURENCIA</speaker>
             <l n="328" xml:id="l-328">Es todo a esotro contrario:</l>
+            <milestone unit="stanza"/>
             <l n="329" xml:id="l-329">al hombre grave, enfadoso;</l>
             <l n="330" xml:id="l-330">
               venturoso al 
@@ -801,26 +940,31 @@
               melancólico al 
               <seg xml:id="seg-331-1">compuesto</seg></l>
             <l n="332" xml:id="l-332">y al que reprehende, odioso.</l>
+            <milestone unit="stanza"/>
             <l n="333" xml:id="l-333">Importuno al que aconseja;</l>
             <l n="334" xml:id="l-334">al liberal, moscatel;</l>
             <l n="335" xml:id="l-335">al justiciero, crüel,</l>
             <l n="336" xml:id="l-336">
               y al que es piadoso, 
               <seg xml:id="seg-336-1">madeja</seg>.</l>
+            <milestone unit="stanza"/>
             <l n="337" xml:id="l-337">Al que es constante, villano;</l>
             <l n="338" xml:id="l-338">al que es cortés, lisonjero;</l>
             <l n="339" xml:id="l-339">hipócrita al limosnero,</l>
             <l n="340" xml:id="l-340">y pretendiente al cristiano.</l>
+            <milestone unit="stanza"/>
             <l n="341" xml:id="l-341">Al justo mérito, dicha;</l>
             <l n="342" xml:id="l-342">a la verdad, imprudencia;</l>
             <l n="343" xml:id="l-343">cobardía a la paciencia,</l>
             <l n="344" xml:id="l-344">y culpa a lo que es desdicha.</l>
+            <milestone unit="stanza"/>
             <l n="345" xml:id="l-345">Necia a la mujer honesta;</l>
             <l n="346" xml:id="l-346">mal hecha a la hermosa y casta,</l>
             <l n="347" xml:id="l-347">y a la honrada… Pero ¡basta!,</l>
             <l n="348" xml:id="l-348">que esto basta por respuesta.</l></sp>
           <sp who="#mengo" xml:id="sp-62">
             <speaker>MENGO</speaker>
+            <milestone unit="stanza"/>
             <l n="349" xml:id="l-349">
               ¡Digo que eres el 
               <seg xml:id="seg-349-1">dimuño</seg>!</l></sp>
@@ -840,6 +984,7 @@
           -->
             <sp who="#laurencia" xml:id="sp-65">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="353" xml:id="l-353">¿Qué contienda os ha traído,</l>
             <l n="354" xml:id="l-354">si no es que mal lo entendí?</l></sp>
           <sp who="#frondoso" xml:id="sp-66">
@@ -853,6 +998,7 @@
             <l n="356" xml:id="l-356">Préstame, Laurencia, oído.</l></sp>
           <sp who="#laurencia" xml:id="sp-69">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="357" xml:id="l-357">Como prestado, y aun dado,</l>
             <l n="358" xml:id="l-358">desde agora os doy el mío.</l></sp>
           <sp who="#frondoso" xml:id="sp-70">
@@ -866,6 +1012,7 @@
             <l n="360" xml:id="l-360">¿Qué es lo que habéis apostado?</l></sp>
           <sp who="#frondoso" xml:id="sp-72">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l n="361" xml:id="l-361">Yo y Barrildo contra Mengo.</l></sp>
           <sp who="#laurencia" xml:id="sp-73">
             <speaker>LAURENCIA</speaker>
@@ -878,6 +1025,7 @@
           <sp who="#mengo" xml:id="sp-75">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-364-b">A negarla vengo,</l>
+            <milestone unit="stanza"/>
             <l n="365" xml:id="l-365">porque yo sé que es verdad</l></sp>
           <sp who="#laurencia" xml:id="sp-76">
             <speaker>LAURENCIA</speaker>
@@ -894,40 +1042,48 @@
           <sp who="#barrildo" xml:id="sp-79">
             <speaker>BARRILDO</speaker>
             <l n="368" xml:id="l-368">Es rigor y es necedad.</l>
+            <milestone unit="stanza"/>
             <l n="369" xml:id="l-369">Sin amor no se pudiera</l>
             <l n="370" xml:id="l-370">ni aun el mundo conservar</l></sp>
           <sp who="#mengo" xml:id="sp-80">
             <speaker>MENGO</speaker>
             <l n="371" xml:id="l-371">Yo no sé filosofar;</l>
             <l n="372" xml:id="l-372">leer… ¡ojalá supiera!</l>
+            <milestone unit="stanza"/>
             <l n="373" xml:id="l-373">Pero si los elementos</l>
             <l n="374" xml:id="l-374">en discordia eterna viven,</l>
             <l n="375" xml:id="l-375">y de los mismos reciben</l>
             <l n="376" xml:id="l-376">nuestros cuerpos alimentos,</l>
+            <milestone unit="stanza"/>
             <l n="377" xml:id="l-377">cólera y melancolía,</l>
             <l n="378" xml:id="l-378">flema y sangre, claro está.</l></sp>
           <sp who="#barrildo" xml:id="sp-81">
             <speaker>BARRILDO</speaker>
             <l n="379" xml:id="l-379">El mundo de acá y de allá,</l>
             <l n="380" xml:id="l-380">Mengo, todo es armonía.</l>
+            <milestone unit="stanza"/>
             <l n="381" xml:id="l-381">Armonía es puro amor,</l>
             <l n="382" xml:id="l-382">porque el amor es concierto.</l></sp>
           <sp who="#mengo" xml:id="sp-82">
             <speaker>MENGO</speaker>
             <l n="383" xml:id="l-383">Del natural os advierto</l>
             <l n="384" xml:id="l-384">que yo no niego el valor.</l>
+            <milestone unit="stanza"/>
             <l n="385" xml:id="l-385">Amor hay, y el que entre sí</l>
             <l n="386" xml:id="l-386">gobierna todas las cosas:</l>
             <l n="387" xml:id="l-387">correspondencias forzosas</l>
             <l n="388" xml:id="l-388">de cuanto se mira aquí;</l>
+            <milestone unit="stanza"/>
             <l n="389" xml:id="l-389">y yo jamás he negado</l>
             <l n="390" xml:id="l-390">que cada cual tiene amor</l>
             <l n="391" xml:id="l-391">correspondiente a su humor,</l>
             <l n="392" xml:id="l-392">que le conserva en su estado.</l>
+            <milestone unit="stanza"/>
             <l n="393" xml:id="l-393">Mi mano al golpe que viene</l>
             <l n="394" xml:id="l-394">mi cara defenderá;</l>
             <l n="395" xml:id="l-395">mi pie, huyendo, estorbará</l>
             <l n="396" xml:id="l-396">el daño que el cuerpo tiene.</l>
+            <milestone unit="stanza"/>
             <l n="397" xml:id="l-397">Cerraranse mis pestañas</l>
             <l n="398" xml:id="l-398">si al ojo le viene mal,</l>
             <l n="399" xml:id="l-399">porque es amor natural.</l></sp>
@@ -936,12 +1092,14 @@
             <l n="400" xml:id="l-400">Pues, ¿de qué nos desengañas?</l></sp>
           <sp who="#mengo" xml:id="sp-84">
             <speaker>MENGO</speaker>
+            <milestone unit="stanza"/>
             <l n="401" xml:id="l-401">De que nadie tiene amor</l>
             <l n="402" xml:id="l-402">más que a su misma persona.</l></sp>
           <sp who="#pascuala" xml:id="sp-85">
             <speaker>PASCUALA</speaker>
             <l n="403" xml:id="l-403">Tú mientes, Mengo, y perdona,</l>
             <l n="404" xml:id="l-404">porque ¿es materia el rigor</l>
+            <milestone unit="stanza"/>
             <l n="405" xml:id="l-405">con que un hombre a una mujer,</l>
             <l n="406" xml:id="l-406">
               o un animal 
@@ -952,6 +1110,7 @@
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-407-b">Eso llama</l>
             <l n="408" xml:id="l-408">amor propio, y no querer.</l>
+            <milestone unit="stanza"/>
             <l part="I" n="409" xml:id="l-409-a">¿Qué es amor?</l></sp>
           <sp who="#laurencia" xml:id="sp-87">
             <speaker>LAURENCIA</speaker>
@@ -967,6 +1126,7 @@
           <sp who="#mengo" xml:id="sp-90">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-412-b">Eso creo.</l>
+            <milestone unit="stanza"/>
             <l n="413" xml:id="l-413">Pues ese gusto que intenta,</l>
             <l part="I" n="414" xml:id="l-414-a">¿no es para él mismo?</l></sp>
           <sp who="#laurencia" xml:id="sp-91">
@@ -978,6 +1138,7 @@
             <l n="416" xml:id="l-416">busca el bien que le contenta?</l></sp>
           <sp who="#laurencia" xml:id="sp-93">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="417" xml:id="l-417-a">Es verdad.</l></sp>
           <sp who="#mengo" xml:id="sp-94">
             <speaker>MENGO</speaker>
@@ -987,10 +1148,12 @@
             <l n="420" xml:id="l-420">y quiero dármele en todo</l></sp>
           <sp who="#barrildo" xml:id="sp-95">
             <speaker>BARRILDO</speaker>
+            <milestone unit="stanza"/>
             <l n="421" xml:id="l-421">Dijo el cura del lugar</l>
             <l n="422" xml:id="l-422">cierto día en el sermón</l>
             <l n="423" xml:id="l-423">que había cierto Platón</l>
             <l n="424" xml:id="l-424">que nos enseñaba a amar;</l>
+            <milestone unit="stanza"/>
             <l n="425" xml:id="l-425">que éste amaba el alma sola</l>
             <l n="426" xml:id="l-426">y la virtud de lo amado.</l></sp>
           <sp who="#pascuala" xml:id="sp-96">
@@ -1000,6 +1163,7 @@
               que, 
               <seg xml:id="seg-428-1">por ventura</seg>, 
               <seg xml:id="seg-428-429-a">acrisola</seg></l>
+            <milestone unit="stanza"/>
             <l n="429" xml:id="l-429">
               <seg xml:id="seg-428-429-b">los caletres</seg>
                de los sabios</l>
@@ -1014,6 +1178,7 @@
               <seg xml:id="seg-431-432-a">y no te muelas</seg></l>
             <l n="432" xml:id="l-432">
               <seg xml:id="seg-431-432-b">en persuadir sus agravios</seg>.</l>
+            <milestone unit="stanza"/>
             <l n="433" xml:id="l-433">Da gracias, Mengo, a los cielos,</l>
             <l n="434" xml:id="l-434">que te hicieron sin amor.</l></sp>
           <sp who="#mengo" xml:id="sp-98">
@@ -1027,6 +1192,7 @@
             <l n="436" xml:id="l-436">Dios te castigue con celos.</l></sp>
           <sp who="#barrildo" xml:id="sp-101">
             <speaker>BARRILDO</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="437" xml:id="l-437-a">¿Quién gana?</l></sp>
           <sp who="#pascuala" xml:id="sp-102">
             <speaker>PASCUALA</speaker>
@@ -1036,6 +1202,7 @@
             <l n="438" xml:id="l-438">podéis ir al sacristán,</l>
             <l n="439" xml:id="l-439">porque él o el cura os darán</l>
             <l n="440" xml:id="l-440">bastante satisfación.</l>
+            <milestone unit="stanza"/>
             <l n="441" xml:id="l-441">Laurencia no quiere bien,</l>
             <l n="442" xml:id="l-442">yo tengo poca esperiencia:</l>
             <l n="443" xml:id="l-443">¿cómo daremos sentencia?</l></sp>
@@ -1051,6 +1218,7 @@
           <stage xml:id="stg-444">Sale Flores</stage>
           <sp who="#flores" xml:id="sp-104">
             <speaker>FLORES</speaker>
+            <milestone unit="stanza"/>
             <l n="445" xml:id="l-445">Dios guarde a la buena gente.</l></sp>
           <sp who="#pascuala" xml:id="sp-105">
             <speaker>PASCUALA</speaker>
@@ -1064,6 +1232,7 @@
             <l n="448" xml:id="l-448">¿De adónde bueno, pariente?</l></sp>
           <sp who="#flores" xml:id="sp-107">
             <speaker>FLORES</speaker>
+            <milestone unit="stanza"/>
             <l n="449" xml:id="l-449">¿No me veis a lo soldado?</l></sp>
           <sp who="#laurencia" xml:id="sp-108">
             <speaker>LAURENCIA</speaker>
@@ -1074,6 +1243,7 @@
             <l n="452" xml:id="l-452">
               <seg xml:id="seg-452-1">puesto que</seg>
                nos ha costado</l>
+            <milestone unit="stanza"/>
             <l n="453" xml:id="l-453">alguna sangre, y amigos.</l></sp>
           <sp who="#frondoso" xml:id="sp-110">
             <speaker>FRONDOSO</speaker>
@@ -1086,6 +1256,7 @@
                título: Flores cuenta la toma de Ciudad Real
                descripción: Flores relata cómo el Maestre y Fernán Gómez han tomado Ciudad Real. Su narración presenta la empresa militar como una hazaña y prepara el regreso triunfal del Comendador a la villa.
           -->
+            <milestone unit="metrical-section" n="457-528" ana="#romance #rima-ee"/>
             <l n="457" xml:id="l-457">Para emprender la jornada</l>
             <l n="458" xml:id="l-458">de esta ciudad, que ya tiene</l>
             <l n="459" xml:id="l-459">nombre de Ciudad Real,</l>
@@ -1221,33 +1392,39 @@
           <stage xml:id="stg-528-1">Sale el Comendador, y Ortuño; músicos; Juan Rojo, y Esteban, Alonso, alcaldes.</stage>
           <stage xml:id="stg-528-2">
             <seg xml:id="seg1-1.528Acot">Cantan</seg></stage>
-          <l n="529" xml:id="l-529">Sea bien venido</l>
-          <l n="530" xml:id="l-530">el Comendadore,</l>
-          <l n="531" xml:id="l-531">de rendir las tierras,</l>
-          <l n="532" xml:id="l-532">y matar los hombres.</l>
-          <l n="533" xml:id="l-533">¡Vivan los Guzmanes!</l>
-          <l n="534" xml:id="l-534">¡Viuan los Girones!</l>
-          <l n="535" xml:id="l-535">Si en las paces blando,</l>
-          <l n="536" xml:id="l-536">dulce en las razones.</l>
-          <l n="537" xml:id="l-537">
-            Venciendo 
-            <seg xml:id="seg-537-1">moricos</seg>,</l>
-          <l n="538" xml:id="l-538">fuertes como un roble,</l>
-          <l n="539" xml:id="l-539">de Ciudad Reale</l>
-          <l n="540" xml:id="l-540">viene vencedore;</l>
-          <l n="541" xml:id="l-541">que a Fuenteovejuna</l>
-          <l n="542" xml:id="l-542">
-            trae sus 
-            <seg xml:id="seg-542-1">pendones</seg>.</l>
-          <l n="543" xml:id="l-543">¡Viva muchos años!</l>
-          <l n="544" xml:id="l-544">¡Viva Fernán Gómez!</l>
+          <sp>          
+            <milestone unit="metrical-section" n="529-544" ana="#romancillo #rima-oe"/>
+            <l n="529" xml:id="l-529">Sea bien venido</l>
+            <l n="530" xml:id="l-530">el Comendadore,</l>
+            <l n="531" xml:id="l-531">de rendir las tierras,</l>
+            <l n="532" xml:id="l-532">y matar los hombres.</l>
+            <l n="533" xml:id="l-533">¡Vivan los Guzmanes!</l>
+            <l n="534" xml:id="l-534">¡Viuan los Girones!</l>
+            <l n="535" xml:id="l-535">Si en las paces blando,</l>
+            <l n="536" xml:id="l-536">dulce en las razones.</l>
+            <l n="537" xml:id="l-537">
+              Venciendo 
+              <seg xml:id="seg-537-1">moricos</seg>,</l>
+            <l n="538" xml:id="l-538">fuertes como un roble,</l>
+            <l n="539" xml:id="l-539">de Ciudad Reale</l>
+            <l n="540" xml:id="l-540">viene vencedore;</l>
+            <l n="541" xml:id="l-541">que a Fuenteovejuna</l>
+            <l n="542" xml:id="l-542">
+              trae sus 
+              <seg xml:id="seg-542-1">pendones</seg>.</l>
+            <l n="543" xml:id="l-543">¡Viva muchos años!</l>
+            <l n="544" xml:id="l-544">¡Viva Fernán Gómez!</l>
+          </sp>          
           <sp who="#comendador" xml:id="sp-112">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="metrical-section" n="545-578" ana="#terceto-encadenado #remate-cuarteto"/>
+            <milestone unit="stanza"/>
             <l n="545" xml:id="l-545">Villa, yo os agradezco justamente</l>
             <l n="546" xml:id="l-546">el amor que me habéis aquí mostrado.</l></sp>
           <sp who="#alonso" xml:id="sp-113">
             <speaker>ALONSO</speaker>
             <l n="547" xml:id="l-547">Aún no muestra una parte del que siente.</l>
+            <milestone unit="stanza"/>
             <l n="548" xml:id="l-548">Pero ¿qué mucho que seáis amado,</l>
             <l part="I" n="549" xml:id="l-549-a">mereciéndolo vos?</l></sp>
           <!-- PASAJE 12
@@ -1261,9 +1438,11 @@
               y el 
               <seg xml:id="seg-550-1">Regimiento</seg>
                que hoy habéis honrado</l>
+            <milestone unit="stanza"/>
             <l n="551" xml:id="l-551">que recibáis os ruega y importuna</l>
             <l n="552" xml:id="l-552">un pequeño presente que esos carros</l>
             <l n="553" xml:id="l-553">traen, señor, no sin vergüenza alguna,</l>
+            <milestone unit="stanza"/>
             <l n="554" xml:id="l-554">
               de voluntades y 
               <seg xml:id="seg-554-1">árboles bizarros</seg>,</l>
@@ -1271,12 +1450,14 @@
             <l n="556" xml:id="l-556">
               traen dos cestas de polidos 
               <seg xml:id="seg-556-1">barros</seg>;</l>
+            <milestone unit="stanza"/>
             <l n="557" xml:id="l-557">de gansos viene un ganadillo entero,</l>
             <l n="558" xml:id="l-558">que sacan por las redes las cabezas,</l>
             <l n="559" xml:id="l-559">
               para cantar 
               <seg xml:id="seg-559-1">vueso</seg>
                valor guerrero.</l>
+            <milestone unit="stanza"/>
             <l n="560" xml:id="l-560">
               Diez 
               <seg xml:id="seg-560-1">cebones</seg>
@@ -1287,30 +1468,35 @@
             <l n="562" xml:id="l-562">
               y 
               <seg xml:id="seg-562-1">más que guantes de ámbar sus cortezas</seg>.</l>
+            <milestone unit="stanza"/>
             <l n="563" xml:id="l-563">
               Cien pares de 
               <seg xml:id="seg-563-1">capones</seg>
                y gallinas,</l>
             <l n="564" xml:id="l-564">que han dejado viudos a sus gallos,</l>
             <l n="565" xml:id="l-565">en las aldeas que miráis vecinas.</l>
+            <milestone unit="stanza"/>
             <l n="566" xml:id="l-566">Acá no tienen armas ni caballos,</l>
             <l n="567" xml:id="l-567">
               no 
               <seg xml:id="seg-567-1">jaeces</seg>
                bordados de oro puro,</l>
             <l n="568" xml:id="l-568">si no es oro el amor de los vasallos.</l>
+            <milestone unit="stanza"/>
             <l n="569" xml:id="l-569">
               <seg xml:id="seg-569-1">Y porque digo puro</seg>, os aseguro</l>
             <l n="570" xml:id="l-570">
               que vienen 
               <seg xml:id="seg-570-1">doce cueros, que aun en cueros</seg></l>
             <l n="571" xml:id="l-571">por enero podéis guardar un muro,</l>
+            <milestone unit="stanza"/>
             <l n="572" xml:id="l-572">
               si de ellos 
               <seg xml:id="seg-572-1">aforráis</seg>
                vuestros guerreros,</l>
             <l n="573" xml:id="l-573">mejor que de las armas aceradas,</l>
             <l n="574" xml:id="l-574">que el vino suele dar lindos aceros.</l>
+            <milestone unit="stanza"/>
             <l n="575" xml:id="l-575">De quesos y otras cosas no escusadas,</l>
             <l n="576" xml:id="l-576">
               no quiero daros cuenta: justo 
@@ -1323,18 +1509,22 @@
           -->
             <sp who="#comendador" xml:id="sp-115">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="metrical-section" n="579-590" ana="#redondilla"/>
+            <milestone unit="stanza"/>
             <l n="579" xml:id="l-579">Estoy muy agradecido.</l>
             <l n="580" xml:id="l-580">Id, Regimiento, en buen hora.</l></sp>
           <sp who="#alonso" xml:id="sp-116">
             <speaker>ALONSO</speaker>
             <l n="581" xml:id="l-581">Descansad, señor, agora,</l>
             <l n="582" xml:id="l-582">y seáis muy bien venido,</l>
+            <milestone unit="stanza"/>
             <l n="583" xml:id="l-583">que esa espadaña que veis</l>
             <l n="584" xml:id="l-584">
               y juncia, 
               <seg xml:id="seg-584-1">a vuestros umbrales</seg>,</l>
             <l n="585" xml:id="l-585">fueran perlas orientales,</l>
             <l n="586" xml:id="l-586">y mucho más merecéis,</l>
+            <milestone unit="stanza"/>
             <l n="587" xml:id="l-587">a ser posible a la villa.</l></sp>
           <sp who="#comendador" xml:id="sp-117">
             <speaker>COMENDADOR</speaker>
@@ -1345,10 +1535,13 @@
             <l part="F" xml:id="l-589-b">Ea, cantores,</l>
             <l n="590" xml:id="l-590">vaya otra vez la letrilla.</l></sp>
           <stage xml:id="stg-590">Cantan</stage>
-          <l n="591" xml:id="l-591">Sea bien venido</l>
-          <l n="592" xml:id="l-592">el Comendadore,</l>
-          <l n="593" xml:id="l-593">de rendir las tierras,</l>
-          <l n="594" xml:id="l-594">y matar los hombres.</l>
+          <milestone unit="metrical-section" n="591-594" ana="#romancillo #rima-oe"/>
+          <sp>
+            <l n="591" xml:id="l-591">Sea bien venido</l>
+            <l n="592" xml:id="l-592">el Comendadore,</l>
+            <l n="593" xml:id="l-593">de rendir las tierras,</l>
+            <l n="594" xml:id="l-594">y matar los hombres.</l>
+          </sp>
           <stage xml:id="stg-594">Vanse</stage>
           <!-- PASAJE 14
                título: El Comendador acosa a Laurencia y Pascuala
@@ -1356,6 +1549,8 @@
           -->
           <sp who="#comendador" xml:id="sp-119">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="metrical-section" n="595-654" ana="#redondilla"/>
+            <milestone unit="stanza"/>
             <l n="595" xml:id="l-595">Esperad vosotras dos.</l></sp>
           <sp who="#laurencia" xml:id="sp-120">
             <speaker>LAURENCIA</speaker>
@@ -1366,6 +1561,7 @@
             <l n="598" xml:id="l-598">pues, conmigo? ¡Bien, por Dios!</l></sp>
           <sp who="#laurencia" xml:id="sp-122">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="599" xml:id="l-599">¿Habla contigo, Pascuala?</l></sp>
           <sp who="#pascuala" xml:id="sp-123">
             <speaker>PASCUALA</speaker>
@@ -1376,6 +1572,7 @@
             <speaker>COMENDADOR</speaker>
             <l n="601" xml:id="l-601">Con vos hablo, hermosa fiera,</l>
             <l n="602" xml:id="l-602">y con esotra zagala.</l>
+            <milestone unit="stanza"/>
             <l part="I" n="603" xml:id="l-603-a">¿Mías no sois?</l></sp>
           <sp who="#pascuala" xml:id="sp-125">
             <speaker>PASCUALA</speaker>
@@ -1387,6 +1584,7 @@
             <l n="606" xml:id="l-606">hombres hay, no hayáis temor.</l></sp>
           <sp who="#laurencia" xml:id="sp-127">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="607" xml:id="l-607">Si los Alcaldes entraran,</l>
             <l n="608" xml:id="l-608">que de uno soy hija yo,</l>
             <l n="609" xml:id="l-609">
@@ -1402,6 +1600,7 @@
           <sp who="#comendador" xml:id="sp-130">
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-610-c">¿Qué reparan</l>
+            <milestone unit="stanza"/>
             <l n="611" xml:id="l-611">en no hacer lo que les digo?</l></sp>
           <sp who="#flores" xml:id="sp-131">
             <speaker>FLORES</speaker>
@@ -1420,6 +1619,7 @@
             <l n="614" xml:id="l-614">que echaréis luego el postigo.</l></sp>
           <sp who="#flores" xml:id="sp-135">
             <speaker>FLORES</speaker>
+            <milestone unit="stanza"/>
             <l n="615" xml:id="l-615">Entrad, que os quiere enseñar</l>
             <l n="616" xml:id="l-616">lo que trae de la guerra.</l></sp>
           <sp who="#comendador" xml:id="sp-136">
@@ -1434,6 +1634,7 @@
             <l n="618" xml:id="l-618">Flores, dejadnos pasar.</l></sp>
           <sp who="#ortuno" xml:id="sp-138">
             <speaker>ORTUÑO</speaker>
+            <milestone unit="stanza"/>
             <l n="619" xml:id="l-619">
               ¡También venís 
               <seg xml:id="seg-619-1">presentadas</seg></l>
@@ -1449,6 +1650,7 @@
               <seg xml:id="seg-622-1">estremadas</seg>.</l></sp>
           <sp who="#laurencia" xml:id="sp-141">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="623" xml:id="l-623">¿No basta a vueso señor</l>
             <l n="624" xml:id="l-624">tanta carne presentada?</l></sp>
           <sp who="#ortuno" xml:id="sp-142">
@@ -1460,6 +1662,7 @@
           <stage xml:id="stg-626">Vanse</stage>
           <sp who="#flores" xml:id="sp-144">
             <speaker>FLORES</speaker>
+            <milestone unit="stanza"/>
             <l n="627" xml:id="l-627">¡Muy buen recado llevamos!</l>
             <l n="628" xml:id="l-628">
               No se ha de poder 
@@ -1468,6 +1671,7 @@
             <l n="630" xml:id="l-630">cuando sin ellas nos vamos.</l></sp>
           <sp who="#ortuno" xml:id="sp-145">
             <speaker>ORTUÑO</speaker>
+            <milestone unit="stanza"/>
             <l n="631" xml:id="l-631">Quien sirve se obliga a esto.</l>
             <l n="632" xml:id="l-632">
               Si en algo desea 
@@ -1486,10 +1690,12 @@
             <seg xml:id="seg-634Acot-1">salgan el rey don Fernando, la reina doña Isabel, Manrique y acompañamiento</seg></stage>
           <sp who="#isabel" xml:id="sp-146">
             <speaker>ISABEL</speaker>
+            <milestone unit="stanza"/>
             <l n="635" xml:id="l-635">Digo, señor, que conviene</l>
             <l n="636" xml:id="l-636">el no haber descuido en esto,</l>
             <l n="637" xml:id="l-637">por ver <seg xml:id="seg-637-1">Alfonso</seg> en tal puesto,</l>
             <l n="638" xml:id="l-638">y su ejército previene.</l>
+            <milestone unit="stanza"/>
             <l n="639" xml:id="l-639">Y es bien ganar por la mano</l>
             <l n="640" xml:id="l-640">antes que el daño veamos;</l>
             <l n="641" xml:id="l-641">que si no lo remediamos,</l>
@@ -1497,10 +1703,12 @@
           </sp>
           <sp who="#fernando" xml:id="sp-147">
             <speaker>REY</speaker>
+            <milestone unit="stanza"/>
             <l n="643" xml:id="l-643">De Navarra y Aragón</l>
             <l n="644" xml:id="l-644">está el socorro seguro,</l>
             <l n="645" xml:id="l-645">y de Castilla procuro</l>
             <l n="646" xml:id="l-646">hacer la reformación,</l>
+            <milestone unit="stanza"/>
             <l n="647" xml:id="l-647">de modo que el buen suceso</l>
             <l n="648" xml:id="l-648">con la prevención se vea.</l></sp>
           <sp who="#isabel" xml:id="sp-148">
@@ -1509,6 +1717,7 @@
             <l n="650" xml:id="l-650">que el buen fin consiste en eso.</l></sp>
           <sp who="#manrique" xml:id="sp-149">
             <speaker>MANRIQUE</speaker>
+            <milestone unit="stanza"/>
             <l n="651" xml:id="l-651">Aguardando tu licencia</l>
             <l n="652" xml:id="l-652">dos regidores están</l>
             <l n="653" xml:id="l-653">de Ciudad Real: ¿entrarán?</l></sp>
@@ -1522,6 +1731,7 @@
           <stage xml:id="stg-654">Salen dos regidores de Ciudad Real</stage>
           <sp who="#regidor" xml:id="sp-151">
             <speaker>REGIDOR I</speaker>
+            <milestone unit="metrical-section" n="655-698" ana="#romance #rima-eo"/>
             <l n="655" xml:id="l-655">Católico rey Fernando,</l>
             <l n="656" xml:id="l-656">a quien ha envïado el Cielo</l>
             <l n="657" xml:id="l-657">desde Aragón a Castilla</l>
@@ -1585,16 +1795,20 @@
           -->
           <sp who="#isabel" xml:id="sp-156">
             <speaker>ISABEL</speaker>
+            <milestone unit="metrical-section" n="699-722" ana="#redondilla"/>
+            <milestone unit="stanza"/>
             <l n="699" xml:id="l-699">Ese caso no requiere</l>
             <l n="700" xml:id="l-700">ser de espacio remediado;</l>
             <l n="701" xml:id="l-701">que es dar al contrario osado</l>
             <l n="702" xml:id="l-702">el mismo valor que adquiere.</l>
+            <milestone unit="stanza"/>
             <l n="703" xml:id="l-703">Y puede el de Portugal,</l>
             <l n="704" xml:id="l-704">hallando puerta segura,</l>
             <l n="705" xml:id="l-705">entrar por Estremadura</l>
             <l n="706" xml:id="l-706">y causarnos mucho mal.</l></sp>
           <sp who="#fernando" xml:id="sp-157">
             <speaker>REY</speaker>
+            <milestone unit="stanza"/>
             <l n="707" xml:id="l-707">
               Don Manrique, partid 
               <seg xml:id="seg-707-1">luego</seg>,</l>
@@ -1605,6 +1819,7 @@
               remediad sus 
               <seg xml:id="seg-709-1">demasías</seg></l>
             <l n="710" xml:id="l-710">sin darles ningún sosiego.</l>
+            <milestone unit="stanza"/>
             <l n="711" xml:id="l-711">
               El 
               <seg xml:id="seg-711-1">conde de Cabra</seg>
@@ -1612,12 +1827,14 @@
             <l n="712" xml:id="l-712">con vos, que es Córdoba osado,</l>
             <l n="713" xml:id="l-713">a quien nombre de soldado</l>
             <l n="714" xml:id="l-714">todo el mundo le concede;</l>
+            <milestone unit="stanza"/>
             <l n="715" xml:id="l-715">que éste es el medio mejor</l>
             <l n="716" xml:id="l-716">que la ocasión nos ofrece.</l></sp>
           <sp xml:id="sp-158">
             <speaker>MANRIQUE</speaker>
             <l n="717" xml:id="l-717">El acuerdo me parece</l>
             <l n="718" xml:id="l-718">como de tan gran valor.</l>
+            <milestone unit="stanza"/>
             <l n="719" xml:id="l-719">Pondré límite a su exceso,</l>
             <l n="720" xml:id="l-720">si el vivir en mí no cesa.</l></sp>
           <sp who="#isabel" xml:id="sp-159">
@@ -1631,6 +1848,7 @@
           <stage xml:id="stg-722">Vanse todos y salen Laurencia y Frondoso</stage>
           <sp who="#laurencia" xml:id="sp-160">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="metrical-section" n="723-860" ana="#romance #rima-oo"/>
             <l n="723" xml:id="l-723">A medio torcer los paños,</l>
             <l n="724" xml:id="l-724">quise, atrevido Frondoso,</l>
             <l n="725" xml:id="l-725">para no dar que decir,</l>
@@ -1915,6 +2133,8 @@
           <stage xml:id="stg-860">Salen Esteban y Regidor I</stage>
           <sp who="#esteban" xml:id="sp-193">
             <speaker>ESTEBAN</speaker>
+            <milestone unit="metrical-section" n="861-940" ana="#octava-real"/>
+            <milestone unit="stanza"/>
             <l n="861" xml:id="l-861">Así tenga salud, como parece,</l>
             <l n="862" xml:id="l-862">que no se saque más agora el pósito.</l>
             <l n="863" xml:id="l-863">El año apunta mal, y el tiempo crece,</l>
@@ -1927,6 +2147,7 @@
           <sp who="#esteban" xml:id="sp-195">
             <speaker>ESTEBAN</speaker>
             <l n="868" xml:id="l-868">Hagamos dello a Fernán Gómez súplica.</l>
+            <milestone unit="stanza"/>
             <l n="869" xml:id="l-869">No se puede sufrir que estos astrólogos</l>
             <l n="870" xml:id="l-870">en las cosas futuras, y ignorantes,</l>
             <l n="871" xml:id="l-871">nos quieran persuadir con largos prólogos</l>
@@ -1935,6 +2156,7 @@
             <l n="874" xml:id="l-874">hagan un tiempo el que después y antes!</l>
             <l n="875" xml:id="l-875">Y pidiendo el presente lo importante,</l>
             <l n="876" xml:id="l-876">al más sabio veréis más ignorante.</l>
+            <milestone unit="stanza"/>
             <l n="877" xml:id="l-877">¿Tienen ellos las nubes en su casa</l>
             <l n="878" xml:id="l-878">y el proceder de las celestes lumbres?</l>
             <l n="879" xml:id="l-879">¿Por dónde ven lo que en el cielo pasa,</l>
@@ -1943,6 +2165,7 @@
             <l n="882" xml:id="l-882"><seg xml:id="seg-882-1">daca</seg> el trigo, cebada y las legumbres,</l>
             <l n="883" xml:id="l-883">calabazas, pepinos y mostazas...</l>
             <l n="884" xml:id="l-884">¡Ellos son, a la fe, las <seg xml:id="seg-884-1">calabazas</seg>!</l>
+            <milestone unit="stanza"/>
             <l n="885" xml:id="l-885">Luego cuentan que muere una cabeza,</l>
             <l n="886" xml:id="l-886">y después viene a ser en Trasilvania;</l>
             <l n="887" xml:id="l-887">que el vino será poco, y la cerveza</l>
@@ -1958,6 +2181,7 @@
           <stage xml:id="stg-892">Salen el licenciado Leonelo y Barrildo</stage>
           <sp who="#leonelo" xml:id="sp-196">
             <speaker>LEONELO</speaker>
+            <milestone unit="stanza"/>
             <l n="893" xml:id="l-893">A fe que no ganéis la palmatoria,</l>
             <l n="894" xml:id="l-894">porque ya está ocupado el <seg xml:id="seg-894-1">mentidero</seg>.</l></sp>
           <sp who="#barrildo" xml:id="sp-197">
@@ -1982,6 +2206,7 @@
             <l n="900" xml:id="l-900">Saber he procurado lo importante.</l></sp>
           <sp who="#barrildo" xml:id="sp-203">
             <speaker>BARRILDO</speaker>
+            <milestone unit="stanza"/>
             <l n="901" xml:id="l-901">Después que vemos tanto libro impreso,</l>
             <l n="902" xml:id="l-902">no hay nadie que de sabio no presuma.</l></sp>
           <sp who="#leonelo" xml:id="sp-204">
@@ -1992,6 +2217,7 @@
             <l n="906" xml:id="l-906">los intentos resuelve en vana espuma;</l>
             <l n="907" xml:id="l-907">y aquel que de leer tiene más uso,</l>
             <l n="908" xml:id="l-908">de ver letreros sólo está confuso.</l>
+            <milestone unit="stanza"/>
             <l n="909" xml:id="l-909">No niego yo que de imprimir el arte</l>
             <l n="910" xml:id="l-910">mil ingenios sacó de entre la jerga,</l>
             <l n="911" xml:id="l-911">y que parece que <seg xml:id="seg-911-1">en sagrada parte</seg></l>
@@ -2000,6 +2226,7 @@
             <l n="914" xml:id="l-914">Débese esta invención a Cutemberga,</l>
             <l n="915" xml:id="l-915">un famoso tudesco de Maguncia,</l>
             <l n="916" xml:id="l-916">en quien la Fama su valor renuncia.</l>
+            <milestone unit="stanza"/>
             <l n="917" xml:id="l-917">Mas muchos <seg xml:id="seg-917-1">que opinión tuvieron grave</seg></l>
             <l n="918" xml:id="l-918">por imprimir sus obras la perdieron;</l>
             <l n="919" xml:id="l-919">tras esto, con el nombre del que sabe,</l>
@@ -2010,6 +2237,7 @@
             <l n="924" xml:id="l-924">impresos por el mundo los envían.</l></sp>
           <sp who="#barrildo" xml:id="sp-205">
             <speaker>BARRILDO</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="925" xml:id="l-925-a">No soy de esa opinión.</l></sp>
           <sp who="#leonelo" xml:id="sp-206">
             <speaker>LEONELO</speaker>
@@ -2034,6 +2262,7 @@
           <stage xml:id="stg-932">Sale Juan Rojo, y otro labrador</stage>
           <sp who="#juan_rojo" xml:id="sp-210">
             <speaker>JUAN</speaker>
+            <milestone unit="stanza"/>
             <l n="933" xml:id="l-933">No hay en cuatro <seg xml:id="seg-933-1">haciendas</seg> para un dote,</l>
             <l n="934" xml:id="l-934">si es que las vistas han de ser al uso;</l>
             <l n="935" xml:id="l-935">que el hombre que es curioso es bien que note</l>
@@ -2055,6 +2284,8 @@
           <stage xml:id="stg-940">Salen el Comendador, Ortuño y Flores</stage>
           <sp who="#comendador" xml:id="sp-214">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="metrical-section" n="941-1104" ana="#redondilla"/>
+            <milestone unit="stanza"/>
             <l n="941" xml:id="l-941">Dios guarde la buena gente.</l></sp>
           <sp who="#regidor" xml:id="sp-215">
             <speaker>REGIDOR</speaker>
@@ -2067,6 +2298,7 @@
             <speaker>ALCALDE</speaker>
             <l part="F" xml:id="l-943-b"><seg xml:id="seg-943-2">Vusiñoría</seg>,</l>
             <l n="944" xml:id="l-944">adonde suele se siente,</l>
+            <milestone unit="stanza"/>
             <l n="945" xml:id="l-945">que en pie estaremos muy bien.</l></sp>
           <sp who="#comendador" xml:id="sp-218">
             <speaker>COMENDADOR</speaker>
@@ -2075,6 +2307,7 @@
             <speaker>ESTEBAN</speaker>
             <l n="947" xml:id="l-947">De los buenos es honrar,</l>
             <l n="948" xml:id="l-948">que no es posible que den</l>
+            <milestone unit="stanza"/>
             <l n="949" xml:id="l-949">honra los que no la tienen.</l></sp>
           <sp who="#comendador" xml:id="sp-220">
             <speaker>COMENDADOR</speaker>
@@ -2085,12 +2318,14 @@
           <sp who="#comendador" xml:id="sp-222">
             <speaker>COMENDADOR</speaker>
             <l n="952" xml:id="l-952">Alcalde, espantados vienen</l>
+            <milestone unit="stanza"/>
             <l n="953" xml:id="l-953">esos crïados de ver</l>
             <l n="954" xml:id="l-954">tan notable ligereza.</l></sp>
           <sp who="#esteban" xml:id="sp-223">
             <speaker>ESTEBAN</speaker>
             <l n="955" xml:id="l-955">Es una estremada pieza.</l>
             <l n="956" xml:id="l-956">Pardiez, que puede correr</l>
+            <milestone unit="stanza"/>
             <l n="957" xml:id="l-957">a un lado de un delincuente</l>
             <l n="958" xml:id="l-958">o de un cobarde en quistión.</l></sp>
           <!-- PASAJE 26
@@ -2101,6 +2336,7 @@
             <speaker>COMENDADOR</speaker>
             <l n="959" xml:id="l-959">Quisiera en esta ocasión</l>
             <l n="960" xml:id="l-960">que le hiciérades pariente</l>
+            <milestone unit="stanza"/>
             <l n="961" xml:id="l-961">a una liebre que por pies</l>
             <l n="962" xml:id="l-962">por momentos se me va.</l></sp>
           <sp who="#esteban" xml:id="sp-225">
@@ -2111,6 +2347,7 @@
             <l n="964" xml:id="l-964">Allá. Vuestra hija es.</l></sp>
           <sp who="#esteban" xml:id="sp-227">
             <speaker>ESTEBAN</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="965" xml:id="l-965-a">¿Mi hija?</l></sp>
           <sp who="#comendador" xml:id="sp-228">
             <speaker>COMENDADOR</speaker>
@@ -2128,6 +2365,7 @@
           <sp who="#comendador" xml:id="sp-232">
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-968-b">Ha dado en <seg xml:id="seg-968-1">darme pena</seg>.</l>
+            <milestone unit="stanza"/>
             <l n="969" xml:id="l-969">Mujer hay, y principal,</l>
             <l n="970" xml:id="l-970">de alguno que está en la plaza,</l>
             <l n="971" xml:id="l-971">que dio a la primera traza,</l>
@@ -2135,12 +2373,14 @@
           <sp who="#esteban" xml:id="sp-233">
             <speaker>ESTEBAN</speaker>
             <l part="F" xml:id="l-972-b">Hizo mal;</l>
+            <milestone unit="stanza"/>
             <l n="973" xml:id="l-973">y vos, señor, no andáis bien</l>
             <l n="974" xml:id="l-974">en hablar tan libremente.</l></sp>
           <sp who="#comendador" xml:id="sp-234">
             <speaker>COMENDADOR</speaker>
             <l n="975" xml:id="l-975">¡Oh, qué villano elocuente!</l>
             <l n="976" xml:id="l-976">¡Ah, Flores! <seg xml:id="seg-976-1">Haz que le den</seg></l>
+            <milestone unit="stanza"/>
             <l n="977" xml:id="l-977">la Política, en que lea</l>
             <l part="I" n="978" xml:id="l-978-a">de Aristóteles.</l></sp>
           <sp who="#esteban" xml:id="sp-235">
@@ -2152,6 +2392,7 @@
                título: "¿Vosotros honor tenéis?"
                descripción: La conversación degenera en agravio. Fernán Gómez niega que los villanos tengan honor y convierte el deseo sobre Laurencia en un insulto colectivo contra todo el pueblo.
           -->
+            <milestone unit="stanza"/>
             <l n="981" xml:id="l-981">Mirad que en Fuenteovejuna</l>
             <l n="982" xml:id="l-982">hay gente muy principal.</l></sp>
           <sp who="#leonelo" xml:id="sp-236">
@@ -2160,6 +2401,7 @@
           <sp who="#comendador" xml:id="sp-237">
             <speaker>COMENDADOR</speaker>
             <l n="984" xml:id="l-984">Pues ¿he dicho cosa alguna</l>
+            <milestone unit="stanza"/>
             <l n="985" xml:id="l-985">de que os pese, Regidor?</l></sp>
           <sp who="#regidor" xml:id="sp-238">
             <speaker>REGIDOR</speaker>
@@ -2168,12 +2410,14 @@
             <l n="988" xml:id="l-988">que nos quitéis el honor.</l></sp>
           <sp who="#comendador" xml:id="sp-239">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="989" xml:id="l-989">¿Vosotros honor tenéis?</l>
             <l n="990" xml:id="l-990">¡Qué freiles de Calatrava!</l></sp>
           <sp who="#regidor" xml:id="sp-240">
             <speaker>REGIDOR</speaker>
             <l n="991" xml:id="l-991">Alguno acaso se alaba</l>
             <l n="992" xml:id="l-992">de la cruz que le ponéis,</l>
+            <milestone unit="stanza"/>
             <l n="993" xml:id="l-993">que no es de sangre tan limpia.</l></sp>
           <sp who="#comendador" xml:id="sp-241">
             <speaker>COMENDADOR</speaker>
@@ -2185,6 +2429,7 @@
             <l n="996" xml:id="l-996">que el mal más <seg xml:id="seg-996-1">tiñe</seg> que alimpia.</l></sp>
           <sp who="#comendador" xml:id="sp-243">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="997" xml:id="l-997">De cualquier suerte que sea,</l>
             <l n="998" xml:id="l-998">vuestras mujeres se honran.</l></sp>
           <sp who="#esteban" xml:id="sp-244">
@@ -2193,16 +2438,19 @@
             <l n="1000" xml:id="l-1000">las obras no hay quien las crea.</l></sp>
           <sp who="#comendador" xml:id="sp-245">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1001" xml:id="l-1001">¡Qué cansado villanaje!</l>
             <l n="1002" xml:id="l-1002">¡Ah! Bien hayan las ciudades</l>
             <l n="1003" xml:id="l-1003">que a hombres de calidades</l>
             <l n="1004" xml:id="l-1004">no hay quien sus gustos ataje.</l>
+            <milestone unit="stanza"/>
             <l n="1005" xml:id="l-1005">Allá se precian casados</l>
             <l n="1006" xml:id="l-1006">que visiten sus mujeres.</l></sp>
           <sp who="#esteban" xml:id="sp-246">
             <speaker>ESTEBAN</speaker>
             <l n="1007" xml:id="l-1007">No harán, que con esto quieres</l>
             <l n="1008" xml:id="l-1008">que vivamos descuidados.</l>
+            <milestone unit="stanza"/>
             <l n="1009" xml:id="l-1009">En las ciudades hay Dios</l>
             <l n="1010" xml:id="l-1010">y más presto quien castiga.</l></sp>
           <sp who="#comendador" xml:id="sp-247">
@@ -2214,6 +2462,7 @@
             <l n="1012" xml:id="l-1012">lo que escucháis por los dos!</l></sp>
           <sp who="#comendador" xml:id="sp-249">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1013" xml:id="l-1013">Salí de la plaza luego.</l>
             <l n="1014" xml:id="l-1014">No quede ninguno aquí.</l></sp>
           <sp who="#esteban" xml:id="sp-250">
@@ -2227,6 +2476,7 @@
             <l n="1016" xml:id="l-1016">Que te <seg xml:id="seg-1016-1">reportes</seg> te ruego.</l></sp>
           <sp who="#comendador" xml:id="sp-253">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1017" xml:id="l-1017">Querrían <seg xml:id="seg-1017-1">hacer corrillo</seg></l>
             <l n="1018" xml:id="l-1018">los villanos en mi ausencia.</l></sp>
           <sp who="#ortuno" xml:id="sp-254">
@@ -2235,6 +2485,7 @@
           <sp who="#comendador" xml:id="sp-255">
             <speaker>COMENDADOR</speaker>
             <l n="1020" xml:id="l-1020">De tanta me maravillo.</l>
+            <milestone unit="stanza"/>
             <l n="1021" xml:id="l-1021">Cada uno de por sí</l>
             <l n="1022" xml:id="l-1022">se vayan hasta sus casas.</l></sp>
           <sp who="#leonelo" xml:id="sp-256">
@@ -2250,6 +2501,7 @@
           -->
           <sp who="#comendador" xml:id="sp-258">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1025" xml:id="l-1025">¿Qué os parece desta gente?</l></sp>
           <sp who="#ortuno" xml:id="sp-259">
             <speaker>ORTUÑO</speaker>
@@ -2258,6 +2510,7 @@
             <l n="1028" xml:id="l-1028">el disgusto que se siente.</l></sp>
           <sp who="#comendador" xml:id="sp-260">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1029" xml:id="l-1029">¿Éstos se igualan conmigo?</l></sp>
           <sp who="#flores" xml:id="sp-261">
             <speaker>FLORES</speaker>
@@ -2268,10 +2521,12 @@
             <l n="1032" xml:id="l-1032">con ballesta y sin castigo?</l></sp>
           <sp who="#flores" xml:id="sp-263">
             <speaker>FLORES</speaker>
+            <milestone unit="stanza"/>
             <l n="1033" xml:id="l-1033">Anoche pensé que estaba</l>
             <l n="1034" xml:id="l-1034">a la puerta de Laurencia,</l>
             <l n="1035" xml:id="l-1035">y a otro, que su presencia</l>
             <l n="1036" xml:id="l-1036">y su <seg xml:id="seg-1036-1">capilla</seg> imitaba,</l>
+            <milestone unit="stanza"/>
             <l n="1037" xml:id="l-1037">de oreja a oreja le di</l>
             <l n="1038" xml:id="l-1038">un beneficio famoso.</l></sp>
           <sp who="#comendador" xml:id="sp-264">
@@ -2282,30 +2537,35 @@
             <l n="1040" xml:id="l-1040">Dicen que anda por ahí.</l></sp>
           <sp who="#comendador" xml:id="sp-266">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1041" xml:id="l-1041">¿Por ahí se atreve a andar</l>
             <l n="1042" xml:id="l-1042">hombre que matarme quiso?</l></sp>
           <sp who="#flores" xml:id="sp-267">
             <speaker>FLORES</speaker>
             <l n="1043" xml:id="l-1043">Como el ave sin aviso,</l>
             <l n="1044" xml:id="l-1044">o como el pez, viene a dar</l>
+            <milestone unit="stanza"/>
             <l n="1045" xml:id="l-1045">al reclamo o al anzuelo.</l></sp>
           <sp who="#comendador" xml:id="sp-268">
             <speaker>COMENDADOR</speaker>
             <l n="1046" xml:id="l-1046">¡Que a un capitán cuya espada</l>
             <l n="1047" xml:id="l-1047"><seg xml:id="seg-1047-1">tiemblan</seg> Córdoba y Granada,</l>
             <l n="1048" xml:id="l-1048">un labrador, un mozuelo</l>
+            <milestone unit="stanza"/>
             <l n="1049" xml:id="l-1049">ponga una ballesta al pecho!</l>
             <l n="1050" xml:id="l-1050">¡El mundo se acaba, Flores!</l></sp>
           <sp who="#flores" xml:id="sp-269">
             <speaker>FLORES</speaker>
             <l n="1051" xml:id="l-1051">Como eso pueden amores.</l>
             <l n="1052" xml:id="l-1052">Y pues que vives, sospecho</l>
+            <milestone unit="stanza"/>
             <l n="1053" xml:id="l-1053">que grande amistad le debes.</l></sp>
           <sp who="#comendador" xml:id="sp-270">
             <speaker>COMENDADOR</speaker>
             <l n="1054" xml:id="l-1054">Yo he disimulado, Ortuño;</l>
             <l n="1055" xml:id="l-1055">que si no, <seg xml:id="seg-1055-1">de punta a puño</seg>,</l>
             <l n="1056" xml:id="l-1056">antes de dos horas breves,</l>
+            <milestone unit="stanza"/>
             <l n="1057" xml:id="l-1057">pasara todo el lugar;</l>
             <l n="1058" xml:id="l-1058">que hasta que llegue ocasión,</l>
             <l n="1059" xml:id="l-1059">al freno de la razón</l>
@@ -2314,6 +2574,7 @@
                título: Las "fáciles mujeres" del Comendador
                descripción: Fernán Gómez enumera los tipos de mujeres que cree fáciles de rendir y presume de sus conquistas. La escena retrata con cinismo la relación entre deseo, fuerza y desprecio.
           -->
+            <milestone unit="stanza"/>
             <l n="1061" xml:id="l-1061">¿Qué hay de Pascuala?</l></sp>
           <sp who="#flores" xml:id="sp-271">
             <speaker>FLORES</speaker>
@@ -2325,6 +2586,7 @@
           <sp who="#flores" xml:id="sp-273">
             <speaker>FLORES</speaker>
             <l n="1064" xml:id="l-1064">En fin, te remite</l>
+            <milestone unit="stanza"/>
             <l n="1065" xml:id="l-1065">donde te pagarán de contado.</l></sp>
           <sp who="#comendador" xml:id="sp-274">
             <speaker>COMENDADOR</speaker>
@@ -2339,10 +2601,12 @@
             <l part="I" n="1068" xml:id="l-1068-a">¿Cómo?</l></sp>
           <sp who="#ortuno" xml:id="sp-277">
             <speaker>ORTUÑO</speaker>
+            <milestone unit="stanza"/>
             <l n="1069" xml:id="l-1069">Que su <seg xml:id="seg-1069-1">desposado</seg> anda tras ella estos días,</l>
             <l n="1070" xml:id="l-1070">celoso de mis recados</l>
             <l n="1071" xml:id="l-1071">y de que con tus criados</l>
             <l n="1072" xml:id="l-1072">a <seg xml:id="seg-1072-1">visitalla</seg> venías;</l>
+            <milestone unit="stanza"/>
             <l n="1073" xml:id="l-1073">pero que, si se descuida,</l>
             <l n="1074" xml:id="l-1074">entrarás como primero.</l></sp>
           <sp who="#comendador" xml:id="sp-278">
@@ -2351,6 +2615,7 @@
             <l n="1076" xml:id="l-1076">Pero el villanejo cuida…</l></sp>
           <sp who="#ortuno" xml:id="sp-279">
             <speaker>ORTUÑO</speaker>
+            <milestone unit="stanza"/>
             <l n="1077" xml:id="l-1077">Cuida, y anda por los aires.</l></sp>
           <sp who="#comendador" xml:id="sp-280">
             <speaker>COMENDADOR</speaker>
@@ -2365,32 +2630,38 @@
             <speaker>FLORES</speaker>
             <l n="1079" xml:id="l-1079">Para cualquier ocasión</l>
             <l n="1080" xml:id="l-1080">te ha ofrecido sus <seg xml:id="seg-1080-1">donaires</seg>.</l>
+            <milestone unit="stanza"/>
             <l n="1081" xml:id="l-1081">Hablela por el corral,</l>
             <l n="1082" xml:id="l-1082">por donde has de entrar si quieres.</l></sp>
           <sp who="#comendador" xml:id="sp-284">
             <speaker>COMENDADOR</speaker>
             <l n="1083" xml:id="l-1083">A las fáciles mujeres</l>
             <l n="1084" xml:id="l-1084">quiero bien y pago mal.</l>
+            <milestone unit="stanza"/>
             <l n="1085" xml:id="l-1085">Si éstas supiesen, ¡oh, Flores!,</l>
             <l n="1086" xml:id="l-1086">estimarse en lo que valen…</l></sp>
           <sp who="#flores" xml:id="sp-285">
             <speaker>FLORES</speaker>
             <l n="1087" xml:id="l-1087">No hay disgustos que se igualen</l>
             <l n="1088" xml:id="l-1088">a contrastar sus favores.</l>
+            <milestone unit="stanza"/>
             <l n="1089" xml:id="l-1089">Rendirse presto desdice</l>
             <l n="1090" xml:id="l-1090">de la esperanza del bien;</l>
             <l n="1091" xml:id="l-1091">mas hay mujeres también</l>
             <l n="1092" xml:id="l-1092">por que el Filósofo dice</l>
+            <milestone unit="stanza"/>
             <l n="1093" xml:id="l-1093">que apetecen a los hombres</l>
             <l n="1094" xml:id="l-1094">como la forma desea</l>
             <l n="1095" xml:id="l-1095">la materia; y que esto sea</l>
             <l n="1096" xml:id="l-1096">así, no hay de qué te asombres.</l></sp>
           <sp who="#comendador" xml:id="sp-286">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1097" xml:id="l-1097">Un hombre de amores loco</l>
             <l n="1098" xml:id="l-1098">huélgase que a su <seg xml:id="seg-1098-1">accidente</seg></l>
             <l n="1099" xml:id="l-1099">se le rindan fácilmente;</l>
             <l n="1100" xml:id="l-1100">mas después las tiene en poco,</l>
+            <milestone unit="stanza"/>
             <l n="1101" xml:id="l-1101">y el camino de olvidar,</l>
             <l n="1102" xml:id="l-1102">al hombre más obligado</l>
             <l n="1103" xml:id="l-1103">es haber poco costado</l>
@@ -2402,6 +2673,7 @@
           <stage xml:id="stg-1104">Sale Cimbranos, soldado</stage>
           <sp who="#cimbranos" xml:id="sp-287">
             <speaker>SOLDADO</speaker>
+            <milestone unit="metrical-section" n="1105-1138" ana="#romance #rima-ea"/>
             <l n="1105" xml:id="l-1105">¿Está aquí el Comendador?</l></sp>
           <sp who="#ortuno" xml:id="sp-288">
             <speaker>ORTUÑO</speaker>
@@ -2459,6 +2731,8 @@
           <stage xml:id="stg-1138-2">Salen Mengo y Laurencia y Pascuala, huyendo</stage>
           <sp who="#pascuala" xml:id="sp-295">
             <speaker>PASCUALA</speaker>
+            <milestone unit="metrical-section" n="1139-1450" ana="#redondilla"/>
+            <milestone unit="stanza"/>
             <l n="1139" xml:id="l-1139">No te apartes de nosotras.</l></sp>
           <sp who="#mengo" xml:id="sp-296">
             <speaker>MENGO</speaker>
@@ -2467,6 +2741,7 @@
             <speaker>LAURENCIA</speaker>
             <l n="1141" xml:id="l-1141">Mengo, a la villa es mejor</l>
             <l n="1142" xml:id="l-1142">que vamos unas con otras,</l>
+            <milestone unit="stanza"/>
             <l n="1143" xml:id="l-1143">pues no hay hombre ninguno</l>
             <l n="1144" xml:id="l-1144">porque no demos con él.</l></sp>
           <sp who="#mengo" xml:id="sp-298">
@@ -2475,6 +2750,7 @@
             <l n="1146" xml:id="l-1146">nos sea tan importuno!</l></sp>
           <sp who="#laurencia" xml:id="sp-299">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="1147" xml:id="l-1147">No nos deja a sol ni a sombra.</l></sp>
           <sp who="#mengo" xml:id="sp-300">
             <speaker>MENGO</speaker>
@@ -2483,6 +2759,7 @@
           <sp who="#laurencia" xml:id="sp-301">
             <speaker>LAURENCIA</speaker>
             <l n="1150" xml:id="l-1150">Sangrienta fiera <seg xml:id="seg-1150-1">le nombra</seg>,</l>
+            <milestone unit="stanza"/>
             <l n="1151" xml:id="l-1151">arsénico y pestilencia</l>
             <l part="I" n="1152" xml:id="l-1152-a">del lugar.</l></sp>
           <!-- PASAJE 32
@@ -2494,12 +2771,14 @@
             <l part="F" xml:id="l-1152-b">Hanme contado</l>
             <l n="1153" xml:id="l-1153">que Frondoso, aquí en el prado,</l>
             <l n="1154" xml:id="l-1154">para librarte, Laurencia,</l>
+            <milestone unit="stanza"/>
             <l n="1155" xml:id="l-1155">le puso al pecho una <seg xml:id="seg-1155-1">jara</seg>.</l></sp>
           <sp who="#laurencia" xml:id="sp-303">
             <speaker>LAURENCIA</speaker>
             <l n="1156" xml:id="l-1156">Los hombres aborrecía,</l>
             <l n="1157" xml:id="l-1157">Mengo, mas desde aquel día</l>
             <l n="1158" xml:id="l-1158">los miro con otra cara.</l>
+            <milestone unit="stanza"/>
             <l n="1159" xml:id="l-1159">¡Gran valor tuvo Frondoso!</l>
             <l n="1160" xml:id="l-1160">Pienso que le ha de costar</l>
             <l part="I" n="1161" xml:id="l-1161-a">la vida.</l></sp>
@@ -2509,10 +2788,12 @@
             <l n="1162" xml:id="l-1162">se vaya, será forzoso.</l></sp>
           <sp who="#laurencia" xml:id="sp-305">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="1163" xml:id="l-1163">Aunque ya le quiero bien,</l>
             <l n="1164" xml:id="l-1164">eso mismo le aconsejo;</l>
             <l n="1165" xml:id="l-1165">mas recibe mi consejo</l>
             <l n="1166" xml:id="l-1166">con ira, rabia y desdén;</l>
+            <milestone unit="stanza"/>
             <l n="1167" xml:id="l-1167">y jura el Comendador</l>
             <l n="1168" xml:id="l-1168">que le ha de colgar de un pie.</l></sp>
           <sp who="#pascuala" xml:id="sp-306">
@@ -2521,10 +2802,12 @@
           <sp who="#mengo" xml:id="sp-307">
             <speaker>MENGO</speaker>
             <l n="1170" xml:id="l-1170">Mala pedrada es mejor.</l>
+            <milestone unit="stanza"/>
             <l n="1171" xml:id="l-1171">¡Voto al sol, si le tirara</l>
             <l n="1172" xml:id="l-1172">con la que llevo al apero,</l>
             <l n="1173" xml:id="l-1173">que al sonar el crujidero</l>
             <l n="1174" xml:id="l-1174">al casco se la encajara!</l>
+            <milestone unit="stanza"/>
             <l n="1175" xml:id="l-1175">No fue <seg xml:id="seg-1175-1">Sábalo</seg> el romano</l>
             <l n="1176" xml:id="l-1176">tan vicioso por jamás.</l></sp>
           <sp who="#laurencia" xml:id="sp-308">
@@ -2533,10 +2816,12 @@
             <l n="1178" xml:id="l-1178">más que una fiera inhumano.</l></sp>
           <sp who="#mengo" xml:id="sp-309">
             <speaker>MENGO</speaker>
+            <milestone unit="stanza"/>
             <l n="1179" xml:id="l-1179">Pero <seg xml:id="seg-1179-1">Galván</seg> (o quien fue,</l>
             <l n="1180" xml:id="l-1180">que yo no entiendo de historia)</l>
             <l n="1181" xml:id="l-1181">más su cativa memoria</l>
             <l n="1182" xml:id="l-1182">vencida déste se ve.</l>
+            <milestone unit="stanza"/>
             <l n="1183" xml:id="l-1183">¿Hay hombre en naturaleza</l>
             <l part="I" n="1184" xml:id="l-1184-a">como Fernán Gómez?</l></sp>
           <sp who="#pascuala" xml:id="sp-310">
@@ -2551,6 +2836,7 @@
           <stage xml:id="stg-1186">Sale Jacinta</stage>
           <sp who="#jacinta" xml:id="sp-311">
             <speaker>JACINTA</speaker>
+            <milestone unit="stanza"/>
             <l n="1187" xml:id="l-1187">¡Dadme socorro, por Dios,</l>
             <l n="1188" xml:id="l-1188">si la amistad os obliga!</l></sp>
           <sp who="#laurencia" xml:id="sp-312">
@@ -2561,10 +2847,12 @@
             <l n="1190" xml:id="l-1190">Tuyas lo somos las dos.</l></sp>
           <sp who="#jacinta" xml:id="sp-314">
             <speaker>JACINTA</speaker>
+            <milestone unit="stanza"/>
             <l n="1191" xml:id="l-1191">Del Comendador crïados,</l>
             <l n="1192" xml:id="l-1192">que van a Ciudad Real,</l>
             <l n="1193" xml:id="l-1193">más de infamia natural</l>
             <l n="1194" xml:id="l-1194">que de noble acero armados,</l>
+            <milestone unit="stanza"/>
             <l n="1195" xml:id="l-1195">me quieren llevar a él.</l></sp>
           <sp who="#laurencia" xml:id="sp-315">
             <speaker>LAURENCIA</speaker>
@@ -2574,6 +2862,7 @@
           <stage xml:id="stg-1198">Vase</stage>
           <sp who="#pascuala" xml:id="sp-316">
             <speaker>PASCUALA</speaker>
+            <milestone unit="stanza"/>
             <l n="1199" xml:id="l-1199">Jacinta, yo no soy hombre</l>
             <l n="1200" xml:id="l-1200">que te puedo defender.</l></sp>
           <stage xml:id="stg-1200">Vase</stage>
@@ -2585,6 +2874,7 @@
                título: Mengo defiende a Jacinta
                descripción: Mengo sale en defensa de Jacinta y se enfrenta como puede a los criados. Su gesto mezcla comicidad y valentía, y muestra que incluso el personaje gracioso está dispuesto a resistir.
           -->
+            <milestone unit="stanza"/>
             <l n="1203" xml:id="l-1203">Llégate, Jacinta, a mí.</l></sp>
           <sp who="#jacinta" xml:id="sp-318">
             <speaker>JACINTA</speaker>
@@ -2602,6 +2892,7 @@
           <stage xml:id="stg-1206">Salen Flores y Ortuño</stage>
           <sp who="#flores" xml:id="sp-322">
             <speaker>FLORES</speaker>
+            <milestone unit="stanza"/>
             <l n="1207" xml:id="l-1207">¿Por los pies pensabas irte?</l></sp>
           <sp who="#jacinta" xml:id="sp-323">
             <speaker>JACINTA</speaker>
@@ -2613,6 +2904,7 @@
           <sp who="#ortuno" xml:id="sp-325">
             <speaker>ORTUÑO</speaker>
             <l n="1210" xml:id="l-1210">Pues ¿tú quieres persuadirte</l>
+            <milestone unit="stanza"/>
             <l n="1211" xml:id="l-1211">a defender la mujer?</l></sp>
           <sp who="#mengo" xml:id="sp-326">
             <speaker>MENGO</speaker>
@@ -2621,6 +2913,7 @@
             <l n="1214" xml:id="l-1214">guardalla, si puede ser.</l></sp>
           <sp who="#flores" xml:id="sp-327">
             <speaker>FLORES</speaker>
+            <milestone unit="stanza"/>
             <l n="1215" xml:id="l-1215">Quitalde luego la vida.</l></sp>
           <sp who="#mengo" xml:id="sp-328">
             <speaker>MENGO</speaker>
@@ -2634,28 +2927,33 @@
           <stage xml:id="stg-1218">Salen el Comendador y Cimbranos</stage>
           <sp who="#comendador" xml:id="sp-329">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1219" xml:id="l-1219">¿Qué es eso? <seg xml:id="seg-1219-1">¿A cosas tan viles</seg></l>
             <l n="1220" xml:id="l-1220">me habéis de hacer apear?</l></sp>
           <sp who="#flores" xml:id="sp-330">
             <speaker>FLORES</speaker>
             <l n="1221" xml:id="l-1221">Gente deste vil lugar</l>
             <l n="1222" xml:id="l-1222">—que ya es razón que aniquiles,</l>
+            <milestone unit="stanza"/>
             <l n="1223" xml:id="l-1223">pues en nada te da gusto—</l>
             <l n="1224" xml:id="l-1224">a nuestras armas se atreve.</l></sp>
           <sp who="#mengo" xml:id="sp-331">
             <speaker>MENGO</speaker>
             <l n="1225" xml:id="l-1225">Señor, si piedad os mueve</l>
             <l n="1226" xml:id="l-1226">de <seg xml:id="seg-1226-1">soceso</seg> tan injusto,</l>
+            <milestone unit="stanza"/>
             <l n="1227" xml:id="l-1227">castigad estos soldados,</l>
             <l n="1228" xml:id="l-1228">que con vuestro nombre agora</l>
             <l n="1229" xml:id="l-1229">roban una labradora</l>
             <l n="1230" xml:id="l-1230">a esposo y padres honrados,</l>
+            <milestone unit="stanza"/>
             <l n="1231" xml:id="l-1231">y dadme licencia a mí</l>
             <l n="1232" xml:id="l-1232">que se la pueda llevar.</l></sp>
           <sp who="#comendador" xml:id="sp-332">
             <speaker>COMENDADOR</speaker>
             <l n="1233" xml:id="l-1233">Licencia les quiero dar</l>
             <l n="1234" xml:id="l-1234">para vengarse de ti.</l>
+            <milestone unit="stanza"/>
             <l part="I" n="1235" xml:id="l-1235-a">Suelta la honda.</l></sp>
           <sp who="#mengo" xml:id="sp-333">
             <speaker>MENGO</speaker>
@@ -2669,6 +2967,7 @@
             <l n="1238" xml:id="l-1238">¿Así volvéis por su honor?</l></sp>
           <sp who="#comendador" xml:id="sp-336">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1239" xml:id="l-1239">¿Qué piensan Fuenteovejuna</l>
             <l n="1240" xml:id="l-1240">y sus villanos de mí?</l></sp>
           <sp who="#mengo" xml:id="sp-337">
@@ -2677,6 +2976,7 @@
             <l n="1242" xml:id="l-1242">ni el pueblo en cosa ninguna?</l></sp>
           <sp who="#flores" xml:id="sp-338">
             <speaker>FLORES</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="1243" xml:id="l-1243-a">¿Ha de morir?</l></sp>
           <sp who="#comendador" xml:id="sp-339">
             <speaker>COMENDADOR</speaker>
@@ -2689,6 +2989,7 @@
           <sp who="#comendador" xml:id="sp-341">
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-1246-b">Que lo azotéis.</l>
+            <milestone unit="stanza"/>
             <l n="1247" xml:id="l-1247">Llevalde, y en ese roble</l>
             <l n="1248" xml:id="l-1248">le atad y le desnudad,</l>
             <l part="I" n="1249" xml:id="l-1249-a">y con las riendas...</l></sp>
@@ -2698,6 +2999,7 @@
             <l n="1250" xml:id="l-1250">¡Piedad, pues sois hombre noble!</l></sp>
           <sp who="#comendador" xml:id="sp-343">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1251" xml:id="l-1251">Azotalde hasta que salten</l>
             <l n="1252" xml:id="l-1252">los hierros de las correas.</l></sp>
           <sp who="#mengo" xml:id="sp-344">
@@ -2711,12 +3013,14 @@
           -->
           <sp who="#comendador" xml:id="sp-345">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1255" xml:id="l-1255">Tú, villana, ¿por qué huyes?</l>
             <l n="1256" xml:id="l-1256">¿Es mejor un labrador</l>
             <l n="1257" xml:id="l-1257">que un hombre de mi valor?</l></sp>
           <sp who="#jacinta" xml:id="sp-346">
             <speaker>JACINTA</speaker>
             <l n="1258" xml:id="l-1258">¡Harto bien me restituyes</l>
+            <milestone unit="stanza"/>
             <l n="1259" xml:id="l-1259">el honor que me han quitado</l>
             <l n="1260" xml:id="l-1260">en llevarme para ti!</l></sp>
           <sp who="#comendador" xml:id="sp-347">
@@ -2726,6 +3030,7 @@
             <speaker>JACINTA</speaker>
             <l part="F" xml:id="l-1261-b">Sí;</l>
             <l n="1262" xml:id="l-1262">porque tengo un padre honrado,</l>
+            <milestone unit="stanza"/>
             <l n="1263" xml:id="l-1263">que si en alto nacimiento</l>
             <l n="1264" xml:id="l-1264">no te iguala, en las costumbres</l>
             <l part="I" n="1265" xml:id="l-1265-a">te vence.</l></sp>
@@ -2733,6 +3038,7 @@
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-1265-b">Las pesadumbres</l>
             <l n="1266" xml:id="l-1266">y el villano atrevimiento</l>
+            <milestone unit="stanza"/>
             <l n="1267" xml:id="l-1267">no <seg xml:id="seg-1267-1">tiemplan</seg> bien un airado.</l>
             <l part="I" n="1268" xml:id="l-1268-a">¡Tira por ahí!</l></sp>
           <sp who="#jacinta" xml:id="sp-350">
@@ -2747,6 +3053,7 @@
           <sp who="#comendador" xml:id="sp-353">
             <speaker>COMENDADOR</speaker>
             <l n="1270" xml:id="l-1270">Para tu mal lo he mirado.</l>
+            <milestone unit="stanza"/>
             <l n="1271" xml:id="l-1271">Ya no mía, ¡del bagaje</l>
             <l n="1272" xml:id="l-1272">del ejército has de ser!</l></sp>
           <sp who="#jacinta" xml:id="sp-354">
@@ -2755,6 +3062,7 @@
             <l n="1274" xml:id="l-1274">para hacerme, viva, ultraje.</l></sp>
           <sp who="#comendador" xml:id="sp-355">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1275" xml:id="l-1275">¡Ea, villana, camina!</l></sp>
           <sp who="#jacinta" xml:id="sp-356">
             <speaker>JACINTA</speaker>
@@ -2774,6 +3082,7 @@
           <stage xml:id="stg-1278">Llévanla y vanse, y <seg xml:id="seg-1278Acot-1">salen Laurencia y Frondoso</seg></stage>
           <sp who="#laurencia" xml:id="sp-359">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="1279" xml:id="l-1279">¿Cómo así a venir te atreves,</l>
             <l part="I" n="1280" xml:id="l-1280-a">sin temer tu daño?</l></sp>
           <sp who="#frondoso" xml:id="sp-360">
@@ -2781,10 +3090,12 @@
             <l part="F" xml:id="l-1280-b">Ha sido</l>
             <l n="1281" xml:id="l-1281">dar testimonio cumplido</l>
             <l n="1282" xml:id="l-1282">de la <seg xml:id="seg-1282-1">afición</seg> que me debes.</l>
+            <milestone unit="stanza"/>
             <l n="1283" xml:id="l-1283">Desde aquel <seg xml:id="seg-1283-1">recuesto</seg> vi</l>
             <l n="1284" xml:id="l-1284">salir al Comendador,</l>
             <l n="1285" xml:id="l-1285">y, fïado en tu valor,</l>
             <l n="1286" xml:id="l-1286">todo mi temor perdí.</l>
+            <milestone unit="stanza"/>
             <l n="1287" xml:id="l-1287">¡Vaya donde no le vean</l>
             <l part="I" n="1288" xml:id="l-1288-a">volver!</l></sp>
           <sp who="#laurencia" xml:id="sp-361">
@@ -2794,18 +3105,22 @@
             <l n="1290" xml:id="l-1290">al que la muerte desean.</l></sp>
           <sp who="#frondoso" xml:id="sp-362">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l n="1291" xml:id="l-1291">Si es eso, viva mil años,</l>
             <l n="1292" xml:id="l-1292">y así se hará todo bien,</l>
             <l n="1293" xml:id="l-1293">pues deseándole bien,</l>
             <l n="1294" xml:id="l-1294">estarán ciertos sus daños.</l>
+            <milestone unit="stanza"/>
             <l n="1295" xml:id="l-1295">Laurencia, deseo saber</l>
             <l n="1296" xml:id="l-1296">si vive en ti mi <seg xml:id="seg-1296-1">cuidado</seg>,</l>
             <l n="1297" xml:id="l-1297">y si mi lealtad ha hallado</l>
             <l n="1298" xml:id="l-1298">el puerto de merecer.</l>
+            <milestone unit="stanza"/>
             <l n="1299" xml:id="l-1299">Mira que toda la villa</l>
             <l n="1300" xml:id="l-1300">ya para en uno nos tiene;</l>
             <l n="1301" xml:id="l-1301">y de cómo a ser no viene</l>
             <l n="1302" xml:id="l-1302">la villa se maravilla.</l>
+            <milestone unit="stanza"/>
             <l n="1303" xml:id="l-1303">Los desdeñosos extremos</l>
             <l n="1304" xml:id="l-1304">deja, y responde no o sí.</l></sp>
           <sp who="#laurencia" xml:id="sp-363">
@@ -2814,16 +3129,19 @@
             <l n="1306" xml:id="l-1306">respondo que lo seremos.</l></sp>
           <sp who="#frondoso" xml:id="sp-364">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l n="1307" xml:id="l-1307">Deja que tus <seg xml:id="seg-1307-1">plantas</seg> bese</l>
             <l n="1308" xml:id="l-1308">por la merced recebida,</l>
             <l n="1309" xml:id="l-1309">pues el cobrar nueva vida</l>
             <l n="1310" xml:id="l-1310">por ella es bien que <seg xml:id="seg-1310-1">confiese</seg>.</l></sp>
           <sp who="#laurencia" xml:id="sp-365">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="1311" xml:id="l-1311">De cumplimientos acorta</l>
             <l n="1312" xml:id="l-1312">y, para que mejor cuadre,</l>
             <l n="1313" xml:id="l-1313">habla, Frondoso, a mi padre,</l>
             <l n="1314" xml:id="l-1314">pues es lo que más importa,</l>
+            <milestone unit="stanza"/>
             <l n="1315" xml:id="l-1315">que allí viene con mi tío;</l>
             <l n="1316" xml:id="l-1316">y fía que ha de tener</l>
             <l n="1317" xml:id="l-1317">ser, Frondoso, tu mujer</l>
@@ -2839,26 +3157,31 @@
           <stage xml:id="stg-1318-2">Salen Esteban, alcalde, y el Regidor</stage>
           <sp who="#esteban" xml:id="sp-367">
             <speaker>ALCALDE</speaker>
+            <milestone unit="stanza"/>
             <l n="1319" xml:id="l-1319">Fue su <seg xml:id="seg-1319-1">término</seg> de modo</l>
             <l n="1320" xml:id="l-1320">que la plaza alborotó;</l>
             <l n="1321" xml:id="l-1321">en efeto, procedió</l>
             <l n="1322" xml:id="l-1322">muy descomedido en todo.</l>
+            <milestone unit="stanza"/>
             <l n="1323" xml:id="l-1323">No hay a quien admiración</l>
             <l n="1324" xml:id="l-1324">sus demasías no den.</l>
             <l n="1325" xml:id="l-1325">La pobre Jacinta es quien</l>
             <l n="1326" xml:id="l-1326">pierde por su <seg xml:id="seg-1326-1">sinrazón</seg>.</l></sp>
           <sp who="#regidor" xml:id="sp-368">
             <speaker>REGIDOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1327" xml:id="l-1327">Ya a los Católicos Reyes,</l>
             <l n="1328" xml:id="l-1328">que este nombre les dan ya,</l>
             <l n="1329" xml:id="l-1329">presto España les dará</l>
             <l n="1330" xml:id="l-1330">la obediencia de sus leyes.</l>
+            <milestone unit="stanza"/>
             <l n="1331" xml:id="l-1331">Ya sobre Ciudad Real,</l>
             <l n="1332" xml:id="l-1332">contra el Girón que la tiene,</l>
             <l n="1333" xml:id="l-1333">Santiago a caballo viene</l>
             <l n="1334" xml:id="l-1334">por capitán general.</l></sp>
           <sp who="#esteban" xml:id="sp-369">
             <speaker>ALCALDE</speaker>
+            <milestone unit="stanza"/>
             <l n="1335" xml:id="l-1335">Pésame, que <seg xml:id="seg-1335-1">era Jacinta</seg></l>
             <l n="1336" xml:id="l-1336">doncella de buena pro.</l></sp>
           <sp who="#esteban" xml:id="sp-370">
@@ -2867,12 +3190,14 @@
           <sp who="#regidor" xml:id="sp-371">
             <speaker>REGIDOR</speaker>
             <l n="1338" xml:id="l-1338">No hay negra <seg xml:id="seg-1338-1">bayeta</seg> o tinta</l>
+            <milestone unit="stanza"/>
             <l n="1339" xml:id="l-1339">como sus carnes están.</l></sp>
           <sp who="#esteban" xml:id="sp-372">
             <speaker>ALCALDE</speaker>
             <l n="1340" xml:id="l-1340">Callad, que me siento arder</l>
             <l n="1341" xml:id="l-1341">viendo su mal proceder</l>
             <l n="1342" xml:id="l-1342">y el mal nombre que le dan.</l>
+            <milestone unit="stanza"/>
             <l n="1343" xml:id="l-1343">Yo ¿para qué traigo aquí</l>
             <l n="1344" xml:id="l-1344"><seg xml:id="seg-1344-1">este palo</seg> sin provecho?</l></sp>
           <sp who="#regidor" xml:id="sp-373">
@@ -2881,10 +3206,12 @@
             <l n="1346" xml:id="l-1346">¿de qué os afligís ansí?</l></sp>
           <sp who="#esteban" xml:id="sp-374">
             <speaker>ALCALDE</speaker>
+            <milestone unit="stanza"/>
             <l n="1347" xml:id="l-1347">¿Queréis más? Que me contaron</l>
             <l n="1348" xml:id="l-1348">que <seg xml:id="seg-1348-1">a la de Pedro Redondo</seg></l>
             <l n="1349" xml:id="l-1349">un día —que en lo más hondo</l>
             <l n="1350" xml:id="l-1350">deste valle la encontraron—</l>
+            <milestone unit="stanza"/>
             <l n="1351" xml:id="l-1351">después de sus insolencias,</l>
             <l n="1352" xml:id="l-1352">a sus crïados la dio.</l></sp>
           <!-- PASAJE 39
@@ -2900,10 +3227,12 @@
             <l n="1354" xml:id="l-1354">que espero vuestras licencias.</l></sp>
           <sp who="#regidor" xml:id="sp-377">
             <speaker>REGIDOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1355" xml:id="l-1355">Para mi casa, Frondoso,</l>
             <l n="1356" xml:id="l-1356">licencia no es menester;</l>
             <l n="1357" xml:id="l-1357">debes a tu padre el ser</l>
             <l n="1358" xml:id="l-1358">y a mí otro ser amoroso.</l>
+            <milestone unit="stanza"/>
             <l n="1359" xml:id="l-1359">Hete crïado, y te quiero</l>
             <l part="I" n="1360" xml:id="l-1360-a">como a hijo.</l></sp>
           <sp who="#frondoso" xml:id="sp-378">
@@ -2911,6 +3240,7 @@
             <l part="F" xml:id="l-1360-b">Pues, señor,</l>
             <l n="1361" xml:id="l-1361">fïado en aquese amor,</l>
             <l n="1362" xml:id="l-1362">de ti una merced espero.</l>
+            <milestone unit="stanza"/>
             <l n="1363" xml:id="l-1363">Ya sabes de quién soy hijo.</l></sp>
           <sp who="#esteban" xml:id="sp-379">
             <speaker>ESTEBAN</speaker>
@@ -2924,28 +3254,34 @@
             <l n="1366" xml:id="l-1366">El corazón me lo dijo.</l></sp>
           <sp who="#frondoso" xml:id="sp-382">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l n="1367" xml:id="l-1367">Pues, señor, con el seguro</l>
             <l n="1368" xml:id="l-1368">del amor que habéis mostrado,</l>
             <l n="1369" xml:id="l-1369">de Laurencia enamorado,</l>
             <l n="1370" xml:id="l-1370">el ser su esposo procuro.</l>
+            <milestone unit="stanza"/>
             <l n="1371" xml:id="l-1371">Perdona si en el pedir</l>
             <l n="1372" xml:id="l-1372">mi lengua se ha adelantado;</l>
             <l n="1373" xml:id="l-1373">que he sido en decirlo osado,</l>
             <l n="1374" xml:id="l-1374">como otro lo ha de decir.</l></sp>
           <sp who="#esteban" xml:id="sp-383">
             <speaker>ESTEBAN</speaker>
+            <milestone unit="stanza"/>
             <l n="1375" xml:id="l-1375">Vienes, Frondoso, a ocasión</l>
             <l n="1376" xml:id="l-1376">que me alargarás la vida,</l>
             <l n="1377" xml:id="l-1377">por la cosa más temida</l>
             <l n="1378" xml:id="l-1378">que siente mi corazón.</l>
+            <milestone unit="stanza"/>
             <l n="1379" xml:id="l-1379">Agradezco, hijo, al cielo</l>
             <l n="1380" xml:id="l-1380">que así vuelvas por mi honor,</l>
             <l n="1381" xml:id="l-1381">y agradézcole a tu amor</l>
             <l n="1382" xml:id="l-1382">la limpieza de tu celo.</l>
+            <milestone unit="stanza"/>
             <l n="1383" xml:id="l-1383">Mas como es justo, es razón</l>
             <l n="1384" xml:id="l-1384">dar cuenta a tu padre desto;</l>
             <l n="1385" xml:id="l-1385">sólo digo que estoy <seg xml:id="seg-1385-1">presto</seg>,</l>
             <l n="1386" xml:id="l-1386">en sabiendo su intención;</l>
+            <milestone unit="stanza"/>
             <l n="1387" xml:id="l-1387">que yo dichoso me hallo</l>
             <l n="1388" xml:id="l-1388">en que aqueso llegue a ser.</l></sp>
           <sp who="#regidor" xml:id="sp-384">
@@ -2954,16 +3290,19 @@
             <l n="1390" xml:id="l-1390">tomad, antes de acetallo.</l></sp>
           <sp who="#esteban" xml:id="sp-385">
             <speaker>ALCALDE</speaker>
+            <milestone unit="stanza"/>
             <l n="1391" xml:id="l-1391">No tengáis de eso cuidado,</l>
             <l n="1392" xml:id="l-1392">que ya el caso está dispuesto;</l>
             <l n="1393" xml:id="l-1393">antes de venir a esto,</l>
             <l n="1394" xml:id="l-1394">entre ellos se ha concertado.</l>
+            <milestone unit="stanza"/>
             <l n="1395" xml:id="l-1395">En el dote, <seg xml:id="seg-1395-1">si advertís</seg>,</l>
             <l n="1396" xml:id="l-1396">se puede agora tratar,</l>
             <l n="1397" xml:id="l-1397">que por bien os pienso dar</l>
             <l n="1398" xml:id="l-1398">algunos <seg xml:id="seg-1398-1">maravedís</seg>.</l></sp>
           <sp who="#frondoso" xml:id="sp-386">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l n="1399" xml:id="l-1399">Yo dote no he menester.</l>
             <l n="1400" xml:id="l-1400">De eso no hay que entristeceros.</l></sp>
           <sp who="#regidor" xml:id="sp-387">
@@ -2972,6 +3311,7 @@
             <l n="1402" xml:id="l-1402">lo podéis agradecer!</l></sp>
           <sp who="#esteban" xml:id="sp-388">
             <speaker>ESTEBAN</speaker>
+            <milestone unit="stanza"/>
             <l n="1403" xml:id="l-1403">Tomaré el parecer della,</l>
             <l n="1404" xml:id="l-1404">si os parece será bien.</l></sp>
           <sp who="#frondoso" xml:id="sp-389">
@@ -2984,6 +3324,7 @@
           -->
           <sp who="#esteban" xml:id="sp-390">
             <speaker>ESTEBAN</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="1407" xml:id="l-1407-a">¡Hija! ¡Laurencia!</l></sp>
           <sp who="#laurencia" xml:id="sp-391">
             <speaker>LAURENCIA</speaker>
@@ -2993,10 +3334,12 @@
             <l n="1408" xml:id="l-1408">Mirad si digo bien yo.</l>
             <l n="1409" xml:id="l-1409">¡Ved qué presto respondió!</l>
             <l n="1410" xml:id="l-1410">Hija Laurencia, mi amor</l>
+            <milestone unit="stanza"/>
             <l n="1411" xml:id="l-1411">a preguntarte ha venido</l>
             <l n="1412" xml:id="l-1412">—apártate aquí— si es bien</l>
             <l n="1413" xml:id="l-1413">que a Gila, tu amiga, den</l>
             <l n="1414" xml:id="l-1414">a Frondoso por marido,</l>
+            <milestone unit="stanza"/>
             <l n="1415" xml:id="l-1415">que es un honrado zagal,</l>
             <l n="1416" xml:id="l-1416">si le hay en Fuenteovejuna.</l></sp>
           <sp who="#laurencia" xml:id="sp-393">
@@ -3008,6 +3351,7 @@
             <l n="1418" xml:id="l-1418">le merece y es su igual...</l></sp>
           <sp who="#laurencia" xml:id="sp-395">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="1419" xml:id="l-1419">Yo digo, señor, que sí.</l></sp>
           <sp who="#esteban" xml:id="sp-396">
             <speaker>ESTEBAN</speaker>
@@ -3016,6 +3360,7 @@
             <l n="1422" xml:id="l-1422">Frondoso, Laurencia, en ti.</l></sp>
           <sp who="#laurencia" xml:id="sp-397">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="1423" xml:id="l-1423">¿Aún no se te han olvidado</l>
             <l n="1424" xml:id="l-1424">los donaires con la edad?</l></sp>
           <sp who="#esteban" xml:id="sp-398">
@@ -3025,6 +3370,7 @@
             <speaker>LAURENCIA</speaker>
             <l part="F" xml:id="l-1425-b">Voluntad</l>
             <l n="1426" xml:id="l-1426">le he tenido y le he cobrado,</l>
+            <milestone unit="stanza"/>
             <l n="1427" xml:id="l-1427">pero por lo que tú sabes.</l></sp>
           <sp who="#esteban" xml:id="sp-400">
             <speaker>ESTEBAN</speaker>
@@ -3035,6 +3381,7 @@
           <sp who="#esteban" xml:id="sp-402">
             <speaker>ESTEBAN</speaker>
             <l n="1430" xml:id="l-1430">¿Yo? <seg xml:id="seg-1430-1">Pues tengo yo las llaves</seg>,</l>
+            <milestone unit="stanza"/>
             <l n="1431" xml:id="l-1431">hecho está. Ven, buscaremos</l>
             <l n="1432" xml:id="l-1432">a mi <seg xml:id="seg-1432-1">compadre</seg> en la plaza.</l></sp>
           <sp who="#regidor" xml:id="sp-403">
@@ -3044,6 +3391,7 @@
             <speaker>ESTEBAN</speaker>
             <l part="F" xml:id="l-1433-b">Hijo, y en la <seg xml:id="seg-1433-1">traza</seg></l>
             <l n="1434" xml:id="l-1434">del dote, ¿qué le diremos?</l>
+            <milestone unit="stanza"/>
             <l n="1435" xml:id="l-1435">Que yo bien te puedo dar</l>
             <l n="1436" xml:id="l-1436">cuatro mil maravedís.</l></sp>
           <sp who="#frondoso" xml:id="sp-405">
@@ -3052,6 +3400,7 @@
             <l n="1438" xml:id="l-1438">¡Mi honor queréis agraviar!</l></sp>
           <sp who="#esteban" xml:id="sp-406">
             <speaker>ESTEBAN</speaker>
+            <milestone unit="stanza"/>
             <l n="1439" xml:id="l-1439">Anda, hijo, que eso es</l>
             <l n="1440" xml:id="l-1440">cosa que pasa en un día;</l>
             <l n="1441" xml:id="l-1441">que si no hay dote, a fe mía</l>
@@ -3063,12 +3412,14 @@
           -->
           <sp who="#laurencia" xml:id="sp-407">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="1443" xml:id="l-1443">Di, Frondoso, ¿estás contento?</l></sp>
           <sp who="#frondoso" xml:id="sp-408">
             <speaker>FRONDOSO</speaker>
             <l n="1444" xml:id="l-1444">¡Cómo si lo estoy! ¡Es poco,</l>
             <l n="1445" xml:id="l-1445">pues que no me vuelvo loco</l>
             <l n="1446" xml:id="l-1446">de gozo del bien que siento!</l>
+            <milestone unit="stanza"/>
             <l n="1447" xml:id="l-1447">Risa vierte el corazón</l>
             <l n="1448" xml:id="l-1448">por los ojos de alegría,</l>
             <l n="1449" xml:id="l-1449">viéndote, Laurencia mía,</l>
@@ -3081,6 +3432,7 @@
           <stage xml:id="stg-1450-2">Salen el Maestre, el Comendador, Flores y Ortuño</stage>
           <sp who="#comendador" xml:id="sp-409">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="metrical-section" n="1451-1473" ana="#endecasilabo-suelto #pareado-final"/>
             <l n="1451" xml:id="l-1451">Huye, señor, que no hay otro remedio.</l></sp>
           <sp who="#maestre" xml:id="sp-410">
             <speaker>MAESTRE</speaker>
@@ -3128,6 +3480,7 @@
             <l n="1471" xml:id="l-1471">Yo te diré por cartas lo que intento.</l></sp>
           <sp who="#comendador" xml:id="sp-421">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza" ana="#pareado-final"/>
             <l n="1472" part="I" xml:id="l-1472-a">El tiempo ha de enseñarte.</l></sp>
           <sp who="#maestre" xml:id="sp-422">
             <speaker>MAESTRE</speaker>
@@ -3141,11 +3494,14 @@
           <stage xml:id="stg-1473-2"><seg xml:id="seg-1472Acot-1">Sale la boda</seg>: músicos, Mengo, Frondoso, Laurencia, Pascuala, Barrildo y Esteban alcalde y Juan Rojo</stage>
           <sp who="#musicos" xml:id="sp-423">
             <speaker>MÚSICOS</speaker>
+            <milestone unit="metrical-section" n="1474-1476" ana="#estribillo"/>
             <l n="1474" xml:id="l-1474">¡Vivan muchos años</l>
             <l n="1475" xml:id="l-1475">los desposados!</l>
             <l n="1476" xml:id="l-1476">¡Vivan muchos años!</l></sp>
           <sp who="#mengo" xml:id="sp-424">
             <speaker>MENGO</speaker>
+            <milestone unit="metrical-section" n="1477-1504" ana="#redondilla"/>
+            <milestone unit="stanza"/>
             <l n="1477" xml:id="l-1477">A fe que no os ha costado</l>
             <l n="1478" xml:id="l-1478">mucho trabajo el cantar.</l></sp>
           <sp who="#barrildo" xml:id="sp-425">
@@ -3154,12 +3510,14 @@
             <l n="1480" xml:id="l-1480">mejor que él está trovado?</l></sp>
           <sp who="#frondoso" xml:id="sp-426">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l n="1481" xml:id="l-1481">Mejor entiende de azotes</l>
             <l n="1482" xml:id="l-1482">Mengo que de versos ya.</l></sp>
           <sp who="#mengo" xml:id="sp-427">
             <speaker>MENGO</speaker>
             <l n="1483" xml:id="l-1483">Alguno en el valle está,</l>
             <l n="1484" xml:id="l-1484">para que no te <seg xml:id="seg-1484-1">alborotes</seg>,</l>
+            <milestone unit="stanza"/>
             <l n="1485" xml:id="l-1485">a quien el Comendador…</l></sp>
           <sp who="#barrildo" xml:id="sp-428">
             <speaker>BARRILDO</speaker>
@@ -3168,14 +3526,17 @@
             <l n="1488" xml:id="l-1488">a todos quita el honor.</l></sp>
           <sp who="#mengo" xml:id="sp-429">
             <speaker>MENGO</speaker>
+            <milestone unit="stanza"/>
             <l n="1489" xml:id="l-1489">Que me azotasen a mí</l>
             <l n="1490" xml:id="l-1490">cien soldados aquel día…</l>
             <l n="1491" xml:id="l-1491">Sola una honda tenía;</l>
             <l n="1492" xml:id="l-1492">harto desdichado fui.</l>
+            <milestone unit="stanza"/>
             <l n="1493" xml:id="l-1493">Pero que le hayan echado</l>
             <l n="1494" xml:id="l-1494">una melecina a un hombre,</l>
             <l n="1495" xml:id="l-1495">que, aunque no diré su nombre,</l>
             <l n="1496" xml:id="l-1496">todos saben que es honrado,</l>
+            <milestone unit="stanza"/>
             <l n="1497" xml:id="l-1497">llena de tinta y de chinas,</l>
             <l n="1498" xml:id="l-1498">¿cómo se puede sufrir?</l></sp>
           <sp who="#barrildo" xml:id="sp-430">
@@ -3184,6 +3545,7 @@
           <sp who="#mengo" xml:id="sp-431">
             <speaker>MENGO</speaker>
             <l n="1500" xml:id="l-1500">No hay risa con melecinas,</l>
+            <milestone unit="stanza"/>
             <l n="1501" xml:id="l-1501">que aunque es cosa saludable,</l>
             <l n="1502" xml:id="l-1502">yo me quiero morir luego.</l></sp>
           <sp who="#frondoso" xml:id="sp-432">
@@ -3192,6 +3554,7 @@
             <l n="1504" xml:id="l-1504">si es la copla <seg xml:id="seg-1504-1">razonable</seg>!</l></sp>
           <sp who="#barrildo" xml:id="sp-433">
             <speaker>BARRILDO</speaker>
+            <milestone unit="metrical-section" n="1505-1511" ana="#copla #estribillo"/>
             <l n="1505" xml:id="l-1505">¡Vivan muchos años juntos</l>
             <l n="1506" xml:id="l-1506">los novios, ruego a los cielos,</l>
             <l n="1507" xml:id="l-1507">y por envidias ni celos</l>
@@ -3201,6 +3564,8 @@
             <l n="1511" xml:id="l-1511">¡Vivan muchos años!</l></sp>
           <sp who="#mengo" xml:id="sp-434">
             <speaker>MENGO</speaker>
+            <milestone unit="metrical-section" n="1512-1547" ana="#redondilla"/>
+            <milestone unit="stanza"/>
             <l n="1512" xml:id="l-1512">¡Maldiga el cielo el poeta</l>
             <l n="1513" xml:id="l-1513">que tal coplón arrojó!</l></sp>
           <!-- PASAJE 44
@@ -3214,28 +3579,34 @@
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-1514-b">Pienso yo</l>
             <l n="1515" xml:id="l-1515">una cosa desta <seg xml:id="seg-1515-1">seta</seg>:</l>
+            <milestone unit="stanza"/>
             <l n="1516" xml:id="l-1516">¿no habéis visto un <seg xml:id="seg-1516-1">buñolero</seg>,</l>
             <l n="1517" xml:id="l-1517">en el aceite abrasando,</l>
             <l n="1518" xml:id="l-1518">pedazos de masa echando</l>
             <l n="1519" xml:id="l-1519">hasta llenarse el caldero?</l>
+            <milestone unit="stanza"/>
             <l n="1520" xml:id="l-1520">Que unos le salen hinchados,</l>
             <l n="1521" xml:id="l-1521">otros <seg xml:id="seg-1521-1">tuertos</seg> y mal hechos,</l>
             <l n="1522" xml:id="l-1522">ya zurdos y ya derechos,</l>
             <l n="1523" xml:id="l-1523">ya fritos y ya quemados.</l>
+            <milestone unit="stanza"/>
             <l n="1524" xml:id="l-1524">Pues así imagino yo</l>
             <l n="1525" xml:id="l-1525">un poeta componiendo,</l>
             <l n="1526" xml:id="l-1526">la materia <seg xml:id="seg-1526-1">previniendo</seg>,</l>
             <l n="1527" xml:id="l-1527">que es quien la masa le dio.</l>
+            <milestone unit="stanza"/>
             <l n="1528" xml:id="l-1528">Va arrojando verso aprisa</l>
             <l n="1529" xml:id="l-1529">al caldero del papel,</l>
             <l n="1530" xml:id="l-1530">confïado en que la <seg xml:id="seg-1530-1">miel</seg></l>
             <l n="1531" xml:id="l-1531">cubrirá la burla y risa.</l>
+            <milestone unit="stanza"/>
             <l n="1532" xml:id="l-1532">Mas <seg xml:id="seg-1532-1">poniéndolo en el pecho</seg>,</l>
             <l n="1533" xml:id="l-1533">apenas hay quien los tome;</l>
             <l n="1534" xml:id="l-1534">tanto, que sólo los come</l>
             <l n="1535" xml:id="l-1535">el mismo que los ha hecho.</l></sp>
           <sp who="#barrildo" xml:id="sp-437">
             <speaker>BARRILDO</speaker>
+            <milestone unit="stanza"/>
             <l n="1536" xml:id="l-1536">¡Déjate ya de locuras!</l>
             <l n="1537" xml:id="l-1537">Deja los novios hablar.</l></sp>
           <sp who="#laurencia" xml:id="sp-438">
@@ -3244,12 +3615,14 @@
           <sp who="#juan_rojo" xml:id="sp-439">
             <speaker>JUAN</speaker>
             <l n="1539" xml:id="l-1539">Hija, ¿mi mano <seg xml:id="seg-1539-1">procuras</seg>?</l>
+            <milestone unit="stanza"/>
             <l n="1540" xml:id="l-1540">Pídela a tu padre <seg xml:id="seg-1540-1">luego</seg></l>
             <l n="1541" xml:id="l-1541">para ti y para Frondoso.</l></sp>
           <sp who="#esteban" xml:id="sp-440">
             <speaker>ESTEBAN</speaker>
             <l n="1542" xml:id="l-1542">Rojo, a ella y a su esposo,</l>
             <l n="1543" xml:id="l-1543">que se la dé el Cielo ruego</l>
+            <milestone unit="stanza"/>
             <l n="1544" xml:id="l-1544">con su larga bendición.</l></sp>
           <sp who="#frondoso" xml:id="sp-441">
             <speaker>FRONDOSO</speaker>
@@ -3260,6 +3633,8 @@
             <l n="1547" xml:id="l-1547">pues que <seg xml:id="seg-1547-1">para en uno</seg> son!</l></sp>
           <sp who="#musicos" xml:id="sp-443">
             <speaker>MÚSICOS</speaker>
+            <milestone unit="metrical-section" n="1548-1571" ana="#romance #rima-oe #estribillo-seguidilla"/>
+            <milestone unit="metrical-subsection" ana="#romance"/>
             <l n="1548" xml:id="l-1548">Al <seg xml:id="seg-1548-1">val</seg> de Fuenteovejuna</l>
             <l n="1549" xml:id="l-1549">la <seg xml:id="seg-1549-1">niña en cabellos</seg> baja;</l>
             <l n="1550" xml:id="l-1550">el caballero la sigue</l>
@@ -3268,10 +3643,12 @@
             <l n="1553" xml:id="l-1553">de vergonzosa y turbada;</l>
             <l n="1554" xml:id="l-1554">fingiendo que no le ha visto,</l>
             <l n="1555" xml:id="l-1555">pone delante las ramas.</l>
+            <milestone unit="metrical-subsection" ana="#estribillo-seguidilla"/>
             <l n="1556" xml:id="l-1556">«¿Para qué te ascondes,</l>
             <l n="1557" xml:id="l-1557">niña <seg xml:id="seg-1557-1">gallarda</seg>?</l>
             <l n="1558" xml:id="l-1558">Que mis <seg xml:id="seg-1558-1">linces deseos</seg></l>
             <l n="1559" xml:id="l-1559">paredes pasan».</l>
+            <milestone unit="metrical-subsection" ana="#romance"/>
             <l n="1560" xml:id="l-1560">Acercóse el caballero,</l>
             <l n="1561" xml:id="l-1561">y ella, confusa y turbada,</l>
             <l n="1562" xml:id="l-1562">hacer quiso <seg xml:id="seg-1562-1">celosías</seg></l>
@@ -3280,6 +3657,7 @@
             <l n="1565" xml:id="l-1565">los mares y las montañas</l>
             <l n="1566" xml:id="l-1566">atraviesa fácilmente,</l>
             <l n="1567" xml:id="l-1567">la dice tales palabras:</l>
+            <milestone unit="metrical-subsection" ana="#estribillo-seguidilla"/>
             <l n="1568" xml:id="l-1568">«¿Para qué te ascondes,</l>
             <l n="1569" xml:id="l-1569">niña gallarda?</l>
             <l n="1570" xml:id="l-1570">Que mis linces deseos</l>
@@ -3292,6 +3670,7 @@
           <stage xml:id="stg-1571">Sale el Comendador, Flores, Ortuño y Cimbranos</stage>
           <sp who="#comendador" xml:id="sp-444">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="metrical-section" n="1572-1653" ana="#romance #rima-ae"/>
             <l n="1572" xml:id="l-1572">Estése la boda queda</l>
             <l n="1573" xml:id="l-1573">y no se alborote nadie.</l></sp>
           <sp who="#juan_rojo" xml:id="sp-445">
@@ -3457,6 +3836,8 @@
           <stage xml:id="stg-1653">Salen Esteban, Alonso y Barrildo</stage>
           <sp who="#esteban" xml:id="sp-475">
             <speaker>ESTEBAN</speaker>
+            <milestone unit="metrical-section" n="1654-1713" ana="#terceto-encadenado"/>
+            <milestone unit="stanza"/>
             <l part="I" n="1654" xml:id="l-1654-a">¿No han venido a la <seg xml:id="seg-1654-1">junta</seg>?</l></sp>
           <sp who="#barrildo" xml:id="sp-476">
             <speaker>BARRILDO</speaker>
@@ -3469,12 +3850,14 @@
             <l n="1656" xml:id="l-1656">Ya está <seg xml:id="seg-1656-1">lo más</seg> del pueblo prevenido.</l></sp>
           <sp who="#esteban" xml:id="sp-479">
             <speaker>ESTEBAN</speaker>
+            <milestone unit="stanza"/>
             <l n="1657" xml:id="l-1657">Frondoso <seg xml:id="seg-1657-1">con prisiones en la torre</seg></l>
             <l n="1658" xml:id="l-1658">y mi hija Laurencia en tanto aprieto,</l>
             <l n="1659" xml:id="l-1659">si la piedad de Dios no lo socorre…</l></sp>
           <stage xml:id="stg-1659">Salen Juan Rojo y el Regidor</stage>
           <sp who="#juan_rojo" xml:id="sp-480">
             <speaker>JUAN ROJO</speaker>
+            <milestone unit="stanza"/>
             <l n="1660" xml:id="l-1660">¿De qué dais voces cuando importa tanto</l>
             <l n="1661" xml:id="l-1661">a nuestro bien, Esteban, el secreto?</l></sp>
           <sp who="#esteban" xml:id="sp-481">
@@ -3483,38 +3866,47 @@
           <stage xml:id="stg-1662">Sale Mengo</stage>
           <sp who="#mengo" xml:id="sp-482">
             <speaker>MENGO</speaker>
+            <milestone unit="stanza"/>
             <l n="1663" xml:id="l-1663">También vengo yo a hallarme en esta junta.</l></sp>
           <sp who="#esteban" xml:id="sp-483">
             <speaker>ESTEBAN</speaker>
             <l n="1664" xml:id="l-1664">Un hombre cuyas canas baña el llanto,</l>
             <l n="1665" xml:id="l-1665">labradores honrados, os pregunta</l>
+            <milestone unit="stanza"/>
             <l n="1666" xml:id="l-1666">qué <seg xml:id="seg-1666-1">obsequias</seg> debe hacer toda esta gente</l>
             <l n="1667" xml:id="l-1667">a su patria sin honra, ya perdida.</l>
             <l n="1668" xml:id="l-1668">Y si se llaman honras justamente,</l>
+            <milestone unit="stanza"/>
             <l n="1669" xml:id="l-1669">¿cómo se harán, si no hay entre nosotros</l>
             <l n="1670" xml:id="l-1670">hombre a quien este bárbaro no afrente?</l>
             <l n="1671" xml:id="l-1671">Respondedme: ¿hay alguno de vosotros</l>
+            <milestone unit="stanza"/>
             <l n="1672" xml:id="l-1672">que no esté lastimado en honra y vida?</l>
             <l n="1673" xml:id="l-1673">¿No os lamentáis los unos de los otros?</l>
             <l n="1674" xml:id="l-1674">Pues si ya <seg xml:id="seg-1674-1">la</seg> tenéis todos perdida,</l>
+            <milestone unit="stanza"/>
             <l n="1675" xml:id="l-1675">¿a qué aguardáis? ¿Qué desventura es ésta?</l></sp>
           <sp who="#juan_rojo" xml:id="sp-484">
             <speaker>JUAN ROJO</speaker>
             <l n="1676" xml:id="l-1676">La mayor que en el mundo fue sufrida.</l>
             <l n="1677" xml:id="l-1677">Mas, pues ya se publica y manifiesta</l>
+            <milestone unit="stanza"/>
             <l n="1678" xml:id="l-1678">que en paz tienen los reyes a Castilla</l>
             <l n="1679" xml:id="l-1679">y su venida a Córdoba <seg xml:id="seg-1679-1">se apresta</seg>,</l>
             <l n="1680" xml:id="l-1680">vayan dos regidores a <seg xml:id="seg-1680-1">la villa</seg></l>
+            <milestone unit="stanza"/>
             <l n="1681" xml:id="l-1681">y, <seg xml:id="seg-1681-1">echándose a sus pies</seg>, pidan remedio.</l></sp>
           <sp who="#barrildo" xml:id="sp-485">
             <speaker>BARRILDO</speaker>
             <l n="1682" xml:id="l-1682">En tanto que Fernando, aquel que humilla</l>
             <l n="1683" xml:id="l-1683">ha tantos enemigos, otro medio</l>
+            <milestone unit="stanza"/>
             <l n="1684" xml:id="l-1684">será mejor, pues no podrá, ocupado,</l>
             <l n="1685" xml:id="l-1685">hacernos bien con tanta guerra en medio.</l></sp>
           <sp who="#regidor" xml:id="sp-486">
             <speaker>REGIDOR</speaker>
             <l n="1686" xml:id="l-1686">Si mi voto de vos fuera escuchado,</l>
+            <milestone unit="stanza"/>
             <l n="1687" xml:id="l-1687"><seg xml:id="seg-1687-1">desamparar</seg> la villa doy por voto.</l></sp>
           <sp who="#juan_rojo" xml:id="sp-487">
             <speaker>JUAN ROJO</speaker>
@@ -3522,14 +3914,17 @@
           <sp who="#mengo" xml:id="sp-488">
             <speaker>MENGO</speaker>
             <l n="1689" xml:id="l-1689">¡A la fe, que si <seg xml:id="seg-1689-1">entiende</seg> el alboroto,</l>
+            <milestone unit="stanza"/>
             <l n="1690" xml:id="l-1690">que ha de costar la junta alguna vida!</l></sp>
           <sp who="#regidor" xml:id="sp-489">
             <speaker>REGIDOR</speaker>
             <l n="1691" xml:id="l-1691">Ya todo el <seg xml:id="seg-1691-1">árbol</seg> de paciencia roto,</l>
             <l n="1692" xml:id="l-1692">corre la nave de temor perdida.</l>
+            <milestone unit="stanza"/>
             <l n="1693" xml:id="l-1693">La hija quitan con tan gran fiereza</l>
             <l n="1694" xml:id="l-1694">a un hombre honrado, <seg xml:id="seg-1694-1">de quien es regida</seg></l>
             <l n="1695" xml:id="l-1695"><seg xml:id="seg-1695-1">la patria en que vivís</seg>, y en la cabeza</l>
+            <milestone unit="stanza"/>
             <l n="1696" xml:id="l-1696">la <seg xml:id="seg-1696-1">vara</seg> quiebran tan injustamente…</l>
             <l n="1697" xml:id="l-1697">¿<seg xml:id="seg-1697-1">Qué esclavo</seg> se trató con más bajeza?</l></sp>
           <sp who="#juan_rojo" xml:id="sp-490">
@@ -3537,6 +3932,7 @@
             <l n="1698" xml:id="l-1698">¿Qué es lo que quieres tú que el pueblo intente?</l></sp>
           <sp who="#regidor" xml:id="sp-491">
             <speaker>REGIDOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1699" xml:id="l-1699">Morir o dar la muerte a los tiranos,</l>
             <l n="1700" xml:id="l-1700">pues somos muchos y ellos poca gente.</l></sp>
           <sp who="#barrildo" xml:id="sp-492">
@@ -3544,20 +3940,24 @@
             <l n="1701" xml:id="l-1701">¿Contra el señor las armas en las manos?</l></sp>
           <sp who="#esteban" xml:id="sp-493">
             <speaker>ESTEBAN</speaker>
+            <milestone unit="stanza"/>
             <l n="1702" xml:id="l-1702">El Rey solo es señor después del cielo</l>
             <l n="1703" xml:id="l-1703">y no bárbaros hombres inhumanos.</l>
             <l n="1704" xml:id="l-1704">Si Dios ayuda nuestro justo celo,</l>
+            <milestone unit="stanza"/>
             <l part="I" n="1705" xml:id="l-1705-a">¿qué nos ha de costar?</l></sp>
           <sp who="#mengo" xml:id="sp-494">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-1705-b">Mirad, señores,</l>
             <l n="1706" xml:id="l-1706">que vais en estas cosas con recelo.</l>
             <l n="1707" xml:id="l-1707">Puesto que por los simples labradores</l>
+            <milestone unit="stanza"/>
             <l n="1708" xml:id="l-1708">estoy aquí que más injurias pasan,</l>
             <l n="1709" xml:id="l-1709">más cuerdo represento sus temores.</l></sp>
           <sp who="#juan_rojo" xml:id="sp-495">
             <speaker>JUAN ROJO</speaker>
             <l n="1710" xml:id="l-1710">Si nuestras desventuras se compasan,</l>
+            <milestone unit="stanza"/>
             <l n="1711" xml:id="l-1711">para perder las vidas, ¿qué aguardamos?</l>
             <l n="1712" xml:id="l-1712">¡Las casas y las viñas nos abrasan!</l>
             <l n="1713" xml:id="l-1713">¡Tiranos son! ¡A la venganza vamos!</l></sp>
@@ -3568,6 +3968,7 @@
           <stage xml:id="stg-1713">Sale Laurencia, <seg xml:id="seg-1713Acot-1">desmelenada</seg></stage>
           <sp who="#laurencia" xml:id="sp-496">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="metrical-section" n="1714-1849" ana="#romance #rima-oe"/>
             <l n="1714" xml:id="l-1714">Dejadme entrar, que bien puedo,</l>
             <l n="1715" xml:id="l-1715">en consejo de los hombres;</l>
             <l n="1716" xml:id="l-1716">que bien puede una mujer,</l>
@@ -3798,6 +4199,8 @@
           <stage xml:id="stg-1849-2">Sale Frondoso, atadas las manos; Flores, Ortuño y Cimbranos y el Comendador</stage>
           <sp who="#comendador" xml:id="sp-528">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="metrical-section" n="1850-1921" ana="#octava-real"/>
+            <milestone unit="stanza"/>
             <l n="1850" xml:id="l-1850">De ese cordel que de las manos sobra</l>
             <l n="1851" xml:id="l-1851">quiero que le colguéis, <seg xml:id="seg-1851-1">por mayor pena</seg>.</l></sp>
           <sp who="#frondoso" xml:id="sp-529">
@@ -3827,6 +4230,7 @@
           <stage xml:id="stg-1857">Ruido</stage>
           <sp who="#comendador" xml:id="sp-536">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1858" xml:id="l-1858">¡La puerta de mi casa, y siendo casa</l>
             <l part="I" n="1859" xml:id="l-1859-a">de la encomienda!</l></sp>
           <sp who="#flores" xml:id="sp-537">
@@ -3853,6 +4257,7 @@
             <l n="1865" xml:id="l-1865"><seg xml:id="seg-1865-1">Templa</seg>, Frondoso, ese <seg xml:id="seg-1865-2">villano</seg> Alcalde.</l></sp>
           <sp who="#frondoso" xml:id="sp-543">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l n="1866" xml:id="l-1866">Yo voy, señor, que <seg xml:id="seg-1866-1">amor</seg> les ha movido.</l></sp>
           <stage xml:id="stg-1866-1">Vase</stage>
           <!-- PASAJE 54
@@ -3880,6 +4285,7 @@
             <l n="1873" xml:id="l-1873">nunca sin sangre o sin venganza vuelven.</l></sp>
           <sp who="#comendador" xml:id="sp-548">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1874" xml:id="l-1874">En esta puerta, así como <seg xml:id="seg-1874-1">rastrillo</seg>,</l>
             <l n="1875" xml:id="l-1875">su furor con las armas defendamos.</l></sp>
           <stage xml:id="stg-1875">Dentro:</stage>
@@ -3906,6 +4312,7 @@
             <l part="F" xml:id="l-1881-b">¡Agravios nunca esperan!</l></sp>
           <sp who="#comendador" xml:id="sp-555">
             <speaker>COMENDADOR</speaker>
+            <milestone unit="stanza"/>
             <l n="1882" xml:id="l-1882">Decídmelos a mí, que iré pagando,</l>
             <l n="1883" xml:id="l-1883">a fe de caballero, esos errores.</l></sp>
           <sp xml:id="sp-556">
@@ -3933,6 +4340,7 @@
           <stage xml:id="stg-1889">Vanse, y salen las mujeres armadas</stage>
           <sp who="#laurencia" xml:id="sp-561">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="1890" xml:id="l-1890">Parad en este <seg xml:id="seg-1890-1">puesto de esperanzas</seg>,</l>
             <l n="1891" xml:id="l-1891">soldados atrevidos, no mujeres.</l></sp>
           <sp who="#pascuala" xml:id="sp-562">
@@ -3957,6 +4365,7 @@
           <stage xml:id="stg-1897">Dentro</stage>
           <sp who="#barrildo" xml:id="sp-567">
             <speaker>BARRILDO</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="1898" xml:id="l-1898-a">Aquí está Flores.</l></sp>
           <stage xml:id="stg-1898">Dentro</stage>
           <sp who="#mengo" xml:id="sp-568">
@@ -3987,6 +4396,7 @@
           <stage xml:id="stg-1905-2">Dentro</stage>
           <sp who="#barrildo" xml:id="sp-574">
             <speaker>BARRILDO</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="1906" xml:id="l-1906-a">Aquí está Ortuño.</l></sp>
           <stage xml:id="stg-1906-1">Dentro</stage>
           <sp who="#frondoso" xml:id="sp-575">
@@ -4020,6 +4430,7 @@
             <l part="F" xml:id="l-1913-b">Eso digo.</l></sp>
           <sp who="#jacinta" xml:id="sp-582">
             <speaker>JACINTA</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="1914" xml:id="l-1914-a">¡Ea, muera el traidor!</l></sp>
           <sp who="#flores" xml:id="sp-583">
             <speaker>FLORES</speaker>
@@ -4065,14 +4476,18 @@
           <stage xml:id="stg-1921">Vanse y <seg xml:id="seg-1921Acot-1">salen el rey Fernando y la reina doña Isabel</seg>, y Don Manrique, maestre</stage>
           <sp who="#manrique" xml:id="sp-593">
             <speaker>MANRIQUE</speaker>
+            <milestone unit="metrical-section" n="1922-1949" ana="#redondilla"/>
+            <milestone unit="stanza"/>
             <l n="1922" xml:id="l-1922">De modo la <seg xml:id="seg-1922-1">prevención</seg></l>
             <l n="1923" xml:id="l-1923">fue, que el efeto esperado</l>
             <l n="1924" xml:id="l-1924">llegamos a ver logrado</l>
             <l n="1925" xml:id="l-1925">con poca <seg xml:id="seg-1925-1">contradición</seg>.</l>
+            <milestone unit="stanza"/>
             <l n="1926" xml:id="l-1926">Hubo poca resistencia;</l>
             <l n="1927" xml:id="l-1927">y supuesto que la hubiera,</l>
             <l n="1928" xml:id="l-1928">sin duda ninguna fuera</l>
             <l n="1929" xml:id="l-1929">de poca o ninguna esencia.</l>
+            <milestone unit="stanza"/>
             <l n="1930" xml:id="l-1930">Queda <seg xml:id="seg-1930-1">el de Cabra</seg> ocupado</l>
             <l n="1931" xml:id="l-1931">en conservación del <seg xml:id="seg-1931-1">puesto</seg>,</l>
             <l n="1932" xml:id="l-1932">por si volviere dispuesto</l>
@@ -4080,18 +4495,22 @@
           </sp>
           <sp who="fernando" xml:id="sp-594">
               <speaker>REY</speaker>
+            <milestone unit="stanza"/>
             <l n="1934" xml:id="l-1934"><seg xml:id="seg-1934-1">Discreto</seg> el acuerdo fue</l>
             <l n="1935" xml:id="l-1935">y que asista es conveniente,</l>
             <l n="1936" xml:id="l-1936">y reformando la gente,</l>
             <l n="1937" xml:id="l-1937">el paso tomado esté.</l>
+            <milestone unit="stanza"/>
             <l n="1938" xml:id="l-1938">Que con eso se asegura</l>
             <l n="1939" xml:id="l-1939">no podernos hacer mal</l>
             <l n="1940" xml:id="l-1940">Alfonso, que en Portugal</l>
             <l n="1941" xml:id="l-1941">tomar la fuerza procura.</l>
+            <milestone unit="stanza"/>
             <l n="1942" xml:id="l-1942">Y el de Cabra es bien que esté</l>
             <l n="1943" xml:id="l-1943">en ese sitio <seg xml:id="seg-1943-1">asistente</seg>,</l>
             <l n="1944" xml:id="l-1944">y como tan diligente,</l>
             <l n="1945" xml:id="l-1945">muestras de su valor dé,</l>
+            <milestone unit="stanza"/>
             <l n="1946" xml:id="l-1946">porque con esto asegura</l>
             <l n="1947" xml:id="l-1947">el daño que nos recela,</l>
             <l n="1948" xml:id="l-1948">y como fiel centinela</l>
@@ -4103,6 +4522,7 @@
           <stage xml:id="stg-1949">Sale Flores, herido</stage>
           <sp who="#flores" xml:id="sp-595">
             <speaker>FLORES</speaker>
+            <milestone unit="metrical-section" n="1950-2029" ana="#romance #rima-ee"/>
             <l n="1950" xml:id="l-1950">Católico rey Fernando,</l>
             <l n="1951" xml:id="l-1951">a quien el Cielo concede</l>
             <l n="1952" xml:id="l-1952">la corona de Castilla,</l>
@@ -4201,17 +4621,20 @@
           <stage xml:id="stg-2029">Vanse, y salen los labradores y labradoras con <seg xml:id="seg-2029-1">la cabeza de Fernán Gómez en una lanza</seg></stage>
           <sp who="#musicos" xml:id="sp-599">
             <speaker>MÚSICOS</speaker>
+            <milestone unit="metrical-section" n="2030-2032" ana="#estribillo"/>
             <l n="2030" xml:id="l-2030">¡Muchos años vivan</l>
             <l n="2031" xml:id="l-2031">Isabel y Fernando,</l>
             <l n="2032" xml:id="l-2032">y mueran los tiranos!</l></sp>
           <sp who="#barrildo" xml:id="sp-600">
             <speaker>BARRILDO</speaker>
+            <milestone unit="metrical-section" n="2033-2036" ana="#redondilla"/>
             <l n="2033" xml:id="l-2033">Diga su copla Frondoso.</l></sp>
           <sp who="#frondoso" xml:id="sp-601">
             <speaker>FRONDOSO</speaker>
             <l n="2034" xml:id="l-2034">Ya va mi copla, a la fe.</l>
             <l n="2035" xml:id="l-2035">Si le faltare algún <seg xml:id="seg-2035-1">pie</seg>,</l>
             <l n="2036" xml:id="l-2036">enmiéndelo el más <seg xml:id="seg-2036-1">curioso</seg>.</l>
+            <milestone unit="metrical-section" n="2037-2044" ana="#copla-arte-menor"/>
             <l n="2037" xml:id="l-2037">¡Vivan la bella Isabel</l>
             <l n="2038" xml:id="l-2038">y Fernando de Aragón,</l>
             <l n="2039" xml:id="l-2039">pues que <seg xml:id="seg-2039-1">para en uno son</seg>,</l>
@@ -4222,6 +4645,7 @@
             <l n="2044" xml:id="l-2044">y mueran los tiranos!</l></sp>
           <sp who="#laurencia" xml:id="sp-602">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="metrical-section" n="2045-2048" ana="#redondilla"/>
             <l part="I" n="2045" xml:id="l-2045-a">Diga Barrildo.</l></sp>
           <sp who="#barrildo" xml:id="sp-603">
             <speaker>BARRILDO</speaker>
@@ -4233,6 +4657,7 @@
             <l n="2048" xml:id="l-2048">buena y rebuena será.</l></sp>
           <sp who="#barrildo" xml:id="sp-605">
             <speaker>BARRILDO</speaker>
+            <milestone unit="metrical-section" n="2049-2055" ana="#copla-arte-menor"/>
             <l n="2049" xml:id="l-2049">¡Vivan los Reyes <seg xml:id="seg-2049-1">famosos</seg></l>
             <l n="2050" xml:id="l-2050">muchos años, pues que tienen</l>
             <l n="2051" xml:id="l-2051">la vitoria, y a ser vienen</l>
@@ -4242,11 +4667,13 @@
             <l n="2055" xml:id="l-2055">y mueran los tiranos!</l></sp>
           <sp who="#musicos" xml:id="sp-606">
             <speaker>MÚSICOS</speaker>
+            <milestone unit="metrical-section" n="2056-2058" ana="#estribillo"/>
             <l n="2056" xml:id="l-2056">¡Muchos años vivan</l>
             <l n="2057" xml:id="l-2057">Isabel y Fernando,</l>
             <l n="2058" xml:id="l-2058">y mueran los tiranos!</l></sp>
           <sp who="#laurencia" xml:id="sp-607">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="metrical-section" n="2059-2062" ana="#redondilla"/>
             <l part="I" n="2059" xml:id="l-2059-a">Diga Mengo.</l></sp>
           <sp who="#frondoso" xml:id="sp-608">
             <speaker>FRONDOSO</speaker>
@@ -4260,6 +4687,7 @@
             <l n="2062" xml:id="l-2062">el envés de la barriga.</l></sp>
           <sp who="#mengo" xml:id="sp-611">
             <speaker>MENGO</speaker>
+            <milestone unit="metrical-section" n="2063-2069" ana="#copla-arte-menor"/>
             <l n="2063" xml:id="l-2063">Una mañana en domingo</l>
             <l n="2064" xml:id="l-2064">me mandó azotar <seg xml:id="seg-2064-1">aquél</seg>,</l>
             <l n="2065" xml:id="l-2065">de manera que el <seg xml:id="seg-2065-1">rabel</seg></l>
@@ -4267,9 +4695,12 @@
             <l n="2067" xml:id="l-2067">Pero agora que los pringo,</l>
             <l n="2068" xml:id="l-2068">¡vivan los Reyes <seg xml:id="seg-2068-1">Cristiánigos</seg>,</l>
             <l n="2069" xml:id="l-2069">y mueran los tiránigos!</l>
+            <milestone unit="metrical-section" n="2070-2070" ana="#estribillo"/>
             <l n="2070" xml:id="l-2070">MÚSICOS ¡Vivan muchos años!</l></sp>
           <sp who="#esteban" xml:id="sp-612">
             <speaker>ESTEBAN</speaker>
+            <milestone unit="metrical-section" n="2071-2162" ana="#redondilla"/>
+            <milestone unit="stanza"/>
             <l n="2071" xml:id="l-2071">Quita la cabeza allá.</l></sp>
           <sp who="#mengo" xml:id="sp-613">
             <speaker>MENGO</speaker>
@@ -4283,6 +4714,7 @@
             <l n="2074" xml:id="l-2074">Mostrá las armas acá.</l></sp>
           <sp who="#juan_rojo" xml:id="sp-616">
             <speaker>JUAN ROJO</speaker>
+            <milestone unit="stanza"/>
             <l n="2075" xml:id="l-2075">¿Adónde se han de poner?</l></sp>
           <sp who="#regidor" xml:id="sp-617">
             <speaker>REGIDOR</speaker>
@@ -4296,6 +4728,7 @@
           <sp who="#frondoso" xml:id="sp-620">
             <speaker>FRONDOSO</speaker>
             <l n="2078" xml:id="l-2078">Ya comienza a amanecer,</l>
+            <milestone unit="stanza"/>
             <l n="2079" xml:id="l-2079">con este sol, nuestro día.</l></sp>
           <sp who="#esteban" xml:id="sp-621">
             <speaker>ESTEBAN</speaker>
@@ -4306,14 +4739,17 @@
                título: "Concertaos todos a una"
                descripción: Cuando amanece y la euforia empieza a remitir, Esteban impone una estrategia común. El pueblo acuerda responder con una sola voz si vienen a investigar lo sucedido.
           -->
+            <milestone unit="stanza"/>
             <l n="2083" xml:id="l-2083"><seg xml:id="seg-2083-1">Advertid</seg>, Fuenteovejuna,</l>
             <l n="2084" xml:id="l-2084">a las palabras de un viejo,</l>
             <l n="2085" xml:id="l-2085">que el admitir su consejo</l>
             <l n="2086" xml:id="l-2086">no ha dañado vez ninguna.</l>
+            <milestone unit="stanza"/>
             <l n="2087" xml:id="l-2087">Los Reyes han de querer</l>
             <l n="2088" xml:id="l-2088">averiguar este caso,</l>
             <l n="2089" xml:id="l-2089">y más tan cerca del paso</l>
             <l n="2090" xml:id="l-2090">y jornada que han de hacer.</l>
+            <milestone unit="stanza"/>
             <l n="2091" xml:id="l-2091">Concertaos todos <seg xml:id="seg-2091-1">a una</seg></l>
             <l n="2092" xml:id="l-2092">en lo que habéis de decir.</l></sp>
           <sp who="#frondoso" xml:id="sp-622">
@@ -4323,6 +4759,7 @@
             <speaker>ESTEBAN</speaker>
             <l part="F" xml:id="l-2093-b">Morir</l>
             <l n="2094" xml:id="l-2094">diciendo «¡Fuenteovejuna!»,</l>
+            <milestone unit="stanza"/>
             <l n="2095" xml:id="l-2095">y a nadie saquen de aquí.</l></sp>
           <sp who="#frondoso" xml:id="sp-624">
             <speaker>FRONDOSO</speaker>
@@ -4333,6 +4770,7 @@
             <l n="2098" xml:id="l-2098">¿Queréis responder así?</l></sp>
           <sp xml:id="sp-626">
             <speaker>TODOS</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="2099" xml:id="l-2099-a">¡Sí!</l></sp>
           <sp who="#esteban" xml:id="sp-627">
             <speaker>ESTEBAN</speaker>
@@ -4340,6 +4778,7 @@
             <l n="2100" xml:id="l-2100"><seg xml:id="seg-2100-1">agora</seg> el pesquisidor,</l>
             <l n="2101" xml:id="l-2101">para ensayarnos mejor</l>
             <l n="2102" xml:id="l-2102">en lo que <seg xml:id="seg-2102-1">habemos</seg> de hacer.</l>
+            <milestone unit="stanza"/>
             <l n="2103" xml:id="l-2103">Sea Mengo el que esté puesto</l>
             <l part="I" n="2104" xml:id="l-2104-a">en el tormento.</l></sp>
           <sp who="#mengo" xml:id="sp-628">
@@ -4355,6 +4794,7 @@
             <l part="F" xml:id="l-2106-b">Di presto.</l></sp>
           <sp who="#esteban" xml:id="sp-631">
             <speaker>ESTEBAN</speaker>
+            <milestone unit="stanza"/>
             <l n="2107" xml:id="l-2107">¿Quién mató al Comendador?</l></sp>
           <sp who="#mengo" xml:id="sp-632">
             <speaker>MENGO</speaker>
@@ -4367,6 +4807,7 @@
             <l n="2110" xml:id="l-2110">Aunque me matéis, señor.</l></sp>
           <sp who="#esteban" xml:id="sp-635">
             <speaker>ESTEBAN</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="2111" xml:id="l-2111-a">¡Confiesa, ladrón!</l></sp>
           <sp who="#mengo" xml:id="sp-636">
             <speaker>MENGO</speaker>
@@ -4393,6 +4834,7 @@
           <stage xml:id="stg-2114">Sale el Regidor</stage>
           <sp who="#regidor" xml:id="sp-642">
             <speaker>REGIDOR</speaker>
+            <milestone unit="stanza"/>
             <l n="2115" xml:id="l-2115">¿Qué hacéis desta suerte aquí?</l></sp>
           <sp who="#frondoso" xml:id="sp-643">
             <speaker>FRONDOSO</speaker>
@@ -4405,6 +4847,7 @@
             <l n="2118" xml:id="l-2118">Echá todos por ahí.</l></sp>
           <sp who="#regidor" xml:id="sp-646">
             <speaker>REGIDOR</speaker>
+            <milestone unit="stanza"/>
             <l n="2119" xml:id="l-2119">Con él viene un capitán.</l></sp>
           <sp who="#esteban" xml:id="sp-647">
             <speaker>ESTEBAN</speaker>
@@ -4413,6 +4856,7 @@
           <sp who="#regidor" xml:id="sp-648">
             <speaker>REGIDOR</speaker>
             <l n="2122" xml:id="l-2122">El pueblo prendiendo van</l>
+            <milestone unit="stanza"/>
             <l n="2123" xml:id="l-2123">sin dejar alma ninguna.</l></sp>
           <sp who="#esteban" xml:id="sp-649">
             <speaker>ESTEBAN</speaker>
@@ -4429,30 +4873,35 @@
           <stage xml:id="stg-2126">Vanse y <seg xml:id="seg-2126-1">salen el Maestre y un soldado</seg></stage>
           <sp who="#maestre" xml:id="sp-651">
             <speaker>MAESTRE</speaker>
+            <milestone unit="stanza"/>
             <l n="2127" xml:id="l-2127">¡Que tal caso ha sucedido!</l>
             <l n="2128" xml:id="l-2128">Infelice fue su suerte,</l>
             <l n="2129" xml:id="l-2129">estoy por darte la muerte</l>
             <l n="2130" xml:id="l-2130">por la nueva que has traído.</l></sp>
           <sp who="#cimbranos" xml:id="sp-652">
             <speaker>SOLDADO</speaker>
+            <milestone unit="stanza"/>
             <l n="2131" xml:id="l-2131">Yo, señor, soy mensajero,</l>
             <l n="2132" xml:id="l-2132">y enojarte no es mi <seg xml:id="seg-2132-1">intento</seg>.</l></sp>
           <sp who="#maestre" xml:id="sp-653">
             <speaker>MAESTRE</speaker>
             <l n="2133" xml:id="l-2133">¡Que a tal tuvo atrevimiento</l>
             <l n="2134" xml:id="l-2134">un pueblo enojado y fiero!</l>
+            <milestone unit="stanza"/>
             <l n="2135" xml:id="l-2135">Iré con quinientos hombres</l>
             <l n="2136" xml:id="l-2136">y la villa he de asolar.</l>
             <l n="2137" xml:id="l-2137">En ella no ha de quedar</l>
             <l n="2138" xml:id="l-2138">ni aun memoria de los nombres.</l></sp>
           <sp who="#cimbranos" xml:id="sp-654">
             <speaker>SOLDADO</speaker>
+            <milestone unit="stanza"/>
             <l n="2139" xml:id="l-2139">Señor, tu enojo reporta,</l>
             <l n="2140" xml:id="l-2140">porque ellos al Rey se han dado,</l>
             <l n="2141" xml:id="l-2141">y no tener enojado</l>
             <l n="2142" xml:id="l-2142">al Rey es lo que te importa.</l></sp>
           <sp who="#maestre" xml:id="sp-655">
             <speaker>MAESTRE</speaker>
+            <milestone unit="stanza"/>
             <l n="2143" xml:id="l-2143">¿Cómo al Rey se pueden dar</l>
             <l n="2144" xml:id="l-2144">si de la encomienda son?</l></sp>
           <sp who="#cimbranos" xml:id="sp-656">
@@ -4461,18 +4910,22 @@
             <l n="2146" xml:id="l-2146">podrás luego pleitear.</l></sp>
           <sp who="#maestre" xml:id="sp-657">
             <speaker>MAESTRE</speaker>
+            <milestone unit="stanza"/>
             <l n="2147" xml:id="l-2147">Por pleito ¿cuándo salió</l>
             <l n="2148" xml:id="l-2148">lo que él le entregó en sus manos?</l>
             <l n="2149" xml:id="l-2149">Son señores soberanos,</l>
             <l n="2150" xml:id="l-2150">y tal reconozco yo.</l>
+            <milestone unit="stanza"/>
             <l n="2151" xml:id="l-2151">Por saber que al Rey se han dado</l>
             <l n="2152" xml:id="l-2152">se reportará mi enojo,</l>
             <l n="2153" xml:id="l-2153">y ver su presencia escojo</l>
             <l n="2154" xml:id="l-2154">por lo más bien acertado.</l>
+            <milestone unit="stanza"/>
             <l n="2155" xml:id="l-2155">Que puesto que tenga culpa</l>
             <l n="2156" xml:id="l-2156">en casos de gravedad,</l>
             <l n="2157" xml:id="l-2157">en todo mi poca edad</l>
             <l n="2158" xml:id="l-2158">viene a ser quien me disculpa.</l>
+            <milestone unit="stanza"/>
             <l n="2159" xml:id="l-2159">Con vergüenza voy, mas es</l>
             <l n="2160" xml:id="l-2160">honor quien puede obligarme,</l>
             <l n="2161" xml:id="l-2161">y importa no descuidarme</l>
@@ -4484,17 +4937,22 @@
           <stage xml:id="stg-2162">Vanse. <seg xml:id="seg-2162Acot-1">Sale Laurencia sola</seg></stage>
           <sp who="#laurencia" xml:id="sp-658">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="metrical-section" n="2163-2176" ana="#soneto"/>
+            <milestone unit="stanza"/>
             <l n="2163" xml:id="l-2163">Amando, <seg xml:id="seg-2163-1">recelar</seg> daño en lo amado</l>
             <l n="2164" xml:id="l-2164">nueva pena de amor se considera,</l>
             <l n="2165" xml:id="l-2165">que quien en lo que ama daño espera</l>
             <l n="2166" xml:id="l-2166">aumenta en el temor nuevo cuidado.</l>
+            <milestone unit="stanza"/>
             <l n="2167" xml:id="l-2167">El firme pensamiento desvelado,</l>
             <l n="2168" xml:id="l-2168">si le aflige el temor, fácil se altera,</l>
             <l n="2169" xml:id="l-2169">que no es a firme fe pena ligera</l>
             <l n="2170" xml:id="l-2170">ver llevar el temor el bien robado.</l>
+            <milestone unit="stanza"/>
             <l n="2171" xml:id="l-2171">Mi <seg xml:id="seg-2171-1">esposo</seg> adoro. <seg xml:id="seg-2171-2">La ocasión que veo</seg></l>
             <l n="2172" xml:id="l-2172">al temor de su daño me condena,</l>
             <l n="2173" xml:id="l-2173">si no le ayuda la felice suerte.</l>
+            <milestone unit="stanza"/>
             <l n="2174" xml:id="l-2174">Al bien suyo se inclina mi deseo.</l>
             <l n="2175" xml:id="l-2175">Si está presente, está cierta mi pena;</l>
             <l n="2176" xml:id="l-2176">si está en ausencia, está cierta mi muerte.</l></sp>
@@ -4505,6 +4963,8 @@
           <stage xml:id="stg-2176">Sale Frondoso</stage>
           <sp who="#frondoso" xml:id="sp-659">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="metrical-section" n="2177-2456" ana="#redondilla"/>
+            <milestone unit="stanza"/>
             <l part="I" n="2177" xml:id="l-2177-a">¡Mi Laurencia!</l></sp>
           <sp who="#laurencia" xml:id="sp-660">
             <speaker>LAURENCIA</speaker>
@@ -4516,6 +4976,7 @@
             <l n="2180" xml:id="l-2180">a mi amoroso cuidado?</l></sp>
           <sp who="#laurencia" xml:id="sp-662">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="2181" xml:id="l-2181">Mi bien, procura guardarte,</l>
             <l n="2182" xml:id="l-2182">porque tu daño recelo.</l></sp>
           <sp who="#frondoso" xml:id="sp-663">
@@ -4524,20 +4985,24 @@
             <l n="2184" xml:id="l-2184">que tal llegue a disgustarte.</l></sp>
           <sp who="#laurencia" xml:id="sp-664">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="2185" xml:id="l-2185">¿No temes ver el rigor</l>
             <l n="2186" xml:id="l-2186">que por los demás sucede,</l>
             <l n="2187" xml:id="l-2187">y el furor con que procede</l>
             <l n="2188" xml:id="l-2188">aqueste pesquisidor?</l>
+            <milestone unit="stanza"/>
             <l n="2189" xml:id="l-2189">Procura guardar la vida.</l>
             <l n="2190" xml:id="l-2190">Huye tu daño, no esperes.</l></sp>
           <sp who="#frondoso" xml:id="sp-665">
             <speaker>FRONDOSO</speaker>
             <l n="2191" xml:id="l-2191">¿Cómo? ¿Qué procure quieres</l>
             <l n="2192" xml:id="l-2192">cosa tan mal recebida?</l>
+            <milestone unit="stanza"/>
             <l n="2193" xml:id="l-2193">¿Es bien que los demás deje</l>
             <l n="2194" xml:id="l-2194">en el peligro presente</l>
             <l n="2195" xml:id="l-2195">y de tu vista me ausente?</l>
             <l n="2196" xml:id="l-2196">No me mandes que me aleje,</l>
+            <milestone unit="stanza"/>
             <l n="2197" xml:id="l-2197">porque no es <seg xml:id="seg-2197-1">puesto en razón</seg></l>
             <l n="2198" xml:id="l-2198">que por evitar mi daño,</l>
             <l n="2199" xml:id="l-2199">sea con mi sangre estraño</l>
@@ -4549,6 +5014,7 @@
           <stage xml:id="stg-2200">Voces dentro</stage>
           <sp who="#laurencia" xml:id="sp-666">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="2201" xml:id="l-2201">Voces parece que he oído,</l>
             <l n="2202" xml:id="l-2202">y son, si yo mal no siento,</l>
             <l n="2203" xml:id="l-2203">de alguno que dan tormento.</l>
@@ -4556,6 +5022,7 @@
           <stage xml:id="stg-2204">Dice dentro el Juez y responden</stage>
           <sp xml:id="sp-667">
             <speaker>JUEZ</speaker>
+            <milestone unit="stanza"/>
             <l n="2205" xml:id="l-2205">¡Decid la verdad, <seg xml:id="seg-2205-1">buen viejo</seg>!</l></sp>
           <sp who="#frondoso" xml:id="sp-668">
             <speaker>FRONDOSO</speaker>
@@ -4570,6 +5037,7 @@
           <sp xml:id="sp-671">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2208-b">Ya os dejo.</l>
+            <milestone unit="stanza"/>
             <l n="2209" xml:id="l-2209">Decid, ¿quién mató a Fernando?</l></sp>
           <sp who="#esteban" xml:id="sp-672">
             <speaker>ESTEBAN</speaker>
@@ -4580,6 +5048,7 @@
             <l n="2212" xml:id="l-2212">[...............................................]</l></sp>
           <sp who="#frondoso" xml:id="sp-674">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="2213" xml:id="l-2213-a">¡Bravo caso!</l></sp>
           <sp xml:id="sp-675">
             <speaker>JUEZ</speaker>
@@ -4589,6 +5058,7 @@
             <l n="2216" xml:id="l-2216">¿Callas? <seg xml:id="seg-2216-1">¡Aprieta, borracho!</seg></l></sp>
           <sp who="#muchacho" xml:id="sp-676">
             <speaker>NIÑO</speaker>
+            <milestone unit="stanza"/>
             <l n="2217" xml:id="l-2217">Fuenteovejuna, señor.</l></sp>
           <sp xml:id="sp-677">
             <speaker>JUEZ</speaker>
@@ -4597,6 +5067,7 @@
             <l n="2220" xml:id="l-2220">¿Quién mató al Comendador?</l></sp>
           <sp who="#frondoso" xml:id="sp-678">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l n="2221" xml:id="l-2221">¡Que a un niño le den tormento</l>
             <l n="2222" xml:id="l-2222">y niegue de aquesta suerte!</l></sp>
           <sp who="#laurencia" xml:id="sp-679">
@@ -4608,6 +5079,7 @@
           <sp xml:id="sp-681">
             <speaker>JUEZ</speaker>
             <l n="2224" xml:id="l-2224">Esa mujer al momento</l>
+            <milestone unit="stanza"/>
             <l n="2225" xml:id="l-2225">en ese potro tened.</l>
             <l n="2226" xml:id="l-2226">¡<seg xml:id="seg-2226-1">Dale esa mancuerda</seg> <seg xml:id="seg-2226-2">luego</seg>!</l></sp>
           <sp who="#laurencia" xml:id="sp-682">
@@ -4616,6 +5088,7 @@
           <sp xml:id="sp-683">
             <speaker>JUEZ</speaker>
             <l n="2228" xml:id="l-2228">¡Que os he de matar, creed,</l>
+            <milestone unit="stanza"/>
             <l n="2229" xml:id="l-2229">en este potro, villanos!</l>
             <l n="2230" xml:id="l-2230">¿Quién mató al Comendador?</l></sp>
           <sp who="#pascuala" xml:id="sp-684">
@@ -4629,6 +5102,7 @@
             <l part="F" xml:id="l-2232-b">Pensamientos vanos.</l></sp>
           <sp who="#laurencia" xml:id="sp-687">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="2233" xml:id="l-2233">Pascuala niega, Frondoso.</l></sp>
           <sp who="#frondoso" xml:id="sp-688">
             <speaker>FRONDOSO</speaker>
@@ -4642,6 +5116,7 @@
             <l part="F" xml:id="l-2236-b">¡Ay cielo piadoso!</l></sp>
           <sp xml:id="sp-691">
             <speaker>JUEZ</speaker>
+            <milestone unit="stanza"/>
             <l n="2237" xml:id="l-2237">¡Aprieta, infame! ¿Estás sordo?</l></sp>
           <sp who="#pascuala" xml:id="sp-692">
             <speaker>PASCUALA</speaker>
@@ -4656,6 +5131,7 @@
             <l n="2240" xml:id="l-2240">¡Ese <seg xml:id="seg-2240-1">desnudo</seg>, ese gordo!</l></sp>
           <sp who="#laurencia" xml:id="sp-694">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="2241" xml:id="l-2241">Pobre Mengo. Él es sin duda.</l></sp>
           <sp who="#frondoso" xml:id="sp-695">
             <speaker>FRONDOSO</speaker>
@@ -4674,6 +5150,7 @@
             <l part="F" xml:id="l-2244-b">¿Es menester ayuda?</l></sp>
           <sp who="#mengo" xml:id="sp-700">
             <speaker>MENGO</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="2245" xml:id="l-2245-a">¡Ay, ay!</l></sp>
           <sp xml:id="sp-701">
             <speaker>JUEZ</speaker>
@@ -4687,6 +5164,7 @@
             <l n="2248" xml:id="l-2248">Afloja un poco la mano.</l></sp>
           <sp who="#frondoso" xml:id="sp-704">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="2249" xml:id="l-2249-a">Él confiesa.</l></sp>
           <sp xml:id="sp-705">
             <speaker>JUEZ</speaker>
@@ -4704,10 +5182,12 @@
             <l n="2252" xml:id="l-2252">Señor, Fuenteovejunica.</l></sp>
           <sp xml:id="sp-709">
             <speaker>JUEZ</speaker>
+            <milestone unit="stanza"/>
             <l n="2253" xml:id="l-2253">¿Hay tan gran bellaquería?</l>
             <l n="2254" xml:id="l-2254">Del dolor se están burlando.</l>
             <l n="2255" xml:id="l-2255">En quien estaba esperando,</l>
             <l n="2256" xml:id="l-2256">niega con mayor porfía.</l>
+            <milestone unit="stanza"/>
             <l n="2257" xml:id="l-2257">Dejaldos, que estoy cansado.</l></sp>
           <sp who="#frondoso" xml:id="sp-710">
             <speaker>FRONDOSO</speaker>
@@ -4721,6 +5201,7 @@
           <stage xml:id="stg-2260">Salen, con Mengo, Barrildo y el Regidor</stage>
           <sp who="#barrildo" xml:id="sp-711">
             <speaker>BARRILDO</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="2261" xml:id="l-2261-a">¡<seg xml:id="seg-2261-1">Vítor</seg>, Mengo!</l></sp>
           <sp who="#regidor" xml:id="sp-712">
             <speaker>REGIDOR</speaker>
@@ -4746,6 +5227,7 @@
             <l part="F" xml:id="l-2264-c">Diacitrón.</l></sp>
           <sp who="#mengo" xml:id="sp-719">
             <speaker>MENGO</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="2265" xml:id="l-2265-a">¡Ay, ay!</l></sp>
           <sp who="#frondoso" xml:id="sp-720">
             <speaker>FRONDOSO</speaker>
@@ -4761,6 +5243,7 @@
             <l n="2268" xml:id="l-2268">Dale otra vez a comer.</l></sp>
           <sp who="#mengo" xml:id="sp-724">
             <speaker>MENGO</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="2269" xml:id="l-2269-a">¡Ay, ay!</l></sp>
           <sp who="#barrildo" xml:id="sp-725">
             <speaker>BARRILDO</speaker>
@@ -4779,6 +5262,7 @@
             <l part="F" xml:id="l-2272-b">¡Ay, ay! ¡Sí, sí!</l></sp>
           <sp who="#frondoso" xml:id="sp-730">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l n="2273" xml:id="l-2273">Bebe, que bien lo mereces.</l></sp>
           <sp who="#laurencia" xml:id="sp-731">
             <speaker>LAURENCIA</speaker>
@@ -4792,6 +5276,7 @@
           <sp who="#mengo" xml:id="sp-734">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2276-b">Sí, otras tres veces.</l>
+            <milestone unit="stanza"/>
             <l part="I" n="2277" xml:id="l-2277-a">¡Ay, ay!</l></sp>
           <sp who="#frondoso" xml:id="sp-735">
             <speaker>FRONDOSO</speaker>
@@ -4804,6 +5289,7 @@
           <sp who="#mengo" xml:id="sp-737">
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2280-b">Una cierta punta.</l>
+            <milestone unit="stanza"/>
             <l n="2281" xml:id="l-2281">Vamos, que <seg xml:id="seg-2281-1">me arromadizo</seg>.</l></sp>
           <sp who="#frondoso" xml:id="sp-738">
             <speaker>FRONDOSO</speaker>
@@ -4819,6 +5305,7 @@
           -->
           <sp who="#frondoso" xml:id="sp-740">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l n="2285" xml:id="l-2285">Justo es que honores le den.</l>
             <l n="2286" xml:id="l-2286">Pero decidme, mi amor,</l>
             <l n="2287" xml:id="l-2287">¿quién mató al Comendador?</l></sp>
@@ -4827,6 +5314,7 @@
             <l n="2288" xml:id="l-2288">Fuenteovejuna, mi bien.</l></sp>
           <sp who="#frondoso" xml:id="sp-742">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l part="I" n="2289" xml:id="l-2289-a">¿Quién le mató?</l></sp>
           <sp who="#laurencia" xml:id="sp-743">
             <speaker>LAURENCIA</speaker>
@@ -4845,12 +5333,14 @@
           <stage xml:id="stg-2292">Vanse, y <seg xml:id="seg-2292Acot-1">salen el Rey y la Reina y Manrique</seg></stage>
           <sp who="#isabel" xml:id="sp-746">
             <speaker>ISABEL</speaker>
+            <milestone unit="stanza"/>
             <l n="2293" xml:id="l-2293">No <seg xml:id="seg-2293-1">entendí</seg>, señor, hallaros</l>
             <l n="2294" xml:id="l-2294">aquí, y es buena mi suerte.</l></sp>
           <sp who="#fernando" xml:id="sp-747">
             <speaker>REY</speaker>
             <l n="2295" xml:id="l-2295">En nueva <seg xml:id="seg-2295-1">gloria</seg> convierte</l>
             <l n="2296" xml:id="l-2296">mi vista el bien de miraros.</l>
+            <milestone unit="stanza"/>
             <l n="2297" xml:id="l-2297">Iba a Portugal de paso</l>
             <l n="2298" xml:id="l-2298">y llegar aquí fue fuerza.</l></sp>
           <sp who="#isabel" xml:id="sp-748">
@@ -4859,6 +5349,7 @@
             <l n="2300" xml:id="l-2300">siendo conveniente el caso.</l></sp>
           <sp who="#fernando" xml:id="sp-749">
             <speaker>REY</speaker>
+            <milestone unit="stanza"/>
             <l n="2301" xml:id="l-2301">¿Cómo dejáis a Castilla?</l></sp>
           <sp who="#isabel" xml:id="sp-750">
             <speaker>ISABEL</speaker>
@@ -4874,12 +5365,14 @@
           <stage xml:id="stg-2304">Sale don Manrique</stage>
           <sp who="#manrique" xml:id="sp-752">
             <speaker>MANRIQUE</speaker>
+            <milestone unit="stanza"/>
             <l n="2305" xml:id="l-2305">Para ver vuestra presencia</l>
             <l n="2306" xml:id="l-2306">el Maestre de Calatrava,</l>
             <l n="2307" xml:id="l-2307">que aquí de llegar acaba,</l>
             <l n="2308" xml:id="l-2308">pide que le deis licencia.</l></sp>
           <sp who="#isabel" xml:id="sp-753">
             <speaker>ISABEL</speaker>
+            <milestone unit="stanza"/>
             <l n="2309" xml:id="l-2309">Verle tenía deseado.</l></sp>
           <sp who="#manrique" xml:id="sp-754">
             <speaker>MANRIQUE</speaker>
@@ -4889,36 +5382,44 @@
           <stage xml:id="stg-2312">Sale el Maestre</stage>
           <sp who="#maestre" xml:id="sp-755">
             <speaker>MAESTRE</speaker>
+            <milestone unit="stanza"/>
             <l n="2313" xml:id="l-2313">Rodrigo Téllez Girón,</l>
             <l n="2314" xml:id="l-2314">que de loaros no acaba,</l>
             <l n="2315" xml:id="l-2315">Maestre de Calatrava,</l>
             <l n="2316" xml:id="l-2316">os pide humilde perdón.</l>
+            <milestone unit="stanza"/>
             <l n="2317" xml:id="l-2317">Confieso que fui engañado,</l>
             <l n="2318" xml:id="l-2318">y que excedí de lo justo</l>
             <l n="2319" xml:id="l-2319">en cosas de vuestro gusto,</l>
             <l n="2320" xml:id="l-2320">como mal aconsejado.</l>
+            <milestone unit="stanza"/>
             <l n="2321" xml:id="l-2321">El consejo de <seg xml:id="seg-2321-1">Fernando</seg></l>
             <l n="2322" xml:id="l-2322">y el interés me engañó</l>
             <l n="2323" xml:id="l-2323">—<seg xml:id="seg-2323-1">injusto fiel</seg>— y ansí yo</l>
             <l n="2324" xml:id="l-2324">perdón humilde os <seg xml:id="seg-2324-1">demando</seg>.</l>
+            <milestone unit="stanza"/>
             <l n="2325" xml:id="l-2325">Y si recebir merezco</l>
             <l n="2326" xml:id="l-2326">esta merced que suplico,</l>
             <l n="2327" xml:id="l-2327">desde aquí <seg xml:id="seg-2327-1">me certifico</seg></l>
             <l n="2328" xml:id="l-2328">en que a serviros me ofrezco,</l>
+            <milestone unit="stanza"/>
             <l n="2329" xml:id="l-2329">y que en aquesta jornada</l>
             <l n="2330" xml:id="l-2330">de Granada, adonde vais,</l>
             <l n="2331" xml:id="l-2331">os prometo que veáis</l>
             <l n="2332" xml:id="l-2332">el valor que hay en mi espada;</l>
+            <milestone unit="stanza"/>
             <l n="2333" xml:id="l-2333">donde <seg xml:id="seg-2333-1">sacándola apenas</seg>,</l>
             <l n="2334" xml:id="l-2334">dándoles fieras congojas,</l>
             <l n="2335" xml:id="l-2335">plantaré mis cruces rojas</l>
             <l n="2336" xml:id="l-2336">sobre sus altas almenas.</l>
+            <milestone unit="stanza"/>
             <l n="2337" xml:id="l-2337">Y más, quinientos <seg xml:id="seg-2337-1">soldados</seg></l>
             <l n="2338" xml:id="l-2338">en serviros emplearé,</l>
             <l n="2339" xml:id="l-2339">junto con la firma y fe</l>
             <l n="2340" xml:id="l-2340">de en mi vida <seg xml:id="seg-2340-1">disgustaros</seg>.</l></sp>
           <sp who="#fernando" xml:id="sp-756">
             <speaker>REY</speaker>
+            <milestone unit="stanza"/>
             <l n="2341" xml:id="l-2341">Alzad, Maestre, del suelo;</l>
             <l n="2342" xml:id="l-2342">que siempre que hayáis venido,</l>
             <l n="2343" xml:id="l-2343">seréis muy bien recebido.</l></sp>
@@ -4927,6 +5428,7 @@
             <l n="2344" xml:id="l-2344">Sois de afligidos consuelo.</l></sp>
           <sp who="#isabel" xml:id="sp-758">
             <speaker>ISABEL</speaker>
+            <milestone unit="stanza"/>
             <l n="2345" xml:id="l-2345">Vos con valor <seg xml:id="seg-2345-1">peregrino</seg></l>
             <l n="2346" xml:id="l-2346">sabéis bien decir y hacer.</l></sp>
           <sp who="#maestre" xml:id="sp-759">
@@ -4940,12 +5442,14 @@
           <stage xml:id="stg-2348">Sale Manrique</stage>
           <sp who="#manrique" xml:id="sp-760">
             <speaker>MANRIQUE</speaker>
+            <milestone unit="stanza"/>
             <l n="2349" xml:id="l-2349">Señor, el pesquisidor</l>
             <l n="2350" xml:id="l-2350">que a Fuenteovejuna ha ido,</l>
             <l n="2351" xml:id="l-2351">con el <seg xml:id="seg-2351-1">despacho</seg> ha venido</l>
             <l n="2352" xml:id="l-2352">a verse ante tu valor.</l></sp>
           <sp who="#fernando" xml:id="sp-761">
             <speaker>REY</speaker>
+            <milestone unit="stanza"/>
             <l n="2353" xml:id="l-2353">Sed juez de estos agresores.</l></sp>
           <sp who="#maestre" xml:id="sp-762">
             <speaker>MAESTRE</speaker>
@@ -4954,6 +5458,7 @@
             <l n="2356" xml:id="l-2356">a matar comendadores.</l></sp>
           <sp who="#fernando" xml:id="sp-763">
             <speaker>REY</speaker>
+            <milestone unit="stanza"/>
             <l n="2357" xml:id="l-2357">Eso ya no os toca a vos.</l></sp>
           <sp who="#isabel" xml:id="sp-764">
             <speaker>ISABEL</speaker>
@@ -4963,30 +5468,37 @@
           <stage xml:id="stg-2360">Sale el juez</stage>
           <sp xml:id="sp-765">
             <speaker>JUEZ</speaker>
+            <milestone unit="stanza"/>
             <l n="2361" xml:id="l-2361">A Fuenteovejuna fui</l>
             <l n="2362" xml:id="l-2362">de la <seg xml:id="seg-2362-1">suerte</seg> que has mandado,</l>
             <l n="2363" xml:id="l-2363">y con especial cuidado</l>
             <l n="2364" xml:id="l-2364">y diligencia <seg xml:id="seg-2364-1">asistí</seg>.</l>
+            <milestone unit="stanza"/>
             <l n="2365" xml:id="l-2365">Haciendo averiguación</l>
             <l n="2366" xml:id="l-2366">del cometido delito,</l>
             <l n="2367" xml:id="l-2367">una hoja no se ha escrito</l>
             <l n="2368" xml:id="l-2368">que sea en comprobación,</l>
+            <milestone unit="stanza"/>
             <l n="2369" xml:id="l-2369">porque conformes a una,</l>
             <l n="2370" xml:id="l-2370">con un valeroso pecho,</l>
             <l n="2371" xml:id="l-2371"><seg xml:id="seg-2371-1">en pidiendo</seg> quién lo ha hecho,</l>
             <l n="2372" xml:id="l-2372">responden: «Fuenteovejuna».</l>
+            <milestone unit="stanza"/>
             <l n="2373" xml:id="l-2373">Trecientos he atormentado</l>
             <l n="2374" xml:id="l-2374">con no pequeño rigor,</l>
             <l n="2375" xml:id="l-2375">y te prometo, señor,</l>
             <l n="2376" xml:id="l-2376">que más que esto no he sacado.</l>
+            <milestone unit="stanza"/>
             <l n="2377" xml:id="l-2377">Hasta niños de diez años</l>
             <l n="2378" xml:id="l-2378">al potro arrimé, y no ha sido</l>
             <l n="2379" xml:id="l-2379">posible haberlo <seg xml:id="seg-2379-1">inquirido</seg></l>
             <l n="2380" xml:id="l-2380">ni por halagos ni engaños.</l>
+            <milestone unit="stanza"/>
             <l n="2381" xml:id="l-2381">Y pues tan mal se acomoda</l>
             <l n="2382" xml:id="l-2382">el poderlo averiguar,</l>
             <l n="2383" xml:id="l-2383">o los has de perdonar,</l>
             <l n="2384" xml:id="l-2384">o matar la villa toda.</l>
+            <milestone unit="stanza"/>
             <l n="2385" xml:id="l-2385">Todos vienen ante ti</l>
             <l n="2386" xml:id="l-2386">para más <seg xml:id="seg-2386-1">certificarte</seg>:</l>
             <l n="2387" xml:id="l-2387">dellos podrás informarte.</l></sp>
@@ -5000,6 +5512,7 @@
           <stage xml:id="stg-2388">Salen los dos Alcaldes, Frondoso, las mujeres, y los villanos que quisieren</stage>
           <sp who="#laurencia" xml:id="sp-767">
             <speaker>LAURENCIA</speaker>
+            <milestone unit="stanza"/>
             <l n="2389" xml:id="l-2389">¿Aquéstos los reyes son?</l></sp>
           <sp who="#frondoso" xml:id="sp-768">
             <speaker>FRONDOSO</speaker>
@@ -5010,52 +5523,63 @@
             <l n="2392" xml:id="l-2392">¡bendígalos San Antón!</l></sp>
           <sp who="#isabel" xml:id="sp-770">
             <speaker>ISABEL</speaker>
+            <milestone unit="stanza"/>
             <l n="2393" xml:id="l-2393">¿Los agresores son éstos?</l></sp>
           <sp who="#esteban" xml:id="sp-771">
             <speaker>ALC. ESTEBAN</speaker>
             <l n="2394" xml:id="l-2394">Fuenteovejuna, señora,</l>
             <l n="2395" xml:id="l-2395">que humildes llegan agora</l>
             <l n="2396" xml:id="l-2396">para serviros dispuestos.</l>
+            <milestone unit="stanza"/>
             <l n="2397" xml:id="l-2397">La sobrada tiranía</l>
             <l n="2398" xml:id="l-2398">y el insufrible rigor</l>
             <l n="2399" xml:id="l-2399">del muerto Comendador,</l>
             <l n="2400" xml:id="l-2400">que mil insultos hacía,</l>
+            <milestone unit="stanza"/>
             <l n="2401" xml:id="l-2401">fue el autor de tanto daño.</l>
             <l n="2402" xml:id="l-2402">Las haciendas nos robaba</l>
             <l n="2403" xml:id="l-2403">y las doncellas forzaba,</l>
             <l n="2404" xml:id="l-2404">siendo de piedad extraño.</l></sp>
           <sp who="#frondoso" xml:id="sp-772">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l n="2405" xml:id="l-2405">Tanto, que aquesta zagala,</l>
             <l n="2406" xml:id="l-2406">que el Cielo me ha concedido,</l>
             <l n="2407" xml:id="l-2407">en que tan dichoso he sido</l>
             <l n="2408" xml:id="l-2408">que nadie en dicha me iguala,</l>
+            <milestone unit="stanza"/>
             <l n="2409" xml:id="l-2409">cuando conmigo casó,</l>
             <l n="2410" xml:id="l-2410">aquella noche primera,</l>
             <l n="2411" xml:id="l-2411">mejor que si suya fuera,</l>
             <l n="2412" xml:id="l-2412">a su casa la llevó;</l>
+            <milestone unit="stanza"/>
             <l n="2413" xml:id="l-2413">y a no saberse guardar</l>
             <l n="2414" xml:id="l-2414">ella, que en virtud florece,</l>
             <l n="2415" xml:id="l-2415">ya manifiesto parece</l>
             <l n="2416" xml:id="l-2416">lo que pudiera pasar.</l></sp>
           <sp who="#mengo" xml:id="sp-773">
             <speaker>MENGO</speaker>
+            <milestone unit="stanza"/>
             <l n="2417" xml:id="l-2417">¿No es ya tiempo que hable yo?</l>
             <l n="2418" xml:id="l-2418">Si me dais licencia, entiendo</l>
             <l n="2419" xml:id="l-2419">que os admiraréis, sabiendo</l>
             <l n="2420" xml:id="l-2420">del modo que me trató.</l>
+            <milestone unit="stanza"/>
             <l n="2421" xml:id="l-2421">Porque quise defender</l>
             <l n="2422" xml:id="l-2422">una moza de su gente,</l>
             <l n="2423" xml:id="l-2423">que con término insolente</l>
             <l n="2424" xml:id="l-2424">fuerza la querían hacer,</l>
+            <milestone unit="stanza"/>
             <l n="2425" xml:id="l-2425">aquel perverso <seg xml:id="seg-2425-1">Nerón</seg></l>
             <l n="2426" xml:id="l-2426">de manera me ha tratado,</l>
             <l n="2427" xml:id="l-2427">que <seg xml:id="seg-2427-1">el reverso</seg> me ha dejado</l>
             <l n="2428" xml:id="l-2428">como <seg xml:id="seg-2428-1">rueda de salmón</seg>.</l>
+            <milestone unit="stanza"/>
             <l n="2429" xml:id="l-2429">Tocaron mis <seg xml:id="seg-2429-1">atabales</seg></l>
             <l n="2430" xml:id="l-2430">tres hombres con tal porfía,</l>
             <l n="2431" xml:id="l-2431">que aun pienso que todavía</l>
             <l n="2432" xml:id="l-2432">me duran los cardenales.</l>
+            <milestone unit="stanza"/>
             <l n="2433" xml:id="l-2433">Gasté en este mal <seg xml:id="seg-2433-1">prolijo</seg>,</l>
             <l n="2434" xml:id="l-2434">porque el <seg xml:id="seg-2434-1">cuero</seg> se me curta,</l>
             <l n="2435" xml:id="l-2435">polvos de <seg xml:id="seg-2435-1">arrayán y murta</seg></l>
@@ -5066,26 +5590,31 @@
           -->
           <sp who="#esteban" xml:id="sp-774">
             <speaker>ALC. ESTEBAN</speaker>
+            <milestone unit="stanza"/>
             <l n="2437" xml:id="l-2437">Señor, tuyos ser queremos.</l>
             <l n="2438" xml:id="l-2438">Rey nuestro eres natural,</l>
             <l n="2439" xml:id="l-2439">y con título de tal</l>
             <l n="2440" xml:id="l-2440">ya tus armas puesto habemos.</l>
+            <milestone unit="stanza"/>
             <l n="2441" xml:id="l-2441">Esperamos tu clemencia</l>
             <l n="2442" xml:id="l-2442">y que veas esperamos</l>
             <l n="2443" xml:id="l-2443">que en este caso te damos</l>
             <l n="2444" xml:id="l-2444">por <seg xml:id="seg-2444-1">abono</seg> la inocencia.</l></sp>
           <sp who="#fernando" xml:id="sp-775">
             <speaker>REY</speaker>
+            <milestone unit="stanza"/>
             <l n="2445" xml:id="l-2445">Pues no puede averiguarse</l>
             <l n="2446" xml:id="l-2446">el suceso por escrito,</l>
             <l n="2447" xml:id="l-2447">aunque fue grave el delito,</l>
             <l n="2448" xml:id="l-2448">por fuerza ha de perdonarse.</l>
+            <milestone unit="stanza"/>
             <l n="2449" xml:id="l-2449">Y la villa es bien se quede</l>
             <l n="2450" xml:id="l-2450">en mí, pues de mí se vale,</l>
             <l n="2451" xml:id="l-2451">hasta ver si acaso sale</l>
             <l n="2452" xml:id="l-2452">comendador que la herede.</l></sp>
           <sp who="#frondoso" xml:id="sp-776">
             <speaker>FRONDOSO</speaker>
+            <milestone unit="stanza"/>
             <l n="2453" xml:id="l-2453">Su majestad habla, en fin,</l>
             <l n="2454" xml:id="l-2454">como quien tanto ha acertado.</l>
             <l n="2455" xml:id="l-2455">Y aquí, discreto <seg xml:id="seg-2455-1">senado</seg>,</l>

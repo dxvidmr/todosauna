@@ -16,7 +16,8 @@ import {
     highlightAllRelatedGroups,
     buildNoteBadgesHTML,
     buildNoteDisplayHTML,
-    markCurrentNoteInText
+    markCurrentNoteInText,
+    normalizeAnaCategories
 } from './notas-dom.js';
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -449,19 +450,82 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         numeracionObserver.observe(textColumn, { childList: true, subtree: true });
     }
+
+    const STANZA_MILESTONE_SELECTOR = [
+        'tei-milestone[unit="stanza"]',
+        'tei-milestone[unit="metrical-section"]',
+        'tei-milestone[unit="metrical-subsection"]'
+    ].join(', ');
+
+    function humanizeMetricalCategory(category) {
+        return String(category || '')
+            .trim()
+            .replace(/^#/, '')
+            .replace(/-/g, ' ');
+    }
+
+    function buildMetricalCategoryMap(container) {
+        const map = new Map();
+        if (!container) return map;
+
+        const categories = container.querySelectorAll('tei-taxonomy tei-category');
+        categories.forEach(category => {
+            const categoryId = (category.getAttribute('xml:id') || category.getAttribute('id') || '').trim();
+            if (!categoryId) return;
+
+            const desc = category.querySelector('tei-catdesc')?.textContent?.trim();
+            if (desc) {
+                map.set(categoryId, desc);
+            }
+        });
+
+        return map;
+    }
+
+    function ensureMetricalLabels(container) {
+        if (!container) return;
+
+        const categoryMap = buildMetricalCategoryMap(container);
+        const milestones = container.querySelectorAll(
+            'tei-milestone[unit="metrical-section"], tei-milestone[unit="metrical-subsection"]'
+        );
+
+        milestones.forEach(milestone => {
+            const categories = normalizeAnaCategories(milestone.getAttribute('ana') || '');
+            if (!categories.length) {
+                milestone.removeAttribute('data-metrical-label');
+                milestone.removeAttribute('title');
+                return;
+            }
+
+            const label = categories
+                .map(category => categoryMap.get(category) || humanizeMetricalCategory(category))
+                .join(' · ');
+
+            milestone.setAttribute('data-metrical-label', label);
+            milestone.setAttribute('title', label);
+        });
+    }
+
+    function setStanzaSeparatorsVisible(visible, container) {
+        const scope = container || teiContainer || document;
+        if (!scope) return;
+
+        ensureMetricalLabels(scope);
+        const milestones = scope.querySelectorAll(STANZA_MILESTONE_SELECTOR);
+        milestones.forEach(milestone => {
+            milestone.classList.toggle('show-line', !!visible);
+        });
+    }
     
     // Botón para mostrar/ocultar estrofas
     const toggleStanzasCheckbox = document.getElementById('toggle-stanzas');
     if (toggleStanzasCheckbox) {
         toggleStanzasCheckbox.addEventListener('change', function() {
-            var milestones = document.querySelectorAll('tei-milestone[unit="stanza"]');
-            milestones.forEach(function(milestone) {
-                if (this.checked) {
-                    milestone.classList.add('show-line');
-                } else {
-                    milestone.classList.remove('show-line');
-                }
-            }.bind(this));
+            setStanzaSeparatorsVisible(this.checked, teiContainer);
+            if (toggleButton) {
+                toggleButton.textContent = this.checked ? 'Ocultar estrofas' : 'Mostrar estrofas';
+            }
         });
     }
     
@@ -469,16 +533,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const toggleButton = document.getElementById("toggleLines");
     if (toggleButton) {
         toggleButton.addEventListener("click", function() {
-            var milestones = document.querySelectorAll('tei-milestone[unit="stanza"]');
-            milestones.forEach(function(milestone) {
-                milestone.classList.toggle('show-line');
-            });
+            const milestones = teiContainer.querySelectorAll(STANZA_MILESTONE_SELECTOR);
+            const shouldShow = Array.from(milestones).some(milestone => !milestone.classList.contains('show-line'));
 
-            // Cambia el texto del botón
-            if (this.textContent === "Mostrar estrofas") {
-                this.textContent = "Ocultar estrofas";
-            } else {
-                this.textContent = "Mostrar estrofas";
+            setStanzaSeparatorsVisible(shouldShow, teiContainer);
+            this.textContent = shouldShow ? 'Ocultar estrofas' : 'Mostrar estrofas';
+
+            if (toggleStanzasCheckbox) {
+                toggleStanzasCheckbox.checked = shouldShow;
             }
         });
     }
@@ -513,6 +575,10 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!teiLoaded) {
                 teiLoaded = true;
                 console.log('TEI cargado');
+                setStanzaSeparatorsVisible(!!toggleStanzasCheckbox?.checked, teiContainer);
+                if (toggleButton) {
+                    toggleButton.textContent = toggleStanzasCheckbox?.checked ? 'Ocultar estrofas' : 'Mostrar estrofas';
+                }
                 observer.disconnect();
                 checkAndProcess();
             }
