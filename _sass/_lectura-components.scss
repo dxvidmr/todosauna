@@ -433,25 +433,25 @@ tei-stage {
   }
 
   .modo-opcion {
-    border: 2px solid $color-secondary-200;
+    border: 2px solid $color-secondary;
     border-radius: 8px;
-    background: $color-surface-page;
+    background: $color-surface-raised;
     padding: 20px;
     text-align: center;
     cursor: pointer;
     transition: all 0.2s;
 
     &:hover {
-      background: $color-surface-raised;
-      border-color: $color-secondary;
+      background: $color-surface-page;
+      border-color: $color-secondary-200;
       box-shadow: 0 2px 8px rgba($color-dark, 0.08);
     }
 
     &:focus,
     &:focus-visible {
       outline: none;
-      background: $color-surface-raised;
-      border-color: $color-secondary;
+      background: $color-surface-page;
+      border-color: $color-secondary-200;
       box-shadow: 0 0 0 2px rgba($color-secondary, 0.28);
     }
 
@@ -806,6 +806,25 @@ $note-highlight-strong: 1;
   }
 }
 
+.note-target.note-target-has-media {
+  margin-right: 0.08em;
+}
+
+.note-target.note-target-has-media::after {
+  content: "\f03e";
+  display: inline-block;
+  vertical-align: super;
+  transform: translateY(-0.04em);
+  margin-left: 0.26em;
+  margin-right: 0.32em;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 0.72em;
+  line-height: 1;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
 .note-target.note-current {
   background-color: $color-primary-soft;
 }
@@ -842,6 +861,55 @@ tei-seg.note-target {
   .note-rich-text strong,
   .note-rich-text b {
     font-weight: 700;
+  }
+
+  .note-rich-text a {
+    color: $color-primary;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .note-rich-text .note-cb-link {
+    font-weight: 600;
+  }
+
+  .note-rich-text .note-cb-thumb-link {
+    display: block;
+    width: fit-content;
+    margin: 0.52rem 0 0.82rem 0;
+    text-decoration: none;
+  }
+
+  .note-rich-text .note-cb-auto-thumb {
+    display: block;
+    max-width: min(220px, 100%);
+    height: auto;
+    border-radius: 0.45rem;
+  }
+
+  .note-rich-text .note-cb-thumb-caption {
+    font-size: 0.82rem;
+    color: $color-text-muted;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .note-rich-text .note-image-thumb {
+    display: block;
+    max-width: min(220px, 100%);
+    height: auto;
+    margin-top: 0.5rem;
+    border-radius: 0.45rem;
+  }
+
+  .note-rich-text .note-figure {
+    margin: 0.5rem 0 0;
+  }
+
+  .note-rich-text figcaption {
+    margin-top: 0.35rem;
+    font-size: 0.86rem;
+    color: $color-text-muted;
   }
   
   .note-header {

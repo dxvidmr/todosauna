@@ -181,60 +181,61 @@
         <head type="comedia-head">Comedia famosa de <hi rend="italic">Fuenteovejuna</hi></head>
         <castList>
           <head type="castList-head">Hablan en ella las personas siguientes</head>
-          <castItem>
-            <role corresp="#comendador">Fernán Gómez</role></castItem>
-          <castItem>
-            <role corresp="#ortuno">Ortuño</role></castItem>
-          <castItem>
-            <role corresp="#flores">Flores</role></castItem>
-          <castItem>
-            <role corresp="#maestre">El maestre de Calatrava</role></castItem>
-          <castItem>
-            <role corresp="#pascuala">Pascuala</role></castItem>
-          <castItem>
-            <role corresp="#laurencia">Laurencia</role></castItem>
-          <castItem>
-            <role corresp="#mengo">Mengo</role></castItem>
-          <castItem>
-            <role corresp="#barrildo">Barrildo</role></castItem>
-          <castItem>
-            <role corresp="#frondoso">Frondoso</role></castItem>
-          <castItem>
-            <role corresp="#juan_rojo">Juan Rojo</role></castItem>
-          <castItem>
-            <role corresp="#esteban">Esteban</role>
+            <castItem>
+            <role corresp="#comendador" xml:id="dp-comendador">Fernán Gómez</role></castItem>
+            <castItem>
+            <role corresp="#ortuno" xml:id="dp-ortuno">Ortuño</role></castItem>
+            <castItem>
+            <role corresp="#flores" xml:id="dp-flores">Flores</role></castItem>
+            <castItem>
+            <role corresp="#maestre" xml:id="dp-maestre">El maestre de Calatrava</role></castItem>
+            <castItem>
+            <role corresp="#pascuala" xml:id="dp-pascuala">Pascuala</role></castItem>
+            <castItem>
+            <role corresp="#laurencia" xml:id="dp-laurencia">Laurencia</role></castItem>
+            <castItem>
+            <role corresp="#mengo" xml:id="dp-mengo">Mengo</role></castItem>
+            <castItem>
+            <role corresp="#barrildo" xml:id="dp-barrildo">Barrildo</role></castItem>
+            <castItem>
+            <role corresp="#frondoso" xml:id="dp-frondoso">Frondoso</role></castItem>
+            <castItem>
+            <role corresp="#juan_rojo" xml:id="dp-juan_rojo">Juan Rojo</role></castItem>
+            <castItem>
+            <role corresp="#esteban" xml:id="dp-esteban">Esteban</role>
             <roleDesc>alcalde</roleDesc></castItem>
-          <castItem>
-            <role corresp="#alonso">Alonso</role>
+            <castItem>
+            <role corresp="#alonso" xml:id="dp-alonso">Alonso</role>
             <roleDesc>alcalde</roleDesc></castItem>
-          <castItem>
-            <role corresp="#fernando">Rey don Fernando</role></castItem>
-          <castItem>
-            <role corresp="#isabel">Reina doña Isabel</role></castItem>
-          <castItem>
-            <role corresp="#manrique">Don Manrique</role></castItem>
-          <castItem>
-            <role corresp="#regidor">Un regidor</role></castItem>
-          <castItem>
-            <role corresp="#cuadrado">Regidor 2</role>
+            <castItem>
+            <role corresp="#fernando" xml:id="dp-fernando">Rey don Fernando</role></castItem>
+            <castItem>
+            <role corresp="#isabel" xml:id="dp-isabel">Reina doña Isabel</role></castItem>
+            <castItem>
+            <role corresp="#manrique" xml:id="dp-manrique">Don Manrique</role></castItem>
+            <castItem>
+            <role corresp="#regidor" xml:id="dp-regidor">Un regidor</role></castItem>
+            <castItem>
+            <role corresp="#cuadrado" xml:id="dp-cuadrado">Regidor 2</role>
             <roleDesc>llamado Cuadrado</roleDesc></castItem>
-          <castItem>
-            <role corresp="#cimbranos">Cimbranos</role>
+            <castItem>
+            <role corresp="#cimbranos" xml:id="dp-cimbranos">Cimbranos</role>
             <roleDesc>soldado</roleDesc></castItem>
-          <castItem>
-            <role corresp="#jacinta">Jacinta</role>
+            <castItem>
+            <role corresp="#jacinta" xml:id="dp-jacinta">Jacinta</role>
             <roleDesc>labradora</roleDesc></castItem>
-          <castItem>
-            <role corresp="#muchacho">Un muchacho</role></castItem>
-          <castItem>
-            <role corresp="#labradores">Algunos labradores</role></castItem>
-          <castItem>
-            <role corresp="#juez">Un juez pesquisidor</role></castItem>
-          <castItem>
-            <role corresp="#musicos">La música</role></castItem>
-          <castItem>
-            <role corresp="#leonelo">Leonelo</role>
-            <roleDesc>licenciado por Salamanca</roleDesc></castItem></castList>
+            <castItem>
+            <role corresp="#muchacho" xml:id="dp-muchacho">Un muchacho</role></castItem>
+            <castItem>
+            <role corresp="#labradores" xml:id="dp-labradores">Algunos labradores</role></castItem>
+            <castItem>
+            <role corresp="#juez" xml:id="dp-juez">Un juez pesquisidor</role></castItem>
+            <castItem>
+            <role corresp="#musicos" xml:id="dp-musicos">La música</role></castItem>
+            <castItem>
+            <role corresp="#leonelo" xml:id="dp-leonelo">Leonelo</role>
+            <roleDesc>licenciado por Salamanca</roleDesc></castItem>
+        </castList>
         <div type="act" n="1">
           <head type="act-head">ACTO PRIMERO</head>
           <!-- PASAJE 1

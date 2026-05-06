@@ -30,13 +30,10 @@ async function getLecturaMetrics(page: Page): Promise<TeiMetrics> {
 }
 
 async function startLaboratorioSecuencial(page: Page): Promise<void> {
-  await page.goto('/participa/laboratorio/');
+  await page.goto('/participa/laboratorio/sesion/?modo=secuencial');
   await waitForSessionReady(page);
   await page.waitForFunction(() => !!window.editorSocial);
   await forceAnonMode(page);
-  await page.evaluate(async () => {
-    await window.editorSocial.iniciarModoSecuencial();
-  });
   await page.waitForSelector('#tei-pasaje');
   await page.waitForFunction(() => {
     const tei = document.getElementById('tei-pasaje');

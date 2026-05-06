@@ -16,6 +16,7 @@ import {
     highlightAllRelatedGroups,
     buildNoteBadgesHTML,
     buildNoteDisplayHTML,
+    hydrateCbRefsInContainer,
     markCurrentNoteInText,
     normalizeAnaCategories
 } from './notas-dom.js';
@@ -901,6 +902,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }),
             dockHTML: renderizarDockEvaluacionLoading()
         });
+        void hydrateCbRefsInContainer(noteContentDiv);
         void edicionEvaluacion.addEvaluationButtons(noteContentDiv);
         renderPanelHeaderActions();
     }

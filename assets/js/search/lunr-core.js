@@ -10,12 +10,15 @@ export function normalizeSearchText(value) {
   return collapseWhitespace(value)
     .toLowerCase()
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\p{Letter}\p{Number}]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function ensureLunrAvailable() {
   if (typeof window === 'undefined' || typeof window.lunr !== 'function') {
-    throw new Error('Lunr no estÃ¡ disponible en window.lunr');
+    throw new Error('Lunr no está disponible en window.lunr');
   }
   return window.lunr;
 }
@@ -35,11 +38,21 @@ function buildNormalizedDocs(rawDocs, fields) {
       id
     };
 
-    fields.forEach(field => {
+    const searchFields = fields.map(field => {
       const value = field.normalizer
         ? field.normalizer(rawDoc[field.from])
         : normalizeSearchText(rawDoc[field.from]);
       normalizedDoc[field.name] = value;
+      return {
+        name: field.name,
+        boost: field.boost || 1,
+        value
+      };
+    });
+
+    Object.defineProperty(normalizedDoc, '_searchFields', {
+      value: searchFields,
+      enumerable: false
     });
 
     normalizedDocs.push(normalizedDoc);
@@ -49,18 +62,41 @@ function buildNormalizedDocs(rawDocs, fields) {
   return { normalizedDocs, docsById };
 }
 
-function buildQueryVariants(normalizedQuery) {
-  const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
-  if (!tokens.length) return [];
+function escapeRegExp(value) {
+  return toText(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
-  const variants = new Set();
-  variants.add(tokens.map(token => `${token}*`).join(' '));
-  variants.add(normalizedQuery);
-  if (tokens.length === 1 && tokens[0].length > 3) {
-    variants.add(`${tokens[0]}~1`);
+function buildExactMatchPattern(normalizedQuery) {
+  if (!normalizedQuery) return null;
+  const boundary = '[^\\p{Letter}\\p{Number}]';
+  return new RegExp(`(^|${boundary})${escapeRegExp(normalizedQuery)}(?=$|${boundary})`, 'gu');
+}
+
+function countExactMatches(value, normalizedQuery) {
+  const text = toText(value);
+  const pattern = buildExactMatchPattern(normalizedQuery);
+  if (!text || !pattern) return 0;
+
+  let count = 0;
+  while (pattern.exec(text) !== null) {
+    count += 1;
   }
+  return count;
+}
 
-  return Array.from(variants).filter(Boolean);
+function scoreExactDocument(doc, normalizedQuery, fields) {
+  const searchFields = Array.isArray(doc?._searchFields)
+    ? doc._searchFields
+    : (fields || []).map(field => ({
+        name: field.name,
+        boost: field.boost || 1,
+        value: doc?.[field.name]
+      }));
+
+  return searchFields.reduce((score, field) => {
+    const matches = countExactMatches(field.value, normalizedQuery);
+    return score + (matches * (field.boost || 1));
+  }, 0);
 }
 
 export function buildIndex(rawDocs, config) {
@@ -83,45 +119,31 @@ export function buildIndex(rawDocs, config) {
   return {
     index,
     fields,
+    normalizedDocs,
     docsById,
     sourceTypeBoost: config?.sourceTypeBoost || {}
   };
 }
 
 export function searchIndex(indexState, query, options) {
-  if (!indexState?.index) return [];
+  if (!indexState?.docsById) return [];
 
   const normalizedQuery = normalizeSearchText(query);
   if (!normalizedQuery) return [];
 
-  const variants = buildQueryVariants(normalizedQuery);
-  const scoreByRef = new Map();
-
-  variants.forEach(variant => {
-    try {
-      const hits = indexState.index.search(variant);
-      hits.forEach(hit => {
-        const currentScore = scoreByRef.get(hit.ref) || 0;
-        if (hit.score > currentScore) {
-          scoreByRef.set(hit.ref, hit.score);
-        }
-      });
-    } catch (error) {
-      // Ignorar variantes invÃ¡lidas; pasamos a la siguiente.
-    }
-  });
-
   const sourceTypeBoost = options?.sourceTypeBoost || indexState.sourceTypeBoost || {};
   const limit = Number.isFinite(options?.limit) ? options.limit : 80;
+  const docs = Array.isArray(indexState.normalizedDocs)
+    ? indexState.normalizedDocs
+    : Array.from(indexState.docsById.values());
 
-  const results = Array.from(scoreByRef.entries())
-    .map(([ref, score]) => {
-      const doc = indexState.docsById.get(ref);
-      if (!doc) return null;
-
+  const results = docs
+    .map(doc => {
+      const score = scoreExactDocument(doc, normalizedQuery, indexState.fields);
+      if (!score) return null;
       const sourceBoost = sourceTypeBoost[doc.sourceType] || 1;
       return {
-        ref,
+        ref: doc.id,
         score,
         weightedScore: score * sourceBoost,
         doc

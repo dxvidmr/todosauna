@@ -16,15 +16,11 @@ const MOBILE_SHELL = '[data-lab-shell="mobile"][data-shell-visible="true"]';
 const DESKTOP_SHELL = '[data-lab-shell="desktop"]';
 
 async function startLaboratorioSecuencial(page: Page): Promise<void> {
-  await page.goto('/participa/laboratorio/');
+  await page.goto('/participa/laboratorio/sesion/?modo=secuencial');
   await expect(page.locator('#ta-modal-root')).toHaveCount(1);
   await waitForSessionReady(page);
   await page.waitForFunction(() => !!(window as any).editorSocial);
   await forceAnonMode(page);
-  await page.evaluate(async () => {
-    const editor = (window as any).editorSocial;
-    await editor.iniciarModoSecuencial();
-  });
   await page.waitForSelector('#tei-pasaje');
 }
 
@@ -61,8 +57,9 @@ test('starting laboratorio with an active session does not force the participati
   await waitForSessionReady(page);
   await forceAnonMode(page);
 
-  await page.locator('.btn-iniciar-modo[data-modo="secuencial"]').click();
+  await page.locator('[data-lab-start-mode][data-modo="secuencial"]').click();
 
+  await page.waitForURL('**/participa/laboratorio/sesion/?modo=secuencial');
   await page.waitForSelector('#tei-pasaje');
   await expect(page.locator('.laboratorio-wrapper')).toHaveAttribute('data-laboratorio-view', 'mode');
   await expect(page.locator('#modal-modo.show')).toHaveCount(0);

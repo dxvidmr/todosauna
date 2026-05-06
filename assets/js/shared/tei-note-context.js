@@ -55,6 +55,7 @@ function serializeInlineNoteNode(node) {
 
   const innerHtml = Array.from(node.childNodes || []).map(serializeInlineNoteNode).join('');
   const localName = getLocalName(node);
+  const getAttr = (name) => toText(node && typeof node.getAttribute === 'function' ? node.getAttribute(name) : '');
 
   if (localName === 'term') {
     return '<term>' + innerHtml + '</term>';
@@ -62,6 +63,39 @@ function serializeInlineNoteNode(node) {
 
   if (localName === 'hi') {
     return serializeHiNode(node, innerHtml);
+  }
+
+  if (localName === 'ref') {
+    const href = getAttr('target');
+    if (!href) return innerHtml;
+    const cbMatch = /^cb:(.+)$/i.exec(href);
+    if (cbMatch && cbMatch[1]) {
+      const objectId = cbMatch[1].trim();
+      if (objectId) {
+        return '<span class="note-cb-slot" data-cb-objectid="' + escapeHtml(objectId) + '"></span>';
+      }
+    }
+    const label = innerHtml.trim() || escapeHtml(href);
+    return '<a href="' + escapeHtml(href) + '">' + label + '</a>';
+  }
+
+  if (localName === 'graphic') {
+    const src = getAttr('url');
+    if (!src) return '';
+    const alt = getAttr('n') || 'Miniatura relacionada';
+    return '<img class="note-image-thumb img-thumbnail" src="' + escapeHtml(src) + '" alt="' + escapeHtml(alt) + '" loading="lazy" decoding="async">';
+  }
+
+  if (localName === 'figure') {
+    return '<figure class="note-figure">' + innerHtml + '</figure>';
+  }
+
+  if (localName === 'figdesc') {
+    return '<figcaption>' + innerHtml + '</figcaption>';
+  }
+
+  if (localName === 'lb') {
+    return '<br>';
   }
 
   return innerHtml;

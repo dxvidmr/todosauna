@@ -46,7 +46,7 @@ function renderNoteDisplay(params = {}) {
       '<div class="note-header">' +
         (badgesHtml ? `<div class="note-badges">${badgesHtml}</div>` : '') +
       '</div>' +
-      `<p class="fs-6 note-rich-text">${textHtml}</p>` +
+      `<div class="fs-6 note-rich-text">${textHtml}</div>` +
       '<div class="note-footer"></div>' +
     '</div>'
   );

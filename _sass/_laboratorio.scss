@@ -12,11 +12,22 @@
 
 body.laboratorio-page #maincontent,
 body.laboratorio-page .laboratorio-wrapper {
-  background: $color-light;
+  background: $color-surface-page;
 }
 
 body.laboratorio-page.laboratorio-mode-active {
   overflow: hidden;
+}
+
+@media (max-width: 991.98px) {
+  body.laboratorio-page.laboratorio-mode-active,
+  body.laboratorio-page.laboratorio-mode-active #maincontent,
+  body.laboratorio-page.laboratorio-mode-active .laboratorio-wrapper {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
 }
 
 .laboratorio-wrapper {
@@ -45,7 +56,7 @@ body.laboratorio-page.laboratorio-mode-active {
 
 .laboratorio-bienvenida {
   padding: var(--lab-welcome-top) var(--lab-inline-gutter) var(--lab-welcome-bottom);
-  background: $color-light;
+  background: $color-surface-page;
 }
 
 .laboratorio-bienvenida > .container-xl {
@@ -410,6 +421,10 @@ body.laboratorio-page.laboratorio-mode-active {
   color: $color-text-muted;
   font-size: 0.76rem;
   font-weight: 500;
+}
+
+[data-lab-prev-passage][hidden] {
+  display: none !important;
 }
 
 .notas-collapsed-toggle {
@@ -797,12 +812,13 @@ body.laboratorio-page.laboratorio-mode-active {
   }
 
   .laboratorio-layout-mobile.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
     position: relative;
     width: 100%;
+    min-height: 0;
     height: 100vh;
     height: 100dvh;
-    min-height: 100svh;
     overflow: hidden;
     padding: 0;
   }
@@ -812,7 +828,9 @@ body.laboratorio-page.laboratorio-mode-active {
     display: grid;
     grid-template-rows: auto auto minmax(0, 1fr);
     gap: 10px;
-    min-height: 100%;
+    flex: 1 1 auto;
+    height: 100%;
+    min-height: 0;
     padding: 0 var(--compact-navbar-inline-pad) 0;
   }
 
@@ -889,12 +907,19 @@ body.laboratorio-page.laboratorio-mode-active {
   }
 
   .laboratorio-mobile-body {
+    display: flex;
+    flex-direction: column;
     min-height: 0;
+    overflow: hidden;
   }
 
   .pasaje-container-mobile {
+    flex: 1 1 auto;
     height: 100%;
     min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
     padding: 16px 14px calc(env(safe-area-inset-bottom) + 120px);
     border-radius: 24px;
   }

@@ -153,6 +153,7 @@ html:has(.lectura-wrapper) {
 // Panel de contenido (se abre/cierra)
 .lectura-panel {
   background-color: $color-light;
+  box-shadow: $shadow-sm;
   border-radius: var(--lectura-panel-radius);
   max-height: 70vh;
   overflow: visible; // Cambiado para permitir que el handle sea visible

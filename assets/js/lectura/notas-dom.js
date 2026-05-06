@@ -26,6 +26,9 @@ var TIPO_NOTA_DESC_MAP = {
   escenica: 'Representación, gesto, movimiento y acotación implícita.'
 };
 
+var CB_METADATA_URL = new URL('../../data/metadata.json', import.meta.url).toString();
+var cbMetadataIndexPromise = null;
+
 function escapeHtmlAttribute(value) {
   return String(value == null ? '' : value)
     .replace(/&/g, '&amp;')
@@ -230,14 +233,124 @@ function sanitizeNoteHtml(html) {
   if (!hasPurify) return rawHtml;
 
   return window.DOMPurify.sanitize(rawHtml, {
-    ALLOWED_TAGS: ['term', 'em', 'strong', 'i', 'b'],
-    ALLOWED_ATTR: []
+    ALLOWED_TAGS: ['term', 'em', 'strong', 'i', 'b', 'a', 'img', 'figure', 'figcaption', 'br', 'span'],
+    ALLOWED_ATTR: ['href', 'src', 'alt', 'class', 'loading', 'decoding', 'data-cb-objectid', 'target', 'rel']
   });
 }
 
 function setNoteRichText(target, html) {
   if (!target) return;
   target.innerHTML = sanitizeNoteHtml(html);
+}
+
+function buildItemHrefFromObjectId(objectId) {
+  return '/items/' + encodeURIComponent(String(objectId || '').trim()) + '.html';
+}
+
+function normalizeRelativeHref(href) {
+  var value = String(href || '').trim();
+  if (!value) return '';
+  if (/^https?:\/\//i.test(value)) return value;
+  if (value.charAt(0) === '/') return value;
+  return '/' + value.replace(/^\/+/, '');
+}
+
+function pickCbItemHref(item, objectId) {
+  if (item) {
+    var referenceUrl = normalizeRelativeHref(item.reference_url);
+    if (referenceUrl) return referenceUrl;
+  }
+  return buildItemHrefFromObjectId(objectId);
+}
+
+function pickCbItemThumb(item) {
+  if (!item) return '';
+  var candidate = String(
+    item.object_thumb
+    || item.image_thumb
+    || item.image_small
+    || ''
+  ).trim();
+  return candidate;
+}
+
+function loadCbMetadataIndex() {
+  if (cbMetadataIndexPromise) return cbMetadataIndexPromise;
+
+  cbMetadataIndexPromise = fetch(CB_METADATA_URL)
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error('No se pudo cargar metadata JSON (' + response.status + ')');
+      }
+      return response.json();
+    })
+    .then(function (payload) {
+      var rows = Array.isArray(payload)
+        ? payload
+        : (payload && Array.isArray(payload.objects) ? payload.objects : []);
+      var index = Object.create(null);
+
+      rows.forEach(function (row) {
+        var objectId = String(row && row.objectid ? row.objectid : '').trim();
+        if (!objectId) return;
+        index[objectId] = row;
+      });
+
+      return index;
+    })
+    .catch(function (error) {
+      cbMetadataIndexPromise = null;
+      throw error;
+    });
+
+  return cbMetadataIndexPromise;
+}
+
+function buildCbThumbLinkHtml(objectId, item) {
+  var href = pickCbItemHref(item, objectId);
+  var thumb = pickCbItemThumb(item);
+  if (!thumb) return '';
+
+  var title = String(item && item.title ? item.title : objectId).trim();
+  var alt = String(item && (item.image_alt_text || item.description || item.title) ? (item.image_alt_text || item.description || item.title) : ('Miniatura de ' + objectId)).trim();
+
+  return '<a class="note-cb-thumb-link" href="' + escapeHtmlAttribute(href) + '">' +
+    '<img class="note-cb-auto-thumb img-thumbnail" src="' + escapeHtmlAttribute(thumb) + '" alt="' + escapeHtmlAttribute(alt) + '" loading="lazy" decoding="async">' +
+    '<span class="note-cb-thumb-caption">Abrir ficha: ' + escapeHtmlAttribute(title) + '</span>' +
+  '</a>';
+}
+
+async function hydrateCbRefsInContainer(container) {
+  if (!container || typeof container.querySelectorAll !== 'function') return;
+  var slots = Array.from(container.querySelectorAll('.note-rich-text .note-cb-slot[data-cb-objectid]'));
+  var legacyLinks = Array.from(container.querySelectorAll('.note-rich-text a.note-cb-link[data-cb-objectid]'));
+  if (slots.length === 0 && legacyLinks.length === 0) return;
+
+  var index = null;
+  try {
+    index = await loadCbMetadataIndex();
+  } catch (error) {
+    // Si no hay metadata, mantenemos enlaces fallback a /items/<id>.html
+    index = Object.create(null);
+  }
+
+  function injectThumbAtNode(node, removeNodeAfterInject) {
+    var objectId = String(node.getAttribute('data-cb-objectid') || '').trim();
+    if (!objectId) return;
+    if (node.nextElementSibling && node.nextElementSibling.classList.contains('note-cb-thumb-link')) {
+      if (removeNodeAfterInject) node.remove();
+      return;
+    }
+
+    var item = index ? index[objectId] : null;
+    var thumbHtml = buildCbThumbLinkHtml(objectId, item);
+    if (!thumbHtml) return;
+    node.insertAdjacentHTML('afterend', thumbHtml);
+    if (removeNodeAfterInject) node.remove();
+  }
+
+  slots.forEach(function (slot) { injectThumbAtNode(slot, true); });
+  legacyLinks.forEach(function (link) { injectThumbAtNode(link, true); });
 }
 
 // Parsear target TEI y normalizar punteros:
@@ -307,6 +420,32 @@ function resolveTargetElements(container, targetAttr) {
     if (el) elements.push(el);
   }
   return elements;
+}
+
+function noteElementHasGraphic(noteElement) {
+  if (!noteElement || typeof noteElement.getElementsByTagName !== 'function') return false;
+  var all = noteElement.getElementsByTagName('*');
+  for (var i = 0; i < all.length; i++) {
+    if (String(all[i].localName || '').toLowerCase() === 'graphic') return true;
+  }
+  return false;
+}
+
+function noteHasImageContent(note) {
+  if (!note) return false;
+  if (typeof note.querySelector === 'function') {
+    if (noteElementHasGraphic(note)) return true;
+    var xmlRefs = note.getElementsByTagName ? note.getElementsByTagName('*') : [];
+    for (var i = 0; i < xmlRefs.length; i++) {
+      var localName = String(xmlRefs[i].localName || '').toLowerCase();
+      if (localName !== 'ref') continue;
+      var target = String(xmlRefs[i].getAttribute('target') || '').trim();
+      if (/^cb:/i.test(target)) return true;
+    }
+  }
+  if (typeof note.texto_nota === 'string' && /<img[\s>]/i.test(note.texto_nota)) return true;
+  if (typeof note.texto_nota === 'string' && /(data-cb-objectid=|href\s*=\s*["']cb:)/i.test(note.texto_nota)) return true;
+  return false;
 }
 
 // Ordenar notas por especificidad: seg-targets primero, luego por cantidad de targets
@@ -538,6 +677,7 @@ function applyNoteHighlights(container, notes, options) {
 
   sorted.forEach(function (note) {
     var noteId = getNoteId(note), targetStr = getTarget(note);
+    var hasImageNote = noteHasImageContent(note);
     if (!targetStr || !noteId) return;
     var elements = resolveTargetElements(container, targetStr);
     if (elements.length === 0) return;
@@ -546,6 +686,9 @@ function applyNoteHighlights(container, notes, options) {
     elements.forEach(function (element) {
       var wrapper = ensureNoteWrapper(element);
       addNoteGroup(wrapper, noteId, { propagateToDescendants: propagate });
+      if (hasImageNote) {
+        wrapper.classList.add('note-target-has-media');
+      }
       if (!markWrapperEventsAttached(wrapper)) return;
 
       if (options.onWrapperClick) {
@@ -581,7 +724,7 @@ export {
   collectNoteTargetMeta, buildReadingOrderNoteIds, pickPrimaryNoteIdForClick,
   findElementByXmlId, resolveTargetElements,
   ensureNoteWrapper, addNoteGroup, markWrapperEventsAttached,
-  buildNoteBadgesHTML, buildNoteDisplayHTML, setNoteRichText,
+  buildNoteBadgesHTML, buildNoteDisplayHTML, setNoteRichText, hydrateCbRefsInContainer,
   highlightNoteInText, highlightAllRelatedGroups, initNoteBadgeTooltip,
   markCurrentNoteInText, applyNoteHighlights
 };

@@ -45,6 +45,9 @@
         <prefixDef ident="fo" matchPattern="(.+)" replacementPattern="fuenteovejuna.xml#$1">
           <p>El prefijo <mentioned>fo:</mentioned> apunta a elementos identificados en el archivo base <ref target="fuenteovejuna.xml">Fuenteovejuna</ref>.</p>
         </prefixDef>
+        <prefixDef ident="cb" matchPattern="(.+)" replacementPattern="/items/$1.html">
+          <p>El prefijo <mentioned>cb:</mentioned> apunta a ítems de la colección digital publicados con CollectionBuilder.</p>
+        </prefixDef>
       </listPrefixDef>
       <editorialDecl>
         <p>Las anotaciones se conservan en un archivo TEI separado y se vinculan al texto base mediante punteros en <att>target</att> hacia identificadores <att>xml:id</att> del archivo <ref target="fuenteovejuna.xml">Fuenteovejuna</ref>. El prefijo <mentioned>fo:</mentioned> abrevia esos enlaces interdocumentales.</p>
@@ -119,6 +122,24 @@
 
 <body>
 <div type="notas">
+<!-- NOTAS DRAMATIS PERSONAE -->
+ <note
+  xml:id="n-dp-esteban"
+  target="fo:dp-esteban"
+  ana="#escenica"
+  change="#chg-2026-04-27-notes-baseline">
+   Diseño de vestuario para el personaje del <term>Esteban (Alcalde)</term> para la producción de 1944 del Teatro Español, dirigida por Cayetano Luca de Tena siguiendo la versión de Ernesto Giménez Caballero:
+  <ref target="cb:obj0007"/>
+</note>
+
+<note
+  xml:id="n-dp-cuadrado"
+  target="fo:dp-cuadrado"
+  ana="#escenica"
+  change="#chg-2026-04-27-notes-baseline">
+   Diseño de vestuario para el personaje del <term>Regidor 2 (Cuadrado)</term> realizado por José Caballero para la producción de 1944 en el Teatro Español:
+  <ref target="cb:europeana_00025"/>
+</note>
 
 <!--NOTAS ACTO PRIMERO-->
 
@@ -762,6 +783,15 @@
   ana="#realia"
   change="#chg-2026-04-27-notes-baseline">
   <term>troj</term>: ‘granero’.
+</note>
+
+<note
+  xml:id="n-290-1"
+  target="fo:l-290"
+  ana="#escenica"
+  change="chg-2026-04-27-notes-baseline">
+  Frondoso, Mengo y Barrildo llegan al lugar donde se encuentran Laurencia y Pascuala, como se puede ver en esta fotografía de la producción dirigida por Wolfgang Heinz en el Deutsches Theater Berlin, estrenada el 21 de marzo de 1958:
+  <ref target="cb:europeana_00145"/>
 </note>
 
 <note

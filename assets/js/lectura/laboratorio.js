@@ -21,7 +21,8 @@ import {
   highlightNoteInText,
   markCurrentNoteInText,
   buildNoteBadgesHTML,
-  buildNoteDisplayHTML
+  buildNoteDisplayHTML,
+  hydrateCbRefsInContainer
 } from './notas-dom.js';
 import {
   buildNoteEvaluationKey,
@@ -38,6 +39,8 @@ import {
 } from '../participacion/laboratorio-stats.js';
 
 const LAB_PASAJES_URL = new URL('../../data/pasajes/fuenteovejuna.json', import.meta.url).toString();
+const LAB_SESSION_STORAGE_KEY = 'todosauna:laboratorio:sesion';
+const LAB_SESSION_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 
 // ============================================
 // EDITOR SOCIAL (JUEGO DE EVALUACION)
@@ -64,6 +67,17 @@ class EditorSocial {
     
     // Referencias DOM
     this.layoutEls = [];
+    this.isLobbyPage = false;
+    this.isSessionPage = false;
+    this.allowSessionNavigation = false;
+    this.sessionExitModal = null;
+    this.sessionExitPending = false;
+    this.sessionStartedAt = null;
+    this.sessionUpdatedAt = null;
+    this.sessionStats = {
+      notasEvaluadas: 0
+    };
+    this.sessionEvaluatedByPassage = {};
     this.ui = {
       desktop: null,
       mobile: null
@@ -81,7 +95,7 @@ class EditorSocial {
     this.btnCerrarNotas = null;
     this.fragmentoActual = null;
     this.isSuggestionTooltipActive = false;
-    // Zoom del pasaje (sesion actual)
+    // Zoom del pasaje (sesión actual)
     this.labFontSizePercent = DEFAULT_ZOOM_PERCENT;
     this.labFontMin = MIN_ZOOM_PERCENT;
     this.labFontMax = MAX_ZOOM_PERCENT;
@@ -130,6 +144,110 @@ class EditorSocial {
     return false;
   }
 
+  getLobbyUrl() {
+    const current = new URL(window.location.href);
+    current.search = '';
+    current.hash = '';
+
+    if (current.pathname.replace(/\/$/, '').endsWith('/laboratorio/sesion')) {
+      return new URL('../', current).toString();
+    }
+
+    return current.toString();
+  }
+
+  getSessionUrl(modo) {
+    const url = new URL('sesion/', this.getLobbyUrl());
+    if (modo) {
+      url.searchParams.set('modo', modo);
+    }
+    return url.toString();
+  }
+
+  getRequestedMode() {
+    const modo = new URLSearchParams(window.location.search).get('modo');
+    return modo === 'secuencial' || modo === 'aleatorio' ? modo : null;
+  }
+
+  readStoredSession() {
+    try {
+      const raw = window.localStorage.getItem(LAB_SESSION_STORAGE_KEY);
+      if (!raw) return null;
+
+      const data = JSON.parse(raw);
+      const updatedAt = Number(data?.updatedAt || 0);
+      if (!updatedAt || Date.now() - updatedAt > LAB_SESSION_MAX_AGE_MS) {
+        window.localStorage.removeItem(LAB_SESSION_STORAGE_KEY);
+        return null;
+      }
+
+      if (data?.modo !== 'secuencial' && data?.modo !== 'aleatorio') {
+        return null;
+      }
+
+      return data;
+    } catch (_error) {
+      return null;
+    }
+  }
+
+  persistSession() {
+    if (!this.isSessionPage || !this.modoNavegacion) return;
+
+    const now = Date.now();
+    if (!this.sessionStartedAt) {
+      this.sessionStartedAt = now;
+    }
+    this.sessionUpdatedAt = now;
+
+    try {
+      window.localStorage.setItem(LAB_SESSION_STORAGE_KEY, JSON.stringify({
+        modo: this.modoNavegacion,
+        pasajeActualIndex: this.pasajeActualIndex,
+        pasajesVisitados: Array.from(this.pasajesVisitados),
+        stats: this.sessionStats,
+        evaluatedByPassage: this.sessionEvaluatedByPassage,
+        startedAt: this.sessionStartedAt,
+        updatedAt: this.sessionUpdatedAt
+      }));
+    } catch (_error) {
+      // El guardado local es una mejora de continuidad; la sesión debe seguir funcionando sin él.
+    }
+  }
+
+  clearStoredSession() {
+    try {
+      window.localStorage.removeItem(LAB_SESSION_STORAGE_KEY);
+    } catch (_error) {
+      // Sin acción.
+    }
+  }
+
+  restoreSessionMetadata(storedSession) {
+    const data = storedSession || {};
+    this.sessionStartedAt = Number(data.startedAt || Date.now());
+    this.sessionUpdatedAt = Number(data.updatedAt || this.sessionStartedAt);
+    this.sessionStats = Object.assign({ notasEvaluadas: 0 }, data.stats || {});
+    this.pasajesVisitados = new Set(
+      Array.isArray(data.pasajesVisitados)
+        ? data.pasajesVisitados.map(Number).filter(Number.isInteger)
+        : []
+    );
+    this.sessionEvaluatedByPassage = {};
+    if (data.evaluatedByPassage && typeof data.evaluatedByPassage === 'object') {
+      Object.entries(data.evaluatedByPassage).forEach(([pasajeId, noteKeys]) => {
+        if (!Array.isArray(noteKeys)) return;
+        this.sessionEvaluatedByPassage[pasajeId] = noteKeys
+          .filter(noteKey => typeof noteKey === 'string' && noteKey.length > 0);
+      });
+    }
+  }
+
+  navigateAllowingSessionExit(url) {
+    this.allowSessionNavigation = true;
+    window.location.href = url;
+  }
+
   /**
    * Carga dinamica de CETEI.js si no esta disponible.
    */
@@ -170,11 +288,23 @@ class EditorSocial {
     this.wrapperEl = document.querySelector('.laboratorio-wrapper');
     this.navWrapper = document.querySelector('.nav-wrapper');
     this.initializeShellUI();
-    this.setupTextZoomController();
+    this.isSessionPage = this.layoutEls.length > 0 || !!document.querySelector('[data-lab-session-page]');
+    this.isLobbyPage = !!this.bienvenidaContainer && !this.isSessionPage;
+    if (this.isSessionPage) {
+      this.setupTextZoomController();
+    }
     this.syncResponsiveState();
 
     // Cargar pasajes desde asset estático derivado del XML
     await this.cargarPasajes();
+    await this.cargarEstadisticasGlobales();
+    this.setupBienvenidaListeners();
+
+    if (!this.isSessionPage) {
+      this.mostrarPantallaBienvenida();
+      console.log('Editor Social inicializado');
+      return;
+    }
 
     // Cargar XML de Fuenteovejuna (se cachea)
     const xmlPath = window.SITE_PATHS?.xml || '../assets/xml';
@@ -186,20 +316,13 @@ class EditorSocial {
       throw new Error('CETEI.js no esta cargado y no se pudo cargar dinamicamente.');
     }
 
-    // Cargar estadísticas globales
-    await this.cargarEstadisticasGlobales();
-
-    // Mostrar pantalla de bienvenida
-    this.mostrarPantallaBienvenida();
-
-    // Event listeners para pantalla de bienvenida
-    this.setupBienvenidaListeners();
-    
     // Event listeners para controles del laboratorio
     this.setupEventListeners();
     this.bindParticipationStateListener();
     this.actualizarBotonNotasSheet();
     this.syncResponsiveState();
+    await this.iniciarSesionActivaDesdeRuta();
+    this.setupSessionExitGuards();
 
     console.log('Editor Social inicializado');
   }
@@ -211,7 +334,6 @@ class EditorSocial {
     const container = document.querySelector('.stats-globales');
     
     if (!container) {
-      console.warn('Contenedor de estadísticas no encontrado');
       return;
     }
 
@@ -810,12 +932,75 @@ class EditorSocial {
 
     await this.prepararSesionAntesDeIniciarLaboratorio();
 
+    if (!this.isSessionPage) {
+      this.clearStoredSession();
+      this.sessionStartedAt = Date.now();
+      this.sessionStats = { notasEvaluadas: 0 };
+      const sessionPayload = {
+        modo,
+        pasajesVisitados: [],
+        stats: this.sessionStats,
+        startedAt: this.sessionStartedAt,
+        updatedAt: this.sessionStartedAt
+      };
+
+      if (modo === 'secuencial') {
+        sessionPayload.pasajeActualIndex = 0;
+      }
+
+      try {
+        window.localStorage.setItem(LAB_SESSION_STORAGE_KEY, JSON.stringify(sessionPayload));
+      } catch (_error) {
+        // La sesión puede iniciarse aunque no se pueda guardar localmente.
+      }
+      this.navigateAllowingSessionExit(this.getSessionUrl(modo));
+      return;
+    }
+
     if (modo === 'secuencial') {
       await this.iniciarModoSecuencial();
       return;
     }
 
     await this.iniciarModoAleatorio();
+  }
+
+  async iniciarSesionActivaDesdeRuta() {
+    const storedSession = this.readStoredSession();
+    const requestedMode = this.getRequestedMode();
+    const modo = requestedMode || storedSession?.modo || null;
+    const compatibleStoredSession = !requestedMode || storedSession?.modo === requestedMode
+      ? storedSession
+      : null;
+
+    if (modo !== 'secuencial' && modo !== 'aleatorio') {
+      this.navigateAllowingSessionExit(this.getLobbyUrl());
+      return;
+    }
+
+    const initialIndex = Number.isInteger(Number(compatibleStoredSession?.pasajeActualIndex))
+      ? Math.max(0, Math.min(this.pasajes.length - 1, Number(compatibleStoredSession.pasajeActualIndex)))
+      : undefined;
+
+    this.restoreSessionMetadata(compatibleStoredSession || {
+      modo,
+      pasajeActualIndex: initialIndex,
+      startedAt: Date.now(),
+      updatedAt: Date.now()
+    });
+
+    if (modo === 'secuencial') {
+      await this.iniciarModoSecuencial({
+        initialIndex: Number.isInteger(initialIndex) ? initialIndex : 0,
+        preserveSession: true
+      });
+      return;
+    }
+
+    await this.iniciarModoAleatorio({
+      ...(Number.isInteger(initialIndex) ? { initialIndex } : {}),
+      preserveSession: true
+    });
   }
 
   /**
@@ -835,9 +1020,16 @@ class EditorSocial {
   /**
    * Iniciar modo secuencial
    */
-  async iniciarModoSecuencial() {
+  async iniciarModoSecuencial(options = {}) {
+    if (!this.isSessionPage) {
+      await this.iniciarModoDesdeBienvenida('secuencial');
+      return;
+    }
+
     this.modoNavegacion = 'secuencial';
-    this.pasajesVisitados.clear();
+    if (!options.preserveSession) {
+      this.pasajesVisitados.clear();
+    }
     this.ocultarPantallaBienvenida();
     this.actualizarModoControlesFranja('secuencial');
     
@@ -850,6 +1042,7 @@ class EditorSocial {
     // Mostrar botón anterior
     this.getAllUIs().forEach((ui) => {
       if (ui.btnPrevPassage) {
+        ui.btnPrevPassage.hidden = false;
         ui.btnPrevPassage.style.display = 'inline-flex';
       }
     });
@@ -857,15 +1050,22 @@ class EditorSocial {
     this.actualizarBotonesNavegacionPasajes();
     this.actualizarBotonNotasSheet();
     // Cargar primer pasaje
-    await this.cargarPasaje(0);
+    await this.cargarPasaje(Number.isInteger(options.initialIndex) ? options.initialIndex : 0);
   }
 
   /**
    * Iniciar modo aleatorio
    */
-  async iniciarModoAleatorio() {
+  async iniciarModoAleatorio(options = {}) {
+    if (!this.isSessionPage) {
+      await this.iniciarModoDesdeBienvenida('aleatorio');
+      return;
+    }
+
     this.modoNavegacion = 'aleatorio';
-    this.pasajesVisitados.clear();
+    if (!options.preserveSession) {
+      this.pasajesVisitados.clear();
+    }
     this.ocultarPantallaBienvenida();
     this.actualizarModoControlesFranja('aleatorio');
     
@@ -878,12 +1078,18 @@ class EditorSocial {
     // Ocultar botón anterior
     this.getAllUIs().forEach((ui) => {
       if (ui.btnPrevPassage) {
+        ui.btnPrevPassage.hidden = true;
         ui.btnPrevPassage.style.display = 'none';
       }
     });
 
     this.actualizarBotonesNavegacionPasajes();
     this.actualizarBotonNotasSheet();
+    if (Number.isInteger(options.initialIndex)) {
+      await this.cargarPasaje(options.initialIndex);
+      return;
+    }
+
     // Cargar pasaje aleatorio
     await this.cargarPasajeAleatorio();
   }
@@ -1004,6 +1210,10 @@ class EditorSocial {
 
     const pasaje = this.pasajes[index];
     this.pasajeActual = pasaje;
+    const persistedNoteKeys = Array.isArray(this.sessionEvaluatedByPassage[pasaje.id])
+      ? this.sessionEvaluatedByPassage[pasaje.id]
+      : [];
+    this.notasEvaluadas = new Set(persistedNoteKeys);
 
     // Actualizar UI
     this.setTextForAll('[data-lab-passage-current]', index + 1);
@@ -1037,6 +1247,7 @@ class EditorSocial {
 
     // Actualizar barra de progreso de notas
     this.actualizarBarraProgresoNotas();
+    this.persistSession();
   }
 
   /**
@@ -1114,17 +1325,16 @@ class EditorSocial {
     // Aplicar highlights al texto
     this.aplicarHighlights();
 
-    // Mostrar placeholder o primera nota
+    // Mostrar estado inicial del panel de notas
     if (this.notasPasaje.length === 0) {
       this.renderizarEstadoNotaPanel(
         'No hay notas en este pasaje',
         'Sin evaluaciones disponibles en este pasaje'
       );
     } else {
-      this.renderizarEstadoNotaPanel(
-        '',
-        ''
-      );
+      // Activar siempre la primera nota al entrar en cada pasaje.
+      // No abrimos el sheet movil ni hacemos auto-scroll del pasaje.
+      this.navegarANota(0, { openSheet: false, autoScroll: false });
     }
 
     this.actualizarBotonNotasSheet();
@@ -1255,6 +1465,7 @@ class EditorSocial {
         ? '<div class="nota-ya-evaluada"><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Nota evaluada</div>'
         : ''
     });
+    void hydrateCbRefsInContainer(this.notaContent);
 
     this.actualizarBotonNotasSheet();
 
@@ -1285,7 +1496,23 @@ class EditorSocial {
    * Marcar nota como evaluada
    */
   marcarNotaComoEvaluada(notaId, noteChange) {
-    this.notasEvaluadas.add(buildNoteEvaluationKey(notaId, noteChange));
+    const noteKey = buildNoteEvaluationKey(notaId, noteChange);
+    const wasPending = !this.notasEvaluadas.has(noteKey);
+    this.notasEvaluadas.add(noteKey);
+    if (wasPending) {
+      const pasajeId = this.pasajeActual?.id || this.pasajes[this.pasajeActualIndex]?.id || '';
+      if (pasajeId) {
+        const currentKeys = new Set(
+          Array.isArray(this.sessionEvaluatedByPassage[pasajeId])
+            ? this.sessionEvaluatedByPassage[pasajeId]
+            : []
+        );
+        currentKeys.add(noteKey);
+        this.sessionEvaluatedByPassage[pasajeId] = Array.from(currentKeys);
+      }
+      this.sessionStats.notasEvaluadas = Number(this.sessionStats.notasEvaluadas || 0) + 1;
+      this.persistSession();
+    }
     this.actualizarContadores();
     
     // Re-renderizar la nota actual para mostrar estado evaluado
@@ -1372,6 +1599,159 @@ class EditorSocial {
     });
   }
 
+  getSessionSummary() {
+    return {
+      modo: this.modoNavegacion === 'aleatorio' ? 'Aleatorio' : 'Secuencial',
+      pasajesVisitados: this.pasajesVisitados.size,
+      pasajesTotales: this.pasajes.length,
+      notasEvaluadas: Number(this.sessionStats.notasEvaluadas || 0)
+    };
+  }
+
+  renderSessionSummaryHtml() {
+    const summary = this.getSessionSummary();
+    return `
+      <div class="modal-header has-content">
+        <div class="modal-header-main">
+          <h2 id="laboratorio-salida-titulo">Resumen de la sesión</h2>
+          <p class="modal-descripcion mb-0">Puedes continuar o salir del laboratorio.</p>
+        </div>
+      </div>
+      <div class="row g-2 my-3">
+        <div class="col-6">
+          <div class="border rounded-3 p-3 h-100">
+            <div class="text-muted small">Modo</div>
+            <div class="fw-semibold">${summary.modo}</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="border rounded-3 p-3 h-100">
+            <div class="text-muted small">Pasajes</div>
+            <div class="fw-semibold">${summary.pasajesVisitados}/${summary.pasajesTotales}</div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="border rounded-3 p-3">
+            <div class="text-muted small">Notas evaluadas</div>
+            <div class="fw-semibold">${summary.notasEvaluadas}</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-actions d-flex flex-wrap gap-2 justify-content-end">
+        <button type="button" class="btn btn-outline-dark" data-lab-exit-action="continue">Continuar</button>
+        <button type="button" class="btn btn-muted" data-lab-exit-action="change-mode">Cambiar modo</button>
+        <button type="button" class="btn btn-dark" data-lab-exit-action="exit">Salir</button>
+      </div>
+    `;
+  }
+
+  showSessionExitSummary() {
+    if (!window.Participacion?.modalShell?.create) {
+      return Promise.resolve('exit');
+    }
+
+    if (this.sessionExitModal?.modal?.isConnected) {
+      this.sessionExitModal.close();
+    }
+
+    return new Promise((resolve) => {
+      let resolved = false;
+      const finish = (action) => {
+        if (resolved) return;
+        resolved = true;
+        this.sessionExitModal?.close();
+        resolve(action);
+      };
+
+      this.sessionExitModal = window.Participacion.modalShell.create({
+        modalClassName: 'laboratorio-exit-summary',
+        contentClassName: 'laboratorio-exit-summary-content',
+        labelledBy: 'laboratorio-salida-titulo',
+        closeButtonClassName: 'btn-circular modal-shell-close',
+        closeButtonLabel: 'Cerrar resumen',
+        closeButtonHtml: '<i class="fa-solid fa-xmark" aria-hidden="true"></i>',
+        destroyOnClose: true,
+        bodyHtml: this.renderSessionSummaryHtml(),
+        onRequestClose: () => finish('continue')
+      });
+
+      this.sessionExitModal.modal.querySelectorAll('[data-lab-exit-action]').forEach((button) => {
+        button.addEventListener('click', () => {
+          finish(button.getAttribute('data-lab-exit-action') || 'continue');
+        });
+      });
+
+      this.sessionExitModal.open();
+    });
+  }
+
+  async solicitarSalidaSesion(options = {}) {
+    if (!this.isSessionPage || this.allowSessionNavigation || this.sessionExitPending) return;
+
+    this.sessionExitPending = true;
+    this.persistSession();
+    const action = await this.showSessionExitSummary();
+    this.sessionExitPending = false;
+
+    if (action === 'continue') return;
+
+    if (action === 'change-mode') {
+      this.clearStoredSession();
+      this.navigateAllowingSessionExit(this.getLobbyUrl());
+      return;
+    }
+
+    if (options.clearSessionOnExit) {
+      this.clearStoredSession();
+    }
+    this.navigateAllowingSessionExit(options.destination || this.getLobbyUrl());
+  }
+
+  setupSessionExitGuards() {
+    if (!this.isSessionPage) return;
+
+    window.history.replaceState(
+      Object.assign({}, window.history.state || {}, { laboratorioSesion: true }),
+      '',
+      window.location.href
+    );
+    window.history.pushState({ laboratorioSesionGuard: true }, '', window.location.href);
+
+    window.addEventListener('popstate', () => {
+      if (this.allowSessionNavigation) return;
+      window.history.pushState({ laboratorioSesionGuard: true }, '', window.location.href);
+      void this.solicitarSalidaSesion({ destination: this.getLobbyUrl() });
+    });
+
+    window.addEventListener('beforeunload', (event) => {
+      if (this.allowSessionNavigation) return;
+      this.persistSession();
+      event.preventDefault();
+      event.returnValue = '';
+    });
+
+    window.addEventListener('pagehide', () => {
+      this.persistSession();
+    });
+
+    document.addEventListener('click', (event) => {
+      if (this.allowSessionNavigation) return;
+      const target = event.target instanceof Element ? event.target : null;
+      const link = target?.closest('a[href]');
+      if (!link || link.target || link.hasAttribute('download')) return;
+
+      const href = link.getAttribute('href') || '';
+      if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+
+      const destination = new URL(href, window.location.href);
+      if (destination.href === window.location.href) return;
+      if (destination.origin !== window.location.origin) return;
+
+      event.preventDefault();
+      void this.solicitarSalidaSesion({ destination: destination.toString() });
+    }, true);
+  }
+
   /**
    * Registrar evaluacion en Supabase (delega a función compartida)
    */
@@ -1422,6 +1802,14 @@ class EditorSocial {
     // Botón cambiar modo
     document.querySelectorAll('[data-cambiar-modo]').forEach((button) => {
       button.addEventListener('click', async () => {
+        if (this.isSessionPage) {
+          await this.solicitarSalidaSesion({
+            destination: this.getLobbyUrl(),
+            clearSessionOnExit: true
+          });
+          return;
+        }
+
         const shouldChangeMode = await this.confirmFeedback({
           title: 'Cambiar modo',
           message: 'Volver\u00e1s a la pantalla de selecci\u00f3n para elegir de nuevo entre modo secuencial o aleatorio.',
@@ -1447,7 +1835,7 @@ class EditorSocial {
       this.labFontSizePercent = this.textZoomController.getPercent();
     });
 
-    // Revalidar overflow horizontal al cambiar tamano de viewport
+    // Revalidar overflow horizontal al cambiar tamaño de viewport
     window.addEventListener('resize', () => {
       if (this.resizeAdjustTimer) {
         clearTimeout(this.resizeAdjustTimer);
@@ -1498,6 +1886,12 @@ class EditorSocial {
    * Volver a la pantalla de bienvenida
    */
   volverABienvenida() {
+    if (this.isSessionPage) {
+      this.clearStoredSession();
+      this.navigateAllowingSessionExit(this.getLobbyUrl());
+      return;
+    }
+
     this.modoNavegacion = null;
     this.pasajesVisitados.clear();
     this.actualizarModoControlesFranja(null);
@@ -1526,8 +1920,10 @@ class EditorSocial {
       const btnSiguiente = ui.btnNextPassage;
 
       if (btnAnterior) {
-        btnAnterior.style.display = this.modoNavegacion === 'secuencial' ? 'inline-flex' : 'none';
-        btnAnterior.disabled = this.modoNavegacion !== 'secuencial' || this.pasajeActualIndex <= 0;
+        const isSecuencial = this.modoNavegacion === 'secuencial';
+        btnAnterior.hidden = !isSecuencial;
+        btnAnterior.style.display = isSecuencial ? 'inline-flex' : 'none';
+        btnAnterior.disabled = !isSecuencial || this.pasajeActualIndex <= 0;
       }
 
       if (!btnSiguiente) return;
@@ -1585,17 +1981,17 @@ class EditorSocial {
     this.closeNoteSheet();
     this.clearInactiveShells();
     layout.innerHTML = `
-      <div style="text-align: center; padding: 80px 20px; max-width: 600px; margin: 0 auto;">
-        <h1 style="font-size: 3rem; color: var(--success); margin-bottom: 20px;">Felicidades!</h1>
-        <p style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 30px;">
+      <div class="container py-5 text-center">
+        <div class="mx-auto d-grid gap-3" style="max-width: 600px;">
+          <h1 class="display-5 fw-semibold mb-0">¡Felicidades!</h1>
+          <p class="fs-4 text-muted mb-0">
           Has completado todos los pasajes disponibles
-        </p>
-        <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px;">
-          Gracias por tu contribucion al proyecto
-        </p>
-        <a href="../index.html" class="btn" style="font-size: 1.2rem; padding: 15px 40px;">
-          Volver al inicio
-        </a>
+          </p>
+          <p class="fs-5 text-muted mb-2">Gracias por tu contribución al proyecto</p>
+          <a href="${this.getLobbyUrl()}" class="btn btn-dark align-self-center">
+            Volver al laboratorio
+          </a>
+        </div>
       </div>
     `;
 
