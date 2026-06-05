@@ -8,6 +8,7 @@ import {
     renderNotePlaceholder
 } from '../shared/note-panel.js';
 import { serializeNoteNodeHtml } from '../shared/tei-note-context.js';
+import { createBottomSheetDragController } from '../shared/bottom-sheet-drag.js';
 import {
     applyNoteHighlights,
     collectNoteTargetMeta,
@@ -54,6 +55,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const panelHeaderActions = document.getElementById('lectura-panel-header-actions');
     let panelWrapper = null;
     const dynamicRecenterEnabled = lecturaWrapper?.dataset.lecturaDynamicRecenter === 'true';
+    const lecturaPanelDesktopBreakpoint = 992;
+    const lecturaPanelMinWidth = 320;
+    const lecturaPanelDefaultMaxWidth = 800;
 
     function getLayoutTokenPx(token, fallback) {
         if (!lecturaWrapper) return fallback;
@@ -100,6 +104,21 @@ document.addEventListener("DOMContentLoaded", function() {
         return baseLeft;
     }
 
+    function getCollapsedRailWidth() {
+        return getLayoutTokenPx('--lectura-rail-collapsed-width', 56);
+    }
+
+    function getStableOpenPanelFootprint() {
+        const panelWidth = lecturaPanel?.offsetWidth || getLayoutTokenPx('--lectura-panel-open-min-width', 360);
+        const panelGap = getLayoutTokenPx('--lectura-panel-gap-open', 32);
+        return panelWidth + getCollapsedRailWidth() + panelGap;
+    }
+
+    function getStableClosedRailInset() {
+        const railGap = getLayoutTokenPx('--lectura-panel-gap-closed', 24);
+        return getCollapsedRailWidth() + railGap;
+    }
+
     function updateDesktopTextInset() {
         if (!textColumn) return;
 
@@ -116,13 +135,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!dynamicRecenterEnabled) {
             textColumn.style.paddingLeft = '';
             if (isOpen) {
-                const openGap = getLayoutTokenPx('--lectura-panel-gap-open', 32);
-                const openInset = (panelWrapper?.offsetWidth || 0) + openGap;
-                textColumn.style.paddingRight = `${Math.round(openInset)}px`;
+                textColumn.style.paddingRight = `${Math.round(getStableOpenPanelFootprint())}px`;
             } else {
-                const railGap = getLayoutTokenPx('--lectura-panel-gap-closed', 24);
-                const railInset = (tabsBar?.offsetWidth || getLayoutTokenPx('--lectura-rail-collapsed-width', 56)) + railGap;
-                textColumn.style.paddingRight = `${Math.round(railInset)}px`;
+                textColumn.style.paddingRight = `${Math.round(getStableClosedRailInset())}px`;
             }
             return;
         }
@@ -139,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        const panelFootprint = (panelWrapper?.offsetWidth || 0) + panelRightOffset + openRightSafety;
+        const panelFootprint = getStableOpenPanelFootprint() + panelRightOffset + openRightSafety;
         const openRightInset = Math.max(staticRightInset, panelFootprint);
         const baseLeft = getBaseTextPaddingLeftPx();
         const openLeft = window.innerWidth >= 1600
@@ -165,6 +180,43 @@ document.addEventListener("DOMContentLoaded", function() {
     // Estado del panel
     let panelAbierto = false;
     let pestanaActiva = null;
+    let preferredPanelOpenWidth = null;
+    let mobilePanelDragController = null;
+
+    function getPanelOpenMaxWidth() {
+        return dynamicRecenterEnabled
+            ? getLayoutTokenPx('--lectura-panel-open-width-safe-max', 420)
+            : lecturaPanelDefaultMaxWidth;
+    }
+
+    function getPanelInlineOpenWidth() {
+        const width = parseFloat(panelWrapper?.style.getPropertyValue('--lectura-panel-open-width-inline'));
+        return Number.isFinite(width) ? width : null;
+    }
+
+    function setPanelOpenWidth(width, { remember = false } = {}) {
+        if (!panelWrapper || !Number.isFinite(width)) return;
+
+        const clampedWidth = Math.min(Math.max(width, lecturaPanelMinWidth), getPanelOpenMaxWidth());
+        panelWrapper.style.setProperty('--lectura-panel-open-width-inline', `${Math.round(clampedWidth)}px`);
+
+        if (remember) {
+            preferredPanelOpenWidth = clampedWidth;
+        }
+    }
+
+    function ensurePanelOpenWidth() {
+        if (!panelWrapper || window.innerWidth < lecturaPanelDesktopBreakpoint) return;
+
+        if (Number.isFinite(preferredPanelOpenWidth)) {
+            setPanelOpenWidth(preferredPanelOpenWidth);
+            return;
+        }
+
+        if (Number.isFinite(getPanelInlineOpenWidth())) return;
+
+        setPanelOpenWidth(getLayoutTokenPx('--lectura-panel-open-min-width', 360));
+    }
 
     function getTabLabelText(tabName) {
         const tabButton = tabsBar?.querySelector(`[data-tab="${tabName}"]`);
@@ -244,8 +296,8 @@ document.addEventListener("DOMContentLoaded", function() {
         if (targetTab) targetTab.classList.add('active');
         if (targetButton) targetButton.classList.add('active');
 
-        const openMin = getLayoutTokenPx('--lectura-panel-open-min-width', 360);
-        panelWrapper?.style.setProperty('--lectura-panel-open-width-inline', `${Math.round(openMin)}px`);
+        mobilePanelDragController?.reset();
+        ensurePanelOpenWidth();
         panelAbierto = true;
         pestanaActiva = tabName;
         updatePanelHeaderTitle(tabName);
@@ -259,10 +311,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Función para cerrar el panel
     function cerrarPanel() {
         if (!lecturaPanel) return;
-
-        if (window.edicionNotas?.notaActualId && teiContainer && noteContentDiv) {
-            cerrarNota(teiContainer, noteContentDiv);
-        }
+        mobilePanelDragController?.reset();
         
         lecturaPanel.classList.remove('open');
         tabButtons.forEach(btn => btn.classList.remove('active'));
@@ -304,7 +353,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.addEventListener('pointerdown', function(event) {
-        if (window.innerWidth >= 992 || !panelAbierto || !panelWrapper) return;
+        if (window.innerWidth >= lecturaPanelDesktopBreakpoint || !panelAbierto || !panelWrapper) return;
         if (panelWrapper.contains(event.target)) return;
         cerrarPanel();
     });
@@ -327,37 +376,27 @@ document.addEventListener("DOMContentLoaded", function() {
     // ============================================
     
     const resizeHandle = document.getElementById('panel-resize-handle');
+    const mobilePanelDragHandle = document.querySelector('[data-lectura-panel-drag-handle]');
     panelWrapper = document.getElementById('lectura-panel-wrapper');
-
-    if (panelWrapper) {
-        ['mouseenter', 'mouseleave', 'focusin', 'focusout'].forEach((eventName) => {
-            panelWrapper.addEventListener(eventName, requestDesktopTextInsetUpdate);
-        });
-    }
-
-    tabsBar?.addEventListener('transitionend', function(event) {
-        if (
-            event.propertyName === 'width' ||
-            event.propertyName === 'inline-size' ||
-            event.propertyName === 'max-width' ||
-            event.propertyName === 'padding-left' ||
-            event.propertyName === 'padding-right'
-        ) {
-            requestDesktopTextInsetUpdate();
+    mobilePanelDragController = createBottomSheetDragController({
+        sheet: () => lecturaPanel,
+        handle: () => mobilePanelDragHandle,
+        isEnabled: () => window.innerWidth < lecturaPanelDesktopBreakpoint && panelAbierto,
+        onClose: () => {
+            cerrarPanel();
         }
-    });
+    }).bind();
     
     if (resizeHandle && panelWrapper) {
         let isResizing = false;
         let startX = 0;
         let startWidth = 0;
-        const minWidth = 320;
-        const defaultMaxWidth = 800;
-
         // Funcion para limpiar el width inline en tablet/movil
         function resetWidthOnResize() {
-            if (window.innerWidth < 992) {
+            if (window.innerWidth < lecturaPanelDesktopBreakpoint) {
                 panelWrapper.style.removeProperty('--lectura-panel-open-width-inline');
+            } else if (panelAbierto) {
+                ensurePanelOpenWidth();
             }
             requestDesktopTextInsetUpdate();
         }
@@ -366,29 +405,25 @@ document.addEventListener("DOMContentLoaded", function() {
         window.addEventListener('resize', resetWidthOnResize);
 
         // Solo habilitar drag en desktop
-        if (window.innerWidth >= 992) {
+        if (window.innerWidth >= lecturaPanelDesktopBreakpoint) {
             resizeHandle.addEventListener('mousedown', function(e) {
-                if (window.innerWidth < 992) return; // Doble verificacion
+                if (window.innerWidth < lecturaPanelDesktopBreakpoint) return; // Doble verificacion
 
                 isResizing = true;
                 startX = e.clientX;
-                const currentVarWidth = parseFloat(panelWrapper.style.getPropertyValue('--lectura-panel-open-width-inline'));
-                startWidth = Number.isFinite(currentVarWidth) ? currentVarWidth : (lecturaPanel?.offsetWidth || panelWrapper.offsetWidth);
+                startWidth = getPanelInlineOpenWidth() || lecturaPanel?.offsetWidth || panelWrapper.offsetWidth;
                 document.body.style.cursor = 'ew-resize';
                 document.body.style.userSelect = 'none';
                 e.preventDefault();
             });
 
             document.addEventListener('mousemove', function(e) {
-                if (!isResizing || window.innerWidth < 992) return;
+                if (!isResizing || window.innerWidth < lecturaPanelDesktopBreakpoint) return;
 
                 const deltaX = startX - e.clientX; // Invertido porque el panel crece hacia la izquierda
-                const maxWidth = dynamicRecenterEnabled
-                    ? getLayoutTokenPx('--lectura-panel-open-width-safe-max', 420)
-                    : defaultMaxWidth;
-                const newWidth = Math.min(Math.max(startWidth + deltaX, minWidth), maxWidth);
+                const newWidth = Math.min(Math.max(startWidth + deltaX, lecturaPanelMinWidth), getPanelOpenMaxWidth());
 
-                panelWrapper.style.setProperty('--lectura-panel-open-width-inline', `${Math.round(newWidth)}px`);
+                setPanelOpenWidth(newWidth, { remember: true });
 
                 // Mantener comportamiento anterior cuando el recenter dinamico esta desactivado
                 if (!dynamicRecenterEnabled && textColumn) {

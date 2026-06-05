@@ -91,7 +91,7 @@
 }
 
 .btn-dark {
-  $dark-hover: color.mix(black, $color-dark, 8%);
+  $dark-hover: color.mix(white, $color-dark, 20%);
 
   @include btn-solid-vars(
     $color-light,

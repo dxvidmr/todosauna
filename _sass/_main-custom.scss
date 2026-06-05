@@ -111,9 +111,10 @@
   color: $color-neutral-700;
 
   &.is-active {
-    background: $color-primary;
-    color: $color-light;
-    border-color: $color-primary;
+    background: $color-primary-soft;
+    color: $color-primary;
+    border-color: rgba($color-primary, 0.28);
+    font-weight: 600;
   }
 }
 

@@ -5,11 +5,6 @@
   The item order follows the order in the metadata CSV, so pre-sort the CSV to the desired order.
 
 {%- endcomment -%}
-<div class="text-center">
-  <a class="btn btn-dark" href="{{ page.previous_item | relative_url }}" id="prev-page-button"><i class="fa fa-chevron-left"></i> Anterior</a>
-  <a class="btn btn-dark" href="{{ '/archivo/documentos' | relative_url }}">Volver al archivo</a>
-  <a class="btn btn-dark" href="{{ page.next_item | relative_url }}" id="next-page-button">Siguiente <i class="fa fa-chevron-right"></i></a>
-</div>
 <div id="item-nav">
   <div class="d-none d-md-block">
     <a class="previous btn btn-lg btn-circular" href="{{ page.previous_item | relative_url }}"><i class="fa fa-chevron-left"></i></a>
@@ -18,11 +13,13 @@
 </div>
 <script>
   function leftArrowPressed() {
-    location.href = document.getElementById("prev-page-button").href;
+    var el = document.querySelector("#item-nav .previous");
+    if (el) location.href = el.href;
   };
 
   function rightArrowPressed() {
-    location.href = document.getElementById("next-page-button").href;
+    var el = document.querySelector("#item-nav .next");
+    if (el) location.href = el.href;
   };
 
   function leftModalArrowPressed() {

@@ -993,22 +993,24 @@ body.laboratorio-page.laboratorio-mode-active {
     right: 0;
     display: flex;
     justify-content: center;
-    padding-inline: 10px;
+    padding-inline: 0;
   }
 
   .laboratorio-mobile-footer {
     bottom: 0;
     z-index: 930;
-    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    padding-bottom: 0;
     transition: opacity 0.22s ease, transform 0.22s ease;
   }
 
   .laboratorio-mobile-footer .notas-collapsed-toggle {
-    width: min(100%, 720px);
+    width: 100%;
     background: $color-dark;
     color: $color-light;
+    border-radius: var(--ui-radius) var(--ui-radius) 0 0;
     box-shadow: $shadow-md;
     backdrop-filter: blur(10px);
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
   }
 
   .laboratorio-mobile-footer .notas-collapsed-label {
@@ -1034,16 +1036,16 @@ body.laboratorio-page.laboratorio-mode-active {
   .laboratorio-mobile-note-sheet {
     bottom: 0;
     z-index: 935;
-    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    padding-bottom: 0;
     pointer-events: none;
   }
 
   .notas-container-mobile {
-    width: min(100%, 720px);
+    width: 100%;
     min-height: min(340px, calc(100dvh - 120px));
     max-height: min(78dvh, 700px);
     padding: 14px 14px calc(14px + env(safe-area-inset-bottom));
-    border-radius: var(--ui-radius);
+    border-radius: var(--ui-radius) var(--ui-radius) 0 0;
     box-shadow: 0 -18px 42px rgba($color-dark, 0.18);
     transform: translateY(calc(100% + 32px));
     opacity: 0;
@@ -1117,6 +1119,10 @@ body.laboratorio-page.laboratorio-mode-active {
   .laboratorio-wrapper[data-lab-layout="narrow"][data-lab-notes-open="true"] .notas-container-mobile {
     transform: translateY(0);
     opacity: 1;
+    margin-bottom: calc(-1 * (64px + env(safe-area-inset-bottom)));
+    padding-bottom: calc(14px + 64px + env(safe-area-inset-bottom));
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
   }
 
   .laboratorio-wrapper[data-lab-layout="narrow"][data-lab-notes-open="true"] .laboratorio-mobile-footer,
@@ -1138,7 +1144,7 @@ body.laboratorio-page.laboratorio-mode-active {
 
   .laboratorio-mobile-footer,
   .laboratorio-mobile-note-sheet {
-    padding-inline: 8px;
+    padding-inline: 0;
   }
 
   .laboratorio-mobile-controls-card {
@@ -1146,7 +1152,7 @@ body.laboratorio-page.laboratorio-mode-active {
   }
 
   .notas-collapsed-toggle {
-    padding: 12px 14px;
+    padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
   }
 
   .notas-container-mobile {

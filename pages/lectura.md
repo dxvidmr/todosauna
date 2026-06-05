@@ -13,6 +13,7 @@ lectura_dynamic_recenter: true
 <div class="lectura-panel-wrapper" id="lectura-panel-wrapper">
     <!-- Panel de contenido (se abre/cierra) -->
     <div class="lectura-panel" id="lectura-panel">
+        <div class="lectura-panel-sheet-handle" data-lectura-panel-drag-handle aria-hidden="true"></div>
         <div class="panel-resize-handle" id="panel-resize-handle"></div>
         <div class="lectura-panel-header">
             <div class="lectura-panel-header-main">

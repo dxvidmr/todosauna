@@ -16,6 +16,7 @@ import {
   renderNotePanel,
   renderNotePlaceholder
 } from '../shared/note-panel.js';
+import { createBottomSheetDragController } from '../shared/bottom-sheet-drag.js';
 import {
   applyNoteHighlights,
   highlightNoteInText,
@@ -103,17 +104,8 @@ class EditorSocial {
     this.textZoomController = null;
     this.resizeAdjustTimer = null;
     this.participationStateListenerBound = false;
-    this.mobileSheetDrag = {
-      active: false,
-      pointerId: null,
-      startY: 0,
-      currentDelta: 0,
-      captureEl: null,
-      resetTimer: null
-    };
+    this.mobileSheetDragController = null;
     this.handleParticipationStateChanged = this.handleParticipationStateChanged.bind(this);
-    this.handleMobileSheetPointerMove = this.handleMobileSheetPointerMove.bind(this);
-    this.handleMobileSheetPointerEnd = this.handleMobileSheetPointerEnd.bind(this);
   }
 
   notifyFeedback(message, type, duration) {
@@ -416,6 +408,15 @@ class EditorSocial {
       .filter(Boolean);
     this.activeShell = this.getActiveShell();
     this.refreshActiveUIRefs();
+    this.mobileSheetDragController = createBottomSheetDragController({
+      sheet: () => this.ui.mobile?.noteSheet,
+      handle: () => this.ui.mobile?.noteDragHandle,
+      backdrop: () => this.ui.mobile?.notesBackdrop,
+      isEnabled: () => this.isNarrowLayout() && this.isNoteSheetOpen,
+      onClose: () => {
+        this.closeNoteSheet({ focusPasaje: true });
+      }
+    }).bind();
   }
 
   getAllUIs() {
@@ -690,134 +691,8 @@ class EditorSocial {
     this.openNoteSheet({ preferPending: true });
   }
 
-  startMobileSheetDrag(event) {
-    if (!this.isNarrowLayout() || !this.isNoteSheetOpen) return;
-    if (event.button !== undefined && event.button !== 0) return;
-
-    const noteSheet = this.ui.mobile?.noteSheet;
-    if (!noteSheet) return;
-
-    this.resetMobileSheetDragListeners();
-
-    if (this.mobileSheetDrag.resetTimer) {
-      clearTimeout(this.mobileSheetDrag.resetTimer);
-      this.mobileSheetDrag.resetTimer = null;
-    }
-
-    this.mobileSheetDrag.active = true;
-    this.mobileSheetDrag.pointerId = event.pointerId;
-    this.mobileSheetDrag.startY = event.clientY;
-    this.mobileSheetDrag.currentDelta = 0;
-    this.mobileSheetDrag.captureEl = event.currentTarget instanceof Element ? event.currentTarget : null;
-
-    noteSheet.classList.add('is-dragging');
-
-    if (this.mobileSheetDrag.captureEl?.setPointerCapture) {
-      try {
-        this.mobileSheetDrag.captureEl.setPointerCapture(event.pointerId);
-      } catch (_error) {
-        // Best effort.
-      }
-    }
-
-    window.addEventListener('pointermove', this.handleMobileSheetPointerMove, { passive: false });
-    window.addEventListener('pointerup', this.handleMobileSheetPointerEnd);
-    window.addEventListener('pointercancel', this.handleMobileSheetPointerEnd);
-    event.preventDefault();
-  }
-
-  handleMobileSheetPointerMove(event) {
-    if (!this.mobileSheetDrag.active || event.pointerId !== this.mobileSheetDrag.pointerId) return;
-
-    const noteSheet = this.ui.mobile?.noteSheet;
-    if (!noteSheet) return;
-
-    const delta = Math.max(0, event.clientY - this.mobileSheetDrag.startY);
-    const backdrop = this.ui.mobile?.notesBackdrop;
-    this.mobileSheetDrag.currentDelta = delta;
-
-    noteSheet.style.transform = `translateY(${delta}px)`;
-    noteSheet.style.opacity = String(Math.max(0.62, 1 - (delta / 360)));
-
-    if (backdrop) {
-      backdrop.style.opacity = String(Math.max(0, 1 - (delta / 220)));
-    }
-
-    event.preventDefault();
-  }
-
-  handleMobileSheetPointerEnd(event) {
-    if (!this.mobileSheetDrag.active || event.pointerId !== this.mobileSheetDrag.pointerId) return;
-
-    const noteSheet = this.ui.mobile?.noteSheet;
-    const backdrop = this.ui.mobile?.notesBackdrop;
-    const threshold = noteSheet
-      ? Math.min(180, Math.max(84, noteSheet.offsetHeight * 0.2))
-      : 96;
-    const shouldClose = this.mobileSheetDrag.currentDelta >= threshold;
-
-    if (this.mobileSheetDrag.captureEl?.releasePointerCapture) {
-      try {
-        this.mobileSheetDrag.captureEl.releasePointerCapture(event.pointerId);
-      } catch (_error) {
-        // Best effort.
-      }
-    }
-
-    this.resetMobileSheetDragListeners();
-
-    if (shouldClose) {
-      this.closeNoteSheet({ focusPasaje: true });
-      return;
-    }
-
-    if (noteSheet) {
-      noteSheet.style.transform = 'translateY(0)';
-      noteSheet.style.opacity = '1';
-      noteSheet.classList.add('is-dragging');
-    }
-
-    if (backdrop) {
-      backdrop.style.opacity = '1';
-    }
-
-    this.mobileSheetDrag.resetTimer = window.setTimeout(() => {
-      this.resetMobileNoteSheetDrag();
-    }, 220);
-  }
-
-  resetMobileSheetDragListeners() {
-    window.removeEventListener('pointermove', this.handleMobileSheetPointerMove);
-    window.removeEventListener('pointerup', this.handleMobileSheetPointerEnd);
-    window.removeEventListener('pointercancel', this.handleMobileSheetPointerEnd);
-  }
-
   resetMobileNoteSheetDrag() {
-    const noteSheet = this.ui.mobile?.noteSheet;
-    const backdrop = this.ui.mobile?.notesBackdrop;
-
-    if (this.mobileSheetDrag.resetTimer) {
-      clearTimeout(this.mobileSheetDrag.resetTimer);
-      this.mobileSheetDrag.resetTimer = null;
-    }
-
-    this.resetMobileSheetDragListeners();
-
-    if (noteSheet) {
-      noteSheet.style.transform = '';
-      noteSheet.style.opacity = '';
-      noteSheet.classList.remove('is-dragging');
-    }
-
-    if (backdrop) {
-      backdrop.style.opacity = '';
-    }
-
-    this.mobileSheetDrag.active = false;
-    this.mobileSheetDrag.pointerId = null;
-    this.mobileSheetDrag.startY = 0;
-    this.mobileSheetDrag.currentDelta = 0;
-    this.mobileSheetDrag.captureEl = null;
+    this.mobileSheetDragController?.reset();
   }
 
   setupTextZoomController() {
@@ -1792,10 +1667,6 @@ class EditorSocial {
 
       ui.notesBackdrop?.addEventListener('click', () => {
         this.closeNoteSheet({ focusPasaje: true });
-      });
-
-      ui.noteDragHandle?.addEventListener('pointerdown', (event) => {
-        this.startMobileSheetDrag(event);
       });
     });
 
