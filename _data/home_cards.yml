@@ -27,6 +27,8 @@
   desktop_row_span: 7
   tablet_col_span: 6
   tablet_row_span: 5
+  mobile_col_span: 2
+  mobile_row_span: 5
 
 - id: slot_02
   order_desktop: 2
@@ -42,6 +44,8 @@
   desktop_row_span: 4
   tablet_col_span: 3
   tablet_row_span: 3
+  mobile_col_span: 2
+  mobile_row_span: 3
 
 - id: slot_03
   order_desktop: 3
@@ -57,6 +61,8 @@
   desktop_row_span: 6
   tablet_col_span: 3
   tablet_row_span: 6
+  mobile_col_span: 2
+  mobile_row_span: 5
 
 - id: slot_04
   order_desktop: 4
@@ -72,6 +78,8 @@
   desktop_row_span: 3
   tablet_col_span: 3
   tablet_row_span: 4
+  mobile_col_span: 2
+  mobile_row_span: 4
 
 - id: slot_05
   order_desktop: 5
@@ -87,6 +95,8 @@
   desktop_row_span: 1
   tablet_col_span: 3
   tablet_row_span: 1
+  mobile_col_span: 2
+  mobile_row_span: 1
 
 - id: slot_06
   order_desktop: 6
@@ -102,6 +112,8 @@
   desktop_row_span: 4
   tablet_col_span: 2
   tablet_row_span: 5
+  mobile_col_span: 2
+  mobile_row_span: 5
 
 - id: slot_07
   order_desktop: 7
@@ -117,3 +129,5 @@
   desktop_row_span: 4
   tablet_col_span: 4
   tablet_row_span: 5
+  mobile_col_span: 2
+  mobile_row_span: 8

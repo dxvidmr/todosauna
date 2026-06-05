@@ -255,17 +255,42 @@
 
 @media (max-width: 640px) {
   .ta-grid {
-    grid-template-columns: minmax(0, 1fr);
-    grid-auto-rows: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-flow: dense;
+    grid-auto-rows: clamp(58px, 16vw, 78px);
   }
 
   .ta-grid__item {
-    grid-column: 1 / -1;
-    grid-row: auto;
+    grid-column: span var(--col-span-mobile, 2);
+    grid-row: span var(--row-span-mobile, 4);
+    order: var(--order-mobile, initial);
   }
 
   .ta-grid .ta-card {
-    --ta-card-min-height: clamp(220px, 64vw, 340px);
+    --ta-card-min-height: 0;
+    height: 100%;
+  }
+
+  .ta-grid__item[style*="--col-span-mobile: 1"] .ta-card {
+    --ta-card-body-pad-x: 14px;
+    --ta-card-body-pad-y: 16px;
+  }
+
+  .ta-grid__item[style*="--col-span-mobile: 1"] .ta-card__title {
+    font-size: clamp(1.05rem, 5.3vw, 1.38rem);
+  }
+
+  .ta-grid__item[style*="--col-span-mobile: 1"] .ta-card__copy,
+  .ta-grid__item[style*="--col-span-mobile: 1"] .ta-card__eyebrow {
+    font-size: 0.82rem;
+  }
+
+  .ta-grid__item[style*="--col-span-mobile: 1"] .ta-card--media .ta-card__body {
+    min-height: 45%;
+  }
+
+  .ta-grid__item[style*="--col-span-mobile: 1"] .ta-card__media {
+    min-height: 55%;
   }
 }
 

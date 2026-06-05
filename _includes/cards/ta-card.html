@@ -9,6 +9,9 @@
 {% assign desktop_row = card.desktop_row_span | default: 3 %}
 {% assign tablet_col = card.tablet_col_span | default: 3 %}
 {% assign tablet_row = card.tablet_row_span | default: 3 %}
+{% assign mobile_col = card.mobile_col_span | default: 2 %}
+{% assign mobile_row = card.mobile_row_span | default: 4 %}
+{% assign mobile_order = card.mobile_order | default: "" %}
 {% assign link_url = card.link | default: "" %}
 {% assign render_link_url = "" %}
 {% if link_url != "" %}
@@ -138,6 +141,11 @@
 --row-span: {{ desktop_row }};
 --col-span-tablet: {{ tablet_col }};
 --row-span-tablet: {{ tablet_row }};
+--col-span-mobile: {{ mobile_col }};
+--row-span-mobile: {{ mobile_row }};
+{% if mobile_order != "" %}
+--order-mobile: {{ mobile_order }};
+{% endif %}
 {% endif %}
 {% if accent_value != "" %}
 {% if accent_value contains "--" %}

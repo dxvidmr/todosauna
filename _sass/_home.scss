@@ -592,16 +592,24 @@
 }
 
 @media (max-width: 991.98px) {
+  .home-feature-sections {
+    --home-feature-gap: clamp(38px, 10vw, 64px);
+    --home-feature-pad-top: clamp(42px, 9vh, 80px);
+    --home-feature-pad-bottom: clamp(36px, 8vh, 72px);
+  }
+
   .home-feature,
   .home-feature--image-left {
     grid-template-columns: minmax(0, 1fr);
+    gap: clamp(16px, 4.5vw, 24px);
   }
 
-  .home-feature--image-left {
-    .home-feature__copy,
-    .home-feature__media {
-      grid-column: auto;
-    }
+  .home-feature__copy,
+  .home-feature__media,
+  .home-feature--image-left .home-feature__copy,
+  .home-feature--image-left .home-feature__media {
+    grid-column: 1;
+    grid-row: auto;
   }
 
   .home-feature__media {
@@ -610,16 +618,72 @@
 
   .home-feature__copy {
     order: 2;
+    gap: 12px;
   }
 
   .home-feature__media img {
-    height: clamp(220px, 58vw, 360px);
+    height: clamp(220px, 62vw, 360px);
   }
 
   .explore-section {
     --explore-pad-top: clamp(42px, 8vh, 110px);
     --explore-pad-bottom: clamp(54px, 9vh, 124px);
     --explore-stack-gap: clamp(30px, 5.2vh, 60px);
+  }
+}
+
+@media (max-width: 640px) {
+  [data-home-grid] .ta-card--interactive .ta-card__body {
+    padding: 16px;
+  }
+
+  [data-home-grid] .ta-card--interactive .home-eval-layout {
+    gap: 12px;
+    align-content: start;
+  }
+
+  [data-home-grid] .ta-card--interactive .home-eval-panel {
+    min-height: 0;
+  }
+
+  [data-home-grid] .ta-card--interactive .home-eval-panel-label {
+    margin-bottom: 6px;
+  }
+
+  [data-home-grid] .ta-card--interactive .home-eval-context.note-panel-scroll,
+  [data-home-grid] .ta-card--interactive .home-eval-note-scroll.note-panel-scroll {
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  [data-home-grid] .ta-card--interactive .home-eval-context.note-panel-scroll {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    gap: 0.2rem;
+  }
+
+  [data-home-grid] .ta-card--interactive .home-eval-note {
+    font-size: 0.9rem;
+    line-height: 1.48;
+  }
+
+  [data-home-grid] .ta-card--interactive .home-eval-status {
+    min-height: 0;
+  }
+
+  [data-home-grid] .ta-card--interactive .home-eval-controls.note-eval-dock {
+    margin-top: 6px;
+    padding-top: 10px;
+  }
+
+  [data-home-grid] .ta-card--interactive .evaluacion-header {
+    margin-bottom: 8px;
+    gap: 5px;
+  }
+
+  [data-home-grid] .ta-card--interactive .evaluacion-botones {
+    width: 100%;
+    gap: 8px;
   }
 }
 
