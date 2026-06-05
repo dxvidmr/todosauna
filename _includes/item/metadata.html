@@ -5,7 +5,7 @@
     
 {%- endcomment -%}
 {%- assign fields = site.data.config-metadata | where_exp: 'item', 'item.display_name != nil' -%}
-{%- assign hidden_main_fields = "title,type,subtype,subject,historical_context,reception_form,depicted,relation,rights,rightsstatement,rightstatement,objectid,parentid,display_template,display_order,filename,image_small,image_thumb,image_alt_text,format,language,url,iiif,database_record,object_location" | split: "," -%}
+{%- assign hidden_main_fields = "title,type,subtype,subject,historical_context,reception_form,depicted,relation,rights,rightsstatement,rightstatement,objectid,parentid,display_template,display_order,filename,image_small,image_thumb,image_alt_text,format,language,url,iiif,database_record,object_location,identifier" | split: "," -%}
 <div id="item-metadata" class="item-metadata-grid">
     <section class="item-metadata-section">
         <h3 class="item-metadata-title">Información principal</h3>

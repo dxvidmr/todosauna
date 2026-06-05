@@ -63,6 +63,6 @@ También puedes reclamar ante la **Agència de Protecció de Dades de Catalunya 
 
 ## 8. Más detalle técnico
 
-Si necesitas el detalle técnico completo de los tratamientos (mapa técnico y documento de apoyo para la protección de datos), puedes solicitarlo en:
+Si necesitas el detalle técnico completo de los tratamientos, puedes solicitarlo en:
 
 - `david.merino@uab.cat`

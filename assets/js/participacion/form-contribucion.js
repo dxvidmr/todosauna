@@ -41,6 +41,7 @@
   var recaptchaWidgetContainer = document.getElementById('contribucion-recaptcha-widget');
   var stagingIdInput = document.getElementById('contribucion-staging-id');
 
+  var rightsFieldset = document.getElementById('contribucion-rights-fieldset');
   var rightsHolderWrap = document.getElementById('rights-holder-wrap');
   var rightsHolderInput = document.getElementById('contribucion-rights-holder');
   var creatorsList = document.getElementById('contribucion-creadores-list');
@@ -147,7 +148,7 @@
     nameInput.id = 'contribucion-creador-nombre-' + creatorRowCount;
     nameInput.setAttribute('data-creator-name', '');
     nameInput.setAttribute('maxlength', '160');
-    nameInput.setAttribute('placeholder', 'Ej.: MarÃ­a PÃ©rez');
+    nameInput.setAttribute('placeholder', 'Ej.: María Pérez');
     if (nombre) nameInput.value = nombre;
     nameLabel.setAttribute('for', nameInput.id);
     nameWrap.appendChild(nameLabel);
@@ -164,7 +165,7 @@
     roleInput.id = 'contribucion-creador-rol-' + creatorRowCount;
     roleInput.setAttribute('data-creator-role', '');
     roleInput.setAttribute('maxlength', '160');
-    roleInput.setAttribute('placeholder', 'Ej.: autora, fotÃ³grafo, ediciÃ³n');
+    roleInput.setAttribute('placeholder', 'Ej.: autora, fotógrafo, edición');
     if (rol) roleInput.value = rol;
     roleLabel.setAttribute('for', roleInput.id);
     roleWrap.appendChild(roleLabel);
@@ -267,6 +268,10 @@
     if (error.error && typeof error.error.message === 'string' && error.error.message.trim()) return error.error.message.trim();
     if (error.details && typeof error.details === 'string' && error.details.trim()) return error.details.trim();
     return fallback || 'Error inesperado';
+  }
+
+  function syncRightsFieldset() {
+    if (rightsFieldset) rightsFieldset.hidden = !hasUploadReady();
   }
 
   function syncRightsHolder() {
@@ -400,6 +405,8 @@
       item.appendChild(actions);
       uploadedFilesList.appendChild(item);
     });
+
+    syncRightsFieldset();
   }
 
   function updateRecaptchaVisibility() {
@@ -486,7 +493,7 @@
 
   async function ensureModeDefined(openIfMissing) {
     if (!ns.session || !ns.apiV2) {
-      setStatus(statusStep1, 'La capa de participaciÃ³n no estÃ¡ disponible.', 'error');
+      setStatus(statusStep1, 'La capa de participación no está disponible.', 'error');
       return false;
     }
 
@@ -519,7 +526,7 @@
     }
 
     if (!selectedCityId || !selectedCountryId) {
-      setInlineStatus('Selecciona una ciudad vÃ¡lida de GeoNames o borra el campo.', 'error');
+      setInlineStatus('Selecciona una ciudad válida de GeoNames o borra el campo.', 'error');
       return false;
     }
 
@@ -609,7 +616,7 @@
 
     var adapter = getUploadAdapter();
     if (!adapter || typeof adapter.uploadFiles !== 'function') {
-      setStatus(statusStep2, 'El adaptador de subida no estÃ¡ disponible.', 'error');
+      setStatus(statusStep2, 'El adaptador de subida no está disponible.', 'error');
       return;
     }
 
@@ -617,7 +624,7 @@
     if (!ensuredUpload || !ensuredUpload.ok) {
       setStatus(
         statusStep2,
-        getErrorMessage(ensuredUpload && ensuredUpload.error, 'No se pudo preparar la sesiÃ³n para subir archivos.', 'session_bootstrap'),
+        getErrorMessage(ensuredUpload && ensuredUpload.error, 'No se pudo preparar la sesión para subir archivos.', 'session_bootstrap'),
         'error'
       );
       return;
@@ -625,7 +632,7 @@
 
     var sessionId = getSessionId();
     if (!sessionId) {
-      setStatus(statusStep2, 'No hay sesiÃ³n activa disponible. Recarga la pÃ¡gina.', 'error');
+      setStatus(statusStep2, 'No hay sesión activa disponible. Recarga la página.', 'error');
       return;
     }
 
@@ -679,7 +686,7 @@
       renderUploadedFiles();
 
       if (localFilesInput) localFilesInput.value = '';
-      setStatus(statusStep2, 'Archivos subidos y validados. Ya puedes enviar la contribuciÃ³n.', 'success');
+      setStatus(statusStep2, 'Archivos subidos y validados. Ya puedes enviar la contribución.', 'success');
     } catch (error) {
       if (cancelRequested || isUploadAbortedError(error)) {
         var remoteCancelError = await cancelRemoteStaging(adapter, sessionId, currentStagingId);
@@ -829,11 +836,11 @@
     });
 
     if (response.error || !response.data || !response.data.vinculo_id) {
-      setStatus(linkStatus, 'La contribuciÃ³n se guardÃ³, pero no se pudo crear el vÃ­nculo con el testimonio.', 'warning');
+      setStatus(linkStatus, 'La contribución se guardó, pero no se pudo crear el vínculo con el testimonio.', 'warning');
       return;
     }
 
-    setStatus(linkStatus, 'La contribuciÃ³n quedÃ³ vinculada al testimonio indicado.', 'success');
+    setStatus(linkStatus, 'La contribución quedó vinculada al testimonio indicado.', 'success');
   }
 
   async function handleSubmit(event) {
@@ -856,7 +863,7 @@
 
     var modeReady = await ensureModeDefined(true);
     if (!modeReady) {
-      setStatus(statusStep2, 'Debes definir modo de participaciÃ³n para enviar la contribuciÃ³n.', 'warning');
+      setStatus(statusStep2, 'Debes definir modo de participación para enviar la contribución.', 'warning');
       setStep(2);
       return;
     }
@@ -865,7 +872,7 @@
     if (!ensuredSubmit || !ensuredSubmit.ok) {
       setStatus(
         statusStep2,
-        getErrorMessage(ensuredSubmit && ensuredSubmit.error, 'No se pudo preparar la sesiÃ³n para enviar la contribuciÃ³n.', 'session_bootstrap'),
+        getErrorMessage(ensuredSubmit && ensuredSubmit.error, 'No se pudo preparar la sesión para enviar la contribución.', 'session_bootstrap'),
         'error'
       );
       setStep(2);
@@ -875,13 +882,13 @@
     var payload = buildPayload();
     var hasFiles = hasUploadReady();
     if (!payload.session_id) {
-      setStatus(statusStep2, 'No hay sesiÃ³n activa. Recarga la pÃ¡gina e intÃ©ntalo de nuevo.', 'error');
+      setStatus(statusStep2, 'No hay sesión activa. Recarga la página e inténtalo de nuevo.', 'error');
       setStep(2);
       return;
     }
 
     if (hasFiles && !payload.staging_id) {
-      setStatus(statusStep2, 'No hay staging activo para el envÃ­o.', 'error');
+      setStatus(statusStep2, 'No hay staging activo para el envío.', 'error');
       setStep(2);
       return;
     }
@@ -904,7 +911,7 @@
         ? await ns.apiV2.submitContribucionStaged(payload)
         : await ns.apiV2.submitContribucion(payload);
       if (response.error || !response.data || !response.data.contribucion_id) {
-        throw response.error || new Error('No se pudo guardar la contribuciÃ³n');
+        throw response.error || new Error('No se pudo guardar la contribución');
       }
 
       var contribucionId = response.data.contribucion_id;
@@ -921,12 +928,12 @@
       if (gate) gate.hidden = true;
       if (successPanel) successPanel.hidden = false;
     } catch (error) {
-      var errorMessage = getErrorMessage(error, 'No se pudo enviar la contribuciÃ³n.', 'contribucion_submit');
+      var errorMessage = getErrorMessage(error, 'No se pudo enviar la contribución.', 'contribucion_submit');
       setStatus(statusStep2, errorMessage, 'error');
       setStep(2);
     } finally {
       isSubmitting = false;
-      if (submitButton) submitButton.textContent = 'Enviar contribuciÃ³n';
+      if (submitButton) submitButton.textContent = 'Enviar contribución';
       updateGateVisibility();
     }
   }
@@ -1015,14 +1022,14 @@
 
   async function init() {
     if (!ns.session || !ns.apiV2) {
-      setStatus(statusStep1, 'No se pudo inicializar la capa de participaciÃ³n.', 'error');
+      setStatus(statusStep1, 'No se pudo inicializar la capa de participación.', 'error');
       return;
     }
 
     var testimonioId = getLinkedTestimonioFromUrl();
     if (hiddenLinkedTestimonioId && testimonioId) {
       hiddenLinkedTestimonioId.value = testimonioId;
-      setStatus(statusStep1, 'Esta contribuciÃ³n se vincularÃ¡ automÃ¡ticamente con el testimonio indicado.', 'info');
+      setStatus(statusStep1, 'Esta contribución se vinculará automáticamente con el testimonio indicado.', 'info');
     }
 
     if (ns.geo && typeof ns.geo.attachCityAutocomplete === 'function') {

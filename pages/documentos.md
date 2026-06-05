@@ -13,8 +13,8 @@ navbar_behavior: auto-hide
         Explora la colección documental de <i>Fuenteovejuna</i> y localiza materiales por título, creador, lugar o fecha.
       </p>
       <p class="mt-3 mb-0 small text-muted">
-        Conoce cómo está organizada la colección
-        <a href="{{ '/acerca-de/' | relative_url }}">aquí</a>.
+        Conoce más sobre la colección en 
+        <a href="{{ '/datos/' | relative_url }}">Datos abiertos</a>.
       </p>
     </div>
   </div>

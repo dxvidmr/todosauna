@@ -17,18 +17,20 @@
       <div class="ta-modal__body">
       <div class="modo-opciones">
         <div class="modo-opcion" data-modo="anonimo" role="button" tabindex="0">
-          <div class="modo-header">
-            <span class="modo-icono"><i class="fa-solid fa-user-secret" aria-hidden="true"></i></span>
+          <span class="modo-icono"><i class="fa-solid fa-user-secret" aria-hidden="true"></i></span>
+          <div class="modo-opcion-content">
             <h3>Editor anónimo</h3>
+            <p>Sin registro. Privacidad total.</p>
           </div>
-          <p>Sin registro. Privacidad total.</p>
+          <i class="modo-arrow fa-solid fa-arrow-right" aria-hidden="true"></i>
         </div>
         <div class="modo-opcion" data-modo="colaborador" role="button" tabindex="0">
-          <div class="modo-header">
-            <span class="modo-icono"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
+          <span class="modo-icono"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
+          <div class="modo-opcion-content">
             <h3>Colaborador</h3>
+            <p>Identificado por email. Contribuciones reconocidas.</p>
           </div>
-          <p>Identificado por email. Contribuciones reconocidas.</p>
+          <i class="modo-arrow fa-solid fa-arrow-right" aria-hidden="true"></i>
         </div>
       </div>
 
@@ -48,12 +50,20 @@
       <div id="colaborador-opciones" class="modo-form" style="display:none;">
         <div class="colaborador-opciones-grid">
           <div class="modo-opcion" data-tipo="login" role="button" tabindex="0">
-            <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i></span><h3>Ya participé antes</h3></div>
-            <p>Identificarme con mi email.</p>
+            <span class="modo-icono"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i></span>
+            <div class="modo-opcion-content">
+              <h3>Ya participé antes</h3>
+              <p>Identificarme con mi email.</p>
+            </div>
+            <i class="modo-arrow fa-solid fa-arrow-right" aria-hidden="true"></i>
           </div>
           <div class="modo-opcion" data-tipo="registro" role="button" tabindex="0">
-            <div class="modo-header"><span class="modo-icono"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></span><h3>Primera vez</h3></div>
-            <p>Registrar mi email y datos.</p>
+            <span class="modo-icono"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></span>
+            <div class="modo-opcion-content">
+              <h3>Primera vez</h3>
+              <p>Registrar mi email y datos.</p>
+            </div>
+            <i class="modo-arrow fa-solid fa-arrow-right" aria-hidden="true"></i>
           </div>
         </div>
         <div class="botones-modal modal-actions"><button type="button" class="btn btn-outline-dark btn-volver"><i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>Volver</button></div>

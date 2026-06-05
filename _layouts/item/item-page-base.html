@@ -30,9 +30,6 @@ item-meta: true
             </div>
         </div>
 
-        <div class="col-12 py-4">
-            {% include item/citation-box.html %}
-        </div>
         {% assign external_url = "" %}
         {% assign page_row_for_url = site.data[site.metadata] | where: "objectid", page.objectid | first %}
         {% if page_row_for_url %}
@@ -67,7 +64,7 @@ item-meta: true
         {% assign show_bottom_panels = true %}
         {% endif %}
         {% if show_bottom_panels %}
-        <div class="col-12 pb-4">
+        <div class="col-12 py-4">
             <div class="row g-4">
                 {% if has_rights %}
                 <div class="{% if has_technical %}col-12 col-lg-6{% else %}col-12{% endif %}">
@@ -82,6 +79,9 @@ item-meta: true
             </div>
         </div>
         {% endif %}
+        <div class="col-12 pb-4">
+            {% include item/citation-box.html %}
+        </div>
     </div>
 
     {%- if site.data.theme.browse-buttons == true -%}

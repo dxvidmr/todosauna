@@ -40,7 +40,7 @@ html:has(.lectura-wrapper) {
 
 .lectura-wrapper {
   // Layout a pantalla completa, el navbar se auto-oculta
-  --lectura-panel-radius: 20px;
+  --lectura-panel-radius: var(--ui-radius);
   --lectura-panel-open-width: clamp(360px, 34vw, 520px);
   --lectura-panel-open-min-width: 360px;
   --lectura-panel-open-width-safe-max: 420px;
@@ -310,7 +310,7 @@ html:has(.lectura-wrapper) {
 .lectura-tabs-bar {
   display: flex;
   background-color: $color-dark;
-  border-radius: 50px;
+  border-radius: var(--ui-radius);
   padding: 6px;
   gap: 3px;
   box-shadow: $shadow-md;
@@ -367,7 +367,7 @@ html:has(.lectura-wrapper) {
     flex-direction: column;
     align-items: stretch;
     justify-content: stretch;
-    border-radius: 50px;
+    border-radius: var(--ui-radius);
     padding: 8px;
     gap: var(--lectura-rail-gap);
     overflow: hidden;
@@ -384,7 +384,7 @@ html:has(.lectura-wrapper) {
   .lectura-tabs-bar.is-measuring {
     inline-size: var(--lectura-rail-expanded-width);
     width: var(--lectura-rail-expanded-width);
-    border-radius: 20px;
+    border-radius: var(--ui-radius);
   }
 
   .lectura-tabs-bar.is-measuring {
@@ -406,7 +406,7 @@ html:has(.lectura-wrapper) {
     gap: 0;
     text-align: left;
     font-size: 0.8rem;
-    border-radius: 16px;
+    border-radius: var(--ui-radius);
     line-height: 1.05;
     transition:
       color 0.2s ease,
@@ -501,7 +501,7 @@ html:has(.lectura-wrapper) {
 // Elementos destacados en info-panel
 .info-highlight {
   background: $color-neutral-100;
-  border-radius: 20px;
+  border-radius: var(--ui-radius);
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
@@ -538,7 +538,7 @@ html:has(.lectura-wrapper) {
   padding: 0.5rem;
   color: $color-text;
   text-decoration: none;
-  border-radius: 50px;
+  border-radius: var(--ui-radius);
   transition: all 0.2s ease;
   font-size: 0.9rem;
   
@@ -722,7 +722,7 @@ html:has(.lectura-wrapper) {
   padding: 8px 12px;
   background: transparent;
   border: none;
-  border-radius: 50px;
+  border-radius: var(--ui-radius);
   color: $color-text;
   font-size: 0.9rem;
   cursor: pointer;
@@ -779,7 +779,7 @@ html:has(.lectura-wrapper) {
   width: 1.52rem;
   height: 1.52rem;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--ui-radius);
   background: transparent;
   color: $color-text-muted;
   display: inline-flex;
@@ -819,7 +819,7 @@ html:has(.lectura-wrapper) {
 
 .lectura-search-group {
   border: 1px solid rgba($color-neutral-200, 0.6);
-  border-radius: 12px;
+  border-radius: var(--ui-radius);
   overflow: hidden;
   background: rgba($color-secondary-50, 0.55);
 }
@@ -844,7 +844,7 @@ html:has(.lectura-wrapper) {
   span {
     min-width: 1.4rem;
     padding: 0.05rem 0.35rem;
-    border-radius: 999px;
+    border-radius: var(--ui-radius);
     background: rgba($color-light, 0.9);
     border: 1px solid rgba($color-neutral-200, 0.7);
     text-align: center;
@@ -887,7 +887,7 @@ html:has(.lectura-wrapper) {
   display: none;
   margin-bottom: 0.18rem;
   padding: 0.02rem 0.36rem;
-  border-radius: 999px;
+  border-radius: var(--ui-radius);
   background: rgba($color-neutral-200, 0.75);
   font-size: 0.67rem;
   letter-spacing: 0.02em;
@@ -972,7 +972,7 @@ html:has(.lectura-wrapper) {
   display: block;
   height: 10px;
   background: $color-neutral-200;
-  border-radius: 999px;
+  border-radius: var(--ui-radius);
 }
 
 .lectura-skeleton-line.is-title {
@@ -990,7 +990,7 @@ html:has(.lectura-wrapper) {
   flex: 1 1 0;
   min-width: 0;
   height: 34px;
-  border-radius: 999px;
+  border-radius: var(--ui-radius);
   background: $color-neutral-200;
 }
 
@@ -1208,7 +1208,7 @@ tei-div[type="footnotes"] {
 tei-div[type="editor"],
 tei-div[type="colophon"] {
   background-color: $color-neutral-100;
-  border-radius: 10px;
+  border-radius: var(--ui-radius-sm);
   box-shadow: $shadow-heavy;
   padding: 20px;
   margin: 20px;
@@ -1479,7 +1479,7 @@ tei-l > .metrical-label.metrical-label--section {
   }
   
   .lectura-tabs-bar {
-    border-radius: 50px;
+    border-radius: var(--ui-radius);
     margin: 0 auto;
     max-width: 460px;
   }
@@ -1519,7 +1519,7 @@ tei-l > .metrical-label.metrical-label--section {
     width: 100%;
     max-width: none;
     margin: 0;
-    border-radius: 50px;
+    border-radius: var(--ui-radius);
     
     .tab-button {
       padding: 7px 8px;

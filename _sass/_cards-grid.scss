@@ -5,7 +5,7 @@
 // ============================================
 
 .ta-card {
-  --ta-card-radius: clamp(20px, 2vw, 30px);
+  --ta-card-radius: var(--ui-radius);
   --ta-card-min-height: clamp(220px, 35vh, 380px);
   --ta-card-body-pad-y: clamp(18px, 2.6vh, 28px);
   --ta-card-body-pad-x: clamp(16px, 1.7vw, 24px);
@@ -183,7 +183,7 @@
 
 .card-soft {
   border: none;
-  border-radius: clamp(20px, 2vw, 30px);
+  border-radius: var(--ui-radius);
   background-color: $color-surface-raised;
   color: $color-text;
 }
@@ -191,7 +191,7 @@
 // Borde fino reutilizable para superficies tipo card/panel.
 .ui-thin-border {
   border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: var(--ui-thin-border-radius, clamp(20px, 2vw, 28px));
+  border-radius: var(--ui-thin-border-radius, var(--ui-radius));
 }
 
 // ============================================

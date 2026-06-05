@@ -3,11 +3,9 @@
     Adds a basic citation box for child item with reference link to the child modal.
 
 {%- endcomment -%}
-<div class="card mb-2">
-    <div class="card-header">Cita recomendada</div>
-    <div class="card-body">
-        <dl>
-            <dd>"{{ child.title | default: page.title }}", {{ site.title }}, {% if site.organization-name %}{{ site.organization-name }}, {% endif %}<a href="{{ page.url | absolute_url }}#{{ child.objectid }}">{{ page.url | absolute_url }}#{{ child.objectid }}</a></dd>
-        </dl>
-    </div>
-</div>
+<section class="item-info-section">
+    <h3 class="item-info-section-title">Cita recomendada</h3>
+    <dl>
+        <dd>"{{ child.title | default: page.title }}", {{ site.title }}, {% if site.organization-name %}{{ site.organization-name }}, {% endif %}<a href="{{ page.url | absolute_url }}#{{ child.objectid }}">{{ page.url | absolute_url }}#{{ child.objectid }}</a></dd>
+    </dl>
+</section>

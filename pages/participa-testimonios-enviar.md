@@ -24,7 +24,7 @@ custom-foot: participacion/scripts-testimonio-form.html
       <input type="hidden" id="testimonio-linked-contribucion-id" value="">
       <fieldset class="participa-fieldset">
         <legend>Contenido</legend>
-        <small class="field-helper field-helper--intro">Puedes contarnos qué significó para ti leer <i>Fuenteovejuna</i>, asistir a una representación o participar en una puesta en escena como actor o como parte del equipo. Si recuerdas la edición, la compañía, el teatro o el año, inclúyelos; nos interesa cualquier historia relacionada con la obra.</small>
+        <small class="field-helper field-helper--intro">Puedes contarnos qué significó para ti leer <i>Fuenteovejuna</i>, asistir a una representación o participar en una puesta en escena como actor o como parte del equipo. O quizá recuerdas cuando te explicaron la obra en el colegio. Nos interesa cualquier historia relacionada con la obra.</small>
         <div class="mb-3">
           <label for="testimonio-titulo" class="form-label">Título <span class="required-mark" aria-hidden="true">*</span></label>
           <input type="text" class="form-control" id="testimonio-titulo" maxlength="160" placeholder="Ej.: Recuerdo de mi participación en una representación escolar de Fuenteovejuna" required>
@@ -36,9 +36,9 @@ custom-foot: participacion/scripts-testimonio-form.html
         </div>
       </fieldset>
       <fieldset class="participa-fieldset">
-        <legend>Contexto <span class="optional-note">(opcional)</span></legend>
-        <small class="field-helper field-helper--intro">Añade el contexto que ayude a entender tu testimonio. Completa solo lo que quieras compartir.</small>
-        <p class="field-group-title mb-2 mt-5">Localización temporal</p>
+        <legend>Otros datos <span class="optional-note">(opcional)</span></legend>
+        <small class="field-helper field-helper--intro">Ayuda a contextualizar más tu experiencia.</small>
+        <p class="field-group-title mb-2">Localización temporal</p>
         <div class="row g-3">
           <div class="col-md-5">
             <label for="testimonio-fecha" class="form-label">Fecha de la experiencia <span class="optional-note">(si la recuerdas)</span></label>
@@ -49,10 +49,10 @@ custom-foot: participacion/scripts-testimonio-form.html
             <input type="text" class="form-control" id="testimonio-fecha-texto" maxlength="120" placeholder="Ej.: Verano de 1998, Curso 2019/2020">
           </div>
         </div>
-        <p class="field-group-title mt-5 mb-2">Localización espacial</p>
+        <p class="field-group-title mt-4 mb-2">Localización espacial</p>
         <div class="geo-location-row geo-location-row--full mt-1">
           <div>
-            <label for="testimonio-experiencia-ciudad" class="form-label">Ciudad de referencia</label>
+            <label for="testimonio-experiencia-ciudad" class="form-label">Ciudad</label>
             <div class="participa-geonames-field">
               <input type="text" class="form-control" id="testimonio-experiencia-ciudad" autocomplete="off" placeholder="Empieza a escribir una ciudad">
             </div>
@@ -60,7 +60,7 @@ custom-foot: participacion/scripts-testimonio-form.html
             <input type="hidden" id="testimonio-experiencia-ciudad-id">
           </div>
           <div>
-            <label for="testimonio-experiencia-pais" class="form-label">País de referencia <span class="optional-note">(automático)</span></label>
+            <label for="testimonio-experiencia-pais" class="form-label">País <span class="optional-note">(automático)</span></label>
             <input type="text" class="form-control" id="testimonio-experiencia-pais" readonly>
             <input type="hidden" id="testimonio-experiencia-pais-nombre">
             <input type="hidden" id="testimonio-experiencia-pais-id">
@@ -72,7 +72,7 @@ custom-foot: participacion/scripts-testimonio-form.html
           <label for="testimonio-lugar-texto" class="form-label">Lugar <span class="optional-note">(texto libre)</span></label>
           <input type="text" class="form-control" id="testimonio-lugar-texto" maxlength="160" placeholder="Ej.: Teatro municipal, patio del instituto...">
         </div>
-        <p class="field-group-title mt-5 mb-2">Contexto de la experiencia</p>
+        <p class="field-group-title mt-4 mb-2">Contexto de la experiencia</p>
         <div class="row g-3">
           <div class="col-md-6">
             <label for="testimonio-contexto" class="form-label">Contexto</label>
@@ -97,43 +97,43 @@ custom-foot: participacion/scripts-testimonio-form.html
             </select>
           </div>
         </div>
-        <p class="field-group-title mt-5 mb-2">Relaciones con otros objetos</p>
+        <p class="field-group-title mt-4 mb-2">Relaciones con otros objetos</p>
         <div class="mt-3">
           <label for="testimonio-linked-refs" class="form-label">Vínculos con objetos ya existentes en la <a href="{{ '/archivo/documentos/' | relative_url }}">colección de documentos</a> <span class="optional-note">(opcional)</span></label>
           <textarea class="form-control" id="testimonio-linked-refs" rows="3" placeholder="Pega un enlace o un ID por línea"></textarea>
         </div>
       </fieldset>
       <fieldset class="participa-fieldset">
-        <legend>Privacidad de publicación</span></legend>
-        <small class="field-helper field-helper--intro">Elige qué datos de contexto podrán mostrarse junto al testimonio cuando se publique.</small>
+        <legend>Privacidad de publicación</legend>
+        <small class="field-helper field-helper--intro">Elige qué datos podemos mostrar junto a tu testimono.</small>
         <div class="row g-2">
           <div class="col-12 col-md-6">
             <div class="form-check mb-0">
-              <input class="form-check-input" type="checkbox" id="privacy-mostrar-nombre">
+              <input class="form-check-input" type="checkbox" id="privacy-mostrar-nombre" checked>
               <label class="form-check-label" for="privacy-mostrar-nombre">Mostrar mi nombre público (si tengo perfil)</label>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="form-check mb-0">
-              <input class="form-check-input" type="checkbox" id="privacy-mostrar-fecha">
+              <input class="form-check-input" type="checkbox" id="privacy-mostrar-fecha" checked>
               <label class="form-check-label" for="privacy-mostrar-fecha">Mostrar fecha</label>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="form-check mb-0">
-              <input class="form-check-input" type="checkbox" id="privacy-mostrar-lugar">
+              <input class="form-check-input" type="checkbox" id="privacy-mostrar-lugar" checked>
               <label class="form-check-label" for="privacy-mostrar-lugar">Mostrar lugar (ciudad, país y/o detalle)</label>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="form-check mb-0">
-              <input class="form-check-input" type="checkbox" id="privacy-mostrar-contexto">
+              <input class="form-check-input" type="checkbox" id="privacy-mostrar-contexto" checked>
               <label class="form-check-label" for="privacy-mostrar-contexto">Mostrar contexto</label>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="form-check mb-0">
-              <input class="form-check-input" type="checkbox" id="privacy-mostrar-rango-edad">
+              <input class="form-check-input" type="checkbox" id="privacy-mostrar-rango-edad" checked>
               <label class="form-check-label" for="privacy-mostrar-rango-edad">Mostrar rango de edad</label>
             </div>
           </div>

@@ -46,7 +46,7 @@ body.ta-modal-scroll-locked {
   max-height: min(90vh, calc(100dvh - 32px));
   overflow-y: auto;
   background: $color-surface-raised;
-  border-radius: 18px;
+  border-radius: var(--ui-radius);
   padding: 44px 22px 18px;
   box-shadow: $shadow-md;
   pointer-events: auto;
@@ -200,7 +200,7 @@ body.ta-modal-scroll-locked {
 
 .compound-child-modal .ta-modal__header {
   margin-bottom: 18px;
-  padding-right: 0;
+  padding-right: 44px;
 }
 
 .compound-child-modal .modal-title {

@@ -241,7 +241,7 @@ $editorial-link-highlight-hover-height: 0.46em !default;
     color: $color-light;
     border: solid $color-light 1px;
     background: transparent;
-    border-radius: 50px;
+    border-radius: var(--ui-radius);
   }
 
   #footer-nav .nav-link:hover {
@@ -260,7 +260,7 @@ $editorial-link-highlight-hover-height: 0.46em !default;
     height: 50px;
     font-size: 40px;
     color: $color-dark;
-    border-radius: 50%;
+    border-radius: var(--ui-radius-round);
     text-align: center;
     line-height: 50px;
     transition: transform 0.3s ease;

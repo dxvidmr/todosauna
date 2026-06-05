@@ -6,7 +6,7 @@ layout: default
 item-meta: true
 ---
 {% if page.display_template == "compound_object" %}{% assign children = site.data[site.metadata] | where_exp: 'item','item.parentid == page.objectid' %}{% endif %}
-<div class="container-fluid py-3">
+<div class="container py-3">
 
     {% include item/breadcrumbs.html %}
     <div class="my-0 h5 small">{{ page.display_template | replace: "_", " " | upcase }} {% if page.display_template == "compound_object" %} ({{ children | size }} elementos){% endif %}</div>

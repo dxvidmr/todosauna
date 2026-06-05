@@ -124,7 +124,7 @@
     width: auto;
     max-width: none;
     max-inline-size: calc(100vw - 2rem);
-    border-radius: 50px;
+    border-radius: var(--ui-radius);
     padding: 0.38rem 1.3rem;
     --navbar-bg: #{rgba($color-secondary-100, 0.86)};
     --navbar-text: #{$color-dark};
@@ -154,7 +154,7 @@
         width: calc(100% - 2rem);
         max-inline-size: 100%;
         max-width: 100%;
-        border-radius: 25px;
+        border-radius: var(--ui-radius);
         padding: 0.36rem 1.1rem;
     }
 }
@@ -220,7 +220,7 @@
     width: auto;
     max-inline-size: calc(100vw - 2rem);
     max-width: calc(100vw - 2rem);
-    border-radius: 25px;
+    border-radius: var(--ui-radius);
     padding: 1.5rem 2rem;
 
     @media (max-width: 991.98px) {
@@ -484,7 +484,7 @@
         display: flex;
         background: var(--navbar-search-bg);
         border: 1px solid var(--navbar-border-soft);
-        border-radius: 25px;
+        border-radius: var(--ui-radius);
         padding: 0.5rem 1rem;
         max-width: 400px;
         width: 100%;
@@ -619,7 +619,7 @@
     display: block;
     width: 1.25rem;
     height: var(--compact-navbar-icon-line-thickness);
-    border-radius: 999px;
+    border-radius: var(--ui-radius-xs);
     background: currentColor;
     box-shadow:
         0 calc(var(--compact-navbar-icon-line-offset) * -1) 0 currentColor,
@@ -695,7 +695,7 @@
     color: $color-light;
     border: none;
     padding: 1rem 1.25rem;
-    border-radius: 50px;
+    border-radius: var(--ui-radius);
     font-weight: 600;
     cursor: pointer;
     font-size: 15px;

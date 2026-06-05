@@ -69,7 +69,7 @@ body.laboratorio-page.laboratorio-mode-active {
 
 .stats-globales {
   padding: clamp(18px, 2.6vh, 24px);
-  border-radius: 30px;
+  border-radius: var(--ui-radius);
   background: $color-neutral-100;
 }
 
@@ -259,7 +259,7 @@ body.laboratorio-page.laboratorio-mode-active {
   padding: 3px 10px;
   font-size: 0.72rem;
   font-weight: 600;
-  border-radius: 999px;
+  border-radius: var(--ui-radius);
   background: $color-neutral-100;
   color: $color-dark;
   line-height: 1.35;
@@ -303,7 +303,7 @@ body.laboratorio-page.laboratorio-mode-active {
 .pasaje-container,
 .notas-container {
   min-height: 0;
-  border-radius: 25px;
+  border-radius: var(--ui-radius);
   background: $color-neutral-50;
 }
 
@@ -322,13 +322,13 @@ body.laboratorio-page.laboratorio-mode-active {
 .pasaje-container::-webkit-scrollbar-track,
 .notas-container .note-panel-scroll::-webkit-scrollbar-track {
   background: $color-neutral-50;
-  border-radius: 999px;
+  border-radius: var(--ui-radius);
 }
 
 .pasaje-container::-webkit-scrollbar-thumb,
 .notas-container .note-panel-scroll::-webkit-scrollbar-thumb {
   background: $color-text-muted;
-  border-radius: 999px;
+  border-radius: var(--ui-radius);
   border: 2px solid $color-neutral-50;
 }
 
@@ -430,7 +430,7 @@ body.laboratorio-page.laboratorio-mode-active {
 .notas-collapsed-toggle {
   width: 100%;
   border: none;
-  border-radius: 24px;
+  border-radius: var(--ui-radius);
   padding: 14px 16px;
   background: $color-surface-raised;
   color: $color-text;
@@ -482,14 +482,14 @@ body.laboratorio-page.laboratorio-mode-active {
 .barra-progreso {
   height: 6px;
   background: $color-neutral-100;
-  border-radius: 999px;
+  border-radius: var(--ui-radius);
   overflow: hidden;
 }
 
 .barra-progreso-fill {
   height: 100%;
   background: $color-dark;
-  border-radius: 999px;
+  border-radius: var(--ui-radius);
   transition: width 0.3s ease;
 }
 
@@ -506,7 +506,7 @@ body.laboratorio-page.laboratorio-mode-active {
     display: none;
     width: 44px;
     height: 4px;
-    border-radius: 999px;
+    border-radius: var(--ui-radius);
     background: $color-neutral-400;
     margin: 0 auto 12px;
     flex-shrink: 0;
@@ -578,7 +578,7 @@ body.laboratorio-page.laboratorio-mode-active {
 
     .nota-evaluada {
       padding: 16px;
-      border-radius: 6px;
+      border-radius: var(--ui-radius-xs);
     }
   }
 
@@ -788,7 +788,7 @@ body.laboratorio-page.laboratorio-mode-active {
 
   .stats-globales {
     padding: 14px;
-    border-radius: 20px;
+    border-radius: var(--ui-radius);
   }
 
   .stats-barra-container,
@@ -921,7 +921,7 @@ body.laboratorio-page.laboratorio-mode-active {
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
     padding: 16px 14px calc(env(safe-area-inset-bottom) + 120px);
-    border-radius: 24px;
+    border-radius: var(--ui-radius);
   }
 
   .pasaje-container-mobile {
@@ -1043,7 +1043,7 @@ body.laboratorio-page.laboratorio-mode-active {
     min-height: min(340px, calc(100dvh - 120px));
     max-height: min(78dvh, 700px);
     padding: 14px 14px calc(14px + env(safe-area-inset-bottom));
-    border-radius: 24px 24px 20px 20px;
+    border-radius: var(--ui-radius);
     box-shadow: 0 -18px 42px rgba($color-dark, 0.18);
     transform: translateY(calc(100% + 32px));
     opacity: 0;

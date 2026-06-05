@@ -11,9 +11,7 @@
         <div class="card h-100 compound-child-card">
             <div class="my-auto">
                 <div class="card-body text-center" id="{{ child.objectid }}Card">
-                 
-                    {% if child.title %}<div class="small text-dark compound-child-title">{{ child.title | truncatewords: 6 }}</div>{% endif %}
-                     
+
                     <div class="compound-child-media">
                         {% if child.image_thumb or child.image_small %}
                         <img class="img-thumbnail compound-thumb" src="{{ child.image_thumb | default: child.image_small | relative_url }}" alt="{{ child.image_alt_text | default: child.description | default: child.title | escape }}">
@@ -26,14 +24,16 @@
                         {% endif %}
                     </div>
 
+                    {% if child.title %}<div class="compound-child-title text-muted">{{ child.title | truncatewords: 6 }}</div>{% endif %}
+
                     <!-- child object modal button -->
                     <a id="item-{{ forloop.index }}"
                         role="button"
                         href="#{{ child.objectid }}"
                         data-ta-modal-target="#{{ child.objectid }}"
                         class="btn btn-sm btn-outline-secondary small stretched-link">
-                        {{ child.display_template | upcase | default: "Elemento" }} <svg class="bi icon-sprite" fill="currentColor" aria-hidden="true"><use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-{{ child.display_template | default: 'file'}}"/></svg>
-                    </a> 
+                        Ver <svg class="bi icon-sprite" fill="currentColor" aria-hidden="true"><use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-{{ child.display_template | default: 'file'}}"/></svg>
+                    </a>
 
                     <!-- child object modal -->
                     {% capture stopMedia %}{% if child.display_template == 'video' %}{% if child.object_location contains 'vimeo' %}vimeo{% elsif child.object_location contains 'youtu' %}youtube{% else %}video{% endif %}{% elsif child.display_template == 'audio' %}audio{% else %}{% endif %}{% endcapture %}
@@ -41,14 +41,13 @@
                         <div class="ta-modal__overlay modal-overlay"></div>
                         <div class="ta-modal__dialog compound-child-modal__dialog text-start">
 
+                                <button type="button" class="btn-circular ta-modal__close compound-child-close" data-ta-modal-close="true" aria-label="Cerrar">
+                                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                                </button>
+
                                 <div class="ta-modal__header modal-header">
                                     <div class="modal-title w-100" id="{{ child.objectid }}ModalLabel">
-                                        <div class="row">
-                                            <div class="col-12 text-end">
-                                                <button type="button" class="btn-circular compound-child-close" data-ta-modal-close="true" aria-label="Cerrar">
-                                                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
+                                        <div class="row align-items-center">
                                             {% capture next_index %}{% if forloop.index == forloop.length %}0{% else %}{{ forloop.index0 | plus: 1 }}{% endif %}{% endcapture %}
                                             {% assign next_index = next_index | times: 1 %}
                                             {% capture prev_index %}{% if forloop.index0 == 0 %}{{ forloop.length | minus: 1 }}{% else %}{{ forloop.index0 | minus: 1 }}{% endif %}{% endcapture %}
@@ -56,21 +55,21 @@
                                             {% capture next_item_id %}{{ children[next_index].objectid }}{% endcapture %}
                                             {% capture prev_item_id %}{{ children[prev_index].objectid }}{% endcapture %}
                                             <div class="col-1 col-md-2">
-                                                <button type="button" data-ta-modal-target="#{{ prev_item_id }}" data-ta-modal-replace="true" class="btn btn-outline-dark btn-sm prev-child-button" >
+                                                <button type="button" data-ta-modal-target="#{{ prev_item_id }}" data-ta-modal-replace="true" class="btn btn-outline-dark btn-sm prev-child-button">
                                                     <svg class="bi icon-sprite" role="img" aria-label="Elemento anterior">
                                                         <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#arrow-left"/>
                                                     </svg>
                                                     <span class="d-none d-md-inline">Anterior</span>
                                                 </button>
                                             </div>
-                                            <div class="col-9 col-md-8 text-center">
-                                                <h3 class="h5">{{ page.title }} 
+                                            <div class="col-10 col-md-8 text-center">
+                                                <h3 class="h5">{{ page.title }}
                                                     <span class="d-none d-md-inline">-</span><span class="d-md-none"><br></span>
                                                     Elemento {{ forloop.index }} de {{ children | size }}
                                                 </h3>
                                             </div>
                                             <div class="col-1 col-md-2 text-end">
-                                                <button type="button" data-ta-modal-target="#{{ next_item_id }}" data-ta-modal-replace="true" class="ms-md-5 btn btn-outline-dark btn-sm next-child-button">
+                                                <button type="button" data-ta-modal-target="#{{ next_item_id }}" data-ta-modal-replace="true" class="btn btn-outline-dark btn-sm next-child-button">
                                                     <span class="d-none d-md-inline">Siguiente</span>
                                                     <svg class="bi icon-sprite" role="img" aria-label="Elemento siguiente">
                                                         <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#arrow-right"/>
@@ -84,7 +83,7 @@
                                 <div class="ta-modal__body compound-child-modal__body">
                                     <div class="row">
                                         <div class="col-md-8">
-                                            <div class="card mb-4 text-center">
+                                            <div class="text-center">
                                                 <div class="m-2">
                                                     {% if child.display_template == 'image' %}
                                                         {% include item/child/image-gallery.html %}
@@ -104,7 +103,7 @@
                                                         {% include item/child/item-thumb.html %}
                                                     {% endif %}
                                                 </div>
-                                                <div class="my-2">
+                                                <div class="mt-3">
                                                     {% include item/child/download-buttons.html %}
                                                 </div>
                                             </div>

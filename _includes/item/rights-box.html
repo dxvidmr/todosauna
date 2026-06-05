@@ -3,16 +3,14 @@
     Adds a box to highlight rights information if item has a "rights" or "rightsstatement" field.
 
 {%- endcomment -%}
-<div class="card">
-    <div class="card-header">Derechos</div>
-    <div class="card-body">
-        {% assign standardized_rights = page.rightsstatement | default: page.rightstatement %}
-        <dl>
-            {% if page.rights %}<dt>Derechos:</dt>
-            <dd>{{ page.rights }}</dd>{% endif %}
-            {% if standardized_rights %}<dt>Derechos estandarizados:</dt>
-            <dd><a href="{{ standardized_rights }}">{{ standardized_rights }}</a>
-            </dd>{% endif %}
-        </dl>
-    </div>
-</div>
+<section class="item-info-section">
+    <h3 class="item-info-section-title">Derechos</h3>
+    {% assign standardized_rights = page.rightsstatement | default: page.rightstatement %}
+    <dl>
+        {% if page.rights %}<dt>Derechos:</dt>
+        <dd>{{ page.rights }}</dd>{% endif %}
+        {% if standardized_rights %}<dt>Derechos estandarizados:</dt>
+        <dd><a href="{{ standardized_rights }}">{{ standardized_rights }}</a>
+        </dd>{% endif %}
+    </dl>
+</section>

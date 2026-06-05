@@ -1,0 +1,30 @@
+# Secciones editoriales de la home, antes de "Explora el sitio".
+# Edita title, text, image e image_alt. Usa image_position: left o right.
+# image acepta una ruta/URL o el objectid exacto de un item del archivo.
+
+- title: "<i>Fuenteovejuna</i>, todos a una"
+  text: "<i>Fuenteovejuna</i>, escrita a comienzos del siglo XVII por Lope de Vega, dramatiza los hechos ocurridos en 1476 en la villa cordobesa de Fuente Obejuna, cuando sus habitantes se rebelaron contra el comendador Fernán Gómez de Guzmán por sus abusos contra el pueblo y las mujeres. <br> Publicada en 1619 en la <i>Dozena parte</i> de las comedias de Lope, la obra combina el conflicto político, la justicia, el honor, el amor y la vida comunitaria. Hoy, “todos a una” sigue siendo un lema de resistencia y solidaridad frente a la opresión y la injusticia, aunque la obra ha sido interpretada de formas muy distintas a lo largo del tiempo y desde diferentes perspectivas ideológicas."
+  image: "/assets/img/explore/impreso.jpg"
+  image_alt: "Portadilla de la primera edición de Fuenteovejuna"
+  image_position: right
+  action_label: "Leer la obra"
+  action_url: "/lectura/"
+  enabled: true
+
+- title: "El éxito de la obra"
+  text: "Aunque hoy es una de las obras más conocidas del teatro clásico español, tanto dentro como fuera de España, su historia es bastante más compleja. No sabemos nada de su estreno en vida de Lope y apenas dejó huellas hasta el siglo XIX, cuando fue traducida en Francia, Alemania y ¡representada en Rusia en 1876! <br> Desde entonces, <i>Fuenteovejuna</i> ha sido editada, representada y adaptada en todo el mundo, en decenas de países e idiomas. Se lee en colegios e institutos, se representa en teatros y festivales, y el pueblo de Fuente Obejuna celebra cada dos años una puesta en escena colectiva con cientos de vecinos y vecinas."
+  image: "/assets/img/explore/redcompleta.png"
+  image_alt: "Red de relaciones de la historia de la obra"
+  image_position: left
+  action_label: "Explorar el archivo"
+  action_url: "/archivo/"
+  enabled: true
+
+- title: "Sé parte de su historia"
+  text: "Todos a una es un portal divulgativo y participativo dedicado a <i>Fuenteovejuna</i>. Reúne una edición digital anotada, una colección de documentos relacionados con la transmisión y recepción de la obra, y espacios de participación para incorporar testimonios, recuerdos, materiales y experiencias de lectura, enseñanza o representación."
+  image: "europeana_00037"
+  image_alt: "Diseño escenográfico para una puesta en escena de la obra"
+  image_position: right
+  action_label: "Participar"
+  action_url: "/participa/"
+  enabled: true

@@ -916,7 +916,7 @@
 
     return {
       greetingText: isAnonymous
-        ? '\u00a1Hola, an\u00f3nimo!'
+        ? '\u00a1Hola!'
         : (displayName ? '\u00a1Hola, ' + displayName + '!' : '\u00a1Hola, colaborador/a!'),
       modeLabel: isAnonymous ? 'An\u00f3nimo' : 'Colaborador/a',
       sinceText: sinceText,
@@ -1036,10 +1036,7 @@
       + '  <a class="btn btn-secondary-100" href="' + escapeHtml(viewModel.uploadSecondaryUrl) + '">' + escapeHtml(viewModel.uploadSecondaryLabel) + '</a>'
       + '</div>';
 
-    var summaryActions = ''
-      + '<div class="modal-actions perfil-summary-actions">'
-      + '  <a class="btn btn-primary" href="/participa/">' + escapeHtml(stats.total_contribuciones > 0 ? 'Participa' : 'Participa') + '</a>'
-      + '</div>';
+    var summaryActions = '';
 
     var evaluationDetails = stats.total_evaluaciones > 0
       ? ''
@@ -1051,7 +1048,7 @@
     if (viewModel.showAnonymousUpgrade) {
       upgradeNote = ''
         + '<aside class="modal-context-note" data-only-anonimo>'
-        + '  <p><strong>Ahora participas en an\u00f3nimo.</strong> Reg\u00edstrate para conservar y recuperar tus contribuciones en futuras sesiones.</p>'
+        + '  <p><strong>Ahora participas en modo an\u00f3nimo.</strong> Reg\u00edstrate para conservar y recuperar tus contribuciones en futuras sesiones.</p>'
         + '  <div class="modal-actions modal-context-note-actions">'
         + '    <button type="button" class="btn btn-primary btn-upgrade-colaborador">Registrarme</button>'
         + '  </div>'
@@ -1083,6 +1080,9 @@
       + '          <p class="perfil-card-eyebrow">Sugerencias</p>'
       + '          <p class="perfil-card-metric">' + escapeHtml(stats.total_sugerencias) + '</p>'
       + '        </div>'
+      + '      </div>'
+      + '      <div class="modal-actions perfil-card-actions">'
+      + '        <a class="btn btn-secondary-100" href="/participa/laboratorio/">Ayuda a mejorar la edici\u00f3n</a>'
       + '      </div>'
       + '    </article>'
       + '    <article class="perfil-activity-card">'

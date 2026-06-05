@@ -86,7 +86,7 @@ tei-stage {
   background: $color-dark;
   color: white;
   padding: 12px 20px;
-  border-radius: 4px;
+  border-radius: var(--ui-radius-xs);
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   z-index: 9999;
   opacity: 0;
@@ -154,7 +154,7 @@ tei-stage {
   background: $color-dark;
   color: $color-light;
   border: none;
-  border-radius: 50px;
+  border-radius: var(--ui-radius);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
@@ -176,7 +176,7 @@ tei-stage {
 .sugerencia-modal .sugerencia-modal-shell {
   max-width: 520px;
   width: min(92vw, 520px);
-  border-radius: 18px;
+  border-radius: var(--ui-radius);
   padding: 44px 22px 18px;
 }
 
@@ -222,7 +222,7 @@ tei-stage {
   padding: 12px 16px;
   background: $color-surface-raised;
   border: 1px solid $color-neutral-200;
-  border-radius: 12px;
+  border-radius: var(--ui-radius);
   color: $color-text;
   line-height: 1.5;
   max-height: 150px;
@@ -235,7 +235,7 @@ tei-stage {
   width: 100%;
   padding: 12px;
   border: 1px solid $color-neutral-200;
-  border-radius: 12px;
+  border-radius: var(--ui-radius);
   font-family: inherit;
   font-size: 14px;
   resize: vertical;
@@ -276,7 +276,7 @@ tei-stage {
   justify-content: flex-start;
   gap: 10px;
   padding: 14px 16px;
-  border-radius: 24px;
+  border-radius: var(--ui-radius);
   background: $color-primary;
   color: $color-light;
   box-shadow: $shadow-md;
@@ -364,8 +364,9 @@ tei-stage {
     display: inline-flex;
     align-items: center;
     padding: 6px 12px;
-    border-radius: 999px;
-    background: $color-secondary-100;
+    border-radius: var(--ui-radius);
+    background: transparent;
+    border: 1px solid $color-secondary-200;
     color: $color-text;
     font-size: 0.86rem;
     font-weight: 600;
@@ -405,7 +406,7 @@ tei-stage {
     gap: 12px 16px;
     padding: 16px 18px;
     border: 1px solid $color-primary;
-    border-radius: 16px;
+    border-radius: var(--ui-radius);
     background: transparent;
 
     p {
@@ -427,60 +428,70 @@ tei-stage {
   .modo-opciones,
   .colaborador-opciones-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 
   .modo-opcion {
-    border: 2px solid $color-secondary;
-    border-radius: 8px;
-    background: $color-surface-raised;
-    padding: 20px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+    padding: 16px 4px;
+    border-bottom: 1px solid rgba($color-dark, 0.08);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background-color 0.18s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
 
     &:hover {
-      background: $color-surface-page;
-      border-color: $color-secondary-200;
-      box-shadow: 0 2px 8px rgba($color-dark, 0.08);
+      background: rgba($color-dark, 0.035);
+
+      .modo-arrow {
+        transform: translateX(3px);
+      }
     }
 
     &:focus,
     &:focus-visible {
       outline: none;
-      background: $color-surface-page;
-      border-color: $color-secondary-200;
-      box-shadow: 0 0 0 2px rgba($color-secondary, 0.28);
+      background: rgba($color-dark, 0.035);
+      box-shadow: 0 0 0 2px rgba($color-primary, 0.18);
     }
 
     h3 {
-      font-size: 18px;
-      margin: 12px 0 8px;
+      font-size: 1rem;
+      margin: 0 0 3px;
     }
 
     p {
-      font-size: 14px;
+      font-size: 0.875rem;
       color: $color-text-muted;
       margin-bottom: 0;
-      min-height: 40px;
     }
   }
 
-  .modo-header {
-    margin-bottom: 12px;
+  .modo-opcion-content {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .modo-arrow {
+    margin-left: auto;
+    flex-shrink: 0;
+    color: $color-text-muted;
+    font-size: 0.8rem;
+    transition: transform 0.18s ease;
   }
 
   .modo-icono {
-    font-size: 48px;
-    display: block;
-    margin-bottom: 8px;
+    flex-shrink: 0;
 
     i {
-      font-size: 1.6rem;
-      color: $color-dark;
-      opacity: 0.95;
+      font-size: 1.1rem;
+      color: $color-text-muted;
     }
   }
 
@@ -495,10 +506,8 @@ tei-stage {
   }
 
   .modal-optional-group {
-    border: 1px solid $color-secondary-200;
-    border-radius: 12px;
+    margin-top: 8px;
     margin-bottom: 12px;
-    background: $color-surface-page;
 
     summary {
       display: flex;
@@ -507,7 +516,7 @@ tei-stage {
       gap: 10px;
       cursor: pointer;
       list-style: none;
-      padding: 12px 14px;
+      padding: 10px 0;
       font-weight: 600;
       font-size: 0.92rem;
       color: $color-text;
@@ -518,7 +527,7 @@ tei-stage {
     }
 
     &[open] summary {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      border-bottom: 1px solid rgba($color-dark, 0.08);
     }
 
     &[open] .modal-optional-summary-icon {
@@ -527,7 +536,7 @@ tei-stage {
   }
 
   .modal-optional-content {
-    padding: 12px 14px 14px;
+    padding: 12px 0 14px;
     display: grid;
     gap: 6px;
   }
@@ -594,31 +603,21 @@ tei-stage {
   .perfil-summary-card {
     display: flex;
     flex-direction: column;
-    padding: 20px 22px;
-    border: 0px solid $color-secondary-200;
-    border-radius: 18px;
-    background: $color-secondary-100;
+    padding: 0 0 16px;
+    border-bottom: 1px solid rgba($color-dark, 0.08);
   }
 
   .perfil-summary-head {
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 14px 18px;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .perfil-summary-copy {
     display: flex;
     min-width: 0;
-    flex: 1 1 auto;
     flex-direction: column;
-    gap: 8px;
-  }
-
-  .perfil-summary-actions {
-    flex: 0 0 auto;
-    align-items: flex-end;
-    justify-content: flex-end;
+    gap: 6px;
   }
 
   .perfil-card-title {
@@ -662,17 +661,22 @@ tei-stage {
   .perfil-activity-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
+    gap: 0;
+    background: $color-secondary-50;
+    border-radius: var(--ui-radius);
+    padding: 18px 20px;
   }
 
   .perfil-activity-card {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 18px;
-    border: 0px solid $color-secondary-200;
-    border-radius: 18px;
-    background: $color-surface-page;
+    padding: 0;
+
+    & + .perfil-activity-card {
+      padding-left: 20px;
+      border-left: 1px solid rgba($color-dark, 0.08);
+    }
   }
 
   .perfil-activity-detail {
@@ -701,7 +705,7 @@ tei-stage {
 .participa-ui-dialog-content {
   max-width: 430px;
   width: min(92vw, 430px);
-  border-radius: 18px;
+  border-radius: var(--ui-radius);
   padding: 44px 22px 18px;
 
   h2 {
@@ -743,30 +747,12 @@ tei-stage {
 
   #modal-modo .modal-header-actions .btn,
   #modal-modo .modal-actions .btn,
-  #modal-modo .perfil-card-actions .btn,
-  #modal-modo .perfil-summary-actions .btn {
+  #modal-modo .perfil-card-actions .btn {
     width: 100%;
-  }
-
-  #modal-modo .perfil-summary-head {
-    flex-direction: column;
-  }
-
-  #modal-modo .perfil-summary-actions {
-    width: 100%;
-    justify-content: flex-start;
   }
 
   #modal-modo .modal-context-note-actions {
     width: 100%;
-  }
-
-  #modal-modo .modo-opciones {
-    grid-template-columns: 1fr;
-  }
-
-  #modal-modo .colaborador-opciones-grid {
-    grid-template-columns: 1fr;
   }
 
   #modal-modo .ta-modal__dialog,
@@ -783,6 +769,18 @@ tei-stage {
 
   #modal-modo .perfil-activity-split {
     grid-template-columns: 1fr;
+  }
+
+  #modal-modo .perfil-activity-grid {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  #modal-modo .perfil-activity-card + .perfil-activity-card {
+    padding-left: 0;
+    padding-top: 16px;
+    border-left: none;
+    border-top: 1px solid rgba($color-dark, 0.08);
   }
 }
 
@@ -884,7 +882,7 @@ tei-seg.note-target {
     display: block;
     max-width: min(220px, 100%);
     height: auto;
-    border-radius: 0.45rem;
+    border-radius: var(--ui-radius-sm);
   }
 
   .note-rich-text .note-cb-thumb-caption {
@@ -899,7 +897,7 @@ tei-seg.note-target {
     max-width: min(220px, 100%);
     height: auto;
     margin-top: 0.5rem;
-    border-radius: 0.45rem;
+    border-radius: var(--ui-radius-sm);
   }
 
   .note-rich-text .note-figure {
@@ -929,7 +927,7 @@ tei-seg.note-target {
     padding: 0.25rem 0.6rem;
     font-size: 0.75rem;
     font-weight: 500;
-    border-radius: 12px;
+    border-radius: var(--ui-radius);
     text-transform: capitalize;
     cursor: help;
     outline: none;
@@ -955,7 +953,7 @@ tei-seg.note-target {
   z-index: 9500;
   max-width: min(34ch, calc(100vw - 24px));
   padding: 0.55rem 0.7rem;
-  border-radius: 10px;
+  border-radius: var(--ui-radius-sm);
   background: $color-dark;
   color: $color-light;
   box-shadow: $shadow-md;

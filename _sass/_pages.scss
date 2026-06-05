@@ -35,12 +35,14 @@ $toc-a-color: $color-dark !default;
     }
 }
 #item-nav {
-    a { 
-        position: absolute;
-        top:500px;
+    a {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
     }
-    .previous { left:10px; }
-    .next{ right:10px; }
+    .previous { left: 12px; }
+    .next { right: 12px; }
 }
 .breadcrumb {
     padding: 0.75rem 1rem;
@@ -88,14 +90,17 @@ $toc-a-color: $color-dark !default;
 
 .item-metadata-grid {
     display: grid;
-    gap: 1rem;
+    gap: 0;
 }
 
 .item-metadata-section {
-    padding: 0.95rem 1rem;
-    border: 1px solid rgba($color-dark, 0.12);
-    border-radius: 0.75rem;
-    background: rgba($color-secondary-50, 0.48);
+    padding: 0.95rem 0;
+    border-bottom: 1px solid rgba($color-dark, 0.08);
+
+    &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
 }
 
 .item-metadata-title {
@@ -136,8 +141,8 @@ $toc-a-color: $color-dark !default;
     gap: 0.35rem;
     padding: 0.26rem 0.62rem;
     border: 1px solid rgba($color-dark, 0.14);
-    border-radius: 999px;
-    background: $color-light;
+    border-radius: var(--ui-radius-xs);
+    background: transparent;
     font-size: 0.9rem;
     line-height: 1.2;
 }
@@ -158,7 +163,14 @@ $toc-a-color: $color-dark !default;
     gap: 0.35rem;
 }
 
-.technical-data-card {
+.item-info-section {
+    padding: 1rem 0;
+    border-top: 1px solid rgba($color-dark, 0.08);
+
+    dl {
+        margin-bottom: 0;
+    }
+
     dl dt {
         margin-top: 0.45rem;
         font-weight: 600;
@@ -167,6 +179,21 @@ $toc-a-color: $color-dark !default;
     dl dt:first-of-type {
         margin-top: 0;
     }
+
+    dl dd {
+        margin-bottom: 0.35rem;
+        overflow-wrap: break-word;
+        word-break: break-all;
+    }
+}
+
+.item-info-section-title {
+    margin: 0 0 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $color-text-muted;
 }
 
 @media (min-width: 992px) {
@@ -192,9 +219,8 @@ $toc-a-color: $color-dark !default;
 .compound-parent-note {
     padding: 1rem 1.1rem;
     border: 1px solid rgba($color-dark, 0.12);
-    border-radius: 0.85rem;
+    border-radius: var(--ui-radius);
     background: rgba($color-secondary-50, 0.58);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
     color: $color-text;
     font-size: 0.96rem;
     line-height: 1.45;
@@ -230,31 +256,29 @@ $toc-a-color: $color-dark !default;
 
 .compound-child-card {
     width: 100%;
-    border: 1px solid rgba($color-dark, 0.08);
-    border-radius: 0.75rem;
+    border: 1px solid rgba($color-dark, 0.10);
+    border-radius: var(--ui-radius-sm);
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
 
     .card-body {
         background-color: $color-secondary-50;
         display: flex;
         flex-direction: column;
-        gap: 0.65rem;
+        gap: 0.5rem;
         min-height: 100%;
-        padding: 0.75rem;
+        padding: 0.65rem;
     }
 
     .btn {
         margin-top: auto;
-        align-self: flex-start;
+        align-self: center;
     }
 }
 
 .compound-child-title {
     margin-bottom: 0;
-    font-size: 0.88rem;
-    line-height: 1.28;
-    min-height: 2.2rem;
+    font-size: 0.82rem;
+    line-height: 1.3;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -265,8 +289,15 @@ $toc-a-color: $color-dark !default;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 145px;
-    padding: 0.2rem;
+    min-height: 160px;
+    padding: 0;
+}
+
+.compound-thumb {
+    border: none;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
 }
 
 @media (min-width: 992px) {
@@ -334,8 +365,8 @@ $toc-a-color: $color-dark !default;
     display: block;
     color: $color-text;
     text-decoration: none;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 0.6rem;
+    border: 1px solid rgba($color-dark, 0.10);
+    border-radius: var(--ui-radius);
     overflow: hidden;
     background: $color-light;
     transition: box-shadow 0.18s ease;
@@ -344,7 +375,7 @@ $toc-a-color: $color-dark !default;
     &:focus-visible {
         color: $color-text;
         text-decoration: none;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 8px 20px rgba($color-dark, 0.12);
     }
 }
 
@@ -394,7 +425,7 @@ $toc-a-color: $color-dark !default;
     display: inline-flex;
     align-items: center;
     padding: 0.18rem 0.48rem;
-    border-radius: 999px;
+    border-radius: var(--ui-radius);
     background: rgba($color-dark, 0.78);
     color: $color-light;
     font-size: var(--browse-badge-size);
@@ -446,9 +477,8 @@ $toc-a-color: $color-dark !default;
 
 .browse-hover-row {
     margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow-wrap: anywhere;
+    hyphens: auto;
 }
 
 .browse-hover-label {
@@ -466,11 +496,8 @@ $toc-a-color: $color-dark !default;
     font-size: var(--browse-title-size);
     line-height: 1.24;
     letter-spacing: 0;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    overflow: hidden;
+    overflow-wrap: anywhere;
+    hyphens: auto;
 }
 
 .browse-grid[data-columns="3"] {
@@ -585,7 +612,7 @@ $toc-a-color: $color-dark !default;
     height: auto;
     padding: 0.625rem 0.75rem;
     border: 1px solid $color-neutral-200;
-    border-radius: 0.5rem;
+    border-radius: var(--ui-radius-sm);
     font-size: 0.95rem;
 }
 
@@ -958,7 +985,7 @@ $toc-a-color: $color-dark !default;
 
 .site-search-result-group {
     border: 1px solid rgba($color-dark, 0.12);
-    border-radius: 14px;
+    border-radius: var(--ui-radius);
     padding: 0.8rem 0.9rem;
     background: rgba($color-secondary-50, 0.45);
 }

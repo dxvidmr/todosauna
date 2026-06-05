@@ -65,9 +65,8 @@ custom-foot: participacion/scripts-contribucion-form.html
         </fieldset>
 
         <fieldset class="participa-fieldset">
-          <legend>Contexto <span class="optional-note">(opcional)</span></legend>
-          <small class="field-helper field-helper--intro">Añade la información de contexto que ayude a situar y comprender el documento.</small>
-          <p class="field-group-title mb-2 mt-5">Localización temporal</p>
+          <legend>Otros datos <span class="optional-note">(opcional)</span></legend>
+          <p class="field-group-title mb-2">Localización temporal</p>
           <div class="row g-3">
             <div class="col-md-5">
               <label for="contribucion-fecha" class="form-label">Fecha exacta <span class="optional-note">(si se conoce)</span></label>
@@ -79,10 +78,10 @@ custom-foot: participacion/scripts-contribucion-form.html
             </div>
           </div>
 
-          <p class="field-group-title mt-5 mb-2">Localización espacial</p>
+          <p class="field-group-title mt-4 mb-2">Localización espacial</p>
           <div class="geo-location-row geo-location-row--full mt-1">
             <div>
-              <label for="contribucion-ciudad" class="form-label">Ciudad de referencia</label>
+              <label for="contribucion-ciudad" class="form-label">Ciudad</label>
               <div class="participa-geonames-field">
                 <input type="text" class="form-control" id="contribucion-ciudad" autocomplete="off" placeholder="Empieza a escribir una ciudad">
               </div>
@@ -90,7 +89,7 @@ custom-foot: participacion/scripts-contribucion-form.html
               <input type="hidden" id="contribucion-ciudad-id">
             </div>
             <div>
-              <label for="contribucion-pais" class="form-label">País de referencia <span class="optional-note">(automático)</span></label>
+              <label for="contribucion-pais" class="form-label">País <span class="optional-note">(automático)</span></label>
               <input type="text" class="form-control" id="contribucion-pais" readonly>
               <input type="hidden" id="contribucion-pais-nombre">
               <input type="hidden" id="contribucion-pais-id">
@@ -104,7 +103,7 @@ custom-foot: participacion/scripts-contribucion-form.html
             <input type="text" class="form-control" id="contribucion-lugar-texto" maxlength="160" placeholder="Ej.: Teatro de la Comedia, Paraninfo de la Universidad de...">
           </div>
 
-          <p class="field-group-title mt-5 mb-2">Relaciones con otros objetos</p>
+          <p class="field-group-title mt-4 mb-2">Relaciones con otros objetos</p>
           <div class="mt-3">
             <label for="contribucion-linked-refs" class="form-label">Vínculos con objetos ya existentes en la <a href="/archivo/documentos">colección de documentos</a> <span class="optional-note">(opcional)</span></label>
             <textarea class="form-control" id="contribucion-linked-refs" rows="3" placeholder="Pega un enlace o un ID por línea"></textarea>
@@ -133,17 +132,14 @@ custom-foot: participacion/scripts-contribucion-form.html
             <button type="button" id="btn-contribucion-subir" class="btn btn-dark">Subir archivos</button>
             <button type="button" id="btn-contribucion-cancelar-subida" class="btn btn-outline-dark">Cancelar subida</button>
           </div>
-        </fieldset>
-
-        <fieldset class="participa-fieldset">
-          <legend>Archivos listos para envío</legend>
+          <p class="field-group-title mt-4 mb-2">Archivos listos para envío</p>
           <ul id="contribucion-archivos-subidos-lista" class="list-group mb-0"></ul>
           <div id="contribucion-no-files-notice" class="alert alert-warning py-2 px-3 mt-3 mb-0" hidden>
             Se enviará solo información descriptiva, sin adjuntar archivo.
           </div>
         </fieldset>
 
-        <fieldset class="participa-fieldset">
+        <fieldset class="participa-fieldset" id="contribucion-rights-fieldset" hidden>
           <legend>Derechos sobre los archivos</legend>
           <small class="field-helper field-helper--intro">Estos derechos aplican a los archivos que subes.</small>
           <div class="form-check mb-2">

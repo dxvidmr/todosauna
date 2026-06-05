@@ -14,9 +14,7 @@
     <a href="{{ year | strip | prepend: '/timeline.html#y' | relative_url }}" class="btn btn-outline-primary">Ver en línea de tiempo</a>{% endif %}
     {% if child.latitude and child.longitude %}
     <a href="{{ '/map.html?location=' | append: page.latitude  | append: ',' | append: page.longitude | append: '&marker=' | append: page.objectid | relative_url }}" class="btn btn-outline-primary">Ver en mapa</a>{% endif %}
-    {% if child.object_location %}<a target="_blank" rel="noopener" href="{{ child.object_location | relative_url }}" class="btn btn-outline-primary">
-        {% if child.display_template == 'video' and child.object_location contains 'vimeo' %}Ver en Vimeo{% elsif child.display_template == 'video' and child.object_location contains 'youtu' %}Ver en YouTube{% elsif child.display_template == 'record'%}Enlace al objeto{% else %}Descargar {{ child.format | split: '/' | last | default: page.display_template | upcase }}{% endif %}
-    </a>{% endif %}
+    {% if child.object_location %}{% if child.display_template == 'video' and child.object_location contains 'vimeo' %}<a target="_blank" rel="noopener" href="{{ child.object_location | relative_url }}" class="btn btn-outline-primary">Ver en Vimeo</a>{% elsif child.display_template == 'video' and child.object_location contains 'youtu' %}<a target="_blank" rel="noopener" href="{{ child.object_location | relative_url }}" class="btn btn-outline-primary">Ver en YouTube</a>{% elsif child.display_template == 'record' %}<a target="_blank" rel="noopener" href="{{ child.object_location | relative_url }}" class="btn btn-outline-primary">Enlace al objeto</a>{% endif %}{% endif %}
 </div>
 {% if child.object_transcript %}
 <div class="collapse mt-3" id="collapseTranscript{{ child.objectid }}">

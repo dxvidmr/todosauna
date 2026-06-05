@@ -37,14 +37,14 @@ La anotación de <i>Fuenteovejuna</i> se mejora con la experiencia de los lector
 1. Entra en `lectura` o `laboratorio`.
 2. Abre una nota y valórala como útil o mejorable.
 3. Si marcas mejorable, puedes dejar comentario opcional.
-4. Si detectas un fragmento sin nota, selecciona texto y haz clic en enviar sugerencia.
+4. Si detectas un fragmento sin nota, selecciona el texto y haz clic en enviar sugerencia.
 5. Continúa con otras notas o pasajes.
 
 ## Modo de participación y sesión
 
 - Puedes empezar en modo anónimo o colaborador.
-- En lectura/laboratorio, la primera contribución puede enviarse sin selección explícita de modo.
-- A partir de la siguiente contribución, el sistema puede solicitar que elijas modo para continuar.
+- La primera contribución puede enviarse sin selección de modo, por lo que será completamente anónima.
+- A partir de la siguiente contribución, se te preguntará si quieres seguir en modo anónimo o registrarte.
 
 ## Qué se publica y qué no
 
@@ -67,19 +67,19 @@ Las aportaciones no se incorporan automáticamente al texto. El equipo revisa pa
   <article class="card card-soft ui-thin-border guide-faq-card mb-3">
     <div class="card-body">
       <h3 class="h5 mb-2">¿Si marco una nota como mejorable, se cambia automáticamente?</h3>
-      <p class="mb-0">No. Se revisa editorialmente antes de aplicar cambios.</p>
+      <p class="mb-0">No. Se revisará tu sugerencia antes de aplicar ningún cambio.</p>
     </div>
   </article>
   <article class="card card-soft ui-thin-border guide-faq-card mb-3">
     <div class="card-body">
-      <h3 class="h5 mb-2">¿Sirve también decir que falta una nota?</h3>
-      <p class="mb-0">Sí. Las sugerencias de nota faltante son una fuente clave para priorizar mejoras.</p>
+      <h3 class="h5 mb-2">¿Puedo señalar que me parece que falta una nota?</h3>
+      <p class="mb-0">Sí, selecciona el texto y haz clic en sugerir nota. Las sugerencias de nota son clave para priorizar mejoras en la explicación del texto.</p>
     </div>
   </article>
   <article class="card card-soft ui-thin-border guide-faq-card mb-0">
     <div class="card-body">
-      <h3 class="h5 mb-2">¿Qué diferencia hay entre lectura y laboratorio?</h3>
-      <p class="mb-0"><code>Lectura</code> prioriza la lectura libre de la obra completa. <code>Laboratorio</code> organiza la evaluación por pasajes y modo de recorrido.</p>
+      <h3 class="h5 mb-2">¿Qué diferencia hay entre la sala de lectura y el laboratorio?</h3>
+      <p class="mb-0"><code>Lectura</code> prioriza la lectura libre de la obra completa. <code>Laboratorio</code> organiza la evaluación de notas por pasajes, ya sea en orden o aleatoriamente.</p>
     </div>
   </article>
 </div>

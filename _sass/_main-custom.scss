@@ -35,6 +35,16 @@
   --color-primary-soft: #{$color-primary-soft};
   --color-secondary: #{$color-secondary};
   --ui-text-muted: #{$color-text-secondary};
+  --ui-radius: #{$radius-ui};
+  --ui-radius-sm: #{$radius-ui-sm};
+  --ui-radius-xs: #{$radius-ui-xs};
+  --ui-radius-round: #{$radius-ui-round};
+  --bs-border-radius: var(--ui-radius);
+  --bs-border-radius-sm: var(--ui-radius-sm);
+  --bs-border-radius-lg: var(--ui-radius);
+  --bs-border-radius-xl: var(--ui-radius);
+  --bs-border-radius-xxl: var(--ui-radius);
+  --bs-border-radius-pill: var(--ui-radius);
 }
 
 .navbar-offset-main {
@@ -70,7 +80,7 @@
   background: $color-secondary-50;
   border: 1px solid $color-secondary;
   color: $color-dark;
-  border-radius: 14px;
+  border-radius: var(--ui-radius);
   padding: 14px 16px;
 }
 
@@ -95,7 +105,7 @@
 
 .participa-step {
   border: 1px solid $color-neutral-200;
-  border-radius: 999px;
+  border-radius: var(--ui-radius);
   padding: 5px 12px;
   font-size: 0.84rem;
   color: $color-neutral-700;
@@ -140,7 +150,7 @@
 }
 
 .archivo-testimonios-controls {
-  --ui-thin-border-radius: clamp(16px, 1.8vw, 22px);
+  --ui-thin-border-radius: var(--ui-radius);
 }
 
 .archivo-testimonios-controls-actions {
@@ -158,7 +168,7 @@
 }
 
 .archivo-testimonios-status {
-  border-radius: 12px;
+  border-radius: var(--ui-radius);
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: $color-light;
   color: $color-neutral-700;
@@ -187,7 +197,7 @@
 }
 
 .archivo-testimonios-card {
-  border-radius: clamp(18px, 1.8vw, 24px);
+  border-radius: var(--ui-radius);
   border: 1px solid rgba(0, 0, 0, 0.08);
   height: 100%;
   display: grid;
@@ -232,7 +242,7 @@
   code {
     font-size: 0.85rem;
     padding: 2px 6px;
-    border-radius: 6px;
+    border-radius: var(--ui-radius-xs);
     background: rgba(0, 0, 0, 0.07);
   }
 }
@@ -367,7 +377,7 @@
   &:focus-visible {
     outline: none;
     box-shadow: 0 0 0 0.2rem rgba($color-light, 0.26);
-    border-radius: 6px;
+    border-radius: var(--ui-radius-xs);
   }
 }
 

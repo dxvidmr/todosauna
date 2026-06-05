@@ -16,8 +16,8 @@ custom-foot: participacion/scripts-testimonios-publicos.html
             Explora testimonios publicados de personas que han leído, interpretado o investigado sobre <i>Fuenteovejuna</i>.
           </p>
           <p class="mt-3 mb-0 small text-muted">
-            Conoce cómo está organizada la colección
-            <a href="{{ '/acerca-de/' | relative_url }}">aquí</a>.
+            Conoce más sobre la colección en
+            <a href="{{ '/datos/' | relative_url }}">Datos abiertos</a>.
           </p>
         </div>
       </div>

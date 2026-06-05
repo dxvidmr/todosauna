@@ -41,11 +41,27 @@
   line-height: 0.9;
   text-align: left;
   padding-left: var(--hero-inline-gutter);
+  animation: heroTitleIn 1.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-kicker {
+  margin: 0 0 clamp(6px, 1.5vh, 14px);
+  padding-left: var(--hero-inline-gutter);
+  color: $color-primary;
+  font-size: clamp(0.82rem, 1.8vw, 1.35rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  animation: heroTitleIn 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero-image {
-  border-top-right-radius: clamp(20px, 4vw, 50px);
-  border-bottom-right-radius: clamp(20px, 4vw, 50px);
+  --hero-loader-duration: 2.15s;
+  --hero-loader-ease: cubic-bezier(0.33, 1, 0.68, 1);
+
+  border-top-right-radius: var(--ui-radius);
+  border-bottom-right-radius: var(--ui-radius);
   position: relative;
   width: calc(100% - (var(--hero-inline-gutter) * 2));
   height: clamp(180px, 46vh, 500px);
@@ -54,12 +70,35 @@
   overflow: hidden;
   flex-shrink: 0;
 
+  &::after {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: "100%";
+    right: clamp(12px, 2vw, 24px);
+    bottom: clamp(12px, 2vw, 22px);
+    color: $color-dark;
+    background: rgba($color-light, 0.82);
+    border-radius: var(--ui-radius-sm);
+    padding: 0.28rem 0.42rem;
+    font-size: clamp(0.74rem, 1.2vw, 0.92rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    animation: heroImageLoaderLabel var(--hero-loader-duration) var(--hero-loader-ease) forwards;
+  }
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     display: block;
+    clip-path: inset(0 100% 0 0);
+    animation: heroImageReveal var(--hero-loader-duration) var(--hero-loader-ease) forwards;
   }
 }
 
@@ -69,6 +108,9 @@
   color: $color-text-secondary;
   font-size: clamp(0.95rem, 1.8vw, 1.12rem);
   line-height: 1.45;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: heroSubtitleIn 0.56s ease-out calc(var(--hero-loader-duration, 2.15s) + 0.08s) forwards;
 }
 
 .hero-scroll {
@@ -99,12 +141,108 @@
   }
 }
 
+@keyframes heroTitleIn {
+  from {
+    opacity: 0;
+    transform: translateY(calc(100svh - var(--hero-pad-top) - 1em));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0);
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+@keyframes heroImageReveal {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes heroImageLoaderLabel {
+  0% {
+    content: "0%";
+    opacity: 1;
+  }
+  32% {
+    content: "32%";
+  }
+  64% {
+    content: "64%";
+  }
+  84% {
+    content: "100%";
+    opacity: 1;
+  }
+  100% {
+    content: "100%";
+    opacity: 0;
+  }
+}
+
+@keyframes heroSubtitleIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes homeScrollReveal {
+  from {
+    opacity: 0;
+    transform: translateY(56px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .home-feature {
+    animation: homeScrollReveal 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 70%;
+    will-change: opacity, transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-content,
+  .hero-kicker,
+  .hero-title,
+  .hero-scroll,
+  .hero-subtitle,
+  .hero-image::after,
+  .hero-image img {
+    animation: none;
+  }
+
+  .hero-image::after {
+    display: none;
+  }
+
+  .hero-image img {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .hero-subtitle {
+    opacity: 1;
+    transform: none;
+  }
+
+  .home-feature {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -132,6 +270,104 @@
   .hero-scroll {
     display: none;
   }
+}
+
+/* ============================================
+   FEATURE SECTIONS - HOME
+   ============================================ */
+
+.home-feature-sections {
+  --home-feature-gap: clamp(34px, 7vw, 96px);
+  --home-feature-pad-top: clamp(54px, 11vh, 132px);
+  --home-feature-pad-bottom: clamp(40px, 8vh, 96px);
+  --home-feature-inline-pad: clamp(16px, 3vw, 40px);
+
+  scroll-margin-top: calc(var(--navbar-height) + var(--overlay-nav-gap));
+  padding: var(--home-feature-pad-top) var(--home-feature-inline-pad) var(--home-feature-pad-bottom);
+}
+
+.home-feature-sections__inner {
+  width: min(100%, 1240px);
+  margin-inline: auto;
+  display: grid;
+  gap: var(--home-feature-gap);
+}
+
+.home-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(22px, 5vw, 72px);
+}
+
+.home-feature--image-left {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+
+  .home-feature__copy {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .home-feature__media {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+.home-feature__copy {
+  display: grid;
+  align-content: center;
+  gap: clamp(12px, 2vh, 20px);
+}
+
+.home-feature__title {
+  margin: 0;
+  color: $color-dark;
+  font-size: clamp(1.65rem, 4vw, 3.1rem);
+  font-weight: 750;
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+
+.home-feature__text {
+  max-width: 58ch;
+  color: $color-text-secondary;
+  font-size: clamp(1rem, 1.35vw, 1.18rem);
+  line-height: 1.62;
+
+  p {
+    margin: 0;
+  }
+
+  p + p {
+    margin-top: 0.95em;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.home-feature__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.home-feature__media {
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--ui-radius);
+  background: $color-neutral-100;
+}
+
+.home-feature__media img {
+  display: block;
+  width: 100%;
+  height: clamp(260px, 42vw, 520px);
+  object-fit: cover;
+  object-position: center;
 }
 
 /* ============================================
@@ -356,6 +592,30 @@
 }
 
 @media (max-width: 991.98px) {
+  .home-feature,
+  .home-feature--image-left {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-feature--image-left {
+    .home-feature__copy,
+    .home-feature__media {
+      grid-column: auto;
+    }
+  }
+
+  .home-feature__media {
+    order: 1;
+  }
+
+  .home-feature__copy {
+    order: 2;
+  }
+
+  .home-feature__media img {
+    height: clamp(220px, 58vw, 360px);
+  }
+
   .explore-section {
     --explore-pad-top: clamp(42px, 8vh, 110px);
     --explore-pad-bottom: clamp(54px, 9vh, 124px);
