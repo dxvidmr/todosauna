@@ -495,6 +495,15 @@ class SugerenciasNotas {
       if (flow?.incrementLecturaParticipationCount) {
         flow.incrementLecturaParticipationCount({ source: this.source || 'lectura' });
       }
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('participacion:missing-note-suggested', {
+          detail: {
+            source: this.source || 'lectura',
+            pasajeId: sugerencia.pasaje_id || null,
+            targetXmlId: sugerencia.target_xmlid || null
+          }
+        }));
+      }
 
     } catch (err) {
       console.error('Error al enviar sugerencia:', err);

@@ -40,6 +40,7 @@ geonames_username: davidmerinorecalde
 recaptcha_site_key: 6Lf5TXYsAAAAAOWdJ3iBd8ghFSBWrFPTsg7AZO_u
 recaptcha_mode: v3
 apps_script_url: https://script.google.com/macros/s/AKfycbzoejukqJ8EFtgfbCuwJLFVjV72KW9ApYfwutI5rmPr_-muLHGSfAbn1R0M1Z-otl7y/exec
+participacion_pilot_tracking_enabled: true
 
 ##########
 # COLLECTION SETTINGS

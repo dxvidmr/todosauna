@@ -39,6 +39,9 @@
 
   var geoController = null;
   var isSubmitting = false;
+  var pilotFormTracker = ns.pilotTracking && typeof ns.pilotTracking.bindFormTracking === 'function'
+    ? ns.pilotTracking.bindFormTracking(form, { formName: 'testimonio' })
+    : { markSubmitted: function () {} };
 
   function setStatus(element, message, type) {
     if (!element) return;
@@ -259,6 +262,9 @@
       }
 
       await maybeLinkContribucion(testimonioId);
+      pilotFormTracker.markSubmitted({
+        linked_contribucion_present: !!nullableText(hiddenLinkedContribucionId ? hiddenLinkedContribucionId.value : '')
+      });
 
       form.hidden = true;
       if (gate) gate.hidden = true;

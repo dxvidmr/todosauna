@@ -5,7 +5,8 @@
   "geonamesUsername": {{ site.geonames_username | default: "" | jsonify }},
   "recaptchaSiteKey": {{ site.recaptcha_site_key | default: "" | jsonify }},
   "recaptchaMode": {{ site.recaptcha_mode | default: "auto" | jsonify }},
-  "appsScriptUrl": {{ site.apps_script_url | default: "" | jsonify }}
+  "appsScriptUrl": {{ site.apps_script_url | default: "" | jsonify }},
+  "pilotTrackingEnabled": {{ site.participacion_pilot_tracking_enabled | default: false | jsonify }}
 }
 </script>
 <script>

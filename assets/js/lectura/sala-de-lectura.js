@@ -41,6 +41,9 @@ document.addEventListener("DOMContentLoaded", function() {
         notaActualId: null,     // ID de la nota actualmente mostrada
         metaPorNota: {}         // Metadata para orden de lectura y desempates de clic
     };
+    const lecturaNoteViewTracker = window.Participacion?.pilotTracking?.createNoteViewTracker
+        ? window.Participacion.pilotTracking.createNoteViewTracker('lectura')
+        : null;
     
     // ============================================
     // PANEL FLOTANTE - Sistema de apertura/cierre
@@ -937,6 +940,16 @@ document.addEventListener("DOMContentLoaded", function() {
             }),
             dockHTML: renderizarDockEvaluacionLoading()
         });
+        if (lecturaNoteViewTracker) {
+            lecturaNoteViewTracker.show({
+                noteId: noteXmlId,
+                noteChange,
+                reason: 'note_changed'
+            });
+            if (edicionEvaluacion.estaEvaluada(noteXmlId, noteChange)) {
+                lecturaNoteViewTracker.markEvaluated(noteXmlId, noteChange);
+            }
+        }
         void hydrateCbRefsInContainer(noteContentDiv);
         void edicionEvaluacion.addEvaluationButtons(noteContentDiv);
         renderPanelHeaderActions();
@@ -973,6 +986,8 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Función para cerrar la nota (resetea el estado)
     function cerrarNota(teiContainer, noteContentDiv) {
+        lecturaNoteViewTracker?.flush('note_closed');
+
         // Quitar highlight activo
         teiContainer.querySelectorAll('.note-current').forEach(el => {
             el.classList.remove('note-current', 'note-active');
@@ -989,6 +1004,22 @@ document.addEventListener("DOMContentLoaded", function() {
         );
         renderPanelHeaderActions();
     }
+
+    window.addEventListener('participacion:note-evaluated', (event) => {
+        const detail = event?.detail;
+        if (detail?.context && detail.context !== 'lectura') return;
+        lecturaNoteViewTracker?.markEvaluated(detail?.noteId, detail?.noteChange);
+    });
+
+    window.addEventListener('pagehide', () => {
+        lecturaNoteViewTracker?.flush('pagehide');
+    });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+            lecturaNoteViewTracker?.flush('visibility_hidden');
+        }
+    });
     
     // Función para marcar nota activa en el texto (persistente)
     function marcarNotaActivaEnTexto(noteId, teiContainer) {

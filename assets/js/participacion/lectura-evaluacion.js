@@ -144,6 +144,15 @@ class EdicionEvaluacion {
     if (noteKey) {
       this.notasEvaluadasLocal.add(noteKey);
     }
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('participacion:note-evaluated', {
+        detail: {
+          context: 'lectura',
+          noteId: notaId,
+          noteChange
+        }
+      }));
+    }
     mostrarEvaluadaFeedback(container, notaId, noteChange);
     mostrarToast(vote === 'up' ? 'Nota marcada como util' : 'Gracias por tu feedback', 2000);
   }

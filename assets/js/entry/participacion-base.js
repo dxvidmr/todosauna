@@ -4,6 +4,7 @@ import '../participacion/api.js';
 import '../participacion/upload.js';
 import '../participacion/session.js';
 import '../participacion/telemetry.js';
+import '../participacion/pilot-tracking.js';
 import '../participacion/modal-shell.js';
 import '../participacion/ui.js';
 import '../participacion/participacion-modal.js';

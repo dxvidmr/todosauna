@@ -314,6 +314,26 @@
         },
         { single: true }
       );
+    },
+
+    async trackPilotEvent(payload) {
+      var input = payload || {};
+      return callRpc(
+        'rpc_track_participacion_pilot_event',
+        {
+          p_session_id: input.session_id || null,
+          p_event_name: input.event_name || null,
+          p_context: input.context || 'formulario',
+          p_nota_id: input.nota_id || null,
+          p_nota_change: input.nota_change || null,
+          p_pasaje_id: Number.isInteger(input.pasaje_id) ? input.pasaje_id : null,
+          p_form_name: input.form_name || null,
+          p_field_name: input.field_name || null,
+          p_event_key: input.event_key || null,
+          p_metadata: input.metadata || {}
+        },
+        { single: true }
+      );
     }
   };
 })();

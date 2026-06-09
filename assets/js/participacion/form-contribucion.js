@@ -73,6 +73,9 @@
   var currentStagingId = null;
   var stagedFiles = [];
   var creatorRowCount = creatorsList ? creatorsList.querySelectorAll('[data-creator-row]').length : 0;
+  var pilotFormTracker = ns.pilotTracking && typeof ns.pilotTracking.bindFormTracking === 'function'
+    ? ns.pilotTracking.bindFormTracking(form, { formName: 'documento' })
+    : { markSubmitted: function () {} };
 
   function setStatus(element, message, type) {
     if (!element) return;
@@ -924,6 +927,10 @@
       }
 
       await maybeLinkTestimonio(contribucionId);
+      pilotFormTracker.markSubmitted({
+        upload_mode: hasFiles ? 'staged_files' : 'data_only',
+        linked_testimonio_present: !!nullableText(hiddenLinkedTestimonioId ? hiddenLinkedTestimonioId.value : '')
+      });
       form.hidden = true;
       if (gate) gate.hidden = true;
       if (successPanel) successPanel.hidden = false;

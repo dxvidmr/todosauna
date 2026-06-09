@@ -31,7 +31,8 @@
       geonamesUsername: String(runtimeConfig.geonamesUsername || '').trim(),
       recaptchaSiteKey: String(runtimeConfig.recaptchaSiteKey || '').trim(),
       recaptchaMode: String(runtimeConfig.recaptchaMode || 'auto').trim().toLowerCase(),
-      appsScriptUrl: String(runtimeConfig.appsScriptUrl || '').trim()
+      appsScriptUrl: String(runtimeConfig.appsScriptUrl || '').trim(),
+      pilotTrackingEnabled: runtimeConfig.pilotTrackingEnabled === true
     };
 
     if (!ns.config.url || !ns.config.publishableKey) {

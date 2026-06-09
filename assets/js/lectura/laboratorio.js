@@ -79,6 +79,10 @@ class EditorSocial {
       notasEvaluadas: 0
     };
     this.sessionEvaluatedByPassage = {};
+    this.currentPassageHadAction = false;
+    this.labNoteViewTracker = window.Participacion?.pilotTracking?.createNoteViewTracker
+      ? window.Participacion.pilotTracking.createNoteViewTracker('laboratorio')
+      : null;
     this.ui = {
       desktop: null,
       mobile: null
@@ -668,6 +672,7 @@ class EditorSocial {
     const focusPasaje = !!options.focusPasaje;
     const focusFooter = !!options.focusFooter;
 
+    this.labNoteViewTracker?.flush('note_sheet_closed');
     this.resetMobileNoteSheetDrag();
     this.isNoteSheetOpen = false;
     this.syncResponsiveState();
@@ -1067,11 +1072,13 @@ class EditorSocial {
    */
   async cargarPasaje(index) {
     if (index < 0 || index >= this.pasajes.length) {
+      this.flushCurrentPilotState('passage_finished');
       console.log('Fin de pasajes alcanzado');
       this.mostrarFinalizacion();
       return;
     }
 
+    this.flushCurrentPilotState('passage_changed');
     this.pasajeActualIndex = index;
     
     // Marcar como visitado (para modo aleatorio)
@@ -1082,6 +1089,7 @@ class EditorSocial {
     this.notaActualIndex = -1;
     this.notasEvaluadas.clear();
     this.isNoteSheetOpen = false;
+    this.currentPassageHadAction = false;
 
     const pasaje = this.pasajes[index];
     this.pasajeActual = pasaje;
@@ -1340,6 +1348,17 @@ class EditorSocial {
         ? '<div class="nota-ya-evaluada"><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Nota evaluada</div>'
         : ''
     });
+    if (this.labNoteViewTracker) {
+      this.labNoteViewTracker.show({
+        noteId: nota.nota_id,
+        noteChange: nota.nota_change,
+        pasajeId,
+        reason: 'note_changed'
+      });
+      if (yaEvaluada) {
+        this.labNoteViewTracker.markEvaluated(nota.nota_id, nota.nota_change);
+      }
+    }
     void hydrateCbRefsInContainer(this.notaContent);
 
     this.actualizarBotonNotasSheet();
@@ -1374,6 +1393,8 @@ class EditorSocial {
     const noteKey = buildNoteEvaluationKey(notaId, noteChange);
     const wasPending = !this.notasEvaluadas.has(noteKey);
     this.notasEvaluadas.add(noteKey);
+    this.currentPassageHadAction = true;
+    this.labNoteViewTracker?.markEvaluated(notaId, noteChange);
     if (wasPending) {
       const pasajeId = this.pasajeActual?.id || this.pasajes[this.pasajeActualIndex]?.id || '';
       if (pasajeId) {
@@ -1398,6 +1419,37 @@ class EditorSocial {
     }
 
     mostrarToast('Evaluación guardada', 2000);
+  }
+
+  flushCurrentPilotState(reason) {
+    this.labNoteViewTracker?.flush(reason || 'unknown');
+    this.trackCurrentPassageSkipped(reason || 'unknown');
+  }
+
+  trackCurrentPassageSkipped(reason) {
+    if (!window.Participacion?.pilotTracking?.track) return;
+    if (!this.pasajeActual) return;
+    if (this.currentPassageHadAction) return;
+
+    const pasajeId = Number.isInteger(this.pasajeActual.id)
+      ? this.pasajeActual.id
+      : Number.parseInt(String(this.pasajeActual.id || ''), 10);
+    if (!Number.isInteger(pasajeId)) return;
+
+    void window.Participacion.pilotTracking.track(
+      window.Participacion.pilotTracking.EVENTS.LAB_PASSAGE_SKIPPED,
+      {
+        context: 'laboratorio',
+        pasajeId,
+        eventKey: `lab_passage_skipped:${pasajeId}`,
+        metadata: {
+          reason: String(reason || 'unknown').slice(0, 80),
+          mode: this.modoNavegacion || null,
+          passage_index: this.pasajeActualIndex,
+          notes_total: this.notasPasaje.length
+        }
+      }
+    );
   }
 
   /**
@@ -1600,12 +1652,14 @@ class EditorSocial {
 
     window.addEventListener('beforeunload', (event) => {
       if (this.allowSessionNavigation) return;
+      this.labNoteViewTracker?.flush('beforeunload');
       this.persistSession();
       event.preventDefault();
       event.returnValue = '';
     });
 
     window.addEventListener('pagehide', () => {
+      this.labNoteViewTracker?.flush('pagehide');
       this.persistSession();
     });
 
@@ -1726,6 +1780,12 @@ class EditorSocial {
       if (!this.isNarrowLayout() || !this.isNoteSheetOpen) return;
       event.preventDefault();
       this.closeNoteSheet({ focusPasaje: true });
+    });
+
+    window.addEventListener('participacion:missing-note-suggested', (event) => {
+      const detail = event?.detail || {};
+      if (detail.source !== 'laboratorio') return;
+      this.currentPassageHadAction = true;
     });
 
     // Actualizar botones iniciales
