@@ -8,6 +8,10 @@
   copy: "Tus sugerencias ayudan a construir una interpretación colectiva."
   link: /participa/laboratorio/
   image: /assets/img/participa/marginalia.jpg
+  image_derivative: marginalia
+  image_sizes: "(max-width: 640px) calc(100vw - 24px), (max-width: 991px) 33vw, 440px"
+  image_loading: eager
+  image_fetchpriority: high
   image_alt: "Anotaciones manuscritas sobre un texto"
   cta_label: "Ir al laboratorio"
   cta_class: "btn btn-muted btn-sm ta-card__cta"
@@ -23,6 +27,8 @@
   copy: "Programas de mano, carteles, fotos, recortes de prensa, ilustraciones..."
   link: /participa/documentos/enviar/
   image: /assets/img/participa/archivos.jpg
+  image_derivative: archivos
+  image_sizes: "(max-width: 640px) calc(100vw - 24px), (max-width: 991px) 33vw, 440px"
   image_alt: "Caja con documentos de archivo"
   cta_label: "Contribuir"
   cta_class: "btn btn-muted btn-sm ta-card__cta"
@@ -38,6 +44,8 @@
   copy: "¿Has leído la obra? ¿Interpretaste uno de sus personajes? ¿Qué significa <i>Fuenteovejuna</i> para ti?"
   link: /participa/testimonios/enviar/
   image: /assets/img/participa/platea.jpg
+  image_derivative: platea
+  image_sizes: "(max-width: 640px) calc(100vw - 24px), (max-width: 991px) 33vw, 440px"
   image_alt: "Butacas de teatro vacias"
   cta_label: "Compartir testimonio"
   cta_class: "btn btn-muted btn-sm ta-card__cta"

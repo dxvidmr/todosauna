@@ -20,6 +20,10 @@
   copy: "Relatos en primera persona sobre lecturas, montajes y experiencias en torno a <i>Fuenteovejuna</i>."
   link: /archivo/testimonios/
   image: /assets/img/explore/experiencias.jpg
+  image_derivative: experiencias
+  image_sizes: "(max-width: 640px) calc(100vw - 24px), (max-width: 991px) 50vw, 660px"
+  image_loading: eager
+  image_fetchpriority: high
   image_alt: ""
   cta_label: "Explorar testimonios"
   cta_class: "btn btn-muted btn-sm ta-card__cta"

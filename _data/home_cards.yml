@@ -22,6 +22,10 @@
   copy: "Una edición divulgativa de <i>Fuenteovejuna</i> con anotaciones y recursos para su lectura"
   link: /lectura
   image: /assets/img/explore/edicion2009.jpg
+  image_derivative: edicion2009
+  image_sizes: "(max-width: 640px) calc(100vw - 24px), (max-width: 991px) calc(100vw - 24px), 660px"
+  image_loading: eager
+  image_fetchpriority: high
   image_alt: "Imagen de la edición de 2009 a cargo de PROLOPE"
   desktop_col_span: 6
   desktop_row_span: 7
@@ -39,6 +43,8 @@
   copy: "¿Qué significa <i>Fuenteovejuna</i> para ti?"
   link: /participa/testimonios/enviar
   image: /assets/img/participa/platea.jpg
+  image_derivative: platea
+  image_sizes: "(max-width: 640px) calc(100vw - 24px), (max-width: 991px) 50vw, 330px"
   image_alt: "Imagen de la platea de un teatro"
   desktop_col_span: 3
   desktop_row_span: 4
@@ -56,6 +62,8 @@
   copy: "Consulta los impresos de 1619 conservados en la Biblioteca Nacional de España"
   link: https://bnedigital.bne.es/bd/es/viewer?id=5d498e14-50e8-4a9f-85d3-188612ce4e91
   image: /assets/img/explore/impreso.jpg
+  image_derivative: impreso
+  image_sizes: "(max-width: 640px) calc(100vw - 24px), (max-width: 991px) 50vw, 330px"
   image_alt: "Portada de la edición de 1619 de Fuenteovejuna"
   desktop_col_span: 3
   desktop_row_span: 6
@@ -73,6 +81,8 @@
   copy: "Recursos para conocer al autor y su producción literaria"
   link: https://prolope.uab.cat/vida-y-obra-de-lope-de-vega/
   image: /assets/img/explore/LopedeVega.jpg
+  image_derivative: lope-de-vega
+  image_sizes: "(max-width: 640px) calc(100vw - 24px), (max-width: 991px) 50vw, 330px"
   image_alt: "Retrato de Lope de Vega. Obra atribuida a Eugenio Cajés (c. 1627)"
   desktop_col_span: 3
   desktop_row_span: 3

@@ -5,6 +5,10 @@
   copy: "Consulta la tabla completa y filtra los registros para analizar el archivo documental."
   link: /metadatos-archivo/
   image: /assets/img/explore/metadata.jpg
+  image_derivative: metadata
+  image_sizes: "(max-width: 640px) calc(100vw - 24px), (max-width: 991px) 50vw, 660px"
+  image_loading: eager
+  image_fetchpriority: high
   image_alt: ""
   cta_label: "Ver metadatos"
   cta_class: "btn btn-muted btn-sm ta-card__cta"
@@ -20,6 +24,8 @@
   copy: "Descarga el archivo TEI principal de la edición digital de <i>Fuenteovejuna</i>."
   link: /assets/data/tei/fuenteovejuna.xml
   image: /assets/img/explore/xml-tei.png
+  image_derivative: xml-tei
+  image_sizes: "(max-width: 640px) calc(100vw - 24px), (max-width: 991px) 50vw, 660px"
   image_alt: "Archivo XML-TEI"
   cta_label: "Descargar XML"
   cta_class: "btn btn-muted btn-sm ta-card__cta"
@@ -35,6 +41,8 @@
   copy: "Accede al archivo XML de notas que acompañan a la edición digital de <i>Fuenteovejuna</i>."
   link: /assets/data/tei/notas.xml
   image: /assets/img/explore/xml-notes.png
+  image_derivative: xml-notes
+  image_sizes: "(max-width: 640px) calc(100vw - 24px), (max-width: 991px) 50vw, 660px"
   image_alt: "Archivo XML-TEI"
   cta_label: "Descargar XML"
   cta_class: "btn btn-muted btn-sm ta-card__cta"

@@ -22,6 +22,9 @@
 {% assign accent_value = card.color_var | default: "" | strip %}
 {% assign card_media_src = "" %}
 {% assign card_media_alt = card.image_alt | default: card.title %}
+{% assign card_media_derivative = card.image_derivative | default: "" | strip %}
+{% assign card_media_sizes = card.image_sizes | default: "100vw" %}
+{% assign card_media_srcset = "" %}
 {% assign rotator_sources_attr = "" %}
 {% assign rotator_alts_attr = "" %}
 {% assign rotator_links_attr = "" %}
@@ -133,6 +136,10 @@
 {% endif %}
 {% elsif card.image and type == "media" %}
 {% assign card_media_src = card.image | relative_url %}
+{% if card_media_derivative != "" %}
+{% capture card_media_srcset %}{{ '/assets/img/cards/' | append: card_media_derivative | append: '-640.webp' | relative_url }} 640w, {{ '/assets/img/cards/' | append: card_media_derivative | append: '-1280.webp' | relative_url }} 1280w{% endcapture %}
+{% assign card_media_srcset = card_media_srcset | strip %}
+{% endif %}
 {% endif %}
 
 {% capture style_rules -%}
@@ -210,6 +217,15 @@ ta-card{% if type == "media" or type == "rotator" %} ta-card--media{% else %} ta
         class="ta-card__media{% if type == 'rotator' %} home-rotator-image{% endif %}"
         src="{{ card_media_src | escape }}"
         alt="{{ card_media_alt | escape }}"
+        {% if type == "media" %}
+          loading="{{ card.image_loading | default: 'lazy' }}"
+          decoding="async"
+          {% if card_media_srcset != "" %}
+            srcset="{{ card_media_srcset | escape }}"
+            sizes="{{ card_media_sizes | escape }}"
+          {% endif %}
+          {% if card.image_fetchpriority %}fetchpriority="{{ card.image_fetchpriority | escape }}"{% endif %}
+        {% endif %}
         {% if type == "rotator" %}data-home-rotator-image{% endif %}
         {% if type == "rotator" and rotator_sources_attr != "" %}
           data-rotator-sources="{{ rotator_sources_attr | escape }}"
@@ -251,6 +267,15 @@ ta-card{% if type == "media" or type == "rotator" %} ta-card--media{% else %} ta
         class="ta-card__media{% if type == 'rotator' %} home-rotator-image{% endif %}"
         src="{{ card_media_src | escape }}"
         alt="{{ card_media_alt | escape }}"
+        {% if type == "media" %}
+          loading="{{ card.image_loading | default: 'lazy' }}"
+          decoding="async"
+          {% if card_media_srcset != "" %}
+            srcset="{{ card_media_srcset | escape }}"
+            sizes="{{ card_media_sizes | escape }}"
+          {% endif %}
+          {% if card.image_fetchpriority %}fetchpriority="{{ card.image_fetchpriority | escape }}"{% endif %}
+        {% endif %}
         {% if type == "rotator" %}data-home-rotator-image{% endif %}
         {% if type == "rotator" and rotator_sources_attr != "" %}
           data-rotator-sources="{{ rotator_sources_attr | escape }}"
