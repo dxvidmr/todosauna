@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '~> 3.4.0'
+ruby '>= 3.3.0', '< 3.5.0'
 
 # needed for Jekyll
 gem 'jekyll', '~> 4.4.1'
