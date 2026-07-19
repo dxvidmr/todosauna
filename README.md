@@ -39,7 +39,7 @@ Este repositorio contiene el sitio web público (Jekyll + CollectionBuilder como
 
 ## Requisitos
 
-- Ruby + Bundler (Jekyll).
+- Ruby 3.4 + Bundler (Jekyll 4.4.1).
 - Node.js 20+ y npm.
 - Docker Desktop (para Supabase local).
 
@@ -75,12 +75,15 @@ npx --yes supabase@2.76.15 db push
 ```bash
 npm install
 npx playwright install chromium
-npm run check:no-legacy-runtime
+npm run check
 npm run test:e2e
 ```
 
 También disponibles:
 
+- `npm run build`
+- `npm run build:production`
+- `npm run validate:data`
 - `npm run test:e2e:headed`
 - `npm run test:e2e:ci`
 

@@ -11,9 +11,6 @@ vendor/
 # Ignore mac files 
 .DS_Store
 
-# temporarily ignore gemfile.lock
-Gemfile.lock
-
 # Ignore objects directory to avoid committing binary files (other than demo files)
 # if you would like to commit your objects to github, delete the line below!
 objects/

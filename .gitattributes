@@ -1,0 +1,38 @@
+* text=auto
+
+# Código y datos: UTF-8 y finales de línea LF en el repositorio.
+.gitattributes text eol=lf
+.gitignore text eol=lf
+.ruby-version text eol=lf
+*.rb text eol=lf
+*.rake text eol=lf
+Gemfile text eol=lf
+Gemfile.lock text eol=lf
+Rakefile text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+*.html text eol=lf
+*.liquid text eol=lf
+*.scss text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.xml text eol=lf
+*.csv text eol=lf
+*.svg text eol=lf
+
+# Binarios.
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.gif -text
+*.webp -text
+*.ico -text
+*.pdf -text
+*.mp3 -text
+*.mp4 -text
+*.woff -text
+*.woff2 -text
+*.ttf -text

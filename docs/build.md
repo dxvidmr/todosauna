@@ -1,41 +1,63 @@
-# Building your Collection
+# Compilación y validación
 
-## Developing Locally 
+## Entorno fijado
 
-Before serving/building your project for the **first time**, open terminal in the repository root and run `bundle install`. 
-The Gem "bundler" will manage dependencies based on the project's "Gemfile", and generate a new "Gemfile.lock" with the full list of dependencies being used.
-From then on, you will use `bundle exec` to prefix Jekyll commands to ensure you are using the bundled dependencies.
+El proyecto usa Ruby 3.4, Jekyll 4.4.1 y Node.js 20 o posterior. Las versiones exactas de las gemas se conservan en `Gemfile.lock`, que debe permanecer versionado y contener las plataformas `ruby`, de desarrollo y `x86_64-linux` para CI y despliegue.
 
-When developing the collection locally, use `bundle exec jekyll s` to start the development server.
-Jekyll will serve the site at the local host url so the links will look like `http://127.0.0.1:4000/demo/psychiana/`.
+Primera instalación:
 
-In the background, Jekyll generates the site and outputs the files to the "_site" directory in your project repository.
-Ruby provides a development server from that location.
+```bash
+bundle install
+npm ci
+```
 
-By default the Jekyll environment is "development" when using `jekyll s`. 
-In this environment CollectionBuilder skips some template elements to cut down on build time, including these `_includes`:
+Si se modifica `Gemfile`, hay que actualizar el lock de forma explícita:
 
-- head/item-meta
-- head/page-meta
-- head/analytics
+```bash
+bundle lock --add-platform ruby x86_64-linux
+bundle install
+```
 
-## Building for Deployment 
+## Desarrollo local
 
-To deploy the collection on the live web, you will need to use the Jekyll environment variable "production" and the `build` command rather than serve. 
+```bash
+bundle exec jekyll serve
+```
 
-This is set by adding the env variable, `JEKYLL_ENV=production`, in front of the command: 
+El sitio queda disponible por defecto en `http://127.0.0.1:4000`. El contenido generado se escribe en `_site/` y no se versiona.
 
-`JEKYLL_ENV=production bundle exec jekyll build`
+## Comprobaciones estructurales
 
-To simplify, this command is added in a [Rake](https://github.com/ruby/rake) task in this repository.
-Typing the command `rake deploy` will set the correct environment and build. 
-You will get an error if you have not previously done `bundle install` for the project.
-(*note:* setting ENV cannot be done on windows CMD, use the rake task or Git Bash terminal)
+```bash
+npm run check
+```
 
-Jekyll will output the site files to the "_site" directory. 
-Everything in "_site" should be copied over to your web server into the correct file location depending on what you set in "_config.yml" as the `baseurl`.
+Este comando agrupa tres controles rápidos:
 
-*Note:* Since the extra elements are included during "production", the build time will be *significantly* higher than when using the development server.
-During production build, Jekyll will generate `relative_url` and `absolute_url` using the `url` and `baseurl` values set in _config.yml. 
-Keep in mind that because CollectionBuilder makes use of `absolute_url` for many assets and links, the site built using `rake deploy` will only work correctly if it is copied to the correct location on your web server.
-It will not work in the "_site" folder, since the links point to locations on your server.
+- referencias JavaScript heredadas y carga mediante ES Modules;
+- restos de la nomenclatura cromática sustituida;
+- UTF-8, posibles secuencias de mojibake, finales de línea mezclados y sintaxis de los CSV y XML.
+
+Se pueden ejecutar por separado con `npm run check:no-legacy-runtime`, `npm run check:color-system` y `npm run validate:data`.
+
+Si la validación detecta finales de línea mezclados, `npm run format:text` los normaliza a LF sin cambiar la codificación.
+
+## Compilación
+
+Compilación de desarrollo con traza:
+
+```bash
+npm run build
+```
+
+Compilación de producción, válida también en Windows:
+
+```bash
+npm run build:production
+```
+
+Vercel ejecuta directamente `bundle exec jekyll build` con `JEKYLL_ENV=production`. CI y despliegue deben resolver las gemas desde el `Gemfile.lock` versionado, no generar combinaciones nuevas de dependencias.
+
+## Codificación y finales de línea
+
+Los archivos de código, configuración, documentación, CSV y XML son UTF-8. `.gitattributes` guarda sus finales de línea como LF aunque el proyecto se edite desde Windows. No hay que convertir archivos en bloque desde PowerShell sin especificar UTF-8, porque se puede alterar el texto español o introducir finales de línea mezclados.

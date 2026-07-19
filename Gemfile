@@ -2,20 +2,21 @@
 
 source 'https://rubygems.org'
 
+ruby '~> 3.4.0'
+
 # needed for Jekyll
-gem 'jekyll'
+gem 'jekyll', '~> 4.4.1'
 gem 'webrick'
 gem 'logger'
 gem 'base64'
 gem 'ostruct'
-gem 'sassc', '~> 2.4'
 
 # needed for Rake tasks
 gem 'rake'
 gem 'csv'
 gem 'fileutils'
 gem 'mini_magick'
-unless Gem.win_platform?
+platforms :ruby do
   gem 'image_optim'
   gem 'image_optim_pack'
 end
