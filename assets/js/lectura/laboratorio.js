@@ -44,6 +44,14 @@ import {
   getLaboratorioSessionUrl,
   getRequestedLaboratorioMode
 } from './laboratorio-session.js';
+import {
+  setPassageModeAttributes,
+  setPassageModeBadges,
+  setPassageProgressVisibility,
+  setPreviousPassageVisibility,
+  syncPassageNavigationButtons,
+  syncPassageProgress
+} from './laboratorio-passage-controls.js';
 
 const LAB_PASAJES_URL = new URL('../../data/pasajes/fuenteovejuna.json', import.meta.url).toString();
 
@@ -426,14 +434,6 @@ class EditorSocial {
     });
   }
 
-  toggleDisplayForAll(selector, displayValue) {
-    this.getAllUIs().forEach((ui) => {
-      ui.root.querySelectorAll(selector).forEach((el) => {
-        el.style.display = displayValue;
-      });
-    });
-  }
-
   clearShellContent(ui) {
     if (!ui) return;
     if (ui.pasajeContent) {
@@ -529,9 +529,7 @@ class EditorSocial {
   }
 
   actualizarModoBadges(etiqueta) {
-    document.querySelectorAll('[data-lab-mode-badge]').forEach((badge) => {
-      badge.textContent = etiqueta;
-    });
+    setPassageModeBadges(this.getAllUIs(), etiqueta);
   }
 
   actualizarBotonNotasSheet() {
@@ -879,15 +877,10 @@ class EditorSocial {
     this.actualizarModoBadges('Secuencial');
     
     // Mostrar barra de progreso
-    this.toggleDisplayForAll('[data-lab-passage-progress-container]', 'block');
+    setPassageProgressVisibility(this.getAllUIs(), true);
     
     // Mostrar botón anterior
-    this.getAllUIs().forEach((ui) => {
-      if (ui.btnPrevPassage) {
-        ui.btnPrevPassage.hidden = false;
-        ui.btnPrevPassage.style.display = 'inline-flex';
-      }
-    });
+    setPreviousPassageVisibility(this.getAllUIs(), true);
 
     this.actualizarBotonesNavegacionPasajes();
     this.actualizarBotonNotasSheet();
@@ -915,15 +908,10 @@ class EditorSocial {
     this.actualizarModoBadges('Aleatorio');
     
     // Ocultar barra de progreso
-    this.toggleDisplayForAll('[data-lab-passage-progress-container]', 'none');
+    setPassageProgressVisibility(this.getAllUIs(), false);
     
     // Ocultar botón anterior
-    this.getAllUIs().forEach((ui) => {
-      if (ui.btnPrevPassage) {
-        ui.btnPrevPassage.hidden = true;
-        ui.btnPrevPassage.style.display = 'none';
-      }
-    });
+    setPreviousPassageVisibility(this.getAllUIs(), false);
 
     this.actualizarBotonesNavegacionPasajes();
     this.actualizarBotonNotasSheet();
@@ -977,14 +965,10 @@ class EditorSocial {
    * Actualizar barra de progreso (solo modo secuencial)
    */
   actualizarBarraProgreso() {
-    const progreso = this.modoNavegacion === 'secuencial' && this.pasajes.length > 0
-      ? ((this.pasajeActualIndex + 1) / this.pasajes.length) * 100
-      : 0;
-
-    this.getAllUIs().forEach((ui) => {
-      ui.root.querySelectorAll('[data-lab-passage-progress-fill]').forEach((barraFill) => {
-        barraFill.style.width = `${progreso}%`;
-      });
+    syncPassageProgress(this.getAllUIs(), {
+      mode: this.modoNavegacion,
+      currentIndex: this.pasajeActualIndex,
+      passageCount: this.pasajes.length
     });
   }
 
@@ -1793,47 +1777,17 @@ class EditorSocial {
   }
 
   actualizarModoControlesFranja(modo) {
-    this.getAllUIs().forEach((ui) => {
-      if (!ui.controlsShell) return;
-
-      if (modo) {
-        ui.controlsShell.setAttribute('data-modo', modo);
-      } else {
-        ui.controlsShell.removeAttribute('data-modo');
-      }
-    });
+    setPassageModeAttributes(this.getAllUIs(), modo);
   }
 
   /**
    * Actualizar estado de botones de navegación de pasajes
    */
   actualizarBotonesNavegacionPasajes() {
-    this.getAllUIs().forEach((ui) => {
-      const btnAnterior = ui.btnPrevPassage;
-      const btnSiguiente = ui.btnNextPassage;
-
-      if (btnAnterior) {
-        const isSecuencial = this.modoNavegacion === 'secuencial';
-        btnAnterior.hidden = !isSecuencial;
-        btnAnterior.style.display = isSecuencial ? 'inline-flex' : 'none';
-        btnAnterior.disabled = !isSecuencial || this.pasajeActualIndex <= 0;
-      }
-
-      if (!btnSiguiente) return;
-
-      if (this.modoNavegacion === 'secuencial') {
-        btnSiguiente.disabled = this.pasajeActualIndex >= this.pasajes.length - 1;
-        btnSiguiente.innerHTML = '<span>Siguiente</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i>';
-        btnSiguiente.setAttribute('aria-label', 'Siguiente pasaje');
-      } else if (this.modoNavegacion === 'aleatorio') {
-        btnSiguiente.disabled = false;
-        btnSiguiente.innerHTML = '<i class="fa-solid fa-shuffle" aria-hidden="true"></i><span>Otro aleatorio</span>';
-        btnSiguiente.setAttribute('aria-label', 'Otro pasaje aleatorio');
-      } else {
-        btnSiguiente.disabled = false;
-        btnSiguiente.innerHTML = '<span>Siguiente</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i>';
-        btnSiguiente.setAttribute('aria-label', 'Siguiente pasaje');
-      }
+    syncPassageNavigationButtons(this.getAllUIs(), {
+      mode: this.modoNavegacion,
+      currentIndex: this.pasajeActualIndex,
+      passageCount: this.pasajes.length
     });
   }
 
@@ -1900,4 +1854,3 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 console.log('Editor Social cargado');
-

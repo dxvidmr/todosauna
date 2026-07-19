@@ -16,6 +16,7 @@ Reducir progresivamente los archivos monolíticos de lectura y laboratorio sin a
 
 - `assets/js/lectura/laboratorio.js`: orquestación del editor, estado de la actividad y coordinación de la interfaz.
 - `assets/js/lectura/laboratorio-session.js`: rutas del vestíbulo y de la sesión, modo solicitado y persistencia local con caducidad.
+- `assets/js/lectura/laboratorio-passage-controls.js`: presentación del modo, progreso y estado de los controles anterior/siguiente en ambos shells.
 - `_sass/_laboratorio.scss`: estructura y estilos de la sesión activa; actúa temporalmente como agregador de los módulos extraídos.
 - `_sass/_laboratorio-welcome.scss`: presentación del vestíbulo y estadísticas globales.
 
@@ -29,11 +30,10 @@ Reducir progresivamente los archivos monolíticos de lectura y laboratorio sin a
 
 ## Orden de las siguientes extracciones
 
-1. Controles y navegación entre pasajes del laboratorio.
-2. Interfaz de notas del laboratorio, reutilizando los módulos compartidos existentes.
-3. Estado y geometría del panel lateral de lectura.
-4. Búsqueda y navegación interna de la sala de lectura.
-5. Separación equivalente de SCSS por vestíbulo, sesión, paneles y puntos de ruptura.
+1. Interfaz de notas del laboratorio, reutilizando los módulos compartidos existentes.
+2. Estado y geometría del panel lateral de lectura.
+3. Búsqueda y navegación interna de la sala de lectura.
+4. Separación equivalente de SCSS por sesión, controles, paneles y puntos de ruptura.
 
 ## Reglas de migración
 
