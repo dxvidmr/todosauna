@@ -1,0 +1,503 @@
+@use "sass:color";
+@use "tokens" as *;
+@use "buttons" as buttons;
+
+// ============================================
+// MODAL DE PARTICIPACION (scopeado)
+// ============================================
+
+#modal-modo,
+.sugerencia-modal {
+  .modal-header-main {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .modal-actions,
+  .modal-header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .modal-descripcion {
+    color: $color-text-quiet;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+}
+
+#modal-modo {
+  .modal-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: "main actions close";
+    align-items: start;
+    gap: 12px 16px;
+    margin-bottom: 10px;
+  }
+
+  .modal-header.has-content {
+    margin-bottom: 24px;
+  }
+
+  .modal-header:not(.has-content) {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "main close";
+  }
+
+  .modal-header-main {
+    grid-area: main;
+  }
+
+  .modal-header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+  }
+
+  .modal-header-actions {
+    grid-area: actions;
+    align-items: start;
+    justify-content: flex-end;
+
+    .btn-cerrar-sesion {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .modal-header #modal-modo-close {
+    grid-area: close;
+    justify-self: end;
+    align-self: start;
+  }
+
+  .modal-mode-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: var(--ui-radius);
+    background: transparent;
+    border: 1px solid $color-border-warm;
+    color: $color-text;
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .modal-header-meta-item {
+    color: $color-text-quiet;
+    font-size: 0.92rem;
+  }
+
+  #modal-titulo {
+    font-size: clamp(1.45rem, 3vw, 1.8rem);
+    line-height: 1.08;
+  }
+
+  &[data-view="selection"] #modal-titulo {
+    font-size: clamp(1.9rem, 4.6vw, 2.45rem);
+    line-height: 1.03;
+  }
+
+  &[data-view="profile"] .ta-modal__dialog,
+  &[data-view="profile"] .modal-content {
+    max-width: 920px;
+  }
+
+  &[data-view="profile"] #modal-titulo {
+    font-size: clamp(2rem, 5vw, 2.85rem);
+    line-height: 1.02;
+  }
+
+  .modal-context-note {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 16px;
+    padding: 16px 18px;
+    border: 1px solid $color-accent;
+    border-radius: var(--ui-radius);
+    background: transparent;
+
+    p {
+      margin: 0;
+      flex: 1 1 280px;
+      color: $color-text;
+      line-height: 1.5;
+    }
+
+    strong {
+      color: $color-ink;
+    }
+  }
+
+  .modal-context-note-actions {
+    flex: 0 0 auto;
+  }
+
+  .modo-opciones,
+  .colaborador-opciones-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .modo-opcion {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+    padding: 16px 14px;
+    border-bottom: 1px solid rgba($color-ink, 0.08);
+    cursor: pointer;
+    transition: background-color 0.18s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: rgba($color-ink, 0.035);
+
+      .modo-arrow {
+        transform: translateX(3px);
+      }
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      background: rgba($color-ink, 0.035);
+      box-shadow: 0 0 0 2px rgba($color-accent, 0.18);
+    }
+
+    h3 {
+      font-size: 1rem;
+      margin: 0 0 3px;
+    }
+
+    p {
+      font-size: 0.875rem;
+      color: $color-text-quiet;
+      margin-bottom: 0;
+    }
+  }
+
+  .modo-opcion-content {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .modo-arrow {
+    margin-left: auto;
+    flex-shrink: 0;
+    color: $color-text-quiet;
+    font-size: 0.8rem;
+    transition: transform 0.18s ease;
+  }
+
+  .modo-icono {
+    flex-shrink: 0;
+
+    i {
+      font-size: 1.1rem;
+      color: $color-text-quiet;
+    }
+  }
+
+  .modo-form h3 {
+    margin-bottom: 8px;
+  }
+
+  .modal-legal-note {
+    color: $color-text-quiet;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+
+  .modal-optional-group {
+    margin-top: 8px;
+    margin-bottom: 12px;
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      list-style: none;
+      padding: 10px 0;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: $color-text;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    &[open] summary {
+      border-bottom: 1px solid rgba($color-ink, 0.08);
+    }
+
+    &[open] .modal-optional-summary-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  .modal-optional-content {
+    padding: 12px 0 14px;
+    display: grid;
+    gap: 6px;
+  }
+
+  .modal-optional-summary-text {
+    min-width: 0;
+  }
+
+  .modal-optional-summary-icon {
+    font-size: 0.85rem;
+    color: $color-text-quiet;
+    transition: transform 0.2s ease;
+  }
+
+  .modal-checkbox-group {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px 12px;
+
+    legend {
+      grid-column: 1 / -1;
+      margin: 0 0 2px;
+    }
+
+    .form-check {
+      margin: 0;
+      padding-left: 0;
+    }
+
+    .form-check-input {
+      margin-left: 0;
+    }
+
+    .form-check-label {
+      line-height: 1.35;
+    }
+  }
+
+  .botones-modal {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+}
+
+// ============================================
+// PERFIL DE PARTICIPACION
+// ============================================
+#modal-modo {
+  .perfil-participacion {
+    width: 100%;
+  }
+
+  .perfil-participacion-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .perfil-summary-card {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 16px;
+    border-bottom: 1px solid rgba($color-ink, 0.08);
+  }
+
+  .perfil-summary-head {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .perfil-summary-copy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .perfil-card-title {
+    margin: 0;
+    color: $color-text;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .perfil-card-eyebrow {
+    margin: 0;
+    color: $color-text-quiet;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  .perfil-card-metric {
+    margin: 0;
+    color: $color-text;
+    font-size: clamp(1.75rem, 4vw, 2.15rem);
+    font-weight: 700;
+    line-height: 0.98;
+  }
+
+  .perfil-card-metric--hero {
+    font-size: clamp(2.4rem, 8vw, 3.7rem);
+    line-height: 0.95;
+  }
+
+  .perfil-card-text {
+    margin: 0;
+    color: $color-text-quiet;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .perfil-activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+    background: $color-surface-page;
+    border-radius: var(--ui-radius);
+    padding: 18px 20px;
+  }
+
+  .perfil-activity-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+
+    & + .perfil-activity-card {
+      padding-left: 20px;
+      border-left: 1px solid rgba($color-ink, 0.08);
+    }
+  }
+
+  .perfil-activity-detail {
+    font-size: 0.92rem;
+  }
+
+  .perfil-activity-split {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .perfil-activity-section {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .perfil-card-actions {
+    margin-top: auto;
+    padding-top: 6px;
+  }
+}
+
+.participa-ui-dialog-content {
+  max-width: 430px;
+  width: min(92vw, 430px);
+  border-radius: var(--ui-radius);
+  padding: 44px 22px 18px;
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    line-height: 1.25;
+  }
+}
+
+.participa-ui-dialog-message {
+  margin: 0 0 14px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.participa-ui-dialog-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  #modal-modo .modal-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "main close"
+      "actions actions";
+  }
+
+  #modal-modo .modal-header-actions {
+    justify-content: flex-start;
+  }
+
+  #modal-modo .modal-header-actions,
+  #modal-modo .modal-actions,
+  #modal-modo .perfil-card-actions {
+    flex-direction: column;
+  }
+
+  #modal-modo .modal-header-actions .btn,
+  #modal-modo .modal-actions .btn,
+  #modal-modo .perfil-card-actions .btn {
+    width: 100%;
+  }
+
+  #modal-modo .modal-context-note-actions {
+    width: 100%;
+  }
+
+  #modal-modo .ta-modal__dialog,
+  #modal-modo .modal-content,
+  .participa-ui-dialog .ta-modal__dialog,
+  .participa-ui-dialog .modal-content {
+    padding: 24px 20px;
+    margin: 10px;
+  }
+
+  .participa-ui-dialog-content {
+    padding: 40px 16px 14px;
+  }
+
+  #modal-modo .perfil-activity-split {
+    grid-template-columns: 1fr;
+  }
+
+  #modal-modo .perfil-activity-grid {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  #modal-modo .perfil-activity-card + .perfil-activity-card {
+    padding-left: 0;
+    padding-top: 16px;
+    border-left: none;
+    border-top: 1px solid rgba($color-ink, 0.08);
+  }
+}

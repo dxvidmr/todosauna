@@ -1,0 +1,125 @@
+@use "sass:color";
+@use "tokens" as *;
+
+// ============================================
+// NOTE PANEL
+// ============================================
+
+.notas-container {
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+
+  .notas-sheet-handle {
+    display: none;
+    width: 44px;
+    height: 4px;
+    border-radius: var(--ui-radius);
+    background: $color-border-strong;
+    margin: 0 auto 12px;
+    flex-shrink: 0;
+  }
+
+  .notas-navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $color-border-soft;
+    flex-shrink: 0;
+  }
+
+  .note-nav-controls {
+    --note-nav-controls-gap: 6px;
+  }
+
+  .notas-panel-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    min-width: 0;
+  }
+
+  .nota-posicion {
+    --note-nav-pos-size: 0.83rem;
+    --note-nav-pos-min-width: 92px;
+    --note-nav-pos-line-height: 1.1;
+  }
+
+  .notas-resumen-evaluacion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 250px;
+    flex: 1 1 260px;
+    max-width: clamp(250px, 52%, 340px);
+  }
+
+  .notas-resumen-evaluacion .barra-progreso-container {
+    margin: 0;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .notas-resumen-evaluacion .notas-contador-abajo {
+    font-size: 0.8rem;
+    color: $color-text-quiet;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .nota-content {
+    flex: 1;
+    min-height: 0;
+    margin-bottom: 10px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+
+    .evaluacion-comentario button {
+      margin-top: 10px;
+      margin-right: 8px;
+    }
+
+    .nota-evaluada {
+      padding: 16px;
+      border-radius: var(--ui-radius-xs);
+    }
+  }
+
+  .note-eval-dock {
+    --note-eval-dock-pt: 10px;
+    --note-eval-comment-min-height: 112px;
+  }
+
+  .notas-instrucciones {
+    padding-top: 12px;
+    border-top: 1px solid $color-border-soft;
+    flex-shrink: 0;
+
+    p {
+      margin: 0;
+      font-size: 0.82rem;
+      color: $color-text-quiet;
+
+      i {
+        margin-right: 6px;
+        color: $color-ink;
+      }
+    }
+  }
+}
+
+.btn-cerrar-notas {
+  display: none;
+  flex: 0 0 auto;
+}
+
+.laboratorio-mobile-shell,
+.laboratorio-mobile-footer,
+.laboratorio-mobile-note-sheet {
+  display: none;
+}

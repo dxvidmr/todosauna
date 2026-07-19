@@ -52,6 +52,12 @@ import {
   syncPassageNavigationButtons,
   syncPassageProgress
 } from './laboratorio-passage-controls.js';
+import {
+  syncLaboratorioNoteCounters,
+  syncLaboratorioNoteNavigation,
+  syncLaboratorioNoteProgress,
+  syncLaboratorioNoteToggle
+} from './laboratorio-note-controls.js';
 
 const LAB_PASAJES_URL = new URL('../../data/pasajes/fuenteovejuna.json', import.meta.url).toString();
 
@@ -534,20 +540,10 @@ class EditorSocial {
 
   actualizarBotonNotasSheet() {
     const toggleButton = this.ui.mobile?.btnNotesToggle;
-    if (!toggleButton) return;
-
-    const labelEl = toggleButton.querySelector('[data-lab-note-toggle-label]');
-    const hasNotes = this.notasPasaje.length > 0;
-
-    toggleButton.disabled = !hasNotes;
-    toggleButton.setAttribute(
-      'aria-expanded',
-      this.isNarrowLayout() && this.isNoteSheetOpen ? 'true' : 'false'
-    );
-
-    if (labelEl) {
-      labelEl.textContent = 'Notas';
-    }
+    syncLaboratorioNoteToggle(toggleButton, {
+      hasNotes: this.notasPasaje.length > 0,
+      isExpanded: this.isNarrowLayout() && this.isNoteSheetOpen
+    });
   }
 
   syncResponsiveState() {
@@ -977,14 +973,9 @@ class EditorSocial {
    * Usa el estado interno (notas evaluadas / total) para el porcentaje
    */
   actualizarBarraProgresoNotas() {
-    const total = Math.max(1, this.notasPasaje.length);
-    const evaluadas = this.notasEvaluadas ? this.notasEvaluadas.size : 0;
-    const porcentaje = (evaluadas / total) * 100;
-
-    this.getAllUIs().forEach((ui) => {
-      ui.root.querySelectorAll('[data-lab-note-progress-fill], [data-lab-note-progress-fill-collapsed]').forEach((barraFill) => {
-        barraFill.style.width = `${porcentaje}%`;
-      });
+    syncLaboratorioNoteProgress(this.getAllUIs(), {
+      evaluatedCount: this.notasEvaluadas?.size || 0,
+      noteCount: this.notasPasaje.length
     });
   }
 
@@ -1436,18 +1427,11 @@ class EditorSocial {
   actualizarContadores() {
     const total = this.notasPasaje.length;
     const evaluadas = this.notasEvaluadas.size;
-
-    this.setTextForAll('[data-lab-notes-total]', total);
-    this.setTextForAll('[data-lab-notes-evaluated]', evaluadas);
-    this.setTextForAll('[data-lab-notes-passage-total]', total);
-    this.setTextForAll('[data-lab-notes-total-resumen]', total);
-    this.setTextForAll('[data-lab-notes-evaluated-resumen]', evaluadas);
-    
-    if (this.notaActualIndex >= 0) {
-      this.setTextForAll('[data-lab-note-index]', this.notaActualIndex + 1);
-    } else {
-      this.setTextForAll('[data-lab-note-index]', 0);
-    }
+    syncLaboratorioNoteCounters(this.getAllUIs(), {
+      currentIndex: this.notaActualIndex,
+      evaluatedCount: evaluadas,
+      noteCount: total
+    });
 
     // Actualizar barra de progreso de notas tras cambiar contadores
     this.actualizarBarraProgresoNotas();
@@ -1458,17 +1442,9 @@ class EditorSocial {
    * Actualizar estado de botones de navegacion
    */
   actualizarBotonesNavegacion() {
-    const hasNotes = this.notasPasaje.length > 0;
-    const canOpenFirst = this.notaActualIndex === -1 && hasNotes;
-
-    this.getAllUIs().forEach((ui) => {
-      if (ui.btnPrevNote) {
-        ui.btnPrevNote.disabled = !hasNotes || this.notaActualIndex <= 0;
-      }
-
-      if (ui.btnNextNote) {
-        ui.btnNextNote.disabled = !hasNotes || (!canOpenFirst && this.notaActualIndex >= this.notasPasaje.length - 1);
-      }
+    syncLaboratorioNoteNavigation(this.getAllUIs(), {
+      currentIndex: this.notaActualIndex,
+      noteCount: this.notasPasaje.length
     });
   }
 

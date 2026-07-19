@@ -17,23 +17,24 @@ Reducir progresivamente los archivos monolíticos de lectura y laboratorio sin a
 - `assets/js/lectura/laboratorio.js`: orquestación del editor, estado de la actividad y coordinación de la interfaz.
 - `assets/js/lectura/laboratorio-session.js`: rutas del vestíbulo y de la sesión, modo solicitado y persistencia local con caducidad.
 - `assets/js/lectura/laboratorio-passage-controls.js`: presentación del modo, progreso y estado de los controles anterior/siguiente en ambos shells.
-- `_sass/_laboratorio.scss`: estructura y estilos de la sesión activa; actúa temporalmente como agregador de los módulos extraídos.
+- `assets/js/lectura/laboratorio-note-controls.js`: contadores, progreso, apertura y navegación de la interfaz de notas.
+- `_sass/_laboratorio.scss`: agregador estable; conserva el orden `welcome`, `core`, `notes` y `responsive`.
 - `_sass/_laboratorio-welcome.scss`: presentación del vestíbulo y estadísticas globales.
 
 ### Lectura
 
-- `assets/js/lectura/sala-de-lectura.js`: orquestación actual de la sala; todavía contiene responsabilidades que deben separarse.
+- `assets/js/lectura/sala-de-lectura.js`: orquestación de carga del TEI, notas y controladores de la sala.
+- `assets/js/lectura/lectura-panel-layout.js`: geometría, redimensionamiento y compensación del panel en escritorio, tableta y móvil.
+- `assets/js/lectura/lectura-search.js`: índice local, resultados y navegación a versos o notas.
 - `assets/js/lectura/notas-dom.js`: renderizado y marcado de notas en el texto.
 - `assets/js/lectura/note-category-filter.js`: selección y aplicación de tipologías de notas.
 - `assets/js/lectura/text-zoom.js`: control de tamaño del texto.
-- `_sass/_lectura.scss` y `_sass/_lectura-components.scss`: estilos aún pendientes de dividir por responsabilidad.
+- `_sass/_lectura.scss`: agregador de base, panel y contenido TEI.
+- `_sass/_lectura-components.scss`: agregador de componentes base, sugerencias, participación, notas y responsive.
 
-## Orden de las siguientes extracciones
+## Estado de la fase 3
 
-1. Interfaz de notas del laboratorio, reutilizando los módulos compartidos existentes.
-2. Estado y geometría del panel lateral de lectura.
-3. Búsqueda y navegación interna de la sala de lectura.
-4. Separación equivalente de SCSS por sesión, controles, paneles y puntos de ruptura.
+La fase de modularización queda cerrada con puntos de entrada pequeños, controladores JS con interfaces explícitas y agregadores Sass que preservan el orden de la cascada. Las divisiones futuras dentro de la orquestación o de los módulos de contenido serán mantenimiento incremental, no una dependencia de las fases posteriores de la hoja de ruta.
 
 ## Reglas de migración
 

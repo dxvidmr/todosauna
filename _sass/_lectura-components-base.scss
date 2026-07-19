@@ -1,0 +1,117 @@
+// ============================================
+// COMPONENTES COMPARTIDOS LECTURA/LABORATORIO
+// Modal, evaluaciones, sugerencias, etc.
+// Contratos reutilizables (sin layout de pagina).
+// ============================================
+
+@use "tokens" as *;
+@use "buttons" as buttons;
+
+// ============================================
+// BASE TIPOGRAFICA TEI COMPARTIDA
+// ============================================
+
+:root {
+  --tei-text-base-size: 1rem;
+  --tei-text-zoom-percent: 100;
+  --tei-text-line-height: 1.6;
+}
+
+.text-column,
+.lab-tei-pasaje {
+  font-family: 'Atkinson Hyperlegible Mono', 'Google Sans Code', 'Source Code Pro', monospace;
+  font-weight: 300;
+  line-height: var(--tei-text-line-height);
+  font-size: calc(var(--tei-text-base-size) * var(--tei-text-zoom-percent) / 100);
+}
+
+tei-l {
+  display: block;
+  margin-bottom: 0.2em;
+  position: relative;
+}
+
+tei-l[part="I"],
+tei-l[part="M"],
+tei-l[part="F"] {
+  display: block;
+}
+
+.numero-verso {
+  position: absolute;
+  color: $color-text-quiet;
+  font-weight: 400;
+  user-select: none;
+  pointer-events: none;
+}
+
+tei-sp {
+  display: grid;
+  margin-bottom: 1em;
+  text-align: left;
+}
+
+tei-speaker {
+    font-family: "Metamorphous";
+  font-weight: 700;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+tei-sp > tei-l {
+  grid-column: 2;
+  margin-bottom: 0.2em;
+}
+
+tei-sp > tei-l:first-of-type {
+  grid-row: 1;
+}
+
+tei-stage {
+  color: $color-text-subtle-strong;
+  display: block;
+  font-style: italic;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+// ============================================
+// TOAST NOTIFICATIONS
+// ============================================
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: $color-ink;
+  color: white;
+  padding: 12px 20px;
+  border-radius: var(--ui-radius-xs);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  z-index: 9999;
+  opacity: 0;
+  transform: translateX(400px);
+  transition: all 0.3s ease;
+
+  &.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// ============================================
+// LOADING
+// ============================================
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: $color-text-quiet;
+
+  &::before {
+    content: '\23F3';
+    display: block;
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+}

@@ -1,0 +1,1002 @@
+@use "sass:color";
+@use "lectura-settings" as *;
+@use "tokens" as *;
+
+// ============================================
+// SISTEMA DE PESTAÑAS (legacy - mantener por compatibilidad)
+// ============================================
+
+// Tab button genérico (fuera del tabs-bar)
+.tab-button {
+  flex: 1;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  border-top: 2px solid transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: $color-text-quiet;
+  transition: all 0.2s;
+
+  &:hover {
+    color: $color-text;
+    background: rgba(0,0,0,0.02);
+  }
+
+  &.active {
+    color: $color-ink;
+    border-top-color: $color-ink;
+  }
+}
+
+// Tab content genérico
+.tab-content {
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+
+  &.active {
+    display: block;
+  }
+}
+
+// ============================================
+// PANEL DE NOTAS
+// ============================================
+
+.placeholder-text {
+  color: $color-text-quiet;
+  font-style: italic;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 1rem;
+}
+
+#panelNotas {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: visible;
+}
+
+#noteContent {
+  color: $color-text;
+  flex: 1;
+  min-height: 0;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+#panelNotas h4 {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+#tab-notas.tab-content {
+  overflow: visible;
+
+  &.active {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+}
+
+// Navegación por actos
+.structure-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.btn-nav-item {
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-radius: var(--ui-radius);
+  color: $color-text;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+
+  &:hover {
+    background: $color-surface-muted;
+    color: $color-ink;
+  }
+
+  &.active {
+    background: $color-ink;
+    color: white;
+  }
+}
+
+.nav-section-search {
+  margin-bottom: 1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba($color-border-soft, 0.6);
+}
+
+.lectura-search-form {
+  .form-label {
+    margin-bottom: 0.4rem;
+    font-size: 0.82rem;
+    color: $color-text-subtle-strong;
+  }
+}
+
+.lectura-search-controls {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.lectura-search-actions {
+  display: none !important;
+}
+
+.lectura-search-input-wrap {
+  position: relative;
+
+  .form-control {
+    padding-right: 2.2rem;
+  }
+}
+
+.lectura-search-clear-btn {
+  position: absolute;
+  top: 50%;
+  right: 0.36rem;
+  transform: translateY(-50%);
+  width: 1.52rem;
+  height: 1.52rem;
+  border: none;
+  border-radius: var(--ui-radius);
+  background: transparent;
+  color: $color-text-quiet;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba($color-border-soft, 0.82);
+    color: $color-ink;
+    outline: none;
+  }
+}
+
+.lectura-search-status {
+  margin: 0.55rem 0 0.45rem;
+  font-size: 0.78rem;
+  color: $color-text-quiet;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.lectura-search-results {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.lectura-search-empty {
+  margin: 0;
+  color: $color-text-quiet;
+  font-size: 0.85rem;
+}
+
+.lectura-search-group {
+  border: 1px solid rgba($color-border-soft, 0.6);
+  border-radius: var(--ui-radius);
+  overflow: hidden;
+  background: rgba($color-surface-page, 0.55);
+}
+
+.lectura-search-group-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.42rem 0.62rem;
+  background: rgba($color-border-soft, 0.65);
+  border-bottom: 1px solid rgba($color-border-soft, 0.55);
+
+  h4 {
+    margin: 0;
+    font-size: 0.76rem;
+    color: $color-text-subtle-strong;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  span {
+    min-width: 1.4rem;
+    padding: 0.05rem 0.35rem;
+    border-radius: var(--ui-radius);
+    background: rgba($color-paper, 0.9);
+    border: 1px solid rgba($color-border-soft, 0.7);
+    text-align: center;
+    font-size: 0.72rem;
+    color: $color-text-subtle-strong;
+  }
+}
+
+.lectura-search-group-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.lectura-search-result-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba($color-border-soft, 0.7);
+  background: transparent;
+  text-align: left;
+  padding: 0.42rem 0.58rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: rgba($color-surface-muted, 0.72);
+    outline: none;
+  }
+}
+
+.lectura-search-result-kind {
+  display: none;
+  margin-bottom: 0.18rem;
+  padding: 0.02rem 0.36rem;
+  border-radius: var(--ui-radius);
+  background: rgba($color-border-soft, 0.75);
+  font-size: 0.67rem;
+  letter-spacing: 0.02em;
+  color: $color-text-subtle-strong;
+}
+
+.lectura-search-result-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.24;
+  color: $color-text;
+}
+
+.lectura-search-result-meta {
+  margin-top: 0.08rem;
+  font-size: 0.73rem;
+  color: $color-text-subtle-strong;
+}
+
+.lectura-search-result-preview {
+  margin-top: 0.08rem;
+  font-size: 0.73rem;
+  line-height: 1.25;
+  color: $color-text-quiet;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.search-target-hit {
+  animation: lecturaSearchTargetPulse 1.2s ease;
+}
+
+@keyframes lecturaSearchTargetPulse {
+  0% {
+    background-color: rgba($color-border-warm, 0.15);
+  }
+  20% {
+    background-color: rgba($color-border-warm, 0.42);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+// ============================================
+// NAVEGACIÓN DE NOTAS EN PANEL
+// ============================================
+
+#noteContent .note-eval-dock {
+  --note-eval-dock-active-min-height: var(--lectura-note-eval-dock-min-height);
+  --note-eval-dock-gap: var(--lectura-note-eval-dock-gap);
+  --note-eval-comment-min-height: calc(var(--lectura-note-eval-dock-min-height) - 8px);
+}
+
+#noteContent .note-eval-dock .evaluacion-header > span:first-child {
+  max-width: 100%;
+  line-height: 1.3;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+#noteContent .note-eval-dock .evaluacion-botones {
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+#noteContent .note-eval-dock .nota-ya-evaluada {
+  margin: 0;
+}
+
+.lectura-note-eval-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  justify-content: center;
+}
+
+.lectura-skeleton-line {
+  display: block;
+  height: 10px;
+  background: $color-border-soft;
+  border-radius: var(--ui-radius);
+}
+
+.lectura-skeleton-line.is-title {
+  width: min(66%, 210px);
+}
+
+.lectura-skeleton-btnrow {
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+}
+
+.lectura-skeleton-btn {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 34px;
+  border-radius: var(--ui-radius);
+  background: $color-border-soft;
+}
+
+.lectura-note-eval-loading .lectura-skeleton-line,
+.lectura-note-eval-loading .lectura-skeleton-btn {
+  animation: lecturaSkeletonPulse 1.25s ease-in-out infinite;
+}
+
+@keyframes lecturaSkeletonPulse {
+  0% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.55;
+  }
+}
+
+.lectura-wrapper .note-nav-controls {
+  --note-nav-controls-gap: 8px;
+}
+
+.lectura-wrapper .note-nav-controls .nota-posicion {
+  --note-nav-pos-size: 0.85rem;
+  --note-nav-pos-min-width: 0;
+  --note-nav-pos-white-space: nowrap;
+}
+
+.lectura-wrapper .note-nav-controls .btn-nav-nota {
+  flex: 0 0 auto;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+// ============================================
+// ESTILOS TEI (elementos renderizados)
+// ============================================
+
+tei-div {
+  display: block;
+  margin-top: .5em;
+}
+
+tei-p {
+  display: block;
+  margin-top: .5em;
+  text-align: justify;
+  line-height: 1.5em;
+}
+
+tei-hi[rend="italic"] {
+  font-style: italic;
+}
+
+tei-standoff {
+  display: none;
+}
+
+.notes {
+  display: block;
+  margin-top: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
+}
+
+.lectura-wrapper .text-column tei-head[type="comedia-head"] {
+  font-family: "Metamorphous";
+  font-size: clamp(2.8em, min(8vw, 11vh), 6em);
+  display: block;
+  text-align: left;
+  margin-block: 1em 1.3em;
+}
+
+.lectura-wrapper .text-column tei-head[type="castList-head"] {
+  font-family: "Metamorphous";
+  font-size: clamp(1.15em, min(2vw, 4vh), 2em);
+  display: block;
+  text-align: left;
+  margin-block: 1em 0.5em;
+}
+
+.lectura-wrapper .text-column tei-head[type="act-head"] {
+  font-family: "Metamorphous";
+  font-size: clamp(1.65em, min(4.4vw, 5.6vh), 3.2em);
+  display: block;
+  text-align: left;
+  margin-block: 1.8em 0.5em;
+}
+
+tei-list {
+  display: block;
+}
+
+tei-item {
+  display: block;
+  margin-left: 1em;
+
+  &::before {
+    content: "→";
+    margin-right: 5px;
+  }
+}
+
+tei-text[type="literary-text"] {
+  text-align: center;
+}
+
+tei-castItem {
+  display: list-item;
+}
+
+// Coma solo cuando el castItem incluye roleDesc (sin espacio antes de la coma)
+tei-castitem:has(> tei-roledesc) > tei-role::after {
+  content: ",";
+}
+
+tei-roledesc {
+  display: inline;
+}
+
+.lectura-wrapper .text-column tei-castList tei-role {
+  color: $color-text;
+  font-weight: 300;
+}
+
+.lectura-wrapper .text-column tei-castList tei-roledesc {
+  color: $color-text-quiet;
+  font-weight: 300;
+}
+
+tei-castList {
+  display: block;
+  list-style-type: none;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 2em;
+}
+
+@media (min-width: 992px) {
+  .lectura-wrapper .text-column tei-castList {
+    // Hasta 2 columnas; si no hay ancho suficiente, el navegador reduce a 1
+    column-count: 2;
+    column-width: 20rem;
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    column-fill: balance;
+    margin-left: 0;
+  }
+
+  .lectura-wrapper .text-column tei-castList > tei-head[type="castList-head"] {
+    -webkit-column-span: all;
+    column-span: all;
+  }
+
+  .lectura-wrapper .text-column tei-castList > tei-castItem,
+  .lectura-wrapper .text-column tei-castList > tei-castitem {
+    break-inside: avoid-column;
+    page-break-inside: avoid;
+    margin-bottom: 0.35em;
+  }
+}
+
+tei-lg {
+  display: block;
+}
+
+// Carril de versos: mantiene juntos texto y numeración y se encoge cuando
+// disminuye el espacio disponible (panel ancho, tableta o móvil).
+.lectura-wrapper .text-column tei-l {
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: calc(
+    var(--lectura-verse-text-measure) +
+    var(--lectura-verse-marker-lane)
+  );
+  padding-inline-end: var(--lectura-verse-marker-lane);
+}
+
+// Números de verso: columna regular dentro del carril reservado.
+.lectura-wrapper .numero-verso {
+  right: var(--lectura-verse-number-inset);
+  top: 0.18em;
+  font-size: 0.75em;
+  font-variant-numeric: tabular-nums;
+  line-height: inherit;
+  text-align: right;
+  white-space: nowrap;
+
+  @media (max-width: 575.98px) {
+    font-size: 0.7em; // Ligeramente más pequeño en móvil
+  }
+}
+
+tei-l[part="Y"][corresp="2-2"][facs="t-1"] {
+  text-indent: 200px;
+}
+
+// Layout de parlamentos con CSS Grid
+tei-sp {
+  grid-template-columns: 150px 1fr;
+  column-gap: 20px;
+}
+
+.lectura-wrapper .text-column tei-sp > tei-milestone[unit="stanza"],
+.lectura-wrapper .text-column tei-sp > tei-milestone[unit="metrical-section"],
+.lectura-wrapper .text-column tei-sp > tei-milestone[unit="metrical-subsection"] {
+  grid-column: 2;
+  align-self: start;
+}
+
+tei-stage {
+  margin-left: 170px;
+}
+
+tei-div[type="footnotes"] {
+  display: none;
+}
+
+tei-div[type="editor"],
+tei-div[type="colophon"] {
+  background-color: $color-surface-muted;
+  border-radius: var(--ui-radius-sm);
+  box-shadow: $shadow-heavy;
+  padding: 20px;
+  margin: 20px;
+}
+
+tei-quote {
+  font-style: italic;
+  text-align: center;
+}
+
+tei-milestone[unit="stanza"],
+tei-milestone[unit="metrical-section"],
+tei-milestone[unit="metrical-subsection"] {
+  display: none;
+}
+
+tei-l.metrical-start-stanza,
+tei-l.metrical-start-section,
+tei-l.metrical-start-subsection {
+  position: relative;
+}
+
+tei-l > .metrical-marker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -0.08rem;
+  border-top: 1px dotted rgba($color-border-strong, 0.38);
+  pointer-events: none;
+  z-index: 2;
+}
+
+tei-l > .metrical-marker.metrical-marker--section {
+  border-top-style: solid;
+  border-top-color: rgba($color-border-strong, 0.7);
+  z-index: 1;
+}
+
+tei-l > .metrical-marker.metrical-marker--subsection {
+  left: 58%;
+  right: 0;
+  border-top-color: rgba($color-border-strong, 0.26);
+  z-index: 3;
+}
+
+tei-l.metrical-start-shared > .metrical-marker {
+  top: -0.08rem;
+}
+
+tei-l > .metrical-label {
+  position: absolute;
+  right: var(--lectura-verse-marker-lane);
+  top: -0.62rem;
+  transform: translateY(calc(var(--metrical-label-index, 0) * -0.82rem));
+  color: rgba($color-text-quiet, 0.72);
+  font-size: 0.62rem;
+  font-style: italic;
+  letter-spacing: 0.015em;
+  line-height: 1.15;
+  text-align: right;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 4;
+}
+
+tei-l > .metrical-label.metrical-label--section {
+  top: -0.88rem;
+  color: rgba($color-text-quiet, 0.82);
+  font-size: 0.7rem;
+  font-style: normal;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+// ============================================
+// BOTÓN FIJO (toggles)
+// ============================================
+
+@media (min-width: 992px) {
+  .lectura-wrapper {
+    --lectura-verse-marker-lane: 5ch;
+    // La holgura es estable al abrir/cerrar. El carril solo se desplaza cuando
+    // el panel ensanchado reduce de verdad el espacio disponible.
+    --lectura-verse-number-inset: 1rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  .lectura-wrapper {
+    --lectura-open-left-shift-base: 0px;
+  }
+}
+
+@media (min-width: 992px) and (max-height: 760px) {
+  .lectura-wrapper {
+    --lectura-rail-collapsed-width: 54px;
+    --lectura-rail-height: clamp(230px, 44vh, 330px);
+    --lectura-rail-gap: 7px;
+  }
+
+  .lectura-panel,
+  .lectura-panel.open {
+    max-height: min(78dvh, calc(100vh - 28px));
+    padding: 18px;
+    padding-left: 24px;
+  }
+
+  .lectura-tabs-bar {
+    padding: 7px;
+  }
+
+  .lectura-tabs-bar .tab-button {
+    padding: 8px 10px;
+    font-size: 0.78rem;
+  }
+
+  .lectura-tabs-bar .tab-button .tab-icon {
+    font-size: 0.9rem;
+  }
+
+  .info-panel p,
+  .option-item {
+    font-size: 0.84rem;
+  }
+
+}
+
+@media (min-width: 992px) and (max-height: 665px) {
+  .lectura-wrapper {
+    --lectura-rail-collapsed-width: 52px;
+    --lectura-rail-height: clamp(208px, 40vh, 300px);
+    --lectura-rail-gap: 6px;
+    --lectura-note-eval-dock-min-height: clamp(84px, 10.4vh, 104px);
+  }
+
+  .lectura-panel,
+  .lectura-panel.open {
+    max-height: min(74dvh, calc(100vh - 24px));
+    padding: 16px;
+    padding-left: 20px;
+  }
+
+  .lectura-tabs-bar {
+    padding: 6px;
+  }
+
+  .lectura-tabs-bar .tab-button {
+    padding: 7px 8px;
+    font-size: 0.74rem;
+  }
+
+  .lectura-tabs-bar .tab-button .tab-icon {
+    font-size: 0.84rem;
+  }
+
+  .option-item {
+    padding: 7px 0;
+  }
+
+  .info-panel p {
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+
+}
+
+@media (min-width: 992px) and (max-height: 580px) {
+  .lectura-wrapper {
+    --lectura-rail-collapsed-width: 48px;
+    --lectura-rail-height: clamp(184px, 35vh, 250px);
+    --lectura-rail-gap: 5px;
+  }
+
+  .lectura-panel,
+  .lectura-panel.open {
+    max-height: min(68dvh, calc(100vh - 18px));
+    padding: 14px;
+    padding-left: 16px;
+  }
+
+  .lectura-tabs-bar {
+    padding: 5px;
+  }
+
+  .lectura-tabs-bar .tab-button {
+    padding: 6px 7px;
+    font-size: 0.7rem;
+  }
+
+  .lectura-tabs-bar .tab-button .tab-icon {
+    font-size: 0.78rem;
+  }
+
+  .option-item {
+    padding: 5px 0;
+  }
+
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+
+// Tablet y menor
+@media (max-width: 991.98px) {
+  // Texto ocupa todo el ancho
+  .lectura-wrapper .text-column {
+    padding: 30px 20px;
+    padding-bottom: calc(#{$lectura-tabs-height} + 44px + env(safe-area-inset-bottom)); // Espacio para la barra de pestañas
+    max-width: 100vw;
+    width: 100%;
+  }
+
+  // Panel flotante abajo
+  .lectura-panel-wrapper {
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: auto;
+    transform: none;
+    width: 100% !important; // !important para sobrescribir el width inline de JS
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .lectura-panel {
+    border-radius: var(--lectura-panel-radius) var(--lectura-panel-radius) 0 0;
+    margin: 0;
+    max-height: 70vh;
+
+    &.open {
+      max-height: min(70dvh, calc(100dvh - #{$lectura-tabs-height} - env(safe-area-inset-bottom)));
+      margin-bottom: calc(-1 * (#{$lectura-tabs-height} + env(safe-area-inset-bottom)));
+      padding: 16px 20px calc(18px + #{$lectura-tabs-height} + env(safe-area-inset-bottom)) !important; // Restablecer padding en tablet/móvil
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .lectura-panel.is-dragging {
+    transition: none;
+    user-select: none;
+  }
+
+  .lectura-panel-sheet-handle {
+    display: block;
+    width: 48px;
+    height: 5px;
+    background: $color-border-strong;
+    cursor: grab;
+    touch-action: none;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  .lectura-panel-header {
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .lectura-panel-header-main {
+    gap: 12px;
+  }
+
+  .lectura-panel-title {
+    font-size: 0.95rem;
+  }
+
+  .lectura-tabs-bar {
+    width: 100%;
+    max-width: none;
+    border-radius: var(--ui-radius) var(--ui-radius) 0 0;
+    margin: 0;
+    padding-bottom: max(6px, env(safe-area-inset-bottom));
+  }
+
+  .lectura-tabs-bar .tab-button {
+    padding: 8px 10px;
+    font-size: 12.5px;
+  }
+
+  tei-sp {
+    grid-template-columns: 100px 1fr;
+  }
+
+  tei-stage {
+    margin-left: 120px;
+  }
+}
+
+// Móvil
+@media (max-width: 575.98px) {
+  .lectura-wrapper .text-column {
+    // Guía izquierda basada en el cuerpo TEI, no en el tamaño de cada heading
+    --left-guide: calc(var(--tei-text-base-size) * var(--tei-text-zoom-percent) / 100);
+    padding: 20px 10px;
+    padding-right: 25px; // Más espacio a la derecha para los números de verso
+    padding-bottom: calc(#{$lectura-tabs-height} + 36px + env(safe-area-inset-bottom));
+    max-width: 100vw;
+    width: 100%;
+  }
+
+  .lectura-panel-wrapper {
+    padding: 0;
+    width: 100% !important; // !important para sobrescribir el width inline de JS
+  }
+
+  .lectura-tabs-bar {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    border-radius: var(--ui-radius) var(--ui-radius) 0 0;
+    padding-bottom: max(6px, env(safe-area-inset-bottom));
+
+    .tab-button {
+      padding: 7px 8px;
+      font-size: 12px;
+    }
+  }
+
+  .lectura-panel {
+    border-radius: var(--lectura-panel-radius) var(--lectura-panel-radius) 0 0;
+    max-height: 70vh;
+
+    &.open {
+      max-height: min(70dvh, calc(100dvh - #{$lectura-tabs-height} - env(safe-area-inset-bottom)));
+      margin-bottom: calc(-1 * (#{$lectura-tabs-height} + env(safe-area-inset-bottom)));
+      padding: 14px 15px calc(16px + #{$lectura-tabs-height} + env(safe-area-inset-bottom));
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .lectura-panel-header {
+    gap: 10px;
+    padding-bottom: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .lectura-panel-header-main {
+    gap: 8px;
+  }
+
+  .lectura-panel-title {
+    font-size: 0.92rem;
+  }
+
+  .lectura-wrapper .note-nav-controls {
+    --note-nav-controls-gap: 6px;
+  }
+
+  .lectura-wrapper .note-nav-controls .nota-posicion {
+    --note-nav-pos-size: 0.78rem;
+  }
+
+  .lectura-wrapper .text-column tei-castList {
+    margin-left: 0;
+  }
+
+  .lectura-wrapper .text-column tei-castList > tei-castItem,
+  .lectura-wrapper .text-column tei-castList > tei-castitem {
+    margin-left: var(--left-guide);
+  }
+
+  .lectura-wrapper .text-column tei-sp {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lectura-wrapper .text-column tei-speaker {
+    display: block;
+    grid-column: 1 / -1;
+    grid-row: auto;
+    margin-left: var(--left-guide);
+    margin-bottom: 0.3em;
+  }
+
+  .lectura-wrapper .text-column tei-head[type="comedia-head"],
+  .lectura-wrapper .text-column tei-head[type="castList-head"],
+  .lectura-wrapper .text-column tei-head[type="act-head"] {
+    margin-left: var(--left-guide);
+  }
+
+  .lectura-wrapper .text-column tei-sp > tei-l {
+    grid-column: 1 / -1;
+    margin-left: var(--left-guide);
+  }
+
+  .lectura-wrapper .text-column tei-sp > tei-milestone[unit="stanza"],
+  .lectura-wrapper .text-column tei-sp > tei-milestone[unit="metrical-section"],
+  .lectura-wrapper .text-column tei-sp > tei-milestone[unit="metrical-subsection"] {
+    grid-column: 1 / -1;
+    margin-left: var(--left-guide);
+  }
+
+  .lectura-wrapper .text-column tei-sp > tei-l:first-of-type {
+    grid-row: auto;
+  }
+
+  .lectura-wrapper .text-column tei-stage {
+    margin-left: var(--left-guide);
+  }
+}

@@ -1,0 +1,169 @@
+@use "sass:color";
+@use "tokens" as *;
+@use "buttons" as buttons;
+
+// ============================================
+// SUGERENCIAS DE NOTAS FALTANTES
+// ============================================
+
+.sugerencia-tooltip {
+  position: absolute;
+  z-index: 9000;
+  transform: translateX(-50%);
+  animation: fadeInUp 0.15s ease;
+}
+
+.sugerencia-tooltip.is-anchored {
+  position: fixed;
+  left: 50%;
+  bottom: max(8px, calc(env(safe-area-inset-bottom) + 8px));
+  width: min(calc(100vw - 20px), 720px);
+  transform: translateX(-50%);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.btn-sugerir-nota {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: $color-ink;
+  color: $color-paper;
+  border: none;
+  border-radius: var(--ui-radius);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: $shadow-md;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  &:hover {
+    background: $color-text-subtle;
+    transform: scale(1.02);
+  }
+
+  i {
+    color: $color-paper
+  }
+}
+
+// Modal de sugerencia
+.sugerencia-modal .sugerencia-modal-shell {
+  max-width: 520px;
+  width: min(92vw, 520px);
+  border-radius: var(--ui-radius);
+  padding: 44px 22px 18px;
+}
+
+.sugerencia-modal .modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px 16px;
+  margin-bottom: 24px;
+  padding-right: 52px;
+}
+
+.sugerencia-modal .modal-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  line-height: 1.25;
+
+  i {
+    color: $color-ink;
+  }
+}
+
+.sugerencia-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sugerencia-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: $color-text;
+  margin-bottom: -8px;
+
+  .label-opcional {
+    font-weight: 400;
+    color: $color-text-quiet;
+  }
+}
+
+.sugerencia-texto-seleccionado {
+  padding: 12px 16px;
+  background: $color-surface-raised;
+  border: 1px solid $color-border-soft;
+  border-radius: var(--ui-radius);
+  color: $color-text;
+  line-height: 1.5;
+  max-height: 150px;
+  overflow-y: auto;
+  font-family: 'Atkinson Hyperlegible Mono', 'Google Sans Code', monospace;
+  font-size: 14px;
+}
+
+.sugerencia-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid $color-border-soft;
+  border-radius: var(--ui-radius);
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: $color-paper;
+  }
+
+  &::placeholder {
+    color: $color-text-quiet;
+  }
+}
+
+.sugerencia-botones {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.sugerencia-botones .btn {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .sugerencia-modal .sugerencia-modal-shell {
+    width: min(94vw, 520px);
+    padding: 40px 16px 14px;
+  }
+}
+
+.sugerencia-tooltip.is-anchored .btn-sugerir-nota {
+  width: 100%;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: var(--ui-radius);
+  background: $color-accent;
+  color: $color-paper;
+  box-shadow: $shadow-md;
+}

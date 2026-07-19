@@ -8,8 +8,12 @@ import {
     renderNotePlaceholder
 } from '../shared/note-panel.js';
 import { serializeNoteNodeHtml } from '../shared/tei-note-context.js';
-import { createBottomSheetDragController } from '../shared/bottom-sheet-drag.js';
+import {
+    createLecturaPanelLayoutController,
+    LECTURA_PANEL_DESKTOP_BREAKPOINT
+} from './lectura-panel-layout.js';
 import { createNoteCategoryFilterController } from './note-category-filter.js';
+import { createLecturaSearchController } from './lectura-search.js';
 import {
     applyNoteHighlights,
     collectNoteTargetMeta,
@@ -23,13 +27,6 @@ import {
     normalizeAnaCategories,
     readEffectiveNoteGroups
 } from './notas-dom.js';
-import {
-    SOURCE_TYPE_LABELS,
-    buildIndex,
-    groupResultsBySourceType,
-    searchIndex
-} from '../search/lunr-core.js';
-import { buildLecturaSearchDocsFromSources } from '../search/lectura-search-docs.js';
 
 document.addEventListener("DOMContentLoaded", function() {
     // Referencias globales
@@ -64,157 +61,21 @@ document.addEventListener("DOMContentLoaded", function() {
     const btnCerrarPanel = document.getElementById('btn-cerrar-panel');
     const panelTitle = document.getElementById('lectura-panel-title');
     const panelHeaderActions = document.getElementById('lectura-panel-header-actions');
-    let panelWrapper = null;
-    const dynamicRecenterEnabled = lecturaWrapper?.dataset.lecturaDynamicRecenter === 'true';
-    const lecturaPanelDesktopBreakpoint = 992;
-    const lecturaPanelMinWidth = 320;
-    const lecturaPanelDefaultMaxWidth = 800;
+    const panelWrapper = document.getElementById('lectura-panel-wrapper');
 
-    function getLayoutTokenPx(token, fallback) {
-        if (!lecturaWrapper) return fallback;
-        const value = getComputedStyle(lecturaWrapper).getPropertyValue(token).trim();
-        const px = parseFloat(value);
-        return Number.isFinite(px) ? px : fallback;
-    }
-
-    function getCurrentTextPaddingLeftPx() {
-        if (!textColumn) return 0;
-        const value = getComputedStyle(textColumn).paddingLeft;
-        const px = parseFloat(value);
-        return Number.isFinite(px) ? px : 0;
-    }
-
-    function getBaseTextPaddingLeftPx() {
-        if (!textColumn) return 0;
-        const previousInlineLeft = textColumn.style.paddingLeft;
-        textColumn.style.paddingLeft = '';
-        const baseLeft = getCurrentTextPaddingLeftPx();
-        textColumn.style.paddingLeft = previousInlineLeft;
-        return baseLeft;
-    }
-
-    function getCollapsedRailWidth() {
-        return getLayoutTokenPx('--lectura-rail-collapsed-width', 56);
-    }
-
-    function getStableOpenPanelFootprint() {
-        const panelWidth = lecturaPanel?.offsetWidth || getLayoutTokenPx('--lectura-panel-open-min-width', 360);
-        const panelGap = getLayoutTokenPx('--lectura-panel-gap-open', 12);
-        return panelWidth + getCollapsedRailWidth() + panelGap;
-    }
-
-    function getStableClosedRailInset() {
-        const railGap = getLayoutTokenPx('--lectura-panel-gap-closed', 12);
-        return getCollapsedRailWidth() + railGap;
-    }
-
-    function updateDesktopTextInset() {
-        if (!textColumn) return;
-
-        const isDesktop = window.innerWidth >= 992;
-        const isOpen = !!lecturaPanel?.classList.contains('open');
-        lecturaWrapper?.classList.toggle('lectura-panel-open', isOpen);
-
-        if (!isDesktop) {
-            textColumn.style.paddingRight = '';
-            textColumn.style.paddingLeft = '';
-            return;
-        }
-
-        if (!dynamicRecenterEnabled) {
-            textColumn.style.paddingLeft = '';
-            if (isOpen) {
-                textColumn.style.paddingRight = `${Math.round(getStableOpenPanelFootprint())}px`;
-            } else {
-                textColumn.style.paddingRight = `${Math.round(getStableClosedRailInset())}px`;
-            }
-            return;
-        }
-
-        const staticRightInset = getLayoutTokenPx('--lectura-static-right-inset', 560);
-        const openLeftShiftBase = getLayoutTokenPx('--lectura-open-left-shift-base', 24);
-        const textLeftMin = getLayoutTokenPx('--lectura-text-left-min', 40);
-        const panelRightOffset = getLayoutTokenPx('--lectura-panel-right-offset', 20);
-        const openRightSafety = getLayoutTokenPx('--lectura-open-right-safety', 16);
-
-        if (!isOpen) {
-            textColumn.style.paddingRight = '';
-            textColumn.style.paddingLeft = '';
-            return;
-        }
-
-        const panelFootprint = getStableOpenPanelFootprint() + panelRightOffset + openRightSafety;
-        const openRightInset = Math.max(staticRightInset, panelFootprint);
-        const baseLeft = getBaseTextPaddingLeftPx();
-        const openLeft = window.innerWidth >= 1600
-            ? baseLeft
-            : Math.max(
-                textLeftMin,
-                baseLeft - openLeftShiftBase
-            );
-
-        const rightInsetChanges = Math.abs(openRightInset - staticRightInset) >= 0.5;
-        const leftInsetChanges = Math.abs(openLeft - baseLeft) >= 0.5;
-
-        // Con el panel en su ancho inicial ya existe una reserva CSS idéntica.
-        // No escribir valores equivalentes evita pequeños saltos por redondeo.
-        textColumn.style.paddingRight = rightInsetChanges
-            ? `${Math.round(openRightInset)}px`
-            : '';
-        textColumn.style.paddingLeft = leftInsetChanges
-            ? `${Math.round(openLeft)}px`
-            : '';
-    }
-
-    let insetUpdateRaf = null;
-    function requestDesktopTextInsetUpdate() {
-        if (insetUpdateRaf) return;
-        insetUpdateRaf = requestAnimationFrame(() => {
-            insetUpdateRaf = null;
-            updateDesktopTextInset();
-        });
-    }
-    
     // Estado del panel
     let panelAbierto = false;
     let pestanaActiva = null;
-    let preferredPanelOpenWidth = null;
-    let mobilePanelDragController = null;
-
-    function getPanelOpenMaxWidth() {
-        return dynamicRecenterEnabled
-            ? getLayoutTokenPx('--lectura-panel-open-width-safe-max', 420)
-            : lecturaPanelDefaultMaxWidth;
-    }
-
-    function getPanelInlineOpenWidth() {
-        const width = parseFloat(panelWrapper?.style.getPropertyValue('--lectura-panel-open-width-inline'));
-        return Number.isFinite(width) ? width : null;
-    }
-
-    function setPanelOpenWidth(width, { remember = false } = {}) {
-        if (!panelWrapper || !Number.isFinite(width)) return;
-
-        const clampedWidth = Math.min(Math.max(width, lecturaPanelMinWidth), getPanelOpenMaxWidth());
-        panelWrapper.style.setProperty('--lectura-panel-open-width-inline', `${Math.round(clampedWidth)}px`);
-
-        if (remember) {
-            preferredPanelOpenWidth = clampedWidth;
-        }
-    }
-
-    function ensurePanelOpenWidth() {
-        if (!panelWrapper || window.innerWidth < lecturaPanelDesktopBreakpoint) return;
-
-        if (Number.isFinite(preferredPanelOpenWidth)) {
-            setPanelOpenWidth(preferredPanelOpenWidth);
-            return;
-        }
-
-        if (Number.isFinite(getPanelInlineOpenWidth())) return;
-
-        setPanelOpenWidth(getLayoutTokenPx('--lectura-panel-open-min-width', 360));
-    }
+    const panelLayout = createLecturaPanelLayoutController({
+        wrapper: lecturaWrapper,
+        textColumn,
+        panel: lecturaPanel,
+        panelWrapper,
+        resizeHandle: document.getElementById('panel-resize-handle'),
+        mobileDragHandle: document.querySelector('[data-lectura-panel-drag-handle]'),
+        isOpen: () => panelAbierto,
+        onMobileClose: () => cerrarPanel()
+    });
 
     function getTabLabelText(tabName) {
         const tabButton = tabsBar?.querySelector(`[data-tab="${tabName}"]`);
@@ -295,8 +156,8 @@ document.addEventListener("DOMContentLoaded", function() {
         if (targetTab) targetTab.classList.add('active');
         if (targetButton) targetButton.classList.add('active');
 
-        mobilePanelDragController?.reset();
-        ensurePanelOpenWidth();
+        panelLayout.resetMobileDrag();
+        panelLayout.ensureOpenWidth();
         panelAbierto = true;
         pestanaActiva = tabName;
         updatePanelHeaderTitle(tabName);
@@ -304,13 +165,13 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Abrir el panel
         lecturaPanel.classList.add('open');
-        requestDesktopTextInsetUpdate();
+        panelLayout.requestInsetUpdate();
     }
     
     // Función para cerrar el panel
     function cerrarPanel() {
         if (!lecturaPanel) return;
-        mobilePanelDragController?.reset();
+        panelLayout.resetMobileDrag();
         
         lecturaPanel.classList.remove('open');
         tabButtons.forEach(btn => btn.classList.remove('active'));
@@ -318,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function() {
         pestanaActiva = null;
         updatePanelHeaderTitle(null);
         renderPanelHeaderActions();
-        requestDesktopTextInsetUpdate();
+        panelLayout.requestInsetUpdate();
     }
     
     // Función para toggle del panel
@@ -352,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.addEventListener('pointerdown', function(event) {
-        if (window.innerWidth >= lecturaPanelDesktopBreakpoint || !panelAbierto || !panelWrapper) return;
+        if (window.innerWidth >= LECTURA_PANEL_DESKTOP_BREAKPOINT || !panelAbierto || !panelWrapper) return;
         if (panelWrapper.contains(event.target)) return;
         cerrarPanel();
     });
@@ -368,85 +229,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     updatePanelHeaderTitle(null);
     renderPanelHeaderActions();
-    requestDesktopTextInsetUpdate();
+    panelLayout.requestInsetUpdate();
     
-    // ============================================
-    // REDIMENSIONAMIENTO DEL PANEL (DRAG HANDLE)
-    // ============================================
-    
-    const resizeHandle = document.getElementById('panel-resize-handle');
-    const mobilePanelDragHandle = document.querySelector('[data-lectura-panel-drag-handle]');
-    panelWrapper = document.getElementById('lectura-panel-wrapper');
-    mobilePanelDragController = createBottomSheetDragController({
-        sheet: () => lecturaPanel,
-        handle: () => mobilePanelDragHandle,
-        isEnabled: () => window.innerWidth < lecturaPanelDesktopBreakpoint && panelAbierto,
-        onClose: () => {
-            cerrarPanel();
-        }
-    }).bind();
-    
-    if (resizeHandle && panelWrapper) {
-        let isResizing = false;
-        let startX = 0;
-        let startWidth = 0;
-        // Funcion para limpiar el width inline en tablet/movil
-        function resetWidthOnResize() {
-            if (window.innerWidth < lecturaPanelDesktopBreakpoint) {
-                panelWrapper.style.removeProperty('--lectura-panel-open-width-inline');
-            } else if (panelAbierto) {
-                ensurePanelOpenWidth();
-            }
-            requestDesktopTextInsetUpdate();
-        }
-
-        // Limpiar width inline al cambiar tamano de ventana
-        window.addEventListener('resize', resetWidthOnResize);
-
-        // Solo habilitar drag en desktop
-        if (window.innerWidth >= lecturaPanelDesktopBreakpoint) {
-            resizeHandle.addEventListener('mousedown', function(e) {
-                if (window.innerWidth < lecturaPanelDesktopBreakpoint) return; // Doble verificacion
-
-                isResizing = true;
-                startX = e.clientX;
-                startWidth = getPanelInlineOpenWidth() || lecturaPanel?.offsetWidth || panelWrapper.offsetWidth;
-                document.body.style.cursor = 'ew-resize';
-                document.body.style.userSelect = 'none';
-                e.preventDefault();
-            });
-
-            document.addEventListener('mousemove', function(e) {
-                if (!isResizing || window.innerWidth < lecturaPanelDesktopBreakpoint) return;
-
-                const deltaX = startX - e.clientX; // Invertido porque el panel crece hacia la izquierda
-                const newWidth = Math.min(Math.max(startWidth + deltaX, lecturaPanelMinWidth), getPanelOpenMaxWidth());
-
-                setPanelOpenWidth(newWidth, { remember: true });
-
-                // Mantener comportamiento anterior cuando el recenter dinamico esta desactivado
-                if (!dynamicRecenterEnabled && textColumn) {
-                    textColumn.style.paddingRight = (newWidth + 100) + 'px';
-                }
-                requestDesktopTextInsetUpdate();
-            });
-
-            document.addEventListener('mouseup', function() {
-                if (isResizing) {
-                    isResizing = false;
-                    document.body.style.cursor = '';
-                    document.body.style.userSelect = '';
-                    requestDesktopTextInsetUpdate();
-                }
-            });
-        }
-    }
-
-    if (document.fonts?.ready) {
-        document.fonts.ready.then(() => {
-            requestDesktopTextInsetUpdate();
-        });
-    }
+    panelLayout.bind();
 
     // ============================================
     // CONTROLES DE LECTURA
@@ -720,11 +505,6 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const teiContainer = document.getElementById("TEI");
     const noteContentDiv = document.getElementById("noteContent");
-    const lecturaSearchForm = document.getElementById('lectura-search-form');
-    const lecturaSearchInput = document.getElementById('lectura-search-input');
-    const lecturaSearchClearButton = document.getElementById('lectura-search-clear');
-    const lecturaSearchStatus = document.getElementById('lectura-search-status');
-    const lecturaSearchResults = document.getElementById('lectura-search-results');
     const noteCategoryFilterController = createNoteCategoryFilterController({
         root: document.getElementById('note-category-filter'),
         optionsTabButton: tabsBar?.querySelector('[data-tab="opciones"]'),
@@ -733,36 +513,28 @@ document.addEventListener("DOMContentLoaded", function() {
             applyNoteCategoryFilter();
         }
     });
+    const lecturaSearchController = createLecturaSearchController({
+        form: document.getElementById('lectura-search-form'),
+        input: document.getElementById('lectura-search-input'),
+        clearButton: document.getElementById('lectura-search-clear'),
+        status: document.getElementById('lectura-search-status'),
+        results: document.getElementById('lectura-search-results'),
+        textRoot: teiContainer,
+        getNotesRoot: () => window.notasXML,
+        getNavigableNoteIds,
+        onOpenNote: noteId => {
+            const noteNode = Array.from(window.notasXML?.getElementsByTagName('note') || [])
+                .find(note => note.getAttribute('xml:id') === noteId || note.getAttribute('id') === noteId);
+            if (!noteNode) return null;
+            mostrarNotaEnPanel(noteNode, noteId, teiContainer, noteContentDiv);
+            return teiContainer.querySelector(`[data-note-groups*="${noteId}"]`);
+        }
+    });
     
     let teiLoaded = false;
     let notasLoaded = false;
     let notasEvalLoaded = false;
-    let lecturaSearchIndexState = null;
-    let pendingSearchTarget = null;
-
-    function parsePendingSearchTarget() {
-        const params = new URLSearchParams(window.location.search || '');
-        const rawTarget = String(params.get('ta_target') || '').trim();
-        if (!rawTarget) return null;
-
-        const [rawType, ...restParts] = rawTarget.split(':');
-        const targetType = String(rawType || '').trim().toLowerCase();
-        const targetId = restParts.join(':').trim();
-        if (!targetType || !targetId) return null;
-        if (targetType !== 'verse' && targetType !== 'note') return null;
-
-        return { targetType, targetId };
-    }
-
-    function clearPendingSearchTargetFromUrl() {
-        const url = new URL(window.location.href);
-        if (!url.searchParams.has('ta_target')) return;
-        url.searchParams.delete('ta_target');
-        window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
-    }
-
-    pendingSearchTarget = parsePendingSearchTarget();
-    bindLecturaSearchEvents();
+    lecturaSearchController.bind();
 
     // Función para verificar si todo está listo y procesar
     async function checkAndProcess() {
@@ -776,8 +548,8 @@ document.addEventListener("DOMContentLoaded", function() {
             
             console.log('Todo cargado, procesando notas...');
             processNotes();
-            initializeLecturaSearchIndex();
-            consumePendingSearchTarget();
+            lecturaSearchController.initializeIndex();
+            lecturaSearchController.consumePendingTarget();
             // ← NOTA: Ya NO ponemos nada aquí, todo va dentro de processNotes()
         }
     }
@@ -951,9 +723,7 @@ document.addEventListener("DOMContentLoaded", function() {
             renderPanelHeaderActions();
         }
 
-        if (lecturaSearchIndexState && normalizeWhitespace(lecturaSearchInput?.value || '')) {
-            runLecturaSearch();
-        }
+        lecturaSearchController.run();
     }
 
     function renderizarDockEvaluacionLoading() {
@@ -1090,282 +860,6 @@ document.addEventListener("DOMContentLoaded", function() {
         markCurrentNoteInText(teiContainer, noteId, { clearAllActive: false, autoScroll: false });
     }
 
-    function escapeHtml(value) {
-        return String(value == null ? '' : value)
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
-    }
-
-    function normalizeWhitespace(value) {
-        return String(value == null ? '' : value).replace(/\s+/g, ' ').trim();
-    }
-
-    function setLecturaSearchStatus(message) {
-        if (!lecturaSearchStatus) return;
-        lecturaSearchStatus.textContent = message || '';
-    }
-
-    function syncLecturaSearchClearButtonVisibility() {
-        if (!(lecturaSearchInput instanceof HTMLInputElement) || !(lecturaSearchClearButton instanceof HTMLButtonElement)) return;
-        const hasValue = !!normalizeWhitespace(lecturaSearchInput.value);
-        lecturaSearchClearButton.hidden = !hasValue;
-        lecturaSearchClearButton.setAttribute('aria-hidden', hasValue ? 'false' : 'true');
-    }
-
-    function findNoteById(noteId) {
-        if (!window.notasXML || !noteId) return null;
-        const notes = window.notasXML.getElementsByTagName('note');
-        for (let note of notes) {
-            if (note.getAttribute('xml:id') === noteId || note.getAttribute('id') === noteId) {
-                return note;
-            }
-        }
-        return null;
-    }
-
-    function findVerseNodeById(verseId) {
-        if (!teiContainer || !verseId) return null;
-        const lines = teiContainer.querySelectorAll('tei-l');
-        for (let line of lines) {
-            const xmlId = line.getAttribute('xml:id') || '';
-            const plainId = line.getAttribute('id') || '';
-            if (xmlId === verseId || plainId === verseId) {
-                return line;
-            }
-        }
-        return null;
-    }
-
-    function flashSearchTarget(element) {
-        if (!element) return;
-        element.classList.add('search-target-hit');
-        window.setTimeout(() => {
-            element.classList.remove('search-target-hit');
-        }, 1600);
-    }
-
-    function goToVerseTarget(verseId) {
-        const verseNode = findVerseNodeById(verseId);
-        if (!verseNode) return false;
-        verseNode.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-        flashSearchTarget(verseNode);
-        return true;
-    }
-
-    function goToNoteTarget(noteId, options = {}) {
-        if (!isNoteIdVisible(noteId)) return false;
-
-        const noteNode = findNoteById(noteId);
-        if (!noteNode) return false;
-
-        mostrarNotaEnPanel(noteNode, noteId, teiContainer, noteContentDiv);
-        const wrapper = teiContainer.querySelector(`[data-note-groups*="${noteId}"]`);
-        if (wrapper) {
-            wrapper.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-            if (options.flash !== false) {
-                flashSearchTarget(wrapper);
-            }
-        }
-        return true;
-    }
-
-    function consumePendingSearchTarget() {
-        if (!pendingSearchTarget) return;
-
-        const { targetType, targetId } = pendingSearchTarget;
-        let resolved = false;
-        if (targetType === 'verse') {
-            resolved = goToVerseTarget(targetId);
-        } else if (targetType === 'note') {
-            if (!isNoteIdVisible(targetId)) {
-                clearPendingSearchTargetFromUrl();
-                pendingSearchTarget = null;
-                return;
-            }
-            resolved = goToNoteTarget(targetId, { flash: true });
-        }
-
-        if (resolved) {
-            clearPendingSearchTargetFromUrl();
-            pendingSearchTarget = null;
-        }
-    }
-
-    function renderLecturaSearchEmpty(message) {
-        if (!lecturaSearchResults) return;
-        const safeMessage = normalizeWhitespace(message || '');
-        if (!safeMessage) {
-            lecturaSearchResults.innerHTML = '';
-            return;
-        }
-        lecturaSearchResults.innerHTML = `<p class="lectura-search-empty">${escapeHtml(safeMessage)}</p>`;
-    }
-
-    function buildResultItemHtml(result) {
-        const doc = result?.doc || {};
-        const sourceLabel = SOURCE_TYPE_LABELS[doc.sourceType] || doc.sourceType || 'Resultado';
-        const title = escapeHtml(doc.title || 'Sin título');
-        const preview = escapeHtml(doc.preview || doc.body || '');
-        const meta = escapeHtml(doc.meta || '');
-        const targetType = escapeHtml(doc.targetType || '');
-        const targetId = escapeHtml(doc.targetId || '');
-
-        return `
-            <button type="button" class="lectura-search-result-item" data-target-type="${targetType}" data-target-id="${targetId}">
-                <span class="lectura-search-result-kind">${escapeHtml(sourceLabel)}</span>
-                <span class="lectura-search-result-title">${title}</span>
-                ${meta ? `<span class="lectura-search-result-meta">${meta}</span>` : ''}
-                ${preview ? `<span class="lectura-search-result-preview">${preview}</span>` : ''}
-            </button>
-        `;
-    }
-
-    function renderLecturaSearchResults(results, query) {
-        if (!lecturaSearchResults) return;
-
-        if (!results.length) {
-            renderLecturaSearchEmpty(`Sin resultados para "${query}".`);
-            return;
-        }
-
-        const grouped = groupResultsBySourceType(results);
-        const groupsMarkup = [];
-        ['lectura-verse', 'lectura-note'].forEach(sourceType => {
-            const items = grouped.get(sourceType);
-            if (!items?.length) return;
-
-            const itemsMarkup = items.map(buildResultItemHtml).join('');
-            const label = SOURCE_TYPE_LABELS[sourceType] || sourceType;
-            groupsMarkup.push(`
-                <section class="lectura-search-group" data-source-type="${escapeHtml(sourceType)}">
-                    <header class="lectura-search-group-head">
-                        <h4>${escapeHtml(label)}</h4>
-                        <span>${items.length}</span>
-                    </header>
-                    <div class="lectura-search-group-body">
-                        ${itemsMarkup}
-                    </div>
-                </section>
-            `);
-        });
-
-        lecturaSearchResults.innerHTML = groupsMarkup.join('');
-    }
-
-    function runLecturaSearch() {
-        if (!lecturaSearchInput || !lecturaSearchIndexState) return;
-
-        const query = normalizeWhitespace(lecturaSearchInput.value);
-        syncLecturaSearchClearButtonVisibility();
-        if (!query) {
-            setLecturaSearchStatus('');
-            renderLecturaSearchEmpty('');
-            return;
-        }
-
-        const rawResults = searchIndex(lecturaSearchIndexState, query, {
-            limit: lecturaSearchIndexState.normalizedDocs?.length || 80,
-            sourceTypeBoost: {
-                'lectura-verse': 1.06,
-                'lectura-note': 1.14
-            }
-        });
-        const visibleNoteIds = new Set(getNavigableNoteIds());
-        const results = rawResults
-            .filter(result => result?.doc?.sourceType !== 'lectura-note' || visibleNoteIds.has(result.doc.targetId))
-            .slice(0, 40);
-
-        setLecturaSearchStatus(`${results.length} resultado(s) para "${query}".`);
-        renderLecturaSearchResults(results, query);
-    }
-
-    function bindLecturaSearchEvents() {
-        if (!(lecturaSearchForm instanceof HTMLFormElement) || !(lecturaSearchInput instanceof HTMLInputElement)) return;
-
-        lecturaSearchForm.addEventListener('submit', event => {
-            event.preventDefault();
-            runLecturaSearch();
-        });
-
-        lecturaSearchInput.addEventListener('input', () => {
-            syncLecturaSearchClearButtonVisibility();
-            if (!normalizeWhitespace(lecturaSearchInput.value)) {
-                setLecturaSearchStatus('');
-                renderLecturaSearchEmpty('');
-                return;
-            }
-            runLecturaSearch();
-        });
-
-        lecturaSearchClearButton?.addEventListener('click', () => {
-            lecturaSearchInput.value = '';
-            syncLecturaSearchClearButtonVisibility();
-            setLecturaSearchStatus('');
-            renderLecturaSearchEmpty('');
-            lecturaSearchInput.focus();
-        });
-
-        lecturaSearchResults?.addEventListener('click', event => {
-            const trigger = event.target instanceof Element
-                ? event.target.closest('.lectura-search-result-item')
-                : null;
-            if (!trigger) return;
-
-            const targetType = normalizeWhitespace(trigger.getAttribute('data-target-type'));
-            const targetId = normalizeWhitespace(trigger.getAttribute('data-target-id'));
-            if (!targetType || !targetId) return;
-
-            if (targetType === 'verse') {
-                goToVerseTarget(targetId);
-                return;
-            }
-
-            if (targetType === 'note') {
-                goToNoteTarget(targetId, { flash: false });
-            }
-        });
-
-        syncLecturaSearchClearButtonVisibility();
-    }
-
-    function initializeLecturaSearchIndex() {
-        if (!lecturaSearchInput || !lecturaSearchResults) return;
-
-        if (typeof window.lunr !== 'function') {
-            setLecturaSearchStatus('Lunr no está disponible en esta vista.');
-            renderLecturaSearchEmpty('No se pudo activar la búsqueda en lectura.');
-            return;
-        }
-
-        const docs = buildLecturaSearchDocsFromSources({
-            textRoot: teiContainer,
-            notesRoot: window.notasXML,
-            baseUrl: '/lectura/'
-        });
-
-        if (!docs.length) {
-            setLecturaSearchStatus('No hay contenido indexable todavía.');
-            renderLecturaSearchEmpty('No hay contenido indexable todavía.');
-            return;
-        }
-
-        lecturaSearchIndexState = buildIndex(docs, {
-            fields: [
-                { name: 'search_title', from: 'title', boost: 8 },
-                { name: 'search_body', from: 'body', boost: 4 },
-                { name: 'search_meta', from: 'meta', boost: 2 }
-            ]
-        });
-
-        setLecturaSearchStatus('');
-        renderLecturaSearchEmpty('');
-        syncLecturaSearchClearButtonVisibility();
-    }
-    
-    
     /**
      * Navegación por índice
      */

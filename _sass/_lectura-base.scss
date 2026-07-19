@@ -1,0 +1,113 @@
+// ============================================
+// ESTILOS SALA DE LECTURA
+// Layout principal y estilos TEI
+// Overrides contextuales de la experiencia de lectura.
+// ============================================
+
+@use "sass:color";
+@use "lectura-settings" as *;
+@use "tokens" as *;
+
+// ============================================
+// NAVBAR AUTO-HIDE EN SALA DE LECTURA
+// ============================================
+
+.lectura-wrapper {
+  .nav-wrapper {
+    // Asegurar que el navbar se puede ocultar correctamente
+    will-change: transform;
+  }
+}
+
+// Prevenir scroll horizontal en body/html cuando estamos en lectura
+body:has(.lectura-wrapper) {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+html:has(.lectura-wrapper) {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+// ============================================
+// LAYOUT PRINCIPAL LECTURA
+// ============================================
+
+.lectura-wrapper {
+  // Layout a pantalla completa, el navbar se auto-oculta
+  --lectura-panel-radius: var(--ui-radius);
+  --lectura-panel-open-width: clamp(360px, 34vw, 520px);
+  --lectura-panel-open-min-width: 360px;
+  --lectura-panel-open-width-safe-max: 420px;
+  --lectura-panel-gap-open: 12px;
+  --lectura-panel-gap-closed: 12px;
+  --lectura-rail-collapsed-width: 56px;
+  --lectura-rail-height: clamp(250px, 46vh, 380px);
+  --lectura-rail-gap: 8px;
+  --lectura-text-pad-left-desktop: clamp(64px, 8vw, 140px);
+  --lectura-open-left-shift-base: 0px;
+  --lectura-text-left-min: 40px;
+  --lectura-panel-right-offset: 20px;
+  --lectura-open-right-safety: 0px;
+  // La numeración se alinea con una medida de verso estable, no con el borde
+  // variable de toda la columna de lectura.
+  --lectura-verse-text-measure: 56ch;
+  --lectura-verse-marker-lane: 4.25ch;
+  --lectura-verse-number-inset: 0.4ch;
+  --lectura-note-eval-dock-min-height: clamp(96px, 13vh, 124px);
+  --lectura-note-eval-dock-gap: 6px;
+  --lectura-static-right-inset: calc(
+    var(--lectura-panel-open-min-width) +
+    var(--lectura-rail-collapsed-width) +
+    var(--lectura-panel-gap-open) +
+    20px
+  );
+
+  margin-top: 0;
+  padding-top: 0;
+  min-height: 100vh;
+  overflow-x: hidden; // Evitar scroll horizontal
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
+// Columna de texto TEI (ahora ocupa todo el ancho)
+.lectura-wrapper .text-column {
+  width: 100%;
+  max-width: 100vw;
+  padding-left: 50px;
+  min-height: 100vh;
+  color: $color-text;
+  box-sizing: border-box;
+
+  // En desktop: espacio para el panel flotante
+  @media (min-width: 992px) {
+    padding-right: calc(
+      var(--lectura-panel-open-width) +
+      var(--lectura-rail-collapsed-width) +
+      var(--lectura-panel-gap-open) +
+      24px
+    );
+  }
+}
+
+@media (min-width: 992px) {
+  .lectura-wrapper[data-lectura-dynamic-recenter="true"] .text-column {
+    padding-left: var(--lectura-text-pad-left-desktop);
+    padding-right: var(--lectura-static-right-inset);
+  }
+}
+
+@media (min-width: 1440px) {
+  .lectura-wrapper {
+    --lectura-panel-open-width-safe-max: 520px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .lectura-wrapper {
+    --lectura-panel-open-width-safe-max: 640px;
+  }
+}
