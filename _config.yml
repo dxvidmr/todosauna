@@ -46,12 +46,12 @@ participacion_pilot_tracking_enabled: true
 # COLLECTION SETTINGS
 #
 # Set the metadata for your collection (the name of the CSV file in your _data directory that describes the objects in your collection) 
-# Use the filename of your CSV **without** the ".csv" extension! E.g. _data/demo-metadata.csv --> "demo-metadata"
+# Use the filename of your CSV **without** the ".csv" extension! E.g. _data/collection-metadata.csv --> "collection-metadata"
 metadata: CB-Fuenteovejuna-metadata
 # page generation settings [optional!]
 # [optional: only used if you need to tweak CB defaults or generate from more than one data file]
 # page_gen:
-#   - data: 'demo-metadata'
+#   - data: 'collection-metadata'
 #     template: 'item'
 #     name: 'objectid'
 #     dir: 'items'
@@ -86,7 +86,7 @@ organization-logo-nav:
 # provide a relative path in this repository or full url 
 lib-assets: /assets/lib
 # ignore stuff
-exclude: [docs/, Rakefile, rakelib/, README.md, README-CB.md, LICENSE, CITATION.cff, CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md]
+exclude: [docs/, data-archive/, Rakefile, rakelib/, README.md, README-CB.md, LICENSE, CITATION.cff, CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md]
 # compress CSS output
 sass:
   style: compressed

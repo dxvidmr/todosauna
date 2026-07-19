@@ -92,6 +92,7 @@ También disponibles:
 - Las notas y los pasajes del laboratorio se derivan de los XML TEI en `assets/data/tei/`.
 - Supabase conserva solo eventos de participación y sus agregados; ya no almacena catálogos editoriales de notas o pasajes.
 - `scripts/generate-pasajes-fuenteovejuna.mjs` genera `assets/data/pasajes/fuenteovejuna.json` para consumo del frontend.
+- `data-archive/` conserva CSV de trabajo sin consumidores y está excluido del build de Jekyll.
 
 ## Flujo recomendado de migraciones
 
@@ -113,6 +114,7 @@ Referencia detallada: `docs/migraciones-playbook.md`.
 - `docs/testing-e2e.md`
 - `docs/build.md`
 - `docs/analytics.md`
+- `docs/architecture/collectionbuilder-inventory.md`
 
 ## Nota sobre CollectionBuilder
 

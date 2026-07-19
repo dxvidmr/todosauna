@@ -3,14 +3,14 @@
     Video embed from an item's objectid or external link.
     This include adds a video embed to the page using Bootstrap ratio styles, https://getbootstrap.com/docs/5.1/helpers/ratio/
 
-    E.G. --> {% include feature/video.html objectid="demo_003" %}
+    E.G. --> {% include feature/video.html objectid="video-item-id" %}
 
     It requires an "objectid" with the include, which is used to find the video details. Alternatively, a URL to an external video can be used in "objectid".
     YouTube and Vimeo items will use iframe embeds, video files use html video element.
 
     Options: 
     - "objectid" = several options below (required)
-        1. an objectid of a video item in this collection, e.g. "demo_003"
+        1. an objectid of a video item in this collection, e.g. "video-item-id"
         2. a full URL to a video hosted on YouTube, e.g. https://youtu.be/dbKNr3wuiuQ
         3. a full URL to a video hosted on Vimeo, e.g. https://vimeo.com/464555587 
         4. a full URL to an external video file (supported by browsers, generally mp4), e.g. "https://www.lib.uidaho.edu/digital/videos/fluffyclouds.mp4"

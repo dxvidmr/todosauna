@@ -3,11 +3,11 @@
 
     E.G. --> (3 examples below) 
 
-        {% include feature/gallery.html image-heading="demo_008" heading="Items after 1900"  captions=false filter="item.date > '1900'" %}
+        {% include feature/gallery.html image-heading="image-item-id" heading="Items after 1900" captions=false filter="item.date > '1900'" %}
 
         {% include feature/gallery.html heading="All the Videos"  child-objects=true gallery-type="video" %}
 
-        {% include feature/gallery.html image-heading="demo_018" heading="Items that have the subject postcard and are in Spokane" context="This uses a complex liquid filter to specify specif items." filter="item.subject contains 'postcard' and item.location contains 'Spokane'" %}
+        {% include feature/gallery.html image-heading="image-item-id" heading="Items that have the subject postcard and are in Spokane" context="This uses a complex liquid filter to specify specif items." filter="item.subject contains 'postcard' and item.location contains 'Spokane'" %}
 
     *Note that filters are CASE-SENSITIVE so if you're constructing one, either using the filter itself or the filter-field and filter-value you will need to match the case of the string search. this is unlike our browse page.*
 
@@ -70,4 +70,3 @@
     </div>
     {% endfor %}
 </div>
-

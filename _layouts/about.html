@@ -69,7 +69,7 @@ layout: default
                 </button>
             </div>
             <div id="about-toc-list" class="collapse" > 
-            {% include cb/jekyll-toc.html html=content sanitize=true h_min=1 h_max=3 skip_no_ids=true class="jekyll-toc-list" credits=page.credits %}
+            {% include cb/jekyll-toc.html html=content sanitize=true h_min=1 h_max=3 skip_no_ids=true class="jekyll-toc-list" %}
             </div>
         </div>
         {% endunless %}
@@ -77,9 +77,4 @@ layout: default
     <div id="about-contents-wrapper">
         {{ content }}
     </div>
-    {% if page.credits == true %}
-    <div id="credits-contents-wrapper">
-        {% include cb/credits.html %}
-    </div>
-    {% endif %}
 </div>

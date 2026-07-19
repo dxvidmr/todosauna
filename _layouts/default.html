@@ -9,7 +9,6 @@
   {% endif %}
   <body class="d-flex flex-column min-vh-100{% if page.url == '/' %} home-page{% endif %}">
     <div id="skip-to-content"><a href="#maincontent">Skip to main content</a></div>
-    <!--{% include collection-banner.html %}-->
     {% include navbar.html %}
     <main id="maincontent" role="main" class="flex-shrink-0{% if navbar_main_offset %} navbar-offset-main{% endif %}">
       {{ content }}
@@ -17,7 +16,6 @@
     {% include ui/modal-root.html %}
     {% include footer.html %}
     {% include foot.html %}
-    <!--{% include scroll-to-top.html %}-->
     <script type="module" src="{{ '/assets/js/entry/navbar.js' | relative_url }}"></script>
   </body>
 </html>

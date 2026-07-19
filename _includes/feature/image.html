@@ -6,11 +6,11 @@
     It requires an "objectid" with the include, which is used to find the object title and image (for collection items). If multiple collection objectids are included (separated by ; ), they will be added to a "col-md" in a row which will automatically divided equally. 
     Alternatively, a URL to an external image can be used in "objectid".
 
-    E.G. --> {% include feature/image.html objectid="demo_001" %}
+    E.G. --> {% include feature/image.html objectid="image-item-id" %}
 
     Options: 
     - "objectid" = several options below (required)
-        1. one or more objectids from this collection, separated by semicolon, e.g. "demo_001" or "demo_001;demo_005"
+        1. one or more objectids from this collection, separated by semicolon, e.g. "image-item-id" or "image-item-id;second-image-id"
         2. a full URL to an external image file, e.g. "https://www.lib.uidaho.edu/digital/images/fluffyclouds.jpg"
         3. a relative link to an image file stored in this repository (that is not included in the collection), i.e. "/assets/img/evan.jpg"  
         IMPORTANT NOTE: Options 2 and 3 require you to add an "alt" option (or "alt" options for multiple images) in order to allow for the accessibility enabled by the "alt" tag
