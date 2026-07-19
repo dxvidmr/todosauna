@@ -38,10 +38,14 @@ import {
   obtenerEstadisticasGlobales,
   renderizarEstadisticasGlobales
 } from '../participacion/laboratorio-stats.js';
+import {
+  createLaboratorioSessionStorage,
+  getLaboratorioLobbyUrl,
+  getLaboratorioSessionUrl,
+  getRequestedLaboratorioMode
+} from './laboratorio-session.js';
 
 const LAB_PASAJES_URL = new URL('../../data/pasajes/fuenteovejuna.json', import.meta.url).toString();
-const LAB_SESSION_STORAGE_KEY = 'todosauna:laboratorio:sesion';
-const LAB_SESSION_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 
 // ============================================
 // EDITOR SOCIAL (JUEGO DE EVALUACION)
@@ -75,6 +79,7 @@ class EditorSocial {
     this.sessionExitPending = false;
     this.sessionStartedAt = null;
     this.sessionUpdatedAt = null;
+    this.sessionStorage = createLaboratorioSessionStorage(window);
     this.sessionStats = {
       notasEvaluadas: 0
     };
@@ -141,50 +146,19 @@ class EditorSocial {
   }
 
   getLobbyUrl() {
-    const current = new URL(window.location.href);
-    current.search = '';
-    current.hash = '';
-
-    if (current.pathname.replace(/\/$/, '').endsWith('/laboratorio/sesion')) {
-      return new URL('../', current).toString();
-    }
-
-    return current.toString();
+    return getLaboratorioLobbyUrl(window.location.href);
   }
 
   getSessionUrl(modo) {
-    const url = new URL('sesion/', this.getLobbyUrl());
-    if (modo) {
-      url.searchParams.set('modo', modo);
-    }
-    return url.toString();
+    return getLaboratorioSessionUrl(window.location.href, modo);
   }
 
   getRequestedMode() {
-    const modo = new URLSearchParams(window.location.search).get('modo');
-    return modo === 'secuencial' || modo === 'aleatorio' ? modo : null;
+    return getRequestedLaboratorioMode(window.location.search);
   }
 
   readStoredSession() {
-    try {
-      const raw = window.localStorage.getItem(LAB_SESSION_STORAGE_KEY);
-      if (!raw) return null;
-
-      const data = JSON.parse(raw);
-      const updatedAt = Number(data?.updatedAt || 0);
-      if (!updatedAt || Date.now() - updatedAt > LAB_SESSION_MAX_AGE_MS) {
-        window.localStorage.removeItem(LAB_SESSION_STORAGE_KEY);
-        return null;
-      }
-
-      if (data?.modo !== 'secuencial' && data?.modo !== 'aleatorio') {
-        return null;
-      }
-
-      return data;
-    } catch (_error) {
-      return null;
-    }
+    return this.sessionStorage.read();
   }
 
   persistSession() {
@@ -196,27 +170,19 @@ class EditorSocial {
     }
     this.sessionUpdatedAt = now;
 
-    try {
-      window.localStorage.setItem(LAB_SESSION_STORAGE_KEY, JSON.stringify({
-        modo: this.modoNavegacion,
-        pasajeActualIndex: this.pasajeActualIndex,
-        pasajesVisitados: Array.from(this.pasajesVisitados),
-        stats: this.sessionStats,
-        evaluatedByPassage: this.sessionEvaluatedByPassage,
-        startedAt: this.sessionStartedAt,
-        updatedAt: this.sessionUpdatedAt
-      }));
-    } catch (_error) {
-      // El guardado local es una mejora de continuidad; la sesión debe seguir funcionando sin él.
-    }
+    this.sessionStorage.write({
+      modo: this.modoNavegacion,
+      pasajeActualIndex: this.pasajeActualIndex,
+      pasajesVisitados: Array.from(this.pasajesVisitados),
+      stats: this.sessionStats,
+      evaluatedByPassage: this.sessionEvaluatedByPassage,
+      startedAt: this.sessionStartedAt,
+      updatedAt: this.sessionUpdatedAt
+    });
   }
 
   clearStoredSession() {
-    try {
-      window.localStorage.removeItem(LAB_SESSION_STORAGE_KEY);
-    } catch (_error) {
-      // Sin acción.
-    }
+    this.sessionStorage.clear();
   }
 
   restoreSessionMetadata(storedSession) {
@@ -828,11 +794,7 @@ class EditorSocial {
         sessionPayload.pasajeActualIndex = 0;
       }
 
-      try {
-        window.localStorage.setItem(LAB_SESSION_STORAGE_KEY, JSON.stringify(sessionPayload));
-      } catch (_error) {
-        // La sesión puede iniciarse aunque no se pueda guardar localmente.
-      }
+      this.sessionStorage.write(sessionPayload);
       this.navigateAllowingSessionExit(this.getSessionUrl(modo));
       return;
     }
@@ -1938,5 +1900,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 console.log('Editor Social cargado');
-
 
