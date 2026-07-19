@@ -1,0 +1,41 @@
+@use "tokens" as *;
+
+// Utilidades cromaticas propias. Bootstrap se conserva solo como base estructural.
+.text-ink { color: $color-ink !important; }
+.text-subtle { color: $color-text-subtle !important; }
+.text-quiet { color: $color-text-quiet !important; }
+.text-inverse { color: $color-text-inverse !important; }
+.text-inverse-muted { color: rgba($color-text-inverse, 0.5) !important; }
+.text-accent { color: $color-accent !important; }
+
+.bg-surface-page { background-color: $color-surface-page !important; }
+.bg-surface-raised { background-color: $color-surface-raised !important; }
+.bg-surface-soft { background-color: $color-surface-soft !important; }
+.bg-surface-muted { background-color: $color-surface-muted !important; }
+.bg-inverse { background-color: $color-surface-inverse !important; }
+.bg-overlay-strong { background-color: rgba($color-surface-inverse, 0.75) !important; }
+
+.border-inverse-soft { border-color: rgba($color-text-inverse, 0.25) !important; }
+
+.badge-status-success {
+  color: $color-text-inverse !important;
+  background-color: $color-status-success !important;
+}
+
+.badge-neutral {
+  color: $color-ink !important;
+  background-color: $color-paper !important;
+  border: 1px solid $color-border-soft;
+}
+
+@mixin alert-status($color) {
+  --bs-alert-color: #{$color-ink};
+  --bs-alert-bg: #{rgba($color, 0.2)};
+  --bs-alert-border-color: #{rgba($color, 0.55)};
+  --bs-alert-link-color: #{$color-ink};
+}
+
+.alert-status-success { @include alert-status($color-status-success); }
+.alert-status-info { @include alert-status($color-status-info); }
+.alert-status-warning { @include alert-status($color-status-warning); }
+.alert-status-danger { @include alert-status($color-status-danger); }

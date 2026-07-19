@@ -42,7 +42,7 @@ function getIcon(objectTemplate,objectFormat,svgType) {
     }
     if (svgType == "thumb") {
         // svg sprite as thumb
-        return '<svg class="bi text-body img-fluid" fill="currentColor" role="img"><title>' + iconTitle + '</title><use xlink:href="{{ "/assets/css/cb-icons.svg" | relative_url }}#' + iconId + '"/></svg>';
+        return '<svg class="bi text-ink img-fluid" fill="currentColor" role="img"><title>' + iconTitle + '</title><use xlink:href="{{ "/assets/css/cb-icons.svg" | relative_url }}#' + iconId + '"/></svg>';
     } else if (svgType == "hidden") {
         // svg as sprite with aria-hidden
         return '<svg class="bi icon-sprite" aria-hidden="true"><use xlink:href="{{ "/assets/css/cb-icons.svg" | relative_url }}#' + iconId + '"/></svg>';

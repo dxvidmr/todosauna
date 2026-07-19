@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use "tokens" as *;
 
 // ============================================
 // SHARED CARD SYSTEM (component + grid)
@@ -39,7 +39,7 @@
 }
 
 .ta-card--interactive.ta-card--color {
-  --ta-card-color: #{$color-light};
+  --ta-card-color: #{$color-paper};
   background-color: var(--ta-card-color);
   border: 1px solid rgba(0, 0, 0, 0.08);
   color: $color-text;
@@ -61,7 +61,7 @@
 }
 
 .ta-card--media {
-  color: $color-light;
+  color: $color-paper;
   border: none;
   background-image: var(--card-image);
   background-size: cover;
@@ -82,7 +82,7 @@
 
   .ta-card__body {
     z-index: 2;
-    color: $color-light;
+    color: $color-paper;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
   }
 }
@@ -93,7 +93,7 @@
 }
 
 .ta-card--color {
-  --ta-card-accent: var(--color-secondary);
+  --ta-card-accent: var(--color-accent);
   --ta-card-color: var(--ta-card-accent);
   background-color: var(--ta-card-color);
   background-image: none;
@@ -110,7 +110,7 @@
   margin: 0;
   width: 100%;
   font-size: clamp(1.2rem, 2.1vh, 1.8rem);
-  color: $color-light;
+  color: $color-paper;
   line-height: 1.15;
   font-weight: 700;
   letter-spacing: 0.01em;

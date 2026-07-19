@@ -6,12 +6,13 @@
 
     Options:
     - "text" = text for alert, can use Markdown.
-    - "color" = a Bootstrap color (primary, secondary, success, danger, warning, info, light, dark)
+    - "color" = semantic status: success, info, warning or danger (optional, default: info)
     - "align" = text alignment (center, right, left)
 
 {%- endcomment -%}
+{% capture status_variant %}{% include ui/status-variant.html variant=include.color %}{% endcapture %}
 <div class="narrow-content">
-    <div class="alert alert-{{ include.color | default: 'primary' }} feature-alert {% if include.align %}text-{{ include.align | default: 'center' }}{% endif %}" role="alert">
+    <div class="alert alert-status-{{ status_variant | strip }} feature-alert {% if include.align %}text-{{ include.align | default: 'center' }}{% endif %}" role="alert">
     {{ include.text | markdownify }}
     </div>
 </div>

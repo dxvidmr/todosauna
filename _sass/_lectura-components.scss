@@ -4,7 +4,7 @@
 // Contratos reutilizables (sin layout de pagina).
 // ============================================
 
-@use "variables" as *;
+@use "tokens" as *;
 @use "buttons" as buttons;
 
 // ============================================
@@ -39,7 +39,7 @@ tei-l[part="F"] {
 
 .numero-verso {
   position: absolute;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-weight: 400;
   user-select: none;
   pointer-events: none;
@@ -68,7 +68,7 @@ tei-sp > tei-l:first-of-type {
 }
 
 tei-stage {
-  color: $color-text-muted-dark;
+  color: $color-text-subtle-strong;
   display: block;
   font-style: italic;
   margin-top: 1em;
@@ -83,7 +83,7 @@ tei-stage {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: $color-dark;
+  background: $color-ink;
   color: white;
   padding: 12px 20px;
   border-radius: var(--ui-radius-xs);
@@ -106,7 +106,7 @@ tei-stage {
 .loading {
   text-align: center;
   padding: 40px;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   
   &::before {
     content: '\23F3';
@@ -151,8 +151,8 @@ tei-stage {
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
-  background: $color-dark;
-  color: $color-light;
+  background: $color-ink;
+  color: $color-paper;
   border: none;
   border-radius: var(--ui-radius);
   font-size: 13px;
@@ -163,12 +163,12 @@ tei-stage {
   white-space: nowrap;
   
   &:hover {
-    background: $color-neutral-700;
+    background: $color-text-subtle;
     transform: scale(1.02);
   }
   
   i {
-    color: $color-light
+    color: $color-paper
   }
 }
 
@@ -196,7 +196,7 @@ tei-stage {
   line-height: 1.25;
 
   i {
-    color: $color-dark;
+    color: $color-ink;
   }
 }
 
@@ -214,14 +214,14 @@ tei-stage {
   
   .label-opcional {
     font-weight: 400;
-    color: $color-text-muted;
+    color: $color-text-quiet;
   }
 }
 
 .sugerencia-texto-seleccionado {
   padding: 12px 16px;
   background: $color-surface-raised;
-  border: 1px solid $color-neutral-200;
+  border: 1px solid $color-border-soft;
   border-radius: var(--ui-radius);
   color: $color-text;
   line-height: 1.5;
@@ -234,7 +234,7 @@ tei-stage {
 .sugerencia-textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid $color-neutral-200;
+  border: 1px solid $color-border-soft;
   border-radius: var(--ui-radius);
   font-family: inherit;
   font-size: 14px;
@@ -244,11 +244,11 @@ tei-stage {
   
   &:focus {
     outline: none;
-    border-color: $color-light;
+    border-color: $color-paper;
   }
   
   &::placeholder {
-    color: $color-text-muted;
+    color: $color-text-quiet;
   }
 }
 
@@ -277,8 +277,8 @@ tei-stage {
   gap: 10px;
   padding: 14px 16px;
   border-radius: var(--ui-radius);
-  background: $color-primary;
-  color: $color-light;
+  background: $color-accent;
+  color: $color-paper;
   box-shadow: $shadow-md;
 }
 
@@ -305,7 +305,7 @@ tei-stage {
   }
 
   .modal-descripcion {
-    color: $color-text-muted;
+    color: $color-text-quiet;
     margin: 0;
     font-size: 0.9rem;
     line-height: 1.45;
@@ -366,7 +366,7 @@ tei-stage {
     padding: 6px 12px;
     border-radius: var(--ui-radius);
     background: transparent;
-    border: 1px solid $color-secondary-200;
+    border: 1px solid $color-border-warm;
     color: $color-text;
     font-size: 0.86rem;
     font-weight: 600;
@@ -374,7 +374,7 @@ tei-stage {
   }
 
   .modal-header-meta-item {
-    color: $color-text-muted;
+    color: $color-text-quiet;
     font-size: 0.92rem;
   }
 
@@ -405,7 +405,7 @@ tei-stage {
     justify-content: space-between;
     gap: 12px 16px;
     padding: 16px 18px;
-    border: 1px solid $color-primary;
+    border: 1px solid $color-accent;
     border-radius: var(--ui-radius);
     background: transparent;
 
@@ -417,7 +417,7 @@ tei-stage {
     }
 
     strong {
-      color: $color-dark;
+      color: $color-ink;
     }
   }
 
@@ -438,7 +438,7 @@ tei-stage {
     gap: 16px;
     text-align: left;
     padding: 16px 14px;
-    border-bottom: 1px solid rgba($color-dark, 0.08);
+    border-bottom: 1px solid rgba($color-ink, 0.08);
     cursor: pointer;
     transition: background-color 0.18s ease;
 
@@ -447,7 +447,7 @@ tei-stage {
     }
 
     &:hover {
-      background: rgba($color-dark, 0.035);
+      background: rgba($color-ink, 0.035);
 
       .modo-arrow {
         transform: translateX(3px);
@@ -457,8 +457,8 @@ tei-stage {
     &:focus,
     &:focus-visible {
       outline: none;
-      background: rgba($color-dark, 0.035);
-      box-shadow: 0 0 0 2px rgba($color-primary, 0.18);
+      background: rgba($color-ink, 0.035);
+      box-shadow: 0 0 0 2px rgba($color-accent, 0.18);
     }
 
     h3 {
@@ -468,7 +468,7 @@ tei-stage {
 
     p {
       font-size: 0.875rem;
-      color: $color-text-muted;
+      color: $color-text-quiet;
       margin-bottom: 0;
     }
   }
@@ -481,7 +481,7 @@ tei-stage {
   .modo-arrow {
     margin-left: auto;
     flex-shrink: 0;
-    color: $color-text-muted;
+    color: $color-text-quiet;
     font-size: 0.8rem;
     transition: transform 0.18s ease;
   }
@@ -491,7 +491,7 @@ tei-stage {
 
     i {
       font-size: 1.1rem;
-      color: $color-text-muted;
+      color: $color-text-quiet;
     }
   }
 
@@ -500,7 +500,7 @@ tei-stage {
   }
 
   .modal-legal-note {
-    color: $color-text-muted;
+    color: $color-text-quiet;
     font-size: 0.9rem;
     margin-bottom: 16px;
   }
@@ -527,7 +527,7 @@ tei-stage {
     }
 
     &[open] summary {
-      border-bottom: 1px solid rgba($color-dark, 0.08);
+      border-bottom: 1px solid rgba($color-ink, 0.08);
     }
 
     &[open] .modal-optional-summary-icon {
@@ -547,7 +547,7 @@ tei-stage {
 
   .modal-optional-summary-icon {
     font-size: 0.85rem;
-    color: $color-text-muted;
+    color: $color-text-quiet;
     transition: transform 0.2s ease;
   }
 
@@ -604,7 +604,7 @@ tei-stage {
     display: flex;
     flex-direction: column;
     padding: 0 0 16px;
-    border-bottom: 1px solid rgba($color-dark, 0.08);
+    border-bottom: 1px solid rgba($color-ink, 0.08);
   }
 
   .perfil-summary-head {
@@ -630,7 +630,7 @@ tei-stage {
 
   .perfil-card-eyebrow {
     margin: 0;
-    color: $color-text-muted;
+    color: $color-text-quiet;
     font-size: 0.82rem;
     font-weight: 600;
     line-height: 1.3;
@@ -653,7 +653,7 @@ tei-stage {
 
   .perfil-card-text {
     margin: 0;
-    color: $color-text-muted;
+    color: $color-text-quiet;
     font-size: 0.95rem;
     line-height: 1.45;
   }
@@ -662,7 +662,7 @@ tei-stage {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 0;
-    background: $color-secondary-50;
+    background: $color-surface-page;
     border-radius: var(--ui-radius);
     padding: 18px 20px;
   }
@@ -675,7 +675,7 @@ tei-stage {
 
     & + .perfil-activity-card {
       padding-left: 20px;
-      border-left: 1px solid rgba($color-dark, 0.08);
+      border-left: 1px solid rgba($color-ink, 0.08);
     }
   }
 
@@ -780,7 +780,7 @@ tei-stage {
     padding-left: 0;
     padding-top: 16px;
     border-left: none;
-    border-top: 1px solid rgba($color-dark, 0.08);
+    border-top: 1px solid rgba($color-ink, 0.08);
   }
 }
 
@@ -789,7 +789,7 @@ tei-stage {
 // ============================================
 
 // NOTAS: targets y highlights (compartido)
-$note-highlight-color: $color-neutral-200;
+$note-highlight-color: $color-border-soft;
 $note-highlight-base: 0.4;
 $note-highlight-strong: 1;
 
@@ -824,7 +824,7 @@ $note-highlight-strong: 1;
 }
 
 .note-target.note-current {
-  background-color: $color-primary-soft;
+  background-color: $color-accent-soft;
 }
 
 .notes-hidden .note-target {
@@ -833,6 +833,21 @@ $note-highlight-strong: 1;
   &:hover,
   &.note-active {
     background-color: rgba($note-highlight-color, $note-highlight-strong);
+  }
+}
+
+.note-target.note-filtered-out {
+  background-color: transparent;
+  cursor: text;
+
+  &:hover,
+  &.note-active,
+  &.note-current {
+    background-color: transparent;
+  }
+
+  &::after {
+    display: none;
   }
 }
 
@@ -862,7 +877,7 @@ tei-seg.note-target {
   }
 
   .note-rich-text a {
-    color: $color-primary;
+    color: $color-accent;
     text-decoration: underline;
     text-underline-offset: 2px;
   }
@@ -887,7 +902,7 @@ tei-seg.note-target {
 
   .note-rich-text .note-cb-thumb-caption {
     font-size: 0.82rem;
-    color: $color-text-muted;
+    color: $color-text-quiet;
     text-decoration: underline;
     text-underline-offset: 2px;
   }
@@ -907,7 +922,7 @@ tei-seg.note-target {
   .note-rich-text figcaption {
     margin-top: 0.35rem;
     font-size: 0.86rem;
-    color: $color-text-muted;
+    color: $color-text-quiet;
   }
   
   .note-header {
@@ -934,15 +949,15 @@ tei-seg.note-target {
     transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 
     &[data-tooltip]:focus-visible {
-      border-color: $color-primary;
-      box-shadow: 0 0 0 0.15rem rgba($color-primary, 0.18);
+      border-color: $color-accent;
+      box-shadow: 0 0 0 0.15rem rgba($color-accent, 0.18);
     }
   }
   
   .note-badge-ana {
-    background-color: $color-neutral-100;
-    color: $color-dark;
-    border: 1px solid $color-neutral-200;
+    background-color: $color-surface-muted;
+    color: $color-ink;
+    border: 1px solid $color-border-soft;
   }
 }
 
@@ -954,8 +969,8 @@ tei-seg.note-target {
   max-width: min(34ch, calc(100vw - 24px));
   padding: 0.55rem 0.7rem;
   border-radius: var(--ui-radius-sm);
-  background: $color-dark;
-  color: $color-light;
+  background: $color-ink;
+  color: $color-paper;
   box-shadow: $shadow-md;
   font-size: 0.78rem;
   font-weight: 400;
@@ -978,13 +993,13 @@ tei-seg.note-target {
 .note-badge-tooltip[data-placement="top"]::after {
   top: 100%;
   border-width: 6px 6px 0 6px;
-  border-color: $color-dark transparent transparent transparent;
+  border-color: $color-ink transparent transparent transparent;
 }
 
 .note-badge-tooltip[data-placement="bottom"]::after {
   bottom: 100%;
   border-width: 0 6px 6px 6px;
-  border-color: transparent transparent $color-dark transparent;
+  border-color: transparent transparent $color-ink transparent;
 }
 
 [data-home-note-text] {

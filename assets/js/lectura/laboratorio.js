@@ -1547,27 +1547,27 @@ class EditorSocial {
       <div class="row g-2 my-3">
         <div class="col-6">
           <div class="border rounded-3 p-3 h-100">
-            <div class="text-muted small">Modo</div>
+            <div class="text-quiet small">Modo</div>
             <div class="fw-semibold">${summary.modo}</div>
           </div>
         </div>
         <div class="col-6">
           <div class="border rounded-3 p-3 h-100">
-            <div class="text-muted small">Pasajes</div>
+            <div class="text-quiet small">Pasajes</div>
             <div class="fw-semibold">${summary.pasajesVisitados}/${summary.pasajesTotales}</div>
           </div>
         </div>
         <div class="col-12">
           <div class="border rounded-3 p-3">
-            <div class="text-muted small">Notas evaluadas</div>
+            <div class="text-quiet small">Notas evaluadas</div>
             <div class="fw-semibold">${summary.notasEvaluadas}</div>
           </div>
         </div>
       </div>
       <div class="modal-actions d-flex flex-wrap gap-2 justify-content-end">
-        <button type="button" class="btn btn-outline-dark" data-lab-exit-action="continue">Continuar</button>
+        <button type="button" class="btn btn-outline-action" data-lab-exit-action="continue">Continuar</button>
         <button type="button" class="btn btn-muted" data-lab-exit-action="change-mode">Cambiar modo</button>
-        <button type="button" class="btn btn-dark" data-lab-exit-action="exit">Salir</button>
+        <button type="button" class="btn btn-action" data-lab-exit-action="exit">Salir</button>
       </div>
     `;
   }
@@ -1915,11 +1915,11 @@ class EditorSocial {
       <div class="container py-5 text-center">
         <div class="mx-auto d-grid gap-3" style="max-width: 600px;">
           <h1 class="display-5 fw-semibold mb-0">¡Felicidades!</h1>
-          <p class="fs-4 text-muted mb-0">
+          <p class="fs-4 text-quiet mb-0">
           Has completado todos los pasajes disponibles
           </p>
-          <p class="fs-5 text-muted mb-2">Gracias por tu contribución al proyecto</p>
-          <a href="${this.getLobbyUrl()}" class="btn btn-dark align-self-center">
+          <p class="fs-5 text-quiet mb-2">Gracias por tu contribución al proyecto</p>
+          <a href="${this.getLobbyUrl()}" class="btn btn-action align-self-center">
             Volver al laboratorio
           </a>
         </div>

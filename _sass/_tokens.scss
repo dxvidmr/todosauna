@@ -1,0 +1,127 @@
+// ============================================
+// SISTEMA SEMANTICO DE COLOR Y TOKENS GLOBALES
+// Fuente unica para Sass, CSS y adaptacion de Bootstrap.
+// ============================================
+
+@use "sass:color";
+
+// Tintas y acento
+$color-ink: #383634;
+$color-paper: color.mix(white, $color-ink, 96%);
+$color-accent: #8f4142;
+$color-accent-hover: color.mix(white, $color-accent, 12%);
+$color-accent-soft: color.mix(white, $color-accent, 90%);
+
+// Texto
+$color-text: $color-ink;
+$color-text-subtle: color.mix(white, $color-ink, 26%);
+$color-text-quiet: color.mix(white, $color-ink, 58%);
+$color-text-subtle-strong: color.mix(white, $color-ink, 18%);
+$color-text-inverse: $color-paper;
+
+// Superficies y bordes
+$color-surface-page: #f7f4f3;
+$color-surface-raised: color.mix(white, $color-surface-page, 68%);
+$color-surface-soft: #eee7e5;
+$color-surface-hover: color.mix(white, $color-ink, 94%);
+$color-surface-muted: color.mix(white, $color-ink, 89%);
+$color-surface-inverse: $color-ink;
+$color-border-warm: #d9c1bc;
+$color-border-soft: color.mix(white, $color-ink, 82%);
+$color-border-strong: color.mix(white, $color-ink, 55%);
+$color-surface-floating-nav: rgba($color-surface-soft, 0.86);
+
+// Estados
+$color-status-success: #7a9e7e;
+$color-status-success-soft: color.adjust($color-status-success, $lightness: 35%);
+$color-status-info: #8298aa;
+$color-status-warning: #d4a574;
+$color-status-danger: #8b3a33;
+$color-status-danger-soft: #fbeae9;
+
+// Sombras, overlay y radios
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 6px 20px rgba(0, 0, 0, 0.15);
+$shadow-heavy: 0 0 10px rgba(0, 0, 0, 0.5);
+$shadow-floating-nav: 0 4px 12px rgba($color-ink, 0.032), 0 1px 2px rgba($color-ink, 0.02);
+$color-overlay: rgba(0, 0, 0, 0.7);
+$color-overlay-strong: rgba(0, 0, 0, 0.8);
+$radius-ui: 16px;
+$radius-ui-sm: 8px;
+$radius-ui-xs: 4px;
+$radius-ui-round: 50%;
+
+@function color-channels($value) {
+  @return #{color.channel($value, "red", $space: rgb)}, #{color.channel($value, "green", $space: rgb)}, #{color.channel($value, "blue", $space: rgb)};
+}
+
+// API CSS para componentes dinamicos y puente cromatico de Bootstrap.
+:root {
+  --color-ink: #{$color-ink};
+  --color-text: #{$color-text};
+  --color-text-subtle: #{$color-text-subtle};
+  --color-text-quiet: #{$color-text-quiet};
+  --color-text-inverse: #{$color-text-inverse};
+  --color-accent: #{$color-accent};
+  --color-accent-hover: #{$color-accent-hover};
+  --color-accent-soft: #{$color-accent-soft};
+  --color-surface-page: #{$color-surface-page};
+  --color-surface-raised: #{$color-surface-raised};
+  --color-surface-soft: #{$color-surface-soft};
+  --color-surface-muted: #{$color-surface-muted};
+  --color-surface-inverse: #{$color-surface-inverse};
+  --color-border-soft: #{$color-border-soft};
+  --color-border-strong: #{$color-border-strong};
+  --color-status-success: #{$color-status-success};
+  --color-status-info: #{$color-status-info};
+  --color-status-warning: #{$color-status-warning};
+  --color-status-danger: #{$color-status-danger};
+  --color-overlay: #{$color-overlay};
+  --color-overlay-strong: #{$color-overlay-strong};
+  --ui-radius: #{$radius-ui};
+  --ui-radius-sm: #{$radius-ui-sm};
+  --ui-radius-xs: #{$radius-ui-xs};
+  --ui-radius-round: #{$radius-ui-round};
+
+  --bs-body-color: #{$color-text};
+  --bs-body-color-rgb: #{color-channels($color-text)};
+  --bs-body-bg: #{$color-surface-page};
+  --bs-body-bg-rgb: #{color-channels($color-surface-page)};
+  --bs-emphasis-color: #{$color-ink};
+  --bs-emphasis-color-rgb: #{color-channels($color-ink)};
+  --bs-secondary-color: #{$color-text-subtle};
+  --bs-tertiary-color: #{$color-text-quiet};
+  --bs-secondary-bg: #{$color-surface-muted};
+  --bs-tertiary-bg: #{$color-surface-soft};
+  --bs-link-color: #{$color-accent};
+  --bs-link-color-rgb: #{color-channels($color-accent)};
+  --bs-link-hover-color: #{$color-accent-hover};
+  --bs-link-hover-color-rgb: #{color-channels($color-accent-hover)};
+  --bs-border-color: #{$color-border-soft};
+  --bs-primary: #{$color-accent};
+  --bs-primary-rgb: #{color-channels($color-accent)};
+  --bs-secondary: #{$color-surface-soft};
+  --bs-secondary-rgb: #{color-channels($color-surface-soft)};
+  --bs-success: #{$color-status-success};
+  --bs-success-rgb: #{color-channels($color-status-success)};
+  --bs-info: #{$color-status-info};
+  --bs-info-rgb: #{color-channels($color-status-info)};
+  --bs-warning: #{$color-status-warning};
+  --bs-warning-rgb: #{color-channels($color-status-warning)};
+  --bs-danger: #{$color-status-danger};
+  --bs-danger-rgb: #{color-channels($color-status-danger)};
+  --bs-light: #{$color-paper};
+  --bs-light-rgb: #{color-channels($color-paper)};
+  --bs-dark: #{$color-ink};
+  --bs-dark-rgb: #{color-channels($color-ink)};
+  --bs-form-valid-color: #{$color-status-success};
+  --bs-form-valid-border-color: #{$color-status-success};
+  --bs-form-invalid-color: #{$color-status-danger};
+  --bs-form-invalid-border-color: #{$color-status-danger};
+  --bs-border-radius: var(--ui-radius);
+  --bs-border-radius-sm: var(--ui-radius-sm);
+  --bs-border-radius-lg: var(--ui-radius);
+  --bs-border-radius-xl: var(--ui-radius);
+  --bs-border-radius-xxl: var(--ui-radius);
+  --bs-border-radius-pill: var(--ui-radius);
+}

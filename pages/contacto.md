@@ -29,7 +29,7 @@ permalink: /contacto/
               <strong>Responsable del proyecto</strong><br />
               David Merino Recalde<br />
               <a href="mailto:david.merino@uab.cat">david.merino@uab.cat</a><br />
-              <small class="text-muted">
+              <small class="text-quiet">
                 
               </small>
             </li>
@@ -37,7 +37,7 @@ permalink: /contacto/
             <li class="mb-4">
               <strong>Grupo de investigación PROLOPE</strong><br />
               <a href="mailto:prolope@uab.cat">prolope@uab.cat</a><br />
-              <small class="text-muted">
+              <small class="text-quiet">
                 
               </small>
             </li>
@@ -50,7 +50,7 @@ permalink: /contacto/
 
   <div class="row justify-content-center">
     <div class="col-lg-8">
-      <p class="small text-muted mb-0">
+      <p class="small text-quiet mb-0">
         
       </p>
     </div>

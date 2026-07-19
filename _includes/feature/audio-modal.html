@@ -28,7 +28,7 @@
     <div class="card-body text-center">
         <{{ include.heading_level | default: 'h2' | strip }} class="card-title h2">{{ audio_title }}</{{ include.heading_level | default: 'h2' | strip }}>
         <p class="card-text">{{ audio_caption }}</p>
-        <button class="btn btn-sm btn-primary stretched-link" type="button" data-ta-modal-target="#{{ modal_id }}">
+        <button class="btn btn-sm btn-accent stretched-link" type="button" data-ta-modal-target="#{{ modal_id }}">
             Listen to Audio
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi icon-sprite" viewBox="0 0 16 16">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -65,11 +65,11 @@
             {% endif %}
         </div>
     </div>
-    <button class="btn btn-outline-primary m-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTranscript{{ includeid }}" aria-expanded="false" aria-controls="collapseTranscript{{ includeid }}">View Transcript</button>
+    <button class="btn btn-outline-accent m-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTranscript{{ includeid }}" aria-expanded="false" aria-controls="collapseTranscript{{ includeid }}">View Transcript</button>
     {% endif %}
     {% unless include.objectid contains '/' %}
-    <a href="{{ audio_link }}" class="btn btn-outline-dark m-2">Visit Item Page</a>{% endunless %}
-    <button type="button" class="btn btn-dark" data-ta-modal-close="true">Close</button>
+    <a href="{{ audio_link }}" class="btn btn-outline-action m-2">Visit Item Page</a>{% endunless %}
+    <button type="button" class="btn btn-action" data-ta-modal-close="true">Close</button>
 {% endcapture %}
 
 {% include ui/modal.html

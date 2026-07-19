@@ -3,9 +3,9 @@
     Featured Terms button-links.
     This include creates a card with btn links to the Browse page from a set of automatically generated or manually selected terms. Either use the "field" option to auto generate *or* the "featured" option to manually create list of terms.
 
-    E.G. --> {% include index/featured-terms.html field="subject" title="Top Subjects" btn-color="outline-info" max=8 %}
+    E.G. --> {% include index/featured-terms.html field="subject" title="Top Subjects" btn-color="outline-accent" max=8 %}
 
-    E.G. --> {% include index/featured-terms.html featured="Example term; Another; One more" title="Topic Areas" btn-color="success" %}
+    E.G. --> {% include index/featured-terms.html featured="Example term; Another; One more" title="Topic Areas" btn-color="accent" %}
 
     Options:
 
@@ -15,12 +15,14 @@
     - "header" = card header text in bar above card content (optional)
     - "heading_level" = customize the level of the heading if necessary for accessibility, choose "h1", "h2", "h3", etc (optional, default "h2")
     - "max" - max number of terms to display if auto generating (optional, default 5)
-    - "btn-color" - a bootstrap color class to theme the buttons. Can be any bootstrap template color (e.g. info, success) or outline (e.g. outline-info, outline-success), including colors created in config-theme-colors. (optional, default "primary")
+    - "btn-color" - semantic button variant (optional, default "accent")
 
     Requires CB's "array_count_uniq.rb" plugin!
 
 {%- endcomment -%}
 
+{% assign termsField = include.field | default: "subject" %}
+{% capture button_variant %}{% include ui/button-variant.html variant=include.btn-color default='accent' %}{% endcapture %}
 {% if include.featured %}
 {% assign topTerms = include.featured | split: ";" %}
 {%- else -%}
@@ -29,7 +31,6 @@
 {% comment %} 
     Use termsField and termsMax to customize feature 
 {% endcomment %}
-{% assign termsField = include.field | default: "subject" %}
 {% assign termsMax = include.max | default: 5 %}
 {% if site.data.theme.browse-child-objects == true %}
 {%- assign terms = site.data[site.metadata] | where_exp: 'item','item.objectid' | map: termsField | join: ";" -%}
@@ -47,7 +48,7 @@
         {% if include.title %}<{{ include.heading_level | default: 'h2' | strip }} class="card-title h5">{{ include.title }}</{{ include.heading_level | default: 'h2' | strip }}>{% endif %}
         <p class="card-text">
             {% for s in topTerms %}
-            <a class="btn btn-sm btn-{{ include.btn-color | default: 'primary' }} m-1" href="{{ s | strip | url_param_escape | prepend: ':' | prepend: termsField | prepend: '/browse.html#' | relative_url }}">{{ s | strip }}</a>{% endfor %}
+            <a class="btn btn-sm btn-{{ button_variant | strip }} m-1" href="{{ s | strip | url_param_escape | prepend: ':' | prepend: termsField | prepend: '/browse.html#' | relative_url }}">{{ s | strip }}</a>{% endfor %}
         </p>
     </div>
 </div>

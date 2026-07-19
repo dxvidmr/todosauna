@@ -56,7 +56,7 @@ custom-foot: js/home-explore-grid-js.html
           </div>
           {% if section.action_label and section.action_url %}
             <div class="home-feature__actions">
-              <a class="btn btn-dark" href="{{ section.action_url | relative_url }}">{{ section.action_label }}</a>
+              <a class="btn btn-action" href="{{ section.action_url | relative_url }}">{{ section.action_label }}</a>
             </div>
           {% endif %}
         </div>

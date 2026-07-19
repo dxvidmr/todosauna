@@ -1,4 +1,5 @@
-@use "variables" as *;
+@use "sass:color";
+@use "tokens" as *;
 
 /* ============================================
    HERO SECTION - HOME
@@ -34,7 +35,7 @@
 .hero-title {
   font-size: clamp(2.4rem, min(10vw, 16vh), 10rem);
   font-weight: 800;
-  color: $color-dark;
+  color: $color-ink;
   text-transform: uppercase;
   letter-spacing: -0.03em;
   margin-bottom: clamp(12px, 3.5vh, 32px);
@@ -47,7 +48,7 @@
 .hero-kicker {
   margin: 0 0 clamp(6px, 1.5vh, 14px);
   padding-left: var(--hero-inline-gutter);
-  color: $color-primary;
+  color: $color-accent;
   font-size: clamp(0.82rem, 1.8vw, 1.35rem);
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -80,8 +81,8 @@
     content: "100%";
     right: clamp(12px, 2vw, 24px);
     bottom: clamp(12px, 2vw, 22px);
-    color: $color-dark;
-    background: rgba($color-light, 0.82);
+    color: $color-ink;
+    background: rgba($color-paper, 0.82);
     border-radius: var(--ui-radius-sm);
     padding: 0.28rem 0.42rem;
     font-size: clamp(0.74rem, 1.2vw, 0.92rem);
@@ -105,7 +106,7 @@
 .hero-subtitle {
   padding-left: var(--hero-inline-gutter);
   margin: clamp(14px, 2.8vh, 24px) 0 0;
-  color: $color-text-secondary;
+  color: $color-text-subtle;
   font-size: clamp(0.95rem, 1.8vw, 1.12rem);
   line-height: 1.45;
   opacity: 0;
@@ -118,7 +119,7 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-size: 0.9rem;
   animation: bounce 2s infinite;
   cursor: pointer;
@@ -322,7 +323,7 @@
 
 .home-feature__title {
   margin: 0;
-  color: $color-dark;
+  color: $color-ink;
   font-size: clamp(1.65rem, 4vw, 3.1rem);
   font-weight: 750;
   line-height: 1.04;
@@ -331,7 +332,7 @@
 
 .home-feature__text {
   max-width: 58ch;
-  color: $color-text-secondary;
+  color: $color-text-subtle;
   font-size: clamp(1rem, 1.35vw, 1.18rem);
   line-height: 1.62;
 
@@ -359,7 +360,7 @@
   min-width: 0;
   overflow: hidden;
   border-radius: var(--ui-radius);
-  background: $color-neutral-100;
+  background: $color-surface-muted;
 }
 
 .home-feature__media img {
@@ -406,7 +407,7 @@
   font-size: var(--explore-title-size);
   font-weight: 700;
   line-height: 1.2;
-  color: $color-dark;
+  color: $color-ink;
   margin: 0;
 }
 
@@ -459,7 +460,7 @@
   letter-spacing: 0.08em;
   font-size: 0.7rem;
   font-weight: 700;
-  color: $color-text-muted-dark;
+  color: $color-text-subtle-strong;
 }
 
 [data-home-grid] .ta-card--interactive .home-eval-context.note-panel-scroll {
@@ -494,7 +495,7 @@
 }
 
 .home-eval-context-line.is-stage {
-  color: $color-text-muted-dark;
+  color: $color-text-subtle-strong;
   font-style: italic;
 }
 
@@ -537,22 +538,22 @@
 .home-eval-readonly {
   margin: 0;
   font-size: 0.82rem;
-  color: $color-text-muted-dark;
+  color: $color-text-subtle-strong;
 }
 
 .home-eval-status {
   margin: 0;
   min-height: 1.25rem;
   font-size: 0.8rem;
-  color: $color-text-muted-dark;
+  color: $color-text-subtle-strong;
 }
 
 .home-eval-status.is-error {
-  color: $color-danger;
+  color: $color-status-danger;
 }
 
 .home-eval-status.is-success {
-  color: mix(black, $color-success, 35%);
+  color: color.mix(black, $color-status-success, 35%);
 }
 
 .home-eval-overlay {
@@ -563,7 +564,7 @@
   align-items: center;
   justify-content: center;
   padding: clamp(16px, 2.2vw, 28px);
-  background: rgba($color-light, 0.86);
+  background: rgba($color-paper, 0.86);
   backdrop-filter: blur(1.5px);
 }
 

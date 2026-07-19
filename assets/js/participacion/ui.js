@@ -79,13 +79,13 @@
     var actionsHtml = options.kind === 'confirm'
       ? (
         '<div class="modal-actions participa-ui-dialog-actions">' +
-        '  <button type="button" class="btn btn-outline-dark participa-ui-cancel"></button>' +
-        '  <button type="button" class="btn btn-secondary-100 participa-ui-confirm"></button>' +
+        '  <button type="button" class="btn btn-outline-action participa-ui-cancel"></button>' +
+        '  <button type="button" class="btn btn-soft participa-ui-confirm"></button>' +
         '</div>'
       )
       : (
         '<div class="modal-actions participa-ui-dialog-actions">' +
-        '  <button type="button" class="btn btn-primary participa-ui-confirm"></button>' +
+        '  <button type="button" class="btn btn-accent participa-ui-confirm"></button>' +
         '</div>'
       );
 

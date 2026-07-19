@@ -1,4 +1,5 @@
-@use "variables" as *;
+@use "sass:color";
+@use "tokens" as *;
 
 // ============================================
 // SHARED NOTE EVALUATION DOCK
@@ -26,7 +27,7 @@
   flex-wrap: wrap;
   gap: 6px;
   font-size: 13px;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   margin-bottom: 8px;
 }
 
@@ -41,10 +42,10 @@
   justify-content: center;
   flex: 0 0 auto;
   padding: 3px 8px;
-  border: 1px solid $color-neutral-200;
+  border: 1px solid $color-border-soft;
   border-radius: var(--ui-radius);
-  background: $color-neutral-100;
-  color: $color-text-muted;
+  background: $color-surface-muted;
+  color: $color-text-quiet;
   font-size: 0.72rem;
   font-weight: 500;
   line-height: 1;
@@ -59,9 +60,9 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  color: $color-dark;
+  color: $color-ink;
   background: transparent;
-  border-color: $color-neutral-200;
+  border-color: $color-border-soft;
   transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 
   i {
@@ -69,31 +70,31 @@
     transition: color 0.2s ease;
   }
 
-  &.btn-outline-dark:not(.votado):hover {
-    background: $color-neutral-100;
-    border-color: $color-neutral-400;
-    color: $color-dark;
+  &.btn-outline-action:not(.votado):hover {
+    background: $color-surface-muted;
+    border-color: $color-border-strong;
+    color: $color-ink;
   }
 
-  &.btn-outline-dark:not(.votado):focus {
-    background: $color-neutral-100;
-    border-color: $color-neutral-400;
-    color: $color-dark;
+  &.btn-outline-action:not(.votado):focus {
+    background: $color-surface-muted;
+    border-color: $color-border-strong;
+    color: $color-ink;
     box-shadow: none;
   }
 
-  &.btn-outline-dark:not(.votado):focus-visible {
-    background: $color-neutral-100;
-    border-color: $color-neutral-400;
-    color: $color-dark;
-    box-shadow: 0 0 0 0.14rem rgba($color-dark, 0.08);
+  &.btn-outline-action:not(.votado):focus-visible {
+    background: $color-surface-muted;
+    border-color: $color-border-strong;
+    color: $color-ink;
+    box-shadow: 0 0 0 0.14rem rgba($color-ink, 0.08);
     outline: none;
   }
 
-  &.btn-outline-dark:not(.votado):active {
-    background: $color-neutral-200;
-    border-color: $color-neutral-400;
-    color: $color-dark;
+  &.btn-outline-action:not(.votado):active {
+    background: $color-border-soft;
+    border-color: $color-border-strong;
+    color: $color-ink;
     box-shadow: none;
   }
 }
@@ -108,52 +109,52 @@
 }
 
 .btn-util i {
-  color: $color-success;
+  color: $color-status-success;
 }
 
 .btn-mejorable i {
-  color: $color-danger;
+  color: $color-status-danger;
 }
 
 .btn-util .btn-contador {
   background: transparent;
-  color: mix(black, $color-success, 35%);
+  color: color.mix(black, $color-status-success, 35%);
 }
 
 .btn-mejorable .btn-contador {
   background: transparent;
-  color: $color-danger;
+  color: $color-status-danger;
 }
 
 .btn-util.votado {
-  background-color: $color-success-light !important;
-  border-color: $color-success !important;
-  color: $color-success !important;
+  background-color: $color-status-success-soft !important;
+  border-color: $color-status-success !important;
+  color: $color-status-success !important;
   cursor: default;
 
   i {
-    color: $color-success;
+    color: $color-status-success;
   }
 
   .btn-contador {
     background: transparent;
-    color: $color-success;
+    color: $color-status-success;
   }
 }
 
 .btn-mejorable.votado {
-  background-color: $color-danger-100 !important;
-  border-color: $color-danger !important;
-  color: $color-danger !important;
+  background-color: $color-status-danger-soft !important;
+  border-color: $color-status-danger !important;
+  color: $color-status-danger !important;
   cursor: default;
 
   i {
-    color: $color-danger;
+    color: $color-status-danger;
   }
 
   .btn-contador {
     background: transparent;
-    color: $color-danger;
+    color: $color-status-danger;
   }
 }
 
@@ -165,9 +166,9 @@
   gap: 8px;
   text-align: center;
   padding: 10px 12px;
-  background: $color-neutral-100;
+  background: $color-surface-muted;
   border-radius: var(--ui-radius-xs);
-  color: $color-dark;
+  color: $color-ink;
   font-weight: 500;
   margin: 0;
 
@@ -184,7 +185,7 @@
   textarea {
     width: 100%;
     padding: 8px;
-    border: 1px solid $color-neutral-200;
+    border: 1px solid $color-border-soft;
     border-radius: var(--ui-radius-xs);
     font-family: inherit;
     font-size: 13px;
@@ -194,7 +195,7 @@
 
     &:focus {
       outline: none;
-      border-color: $color-light;
+      border-color: $color-paper;
     }
   }
 }

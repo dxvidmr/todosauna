@@ -9,7 +9,7 @@
     Options:
 
     - "date_field" - optionally change the field used for date range. Only ISO or year-only dates are supported. (optional, default "date")
-    - "btn-color" - a bootstrap color class to theme the buttons. Can be any bootstrap template color (e.g. info, success) or outline (e.g. outline-info, outline-success), including colors created in config-theme-colors. (optional, default "outline-secondary")
+    - "btn-color" - semantic button variant (optional, default "outline-soft")
     - "heading_level" = customize the level of the heading if necessary for accessibility, choose "h1", "h2", "h3", etc (optional, default "h2")
 
 {%- endcomment -%}
@@ -22,10 +22,11 @@
 {%- assign raw-dates = date-items | map: date_field | compact | uniq -%}
 {%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{ date | strip | split: "-" | first }}{% elsif date contains "/" %}{{ date | strip | split: "/" | last }}{% else %}{{ date | strip }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
 {%- assign date-range = clean-years | remove: " " | split: ";" | uniq | sort  -%}
+{% capture button_variant %}{% include ui/button-variant.html variant=include.btn-color default='outline-soft' %}{% endcapture %}
 <div class="card mb-3">
     <div class="card-body">
         <{{ include.heading_level | default: 'h2' | strip }} class="card-title h5">Time Span</{{ include.heading_level | default: 'h2' | strip }}>
         <p class="card-text h5">{{ date-range | first }} to {{ date-range | last }}
-        <br><a href="{{ '/timeline.html' | relative_url }}" class="btn btn-sm btn-{{ include.btn-color | default: 'outline-secondary' }} mt-2">View Timeline</a></p>
+        <br><a href="{{ '/timeline.html' | relative_url }}" class="btn btn-sm btn-{{ button_variant | strip }} mt-2">View Timeline</a></p>
     </div>
 </div>

@@ -12,6 +12,7 @@
 {%- assign termsMin = include.min | plus: 0 | default: 1 -%}
 {%- assign cloud_id = include.id | default: "cloud" -%}
 {%- assign cloud-fields = include.fields | split: ";" -%}
+{%- capture button_variant -%}{% include ui/button-variant.html variant=include.button default='outline-accent' %}{%- endcapture -%}
 
 {%- comment -%} capture terms from all cloud fields {%- endcomment -%}
 {%- assign terms = "" -%}
@@ -59,7 +60,7 @@
         {% if include.shuffle == true %}shuffle(array);{% endif %}
         for (let i = 0; i < array.length; i++) {
             size = mapSize(array[i][1]);
-            items += '<a class="btn btn-{{ include.button | default: "outline-primary" }} m-2 tagcloud' + size + '" href="{{ "/browse.html" | relative_url }}#' + array[i][2] + ':' + encodeURIComponent(array[i][0]) + '" >' + array[i][0] + '</a>';
+            items += '<a class="btn btn-{{ button_variant | strip }} m-2 tagcloud' + size + '" href="{{ "/browse.html" | relative_url }}#' + array[i][2] + ':' + encodeURIComponent(array[i][0]) + '" >' + array[i][0] + '</a>';
         }
         cloud.innerHTML = items;
     }

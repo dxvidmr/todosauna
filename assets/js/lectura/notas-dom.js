@@ -9,8 +9,13 @@ var TIPO_NOTA_MAP = {
   lexica: 'léxica', parafrasis: 'paráfrasis', historica: 'histórica',
   geografica: 'geográfica', mitologica: 'mitológica', estilistica: 'estilística',
   escenica: 'escénica', ecdotica: 'ecdótica', realia: 'realia',
-  dramaturgica: 'dramatúrgica'
+  dramaturgica: 'dramatúrgica', intertextual: 'intertextual'
 };
+
+var TIPO_NOTA_ORDER = [
+  'lexica', 'parafrasis', 'realia', 'historica', 'geografica', 'mitologica',
+  'intertextual', 'estilistica', 'ecdotica', 'dramaturgica', 'escenica'
+];
 
 var TIPO_NOTA_DESC_MAP = {
   lexica: 'Glosa léxica, semántica y fraseológica.',
@@ -587,6 +592,21 @@ function addNoteGroup(wrapper, noteId, options) {
   }
 }
 
+function addNoteMediaGroup(wrapper, noteId) {
+  var groups = (wrapper.getAttribute('data-note-media-groups') || '').split(' ').filter(function (g) { return g; });
+  if (groups.indexOf(noteId) !== -1) return;
+  groups.push(noteId);
+  wrapper.setAttribute('data-note-media-groups', groups.join(' '));
+}
+
+function readEffectiveNoteGroups(wrapper) {
+  if (!wrapper) return [];
+  var attribute = wrapper.hasAttribute('data-visible-note-groups')
+    ? 'data-visible-note-groups'
+    : 'data-note-groups';
+  return (wrapper.getAttribute(attribute) || '').split(' ').filter(function (g) { return g; });
+}
+
 // Guard: true si es la primera llamada (adjuntar eventos); false si ya estaban
 function markWrapperEventsAttached(wrapper) {
   if (wrapper.hasAttribute('data-note-events')) return false;
@@ -627,12 +647,11 @@ function highlightNoteInText(container, noteId, active) {
 // CUALQUIER grupo con el wrapper dado. Usado por sala-de-lectura (mouseenter).
 function highlightAllRelatedGroups(container, wrapper, active) {
   if (!container || !wrapper) return;
-  var str = wrapper.getAttribute('data-note-groups');
-  if (!str) return;
-  var groups = str.split(' ').filter(function (g) { return g; });
+  var groups = readEffectiveNoteGroups(wrapper);
+  if (groups.length === 0) return;
   var all = container.querySelectorAll('[data-note-groups]');
   for (var i = 0; i < all.length; i++) {
-    var eg = (all[i].getAttribute('data-note-groups') || '').split(' ').filter(function (g) { return g; });
+    var eg = readEffectiveNoteGroups(all[i]);
     if (groups.some(function (g) { return eg.indexOf(g) !== -1; })) {
       all[i].classList.toggle('note-active', !!active);
     }
@@ -672,7 +691,7 @@ function applyNoteHighlights(container, notes, options) {
   var processedIds = [];
 
   function readGroups(wrapper) {
-    return (wrapper.getAttribute('data-note-groups') || '').split(' ').filter(function (g) { return g; });
+    return readEffectiveNoteGroups(wrapper);
   }
 
   sorted.forEach(function (note) {
@@ -687,26 +706,33 @@ function applyNoteHighlights(container, notes, options) {
       var wrapper = ensureNoteWrapper(element);
       addNoteGroup(wrapper, noteId, { propagateToDescendants: propagate });
       if (hasImageNote) {
+        addNoteMediaGroup(wrapper, noteId);
         wrapper.classList.add('note-target-has-media');
       }
       if (!markWrapperEventsAttached(wrapper)) return;
 
       if (options.onWrapperClick) {
         wrapper.addEventListener('click', function (e) {
+          var groups = readGroups(wrapper);
+          if (groups.length === 0) return;
           e.preventDefault(); e.stopPropagation();
-          options.onWrapperClick({ wrapper: wrapper, groups: readGroups(wrapper), event: e });
+          options.onWrapperClick({ wrapper: wrapper, groups: groups, event: e });
         });
       }
       if (options.onWrapperEnter) {
         wrapper.addEventListener('mouseenter', function (e) {
+          var groups = readGroups(wrapper);
+          if (groups.length === 0) return;
           e.stopPropagation();
-          options.onWrapperEnter({ wrapper: wrapper, groups: readGroups(wrapper), event: e });
+          options.onWrapperEnter({ wrapper: wrapper, groups: groups, event: e });
         });
       }
       if (options.onWrapperLeave) {
         wrapper.addEventListener('mouseleave', function (e) {
+          var groups = readGroups(wrapper);
+          if (groups.length === 0) return;
           e.stopPropagation();
-          options.onWrapperLeave({ wrapper: wrapper, groups: readGroups(wrapper), event: e });
+          options.onWrapperLeave({ wrapper: wrapper, groups: groups, event: e });
         });
       }
     });
@@ -720,10 +746,12 @@ if (typeof window !== 'undefined') {
 }
 
 export {
-  TIPO_NOTA_MAP, normalizeAnaCategories, parseTargetString, sortNotesBySpecificity,
+  TIPO_NOTA_MAP, TIPO_NOTA_DESC_MAP, TIPO_NOTA_ORDER,
+  normalizeAnaCategories, parseTargetString, sortNotesBySpecificity,
   collectNoteTargetMeta, buildReadingOrderNoteIds, pickPrimaryNoteIdForClick,
   findElementByXmlId, resolveTargetElements,
-  ensureNoteWrapper, addNoteGroup, markWrapperEventsAttached,
+  ensureNoteWrapper, addNoteGroup, addNoteMediaGroup, readEffectiveNoteGroups,
+  markWrapperEventsAttached,
   buildNoteBadgesHTML, buildNoteDisplayHTML, setNoteRichText, hydrateCbRefsInContainer,
   highlightNoteInText, highlightAllRelatedGroups, initNoteBadgeTooltip,
   markCurrentNoteInText, applyNoteHighlights

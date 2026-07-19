@@ -1,0 +1,7 @@
+{%- assign requested_status = include.variant | default: 'info' -%}
+{%- assign allowed_statuses = 'success,info,warning,danger' | split: ',' -%}
+{%- if allowed_statuses contains requested_status -%}
+{{- requested_status -}}
+{%- else -%}
+info
+{%- endif -%}

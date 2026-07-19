@@ -15,14 +15,15 @@
     - "header" = card header text in bar above card content (optional)
     - "heading_level" = customize the level of the heading if necessary for accessibility, choose "h1", "h2", "h3", etc (optional, default "h2")
     - "max" = maximum images selected for slide show (optional, default 9. Do not make too big!)
-    - "btn-color" = a bootstrap color class to theme the buttons. Can be any bootstrap template color (e.g. info, success) or outline (e.g. outline-info, outline-success), including colors created in config-theme-colors. (optional, default "primary")
+    - "btn-color" = semantic button variant (optional, default "accent")
     - "btn-text" = the label used in the link btn to view the carousel item (optional, default "View Item")
     - "filter-field" and "filter-value" = use these options together to filter which set of items will appear in the carousel based on a particular metadata field and value in that field. filter-field must match a column in your metadata. any item with a value in the filter-field that "contains" the filter-value will be included, it does not need to be an exact match. (optional)
     
 {%- endcomment -%}
 
 {%- assign carousel-max = include.max | default: 9 -%}
-{%- assign btn-color = include.btn-color | default: "primary" -%}
+{%- capture btn-color -%}{% include ui/button-variant.html variant=include.btn-color default='accent' %}{%- endcapture -%}
+{%- assign btn-color = btn-color | strip -%}
 {%- assign btn-text = include.btn-text | default: "View Item" -%}
 {% if include.child-objects == true %}
 {%- assign carousel-items = site.data[site.metadata] | where_exp: 'item','item.objectid' | where_exp: "item","item.image_small != nil or item.image_thumb != nil"-%}
@@ -44,7 +45,7 @@
     <div class="card-body">
         {% if include.title %}<{{ include.heading_level | default: 'h2' | strip }} class="card-title h5">{{ include.title }}</{{ include.heading_level | default: 'h2' | strip }}>{% endif %}
         
-        <div id="imageCarousel" class="carousel slide bg-dark rounded mb-3" data-bs-ride="carousel">
+        <div id="imageCarousel" class="carousel slide bg-inverse rounded mb-3" data-bs-ride="carousel">
             <div id="carouselIndicators" class="carousel-indicators">
                 
             </div>
@@ -94,7 +95,7 @@
         slide = `<div class="carousel-item py-2${ i == 0 ? ' active' : '' }">
             <img class="d-block h-100 mx-auto lazyload" alt="${carouselItems[i][4]}" data-src="${itemImg}">
             <div class="carousel-caption">
-                <h3 class="carousel-item-title text-white py-2 h6">${carouselItems[i][0]}</h3>
+                <h3 class="carousel-item-title text-inverse py-2 h6">${carouselItems[i][0]}</h3>
                 <a href="${itemLink}" class="btn btn-sm btn-{{ btn-color }}">{{ btn-text }}</a>
             </div></div>`;
         slides += slide;

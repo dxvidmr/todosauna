@@ -3,7 +3,8 @@
     This allows you to override any CollectionBuilder or Bootstrap CSS without modifying the base theme files directly.
 */
 
-@use "variables" as *;
+@use "sass:color";
+@use "tokens" as *;
 
 /* Navigation Wrapper */
 .nav-wrapper {
@@ -126,11 +127,11 @@
     max-inline-size: calc(100vw - 2rem);
     border-radius: var(--ui-radius);
     padding: 0.38rem 1.3rem;
-    --navbar-bg: #{rgba($color-secondary-100, 0.86)};
-    --navbar-text: #{$color-dark};
-    --navbar-border-soft: #{mix($color-neutral-200, $color-dark, 88%)};
-    --navbar-search-bg: #{$color-light};
-    --navbar-shadow: 0 4px 12px #{rgba($color-dark, 0.032)}, 0 1px 2px #{rgba($color-dark, 0.02)};
+    --navbar-bg: #{$color-surface-floating-nav};
+    --navbar-text: #{$color-ink};
+    --navbar-border-soft: #{color.mix($color-border-soft, $color-ink, 88%)};
+    --navbar-search-bg: #{$color-paper};
+    --navbar-shadow: #{$shadow-floating-nav};
     background-color: var(--navbar-bg) !important;
     background-image: none !important;
     color: var(--navbar-text) !important;
@@ -143,10 +144,10 @@
     pointer-events: auto;
     flex-shrink: 0;
     --bs-navbar-color: var(--navbar-text);
-    --bs-navbar-hover-color: var(--color-primary);
-    --bs-navbar-active-color: var(--color-primary);
+    --bs-navbar-hover-color: var(--color-accent);
+    --bs-navbar-active-color: var(--color-accent);
     --bs-navbar-brand-color: var(--navbar-text);
-    --bs-navbar-brand-hover-color: var(--color-primary);
+    --bs-navbar-brand-hover-color: var(--color-accent);
     --bs-navbar-toggler-border-color: var(--navbar-border-soft);
     
     @media (max-width: 991.98px) {
@@ -160,7 +161,6 @@
 }
 
 .nav-wrapper.is-scrolled:not(.menu-expanded):not(.menu-closing) .navbar-floating {
-    background-color: rgba($color-secondary-100, 0.72) !important;
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     box-shadow: none;
@@ -199,7 +199,7 @@
     
     /* Estilos del scrollbar */
     scrollbar-width: thin;
-    scrollbar-color: rgba($color-primary, 0.24) transparent;
+    scrollbar-color: rgba($color-accent, 0.24) transparent;
     
     &::-webkit-scrollbar {
         width: 6px;
@@ -210,7 +210,7 @@
     }
     
     &::-webkit-scrollbar-thumb {
-        background: rgba($color-primary, 0.24);
+        background: rgba($color-accent, 0.24);
         border-radius: 3px;
     }
 }
@@ -337,12 +337,12 @@
         transition: color 0.2s ease, opacity 0.2s ease;
         
         &:hover {
-            color: var(--color-primary);
+            color: var(--color-accent);
             opacity: 1;
         }
         
         &.active {
-            color: var(--color-primary);
+            color: var(--color-accent);
             font-weight: 600;
         }
     }
@@ -421,12 +421,12 @@
     
     &:hover {
         opacity: 1;
-        color: var(--color-primary);
+        color: var(--color-accent);
     }
     
     &.active {
         font-weight: 600;
-        color: var(--color-primary);
+        color: var(--color-accent);
     }
 }
 
@@ -437,7 +437,7 @@
     margin: 0;
     
     a {
-        color: var(--ui-text-muted);
+        color: var(--color-text-subtle);
         font-size: 0.9rem;
         text-decoration: none;
         transition: color 0.2s;
@@ -447,7 +447,7 @@
         }
         
         &:hover {
-            color: var(--color-primary);
+            color: var(--color-accent);
         }
     }
 }
@@ -503,7 +503,7 @@
         min-width: 0; /* IMPORTANTE: Permite que el input se comprima */
         
         &::placeholder {
-            color: var(--ui-text-muted);
+            color: var(--color-text-subtle);
         }
         
         &:focus {
@@ -517,12 +517,12 @@
     button {
         background: transparent;
         border: none;
-        color: var(--ui-text-muted);
+        color: var(--color-text-subtle);
         padding: 0 0.5rem;
         flex-shrink: 0; /* No comprimir el botón */
         
         &:hover {
-            color: var(--color-primary);
+            color: var(--color-accent);
         }
     }
 }
@@ -556,7 +556,7 @@
 
     &:hover,
     &:focus {
-        color: var(--color-primary);
+        color: var(--color-accent);
     }
 }
 
@@ -580,16 +580,16 @@
     transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
     
     &:hover {
-        color: var(--color-primary);
+        color: var(--color-accent);
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0 0.2rem var(--color-primary-soft);
+        box-shadow: 0 0 0 0.2rem var(--color-accent-soft);
     }
 
     &:active {
-        background: var(--color-primary-soft);
-        color: var(--color-primary);
+        background: var(--color-accent-soft);
+        color: var(--color-accent);
     }
 }
 
@@ -606,12 +606,12 @@
 
     &:hover {
         background: transparent;
-        color: var(--color-primary);
+        color: var(--color-accent);
     }
 
     &:active {
         background: transparent;
-        color: var(--color-primary);
+        color: var(--color-accent);
     }
 }
 
@@ -692,7 +692,7 @@
     gap: 0;
     
     background: transparent;
-    color: $color-light;
+    color: $color-paper;
     border: none;
     padding: 1rem 1.25rem;
     border-radius: var(--ui-radius);
@@ -710,7 +710,7 @@
         font-size: 16px;
         flex-shrink: 0;
         transition: margin 0.3s ease;
-        color: $color-dark;
+        color: $color-ink;
     }
     
     // Texto oculto por defecto
@@ -726,18 +726,18 @@
     
     // En hover: expande hacia la izquierda mostrando el texto
     &:hover {
-        background: $color-dark;
+        background: $color-ink;
         box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         
         .btn-participacion-texto {
             max-width: 150px;
             opacity: 1;
             margin-right: 10px;
-            color: $color-light;
+            color: $color-paper;
         }
 
         i {
-            color: $color-light;
+            color: $color-paper;
         }
     }
     

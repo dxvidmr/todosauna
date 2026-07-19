@@ -160,12 +160,12 @@ function crearBotonesConContadores(notaId, noteChange, evaluaciones) {
       ${badgeSinEvaluaciones}
     </div>
     <div class="evaluacion-botones">
-      <button class="btn btn-outline-dark btn-evaluar btn-util" data-nota-id="${notaId}" data-note-change="${safeChange}">
+      <button class="btn btn-outline-action btn-evaluar btn-util" data-nota-id="${notaId}" data-note-change="${safeChange}">
         <span class="btn-contador">${counts.utiles}</span>
         <i class="fa-solid fa-heart" aria-hidden="true"></i>
         Útil
       </button>
-      <button class="btn btn-outline-dark btn-evaluar btn-mejorable" data-nota-id="${notaId}" data-note-change="${safeChange}">
+      <button class="btn btn-outline-action btn-evaluar btn-mejorable" data-nota-id="${notaId}" data-note-change="${safeChange}">
         <span class="btn-contador">${counts.mejorables}</span>
         <i class="fa-solid fa-heart-crack" aria-hidden="true"></i>
         Mejorable
@@ -173,8 +173,8 @@ function crearBotonesConContadores(notaId, noteChange, evaluaciones) {
     </div>
     <div class="evaluacion-comentario" style="display:none;">
       <textarea placeholder="[opcional] ¿Qué cambiarías? Puedes explicar lo que no te gusta o redactar una nueva nota." rows="3"></textarea>
-      <button class="btn btn-dark btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
-      <button class="btn btn-outline-dark btn-sm btn-cancelar-comentario">Cancelar</button>
+      <button class="btn btn-action btn-sm btn-enviar-comentario me-2"><i class="fa-solid fa-paper-plane me-2" aria-hidden="true"></i>Enviar</button>
+      <button class="btn btn-outline-action btn-sm btn-cancelar-comentario">Cancelar</button>
     </div>
   `;
 }

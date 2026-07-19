@@ -29,7 +29,7 @@ navbar_main_offset: true
         <p class="mb-3">
           Evalúa notas explicativas y sugiere notas faltantes mientras lees la obra.
         </p>
-        <a class="btn btn-dark mt-auto" href="{{ '/participa/guia/notas/' | relative_url }}">Ver guía de notas</a>
+        <a class="btn btn-action mt-auto" href="{{ '/participa/guia/notas/' | relative_url }}">Ver guía de notas</a>
       </div>
     </article>
   </div>
@@ -40,7 +40,7 @@ navbar_main_offset: true
         <p class="mb-3">
           Comparte documentos, referencias o metadatos sobre ediciones, representaciones y recepción de <i>Fuenteovejuna</i>.
         </p>
-        <a class="btn btn-dark mt-auto" href="{{ '/participa/guia/documentos/' | relative_url }}">Ver guía de documentos</a>
+        <a class="btn btn-action mt-auto" href="{{ '/participa/guia/documentos/' | relative_url }}">Ver guía de documentos</a>
       </div>
     </article>
   </div>
@@ -51,7 +51,7 @@ navbar_main_offset: true
         <p class="mb-3">
           Cuenta experiencias de lectura, docencia, escena o memoria cultural vinculadas a la obra.
         </p>
-        <a class="btn btn-dark mt-auto" href="{{ '/participa/guia/testimonios/' | relative_url }}">Ver guía de testimonios</a>
+        <a class="btn btn-action mt-auto" href="{{ '/participa/guia/testimonios/' | relative_url }}">Ver guía de testimonios</a>
       </div>
     </article>
   </div>

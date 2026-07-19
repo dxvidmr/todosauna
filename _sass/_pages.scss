@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use "tokens" as *;
 
 /*  
     pages - style tweaks related to individual CB pages
@@ -7,11 +7,11 @@
 */
 
 /* set up base variable to override from cb.scss */
-$toc-a-color: $color-dark !default;
+$toc-a-color: $color-ink !default;
 
 /* index */
 .carousel-item-title{
-    background-color: rgba($color-dark, 0.72);
+    background-color: rgba($color-ink, 0.72);
 }
 
 /* item page */
@@ -63,7 +63,7 @@ $toc-a-color: $color-dark !default;
     &:active {
         text-decoration: none;
         background: none;
-        color: $color-primary;
+        color: $color-accent;
     }
 }
 .compound-thumb {
@@ -95,7 +95,7 @@ $toc-a-color: $color-dark !default;
 
 .item-metadata-section {
     padding: 0.95rem 0;
-    border-bottom: 1px solid rgba($color-dark, 0.08);
+    border-bottom: 1px solid rgba($color-ink, 0.08);
 
     &:last-child {
         border-bottom: none;
@@ -140,7 +140,7 @@ $toc-a-color: $color-dark !default;
     align-items: center;
     gap: 0.35rem;
     padding: 0.26rem 0.62rem;
-    border: 1px solid rgba($color-dark, 0.14);
+    border: 1px solid rgba($color-ink, 0.14);
     border-radius: var(--ui-radius-xs);
     background: transparent;
     font-size: 0.9rem;
@@ -148,7 +148,7 @@ $toc-a-color: $color-dark !default;
 }
 
 .item-tag-label {
-    color: $color-neutral-700;
+    color: $color-text-subtle;
     font-weight: 600;
 }
 
@@ -165,7 +165,7 @@ $toc-a-color: $color-dark !default;
 
 .item-info-section {
     padding: 1rem 0;
-    border-top: 1px solid rgba($color-dark, 0.08);
+    border-top: 1px solid rgba($color-ink, 0.08);
 
     dl {
         margin-bottom: 0;
@@ -193,7 +193,7 @@ $toc-a-color: $color-dark !default;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: $color-text-muted;
+    color: $color-text-quiet;
 }
 
 @media (min-width: 992px) {
@@ -218,9 +218,9 @@ $toc-a-color: $color-dark !default;
 
 .compound-parent-note {
     padding: 1rem 1.1rem;
-    border: 1px solid rgba($color-dark, 0.12);
+    border: 1px solid rgba($color-ink, 0.12);
     border-radius: var(--ui-radius);
-    background: rgba($color-secondary-50, 0.58);
+    background: rgba($color-surface-page, 0.58);
     color: $color-text;
     font-size: 0.96rem;
     line-height: 1.45;
@@ -230,7 +230,7 @@ $toc-a-color: $color-dark !default;
     }
 
     strong {
-        color: $color-dark;
+        color: $color-ink;
     }
 }
 
@@ -256,12 +256,12 @@ $toc-a-color: $color-dark !default;
 
 .compound-child-card {
     width: 100%;
-    border: 1px solid rgba($color-dark, 0.10);
+    border: 1px solid rgba($color-ink, 0.10);
     border-radius: var(--ui-radius-sm);
     overflow: hidden;
 
     .card-body {
-        background-color: $color-secondary-50;
+        background-color: $color-surface-page;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
@@ -365,17 +365,17 @@ $toc-a-color: $color-dark !default;
     display: block;
     color: $color-text;
     text-decoration: none;
-    border: 1px solid rgba($color-dark, 0.10);
+    border: 1px solid rgba($color-ink, 0.10);
     border-radius: var(--ui-radius);
     overflow: hidden;
-    background: $color-light;
+    background: $color-paper;
     transition: box-shadow 0.18s ease;
 
     &:hover,
     &:focus-visible {
         color: $color-text;
         text-decoration: none;
-        box-shadow: 0 8px 20px rgba($color-dark, 0.12);
+        box-shadow: 0 8px 20px rgba($color-ink, 0.12);
     }
 }
 
@@ -401,7 +401,7 @@ $toc-a-color: $color-dark !default;
     min-height: 180px;
     display: grid;
     place-items: center;
-    color: $color-neutral-700;
+    color: $color-text-subtle;
     padding: 1rem;
     text-align: center;
 
@@ -426,17 +426,17 @@ $toc-a-color: $color-dark !default;
     align-items: center;
     padding: 0.18rem 0.48rem;
     border-radius: var(--ui-radius);
-    background: rgba($color-dark, 0.78);
-    color: $color-light;
+    background: rgba($color-ink, 0.78);
+    color: $color-paper;
     font-size: var(--browse-badge-size);
     font-weight: 600;
     line-height: 1.15;
 }
 
 .browse-badge--type {
-    background: rgba($color-secondary-50, 0.92);
-    color: $color-dark;
-    border: 1px solid rgba($color-dark, 0.14);
+    background: rgba($color-surface-page, 0.92);
+    color: $color-ink;
+    border: 1px solid rgba($color-ink, 0.14);
     font-weight: 500;
 }
 
@@ -455,7 +455,7 @@ $toc-a-color: $color-dark !default;
         rgba(0, 0, 0, 0.46) 58%,
         rgba(0, 0, 0, 0.8) 100%
     );
-    color: $color-light;
+    color: $color-paper;
     opacity: 0;
     transform: translateY(4px);
     transition: opacity 0.2s ease, transform 0.2s ease;
@@ -492,7 +492,7 @@ $toc-a-color: $color-dark !default;
 
 .browse-title {
     margin: 0;
-    color: $color-dark;
+    color: $color-ink;
     font-size: var(--browse-title-size);
     line-height: 1.24;
     letter-spacing: 0;
@@ -611,7 +611,7 @@ $toc-a-color: $color-dark !default;
     min-width: 0;
     height: auto;
     padding: 0.625rem 0.75rem;
-    border: 1px solid $color-neutral-200;
+    border: 1px solid $color-border-soft;
     border-radius: var(--ui-radius-sm);
     font-size: 0.95rem;
 }
@@ -624,7 +624,7 @@ $toc-a-color: $color-dark !default;
 
 .date-separator {
     font-size: 0.875rem;
-    color: $color-neutral-700;
+    color: $color-text-subtle;
     white-space: nowrap;
 }
 
@@ -768,7 +768,7 @@ $toc-a-color: $color-dark !default;
         width: 100%;
         background-color: $color-surface-page;
         color: $color-text;
-        border-color: rgba($color-dark, 0.14);
+        border-color: rgba($color-ink, 0.14);
     }
 }
 #about-toc-list {
@@ -817,7 +817,7 @@ $toc-a-color: $color-dark !default;
         &:hover,
         &:focus-visible,
         &:active {
-            color: $color-primary;
+            color: $color-accent;
             text-decoration: none;
             background-image: none;
             background-color: transparent;
@@ -956,8 +956,8 @@ $toc-a-color: $color-dark !default;
 }
 
 .guide-faq-card {
-    border-color: rgba($color-dark, 0.12);
-    background-color: rgba($color-secondary-50, 0.62);
+    border-color: rgba($color-ink, 0.12);
+    background-color: rgba($color-surface-page, 0.62);
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.04);
 
     .card-body {
@@ -967,7 +967,7 @@ $toc-a-color: $color-dark !default;
     h3,
     h4,
     h5 {
-        color: $color-dark;
+        color: $color-ink;
         font-weight: 700;
         letter-spacing: 0.01em;
     }
@@ -984,20 +984,20 @@ $toc-a-color: $color-dark !default;
 }
 
 .site-search-result-group {
-    border: 1px solid rgba($color-dark, 0.12);
+    border: 1px solid rgba($color-ink, 0.12);
     border-radius: var(--ui-radius);
     padding: 0.8rem 0.9rem;
-    background: rgba($color-secondary-50, 0.45);
+    background: rgba($color-surface-page, 0.45);
 }
 
 .site-search-result-group-head h3 {
-    color: $color-dark;
+    color: $color-ink;
 }
 
 .site-search-result-item + .site-search-result-item {
     margin-top: 0.7rem;
     padding-top: 0.7rem;
-    border-top: 1px solid rgba($color-neutral-200, 0.6);
+    border-top: 1px solid rgba($color-border-soft, 0.6);
 }
 
 .site-search-result-title {
@@ -1005,11 +1005,11 @@ $toc-a-color: $color-dark !default;
 }
 
 .site-search-result-meta {
-    color: $color-text-muted-dark;
+    color: $color-text-subtle-strong;
     font-size: 0.82rem;
 }
 
 .site-search-result-preview {
-    color: $color-text-muted;
+    color: $color-text-quiet;
     font-size: 0.9rem;
 }

@@ -64,6 +64,6 @@ Then below the div add the cloud-js include and provide the variable `fields`, a
 For example:
 
 ```
-<div id="cloud" class="text-center my-4 bg-light border rounded p-2"></div>
+<div id="cloud" class="text-center my-4 bg-surface-raised border rounded p-2"></div>
 {% include js/cloud-js.html fields="creator;publisher" min=2 stopwords="example;another" %}
 ```

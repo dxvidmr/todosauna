@@ -3,7 +3,8 @@
 // Tipografia y controles compartidos, sin layout de pagina.
 // ============================================
 
-@use "variables" as *;
+@use "sass:color";
+@use "tokens" as *;
 
 // Tipografia y jerarquia de labels
 .participa-fieldset {
@@ -21,13 +22,13 @@
     font-size: 1.3rem;
     font-weight: 700;
     line-height: 1.2;
-    color: $color-dark;
+    color: $color-ink;
   }
 }
 
 .participa-fieldset + .participa-fieldset {
   margin-top: clamp(12px, 1.8vh, 18px);
-  border-top: 1px solid rgba($color-dark, 0.08);
+  border-top: 1px solid rgba($color-ink, 0.08);
   padding-top: clamp(6px, 1vh, 10px);
 }
 
@@ -44,16 +45,16 @@
 
 .label-derivado {
   font-size: 0.9rem;
-  color: $color-text-muted;
+  color: $color-text-quiet;
 }
 
 .required-mark {
-  color: $color-danger;
+  color: $color-status-danger;
   font-weight: 700;
 }
 
 .optional-note {
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-weight: 400;
   font-size: 0.84rem;
 }
@@ -61,7 +62,7 @@
 .participa-form .field-group-title,
 .modo-form .field-group-title {
   margin: 0 0 8px;
-  color: $color-text-secondary;
+  color: $color-text-subtle;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -72,7 +73,7 @@
 .field-helper {
   display: block;
   margin-top: 6px;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-size: 0.82rem;
   line-height: 1.35;
 }
@@ -140,7 +141,7 @@
 // Controles base
 .participa-form .form-control,
 .participa-form .form-select {
-  border: 1px solid $color-neutral-200;
+  border: 1px solid $color-border-soft;
   border-radius: var(--ui-radius-sm);
   padding: 10px 12px;
   font-size: 0.95rem;
@@ -155,7 +156,7 @@
 .modo-form input[type="number"],
 .modo-form textarea {
   width: 100%;
-  border: 1px solid $color-neutral-200;
+  border: 1px solid $color-border-soft;
   border-radius: var(--ui-radius-sm);
   padding: 10px 12px;
   font-size: 0.95rem;
@@ -171,8 +172,8 @@
 .modo-form input[type="text"]:focus,
 .modo-form input[type="number"]:focus,
 .modo-form textarea:focus {
-  border-color: $color-light;
-  box-shadow: 0 0 0 0.12rem rgba($color-dark, 0.08);
+  border-color: $color-paper;
+  box-shadow: 0 0 0 0.12rem rgba($color-ink, 0.08);
 }
 
 // Checkbox/radio labels (no heredar peso de label general)
@@ -181,7 +182,7 @@
   margin-bottom: 0;
   font-size: 0.92rem;
   font-weight: 400;
-  color: $color-text-muted;
+  color: $color-text-quiet;
 }
 
 .participa-form .form-check,
@@ -202,7 +203,7 @@
   margin-bottom: 16px;
 
   .form-check-label {
-    color: $color-text-muted;
+    color: $color-text-quiet;
     font-size: 0.9rem;
   }
 }
@@ -214,30 +215,30 @@
   margin: clamp(10px, 1.5vh, 14px) 0 0;
   font-size: 0.92rem;
   background: $color-surface-raised;
-  color: $color-neutral-700;
+  color: $color-text-subtle;
 
   &:empty {
     display: none;
   }
 
   &.is-error {
-    background: rgba($color-danger, 0.16);
-    color: $color-danger;
+    background: rgba($color-status-danger, 0.16);
+    color: $color-status-danger;
   }
 
   &.is-warning {
-    background: $color-secondary-50;
-    color: $color-dark;
+    background: $color-surface-page;
+    color: $color-ink;
   }
 
   &.is-success {
-    background: $color-success-light;
-    color: mix(black, $color-success, 35%);
+    background: $color-status-success-soft;
+    color: color.mix(black, $color-status-success, 35%);
   }
 
   &.is-info {
-    background: $color-neutral-100;
-    color: $color-neutral-700;
+    background: $color-surface-muted;
+    color: $color-text-subtle;
   }
 }
 
@@ -248,14 +249,14 @@
 .participa-inline-status {
   margin: 8px 0 0;
   font-size: 0.85rem;
-  color: $color-neutral-700;
+  color: $color-text-subtle;
 
   &.is-error {
-    color: $color-danger;
+    color: $color-status-danger;
   }
 
   &.is-warning {
-    color: $color-dark;
+    color: $color-ink;
   }
 }
 
@@ -325,7 +326,7 @@
 
   &:hover,
   &.is-active {
-    background: $color-neutral-50;
+    background: $color-surface-hover;
   }
 }
 

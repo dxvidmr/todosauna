@@ -84,8 +84,12 @@ function alignSplitVerses(container) {
     
     allVerses.forEach(verse => {
         const part = verse.getAttribute('part');
-        // Obtener texto normalizado (sin espacios extra)
-        const verseText = verse.textContent.replace(/\s+/g, ' ').trim();
+        // Medir solo el contenido editorial; la numeración y los marcadores
+        // métricos son elementos de presentación añadidos por JavaScript.
+        const verseContent = verse.cloneNode(true);
+        verseContent.querySelectorAll('.numero-verso, .metrical-marker, .metrical-label')
+            .forEach(marker => marker.remove());
+        const verseText = verseContent.textContent.replace(/\s+/g, ' ').trim();
         
         if (part === 'I') {
             // Parte inicial: resetear y no aplicar padding
@@ -94,13 +98,9 @@ function alignSplitVerses(container) {
             // Calcular la longitud de esta parte para las siguientes
             accumulatedLength = verseText.length + 1; // +1 para el espacio
             
-            console.log(`Verso part="I": "${verseText}" (${verseText.length} chars) - acumulado: ${accumulatedLength}ch`);
-            
         } else if (part === 'M' || part === 'F') {
             // Partes intermedias o finales: aplicar padding
             verse.style.paddingLeft = `${accumulatedLength}ch`;
-            
-            console.log(`Verso part="${part}": "${verseText}" (${verseText.length} chars) - padding: ${accumulatedLength}ch`);
             
             // Si es parte intermedia, acumular su longitud para la siguiente
             if (part === 'M') {
@@ -117,35 +117,33 @@ function alignSplitVerses(container) {
  */
 function aplicarNumeracionVersos(container, modo = 'cada5') {
     if (!container) return;
-    
+
+    const modosValidos = new Set(['todos', 'cada5', 'ninguna']);
+    const modoActivo = modosValidos.has(modo) ? modo : 'cada5';
     const versos = container.querySelectorAll('tei-l[n]');
-    
+
     versos.forEach(verso => {
-        const numeroVerso = parseInt(verso.getAttribute('n'));
-        
-        // Remover número anterior si existe
-        const numeroExistente = verso.querySelector('.numero-verso');
-        if (numeroExistente) {
-            numeroExistente.remove();
+        const etiquetaVerso = verso.getAttribute('n')?.trim() || '';
+        const numeroVerso = Number(etiquetaVerso);
+        const mostrar = modoActivo === 'todos'
+            || (modoActivo === 'cada5' && Number.isInteger(numeroVerso) && numeroVerso % 5 === 0);
+        let marcador = Array.from(verso.children)
+            .find(child => child.classList?.contains('numero-verso'));
+
+        if (!mostrar || !etiquetaVerso) {
+            marcador?.remove();
+            return;
         }
-        
-        // Determinar si mostrar el número
-        let mostrar = false;
-        if (modo === 'todos') {
-            mostrar = true;
-        } else if (modo === 'cada5') {
-            mostrar = numeroVerso % 5 === 0;
+
+        if (!marcador) {
+            marcador = document.createElement('span');
+            marcador.className = 'numero-verso';
+            marcador.setAttribute('aria-hidden', 'true');
+            verso.appendChild(marcador);
         }
-        
-        if (mostrar && !isNaN(numeroVerso)) {
-            const span = document.createElement('span');
-            span.className = 'numero-verso';
-            span.textContent = numeroVerso;
-            verso.appendChild(span);
-        }
+
+        marcador.textContent = etiquetaVerso;
     });
-    
-    console.log(`Numeración de versos aplicada: modo ${modo}`);
 }
 
 console.log('Utils y rendering utils cargados');

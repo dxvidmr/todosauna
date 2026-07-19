@@ -18,7 +18,7 @@ custom-foot: participacion/scripts-testimonio-form.html
     </header>
     <section id="participa-mode-gate-testimonio" class="participa-mode-gate" hidden>
       <p class="mb-2">Antes de enviar, define tu modo de participación.</p>
-      <button type="button" id="btn-definir-modo-testimonio" class="btn btn-secondary-100 btn-sm">Elegir modo de participación</button>
+      <button type="button" id="btn-definir-modo-testimonio" class="btn btn-soft btn-sm">Elegir modo de participación</button>
     </section>
     <form id="testimonio-form" class="participa-form" novalidate>
       <input type="hidden" id="testimonio-linked-contribucion-id" value="">
@@ -65,7 +65,7 @@ custom-foot: participacion/scripts-testimonio-form.html
             <input type="hidden" id="testimonio-experiencia-pais-nombre">
             <input type="hidden" id="testimonio-experiencia-pais-id">
           </div>
-          <button type="button" class="btn btn-outline-dark btn-sm" id="testimonio-limpiar-ciudad">Limpiar</button>
+          <button type="button" class="btn btn-outline-action btn-sm" id="testimonio-limpiar-ciudad">Limpiar</button>
         </div>
         <small class="field-helper">Selecciona una opción de la lista.</small>
         <div class="mt-3">
@@ -151,7 +151,7 @@ custom-foot: participacion/scripts-testimonio-form.html
       </fieldset>
       <div id="testimonio-form-status" class="participa-form-status" aria-live="polite"></div>
       <div class="participa-form-actions">
-        <button type="submit" id="btn-enviar-testimonio" class="btn btn-dark">Enviar testimonio</button>
+        <button type="submit" id="btn-enviar-testimonio" class="btn btn-action">Enviar testimonio</button>
       </div>
     </form>
     <section id="testimonio-success" class="participa-success card card-soft ui-thin-border p-3 p-md-4" hidden>
@@ -160,8 +160,8 @@ custom-foot: participacion/scripts-testimonio-form.html
       <p class="mb-3">El ID de tu envío es <code id="testimonio-success-id"></code>. Puedes guardarlo por si más adelante quieres hacer alguna consulta.</p>
       <div id="testimonio-link-status" class="participa-form-status"></div>
       <div class="participa-form-actions">
-        <a id="testimonio-cta-documento" href="{{ '/participa/documentos/enviar/' | relative_url }}" class="btn btn-secondary-100">Añadir un documento vinculado</a>
-        <a href="{{ '/participa/' | relative_url }}" class="btn btn-outline-dark">Volver a Participa</a>
+        <a id="testimonio-cta-documento" href="{{ '/participa/documentos/enviar/' | relative_url }}" class="btn btn-soft">Añadir un documento vinculado</a>
+        <a href="{{ '/participa/' | relative_url }}" class="btn btn-outline-action">Volver a Participa</a>
       </div>
     </section>
   </div>

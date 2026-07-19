@@ -40,8 +40,8 @@ function syncQueryInUrl(query) {
 function renderEmptyState(resultsHost, query) {
   const safeQuery = escapeHtml(query);
   resultsHost.innerHTML = query
-    ? `<p class="text-muted mb-0">No se encontraron resultados para <strong>${safeQuery}</strong>.</p>`
-    : '<p class="text-muted mb-0">Introduce un término para buscar.</p>';
+    ? `<p class="text-quiet mb-0">No se encontraron resultados para <strong>${safeQuery}</strong>.</p>`
+    : '<p class="text-quiet mb-0">Introduce un término para buscar.</p>';
 }
 
 function renderGroupedResults(resultsHost, results, query) {
@@ -80,7 +80,7 @@ function renderGroupedResults(resultsHost, results, query) {
       <section class="site-search-result-group" data-source-type="${escapeHtml(sourceType)}">
         <header class="site-search-result-group-head d-flex justify-content-between align-items-center mb-2">
           <h3 class="h5 mb-0">${escapeHtml(groupLabel)}</h3>
-          <span class="badge text-bg-light border">${groupItems.length}</span>
+          <span class="badge badge-neutral">${groupItems.length}</span>
         </header>
         <div class="site-search-result-group-body">
           ${itemsHtml}
@@ -90,7 +90,7 @@ function renderGroupedResults(resultsHost, results, query) {
   });
 
   resultsHost.innerHTML = `
-    <p class="text-muted mb-3">${results.length} resultado(s) para <strong>${escapeHtml(query)}</strong>.</p>
+    <p class="text-quiet mb-3">${results.length} resultado(s) para <strong>${escapeHtml(query)}</strong>.</p>
     <div class="site-search-results-groups">${sections.join('')}</div>
   `;
 }

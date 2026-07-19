@@ -176,7 +176,7 @@
 
     var removeButton = document.createElement('button');
     removeButton.type = 'button';
-    removeButton.className = 'btn btn-outline-dark btn-sm';
+    removeButton.className = 'btn btn-outline-action btn-sm';
     removeButton.setAttribute('data-creator-remove', '');
     removeButton.textContent = 'Quitar';
 
@@ -366,7 +366,7 @@
 
     if (!stagedFiles.length) {
       var emptyItem = document.createElement('li');
-      emptyItem.className = 'list-group-item text-muted';
+      emptyItem.className = 'list-group-item text-quiet';
       emptyItem.textContent = 'Aún no hay archivos subidos.';
       uploadedFilesList.appendChild(emptyItem);
       if (noFilesNotice) noFilesNotice.hidden = false;
@@ -383,18 +383,18 @@
       var name = document.createElement('strong');
       name.textContent = file.name || 'Archivo sin nombre';
       var meta = document.createElement('div');
-      meta.className = 'small text-muted';
+      meta.className = 'small text-quiet';
       meta.textContent = [file.mime || 'mime?', formatBytes(file.size)].join(' - ');
       main.appendChild(name);
       main.appendChild(meta);
 
       var badge = document.createElement('span');
-      badge.className = 'badge text-bg-success';
+      badge.className = 'badge badge-status-success';
       badge.textContent = 'Subido';
 
       var removeButton = document.createElement('button');
       removeButton.type = 'button';
-      removeButton.className = 'btn btn-outline-dark btn-sm';
+      removeButton.className = 'btn btn-outline-action btn-sm';
       removeButton.setAttribute('data-uploaded-file-remove', file.drive_file_id || '');
       removeButton.textContent = isDeletingFile ? 'Eliminando...' : 'Eliminar';
       removeButton.disabled = isDeletingFile || isUploading || isSubmitting || isCancellingUpload;

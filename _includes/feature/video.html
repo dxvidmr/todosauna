@@ -64,7 +64,7 @@
         <figcaption class="figure-caption text-center">
             {{ video_caption }}
             {% if video_transcript != '' %}<br>
-            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTranscript{{ includeid }}" aria-expanded="false" aria-controls="collapseTranscript{{ includeid }}">View Transcript</button>
+            <button class="btn btn-sm btn-outline-soft" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTranscript{{ includeid }}" aria-expanded="false" aria-controls="collapseTranscript{{ includeid }}">View Transcript</button>
             <div class="collapse mt-3" id="collapseTranscript{{ includeid }}">
                 <div class="card card-body text-start">
                     {% assign transcript_type = video_transcript | slice: 0,1 %}

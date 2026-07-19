@@ -1,0 +1,7 @@
+{%- assign requested_surface = include.variant | default: 'surface-raised' -%}
+{%- assign allowed_surfaces = 'surface-page,surface-raised,surface-soft,surface-muted,inverse' | split: ',' -%}
+{%- if allowed_surfaces contains requested_surface -%}
+{{- requested_surface -}}
+{%- else -%}
+surface-raised
+{%- endif -%}

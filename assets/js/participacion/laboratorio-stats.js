@@ -66,12 +66,13 @@ function crearGraficoBarraHorizontal(stats) {
 
   const rootStyles = getComputedStyle(document.documentElement);
   const evaluacionesColor =
-    rootStyles.getPropertyValue('--success').trim() ||
-    rootStyles.getPropertyValue('--color-primary').trim() ||
-    rootStyles.getPropertyValue('--color-dark').trim();
+    rootStyles.getPropertyValue('--color-status-success').trim() ||
+    rootStyles.getPropertyValue('--color-accent').trim() ||
+    rootStyles.getPropertyValue('--color-ink').trim();
   const sugerenciasColor =
-    rootStyles.getPropertyValue('--color-primary').trim() ||
-    rootStyles.getPropertyValue('--color-dark').trim();
+    rootStyles.getPropertyValue('--color-accent').trim() ||
+    rootStyles.getPropertyValue('--color-ink').trim();
+  const overlayColor = rootStyles.getPropertyValue('--color-overlay-strong').trim();
   const totalContribuciones = stats.totalEvaluaciones + stats.totalSugerencias;
 
   window.statsBarChartInstance = new Chart(canvas, {
@@ -122,7 +123,7 @@ function crearGraficoBarraHorizontal(stats) {
         legend: { display: false },
         tooltip: {
           enabled: true,
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          backgroundColor: overlayColor,
           padding: 12,
           titleFont: { size: 14, weight: 'bold' },
           bodyFont: { size: 13 },
@@ -151,12 +152,13 @@ function crearGraficoDoughnut(stats) {
 
   const rootStyles = getComputedStyle(document.documentElement);
   const utilColor =
-    rootStyles.getPropertyValue('--success').trim() ||
-    rootStyles.getPropertyValue('--color-primary').trim() ||
-    rootStyles.getPropertyValue('--color-dark').trim();
+    rootStyles.getPropertyValue('--color-status-success').trim() ||
+    rootStyles.getPropertyValue('--color-accent').trim() ||
+    rootStyles.getPropertyValue('--color-ink').trim();
   const mejorableColor =
-    rootStyles.getPropertyValue('--danger').trim() ||
-    rootStyles.getPropertyValue('--color-dark').trim();
+    rootStyles.getPropertyValue('--color-status-danger').trim() ||
+    rootStyles.getPropertyValue('--color-ink').trim();
+  const overlayColor = rootStyles.getPropertyValue('--color-overlay-strong').trim();
 
   window.statsDoughnutChartInstance = new Chart(canvas, {
     type: 'doughnut',
@@ -176,7 +178,7 @@ function crearGraficoDoughnut(stats) {
         legend: { display: false },
         tooltip: {
           enabled: true,
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          backgroundColor: overlayColor,
           padding: 12,
           titleFont: { size: 14, weight: 'bold' },
           bodyFont: { size: 13 },

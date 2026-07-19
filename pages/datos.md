@@ -11,14 +11,14 @@ permalink: /datos/
       <p class="lead mb-0">
         Descarga y reutiliza los datos de <i>Todos a una</i>. Aprende sobre ciencia abierta y participativa
       </p>
-      <a class="btn btn-lg btn-primary mt-4" href="#datos-descargas-grid">Descargas</a>
+      <a class="btn btn-lg btn-accent mt-4" href="#datos-descargas-grid">Descargas</a>
     </div>
   </div>
 
   <div class="row justify-content-center mb-4 mb-md-5">
     <div class="col-lg-10">
       <div class="vstack gap-3">
-        <div class="card card-soft ui-thin-border bg-secondary-50 text-dark mt-4">
+        <div class="card card-soft ui-thin-border bg-surface-page text-ink mt-4">
           <div class="card-body">
             <h2 class="h4 mb-2">¿Qué es la ciencia abierta?</h2>
             <p class="mb-3">
@@ -41,7 +41,7 @@ permalink: /datos/
                 </div>
                 <div class="col-lg-4 d-flex">
                   <figure class="w-100 h-100 m-0">
-                    <img class="w-100 h-100 rounded border bg-light p-2" style="object-fit: contain;" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/UNESCO-Open_science-pillars-en.png" alt="Pilares de la ciencia abierta según UNESCO" loading="lazy" decoding="async">
+                    <img class="w-100 h-100 rounded border bg-surface-raised p-2" style="object-fit: contain;" src="https://upload.wikimedia.org/wikipedia/commons/d/d8/UNESCO-Open_science-pillars-en.png" alt="Pilares de la ciencia abierta según UNESCO" loading="lazy" decoding="async">
                   </figure>
                 </div>
               </div>
@@ -49,28 +49,28 @@ permalink: /datos/
                 <h3 class="h6 text-uppercase mb-3">Principios FAIR</h3>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">
                   <div class="col">
-                    <div class="h-100 p-3 bg-light border rounded text-center">
+                    <div class="h-100 p-3 bg-surface-raised border rounded text-center">
                       <div class="fs-3 mb-2" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></div>
                       <p class="fw-semibold mb-1">F · Findable</p>
                       <p class="small mb-0">Datos fáciles de localizar mediante metadatos e identificadores estables.</p>
                     </div>
                   </div>
                   <div class="col">
-                    <div class="h-100 p-3 bg-light border rounded text-center">
+                    <div class="h-100 p-3 bg-surface-raised border rounded text-center">
                       <div class="fs-3 mb-2" aria-hidden="true"><i class="fa-solid fa-unlock-keyhole"></i></div>
                       <p class="fw-semibold mb-1">A · Accessible</p>
                       <p class="small mb-0">Datos accesibles a través de protocolos claros y documentación pública.</p>
                     </div>
                   </div>
                   <div class="col">
-                    <div class="h-100 p-3 bg-light border rounded text-center">
+                    <div class="h-100 p-3 bg-surface-raised border rounded text-center">
                       <div class="fs-3 mb-2" aria-hidden="true"><i class="fa-solid fa-gears"></i></div>
                       <p class="fw-semibold mb-1">I · Interoperable</p>
                       <p class="small mb-0">Datos en formatos estandarizados que pueden combinarse con otros sistemas.</p>
                     </div>
                   </div>
                   <div class="col">
-                    <div class="h-100 p-3 bg-light border rounded text-center">
+                    <div class="h-100 p-3 bg-surface-raised border rounded text-center">
                       <div class="fs-3 mb-2" aria-hidden="true"><i class="fa-solid fa-recycle"></i></div>
                       <p class="fw-semibold mb-1">R · Reusable</p>
                       <p class="small mb-0">Datos bien descritos para que puedan reutilizarse con contexto y citación.</p>
@@ -80,13 +80,13 @@ permalink: /datos/
               </div>
             </div>
             <div class="text-end mt-3">
-              <button class="btn btn-sm btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#datos-ciencia-abierta-mas" aria-expanded="false" aria-controls="datos-ciencia-abierta-mas" aria-label="Leer más" title="Leer más" data-label-more="Leer más" data-label-less="Leer menos" data-collapse-toggle-label>
+              <button class="btn btn-sm btn-outline-action" type="button" data-bs-toggle="collapse" data-bs-target="#datos-ciencia-abierta-mas" aria-expanded="false" aria-controls="datos-ciencia-abierta-mas" aria-label="Leer más" title="Leer más" data-label-more="Leer más" data-label-less="Leer menos" data-collapse-toggle-label>
                 <i class="fa-solid fa-plus" aria-hidden="true"></i>
               </button>
             </div>
           </div>
         </div>
-        <div class="card card-soft ui-thin-border bg-secondary-50 text-dark">
+        <div class="card card-soft ui-thin-border bg-surface-page text-ink">
           <div class="card-body">
             <h2 class="h4 mb-2">¿Y la ciencia ciudadana?</h2>
             <p>La ciencia ciudadana parte de la idea de que la sociedad puede participar activamente en la producción de conocimiento.</p>
@@ -103,13 +103,13 @@ permalink: /datos/
               </p>
             </div>
             <div class="text-end mt-3">
-              <button class="btn btn-sm btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#datos-ciencia-ciudadana-mas" aria-expanded="false" aria-controls="datos-ciencia-ciudadana-mas" aria-label="Leer más" title="Leer más" data-label-more="Leer más" data-label-less="Leer menos" data-collapse-toggle-label>
+              <button class="btn btn-sm btn-outline-action" type="button" data-bs-toggle="collapse" data-bs-target="#datos-ciencia-ciudadana-mas" aria-expanded="false" aria-controls="datos-ciencia-ciudadana-mas" aria-label="Leer más" title="Leer más" data-label-more="Leer más" data-label-less="Leer menos" data-collapse-toggle-label>
                 <i class="fa-solid fa-plus" aria-hidden="true"></i>
               </button>
             </div>
           </div>
         </div>
-        <div class="card card-soft ui-thin-border bg-secondary-50 text-dark">
+        <div class="card card-soft ui-thin-border bg-surface-page text-ink">
           <div class="card-body">
             <h2 class="h4 mb-2">Otros proyectos y recursos</h2>
             <p class="mb-2">
@@ -117,7 +117,7 @@ permalink: /datos/
             </p>
             <div class="collapse mt-3" id="datos-proyectos-recursos">
               <div id="datos-proyectos-listado" class="vstack gap-3 mt-3">
-                <div class="card card-soft p-3 bg-secondary-100">
+                <div class="card card-soft p-3 bg-surface-soft">
                   <h3 class="h6 mb-1">Nombre del proyecto</h3>
                   <p class="small mb-2">Descripción</p>
                   <a href="#" target="_blank" rel="noopener noreferrer">Enlace</a>
@@ -125,7 +125,7 @@ permalink: /datos/
               </div>
             </div>
             <div class="text-end mt-3">
-              <button class="btn btn-sm btn-outline-dark d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="collapse" data-bs-target="#datos-proyectos-recursos" aria-expanded="false" aria-controls="datos-proyectos-recursos" aria-label="Explorar proyectos y recursos" title="Explorar proyectos y recursos" data-label-more="Explorar proyectos y recursos" data-label-less="Ocultar proyectos y recursos" data-collapse-toggle-label>
+              <button class="btn btn-sm btn-outline-action d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="collapse" data-bs-target="#datos-proyectos-recursos" aria-expanded="false" aria-controls="datos-proyectos-recursos" aria-label="Explorar proyectos y recursos" title="Explorar proyectos y recursos" data-label-more="Explorar proyectos y recursos" data-label-less="Ocultar proyectos y recursos" data-collapse-toggle-label>
                 <i class="fa-solid fa-plus" aria-hidden="true"></i><span>Explorar proyectos y recursos</span>
               </button>
             </div>

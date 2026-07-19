@@ -16,7 +16,7 @@
                         {% if child.image_thumb or child.image_small %}
                         <img class="img-thumbnail compound-thumb" src="{{ child.image_thumb | default: child.image_small | relative_url }}" alt="{{ child.image_alt_text | default: child.description | default: child.title | escape }}">
                         {% else %}
-                        <svg class="bi text-body compound-thumb" fill="currentColor" aria-hidden="true">
+                        <svg class="bi text-ink compound-thumb" fill="currentColor" aria-hidden="true">
                             {%- assign icon_template = child.display_template | default: item.format -%}
                             <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#{% if icon_template contains 'image' %}icon-image{% elsif icon_template contains 'pdf' %}icon-pdf{% elsif icon_template contains 'audio' %}icon-audio{% elsif icon_template contains 'video' %}icon-video{% else %}icon-default{% endif %}" />
                         </svg>
@@ -24,14 +24,14 @@
                         {% endif %}
                     </div>
 
-                    {% if child.title %}<div class="compound-child-title text-muted">{{ child.title | truncatewords: 6 }}</div>{% endif %}
+                    {% if child.title %}<div class="compound-child-title text-quiet">{{ child.title | truncatewords: 6 }}</div>{% endif %}
 
                     <!-- child object modal button -->
                     <a id="item-{{ forloop.index }}"
                         role="button"
                         href="#{{ child.objectid }}"
                         data-ta-modal-target="#{{ child.objectid }}"
-                        class="btn btn-sm btn-outline-secondary small stretched-link">
+                        class="btn btn-sm btn-outline-soft small stretched-link">
                         Ver <svg class="bi icon-sprite" fill="currentColor" aria-hidden="true"><use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#icon-{{ child.display_template | default: 'file'}}"/></svg>
                     </a>
 
@@ -55,7 +55,7 @@
                                             {% capture next_item_id %}{{ children[next_index].objectid }}{% endcapture %}
                                             {% capture prev_item_id %}{{ children[prev_index].objectid }}{% endcapture %}
                                             <div class="col-1 col-md-2">
-                                                <button type="button" data-ta-modal-target="#{{ prev_item_id }}" data-ta-modal-replace="true" class="btn btn-outline-dark btn-sm prev-child-button">
+                                                <button type="button" data-ta-modal-target="#{{ prev_item_id }}" data-ta-modal-replace="true" class="btn btn-outline-action btn-sm prev-child-button">
                                                     <svg class="bi icon-sprite" role="img" aria-label="Elemento anterior">
                                                         <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#arrow-left"/>
                                                     </svg>
@@ -69,7 +69,7 @@
                                                 </h3>
                                             </div>
                                             <div class="col-1 col-md-2 text-end">
-                                                <button type="button" data-ta-modal-target="#{{ next_item_id }}" data-ta-modal-replace="true" class="btn btn-outline-dark btn-sm next-child-button">
+                                                <button type="button" data-ta-modal-target="#{{ next_item_id }}" data-ta-modal-replace="true" class="btn btn-outline-action btn-sm next-child-button">
                                                     <span class="d-none d-md-inline">Siguiente</span>
                                                     <svg class="bi icon-sprite" role="img" aria-label="Elemento siguiente">
                                                         <use xlink:href="{{ '/assets/css/cb-icons.svg' | relative_url }}#arrow-right"/>

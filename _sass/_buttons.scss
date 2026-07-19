@@ -1,8 +1,8 @@
 @use "sass:color";
-@use "variables" as *;
+@use "tokens" as *;
 
 // Sistema base de botones:
-// - semanticos globales: primary, secondary, dark, outline-dark, light, outline-light, muted
+// - semanticos globales: accent, action, soft, inverse y muted
 // - utilitarios de sistema: btn-circular
 // Los controles de lectura/laboratorio se quedan en sus SCSS locales.
 
@@ -62,118 +62,176 @@
   --bs-btn-disabled-border-color: #{$border};
 }
 
-.btn-primary {
+.btn-accent {
   @include btn-solid-vars(
-    $color-light,
-    $color-primary,
-    $color-primary,
-    $color-primary-lift,
-    $color-primary-lift,
-    $color-primary,
-    $color-primary,
-    $color-primary
+    $color-paper,
+    $color-accent,
+    $color-accent,
+    $color-accent-hover,
+    $color-accent-hover,
+    $color-accent,
+    $color-accent,
+    $color-accent
   );
 }
 
-.btn-secondary {
-  @include btn-solid-vars(
-    $color-dark,
-    $color-secondary,
-    $color-secondary,
-    $color-secondary-lift,
-    $color-secondary-lift,
-    $color-secondary,
-    $color-secondary,
-    $color-secondary
-  );
-
-  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-secondary, 0.42)};
-}
-
-.btn-dark {
-  $dark-hover: color.mix(white, $color-dark, 20%);
+.btn-soft {
+  $soft-hover: color.mix($color-surface-soft, $color-border-warm, 52%);
 
   @include btn-solid-vars(
-    $color-light,
-    $color-dark,
-    $color-dark,
-    $dark-hover,
-    $dark-hover,
-    $color-dark,
-    $color-dark,
-    $color-dark
+    $color-ink,
+    $color-surface-soft,
+    $color-border-warm,
+    $soft-hover,
+    $color-border-warm,
+    $color-border-warm,
+    $color-border-warm,
+    $color-border-warm
   );
 
-  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-dark, 0.18)};
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-border-warm, 0.32)};
 }
 
-.btn-outline-dark {
+.btn-outline-soft {
   @include btn-outline-vars(
-    $color-dark,
-    $color-dark,
-    $color-dark,
-    $color-neutral-50,
-    $color-neutral-400,
-    $color-dark,
-    $color-neutral-100,
-    $color-neutral-400,
-    $color-dark
+    $color-text-subtle,
+    $color-border-warm,
+    $color-ink,
+    $color-surface-soft,
+    $color-border-warm,
+    $color-ink,
+    $color-border-warm,
+    $color-border-warm,
+    $color-border-warm
   );
-
-  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-dark, 0.12)};
 }
 
-.btn-light {
+.btn-action {
+  $action-hover: color.mix(white, $color-ink, 20%);
+
   @include btn-solid-vars(
-    $color-dark,
-    $color-light,
-    $color-light,
+    $color-paper,
+    $color-ink,
+    $color-ink,
+    $action-hover,
+    $action-hover,
+    $color-ink,
+    $color-ink,
+    $color-ink
+  );
+
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-ink, 0.18)};
+}
+
+.btn-outline-action {
+  @include btn-outline-vars(
+    $color-ink,
+    $color-ink,
+    $color-ink,
+    $color-surface-hover,
+    $color-border-strong,
+    $color-ink,
+    $color-surface-muted,
+    $color-border-strong,
+    $color-ink
+  );
+
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-ink, 0.12)};
+}
+
+.btn-inverse {
+  @include btn-solid-vars(
+    $color-ink,
+    $color-paper,
+    $color-paper,
     white,
     white,
-    $color-light,
-    $color-light,
-    $color-light
+    $color-paper,
+    $color-paper,
+    $color-paper
   );
 
-  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-light, 0.22)};
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-paper, 0.22)};
 }
 
-.btn-outline-light {
+.btn-outline-inverse {
   @include btn-outline-vars(
-    $color-light,
-    rgba($color-light, 0.74),
-    $color-dark,
-    $color-light,
-    $color-light,
-    $color-dark,
-    $color-light,
-    $color-light,
-    $color-light
+    $color-paper,
+    rgba($color-paper, 0.74),
+    $color-ink,
+    $color-paper,
+    $color-paper,
+    $color-ink,
+    $color-paper,
+    $color-paper,
+    $color-paper
   );
 
-  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-light, 0.24)};
+  --bs-btn-focus-box-shadow: 0 0 0 0.2rem #{rgba($color-paper, 0.24)};
+}
+
+.btn-outline-accent {
+  @include btn-outline-vars(
+    $color-accent,
+    $color-accent,
+    $color-paper,
+    $color-accent,
+    $color-accent,
+    $color-paper,
+    $color-accent,
+    $color-accent,
+    $color-accent
+  );
+}
+
+.btn-outline-muted {
+  @include btn-outline-vars(
+    $color-text-subtle,
+    $color-border-strong,
+    $color-ink,
+    $color-surface-muted,
+    $color-border-strong,
+    $color-ink,
+    $color-border-soft,
+    $color-border-strong,
+    $color-ink
+  );
+}
+
+.btn-outline-danger {
+  @include btn-outline-vars(
+    $color-status-danger,
+    $color-status-danger,
+    $color-paper,
+    $color-status-danger,
+    $color-status-danger,
+    $color-paper,
+    $color-status-danger,
+    $color-status-danger,
+    $color-status-danger
+  );
 }
 
 .btn-muted {
-  color: $color-text-muted-dark;
-  background-color: $color-neutral-100;
-  border-color: $color-neutral-200;
+  color: $color-text-subtle-strong;
+  background-color: $color-surface-muted;
+  border-color: $color-border-soft;
 
   &:hover,
   &:focus,
   &:focus-visible {
-    color: $color-dark;
-    background-color: $color-neutral-200;
-    border-color: $color-neutral-400;
-    box-shadow: 0 0 0 0.2rem rgba($color-dark, 0.08);
+    color: $color-ink;
+    background-color: $color-border-soft;
+    border-color: $color-border-strong;
+    box-shadow: 0 0 0 0.2rem rgba($color-ink, 0.08);
   }
 
   &:active,
   &.active,
   .show > &.dropdown-toggle {
-    color: $color-dark;
-    background-color: $color-neutral-200;
-    border-color: $color-neutral-400;
+    color: $color-ink;
+    background-color: $color-border-soft;
+    border-color: $color-border-strong;
   }
 }
 
@@ -183,7 +241,7 @@
   border: 1px solid transparent;
   border-radius: var(--ui-radius-round);
   background: transparent;
-  color: var(--ui-text-muted);
+  color: var(--color-text-subtle);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -192,19 +250,19 @@
 
   &:hover,
   &:focus-visible {
-    color: var(--color-primary);
+    color: var(--color-accent);
     border-color: transparent;
   }
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 0.2rem var(--color-primary-soft);
+    box-shadow: 0 0 0 0.2rem var(--color-accent-soft);
   }
 
   &:active {
-    background: var(--color-primary-soft);
-    color: var(--color-primary);
-    border-color: var(--color-primary-soft);
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    border-color: var(--color-accent-soft);
   }
 }
 

@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use "tokens" as *;
 
 // ============================================
 // SHARED NOTE PANEL SHELL
@@ -35,7 +35,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border-top: 1px solid $color-neutral-200;
+  border-top: 1px solid $color-border-soft;
   padding-top: var(--note-eval-dock-pt, 8px);
   gap: var(--note-eval-dock-gap, 0);
   min-height: auto;
@@ -61,7 +61,7 @@
 
 .note-nav-controls .nota-posicion {
   font-size: var(--note-nav-pos-size, 0.85rem);
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-weight: 500;
   min-width: var(--note-nav-pos-min-width, 0);
   text-align: center;
@@ -73,6 +73,6 @@
   margin: 0;
   text-align: center;
   font-size: 0.82rem;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-style: italic;
 }

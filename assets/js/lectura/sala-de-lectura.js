@@ -9,6 +9,7 @@ import {
 } from '../shared/note-panel.js';
 import { serializeNoteNodeHtml } from '../shared/tei-note-context.js';
 import { createBottomSheetDragController } from '../shared/bottom-sheet-drag.js';
+import { createNoteCategoryFilterController } from './note-category-filter.js';
 import {
     applyNoteHighlights,
     collectNoteTargetMeta,
@@ -19,7 +20,8 @@ import {
     buildNoteDisplayHTML,
     hydrateCbRefsInContainer,
     markCurrentNoteInText,
-    normalizeAnaCategories
+    normalizeAnaCategories,
+    readEffectiveNoteGroups
 } from './notas-dom.js';
 import {
     SOURCE_TYPE_LABELS,
@@ -37,9 +39,15 @@ document.addEventListener("DOMContentLoaded", function() {
     // Estado de navegación de notas
     window.edicionNotas = {
         todasLasNotas: [],      // Array de xml:ids de notas
+        notasVisibles: [],      // Notas incluidas por el filtro de tipologías
         notaActualIndex: -1,    // Índice de la nota actualmente mostrada
         notaActualId: null,     // ID de la nota actualmente mostrada
         metaPorNota: {}         // Metadata para orden de lectura y desempates de clic
+    };
+    let noteCategorySelection = {
+        visibleNoteIds: null,
+        selectedCategories: null,
+        isFiltered: false
     };
     const lecturaNoteViewTracker = window.Participacion?.pilotTracking?.createNoteViewTracker
         ? window.Participacion.pilotTracking.createNoteViewTracker('lectura')
@@ -69,28 +77,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return Number.isFinite(px) ? px : fallback;
     }
 
-    function syncExpandedRailWidth() {
-        if (!lecturaWrapper || !tabsBar) return;
-
-        if (window.innerWidth < 992) {
-            lecturaWrapper.style.removeProperty('--lectura-rail-expanded-width');
-            return;
-        }
-
-        const previousTransition = tabsBar.style.transition;
-        tabsBar.style.transition = 'none';
-        tabsBar.classList.add('is-measuring');
-
-        const measuredWidth = Math.ceil(tabsBar.getBoundingClientRect().width);
-
-        tabsBar.classList.remove('is-measuring');
-        tabsBar.style.transition = previousTransition;
-
-        if (measuredWidth > 0) {
-            lecturaWrapper.style.setProperty('--lectura-rail-expanded-width', `${measuredWidth}px`);
-        }
-    }
-
     function getCurrentTextPaddingLeftPx() {
         if (!textColumn) return 0;
         const value = getComputedStyle(textColumn).paddingLeft;
@@ -113,12 +99,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function getStableOpenPanelFootprint() {
         const panelWidth = lecturaPanel?.offsetWidth || getLayoutTokenPx('--lectura-panel-open-min-width', 360);
-        const panelGap = getLayoutTokenPx('--lectura-panel-gap-open', 32);
+        const panelGap = getLayoutTokenPx('--lectura-panel-gap-open', 12);
         return panelWidth + getCollapsedRailWidth() + panelGap;
     }
 
     function getStableClosedRailInset() {
-        const railGap = getLayoutTokenPx('--lectura-panel-gap-closed', 24);
+        const railGap = getLayoutTokenPx('--lectura-panel-gap-closed', 12);
         return getCollapsedRailWidth() + railGap;
     }
 
@@ -167,8 +153,17 @@ document.addEventListener("DOMContentLoaded", function() {
                 baseLeft - openLeftShiftBase
             );
 
-        textColumn.style.paddingRight = `${Math.round(openRightInset)}px`;
-        textColumn.style.paddingLeft = `${Math.round(openLeft)}px`;
+        const rightInsetChanges = Math.abs(openRightInset - staticRightInset) >= 0.5;
+        const leftInsetChanges = Math.abs(openLeft - baseLeft) >= 0.5;
+
+        // Con el panel en su ancho inicial ya existe una reserva CSS idéntica.
+        // No escribir valores equivalentes evita pequeños saltos por redondeo.
+        textColumn.style.paddingRight = rightInsetChanges
+            ? `${Math.round(openRightInset)}px`
+            : '';
+        textColumn.style.paddingLeft = leftInsetChanges
+            ? `${Math.round(openLeft)}px`
+            : '';
     }
 
     let insetUpdateRaf = null;
@@ -235,7 +230,8 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!panelHeaderActions) return;
 
         const noteState = window.edicionNotas || {};
-        const totalNotas = Array.isArray(noteState.todasLasNotas) ? noteState.todasLasNotas.length : 0;
+        const navigableNoteIds = getNavigableNoteIds();
+        const totalNotas = navigableNoteIds.length;
         const currentIndex = Number.isInteger(noteState.notaActualIndex) ? noteState.notaActualIndex : -1;
         const hasActiveNote = pestanaActiva === 'notas' && panelAbierto && !!noteState.notaActualId && currentIndex >= 0 && totalNotas > 0;
 
@@ -446,16 +442,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    syncExpandedRailWidth();
     if (document.fonts?.ready) {
         document.fonts.ready.then(() => {
-            syncExpandedRailWidth();
             requestDesktopTextInsetUpdate();
         });
     }
-    window.addEventListener('resize', () => {
-        syncExpandedRailWidth();
-    });
 
     // ============================================
     // CONTROLES DE LECTURA
@@ -487,9 +478,11 @@ document.addEventListener("DOMContentLoaded", function() {
             aplicarNumeracionVersos(textColumn, this.value);
         });
         
-        // Aplicar numeración inicial cuando el TEI esté cargado
+        // Preparar los versos una sola vez cuando el TEI esté cargado. La
+        // alineación debe ejecutarse antes de insertar números auxiliares.
         const numeracionObserver = new MutationObserver(() => {
             if (textColumn.querySelector('tei-l[n]')) {
+                alignSplitVerses(textColumn);
                 aplicarNumeracionVersos(textColumn, numeracionSelect.value);
                 numeracionObserver.disconnect();
             }
@@ -732,6 +725,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const lecturaSearchClearButton = document.getElementById('lectura-search-clear');
     const lecturaSearchStatus = document.getElementById('lectura-search-status');
     const lecturaSearchResults = document.getElementById('lectura-search-results');
+    const noteCategoryFilterController = createNoteCategoryFilterController({
+        root: document.getElementById('note-category-filter'),
+        optionsTabButton: tabsBar?.querySelector('[data-tab="opciones"]'),
+        onChange: selection => {
+            noteCategorySelection = selection;
+            applyNoteCategoryFilter();
+        }
+    });
     
     let teiLoaded = false;
     let notasLoaded = false;
@@ -869,8 +870,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (relatedTarget) {
                     const targetWrapper = relatedTarget.closest('.note-wrapper');
                     if (targetWrapper) {
-                        const currentGroups = (wrapper.getAttribute('data-note-groups') || '').split(' ').filter(g => g);
-                        const targetGroups = (targetWrapper.getAttribute('data-note-groups') || '').split(' ').filter(g => g);
+                        const currentGroups = readEffectiveNoteGroups(wrapper);
+                        const targetGroups = readEffectiveNoteGroups(targetWrapper);
 
                         // Si comparten algún grupo, no desactivar
                         if (currentGroups.some(g => targetGroups.includes(g))) {
@@ -887,6 +888,8 @@ document.addEventListener("DOMContentLoaded", function() {
         // Guardar lista de todas las notas para navegación
         window.edicionNotas.metaPorNota = metaPorNota;
         window.edicionNotas.todasLasNotas = readingOrderIds;
+        window.edicionNotas.notasVisibles = readingOrderIds.slice();
+        noteCategoryFilterController.setNotes(notes);
         console.log(`Total de notas para navegación: ${window.edicionNotas.todasLasNotas.length}`);
 
         // ← AQUÍ VA TODO AL FINAL DE processNotes():
@@ -895,6 +898,63 @@ document.addEventListener("DOMContentLoaded", function() {
         // Inicializar sistema de evaluación
         void edicionEvaluacion.init();
     } // ← Fin de processNotes()
+
+    function getNavigableNoteIds() {
+        const noteState = window.edicionNotas || {};
+        return Array.isArray(noteState.notasVisibles)
+            ? noteState.notasVisibles
+            : (Array.isArray(noteState.todasLasNotas) ? noteState.todasLasNotas : []);
+    }
+
+    function isNoteIdVisible(noteId) {
+        if (!noteId) return false;
+        if (!(noteCategorySelection.visibleNoteIds instanceof Set)) return true;
+        return noteCategorySelection.visibleNoteIds.has(noteId);
+    }
+
+    function applyNoteCategoryFilter() {
+        if (!teiContainer || !window.edicionNotas) return;
+
+        const allNoteIds = Array.isArray(window.edicionNotas.todasLasNotas)
+            ? window.edicionNotas.todasLasNotas
+            : [];
+        if (allNoteIds.length === 0) return;
+
+        const visibleNoteIds = noteCategorySelection.visibleNoteIds instanceof Set
+            ? noteCategorySelection.visibleNoteIds
+            : new Set(allNoteIds);
+        window.edicionNotas.notasVisibles = allNoteIds.filter(noteId => visibleNoteIds.has(noteId));
+
+        teiContainer.querySelectorAll('[data-note-groups]').forEach(wrapper => {
+            const allGroups = (wrapper.getAttribute('data-note-groups') || '').split(' ').filter(Boolean);
+            const visibleGroups = allGroups.filter(noteId => visibleNoteIds.has(noteId));
+            const mediaGroups = (wrapper.getAttribute('data-note-media-groups') || '').split(' ').filter(Boolean);
+            const hasVisibleNote = visibleGroups.length > 0;
+            const hasVisibleMedia = mediaGroups.some(noteId => visibleNoteIds.has(noteId));
+
+            wrapper.setAttribute('data-visible-note-groups', visibleGroups.join(' '));
+            wrapper.classList.toggle('note-filtered-out', !hasVisibleNote);
+            wrapper.classList.toggle('note-target-has-media', hasVisibleNote && hasVisibleMedia);
+
+            if (!hasVisibleNote) {
+                wrapper.classList.remove('note-active', 'note-current');
+            }
+        });
+
+        const currentNoteId = window.edicionNotas.notaActualId;
+        if (currentNoteId && !visibleNoteIds.has(currentNoteId)) {
+            cerrarNota(teiContainer, noteContentDiv);
+        } else if (currentNoteId) {
+            window.edicionNotas.notaActualIndex = window.edicionNotas.notasVisibles.indexOf(currentNoteId);
+            renderPanelHeaderActions();
+        } else {
+            renderPanelHeaderActions();
+        }
+
+        if (lecturaSearchIndexState && normalizeWhitespace(lecturaSearchInput?.value || '')) {
+            runLecturaSearch();
+        }
+    }
 
     function renderizarDockEvaluacionLoading() {
         return renderNoteEvalLoading();
@@ -911,6 +971,8 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Función para mostrar nota en el panel con navegación
     function mostrarNotaEnPanel(noteToShow, noteXmlId, teiContainer, noteContentDiv) {
+        if (!isNoteIdVisible(noteXmlId)) return false;
+
         // Abrir el panel en la pestaña de notas
         if (window.lecturaPanel) {
             window.lecturaPanel.abrir('notas');
@@ -923,7 +985,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Actualizar estado de navegación
         window.edicionNotas.notaActualId = noteXmlId;
-        window.edicionNotas.notaActualIndex = window.edicionNotas.todasLasNotas.indexOf(noteXmlId);
+        window.edicionNotas.notaActualIndex = getNavigableNoteIds().indexOf(noteXmlId);
         
         // Marcar nota activa en el texto (persistente)
         marcarNotaActivaEnTexto(noteXmlId, teiContainer);
@@ -953,15 +1015,17 @@ document.addEventListener("DOMContentLoaded", function() {
         void hydrateCbRefsInContainer(noteContentDiv);
         void edicionEvaluacion.addEvaluationButtons(noteContentDiv);
         renderPanelHeaderActions();
+        return true;
     }
     
     // Función para navegar entre notas
     function navegarNota(direccion, teiContainer, noteContentDiv) {
+        const navigableNoteIds = getNavigableNoteIds();
         const newIndex = window.edicionNotas.notaActualIndex + direccion;
         
-        if (newIndex < 0 || newIndex >= window.edicionNotas.todasLasNotas.length) return;
+        if (newIndex < 0 || newIndex >= navigableNoteIds.length) return;
         
-        const newNoteId = window.edicionNotas.todasLasNotas[newIndex];
+        const newNoteId = navigableNoteIds[newIndex];
         
         // Buscar la nota en el XML
         const allNotes = window.notasXML.getElementsByTagName('note');
@@ -1092,6 +1156,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function goToNoteTarget(noteId, options = {}) {
+        if (!isNoteIdVisible(noteId)) return false;
+
         const noteNode = findNoteById(noteId);
         if (!noteNode) return false;
 
@@ -1114,6 +1180,11 @@ document.addEventListener("DOMContentLoaded", function() {
         if (targetType === 'verse') {
             resolved = goToVerseTarget(targetId);
         } else if (targetType === 'note') {
+            if (!isNoteIdVisible(targetId)) {
+                clearPendingSearchTargetFromUrl();
+                pendingSearchTarget = null;
+                return;
+            }
             resolved = goToNoteTarget(targetId, { flash: true });
         }
 
@@ -1195,13 +1266,17 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        const results = searchIndex(lecturaSearchIndexState, query, {
-            limit: 40,
+        const rawResults = searchIndex(lecturaSearchIndexState, query, {
+            limit: lecturaSearchIndexState.normalizedDocs?.length || 80,
             sourceTypeBoost: {
                 'lectura-verse': 1.06,
                 'lectura-note': 1.14
             }
         });
+        const visibleNoteIds = new Set(getNavigableNoteIds());
+        const results = rawResults
+            .filter(result => result?.doc?.sourceType !== 'lectura-note' || visibleNoteIds.has(result.doc.targetId))
+            .slice(0, 40);
 
         setLecturaSearchStatus(`${results.length} resultado(s) para "${query}".`);
         renderLecturaSearchResults(results, query);
@@ -1290,17 +1365,6 @@ document.addEventListener("DOMContentLoaded", function() {
         syncLecturaSearchClearButtonVisibility();
     }
     
-    
-    // Llamar a la función de alineación después de que el TEI esté cargado
-    const verseObserver = new MutationObserver(() => {
-        if (teiContainer.querySelector('tei-l[part]')) {
-            alignSplitVerses(teiContainer);
-            verseObserver.disconnect();
-        }
-    });
-    
-    verseObserver.observe(teiContainer, { childList: true, subtree: true });
-
     
     /**
      * Navegación por índice

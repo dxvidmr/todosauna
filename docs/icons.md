@@ -36,7 +36,7 @@ This include can add icons anywhere, including inline in Markdown content.
 To use an icon similar to an image (for example as an icon stand in for thumbnails on Browse or Timeline), follow the pattern:
 
 ```
-<svg class="bi w-50 text-body" fill="currentColor" aria-hidden="true">
+<svg class="bi w-50 text-ink" fill="currentColor" aria-hidden="true">
     <use xlink:href="{{ site.lib-assets | default: '/assets/lib' | relative_url }}/icons/bootstrap-icons.svg#file-earmark-play"/>
 </svg>
 <span class="visually-hidden">File icon</span>
@@ -45,7 +45,7 @@ To use an icon similar to an image (for example as an icon stand in for thumbnai
 In this example, the classes on the svg element control the size and color: 
 
 - `w-50` to set the svg to be 50% of the parent space. This makes it easy to create responsive icons if the svg element is inside a column div.
-- `text-body` to set the color. Any BS text color utility can be used, including your custom color theme classes.
+- `text-ink` establece el color mediante el sistema semántico del proyecto.
 
 ## Theme Icons
 
@@ -82,7 +82,7 @@ All theme icons configured in `icons` (plus the default ones) can be used in sev
 
 - To add a full svg inline, use the Liquid variable `site.data.theme_icons` plus the icon key plus `.inline`. E.g. `{{ site.data.theme_icons.icon-image.inline }}`.
 - To add an icon svg sprite symbol, use the Liquid variable  `site.data.theme_icons` plus the icon key plus `.symbol`. E.g. `{{ site.data.theme_icons.icon-image.symbol }}`.
-- Use the external svg sprite link markup using with href to the "cb-icons.svg" file and hash for the icon key. E.g. `<svg class="bi text-body" fill="currentColor"><use xlink:href="{{ "/assets/css/cb-icons.svg" | relative_url }}#icon-image"/></svg>`
+- Use the external svg sprite link markup using with href to the "cb-icons.svg" file and hash for the icon key. E.g. `<svg class="bi text-ink" fill="currentColor"><use xlink:href="{{ "/assets/css/cb-icons.svg" | relative_url }}#icon-image"/></svg>`
 
 The "cb_helpers" plugin contains built in SVGs for the default icon options.
 This means if you are not customizing the icons or using feature/icon.html include, the "assets/lib/icons/" folder can be removed if desired.

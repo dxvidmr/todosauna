@@ -9,12 +9,12 @@
 
 {%- endcomment -%}
 <div class="btn-group my-2" role="group" aria-label="Opciones del elemento">
-    {% if child.object_transcript %}<button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTranscript{{ child.objectid }}" aria-expanded="false" aria-controls="collapseTranscript{{ child.objectid }}">Ver transcripción</button>{% endif %}
+    {% if child.object_transcript %}<button class="btn btn-outline-accent" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTranscript{{ child.objectid }}" aria-expanded="false" aria-controls="collapseTranscript{{ child.objectid }}">Ver transcripción</button>{% endif %}
     {% if child.date %}{%- capture year -%}{% if child.date contains "-" %}{{ child.date | split: "-" | first }}{% elsif child.date contains "/" %}{{ child.date | split: "/" | last }}{% else %}{{ child.date }}{% endif %}{%- endcapture -%}
-    <a href="{{ year | strip | prepend: '/timeline.html#y' | relative_url }}" class="btn btn-outline-primary">Ver en línea de tiempo</a>{% endif %}
+    <a href="{{ year | strip | prepend: '/timeline.html#y' | relative_url }}" class="btn btn-outline-accent">Ver en línea de tiempo</a>{% endif %}
     {% if child.latitude and child.longitude %}
-    <a href="{{ '/map.html?location=' | append: page.latitude  | append: ',' | append: page.longitude | append: '&marker=' | append: page.objectid | relative_url }}" class="btn btn-outline-primary">Ver en mapa</a>{% endif %}
-    {% if child.object_location %}{% if child.display_template == 'video' and child.object_location contains 'vimeo' %}<a target="_blank" rel="noopener" href="{{ child.object_location | relative_url }}" class="btn btn-outline-primary">Ver en Vimeo</a>{% elsif child.display_template == 'video' and child.object_location contains 'youtu' %}<a target="_blank" rel="noopener" href="{{ child.object_location | relative_url }}" class="btn btn-outline-primary">Ver en YouTube</a>{% elsif child.display_template == 'record' %}<a target="_blank" rel="noopener" href="{{ child.object_location | relative_url }}" class="btn btn-outline-primary">Enlace al objeto</a>{% endif %}{% endif %}
+    <a href="{{ '/map.html?location=' | append: page.latitude  | append: ',' | append: page.longitude | append: '&marker=' | append: page.objectid | relative_url }}" class="btn btn-outline-accent">Ver en mapa</a>{% endif %}
+    {% if child.object_location %}{% if child.display_template == 'video' and child.object_location contains 'vimeo' %}<a target="_blank" rel="noopener" href="{{ child.object_location | relative_url }}" class="btn btn-outline-accent">Ver en Vimeo</a>{% elsif child.display_template == 'video' and child.object_location contains 'youtu' %}<a target="_blank" rel="noopener" href="{{ child.object_location | relative_url }}" class="btn btn-outline-accent">Ver en YouTube</a>{% elsif child.display_template == 'record' %}<a target="_blank" rel="noopener" href="{{ child.object_location | relative_url }}" class="btn btn-outline-accent">Enlace al objeto</a>{% endif %}{% endif %}
 </div>
 {% if child.object_transcript %}
 <div class="collapse mt-3" id="collapseTranscript{{ child.objectid }}">

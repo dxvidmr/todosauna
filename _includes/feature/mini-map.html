@@ -22,7 +22,7 @@
 </style>
 <div id="{{ map_id }}"></div>
 {% if include.map-link == true %}
-<a href="{{ '/map.html' | relative_url }}?location={{ map-item.latitude | default: include.latitude }},{{ map-item.longitude | default: include.longitude }}{%if include.objectid %}&marker={{ include.objectid }}{% endif %}" class="btn btn-outline-primary my-3">View on Full Map</a>{% endif %}
+<a href="{{ '/map.html' | relative_url }}?location={{ map-item.latitude | default: include.latitude }},{{ map-item.longitude | default: include.longitude }}{%if include.objectid %}&marker={{ include.objectid }}{% endif %}" class="btn btn-outline-accent my-3">View on Full Map</a>{% endif %}
 <!-- load leaflet dependencies -->
 <link rel="stylesheet" href="{{ site.lib-assets | default: '/assets/lib' | relative_url }}/leaflet/leaflet.css">
 <link rel="stylesheet" href="{{ site.lib-assets | default: '/assets/lib' | relative_url }}/leaflet/leaflet.fullscreen.css">

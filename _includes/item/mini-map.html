@@ -15,7 +15,7 @@
 </style>
 <div id="mini-map"></div>
 {% if include.map-link == true %}
-<a href="{{ '/map.html?location=' | append: page.latitude  | append: ',' | append: page.longitude | append: '&marker=' | append: page.objectid | relative_url }}" class="btn btn-outline-primary my-3">Ver en mapa completo</a>{% endif %}
+<a href="{{ '/map.html?location=' | append: page.latitude  | append: ',' | append: page.longitude | append: '&marker=' | append: page.objectid | relative_url }}" class="btn btn-outline-accent my-3">Ver en mapa completo</a>{% endif %}
 <!-- load leaflet dependencies -->
 <link rel="stylesheet" href="{{ site.lib-assets | default: '/assets/lib' | relative_url }}/leaflet/leaflet.css">
 <link rel="stylesheet" href="{{ site.lib-assets | default: '/assets/lib' | relative_url }}/leaflet/leaflet.fullscreen.css">

@@ -418,8 +418,8 @@
         '  <p id="form-exit-guard-description" class="mb-0">Has empezado a rellenar este formulario. Si sales ahora, se perderán los datos no enviados.</p>',
         '</div>',
         '<div class="modal-footer border-0 pt-0">',
-        '  <button type="button" class="btn btn-outline-dark" data-form-exit-action="continue">Seguir editando</button>',
-        '  <button type="button" class="btn btn-dark" data-form-exit-action="exit">Salir sin enviar</button>',
+        '  <button type="button" class="btn btn-outline-action" data-form-exit-action="continue">Seguir editando</button>',
+        '  <button type="button" class="btn btn-action" data-form-exit-action="exit">Salir sin enviar</button>',
         '</div>'
       ].join('');
     }

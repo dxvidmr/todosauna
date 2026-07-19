@@ -926,8 +926,8 @@
       guideUrl: '/participa/guia/',
       headerMetaHTML: metaParts.join(''),
       headerActionsHTML: ''
-        + '<a class="btn btn-outline-dark btn-sm" href="/participa/guia/">Gu\u00EDa de participaci\u00f3n</a>'
-        + '<button type="button" class="btn btn-dark btn-sm btn-cerrar-sesion"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Cerrar sesi\u00f3n</span></button>',
+        + '<a class="btn btn-outline-action btn-sm" href="/participa/guia/">Gu\u00EDa de participaci\u00f3n</a>'
+        + '<button type="button" class="btn btn-action btn-sm btn-cerrar-sesion"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Cerrar sesi\u00f3n</span></button>',
       uploadPrimaryLabel: normalizedStats.total_testimonios > 0 ? 'Enviar otro testimonio' : 'Comparte tu historia',
       uploadPrimaryUrl: '/participa/testimonios/enviar/',
       uploadSecondaryLabel: normalizedStats.total_contribuciones_archivo > 0 ? 'Aportar otro documento' : 'Aporta un documento',
@@ -1032,8 +1032,8 @@
 
     var uploadsActions = ''
       + '<div class="modal-actions perfil-card-actions">'
-      + '  <a class="btn btn-secondary-100" href="' + escapeHtml(viewModel.uploadPrimaryUrl) + '">' + escapeHtml(viewModel.uploadPrimaryLabel) + '</a>'
-      + '  <a class="btn btn-secondary-100" href="' + escapeHtml(viewModel.uploadSecondaryUrl) + '">' + escapeHtml(viewModel.uploadSecondaryLabel) + '</a>'
+      + '  <a class="btn btn-soft" href="' + escapeHtml(viewModel.uploadPrimaryUrl) + '">' + escapeHtml(viewModel.uploadPrimaryLabel) + '</a>'
+      + '  <a class="btn btn-soft" href="' + escapeHtml(viewModel.uploadSecondaryUrl) + '">' + escapeHtml(viewModel.uploadSecondaryLabel) + '</a>'
       + '</div>';
 
     var summaryActions = '';
@@ -1050,7 +1050,7 @@
         + '<aside class="modal-context-note" data-only-anonimo>'
         + '  <p><strong>Ahora participas en modo an\u00f3nimo.</strong> Reg\u00edstrate para conservar y recuperar tus contribuciones en futuras sesiones.</p>'
         + '  <div class="modal-actions modal-context-note-actions">'
-        + '    <button type="button" class="btn btn-primary btn-upgrade-colaborador">Registrarme</button>'
+        + '    <button type="button" class="btn btn-accent btn-upgrade-colaborador">Registrarme</button>'
         + '  </div>'
         + '</aside>';
     }
@@ -1082,7 +1082,7 @@
       + '        </div>'
       + '      </div>'
       + '      <div class="modal-actions perfil-card-actions">'
-      + '        <a class="btn btn-secondary-100" href="/participa/laboratorio/">Ayuda a mejorar la edici\u00f3n</a>'
+      + '        <a class="btn btn-soft" href="/participa/laboratorio/">Ayuda a mejorar la edici\u00f3n</a>'
       + '      </div>'
       + '    </article>'
       + '    <article class="perfil-activity-card">'

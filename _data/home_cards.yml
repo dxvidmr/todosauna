@@ -6,7 +6,7 @@
 #
 # Campos opcionales que puedes completar luego:
 # - type: color | media | interactive_eval | rotator | pill
-# - color_var: variable CSS (ej: --color-secondary)
+# - color_var: variable CSS (ej: --color-accent)
 # - eyebrow, title, copy, link, image, image_alt, actions, etc.
 # - pill: se comporta como color y muestra solo title centrado
 # - rotator (home): toma imagenes desde site.data[site.metadata] con regla browse
@@ -84,7 +84,7 @@
 - id: slot_05
   order_desktop: 5
   type: pill
-  color_var: --color-primary
+  color_var: --color-accent
   eyebrow: ""
   title: "Conoce el proyecto"
   copy: ""

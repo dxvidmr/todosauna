@@ -5,7 +5,7 @@
 // ============================================
 
 @use "sass:color";
-@use "variables" as *;
+@use "tokens" as *;
 
 // Variables específicas de lectura
 $lectura-panel-width: 380px;
@@ -44,19 +44,21 @@ html:has(.lectura-wrapper) {
   --lectura-panel-open-width: clamp(360px, 34vw, 520px);
   --lectura-panel-open-min-width: 360px;
   --lectura-panel-open-width-safe-max: 420px;
-  --lectura-panel-gap-open: 32px;
-  --lectura-panel-gap-closed: 24px;
+  --lectura-panel-gap-open: 12px;
+  --lectura-panel-gap-closed: 12px;
   --lectura-rail-collapsed-width: 56px;
-  --lectura-rail-expanded-width: 144px;
   --lectura-rail-height: clamp(250px, 46vh, 380px);
   --lectura-rail-gap: 8px;
   --lectura-text-pad-left-desktop: clamp(64px, 8vw, 140px);
-  --lectura-open-left-shift-base: 24px;
+  --lectura-open-left-shift-base: 0px;
   --lectura-text-left-min: 40px;
   --lectura-panel-right-offset: 20px;
-  --lectura-open-right-safety: 16px;
-  --lectura-verse-gutter: 1.75em;
-  --lectura-verse-right: 0.2em;
+  --lectura-open-right-safety: 0px;
+  // La numeración se alinea con una medida de verso estable, no con el borde
+  // variable de toda la columna de lectura.
+  --lectura-verse-text-measure: 56ch;
+  --lectura-verse-marker-lane: 4.25ch;
+  --lectura-verse-number-inset: 0.4ch;
   --lectura-note-eval-dock-min-height: clamp(96px, 13vh, 124px);
   --lectura-note-eval-dock-gap: 6px;
   --lectura-static-right-inset: calc(
@@ -142,19 +144,17 @@ html:has(.lectura-wrapper) {
     gap: var(--lectura-panel-gap-closed);
   }
 
-  @media (min-width: 992px) {
-    &:has(.lectura-tabs-bar:hover),
-    &:has(.lectura-tabs-bar .tab-button:focus-visible) {
-      gap: var(--lectura-panel-gap-open);
-    }
-  }
 }
 
 // Panel de contenido (se abre/cierra)
 .lectura-panel {
-  background-color: $color-light;
-  box-shadow: $shadow-sm;
+  background-color: rgba($color-surface-raised, 0.94);
+  border: 1px solid rgba($color-border-warm, 0.48);
+  box-shadow: 0 8px 28px rgba($color-ink, 0.08), 0 2px 6px rgba($color-ink, 0.035);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-radius: var(--lectura-panel-radius);
+  box-sizing: border-box;
   max-height: 70vh;
   overflow: visible; // Cambiado para permitir que el handle sea visible
   display: flex;
@@ -168,7 +168,11 @@ html:has(.lectura-wrapper) {
   max-height: 0;
   padding: 0;
   pointer-events: none;
-  transition: all 0.3s ease;
+  transition:
+    max-height 0.28s ease,
+    opacity 0.2s ease,
+    transform 0.24s ease,
+    padding 0.24s ease;
 
   // Estado abierto
   &.open {
@@ -184,35 +188,40 @@ html:has(.lectura-wrapper) {
 
 @media (min-width: 992px) {
   .lectura-panel {
-    inline-size: 0;
-    width: 0;
-    max-width: 0;
+    inline-size: var(--lectura-panel-open-width-inline, var(--lectura-panel-open-min-width));
+    width: var(--lectura-panel-open-width-inline, var(--lectura-panel-open-min-width));
+    max-width: var(--lectura-panel-open-width-inline, var(--lectura-panel-open-min-width));
     max-height: min(82dvh, calc(100vh - 40px));
     opacity: 0;
-    transform: translateX(18px);
-    padding: 0;
+    visibility: hidden;
+    transform: translateX(10px);
+    padding: 20px;
+    padding-left: 28px;
     margin: 0;
     pointer-events: none;
     overflow: hidden;
     transition:
-      inline-size 0.32s ease,
-      max-width 0.32s ease,
-      opacity 0.22s ease,
-      transform 0.32s ease,
-      padding 0.28s ease;
+      opacity 0.18s ease,
+      transform 0.2s ease,
+      visibility 0s linear 0.2s;
   }
 
   .lectura-panel.open {
-    inline-size: var(--lectura-panel-open-width-inline, var(--lectura-panel-open-width));
-    width: var(--lectura-panel-open-width-inline, var(--lectura-panel-open-width));
-    max-width: var(--lectura-panel-open-width-inline, var(--lectura-panel-open-width));
+    inline-size: var(--lectura-panel-open-width-inline, var(--lectura-panel-open-min-width));
+    width: var(--lectura-panel-open-width-inline, var(--lectura-panel-open-min-width));
+    max-width: var(--lectura-panel-open-width-inline, var(--lectura-panel-open-min-width));
     max-height: min(82dvh, calc(100vh - 40px));
     opacity: 1;
+    visibility: visible;
     transform: translateX(0);
     padding: 20px;
     padding-left: 28px;
     pointer-events: auto;
     overflow: hidden;
+    transition:
+      opacity 0.18s ease,
+      transform 0.2s ease,
+      visibility 0s linear 0s;
   }
 }
 
@@ -223,7 +232,7 @@ html:has(.lectura-wrapper) {
   gap: 12px;
   padding-bottom: 0.1rem;
   margin-bottom: 0.9rem;
-  border-bottom: 1px solid $color-neutral-200;
+  border-bottom: 1px solid $color-border-soft;
   min-width: 0;
 }
 
@@ -238,7 +247,7 @@ html:has(.lectura-wrapper) {
 .lectura-panel-title {
   flex: 0 1 auto;
   min-width: 0;
-  color: $color-dark;
+  color: $color-ink;
   font-size: 0.98rem;
   font-weight: 600;
   line-height: 1.2;
@@ -301,7 +310,7 @@ html:has(.lectura-wrapper) {
     }
 
     &:active::before {
-      background-color: $color-dark;
+      background-color: $color-ink;
       width: 6px;
     }
   }
@@ -312,7 +321,7 @@ html:has(.lectura-wrapper) {
   width: 44px;
   height: 4px;
   border-radius: var(--ui-radius);
-  background: $color-neutral-400;
+  background: $color-border-strong;
   margin: 0 auto 12px;
   flex-shrink: 0;
 }
@@ -320,42 +329,51 @@ html:has(.lectura-wrapper) {
 // Barra de pestañas flotante (estilo navbar)
 .lectura-tabs-bar {
   display: flex;
-  background-color: $color-dark;
+  background-color: $color-surface-floating-nav;
   border-radius: var(--ui-radius);
   padding: 6px;
   gap: 3px;
-  box-shadow: $shadow-md;
-  backdrop-filter: blur(10px);
+  color: $color-ink;
+  box-shadow: $shadow-floating-nav;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background-color 0.22s ease, backdrop-filter 0.22s ease, box-shadow 0.22s ease;
 }
 
-// Botones de pestañas
-// Botones de pestañas
+body:has(.nav-wrapper.is-scrolled:not(.menu-expanded):not(.menu-closing)) .lectura-tabs-bar {
+  box-shadow: none;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
 .lectura-tabs-bar .tab-button {
   flex: 1;
   padding: 9px 12px;
   background: transparent;
   border: none;
-  border-radius: 0;
+  border-radius: var(--ui-radius-sm);
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  color: $color-neutral-400;
-  transition: all 0.2s ease;
+  color: rgba($color-ink, 0.68);
+  transition: color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
   white-space: nowrap;
   
   &:hover {
-    color: $color-neutral-200;
+    color: $color-ink;
+    background-color: rgba($color-accent, 0.09);
   }
   
   &.active {
-    color: $color-neutral-200;
+    color: $color-accent;
+    background-color: rgba($color-accent, 0.13);
     font-weight: 600;
   }
 
   &:focus-visible {
     outline: none;
-    color: $color-neutral-200;
-    box-shadow: inset 0 0 0 1px rgba($color-primary, 0.38);
+    color: $color-accent;
+    box-shadow: inset 0 0 0 1px rgba($color-accent, 0.38);
   }
 }
 
@@ -372,7 +390,7 @@ html:has(.lectura-wrapper) {
     inline-size: var(--lectura-rail-collapsed-width);
     width: var(--lectura-rail-collapsed-width);
     min-width: var(--lectura-rail-collapsed-width);
-    max-width: var(--lectura-rail-expanded-width);
+    max-width: var(--lectura-rail-collapsed-width);
     height: var(--lectura-rail-height);
     max-height: min(82dvh, calc(100vh - 40px));
     flex-direction: column;
@@ -381,29 +399,7 @@ html:has(.lectura-wrapper) {
     border-radius: var(--ui-radius);
     padding: 8px;
     gap: var(--lectura-rail-gap);
-    overflow: hidden;
-    transition:
-      inline-size 0.26s ease,
-      width 0.26s ease,
-      padding 0.26s ease,
-      gap 0.2s ease,
-      border-radius 0.24s ease;
-  }
-
-  .lectura-tabs-bar:hover,
-  .lectura-tabs-bar:has(.tab-button:focus-visible),
-  .lectura-tabs-bar.is-measuring {
-    inline-size: var(--lectura-rail-expanded-width);
-    width: var(--lectura-rail-expanded-width);
-    border-radius: var(--ui-radius);
-  }
-
-  .lectura-tabs-bar.is-measuring {
-    inline-size: max-content;
-    width: max-content;
-    min-width: max-content;
-    max-width: none;
-    transition: none;
+    overflow: visible;
   }
 
   .lectura-tabs-bar .tab-button {
@@ -414,27 +410,10 @@ html:has(.lectura-wrapper) {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0;
-    text-align: left;
+    text-align: center;
     font-size: 0.8rem;
     border-radius: var(--ui-radius);
     line-height: 1.05;
-    transition:
-      color 0.2s ease,
-      justify-content 0.2s ease,
-      gap 0.2s ease;
-  }
-
-  .lectura-tabs-bar:hover .tab-button,
-  .lectura-tabs-bar:has(.tab-button:focus-visible) .tab-button,
-  .lectura-tabs-bar.is-measuring .tab-button {
-    justify-content: flex-start;
-    gap: 8px;
-  }
-
-  .lectura-tabs-bar.is-measuring .tab-button {
-    width: auto;
-    min-width: max-content;
   }
 
   .lectura-tabs-bar .tab-button .tab-icon {
@@ -447,42 +426,50 @@ html:has(.lectura-wrapper) {
     text-align: center;
     font-size: 0.95rem;
     line-height: 1;
-    transition: color 0.2s ease;
-  }
-
-  .lectura-tabs-bar:hover .tab-button .tab-icon,
-  .lectura-tabs-bar:has(.tab-button:focus-visible) .tab-button .tab-icon,
-  .lectura-tabs-bar.is-measuring .tab-button .tab-icon {
-    width: 1.1rem;
+    transition: color 0.18s ease;
   }
 
   .lectura-tabs-bar .tab-button:hover .tab-icon,
   .lectura-tabs-bar .tab-button.active .tab-icon,
   .lectura-tabs-bar .tab-button:focus-visible .tab-icon {
-    color: $color-primary;
+    color: $color-accent;
   }
 
   .lectura-tabs-bar .tab-button .tab-label {
-    display: inline-block;
-    min-width: 0;
-    max-width: 0;
-    overflow: hidden;
+    position: absolute;
+    right: calc(100% + 10px);
+    top: 50%;
+    z-index: 20;
+    display: block;
+    width: max-content;
+    max-width: 14rem;
+    padding: 0.42rem 0.6rem;
+    overflow: visible;
     opacity: 0;
+    visibility: hidden;
+    border-radius: var(--ui-radius-sm);
+    background-color: rgba($color-ink, 0.94);
+    color: $color-paper;
+    box-shadow: 0 4px 14px rgba($color-ink, 0.16);
+    font-size: 0.76rem;
+    font-weight: 500;
+    line-height: 1.1;
+    text-align: left;
     white-space: nowrap;
-    transform: translateX(6px);
+    pointer-events: none;
+    transform: translate(4px, -50%);
     transition:
-      max-width 0.24s ease,
-      opacity 0.2s ease,
-      transform 0.24s ease;
+      opacity 0.16s ease,
+      transform 0.18s ease,
+      visibility 0s linear 0.18s;
   }
 
-  .lectura-tabs-bar:hover .tab-button .tab-label,
-  .lectura-tabs-bar:has(.tab-button:focus-visible) .tab-button .tab-label,
-  .lectura-tabs-bar.is-measuring .tab-button .tab-label {
-    max-width: none;
+  .lectura-tabs-bar .tab-button:hover .tab-label,
+  .lectura-tabs-bar .tab-button:focus-visible .tab-label {
     opacity: 1;
-    overflow: visible;
-    transform: translateX(0);
+    visibility: visible;
+    transform: translate(0, -50%);
+    transition-delay: 0s;
   }
 }
 
@@ -505,20 +492,20 @@ html:has(.lectura-wrapper) {
 
 .info-panel p {
   font-size: 0.9rem;
-  color: $color-text-secondary;
+  color: $color-text-subtle;
   line-height: 1.4;
 }
 
 // Elementos destacados en info-panel
 .info-highlight {
-  background: $color-neutral-100;
+  background: $color-surface-muted;
   border-radius: var(--ui-radius);
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
   
   i {
-    color: $color-dark;
+    color: $color-ink;
     font-size: 1rem;
     margin-top: 0.1rem;
   }
@@ -532,7 +519,7 @@ html:has(.lectura-wrapper) {
 // Separador en info-panel
 .info-divider {
   border: none;
-  border-top: 1px solid $color-neutral-200;
+  border-top: 1px solid $color-border-soft;
 }
 
 // Enlaces en info-panel
@@ -554,13 +541,13 @@ html:has(.lectura-wrapper) {
   font-size: 0.9rem;
   
   i {
-    color: $color-dark;
+    color: $color-ink;
     font-size: 0.9rem;
   }
   
   &:hover {
-    background: $color-neutral-100;
-    color: $color-dark;
+    background: $color-surface-muted;
+    color: $color-ink;
     text-decoration: none;
   }
 }
@@ -575,6 +562,181 @@ html:has(.lectura-wrapper) {
   align-items: center;
   padding: 10px 0;
   font-size: 0.9rem;
+}
+
+.note-category-filter {
+  margin: 0.25rem 0 0.75rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid $color-border-soft;
+  border-bottom: 1px solid $color-border-soft;
+}
+
+.note-category-filter-header,
+.note-category-filter-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.note-category-filter-toggle {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+
+  &:focus-visible {
+    border-radius: var(--ui-radius-sm);
+    outline: 2px solid rgba($color-accent, 0.35);
+    outline-offset: 4px;
+  }
+}
+
+.note-category-filter-heading {
+  min-width: 0;
+}
+
+.note-category-filter-title {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $color-text;
+}
+
+.note-category-filter-chevron {
+  flex: 0 0 auto;
+  color: $color-text-quiet;
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.note-category-filter-toggle[aria-expanded="true"] .note-category-filter-chevron {
+  transform: rotate(180deg);
+}
+
+.note-category-filter-body {
+  padding-top: 0.65rem;
+}
+
+.note-category-filter-help,
+.note-category-filter-summary {
+  margin: 0.18rem 0 0;
+  color: $color-text-quiet;
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.note-category-filter-summary {
+  display: block;
+}
+
+.note-category-filter-reset,
+.note-category-filter-none {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: $color-text-subtle;
+  font-size: 0.76rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+
+  &:hover,
+  &:focus-visible {
+    color: $color-accent;
+  }
+}
+
+.note-category-filter-actions {
+  justify-content: flex-start;
+  margin-top: 0.65rem;
+}
+
+.note-category-filter-all,
+.note-category-option {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+.note-category-filter-all {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.note-category-filter .form-check-input {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.note-category-filter-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem 0.75rem;
+  margin-top: 0.7rem;
+}
+
+.note-category-option {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  min-width: 0;
+  padding: 0.28rem 0;
+  font-size: 0.8rem;
+}
+
+.note-category-option-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-transform: capitalize;
+}
+
+.note-category-option-count {
+  min-width: 1.75rem;
+  padding: 0.08rem 0.35rem;
+  border-radius: 999px;
+  background: $color-surface-muted;
+  color: $color-text-quiet;
+  font-size: 0.68rem;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.note-filter-indicator {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: $color-accent;
+  box-shadow: 0 0 0 2px rgba($color-surface-soft, 0.96);
+}
+
+.lectura-tabs-bar .tab-button {
+  position: relative;
+}
+
+@media (max-width: 575.98px) {
+  .note-category-filter-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lectura-panel,
+  .lectura-tabs-bar .tab-button,
+  .lectura-tabs-bar .tab-button .tab-icon,
+  .lectura-tabs-bar .tab-button .tab-label {
+    transition: none;
+  }
 }
 
 // Toggle switch
@@ -597,7 +759,7 @@ html:has(.lectura-wrapper) {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: $color-neutral-200;
+    background-color: $color-border-soft;
     transition: 0.3s;
     border-radius: 26px;
     
@@ -608,7 +770,7 @@ html:has(.lectura-wrapper) {
       width: 20px;
       left: 3px;
       bottom: 3px;
-      background-color: $color-light;
+      background-color: $color-paper;
       transition: 0.3s;
       border-radius: 50%;
       box-shadow: 0 1px 3px rgba(0,0,0,0.2);
@@ -616,7 +778,7 @@ html:has(.lectura-wrapper) {
   }
   
   input:checked + .slider {
-    background-color: $color-dark;
+    background-color: $color-ink;
   }
   
   input:checked + .slider::before {
@@ -633,7 +795,7 @@ html:has(.lectura-wrapper) {
 }
 
 #font-size-display {
-  color: $color-text-secondary;
+  color: $color-text-subtle;
   text-align: center;
   min-width: 45px;
 }
@@ -652,7 +814,7 @@ html:has(.lectura-wrapper) {
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   transition: all 0.2s;
   
   &:hover {
@@ -661,8 +823,8 @@ html:has(.lectura-wrapper) {
   }
   
   &.active {
-    color: $color-dark;
-    border-top-color: $color-dark;
+    color: $color-ink;
+    border-top-color: $color-ink;
   }
 }
 
@@ -682,7 +844,7 @@ html:has(.lectura-wrapper) {
 // ============================================
 
 .placeholder-text {
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-style: italic;
   text-align: center;
   padding: 2rem 1rem;
@@ -741,12 +903,12 @@ html:has(.lectura-wrapper) {
   text-align: left;
   
   &:hover {
-    background: $color-neutral-100;
-    color: $color-dark;
+    background: $color-surface-muted;
+    color: $color-ink;
   }
   
   &.active {
-    background: $color-dark;
+    background: $color-ink;
     color: white;
   }
 }
@@ -754,14 +916,14 @@ html:has(.lectura-wrapper) {
 .nav-section-search {
   margin-bottom: 1rem;
   padding-bottom: 0.9rem;
-  border-bottom: 1px solid rgba($color-neutral-200, 0.6);
+  border-bottom: 1px solid rgba($color-border-soft, 0.6);
 }
 
 .lectura-search-form {
   .form-label {
     margin-bottom: 0.4rem;
     font-size: 0.82rem;
-    color: $color-text-muted-dark;
+    color: $color-text-subtle-strong;
   }
 }
 
@@ -792,7 +954,7 @@ html:has(.lectura-wrapper) {
   border: none;
   border-radius: var(--ui-radius);
   background: transparent;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -801,8 +963,8 @@ html:has(.lectura-wrapper) {
 
   &:hover,
   &:focus-visible {
-    background: rgba($color-neutral-200, 0.82);
-    color: $color-dark;
+    background: rgba($color-border-soft, 0.82);
+    color: $color-ink;
     outline: none;
   }
 }
@@ -810,7 +972,7 @@ html:has(.lectura-wrapper) {
 .lectura-search-status {
   margin: 0.55rem 0 0.45rem;
   font-size: 0.78rem;
-  color: $color-text-muted;
+  color: $color-text-quiet;
 
   &:empty {
     display: none;
@@ -824,15 +986,15 @@ html:has(.lectura-wrapper) {
 
 .lectura-search-empty {
   margin: 0;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-size: 0.85rem;
 }
 
 .lectura-search-group {
-  border: 1px solid rgba($color-neutral-200, 0.6);
+  border: 1px solid rgba($color-border-soft, 0.6);
   border-radius: var(--ui-radius);
   overflow: hidden;
-  background: rgba($color-secondary-50, 0.55);
+  background: rgba($color-surface-page, 0.55);
 }
 
 .lectura-search-group-head {
@@ -841,13 +1003,13 @@ html:has(.lectura-wrapper) {
   align-items: center;
   gap: 0.5rem;
   padding: 0.42rem 0.62rem;
-  background: rgba($color-neutral-200, 0.65);
-  border-bottom: 1px solid rgba($color-neutral-200, 0.55);
+  background: rgba($color-border-soft, 0.65);
+  border-bottom: 1px solid rgba($color-border-soft, 0.55);
 
   h4 {
     margin: 0;
     font-size: 0.76rem;
-    color: $color-text-muted-dark;
+    color: $color-text-subtle-strong;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
@@ -856,11 +1018,11 @@ html:has(.lectura-wrapper) {
     min-width: 1.4rem;
     padding: 0.05rem 0.35rem;
     border-radius: var(--ui-radius);
-    background: rgba($color-light, 0.9);
-    border: 1px solid rgba($color-neutral-200, 0.7);
+    background: rgba($color-paper, 0.9);
+    border: 1px solid rgba($color-border-soft, 0.7);
     text-align: center;
     font-size: 0.72rem;
-    color: $color-text-muted-dark;
+    color: $color-text-subtle-strong;
   }
 }
 
@@ -876,7 +1038,7 @@ html:has(.lectura-wrapper) {
   align-items: flex-start;
   width: 100%;
   border: none;
-  border-bottom: 1px solid rgba($color-neutral-200, 0.7);
+  border-bottom: 1px solid rgba($color-border-soft, 0.7);
   background: transparent;
   text-align: left;
   padding: 0.42rem 0.58rem;
@@ -889,7 +1051,7 @@ html:has(.lectura-wrapper) {
 
   &:hover,
   &:focus-visible {
-    background: rgba($color-neutral-100, 0.72);
+    background: rgba($color-surface-muted, 0.72);
     outline: none;
   }
 }
@@ -899,10 +1061,10 @@ html:has(.lectura-wrapper) {
   margin-bottom: 0.18rem;
   padding: 0.02rem 0.36rem;
   border-radius: var(--ui-radius);
-  background: rgba($color-neutral-200, 0.75);
+  background: rgba($color-border-soft, 0.75);
   font-size: 0.67rem;
   letter-spacing: 0.02em;
-  color: $color-text-muted-dark;
+  color: $color-text-subtle-strong;
 }
 
 .lectura-search-result-title {
@@ -915,14 +1077,14 @@ html:has(.lectura-wrapper) {
 .lectura-search-result-meta {
   margin-top: 0.08rem;
   font-size: 0.73rem;
-  color: $color-text-muted-dark;
+  color: $color-text-subtle-strong;
 }
 
 .lectura-search-result-preview {
   margin-top: 0.08rem;
   font-size: 0.73rem;
   line-height: 1.25;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -935,10 +1097,10 @@ html:has(.lectura-wrapper) {
 
 @keyframes lecturaSearchTargetPulse {
   0% {
-    background-color: rgba($color-secondary-200, 0.15);
+    background-color: rgba($color-border-warm, 0.15);
   }
   20% {
-    background-color: rgba($color-secondary-200, 0.42);
+    background-color: rgba($color-border-warm, 0.42);
   }
   100% {
     background-color: transparent;
@@ -982,7 +1144,7 @@ html:has(.lectura-wrapper) {
 .lectura-skeleton-line {
   display: block;
   height: 10px;
-  background: $color-neutral-200;
+  background: $color-border-soft;
   border-radius: var(--ui-radius);
 }
 
@@ -1002,7 +1164,7 @@ html:has(.lectura-wrapper) {
   min-width: 0;
   height: 34px;
   border-radius: var(--ui-radius);
-  background: $color-neutral-200;
+  background: $color-border-soft;
 }
 
 .lectura-note-eval-loading .lectura-skeleton-line,
@@ -1136,7 +1298,7 @@ tei-roledesc {
 }
 
 .lectura-wrapper .text-column tei-castList tei-roledesc {
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-weight: 300;
 }
 
@@ -1175,18 +1337,30 @@ tei-lg {
   display: block;
 }
 
-tei-l {
-  padding-right: var(--lectura-verse-gutter);
+// Carril de versos: mantiene juntos texto y numeración y se encoge cuando
+// disminuye el espacio disponible (panel ancho, tableta o móvil).
+.lectura-wrapper .text-column tei-l {
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: calc(
+    var(--lectura-verse-text-measure) +
+    var(--lectura-verse-marker-lane)
+  );
+  padding-inline-end: var(--lectura-verse-marker-lane);
 }
 
-// Números de verso (alineados a la derecha)
+// Números de verso: columna regular dentro del carril reservado.
 .lectura-wrapper .numero-verso {
-  right: var(--lectura-verse-right);
+  right: var(--lectura-verse-number-inset);
   top: 0.18em;
   font-size: 0.75em;
+  font-variant-numeric: tabular-nums;
+  line-height: inherit;
+  text-align: right;
+  white-space: nowrap;
   
   @media (max-width: 575.98px) {
-    right: 0.3em;
     font-size: 0.7em; // Ligeramente más pequeño en móvil
   }
 }
@@ -1218,7 +1392,7 @@ tei-div[type="footnotes"] {
 
 tei-div[type="editor"],
 tei-div[type="colophon"] {
-  background-color: $color-neutral-100;
+  background-color: $color-surface-muted;
   border-radius: var(--ui-radius-sm);
   box-shadow: $shadow-heavy;
   padding: 20px;
@@ -1247,21 +1421,21 @@ tei-l > .metrical-marker {
   left: 0;
   right: 0;
   top: -0.08rem;
-  border-top: 1px dotted rgba($color-neutral-400, 0.38);
+  border-top: 1px dotted rgba($color-border-strong, 0.38);
   pointer-events: none;
   z-index: 2;
 }
 
 tei-l > .metrical-marker.metrical-marker--section {
   border-top-style: solid;
-  border-top-color: rgba($color-neutral-400, 0.7);
+  border-top-color: rgba($color-border-strong, 0.7);
   z-index: 1;
 }
 
 tei-l > .metrical-marker.metrical-marker--subsection {
   left: 58%;
   right: 0;
-  border-top-color: rgba($color-neutral-400, 0.26);
+  border-top-color: rgba($color-border-strong, 0.26);
   z-index: 3;
 }
 
@@ -1271,10 +1445,10 @@ tei-l.metrical-start-shared > .metrical-marker {
 
 tei-l > .metrical-label {
   position: absolute;
-  right: var(--lectura-verse-gutter);
+  right: var(--lectura-verse-marker-lane);
   top: -0.62rem;
   transform: translateY(calc(var(--metrical-label-index, 0) * -0.82rem));
-  color: rgba($color-text-muted, 0.72);
+  color: rgba($color-text-quiet, 0.72);
   font-size: 0.62rem;
   font-style: italic;
   letter-spacing: 0.015em;
@@ -1287,7 +1461,7 @@ tei-l > .metrical-label {
 
 tei-l > .metrical-label.metrical-label--section {
   top: -0.88rem;
-  color: rgba($color-text-muted, 0.82);
+  color: rgba($color-text-quiet, 0.82);
   font-size: 0.7rem;
   font-style: normal;
   letter-spacing: 0.01em;
@@ -1298,25 +1472,18 @@ tei-l > .metrical-label.metrical-label--section {
 // BOTÓN FIJO (toggles)
 // ============================================
 
+@media (min-width: 992px) {
+  .lectura-wrapper {
+    --lectura-verse-marker-lane: 5ch;
+    // La holgura es estable al abrir/cerrar. El carril solo se desplaza cuando
+    // el panel ensanchado reduce de verdad el espacio disponible.
+    --lectura-verse-number-inset: 1rem;
+  }
+}
+
 @media (min-width: 1600px) {
   .lectura-wrapper {
     --lectura-open-left-shift-base: 0px;
-    --lectura-verse-gutter: 1.6em;
-    --lectura-verse-right: 0.14em;
-  }
-}
-
-@media (min-width: 1600px) {
-  .lectura-wrapper.lectura-panel-open {
-    --lectura-verse-gutter: 1.2em;
-    --lectura-verse-right: 0.04em;
-  }
-}
-
-@media (min-width: 1920px) {
-  .lectura-wrapper.lectura-panel-open {
-    --lectura-verse-gutter: 1.1em;
-    --lectura-verse-right: 0;
   }
 }
 
@@ -1325,10 +1492,9 @@ tei-l > .metrical-label.metrical-label--section {
     --lectura-rail-collapsed-width: 54px;
     --lectura-rail-height: clamp(230px, 44vh, 330px);
     --lectura-rail-gap: 7px;
-    --lectura-panel-gap-open: 26px;
-    --lectura-panel-gap-closed: 20px;
   }
 
+  .lectura-panel,
   .lectura-panel.open {
     max-height: min(78dvh, calc(100vh - 28px));
     padding: 18px;
@@ -1360,11 +1526,10 @@ tei-l > .metrical-label.metrical-label--section {
     --lectura-rail-collapsed-width: 52px;
     --lectura-rail-height: clamp(208px, 40vh, 300px);
     --lectura-rail-gap: 6px;
-    --lectura-panel-gap-open: 22px;
-    --lectura-panel-gap-closed: 18px;
     --lectura-note-eval-dock-min-height: clamp(84px, 10.4vh, 104px);
   }
 
+  .lectura-panel,
   .lectura-panel.open {
     max-height: min(74dvh, calc(100vh - 24px));
     padding: 16px;
@@ -1384,12 +1549,6 @@ tei-l > .metrical-label.metrical-label--section {
     font-size: 0.84rem;
   }
 
-  .lectura-tabs-bar:hover .tab-button,
-  .lectura-tabs-bar:has(.tab-button:focus-visible) .tab-button,
-  .lectura-tabs-bar.is-measuring .tab-button {
-    gap: 7px;
-  }
-
   .option-item {
     padding: 7px 0;
   }
@@ -1406,10 +1565,9 @@ tei-l > .metrical-label.metrical-label--section {
     --lectura-rail-collapsed-width: 48px;
     --lectura-rail-height: clamp(184px, 35vh, 250px);
     --lectura-rail-gap: 5px;
-    --lectura-panel-gap-open: 18px;
-    --lectura-panel-gap-closed: 14px;
   }
 
+  .lectura-panel,
   .lectura-panel.open {
     max-height: min(68dvh, calc(100vh - 18px));
     padding: 14px;
@@ -1427,12 +1585,6 @@ tei-l > .metrical-label.metrical-label--section {
 
   .lectura-tabs-bar .tab-button .tab-icon {
     font-size: 0.78rem;
-  }
-
-  .lectura-tabs-bar:hover .tab-button,
-  .lectura-tabs-bar:has(.tab-button:focus-visible) .tab-button,
-  .lectura-tabs-bar.is-measuring .tab-button {
-    gap: 7px;
   }
 
   .option-item {
@@ -1490,7 +1642,7 @@ tei-l > .metrical-label.metrical-label--section {
     display: block;
     width: 48px;
     height: 5px;
-    background: $color-neutral-400;
+    background: $color-border-strong;
     cursor: grab;
     touch-action: none;
 

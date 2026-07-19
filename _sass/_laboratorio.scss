@@ -4,7 +4,7 @@
 // Layout y overrides contextuales del laboratorio.
 // ============================================
 
-@use "variables" as *;
+@use "tokens" as *;
 
 // ============================================
 // BASE PAGE
@@ -70,7 +70,7 @@ body.laboratorio-page.laboratorio-mode-active {
 .stats-globales {
   padding: clamp(18px, 2.6vh, 24px);
   border-radius: var(--ui-radius);
-  background: $color-neutral-100;
+  background: $color-surface-muted;
 }
 
 .stats-globales--parked {
@@ -83,12 +83,12 @@ body.laboratorio-page.laboratorio-mode-active {
   gap: 10px;
   margin-bottom: 22px;
   padding-bottom: 14px;
-  border-bottom: 1px solid $color-neutral-200;
+  border-bottom: 1px solid $color-border-soft;
   font-size: 1.05rem;
   color: $color-text;
 
   i {
-    color: $color-dark;
+    color: $color-ink;
     font-size: 1.2rem;
   }
 }
@@ -96,7 +96,7 @@ body.laboratorio-page.laboratorio-mode-active {
 .loading-stats-container {
   text-align: center;
   padding: 20px;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-style: italic;
 }
 
@@ -184,13 +184,13 @@ body.laboratorio-page.laboratorio-mode-active {
 .chart-number {
   font-size: 1.6rem;
   font-weight: 700;
-  color: $color-dark;
+  color: $color-ink;
   line-height: 1;
 }
 
 .chart-sublabel {
   font-size: 0.75rem;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   margin-top: 2px;
 }
 
@@ -215,19 +215,19 @@ body.laboratorio-page.laboratorio-mode-active {
   flex-shrink: 0;
 
   &.evaluaciones {
-    background: $color-success;
+    background: $color-status-success;
   }
 
   &.sugerencias {
-    background: $color-primary;
+    background: $color-accent;
   }
 
   &.util {
-    background: $color-success;
+    background: $color-status-success;
   }
 
   &.mejorable {
-    background: $color-danger;
+    background: $color-status-danger;
   }
 }
 
@@ -244,7 +244,7 @@ body.laboratorio-page.laboratorio-mode-active {
   box-sizing: border-box;
   width: 100%;
   margin-inline: auto;
-  background: $color-light;
+  background: $color-paper;
   min-height: 100vh;
   min-height: 100dvh;
 }
@@ -260,8 +260,8 @@ body.laboratorio-page.laboratorio-mode-active {
   font-size: 0.72rem;
   font-weight: 600;
   border-radius: var(--ui-radius);
-  background: $color-neutral-100;
-  color: $color-dark;
+  background: $color-surface-muted;
+  color: $color-ink;
   line-height: 1.35;
   white-space: nowrap;
 }
@@ -289,7 +289,7 @@ body.laboratorio-page.laboratorio-mode-active {
   position: fixed;
   inset: 0;
   z-index: 925;
-  background: rgba($color-dark, 0.22);
+  background: rgba($color-ink, 0.22);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.22s ease;
@@ -304,13 +304,13 @@ body.laboratorio-page.laboratorio-mode-active {
 .notas-container {
   min-height: 0;
   border-radius: var(--ui-radius);
-  background: $color-neutral-50;
+  background: $color-surface-hover;
 }
 
 .pasaje-container,
 .notas-container .note-panel-scroll {
   scrollbar-width: thin;
-  scrollbar-color: $color-text-muted $color-neutral-50;
+  scrollbar-color: $color-text-quiet $color-surface-hover;
 }
 
 .pasaje-container::-webkit-scrollbar,
@@ -321,20 +321,20 @@ body.laboratorio-page.laboratorio-mode-active {
 
 .pasaje-container::-webkit-scrollbar-track,
 .notas-container .note-panel-scroll::-webkit-scrollbar-track {
-  background: $color-neutral-50;
+  background: $color-surface-hover;
   border-radius: var(--ui-radius);
 }
 
 .pasaje-container::-webkit-scrollbar-thumb,
 .notas-container .note-panel-scroll::-webkit-scrollbar-thumb {
-  background: $color-text-muted;
+  background: $color-text-quiet;
   border-radius: var(--ui-radius);
-  border: 2px solid $color-neutral-50;
+  border: 2px solid $color-surface-hover;
 }
 
 .pasaje-container::-webkit-scrollbar-thumb:hover,
 .notas-container .note-panel-scroll::-webkit-scrollbar-thumb:hover {
-  background: $color-neutral-700;
+  background: $color-text-subtle;
 }
 
 .pasaje-container {
@@ -364,7 +364,7 @@ body.laboratorio-page.laboratorio-mode-active {
 
 .lab-pasaje-titulo {
   margin: 0 0 clamp(8px, 1.5vh, 12px);
-  border-bottom: 2px solid $color-dark;
+  border-bottom: 2px solid $color-ink;
   padding-bottom: clamp(6px, 1.2vh, 10px);
   color: $color-text;
   font-size: clamp(1.7rem, min(3.2vw, 4.2vh), 2.6rem);
@@ -375,7 +375,7 @@ body.laboratorio-page.laboratorio-mode-active {
 
 .lab-pasaje-descripcion {
   margin: 0 0 clamp(12px, 2.2vh, 20px);
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-style: italic;
   font-size: clamp(0.92rem, min(1.1vw, 1.9vh), 1rem);
   line-height: 1.5;
@@ -418,7 +418,7 @@ body.laboratorio-page.laboratorio-mode-active {
 .lab-font-size-display {
   min-width: 36px;
   text-align: center;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-size: 0.76rem;
   font-weight: 500;
 }
@@ -462,14 +462,14 @@ body.laboratorio-page.laboratorio-mode-active {
   font-weight: 600;
 
   i {
-    color: $color-dark;
+    color: $color-ink;
   }
 }
 
 .notas-collapsed-count {
   font-size: 0.78rem;
   font-weight: 600;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   white-space: nowrap;
 }
 
@@ -481,14 +481,14 @@ body.laboratorio-page.laboratorio-mode-active {
 
 .barra-progreso {
   height: 6px;
-  background: $color-neutral-100;
+  background: $color-surface-muted;
   border-radius: var(--ui-radius);
   overflow: hidden;
 }
 
 .barra-progreso-fill {
   height: 100%;
-  background: $color-dark;
+  background: $color-ink;
   border-radius: var(--ui-radius);
   transition: width 0.3s ease;
 }
@@ -507,7 +507,7 @@ body.laboratorio-page.laboratorio-mode-active {
     width: 44px;
     height: 4px;
     border-radius: var(--ui-radius);
-    background: $color-neutral-400;
+    background: $color-border-strong;
     margin: 0 auto 12px;
     flex-shrink: 0;
   }
@@ -519,7 +519,7 @@ body.laboratorio-page.laboratorio-mode-active {
     gap: 8px;
     margin-bottom: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid $color-neutral-200;
+    border-bottom: 1px solid $color-border-soft;
     flex-shrink: 0;
   }
 
@@ -558,7 +558,7 @@ body.laboratorio-page.laboratorio-mode-active {
 
   .notas-resumen-evaluacion .notas-contador-abajo {
     font-size: 0.8rem;
-    color: $color-text-muted;
+    color: $color-text-quiet;
     white-space: nowrap;
     line-height: 1;
   }
@@ -589,17 +589,17 @@ body.laboratorio-page.laboratorio-mode-active {
 
   .notas-instrucciones {
     padding-top: 12px;
-    border-top: 1px solid $color-neutral-200;
+    border-top: 1px solid $color-border-soft;
     flex-shrink: 0;
 
     p {
       margin: 0;
       font-size: 0.82rem;
-      color: $color-text-muted;
+      color: $color-text-quiet;
 
       i {
         margin-right: 6px;
-        color: $color-dark;
+        color: $color-ink;
       }
     }
   }
@@ -647,7 +647,7 @@ body.laboratorio-page.laboratorio-mode-active {
     }
 
     p {
-      color: $color-text-muted;
+      color: $color-text-quiet;
       margin-bottom: 0;
       margin-top: 4px;
       font-size: clamp(0.83rem, 1vw, 0.92rem);
@@ -763,7 +763,7 @@ body.laboratorio-page.laboratorio-mode-active {
 
   .laboratorio-progreso {
     font-size: 0.8rem;
-    color: $color-text-muted;
+    color: $color-text-quiet;
     white-space: nowrap;
     margin-left: 2px;
   }
@@ -888,7 +888,7 @@ body.laboratorio-page.laboratorio-mode-active {
 
   .laboratorio-mobile-progress-copy {
     font-size: 0.79rem;
-    color: $color-text-muted;
+    color: $color-text-quiet;
     line-height: 1;
     white-space: nowrap;
     flex: 0 0 auto;
@@ -1005,8 +1005,8 @@ body.laboratorio-page.laboratorio-mode-active {
 
   .laboratorio-mobile-footer .notas-collapsed-toggle {
     width: 100%;
-    background: $color-dark;
-    color: $color-light;
+    background: $color-ink;
+    color: $color-paper;
     border-radius: var(--ui-radius) var(--ui-radius) 0 0;
     box-shadow: $shadow-md;
     backdrop-filter: blur(10px);
@@ -1014,23 +1014,23 @@ body.laboratorio-page.laboratorio-mode-active {
   }
 
   .laboratorio-mobile-footer .notas-collapsed-label {
-    color: $color-light;
+    color: $color-paper;
   }
 
   .laboratorio-mobile-footer .notas-collapsed-label i {
-    color: $color-primary;
+    color: $color-accent;
   }
 
   .laboratorio-mobile-footer .notas-collapsed-count {
-    color: $color-neutral-200;
+    color: $color-border-soft;
   }
 
   .laboratorio-mobile-footer .barra-progreso {
-    background: rgba($color-light, 0.18);
+    background: rgba($color-paper, 0.18);
   }
 
   .laboratorio-mobile-footer .barra-progreso-fill {
-    background: $color-light;
+    background: $color-paper;
   }
 
   .laboratorio-mobile-note-sheet {
@@ -1046,7 +1046,7 @@ body.laboratorio-page.laboratorio-mode-active {
     max-height: min(78dvh, 700px);
     padding: 14px 14px calc(14px + env(safe-area-inset-bottom));
     border-radius: var(--ui-radius) var(--ui-radius) 0 0;
-    box-shadow: 0 -18px 42px rgba($color-dark, 0.18);
+    box-shadow: 0 -18px 42px rgba($color-ink, 0.18);
     transform: translateY(calc(100% + 32px));
     opacity: 0;
     transition: transform 0.28s ease, opacity 0.22s ease;
@@ -1061,7 +1061,7 @@ body.laboratorio-page.laboratorio-mode-active {
     display: block;
     width: 48px;
     height: 5px;
-    background: $color-neutral-400;
+    background: $color-border-strong;
     cursor: grab;
     touch-action: none;
   }

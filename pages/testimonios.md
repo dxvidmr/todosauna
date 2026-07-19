@@ -15,7 +15,7 @@ custom-foot: participacion/scripts-testimonios-publicos.html
           <p class="lead mb-0">
             Explora testimonios publicados de personas que han leído, interpretado o investigado sobre <i>Fuenteovejuna</i>.
           </p>
-          <p class="mt-3 mb-0 small text-muted">
+          <p class="mt-3 mb-0 small text-quiet">
             Conoce más sobre la colección en
             <a href="{{ '/datos/' | relative_url }}">Datos abiertos</a>.
           </p>
@@ -47,7 +47,7 @@ custom-foot: participacion/scripts-testimonios-publicos.html
         </div>
       </div>
       <div class="archivo-testimonios-controls-actions">
-        <button type="button" id="testimonios-publicos-clear" class="btn btn-outline-dark btn-sm">Limpiar filtros</button>
+        <button type="button" id="testimonios-publicos-clear" class="btn btn-outline-action btn-sm">Limpiar filtros</button>
         <p id="testimonios-publicos-summary" class="archivo-testimonios-summary mb-0" aria-live="polite"></p>
       </div>
     </section>
@@ -66,7 +66,7 @@ custom-foot: participacion/scripts-testimonios-publicos.html
     <div id="testimonios-publicos-list" class="archivo-testimonios-grid" aria-live="polite" aria-busy="false"></div>
 
     <div class="archivo-testimonios-actions">
-      <button type="button" id="testimonios-publicos-load-more" class="btn btn-dark" hidden>Cargar más</button>
+      <button type="button" id="testimonios-publicos-load-more" class="btn btn-action" hidden>Cargar más</button>
     </div>
   </div>
 </section>

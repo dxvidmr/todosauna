@@ -191,9 +191,9 @@ Example Code --> `{% raw %}{% include feature/audio-modal.html objectid="https:/
 
 #### Cloud Include
 
-{% include feature/cloud.html fields="subject" min="1" background="dark" button="outline-warning" %}
+{% include feature/cloud.html fields="subject" min="1" background="inverse" button="outline-inverse" %}
 
-Example Code --> `{% raw %}{% include feature/cloud.html fields="subject" min="1" background="dark" button="outline-warning"  %}{% endraw %}`
+Example Code --> `{% raw %}{% include feature/cloud.html fields="subject" min="1" background="inverse" button="outline-inverse"  %}{% endraw %}`
 
 #### TimelineJS
 
@@ -213,9 +213,9 @@ Example Code --> `{% raw %}{% include feature/timelinejs.html  %}{% endraw %}`
 
 #### Include a Button 
 
-- Buttons -- > `{% raw %}{% include feature/button.html text="Button Link to Somewhere" link="https://collectionbuilder.github.io/" color="success" %}{% endraw %}`
+- Buttons -- > `{% raw %}{% include feature/button.html text="Button Link to Somewhere" link="https://collectionbuilder.github.io/" color="accent" %}{% endraw %}`
 
-{% include feature/button.html text="Button Link to Somewhere" link="https://collectionbuilder.github.io/" color="success" centered=true %}
+{% include feature/button.html text="Button Link to Somewhere" link="https://collectionbuilder.github.io/" color="accent" centered=true %}
   
 #### Include an Alert
 
@@ -225,6 +225,6 @@ Example Code --> `{% raw %}{% include feature/timelinejs.html  %}{% endraw %}`
 
 #### Include a Modal
 
-- Modals -- > `{% raw %}{% include feature/modal.html button="This is a modal using a 'primary' colored button to invite clicking" title="when clicked:" text="A Modal will pop out a box with some more information" color="primary"  %}{% endraw %}`
+- Modals -- > `{% raw %}{% include feature/modal.html button="This is a modal using an accent button to invite clicking" title="when clicked:" text="A Modal will pop out a box with some more information" color="accent"  %}{% endraw %}`
 
-{% include feature/modal.html button="This is a modal using a 'primary' colored button to invite clicking" title="When clicked:" text="A Modal will pop out a box with some more information" color="primary"  %} 
+{% include feature/modal.html button="This is a modal using an accent button to invite clicking" title="When clicked:" text="A Modal will pop out a box with some more information" color="accent"  %}

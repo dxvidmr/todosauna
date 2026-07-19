@@ -61,20 +61,20 @@ navbar_behavior: fixed
         <article class="card card-soft ui-thin-border">
           <div class="card-body d-flex flex-column p-3">
             <h2 class="h5">Modo secuencial</h2>
-            <p class="text-neutral-700 mb-3">Recorre los pasajes en orden cronológico de la obra</p>
-            <button type="button" class="btn btn-dark align-self-start mt-auto" data-lab-start-mode data-modo="secuencial">Iniciar</button>
+            <p class="text-subtle mb-3">Recorre los pasajes en orden cronológico de la obra</p>
+            <button type="button" class="btn btn-action align-self-start mt-auto" data-lab-start-mode data-modo="secuencial">Iniciar</button>
           </div>
         </article>
 
         <article class="card card-soft ui-thin-border">
           <div class="card-body d-flex flex-column p-3">
             <h2 class="h5">Modo aleatorio</h2>
-            <p class="text-neutral-700 mb-3">Sorpréndete con un pasaje al azar de la obra</p>
-            <button type="button" class="btn btn-dark align-self-start mt-auto" data-lab-start-mode data-modo="aleatorio">Iniciar</button>
+            <p class="text-subtle mb-3">Sorpréndete con un pasaje al azar de la obra</p>
+            <button type="button" class="btn btn-action align-self-start mt-auto" data-lab-start-mode data-modo="aleatorio">Iniciar</button>
           </div>
         </article>
 
-        <div class="stats-globales stats-globales--parked bg-neutral-100">
+        <div class="stats-globales stats-globales--parked bg-surface-muted">
           <div class="loading-stats-container">
             <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
             Cargando estadísticas...

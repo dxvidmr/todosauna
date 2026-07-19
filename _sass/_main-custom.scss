@@ -1,11 +1,11 @@
-@use "variables" as *;
+@use "tokens" as *;
 
 // ============================================
 // LAYOUT Y BLOQUES COMPARTIDOS (home/participa/testimonios)
 // Sin overrides globales de Bootstrap.
 // ============================================
 
-// COLOR STUDY TOKENS
+// Tokens de geometria compartidos. Los colores se exportan desde _tokens.scss.
 :root {
   --navbar-height: 0px;
   --layout-rail-max: 1240px;
@@ -28,23 +28,6 @@
     var(--compact-navbar-button-top-offset) +
     ((var(--compact-navbar-toggle-size) - var(--compact-navbar-icon-stack-size)) / 2)
   );
-  --color-dark: #{$color-dark};
-  --color-light: #{$color-light};
-  --color-primary: #{$color-primary};
-  --color-primary-lift: #{$color-primary-lift};
-  --color-primary-soft: #{$color-primary-soft};
-  --color-secondary: #{$color-secondary};
-  --ui-text-muted: #{$color-text-secondary};
-  --ui-radius: #{$radius-ui};
-  --ui-radius-sm: #{$radius-ui-sm};
-  --ui-radius-xs: #{$radius-ui-xs};
-  --ui-radius-round: #{$radius-ui-round};
-  --bs-border-radius: var(--ui-radius);
-  --bs-border-radius-sm: var(--ui-radius-sm);
-  --bs-border-radius-lg: var(--ui-radius);
-  --bs-border-radius-xl: var(--ui-radius);
-  --bs-border-radius-xxl: var(--ui-radius);
-  --bs-border-radius-pill: var(--ui-radius);
 }
 
 .navbar-offset-main {
@@ -73,13 +56,13 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.78rem;
-  color: $color-text-muted;
+  color: $color-text-quiet;
 }
 
 .participa-mode-gate {
-  background: $color-secondary-50;
-  border: 1px solid $color-secondary;
-  color: $color-dark;
+  background: $color-surface-page;
+  border: 1px solid $color-border-warm;
+  color: $color-ink;
   border-radius: var(--ui-radius);
   padding: 14px 16px;
 }
@@ -104,16 +87,16 @@
 }
 
 .participa-step {
-  border: 1px solid $color-neutral-200;
+  border: 1px solid $color-border-soft;
   border-radius: var(--ui-radius);
   padding: 5px 12px;
   font-size: 0.84rem;
-  color: $color-neutral-700;
+  color: $color-text-subtle;
 
   &.is-active {
-    background: $color-primary-soft;
-    color: $color-primary;
-    border-color: rgba($color-primary, 0.28);
+    background: $color-accent-soft;
+    color: $color-accent;
+    border-color: rgba($color-accent, 0.28);
     font-weight: 600;
   }
 }
@@ -165,14 +148,14 @@
 
 .archivo-testimonios-summary {
   font-size: 0.9rem;
-  color: $color-text-muted;
+  color: $color-text-quiet;
 }
 
 .archivo-testimonios-status {
   border-radius: var(--ui-radius);
   border: 1px solid rgba(0, 0, 0, 0.08);
-  background: $color-light;
-  color: $color-neutral-700;
+  background: $color-paper;
+  color: $color-text-subtle;
   padding: 12px 14px;
   font-size: 0.95rem;
   display: flex;
@@ -180,15 +163,15 @@
 }
 
 .archivo-testimonios-status.is-error {
-  background: rgba($color-danger, 0.16);
-  border-color: rgba($color-danger, 0.28);
-  color: $color-danger;
+  background: rgba($color-status-danger, 0.16);
+  border-color: rgba($color-status-danger, 0.28);
+  color: $color-status-danger;
 }
 
 .archivo-testimonios-status.is-empty {
-  background: $color-neutral-100;
-  border-color: $color-neutral-200;
-  color: $color-neutral-700;
+  background: $color-surface-muted;
+  border-color: $color-border-soft;
+  color: $color-text-subtle;
 }
 
 .archivo-testimonios-grid {
@@ -209,12 +192,12 @@
   margin: 0;
   font-size: clamp(1.2rem, 2.3vh, 1.45rem);
   line-height: 1.25;
-  color: $color-dark;
+  color: $color-ink;
 }
 
 .archivo-testimonios-meta {
   margin: 0;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-size: 0.9rem;
 }
 
@@ -237,7 +220,7 @@
     margin: 0;
     padding-left: 12px;
     border-left: 3px solid rgba(0, 0, 0, 0.18);
-    color: $color-neutral-700;
+    color: $color-text-subtle;
   }
 
   code {
@@ -255,7 +238,7 @@
 .archivo-testimonios-subtitle {
   margin: 0;
   font-size: 0.95rem;
-  color: $color-dark;
+  color: $color-ink;
 }
 
 .archivo-testimonios-context,
@@ -339,6 +322,7 @@
 }
 
 .site-footer__brand {
+  color: $color-surface-soft;
   font-size: clamp(1.8rem, 4.8vw, 3.1rem);
   line-height: 0.95;
   letter-spacing: 0;
@@ -362,7 +346,7 @@
 
   &:hover,
   &:focus-visible {
-    color: $color-light;
+    color: $color-paper;
     opacity: 0.86;
   }
 }
@@ -377,7 +361,7 @@
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 0.2rem rgba($color-light, 0.26);
+    box-shadow: 0 0 0 0.2rem rgba($color-paper, 0.26);
     border-radius: var(--ui-radius-xs);
   }
 }

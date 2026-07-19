@@ -12,7 +12,7 @@ navbar_behavior: auto-hide
       <p class="lead mb-0">
         Explora la colección documental de <i>Fuenteovejuna</i> y localiza materiales por título, creador, lugar o fecha.
       </p>
-      <p class="mt-3 mb-0 small text-muted">
+      <p class="mt-3 mb-0 small text-quiet">
         Conoce más sobre la colección en 
         <a href="{{ '/datos/' | relative_url }}">Datos abiertos</a>.
       </p>

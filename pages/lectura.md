@@ -95,6 +95,7 @@ lectura_dynamic_recenter: true
                             <span class="slider"></span>
                         </label>
                     </div>
+                    {% include ui/note-category-filter.html %}
                     <div class="option-item">
                         <label for="toggle-stanzas">Mostrar separación de estrofas</label>
                         <label class="toggle-switch">
@@ -157,19 +158,20 @@ lectura_dynamic_recenter: true
     
     <!-- Barra de pestañas flotante (siempre visible) -->
     <div class="lectura-tabs-bar" id="lectura-tabs-bar">
-        <button class="tab-button" data-tab="notas" title="Notas" aria-label="Notas">
+        <button class="tab-button" data-tab="notas" aria-label="Notas">
             <i class="fa-solid fa-note-sticky tab-icon" aria-hidden="true"></i>
             <span class="tab-label">Notas</span>
         </button>
-        <button class="tab-button" data-tab="navegación" title="Navegación" aria-label="Navegación">
+        <button class="tab-button" data-tab="navegación" aria-label="Navegación">
             <i class="fa-solid fa-compass tab-icon" aria-hidden="true"></i>
             <span class="tab-label">Navegación</span>
         </button>
-        <button class="tab-button" data-tab="opciones" title="Opciones" aria-label="Opciones">
+        <button class="tab-button" data-tab="opciones" aria-label="Opciones">
             <i class="fa-solid fa-sliders tab-icon" aria-hidden="true"></i>
             <span class="tab-label">Opciones</span>
+            <span class="note-filter-indicator" aria-hidden="true" hidden></span>
         </button>
-        <button class="tab-button" data-tab="info" title="Información" aria-label="Información">
+        <button class="tab-button" data-tab="info" aria-label="Información">
             <i class="fa-solid fa-circle-info tab-icon" aria-hidden="true"></i>
             <span class="tab-label">Información</span>
         </button>

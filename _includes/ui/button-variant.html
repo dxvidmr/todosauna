@@ -1,0 +1,7 @@
+{%- assign requested_variant = include.variant | default: include.default | default: 'accent' -%}
+{%- assign allowed_variants = 'action,accent,soft,muted,inverse,outline-action,outline-accent,outline-soft,outline-muted,outline-inverse,outline-danger' | split: ',' -%}
+{%- if allowed_variants contains requested_variant -%}
+{{- requested_variant -}}
+{%- else -%}
+{{- include.default | default: 'accent' -}}
+{%- endif -%}

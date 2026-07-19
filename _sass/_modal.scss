@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use "tokens" as *;
 @use "buttons" as buttons;
 
 #ta-modal-root {
@@ -63,7 +63,7 @@ body.ta-modal-scroll-locked {
 }
 
 .ta-modal__dialog:focus-visible {
-  outline: 2px solid rgba($color-primary, 0.28);
+  outline: 2px solid rgba($color-accent, 0.28);
   outline-offset: 2px;
 }
 
@@ -131,7 +131,7 @@ body.ta-modal-scroll-locked {
 
 .ta-modal__header-meta-item,
 .modal-header-meta-item {
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-size: 0.92rem;
 }
 
@@ -163,7 +163,7 @@ body.ta-modal-scroll-locked {
 .ta-modal__description,
 .modal-descripcion {
   margin: 0;
-  color: $color-text-muted;
+  color: $color-text-quiet;
   font-size: 0.9rem;
   line-height: 1.45;
 }

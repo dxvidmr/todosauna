@@ -21,7 +21,7 @@ permalink: /participa/
     {% endfor %}
   </div>
 
-  <p class="text-center small text-muted mt-4 mb-0">
+  <p class="text-center small text-quiet mt-4 mb-0">
     Lee la <a href="{{ '/participa/guia/' | relative_url }}">guía de participacion</a>,
     conoce mas <a href="{{ '/acerca-de/' | relative_url }}">sobre el proyecto</a>
     y consulta la <a href="{{ '/privacidad/' | relative_url }}">política de privacidad</a>.

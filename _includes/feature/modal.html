@@ -2,11 +2,11 @@
 
     Site modal feature.
 
-    E.G. --> {% include feature/modal.html button="More Info" color="info" title="Information" text="Example text" %}
+    E.G. --> {% include feature/modal.html button="More Info" color="accent" title="Information" text="Example text" %}
 
     Options:
     - "button" = text of button to trigger modal
-    - "color" = color of modal button (primary, secondary, success, danger, warning, info, light, dark)
+    - "color" = semantic button variant (optional, default: accent)
     - "title" = header text for modal pop up
     - "text" = body text for modal pop up, can use markdown formatting (tip: use a Liquid capture to add more complex content)
 
@@ -15,9 +15,10 @@
 {% capture modal_body %}
   {{ include.text | markdownify }}
 {% endcapture %}
+{% capture button_variant %}{% include ui/button-variant.html variant=include.color default='accent' %}{% endcapture %}
 
 <p class="text-center mb-3">
-  <button type="button" class="btn btn-{{ include.color | default: 'primary' }}" data-ta-modal-target="#{{ modal_id }}">{{ include.button }}</button>
+  <button type="button" class="btn btn-{{ button_variant | strip }}" data-ta-modal-target="#{{ modal_id }}">{{ include.button }}</button>
 </p>
 
 {% include ui/modal.html
