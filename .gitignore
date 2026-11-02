@@ -11,9 +11,11 @@ vendor/
 # Ignore mac files 
 .DS_Store
 
-# Ignore objects directory to avoid committing binary files (other than demo files)
-# if you would like to commit your objects to github, delete the line below!
-objects/
+# objects/: solo se versionan las miniaturas (small/ y thumbs/) que copia
+# fuenteovejuna-data; el resto de archivos de objetos no se sube.
+objects/*
+!objects/small/
+!objects/thumbs/
 
 # Local environment files / secrets
 .env
