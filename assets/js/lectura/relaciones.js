@@ -94,12 +94,8 @@ function resolveRelations(container, relations) {
       }
     });
     if (elements.length === 0) return;
-    elements.sort(function (a, b) {
-      if (a === b) return 0;
-      return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
-    });
-    relation.elements = elements;
-    relation.anchor = elements[0];
+    relation.elements = sortByDocumentOrder(elements);
+    relation.anchor = relation.elements[0];
     resolved.push(relation);
   });
   return resolved;
@@ -119,15 +115,76 @@ function countObjects(relations) {
   return seen.length;
 }
 
-// Resalta u oculta el rango de unas relaciones. kind: 'hover' (gesto) o
-// 'active' (mientras el panel muestre sus imágenes); son independientes.
-function setRangeHighlight(relations, kind, on) {
-  var className = 'relation-range-' + kind;
-  (relations || []).forEach(function (relation) {
+// Rango de las relaciones resaltadas por gesto (hover) o porque el panel
+// muestra sus imágenes (active). Se dibuja como un filete continuo: una línea
+// por tramo de pasajes seguidos, y no un borde por verso.
+var rangeState = { hover: [], active: [] };
+var RANGE_LINE_OFFSET = 9;
+var RANGE_GAP_EM = 2.5;
+
+function sortByDocumentOrder(elements) {
+  return elements.sort(function (a, b) {
+    if (a === b) return 0;
+    return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+  });
+}
+
+// Tramos {left, top, bottom} en coordenadas del contenedor. Dos pasajes están
+// en el mismo tramo si entre ellos hay menos de RANGE_GAP_EM líneas de hueco.
+function rangeSegments(container, relations) {
+  var elements = [];
+  relations.forEach(function (relation) {
     relation.elements.forEach(function (element) {
-      element.classList.toggle(className, !!on);
+      if (elements.indexOf(element) === -1) elements.push(element);
     });
   });
+  sortByDocumentOrder(elements);
+
+  var origin = container.getBoundingClientRect();
+  var segments = [];
+  var current = null;
+  elements.forEach(function (element) {
+    var rect = element.getBoundingClientRect();
+    if (rect.width === 0 && rect.height === 0) return;
+    var left = rect.left - origin.left;
+    var top = rect.top - origin.top;
+    var bottom = rect.bottom - origin.top;
+    var gap = parseFloat(window.getComputedStyle(element).fontSize) * RANGE_GAP_EM;
+    if (current && top - current.bottom <= gap) {
+      current.bottom = Math.max(current.bottom, bottom);
+      current.left = Math.min(current.left, left);
+    } else {
+      current = { left: left, top: top, bottom: bottom };
+      segments.push(current);
+    }
+  });
+  return segments;
+}
+
+function renderRangeLines(container) {
+  if (!container) return;
+  Array.from(container.querySelectorAll(':scope > .relation-range-line')).forEach(function (line) {
+    line.remove();
+  });
+  ['hover', 'active'].forEach(function (kind) {
+    if (rangeState[kind].length === 0) return;
+    rangeSegments(container, rangeState[kind]).forEach(function (segment) {
+      var line = document.createElement('span');
+      line.className = 'relation-range-line relation-range-line--' + kind;
+      line.setAttribute('aria-hidden', 'true');
+      line.style.left = Math.max(0, segment.left - RANGE_LINE_OFFSET) + 'px';
+      line.style.top = segment.top + 'px';
+      line.style.height = Math.max(0, segment.bottom - segment.top) + 'px';
+      container.appendChild(line);
+    });
+  });
+}
+
+// kind: 'hover' (gesto) o 'active' (mientras el panel muestre sus imágenes);
+// son independientes. Sin relaciones, quita el resaltado de ese tipo.
+function setRangeHighlight(container, kind, relations) {
+  rangeState[kind] = relations || [];
+  renderRangeLines(container);
 }
 
 // Un icono de imagen al margen del ancla de cada grupo de relaciones. Varias
@@ -145,6 +202,14 @@ function applyRelationMarkers(container, relations, options) {
     groups.set(relation.anchor, list);
   });
 
+  // El filete se coloca respecto al contenedor y se recalcula si el texto se
+  // recoloca (panel, tamaño de letra, ventana).
+  container.classList.add('relation-lines-host');
+  if (typeof ResizeObserver === 'function' && !container.hasAttribute('data-relation-lines')) {
+    container.setAttribute('data-relation-lines', 'true');
+    new ResizeObserver(function () { renderRangeLines(container); }).observe(container);
+  }
+
   var markers = [];
   groups.forEach(function (group, element) {
     var count = countObjects(group);
@@ -156,8 +221,8 @@ function applyRelationMarkers(container, relations, options) {
     if (count > 1) marker.setAttribute('data-count', String(count));
     marker.setAttribute('data-relation-ids', group.map(function (relation) { return relation.id; }).join(' '));
 
-    var highlightOn = function () { setRangeHighlight(group, 'hover', true); };
-    var highlightOff = function () { setRangeHighlight(group, 'hover', false); };
+    var highlightOn = function () { setRangeHighlight(container, 'hover', group); };
+    var highlightOff = function () { setRangeHighlight(container, 'hover', []); };
     marker.addEventListener('mouseenter', highlightOn);
     marker.addEventListener('mouseleave', highlightOff);
     marker.addEventListener('focus', highlightOn);

@@ -216,9 +216,23 @@ tei-seg.note-target {
   position: relative;
 }
 
-.relation-range-hover,
-.relation-range-active {
-  box-shadow: inset 3px 0 0 rgba($color-accent, 0.55);
+// Filete continuo: una línea por tramo de pasajes, colocada por JS respecto al
+// contenedor del texto.
+.relation-lines-host {
+  position: relative;
+}
+
+.relation-range-line {
+  position: absolute;
+  width: 1.5px;
+  border-radius: 1px;
+  background-color: $color-accent;
+  pointer-events: none;
+  opacity: 0.45;
+
+  &--active {
+    opacity: 0.8;
+  }
 }
 
 .relation-marker {

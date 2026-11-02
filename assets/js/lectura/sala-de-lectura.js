@@ -77,6 +77,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Estado del panel
     let panelAbierto = false;
     let pestanaActiva = null;
+    // Lo último que mostró la pestaña de notas ({ key, relations }), para
+    // recuperarlo al reabrir el panel desde el menú y para alternar al volver
+    // a pulsar lo mismo. cierrePorPuntero cubre el móvil, donde pulsar fuera
+    // del panel lo cierra antes de que llegue el clic.
+    let vistaActual = null;
+    let cierrePorPuntero = null;
     const panelLayout = createLecturaPanelLayoutController({
         wrapper: lecturaWrapper,
         textColumn,
@@ -171,6 +177,8 @@ document.addEventListener("DOMContentLoaded", function() {
         panelLayout.ensureOpenWidth();
         panelAbierto = true;
         pestanaActiva = tabName;
+        // Al reabrir el pasaje de imágenes, su lugar vuelve a quedar activo.
+        pintarRelacionesActivas(tabName === 'notas' ? (vistaActual?.relations || []) : []);
         updatePanelHeaderTitle(tabName);
         renderPanelHeaderActions();
         
@@ -186,6 +194,8 @@ document.addEventListener("DOMContentLoaded", function() {
         
         lecturaPanel.classList.remove('open');
         tabButtons.forEach(btn => btn.classList.remove('active'));
+        // Cerrado el panel, el icono y el filete dejan de estar activos; vistaActual los recuerda.
+        pintarRelacionesActivas([]);
         panelAbierto = false;
         pestanaActiva = null;
         updatePanelHeaderTitle(null);
@@ -226,6 +236,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener('pointerdown', function(event) {
         if (window.innerWidth >= LECTURA_PANEL_DESKTOP_BREAKPOINT || !panelAbierto || !panelWrapper) return;
         if (panelWrapper.contains(event.target)) return;
+        cierrePorPuntero = { at: performance.now(), key: vistaActual?.key || null };
         cerrarPanel();
     });
     
@@ -619,6 +630,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 const activeGroup = pickPrimaryNoteIdForClick(groups, window.edicionNotas.metaPorNota);
                 if (!activeGroup) return;
 
+                // Volver a pulsar la nota que ya está abierta cierra el panel.
+                if (estaMostrandoVista('note:' + activeGroup)) {
+                    cerrarPanel();
+                    return;
+                }
+
                 console.log('Click en elemento, mostrando nota:', activeGroup);
 
                 // Buscar la nota en el XML
@@ -697,17 +714,38 @@ document.addEventListener("DOMContentLoaded", function() {
         if (relaciones.length === 0) return;
 
         applyRelationMarkers(teiContainer, relaciones, {
-            onActivate: ({ relations, marker }) => mostrarRelacionesEnPanel(relations, marker)
+            onActivate: ({ relations }) => {
+                const key = 'rel:' + relations.map(relation => relation.id).join(',');
+                if (estaMostrandoVista(key)) {
+                    cerrarPanel();
+                    return;
+                }
+                mostrarRelacionesEnPanel(relations, key);
+            }
         });
     }
 
-    // Rango resaltado (filete lateral) y icono pulsado mientras el panel
+    // Rango resaltado (filete lateral) e icono pulsado mientras el panel
     // muestre las imágenes de esas relaciones.
-    function setActiveRelations(relations) {
-        setRangeHighlight(relacionesActivas, 'active', false);
+    function pintarRelacionesActivas(relations) {
         relacionesActivas = relations || [];
-        setRangeHighlight(relacionesActivas, 'active', true);
+        setRangeHighlight(teiContainer, 'active', relacionesActivas);
         setActiveMarkers(teiContainer, relacionesActivas);
+    }
+
+    // Anota qué muestra ahora la pestaña de notas (una nota, unas relaciones o nada).
+    function recordarVista(key, relations) {
+        vistaActual = key ? { key, relations: relations || [] } : null;
+        pintarRelacionesActivas(relations || []);
+    }
+
+    // ¿Se está mostrando ya esa vista? Así, volver a pulsar el icono o la nota cierra el panel.
+    function estaMostrandoVista(key) {
+        if (!key) return false;
+        if (panelAbierto && pestanaActiva === 'notas' && vistaActual?.key === key) return true;
+        return !panelAbierto
+            && cierrePorPuntero?.key === key
+            && performance.now() - cierrePorPuntero.at < 400;
     }
 
     function appendRelatedObjects(relations, excludedIds) {
@@ -718,7 +756,7 @@ document.addEventListener("DOMContentLoaded", function() {
         void renderRelatedObjects(host, relations, () => token === relatedRenderToken && host.isConnected, excludedIds);
     }
 
-    function mostrarRelacionesEnPanel(relations, marker) {
+    function mostrarRelacionesEnPanel(relations, key) {
         if (window.lecturaPanel) {
             window.lecturaPanel.abrir('notas');
         }
@@ -733,7 +771,7 @@ document.addEventListener("DOMContentLoaded", function() {
             bodyHTML: '<div class="note-display note-display-relations"></div>',
             dockHTML: ''
         });
-        setActiveRelations(relations);
+        recordarVista(key, relations);
         appendRelatedObjects(relations, []);
         renderPanelHeaderActions();
     }
@@ -798,7 +836,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function renderizarPlaceholderNota(noteContentDiv, mensaje) {
-        setActiveRelations(null);
+        recordarVista(null);
         renderNotePlaceholder(noteContentDiv, {
             bodyMessage: mensaje,
             dockState: 'idle'
@@ -827,7 +865,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Marcar nota activa en el texto (persistente)
         marcarNotaActivaEnTexto(noteXmlId, teiContainer);
-        setActiveRelations(null);
+        recordarVista('note:' + noteXmlId);
          
         renderNotePanel(noteContentDiv, {
             currentNoteId: noteXmlId,
