@@ -17,7 +17,7 @@
         <relatedItem type="notas" target="notas.xml"/>
       </notesStmt>
       <sourceDesc>
-        <p>Archivo generado a partir de la capa de publicación de la colección digital (campo <att>depicts</att> de cada objeto o imagen), versión completa (también lo no publicado), para la web con contraseña. No se edita a mano.</p>
+        <p>Generado automáticamente a partir de la colección digital: cada objeto o imagen indica qué pasaje representa (campo <att>depicts</att>) y de ahí salen las relaciones.</p>
       </sourceDesc>
     </fileDesc>
     <encodingDesc>
