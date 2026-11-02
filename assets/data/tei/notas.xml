@@ -130,7 +130,10 @@
       <change xml:id="chg-2026-03-24-clasificacion-acto1" when="2026-03-24" who="#DMR">Se completa la clasificación del acto primero y se normaliza la redacción de las notas con marcación de términos destacados.</change>
       <change xml:id="chg-2026-01-26-integracion-web" when="2026-01-26" who="#DMR">Se integra el archivo TEI de notas en el sitio web del proyecto.</change>
       <change xml:id="chg-2025-12-21-creacion-inicial" when="2025-12-21" who="#DMR">Creación del archivo de notas con taxonomía de categorías.</change>
-      <change xml:id="chg-notas-correccion-2026-11-02" when="2026-11-02" who="#DMR">Corrección de errores de conversión detectados al cotejar con PROLOPE 2009: números de nota de 2009 al principio del texto, un lema perdido, un ancla con errata y dos divisiones incompletas que duplicaban texto. Se completa el @ana de dos notas que lo tenían vacío (n-2065-1 y n-2072Acot-1). Se corrigen ocho anclajes con errata en el id, comprobados con el texto base (n-865-1, n-972-1, n-1047-1, n-1450-1, n-1562-1, n-1596-1, n-1784-1 y n-1784-2). Se suprime una glosa sin equivalente en 2009 (n-938-2). Se suprimen las tres notas de colección que solo describían el objeto (n-dp-esteban, n-dp-cuadrado, n-290-1): la relación pasa a declararse en relaciones.xml.</change>
+      <change xml:id="chg-notas-supresiones-2026-11-02" when="2026-11-02" who="#DMR">Se suprimen cuatro notas: n-938-2, una glosa sin equivalente en PROLOPE 2009, y n-dp-esteban, n-dp-cuadrado y n-290-1, que solo describían un objeto de la colección; esa relación pasa a declararse en relaciones.xml.</change>
+      <change xml:id="chg-notas-ana-2026-11-02" when="2026-11-02" who="#DMR">Se asigna <att>ana</att> a dos notas que lo tenían vacío: n-2065-1 y n-2072Acot-1.</change>
+      <change xml:id="chg-notas-anclajes-2026-11-02" when="2026-11-02" who="#DMR">Se corrigen nueve anclajes con errata en el id de la nota o del pasaje (n-865-1, n-972-1, n-1047-1, n-1122-1, n-1450-1, n-1562-1, n-1596-1, n-1784-1 y n-1784-2), comprobados con el texto base.</change>
+      <change xml:id="chg-notas-conversion-2026-11-02" when="2026-11-02" who="#DMR">Se corrigen errores de la conversión de las notas de PROLOPE 2009: el número de la nota de 2009 que quedó al principio del texto en 14 notas, el lema que se perdió en n-235-1 y el texto que quedó duplicado al dividir dos notas (n-1028-1 y n-2035-1).</change>
       <change xml:id="chg-notas-coleccion-2026-11-02" when="2026-11-02" who="#DMR">Nota nueva, sin equivalente en PROLOPE 2009, que comenta un objeto de la colección digital: la ballesta (n-815-1) y la identificación de Flores herido (n-1949-1).</change>
       <change xml:id="chg-notas-reanclaje" notAfter="2026-04-27" who="#DMR">Nota de PROLOPE 2009 que se ancla en otro punto del texto (el lema, el comienzo del pasaje o un segmento de la acotación).</change>
       <change xml:id="chg-notas-division" notAfter="2026-04-27" who="#DMR">Parte de una nota de PROLOPE 2009 dividida por lemas, cada una anclada al segmento que glosa.</change>
@@ -719,7 +722,7 @@
   xml:id="n-235-1"
   target="fo:l-233 fo:l-234 fo:l-235"
   ana="#parafrasis"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:58">
 <term>pasatarde... de una cuerda de mi viña</term>:
  ‘merienda de un racimo de uvas’.
@@ -2296,7 +2299,7 @@
   xml:id="n-865-1"
   target="fo:seg-865-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-anclajes-2026-11-02"
   source="p2009:223">
   <term>más de trece</term>: ‘muchos’.
 </note>
@@ -2602,7 +2605,7 @@
   xml:id="n-972-1"
   target="fo:l-969 fo:l-970 fo:l-971 fo:l-972-a"
   ana="#estilistica #parafrasis"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-anclajes-2026-11-02"
   source="p2009:257">
   Es juego de palabras: a la primera señal del Comendador (<term>primera traza</term>), la mujer urde el medio de poder concertar una cita (<term>traza de verme</term>).
 </note>
@@ -2692,7 +2695,7 @@
   xml:id="n-1028-1"
   target="fo:l-1026 fo:l-1027 fo:l-1028"
   ana="#parafrasis"
-  change="#chg-notas-division #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-division #chg-notas-conversion-2026-11-02"
   source="p2009:267">
   ‘Eres incapaz de simular que no te interesa el disgusto general’.
 </note>
@@ -2738,7 +2741,7 @@
   xml:id="n-1038-1"
   target="fo:l-1035 fo:l-1036 fo:l-1037 fo:l-1038"
   ana="#lexica #realia"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:271">
   ‘una buena cuchillada’. El <term>beneficio</term> era la ‘renta vitalicia de algunos eclesiásticos’; análogamente, la cicatriz de la cara del que se parecía a Frondoso (<term>su presencia y su capilla imitaba</term>) le quedará para toda la vida, será vitalicia como un <term>beneficio</term>.
 </note>
@@ -2747,7 +2750,7 @@
   xml:id="n-1047-1"
   target="fo:seg-1047-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-anclajes-2026-11-02"
   source="p2009:272">
   <term>tiemblan</term>: ‘temen’.
 </note>
@@ -2909,7 +2912,7 @@
   xml:id="n-1116-1"
   target="fo:seg-1116-1"
   ana="#parafrasis"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:290">
   ‘no sería de extrañar que se perdiese’.
 </note>
@@ -2918,7 +2921,7 @@
   xml:id="n-1122-1"
   target="fo:l-1121 fo:l-1122"
   ana="#realia"
-  change="#chg-notas-reanclaje #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-reanclaje #chg-notas-anclajes-2026-11-02"
   source="p2009:291">
   Describe, respectivamente, las banderas de Castilla, León y Aragón.
 </note>
@@ -3107,7 +3110,7 @@
   xml:id="n-1260-1"
   target="fo:l-1258 fo:l-1259 fo:l-1260"
   ana="#parafrasis"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:312">
   Jacinta recrimina con ironía al Comendador que sea él quien ataque su honor en vez de protegerlo.
 </note>
@@ -3134,7 +3137,7 @@
   xml:id="n-1272-1"
   target="fo:l-1271 fo:l-1272"
   ana="#parafrasis"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:315">
   ‘Has de formar parte del equipaje (bagaje) de los soldados’, es decir, el Comendador la entrega para servir sexualmente al ejército.
 </note>
@@ -3467,7 +3470,7 @@
   xml:id="n-1450-1"
   target="fo:stg-1450-2"
   ana="#dramaturgica"
-  change="#chg-notas-reanclaje #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-reanclaje #chg-notas-anclajes-2026-11-02"
   source="p2009:352">
   Escena en el campo, cerca de Ciudad Real.
 </note>
@@ -3683,7 +3686,7 @@
   xml:id="n-1527-1"
   target="fo:l-1524 fo:l-1525 fo:l-1526 fo:l-1527"
   ana="#parafrasis"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:376">
   ‘El tema (<term>la materia</term>) del poema le da al poeta la sustancia (<term>la masa</term>) para componerlo’.
 </note>
@@ -3809,7 +3812,7 @@
   xml:id="n-1562-1"
   target="fo:seg-1562-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-anclajes-2026-11-02"
   source="p2009:390">
   <term>celosías</term>: ‘enrejados de listones de madera, que permiten ver sin ser visto’.
 </note>
@@ -3854,7 +3857,7 @@
   xml:id="n-1591-1"
   target="fo:seg-1591-1"
   ana="#parafrasis"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:395">
   Puesto que el Comendador considera el delito de Frondoso como competencia de los alcaldes de Fuenteovejuna, debe ser <term>su mismo padre</term> quien dicte sentencia; es probable que Esteban, su futuro suegro, sea el padre (político) al que se refiere el Comendador, según se desprende de los vv. 1609-1610.
 </note>
@@ -3872,7 +3875,7 @@
   xml:id="n-1596-1"
   target="fo:l-1595 fo:l-1596-a"
   ana="#parafrasis"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-anclajes-2026-11-02"
   source="p2009:397">
   Pascuala apela a su nobleza para obtener su perdón o piedad.
 </note>
@@ -3962,7 +3965,7 @@
   xml:id="n-1634-1"
   target="fo:seg-1634-1"
   ana="#lexica #estilistica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:407">
   <term>norabuena</term>: ‘en hora buena’, expresión de complacencia con sentido irónico.
 </note>
@@ -4206,7 +4209,7 @@
   xml:id="n-1737-1"
   target="fo:l-1730 fo:l-1731 fo:l-1732 fo:l-1733 fo:l-1734 fo:l-1735 fo:l-1736 fo:l-1737"
   ana="#realia"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:434">
   Las leyes del honor prescribían que eran los varones quienes debían guardar y, en su caso, vengar la honra de la mujer. La responsabilidad recaía sobre el padre o los hermanos de la mujer soltera y se traspasaba al marido en cuanto se casaba.
 </note>
@@ -4332,7 +4335,7 @@
   xml:id="n-1784-1"
   target="fo:seg-1784-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-anclajes-2026-11-02"
   source="p2009:448">
   <term>toca</term>: adorno para cubrir la cabeza.
 </note>
@@ -4341,7 +4344,7 @@
   xml:id="n-1784-2"
   target="fo:seg-1784-2"
   ana="#lexica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-anclajes-2026-11-02"
   source="p2009:449">
   <term>basquiña</term>: falda hasta el suelo con mucho vuelo.
 </note>
@@ -4890,7 +4893,7 @@
   xml:id="n-1994-1"
   target="fo:seg-1994-1"
   ana="#realia #dramaturgica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:509">
   Las armas hacen referencia a los escudos y emblemas. El pueblo busca borrar las armas que pertenecían a Fernán Gómez y representaban su linaje (pues les ofenden, les avergüenzan), y colocar, en su lugar, las reales armas, es decir, las de los Reyes Católicos.
 </note>
@@ -4908,7 +4911,7 @@
   xml:id="n-2015-1"
   target="fo:seg-2015-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:511">
   rigor: ‘dureza’.
 </note>
@@ -4917,7 +4920,7 @@
   xml:id="n-2020-1"
   target="fo:seg-2020-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:512">
   luego: ‘inmediatamente’.
 </note>
@@ -4953,7 +4956,7 @@
   xml:id="n-2035-1"
   target="fo:seg-2035-1"
   ana="#lexica"
-  change="#chg-notas-division #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-division #chg-notas-conversion-2026-11-02"
   source="p2009:516">
   <term>pie</term>: El término puede significar tanto ‘sílaba’ como ‘verso’.
 </note>
@@ -5043,7 +5046,7 @@
   xml:id="n-2065-1"
   target="fo:seg-2065-1"
   ana="#estilistica #lexica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-ana-2026-11-02"
   source="p2009:525">
   <term>rabel</term>: metáfora con la que se designa, una vez más, a las nalgas que, probablemente, se equipararían con el dorso abombado y abultado de algunas variedades de estos instrumentos.
 </note>
@@ -5088,7 +5091,7 @@
   xml:id="n-2072Acot-1"
   target="fo:seg-2072Acot-1"
   ana="#historica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-ana-2026-11-02"
   source="p2009:530">
   <term>las armas</term>: hay que entender ‘armas reales’. Juan Rojo saca el escudo de los Reyes Católicos para manifestar la decisión del pueblo de dejar de estar sujeto a la encomienda de la Orden de Calatrava y supeditarse estrictamente al poder real.
 </note>
@@ -5151,7 +5154,7 @@
   xml:id="n-2100-1"
   target="fo:seg-2099-1 fo:seg-2100-1"
   ana="#ecdotica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:537">
   La alternancia entre el uso de <term>Ahora</term> y <term>agora</term> se debe a cuestiones métricas, ya que mientras el primero debe contarse como bisílabo no permite realizar una sinéresis, el segundo es trisílabo.
 </note>
@@ -5205,7 +5208,7 @@
   xml:id="n-2114-1"
   target="fo:l-2114"
   ana="#parafrasis #lexica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:543">
   ‘¡A la mierda el proceso criminal!’. <term>Cagajón</term>: es el estiércol de caballos, burros y otros animales.
 </note>
@@ -5870,7 +5873,7 @@
   xml:id="n-2435-1"
   target="fo:seg-2435-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:613">
   El <term>arrayán y la murta</term> (arrayán pequeño) son plantas que por sus propiedades curativas se empleaban para elaborar medicamentos.
 </note>
