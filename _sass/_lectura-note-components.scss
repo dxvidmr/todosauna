@@ -70,7 +70,7 @@ $note-highlight-strong: 1;
 }
 
 // Compatibilidad layout legacy (sin wrapper)
-.note-target:not(.note-wrapper),
+.note-target:not(.note-wrapper):not(.relation-wrapper),
 tei-l.note-target,
 tei-seg.note-target {
   display: table;
@@ -176,6 +176,22 @@ tei-seg.note-target {
     background-color: $color-surface-muted;
     color: $color-ink;
     border: 1px solid $color-border-soft;
+  }
+
+  // Objetos de la colección relacionados con el pasaje (relaciones.xml)
+  .note-related-objects {
+    margin-top: 1rem;
+  }
+
+  &.note-display-relations .note-related-objects {
+    margin-top: 0;
+  }
+
+  .note-related-objects-title {
+    margin: 0 0 0.25rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: $color-text-quiet;
   }
 }
 

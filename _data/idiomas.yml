@@ -1,0 +1,24 @@
+# Nombres en español de los códigos ISO 639-1 que usa la columna language.
+# Si falta un código, la ficha muestra el código tal cual.
+ar: árabe
+ca: catalán
+cs: checo
+de: alemán
+el: griego
+en: inglés
+es: español
+eu: euskera
+fr: francés
+gl: gallego
+he: hebreo
+hu: húngaro
+it: italiano
+ja: japonés
+la: latín
+nl: neerlandés
+pl: polaco
+pt: portugués
+ro: rumano
+ru: ruso
+sv: sueco
+zh: chino

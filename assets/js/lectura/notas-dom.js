@@ -311,6 +311,15 @@ function loadCbMetadataIndex() {
   return cbMetadataIndexPromise;
 }
 
+// Enlace de texto a la ficha cuando el objeto no tiene miniatura.
+function buildCbTextLinkHtml(objectId, item) {
+  var href = pickCbItemHref(item, objectId);
+  var title = String(item && item.title ? item.title : objectId).trim();
+  return '<a class="note-cb-thumb-link" href="' + escapeHtmlAttribute(href) + '">' +
+    '<span class="note-cb-thumb-caption">Abrir ficha: ' + escapeHtmlAttribute(title) + '</span>' +
+  '</a>';
+}
+
 function buildCbThumbLinkHtml(objectId, item) {
   var href = pickCbItemHref(item, objectId);
   var thumb = pickCbItemThumb(item);
@@ -753,6 +762,7 @@ export {
   ensureNoteWrapper, addNoteGroup, addNoteMediaGroup, readEffectiveNoteGroups,
   markWrapperEventsAttached,
   buildNoteBadgesHTML, buildNoteDisplayHTML, setNoteRichText, hydrateCbRefsInContainer,
+  loadCbMetadataIndex, buildCbThumbLinkHtml, buildCbTextLinkHtml,
   highlightNoteInText, highlightAllRelatedGroups, initNoteBadgeTooltip,
   markCurrentNoteInText, applyNoteHighlights
 };

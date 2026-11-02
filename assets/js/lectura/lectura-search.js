@@ -52,7 +52,7 @@ export function createLecturaSearchController({
     const [rawType, ...restParts] = rawTarget.split(':');
     const targetType = String(rawType || '').trim().toLowerCase();
     const targetId = restParts.join(':').trim();
-    if (!targetId || (targetType !== 'verse' && targetType !== 'note')) return null;
+    if (!targetId || !['verse', 'note', 'passage'].includes(targetType)) return null;
     return { targetType, targetId };
   }
 
@@ -84,6 +84,18 @@ export function createLecturaSearchController({
     return true;
   }
 
+  // Cualquier pasaje por xml:id (personaje, acotación, segmento, verso).
+  function goToPassage(passageId) {
+    if (!textRoot || !passageId) return false;
+    const node = Array.from(textRoot.querySelectorAll('[id]')).find((element) => {
+      return element.getAttribute('xml:id') === passageId || element.getAttribute('id') === passageId;
+    });
+    if (!node) return false;
+    node.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+    flashTarget(node);
+    return true;
+  }
+
   function goToNote(noteId, options = {}) {
     if (!new Set(getNavigableNoteIds()).has(noteId)) return false;
     const target = onOpenNote(noteId);
@@ -98,7 +110,9 @@ export function createLecturaSearchController({
     const { targetType, targetId } = pendingTarget;
     const resolved = targetType === 'verse'
       ? goToVerse(targetId)
-      : goToNote(targetId, { flash: true });
+      : targetType === 'passage'
+        ? goToPassage(targetId)
+        : goToNote(targetId, { flash: true });
 
     if (resolved || (targetType === 'note' && !new Set(getNavigableNoteIds()).has(targetId))) {
       clearPendingTargetFromUrl();

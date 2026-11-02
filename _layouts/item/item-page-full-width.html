@@ -5,11 +5,11 @@ layout: default
 # item-meta adds rich meta markup in HTML <head> element to the page on production build for better SEO
 item-meta: true
 ---
-{% if page.display_template == "compound_object" %}{% assign children = site.data[site.metadata] | where_exp: 'item','item.parentid == page.objectid' %}{% endif %}
+{% if page.display_template == "compound_object" %}{% assign children = site.data[site.metadata] | where_exp: 'item','item.parentid == page.objectid' %}{% include item/child/paged-children.html %}{% endif %}
 <div class="container py-3">
 
     {% include item/breadcrumbs.html %}
-    <div class="my-0 h5 small">{{ page.display_template | replace: "_", " " | upcase }} {% if page.display_template == "compound_object" %} ({{ children | size }} elementos){% endif %}</div>
+    <div class="my-0 h5 small">{{ page.display_template | replace: "_", " " | upcase }} {% if page.display_template == "compound_object" %} ({% if paged_selected %}selección de {{ children | size }} de {{ paged_total }} páginas{% elsif paged_children %}{{ children | size }} páginas{% else %}{{ children | size }} elementos{% endif %}){% endif %}</div>
     <h2 class="mb-3">{{ page.title }} 
         <!--{% unless page.display_template == 'record' %}<a href="#metadata" class="ms-5 btn btn-sm btn-outline-action small">Item Info
             <svg class="bi icon-sprite" role="img" aria-label="Jump to Item Info">

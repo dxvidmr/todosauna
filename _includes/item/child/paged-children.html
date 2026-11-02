@@ -1,0 +1,20 @@
+{%- comment -%}
+
+    Detecta si las hijas de un objeto compuesto son páginas de un documento
+    («Página N de M» en el título). Requiere la variable children y deja:
+    paged_children (true/false), paged_total (M) y paged_selected (true si
+    solo se muestran algunas de las M páginas).
+
+{%- endcomment -%}
+{%- assign paged_children = false -%}
+{%- assign paged_total = 0 -%}
+{%- assign paged_selected = false -%}
+{%- assign first_child_title = children.first.title | default: "" | strip -%}
+{%- assign first_child_prefix = first_child_title | slice: 0, 7 -%}
+{%- if first_child_prefix == "Página " and first_child_title contains " de " -%}
+{%- assign paged_children = true -%}
+{%- assign paged_title_parts = first_child_title | split: " de " -%}
+{%- assign paged_total = paged_title_parts[1] | split: ":" | first | strip | plus: 0 -%}
+{%- assign paged_shown = children | size -%}
+{%- if paged_total > paged_shown -%}{%- assign paged_selected = true -%}{%- endif -%}
+{%- endif -%}

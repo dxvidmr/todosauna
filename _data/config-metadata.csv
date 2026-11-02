@@ -4,11 +4,8 @@ creator,Creador,,,DCTERMS.creator,creator
 date,Fecha,,,DCTERMS.date,dateCreated
 description,Descripción,,,DCTERMS.description,description
 type,Tipo,true,,DCTERMS.type,
-subtype,Subtipo,true,,,
-subject,Temas,true,,DCTERMS.subject,keywords
-historical_context,Contexto histórico,true,,,
 reception_form,Forma de recepción,true,,,
-depicted,Elementos representados,,,,
+depicts,Pasaje representado,,,,
 source,Origen,,,,
 identifier,ID Origen,,,,
 location,Lugar,,,,contentLocation

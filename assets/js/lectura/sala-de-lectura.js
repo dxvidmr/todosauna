@@ -25,8 +25,16 @@ import {
     hydrateCbRefsInContainer,
     markCurrentNoteInText,
     normalizeAnaCategories,
-    readEffectiveNoteGroups
+    readEffectiveNoteGroups,
+    resolveTargetElements
 } from './notas-dom.js';
+import {
+    parseRelacionesDoc,
+    applyRelationHighlights,
+    collectRelatedObjectIds,
+    collectCitedObjectIds,
+    renderRelatedObjects
+} from './relaciones.js';
 
 document.addEventListener("DOMContentLoaded", function() {
     // Referencias globales
@@ -669,7 +677,65 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Inicializar sistema de evaluación
         void edicionEvaluacion.init();
+
+        void processRelaciones();
     } // ← Fin de processNotes()
+
+    // Relaciones imagen-texto (relaciones.xml): marcan los pasajes que
+    // representan objetos de la colección, aunque no tengan nota.
+    let relacionesPorPasaje = new Map();
+    let relatedRenderToken = 0;
+
+    async function processRelaciones() {
+        const doc = await (window.relacionesXMLPromise || Promise.resolve(null));
+        relacionesPorPasaje = parseRelacionesDoc(doc);
+        if (relacionesPorPasaje.size === 0) return;
+
+        applyRelationHighlights(teiContainer, relacionesPorPasaje, {
+            onWrapperClick: ({ wrapper, element, event }) => {
+                // Si el pasaje tiene notas visibles, las muestra su propio
+                // manejador (y con ellas los objetos relacionados).
+                if (readEffectiveNoteGroups(wrapper).length > 0) return;
+                const noteAncestor = wrapper.parentElement?.closest('.note-wrapper');
+                if (noteAncestor && readEffectiveNoteGroups(noteAncestor).length > 0) return;
+
+                event.preventDefault();
+                event.stopPropagation();
+                mostrarRelacionesEnPanel(wrapper, element);
+            }
+        });
+        applyNoteCategoryFilter();
+    }
+
+    function appendRelatedObjects(elements, excludedIds) {
+        const host = noteContentDiv?.querySelector('.note-display');
+        const objectIds = collectRelatedObjectIds(teiContainer, elements, relacionesPorPasaje)
+            .filter(id => !excludedIds.includes(id));
+        if (!host || objectIds.length === 0) return;
+
+        const token = ++relatedRenderToken;
+        void renderRelatedObjects(host, objectIds, () => token === relatedRenderToken && host.isConnected);
+    }
+
+    function mostrarRelacionesEnPanel(wrapper, element) {
+        if (window.lecturaPanel) {
+            window.lecturaPanel.abrir('notas');
+        }
+        lecturaNoteViewTracker?.flush('note_closed');
+
+        window.edicionNotas.notaActualId = null;
+        window.edicionNotas.notaActualIndex = -1;
+        markCurrentNoteInText(teiContainer, null, { clearAllActive: false, autoScroll: false });
+        wrapper.classList.add('note-current', 'note-active');
+
+        renderNotePanel(noteContentDiv, {
+            dockState: 'idle',
+            bodyHTML: '<div class="note-display note-display-relations"></div>',
+            dockHTML: ''
+        });
+        appendRelatedObjects([element], []);
+        renderPanelHeaderActions();
+    }
 
     function getNavigableNoteIds() {
         const noteState = window.edicionNotas || {};
@@ -703,12 +769,16 @@ document.addEventListener("DOMContentLoaded", function() {
             const mediaGroups = (wrapper.getAttribute('data-note-media-groups') || '').split(' ').filter(Boolean);
             const hasVisibleNote = visibleGroups.length > 0;
             const hasVisibleMedia = mediaGroups.some(noteId => visibleNoteIds.has(noteId));
+            const hasRelations = wrapper.hasAttribute('data-cb-relations');
 
             wrapper.setAttribute('data-visible-note-groups', visibleGroups.join(' '));
-            wrapper.classList.toggle('note-filtered-out', !hasVisibleNote);
-            wrapper.classList.toggle('note-target-has-media', hasVisibleNote && hasVisibleMedia);
+            wrapper.classList.toggle('note-filtered-out', !hasVisibleNote && !hasRelations);
+            wrapper.classList.toggle(
+                'note-target-has-media',
+                (hasVisibleNote && hasVisibleMedia) || wrapper.classList.contains('relation-run-start')
+            );
 
-            if (!hasVisibleNote) {
+            if (!hasVisibleNote && !hasRelations) {
                 wrapper.classList.remove('note-active', 'note-current');
             }
         });
@@ -783,6 +853,10 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         void hydrateCbRefsInContainer(noteContentDiv);
+        appendRelatedObjects(
+            resolveTargetElements(teiContainer, noteToShow.getAttribute('target') || ''),
+            collectCitedObjectIds(noteToShow)
+        );
         void edicionEvaluacion.addEvaluationButtons(noteContentDiv);
         renderPanelHeaderActions();
         return true;

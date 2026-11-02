@@ -3,6 +3,7 @@ import '../lectura/sala-de-lectura.js';
 import '../participacion/lectura-evaluacion.js';
 import '../participacion/modal-shell.js';
 import '../participacion/sugerencias.js';
+import { loadRelacionesDoc } from '../lectura/relaciones.js';
 
 function bootstrapLecturaXml() {
   if (typeof window === 'undefined') return;
@@ -25,6 +26,9 @@ function bootstrapLecturaXml() {
     .catch(function (error) {
       console.error('Error cargando notas.xml:', error);
     });
+
+  // relaciones.xml es opcional: la página solo declara su URL si existe.
+  window.relacionesXMLPromise = loadRelacionesDoc(teiContainer.getAttribute('data-relaciones-url'));
 
   if (typeof window.CETEI !== 'function') {
     console.error('CETEI no esta disponible para cargar el TEI principal');

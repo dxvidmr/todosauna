@@ -34,6 +34,8 @@
     {% if include.stopwords %}/* apply stopwords */
     var stopWords = {{ include.stopwords | downcase | split: ';' | jsonify }};
     terms = terms.filter(function(a) { return stopWords.indexOf(a[0]) < 0;});{% endif %}
+    /* sin términos (p. ej., subjects-fields vacío) no hay nube */
+    if (terms.length === 0) { return; }
     /* calculate max size */
     var counts = terms.map(function(obj){ return obj[1]; });
     var countMax = counts.reduce(function(a, b) { return Math.max(a, b); });

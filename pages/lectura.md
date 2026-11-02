@@ -6,8 +6,9 @@ navbar_behavior: auto-hide
 lectura_dynamic_recenter: true
 ---
 
-<!-- Contenedor principal para el texto TEI -->
-<div id="TEI" class="text-column"></div>
+<!-- Contenedor principal para el texto TEI. relaciones.xml (imagen-texto) es opcional -->
+{% assign relaciones_file = site.static_files | where: "path", "/assets/data/tei/relaciones.xml" | first %}
+<div id="TEI" class="text-column"{% if relaciones_file %} data-relaciones-url="{{ relaciones_file.path | relative_url }}"{% endif %}></div>
 
 <!-- Panel flotante de notas/navegación/info -->
 <div class="lectura-panel-wrapper" id="lectura-panel-wrapper">
