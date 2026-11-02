@@ -124,12 +124,12 @@
       </particDesc>
     </profileDesc>
     <revisionDesc>
-      <change xml:id="chg-2026-03-31-taxonomia-ana" when="2026-03-31" who="#DMR">La clasificación editorial de las notas se migra de <att>type</att>/<att>subtype</att> a <att>ana</att> para enlazar directamente con la taxonomía declarada en el header.</change>
-      <change xml:id="chg-2026-03-26-header-enlaces" when="2026-03-26" who="#DMR">Se completa el header con la declaración de responsabilidad y la documentación del sistema de enlaces entre notas y texto base.</change>
-      <change xml:id="chg-2026-03-24-taxonomia-refinada" when="2026-03-24" who="#DMR">Se revisan y refinan las descripciones de la taxonomía de notas; se añade la categoría dramatúrgica y se corrigen etiquetas de tipo.</change>
-      <change xml:id="chg-2026-03-24-clasificacion-acto1" when="2026-03-24" who="#DMR">Se completa la clasificación del acto primero y se normaliza la redacción de las notas con marcación de términos destacados.</change>
-      <change xml:id="chg-2026-01-26-integracion-web" when="2026-01-26" who="#DMR">Se integra el archivo TEI de notas en el sitio web del proyecto.</change>
-      <change xml:id="chg-2025-12-21-creacion-inicial" when="2025-12-21" who="#DMR">Creación del archivo de notas con taxonomía de categorías.</change>
+      <change xml:id="chg-notas-taxonomia-ana-2026-03-31" when="2026-03-31" who="#DMR">La clasificación editorial de las notas se migra de <att>type</att>/<att>subtype</att> a <att>ana</att> para enlazar directamente con la taxonomía declarada en el header.</change>
+      <change xml:id="chg-notas-header-enlaces-2026-03-26" when="2026-03-26" who="#DMR">Se completa el header con la declaración de responsabilidad y la documentación del sistema de enlaces entre notas y texto base.</change>
+      <change xml:id="chg-notas-taxonomia-refinada-2026-03-24" when="2026-03-24" who="#DMR">Se revisan y refinan las descripciones de la taxonomía de notas; se añade la categoría dramatúrgica y se corrigen etiquetas de tipo.</change>
+      <change xml:id="chg-notas-clasificacion-acto1-2026-03-24" when="2026-03-24" who="#DMR">Se completa la clasificación del acto primero y se normaliza la redacción de las notas con marcación de términos destacados.</change>
+      <change xml:id="chg-notas-integracion-web-2026-01-26" when="2026-01-26" who="#DMR">Se integra el archivo TEI de notas en el sitio web del proyecto.</change>
+      <change xml:id="chg-notas-creacion-inicial-2025-12-21" when="2025-12-21" who="#DMR">Creación del archivo de notas con taxonomía de categorías.</change>
       <change xml:id="chg-notas-supresiones-2026-11-02" when="2026-11-02" who="#DMR">Se suprimen cuatro notas: n-938-2, una glosa sin equivalente en PROLOPE 2009, y n-dp-esteban, n-dp-cuadrado y n-290-1, que solo describían un objeto de la colección; esa relación pasa a declararse en relaciones.xml.</change>
       <change xml:id="chg-notas-ana-2026-11-02" when="2026-11-02" who="#DMR">Se asigna <att>ana</att> a dos notas que lo tenían vacío: n-2065-1 y n-2072Acot-1.</change>
       <change xml:id="chg-notas-anclajes-2026-11-02" when="2026-11-02" who="#DMR">Se corrigen nueve anclajes con errata en el id de la nota o del pasaje (n-865-1, n-972-1, n-1047-1, n-1122-1, n-1450-1, n-1562-1, n-1596-1, n-1784-1 y n-1784-2), comprobados con el texto base.</change>
