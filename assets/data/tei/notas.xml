@@ -124,7 +124,7 @@
       <change xml:id="chg-2026-03-24-clasificacion-acto1" when="2026-03-24" who="#DMR">Se completa la clasificación del acto primero y se normaliza la redacción de las notas con marcación de términos destacados.</change>
       <change xml:id="chg-2026-01-26-integracion-web" when="2026-01-26" who="#DMR">Se integra el archivo TEI de notas en el sitio web del proyecto.</change>
       <change xml:id="chg-2025-12-21-creacion-inicial" when="2025-12-21" who="#DMR">Creación del archivo de notas con taxonomía de categorías.</change>
-      <change xml:id="chg-notas-correccion-2026-11-02" when="2026-11-02" who="#DMR">Corrección de errores de conversión detectados al cotejar con PROLOPE 2009: números de nota de 2009 al principio del texto, un lema perdido, un ancla con errata y dos divisiones incompletas que duplicaban texto. Se suprime una glosa sin equivalente en 2009 (n-938-2). Se suprimen las tres notas de colección que solo describían el objeto (n-dp-esteban, n-dp-cuadrado, n-290-1): la relación pasa a declararse en relaciones.xml.</change>
+      <change xml:id="chg-notas-correccion-2026-11-02" when="2026-11-02" who="#DMR">Corrección de errores de conversión detectados al cotejar con PROLOPE 2009: números de nota de 2009 al principio del texto, un lema perdido, un ancla con errata y dos divisiones incompletas que duplicaban texto. Se corrigen ocho anclajes con errata en el id, comprobados con el texto base (n-865-1, n-972-1, n-1047-1, n-1450-1, n-1562-1, n-1596-1, n-1784-1 y n-1784-2). Se suprime una glosa sin equivalente en 2009 (n-938-2). Se suprimen las tres notas de colección que solo describían el objeto (n-dp-esteban, n-dp-cuadrado, n-290-1): la relación pasa a declararse en relaciones.xml.</change>
       <change xml:id="chg-notas-coleccion-2026-11-02" when="2026-11-02" who="#DMR">Nota nueva, sin equivalente en PROLOPE 2009, que comenta un objeto de la colección digital: la ballesta (n-815-1) y la identificación de Flores herido (n-1949-1).</change>
       <change xml:id="chg-notas-reanclaje" notAfter="2026-04-27" who="#DMR">Nota de PROLOPE 2009 que se ancla en otro punto del texto (el lema, el comienzo del pasaje o un segmento de la acotación).</change>
       <change xml:id="chg-notas-division" notAfter="2026-04-27" who="#DMR">Parte de una nota de PROLOPE 2009 dividida por lemas, cada una anclada al segmento que glosa.</change>
@@ -2288,9 +2288,9 @@
 
 <note
   xml:id="n-865-1"
-  target="fo:stg-865-1"
+  target="fo:seg-865-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
   source="p2009:223">
   <term>más de trece</term>: ‘muchos’.
 </note>
@@ -2594,9 +2594,9 @@
 
 <note
   xml:id="n-972-1"
-  target="fo:l-969 fo:l-970 fo:l-971 fo:l-972"
+  target="fo:l-969 fo:l-970 fo:l-971 fo:l-972-a"
   ana="#estilistica #parafrasis"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
   source="p2009:257">
   Es juego de palabras: a la primera señal del Comendador (<term>primera traza</term>), la mujer urde el medio de poder concertar una cita (<term>traza de verme</term>).
 </note>
@@ -2739,9 +2739,9 @@
 
 <note
   xml:id="n-1047-1"
-  target="fo:l-1047-1"
+  target="fo:seg-1047-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
   source="p2009:272">
   <term>tiemblan</term>: ‘temen’.
 </note>
@@ -3459,9 +3459,9 @@
 
 <note
   xml:id="n-1450-1"
-  target="fo:seg-1450-2"
+  target="fo:stg-1450-2"
   ana="#dramaturgica"
-  change="#chg-notas-reanclaje"
+  change="#chg-notas-reanclaje #chg-notas-correccion-2026-11-02"
   source="p2009:352">
   Escena en el campo, cerca de Ciudad Real.
 </note>
@@ -3801,9 +3801,9 @@
 
 <note
   xml:id="n-1562-1"
-  target="fo:eg-1562-1"
+  target="fo:seg-1562-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
   source="p2009:390">
   <term>celosías</term>: ‘enrejados de listones de madera, que permiten ver sin ser visto’.
 </note>
@@ -3864,9 +3864,9 @@
 
 <note
   xml:id="n-1596-1"
-  target="fo:l-1595 fo:l-1596"
+  target="fo:l-1595 fo:l-1596-a"
   ana="#parafrasis"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
   source="p2009:397">
   Pascuala apela a su nobleza para obtener su perdón o piedad.
 </note>
@@ -4324,18 +4324,18 @@
 
 <note
   xml:id="n-1784-1"
-  target="fo:eg-1784-1"
+  target="fo:seg-1784-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
   source="p2009:448">
   <term>toca</term>: adorno para cubrir la cabeza.
 </note>
 
 <note
   xml:id="n-1784-2"
-  target="fo:eg-1784-2"
+  target="fo:seg-1784-2"
   ana="#lexica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
   source="p2009:449">
   <term>basquiña</term>: falda hasta el suelo con mucho vuelo.
 </note>
