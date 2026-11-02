@@ -50,7 +50,7 @@
           <p>El prefijo <mentioned>fo:</mentioned> apunta a elementos identificados en el archivo base <ref target="fuenteovejuna.xml">Fuenteovejuna</ref>.</p>
         </prefixDef>
         <prefixDef ident="cb" matchPattern="(fo-[0-9a-z]{6})-([0-9]{2})" replacementPattern="/items/$1.html#$1-$2">
-          <p>Una imagen hija de un objeto compuesto no tiene página propia: está en la del objeto, con su identificador como ancla.</p>
+          <p>Una imagen hija de un objeto compuesto no tiene página propia, por lo que está en la del objeto, con su identificador como ancla.</p>
         </prefixDef>
         <prefixDef ident="cb" matchPattern="(.+)" replacementPattern="/items/$1.html">
           <p>El prefijo <mentioned>cb:</mentioned> apunta a ítems de la colección digital publicados con CollectionBuilder.</p>
@@ -62,7 +62,8 @@
       <editorialDecl>
         <p>Las anotaciones se conservan en un archivo TEI separado y se vinculan al texto base mediante punteros en <att>target</att> hacia identificadores <att>xml:id</att> del archivo <ref target="fuenteovejuna.xml">Fuenteovejuna</ref>. El prefijo <mentioned>fo:</mentioned> abrevia esos enlaces interdocumentales.</p>
         <p>La clasificación analítica de las notas se expresa mediante <att>ana</att>, con punteros a las categorías declaradas en la taxonomía <mentioned>#tipologiaNotas</mentioned>.</p>
-        <p>El atributo <att>change</att> de cada nota apunta a los cambios de <gi>revisionDesc</gi> que explican su estado respecto a PROLOPE 2009 (sin cambios, dividida, reanclada, sin remisión a la guía, nueva de colección) y a las correcciones posteriores. El valor completo de <att>change</att> identifica la versión de la nota en la evaluación participativa. El atributo <att>source</att> indica la nota de 2009 de la que procede; las partes de una nota dividida comparten número y las notas de colección no lo llevan.</p>
+        <p>El atributo <att>change</att> de cada nota apunta a los cambios de <gi>revisionDesc</gi> que explican su estado respecto a PROLOPE 2009 (sin cambios, dividida, reanclada, sin remisión a la guía, nueva de colección) y a las correcciones posteriores. El valor completo de <att>change</att> identifica la versión de la nota en la evaluación participativa.</p>
+        <p>El atributo <att>source</att> indica la nota de 2009 de la que procede; las partes de una nota dividida comparten número y las notas de colección no lo llevan. Cuando se creen notas nuevas, tampoco lo llevarán.</p>
       </editorialDecl>
       <classDecl>
         <taxonomy xml:id="tipologiaNotas">
