@@ -16,6 +16,8 @@ vendor/
 objects/*
 !objects/small/
 !objects/thumbs/
+# Copia propia servida a tamaño completo porque su archivo (ELIA) solo responde por http (2-11-2026).
+!objects/fo-0c82dp.jpg
 
 # Local environment files / secrets
 .env
