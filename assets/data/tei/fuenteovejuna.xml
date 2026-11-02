@@ -1402,7 +1402,7 @@
             <l n="528" xml:id="l-528">son los mejores laureles.</l></sp>
           <stage xml:id="stg-528-1">Sale el Comendador, y Ortuño; músicos; Juan Rojo, y Esteban, Alonso, alcaldes.</stage>
           <stage xml:id="stg-528-2">
-            <seg xml:id="seg1-1.528Acot">Cantan</seg></stage>
+            Cantan</stage>
           <sp>          
             <milestone unit="metrical-section" n="529-544" ana="#romancillo #rima-oe"/>
             <l n="529" xml:id="l-529">Sea bien venido</l>
@@ -2283,7 +2283,7 @@
             <l n="937" xml:id="l-937">¿Qué hay del Comendador? ¡No os alborote!</l></sp>
           <sp who="#juan_rojo" xml:id="sp-212">
             <speaker>JUAN</speaker>
-            <l n="938" xml:id="l-938">¡Cuál a Laurencia <seg xml:id="seg-938-1">en ese campo</seg> puso!</l></sp>
+            <l n="938" xml:id="l-938">¡Cuál a Laurencia en ese campo puso!</l></sp>
           <sp xml:id="sp-213">
             <speaker>LABRADOR</speaker>
             <l n="939" xml:id="l-939">¿Quién fue cual él tan bárbaro y lascivo?</l>
