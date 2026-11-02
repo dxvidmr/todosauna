@@ -130,8 +130,9 @@
       <change xml:id="chg-notas-clasificacion-acto1-2026-03-24" when="2026-03-24" who="#DMR">Se completa la clasificación del acto primero y se normaliza la redacción de las notas con marcación de términos destacados.</change>
       <change xml:id="chg-notas-integracion-web-2026-01-26" when="2026-01-26" who="#DMR">Se integra el archivo TEI de notas en el sitio web del proyecto.</change>
       <change xml:id="chg-notas-creacion-inicial-2025-12-21" when="2025-12-21" who="#DMR">Creación del archivo de notas con taxonomía de categorías.</change>
+      <change xml:id="chg-notas-ids-2026-11-02" when="2026-11-02" who="#DMR">Se renombran los identificadores de nueve notas sobre acotaciones y de sus segmentos para que deriven del id de la acotación que los contiene (por ejemplo, n-1472Acot-1 pasa a n-stg-1473-2-1); el contenido de las notas no cambia.</change>
       <change xml:id="chg-notas-supresiones-2026-11-02" when="2026-11-02" who="#DMR">Se suprimen cuatro notas: n-938-2, una glosa sin equivalente en PROLOPE 2009, y n-dp-esteban, n-dp-cuadrado y n-290-1, que solo describían un objeto de la colección; esa relación pasa a declararse en relaciones.xml.</change>
-      <change xml:id="chg-notas-ana-2026-11-02" when="2026-11-02" who="#DMR">Se asigna <att>ana</att> a dos notas que lo tenían vacío: n-2065-1 y n-2072Acot-1.</change>
+      <change xml:id="chg-notas-ana-2026-11-02" when="2026-11-02" who="#DMR">Se asigna <att>ana</att> a dos notas que lo tenían vacío: n-2065-1 y n-stg-2072-1.</change>
       <change xml:id="chg-notas-anclajes-2026-11-02" when="2026-11-02" who="#DMR">Se corrigen nueve anclajes con errata en el id de la nota o del pasaje (n-865-1, n-972-1, n-1047-1, n-1122-1, n-1450-1, n-1562-1, n-1596-1, n-1784-1 y n-1784-2), comprobados con el texto base.</change>
       <change xml:id="chg-notas-conversion-2026-11-02" when="2026-11-02" who="#DMR">Se corrigen errores de la conversión de las notas de PROLOPE 2009: el número de la nota de 2009 que quedó al principio del texto en 14 notas, el lema que se perdió en n-235-1 y el texto que quedó duplicado al dividir dos notas (n-1028-1 y n-2035-1).</change>
       <change xml:id="chg-notas-coleccion-2026-11-02" when="2026-11-02" who="#DMR">Nota nueva, sin equivalente en PROLOPE 2009, que comenta un objeto de la colección digital: la ballesta (n-815-1) y la identificación de Flores herido (n-1949-1).</change>
@@ -530,10 +531,10 @@
 </note>
 
 <note
-  xml:id="n-172Acot-1"
-  target="fo:seg-172Acot-1"
+  xml:id="n-stg-172-1"
+  target="fo:seg-stg-172-1"
   ana="#escenica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-ids-2026-11-02"
   source="p2009:41">
   El tablado ha quedado vacío (<term>Vanse y salen…</term>) y debe entenderse que la acción se traslada ahora a Fuenteovejuna.
 </note>
@@ -1809,10 +1810,10 @@
 </note>
 
 <note
-  xml:id="n-634Acot-1"
-  target="fo:seg-634Acot-1"
+  xml:id="n-stg-634-1"
+  target="fo:seg-stg-634-1"
   ana="#escenica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-ids-2026-11-02"
   source="p2009:170">
   La escena se traslada al palacio de los Reyes Católicos, Fernando e Isabel, a quienes acompaña el Maestre de Santiago, don Rodrigo Manrique, padre del poeta Jorge Manrique.
 </note>
@@ -3152,10 +3153,10 @@
 </note>
 
 <note
-  xml:id="n-1278Acot-1"
-  target="fo:seg-1278Acot-1"
+  xml:id="n-stg-1278-1"
+  target="fo:seg-stg-1278-1"
   ana="#escenica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-ids-2026-11-02"
   source="p2009:317">
   Seguramente esta escena tenga lugar en casa del padre de Laurencia.
 </note>
@@ -3575,10 +3576,10 @@
 </note>
 
 <note
-  xml:id="n-1472Acot-1"
-  target="fo:seg-1472Acot-1"
+  xml:id="n-stg-1473-2-1"
+  target="fo:seg-stg-1473-2-1"
   ana="#dramaturgica"
-  change="#chg-notas-reanclaje"
+  change="#chg-notas-reanclaje #chg-notas-ids-2026-11-02"
   source="p2009:364">
   Escena en algún punto de Fuenteovejuna (acaso en la plaza mayor).
 </note>
@@ -4179,10 +4180,10 @@
 </note>
 
 <note
-  xml:id="n-1713Acot-1"
-  target="fo:seg-1713Acot-1"
+  xml:id="n-stg-1713-1"
+  target="fo:seg-stg-1713-1"
   ana="#parafrasis"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-ids-2026-11-02"
   source="p2009:431">
   La aparición de Laurencia <term>desmelenada</term> implica claramente, para el público de la época, que ha sido violada.
 </note>
@@ -4719,10 +4720,10 @@
 </note>
 
 <note
-  xml:id="n-1921Acot-1"
-  target="fo:seg-1921Acot-1"
+  xml:id="n-stg-1921-1"
+  target="fo:seg-stg-1921-1"
   ana="#dramaturgica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-ids-2026-11-02"
   source="p2009:491">
   La acción regresa al palacio de los Reyes Católicos.
 </note>
@@ -5088,10 +5089,10 @@
 </note>
 
 <note
-  xml:id="n-2072Acot-1"
-  target="fo:seg-2072Acot-1"
+  xml:id="n-stg-2072-1"
+  target="fo:seg-stg-2072-1"
   ana="#historica"
-  change="#chg-notas-prolope-2009 #chg-notas-ana-2026-11-02"
+  change="#chg-notas-prolope-2009 #chg-notas-ana-2026-11-02 #chg-notas-ids-2026-11-02"
   source="p2009:530">
   <term>las armas</term>: hay que entender ‘armas reales’. Juan Rojo saca el escudo de los Reyes Católicos para manifestar la decisión del pueblo de dejar de estar sujeto a la encomienda de la Orden de Calatrava y supeditarse estrictamente al poder real.
 </note>
@@ -5286,10 +5287,10 @@
 </note>
 
 <note
-  xml:id="n-2162Acot-1"
-  target="fo:seg-2162Acot-1"
+  xml:id="n-stg-2162-1"
+  target="fo:seg-stg-2162-1"
   ana="#dramaturgica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-ids-2026-11-02"
   source="p2009:552">
   La escena vuelve a Fuenteovejuna.
 </note>
@@ -5573,10 +5574,10 @@
 </note>
 
 <note
-  xml:id="n-2292Acot-1"
-  target="fo:seg-2292Acot-1"
+  xml:id="n-stg-2292-1"
+  target="fo:seg-stg-2292-1"
   ana="#dramaturgica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-ids-2026-11-02"
   source="p2009:582">
   La escena tiene lugar en el Palacio Real.
 </note>

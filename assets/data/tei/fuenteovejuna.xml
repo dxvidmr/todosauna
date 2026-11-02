@@ -587,7 +587,7 @@
                  descripción: La acción se traslada a Fuenteovejuna. Laurencia y Pascuala conversan sobre el regreso del Comendador y sobre el peligro que su presencia supone para las mujeres de la villa.
             -->
             <stage xml:id="stg-172">
-            <seg xml:id="seg-172Acot-1">Vanse y salen</seg>
+            <seg xml:id="seg-stg-172-1">Vanse y salen</seg>
              Pascuala y Laurencia</stage>
           <sp who="#laurencia" xml:id="sp-30">
             <speaker>LAURENCIA</speaker>
@@ -1698,7 +1698,7 @@
           -->
           <stage xml:id="stg-634">
             Vanse los dos y 
-            <seg xml:id="seg-634Acot-1">salgan el rey don Fernando, la reina doña Isabel, Manrique y acompañamiento</seg></stage>
+            <seg xml:id="seg-stg-634-1">salgan el rey don Fernando, la reina doña Isabel, Manrique y acompañamiento</seg></stage>
           <sp who="#isabel" xml:id="sp-146">
             <speaker>ISABEL</speaker>
             <milestone unit="stanza"/>
@@ -3090,7 +3090,7 @@
                título: Laurencia acepta a Frondoso
                descripción: Después del rapto de Jacinta, Laurencia acepta por fin a Frondoso. La decisión amorosa nace en un mundo ya herido por la violencia del Comendador, por lo que tiene también valor de alianza y refugio.
           -->                  
-          <stage xml:id="stg-1278">Llévanla y vanse, y <seg xml:id="seg-1278Acot-1">salen Laurencia y Frondoso</seg></stage>
+          <stage xml:id="stg-1278">Llévanla y vanse, y <seg xml:id="seg-stg-1278-1">salen Laurencia y Frondoso</seg></stage>
           <sp who="#laurencia" xml:id="sp-359">
             <speaker>LAURENCIA</speaker>
             <milestone unit="stanza"/>
@@ -3502,7 +3502,7 @@
                título: Coplas de boda
                descripción: Comienza la boda de Laurencia y Frondoso con músicos, coplas y burlas de Mengo y Barrildo. La fiesta mezcla alegría popular y memoria del agravio, porque incluso en el banquete asoma la sombra del Comendador.
           -->
-          <stage xml:id="stg-1473-2"><seg xml:id="seg-1472Acot-1">Sale la boda</seg>: músicos, Mengo, Frondoso, Laurencia, Pascuala, Barrildo y Esteban alcalde y Juan Rojo</stage>
+          <stage xml:id="stg-1473-2"><seg xml:id="seg-stg-1473-2-1">Sale la boda</seg>: músicos, Mengo, Frondoso, Laurencia, Pascuala, Barrildo y Esteban alcalde y Juan Rojo</stage>
           <sp who="#musicos" xml:id="sp-423">
             <speaker>MÚSICOS</speaker>
             <milestone unit="metrical-section" n="1474-1476" ana="#estribillo"/>
@@ -3976,7 +3976,7 @@
                título: Laurencia irrumpe en el concejo
                descripción: Laurencia regresa maltrecha y entra en un espacio reservado a los hombres. Su sola aparición desbarata la pasividad del concejo y cambia la dirección del debate.
           -->
-          <stage xml:id="stg-1713">Sale Laurencia, <seg xml:id="seg-1713Acot-1">desmelenada</seg></stage>
+          <stage xml:id="stg-1713">Sale Laurencia, <seg xml:id="seg-stg-1713-1">desmelenada</seg></stage>
           <sp who="#laurencia" xml:id="sp-496">
             <speaker>LAURENCIA</speaker>
             <milestone unit="metrical-section" n="1714-1849" ana="#romance #rima-oe"/>
@@ -4484,7 +4484,7 @@
                título: El palacio de los Reyes
                descripción: La acción vuelve al palacio real. Después de la violencia de la villa, la corte reaparece como espacio de autoridad.
           -->
-          <stage xml:id="stg-1921">Vanse y <seg xml:id="seg-1921Acot-1">salen el rey Fernando y la reina doña Isabel</seg>, y Don Manrique, maestre</stage>
+          <stage xml:id="stg-1921">Vanse y <seg xml:id="seg-stg-1921-1">salen el rey Fernando y la reina doña Isabel</seg>, y Don Manrique, maestre</stage>
           <sp who="#manrique" xml:id="sp-593">
             <speaker>MANRIQUE</speaker>
             <milestone unit="metrical-section" n="1922-1949" ana="#redondilla"/>
@@ -4716,7 +4716,7 @@
           <sp who="#mengo" xml:id="sp-613">
             <speaker>MENGO</speaker>
             <l n="2072" xml:id="l-2072">Cara tiene de ahorcado.</l></sp>
-          <stage xml:id="stg-2072">Saca un escudo Juan Rojo con <seg xml:id="seg-2072Acot-1">las armas</seg></stage>
+          <stage xml:id="stg-2072">Saca un escudo Juan Rojo con <seg xml:id="seg-stg-2072-1">las armas</seg></stage>
           <sp who="#regidor" xml:id="sp-614">
             <speaker>REGIDOR</speaker>
             <l n="2073" xml:id="l-2073">Ya las armas han llegado.</l></sp>
@@ -4945,7 +4945,7 @@
                título: El soneto de Laurencia
                descripción: En un breve momento lírico, Laurencia expresa en forma de soneto el miedo que siente por Frondoso. En meido de la preocupación, la obra se detiene un instante en la intimidad de la pareja.
           -->
-          <stage xml:id="stg-2162">Vanse. <seg xml:id="seg-2162Acot-1">Sale Laurencia sola</seg></stage>
+          <stage xml:id="stg-2162">Vanse. <seg xml:id="seg-stg-2162-1">Sale Laurencia sola</seg></stage>
           <sp who="#laurencia" xml:id="sp-658">
             <speaker>LAURENCIA</speaker>
             <milestone unit="metrical-section" n="2163-2176" ana="#soneto"/>
@@ -5341,7 +5341,7 @@
                título: Los Reyes hablan de la situación en Castilla
                descripción: Antes del desenlace de Fuenteovejuna, los Reyes vuelven a tratar la situación general de Castilla. La obra recuerda aquí que la historia local se inserta en un proceso mayor de consolidación monárquica.
           -->
-          <stage xml:id="stg-2292">Vanse, y <seg xml:id="seg-2292Acot-1">salen el Rey y la Reina y Manrique</seg></stage>
+          <stage xml:id="stg-2292">Vanse, y <seg xml:id="seg-stg-2292-1">salen el Rey y la Reina y Manrique</seg></stage>
           <sp who="#isabel" xml:id="sp-746">
             <speaker>ISABEL</speaker>
             <milestone unit="stanza"/>
