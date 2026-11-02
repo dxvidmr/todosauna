@@ -125,7 +125,7 @@
       <change xml:id="chg-2026-01-26-integracion-web" when="2026-01-26" who="#DMR">Se integra el archivo TEI de notas en el sitio web del proyecto.</change>
       <change xml:id="chg-2025-12-21-creacion-inicial" when="2025-12-21" who="#DMR">Creación del archivo de notas con taxonomía de categorías.</change>
       <change xml:id="chg-notas-correccion-2026-11-02" when="2026-11-02" who="#DMR">Corrección de errores de conversión detectados al cotejar con PROLOPE 2009: números de nota de 2009 al principio del texto, un lema perdido, un ancla con errata y dos divisiones incompletas que duplicaban texto. Se suprime una glosa sin equivalente en 2009 (n-938-2). Se suprimen las tres notas de colección que solo describían el objeto (n-dp-esteban, n-dp-cuadrado, n-290-1): la relación pasa a declararse en relaciones.xml.</change>
-      <change xml:id="chg-notas-coleccion" notAfter="2026-04-27" who="#DMR">Nota nueva, sin equivalente en PROLOPE 2009, que comenta un objeto de la colección digital.</change>
+      <change xml:id="chg-notas-coleccion-2026-11-02" when="2026-11-02" who="#DMR">Nota nueva, sin equivalente en PROLOPE 2009, que comenta un objeto de la colección digital: la ballesta (n-815-1) y la identificación de Flores herido (n-1949-1).</change>
       <change xml:id="chg-notas-reanclaje" notAfter="2026-04-27" who="#DMR">Nota de PROLOPE 2009 que se ancla en otro punto del texto (el lema, el comienzo del pasaje o un segmento de la acotación).</change>
       <change xml:id="chg-notas-division" notAfter="2026-04-27" who="#DMR">Parte de una nota de PROLOPE 2009 dividida por lemas, cada una anclada al segmento que glosa.</change>
       <change xml:id="chg-notas-sin-guia" notAfter="2026-04-27" who="#DMR">Nota de PROLOPE 2009 a la que se quita la remisión a la <title>Guía didáctica</title>.</change>
@@ -2130,6 +2130,15 @@
   change="#chg-notas-prolope-2009"
   source="p2009:206">
   La <term>cruz</term> es la del hábito de la Orden de Calatrava. Es juego de palabras con el que Laurencia denuncia la hipocresía del Comendador. Probablemente, la muchacha esté también recordando los refranes “Detrás de la cruz está el diablo” y “La cruz en los pechos y el diablo en los hechos”, que también se refieren a la hipocresía.
+</note>
+
+<note
+  xml:id="n-815-1"
+  target="fo:l-814 fo:l-815"
+  ana="#escenica #dramaturgica"
+  change="#chg-notas-coleccion-2026-11-02">
+  El Comendador anuncia que deja la ballesta en el suelo para pasar «a la práctica de manos» (vv. 815-818, con el v. 816 perdido), y es Frondoso, escondido desde el v. 778, quien la recoge en la acotación siguiente. El texto no dice en qué verso empieza a sujetar a Laurencia. En esta fotografía de la producción de Wolfgang Heinz (Deutsches Theater, Berlín, 1958), el Comendador la tiene ya agarrada por la cintura y sostiene todavía la ballesta en la mano, de modo que el montaje propone el contacto físico antes de «Pongo la ballesta en tierra».
+  <ref target="cb:fo-qm2sxs-01"/>
 </note>
 
 <note
@@ -4779,6 +4788,15 @@
   change="#chg-notas-prolope-2009"
   source="p2009:499">
   ‘Porque con esto evita el daño que tememos’.
+</note>
+
+<note
+  xml:id="n-1949-1"
+  target="fo:stg-1949"
+  ana="#escenica"
+  change="#chg-notas-coleccion-2026-11-02">
+  Identificamos esta fotografía de la producción de Wolfgang Heinz (Deutsches Theater, Berlín, 1958) con la entrada de Flores ante los Reyes Católicos por tres rasgos: Isabel sentada en el trono, un caballero con una cruz en el pecho, que sería Don Manrique (Maestre de Santiago), y un hombre con aspecto de soldado que entra por la derecha con lo que parece una venda en la pierna. El texto reúne a Fernando, Isabel y Manrique en los vv. 1921-1949, y Flores entra herido y se dirige al rey (v. 1950). En la fotografía no se ve a Fernando, que el montaje puede haber dejado fuera de escena, o quizá oculto por Isabel en el plano. Otras escenas con los Reyes, como la entrada del Maestre (v. 2312), no explicarían esa venda, pero no podemos estar seguros.
+  <ref target="cb:fo-9b0p6g-01"/>
 </note>
 
 <note
