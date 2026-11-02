@@ -10,7 +10,13 @@
         <editor>David Merino Recalde</editor>
         <respStmt>
           <resp>Edición digital</resp>
-          <name>David Merino Recalde</name></respStmt></titleStmt>
+          <name>David Merino Recalde</name></respStmt>
+        <respStmt>
+          <resp>Revisión</resp>
+          <name>Susanna Allés Torrent</name>
+          <name>Ramón Valdés Gázquez</name>
+        </respStmt>
+      </titleStmt>
       <editionStmt>
         <edition>v1.0</edition></editionStmt>
       <publicationStmt>

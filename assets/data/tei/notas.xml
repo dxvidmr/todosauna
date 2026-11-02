@@ -15,6 +15,11 @@
           <resp>Edición base</resp>
           <name>PROLOPE</name>
         </respStmt>
+        <respStmt>
+          <resp>Revisión</resp>
+          <name>Susanna Allés Torrent</name>
+          <name>Ramón Valdés Gázquez</name>
+        </respStmt>
       </titleStmt>
       <publicationStmt>
         <publisher>PROLOPE, Universitat Autònoma de Barcelona</publisher>
