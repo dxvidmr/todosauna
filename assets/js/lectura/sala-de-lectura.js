@@ -177,8 +177,8 @@ document.addEventListener("DOMContentLoaded", function() {
         panelLayout.ensureOpenWidth();
         panelAbierto = true;
         pestanaActiva = tabName;
-        // Al reabrir el pasaje de imágenes, su lugar vuelve a quedar activo.
-        pintarRelacionesActivas(tabName === 'notas' ? (vistaActual?.relations || []) : []);
+        // Al reabrir, el lugar de lo último abierto vuelve a quedar activo en el texto.
+        pintarVistaActiva(tabName === 'notas');
         updatePanelHeaderTitle(tabName);
         renderPanelHeaderActions();
         
@@ -194,8 +194,8 @@ document.addEventListener("DOMContentLoaded", function() {
         
         lecturaPanel.classList.remove('open');
         tabButtons.forEach(btn => btn.classList.remove('active'));
-        // Cerrado el panel, el icono y el filete dejan de estar activos; vistaActual los recuerda.
-        pintarRelacionesActivas([]);
+        // Cerrado el panel, el lugar deja de estar activo en el texto; vistaActual lo recuerda.
+        pintarVistaActiva(false);
         panelAbierto = false;
         pestanaActiva = null;
         updatePanelHeaderTitle(null);
@@ -731,6 +731,15 @@ document.addEventListener("DOMContentLoaded", function() {
         relacionesActivas = relations || [];
         setRangeHighlight(teiContainer, 'active', relacionesActivas);
         setActiveMarkers(teiContainer, relacionesActivas);
+    }
+
+    // Activa en el texto el lugar de la vista actual (nota subrayada, o icono y
+    // filete de las imágenes), o lo apaga si el panel no la está mostrando.
+    function pintarVistaActiva(visible) {
+        const vista = visible ? vistaActual : null;
+        const noteId = vista?.key.startsWith('note:') ? vista.key.slice('note:'.length) : null;
+        markCurrentNoteInText(teiContainer, noteId, { clearAllActive: false, autoScroll: false });
+        pintarRelacionesActivas(vista?.relations || []);
     }
 
     // Anota qué muestra ahora la pestaña de notas (una nota, unas relaciones o nada).
