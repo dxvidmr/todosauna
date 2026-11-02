@@ -8,3 +8,7 @@ To make adding robots meta tag easy, CollectionBuilder includes the option to ad
 - individual page or layout, add `noindex: true` to the YML front matter.
 
 This will cause `<meta name="robots" content="noindex" />` to be added to the page(s) head during production build. 
+
+## Todos a una
+
+In the deployed site the `noindex` option in `_config.yml` stays commented out. Instead, the Vercel Routing Middleware adds the `X-Robots-Tag: noindex` header to every response (HTML, images, CSV, JSON, XML), together with HTTP basic authentication for the whole site. See [proteccion-acceso.md](proteccion-acceso.md).

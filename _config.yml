@@ -86,7 +86,7 @@ organization-logo-nav:
 # provide a relative path in this repository or full url 
 lib-assets: /assets/lib
 # ignore stuff
-exclude: [docs/, data-archive/, Rakefile, rakelib/, README.md, README-CB.md, LICENSE, CITATION.cff, CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md]
+exclude: [docs/, middleware.ts, data-archive/, Rakefile, rakelib/, README.md, README-CB.md, LICENSE, CITATION.cff, CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md]
 # compress CSS output
 sass:
   style: compressed

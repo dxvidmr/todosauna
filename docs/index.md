@@ -10,6 +10,7 @@ rake_tasks.md
 ## Deploy
 
 analytics.md
+proteccion-acceso.md
 build.md
 
 ## Customization
