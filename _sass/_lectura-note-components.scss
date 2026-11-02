@@ -70,7 +70,7 @@ $note-highlight-strong: 1;
 }
 
 // Compatibilidad layout legacy (sin wrapper)
-.note-target:not(.note-wrapper):not(.relation-wrapper),
+.note-target:not(.note-wrapper),
 tei-l.note-target,
 tei-seg.note-target {
   display: table;
@@ -192,6 +192,90 @@ tei-seg.note-target {
     font-size: 0.82rem;
     font-weight: 600;
     color: $color-text-quiet;
+  }
+
+  .note-relation + .note-relation {
+    margin-top: 0.75rem;
+  }
+
+  .note-relation-status {
+    margin: 0 0 0.1rem;
+    font-size: 0.78rem;
+    font-style: italic;
+    color: $color-text-quiet;
+  }
+}
+
+// ============================================
+// RELACIONES IMAGEN-TEXTO (relaciones.xml)
+// La imagen no subraya el texto: lo acompaña. Un icono al margen del primer
+// pasaje abre el panel; el rango se resalta con un filete lateral solo
+// mientras se consulta.
+// ============================================
+.relation-anchor {
+  position: relative;
+}
+
+.relation-range-hover,
+.relation-range-active {
+  box-shadow: inset 3px 0 0 rgba($color-accent, 0.55);
+}
+
+.relation-marker {
+  position: absolute;
+  top: 0.12em;
+  left: -2.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.12rem;
+  width: auto;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding: 0 0.2rem;
+  border: 0;
+  border-radius: var(--ui-radius-sm);
+  background: transparent;
+  color: $color-text-quiet;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-style: normal;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.18s ease, background-color 0.18s ease;
+
+  &::before {
+    content: "\f03e";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 0.9em;
+  }
+
+  &[data-count]::after {
+    content: attr(data-count);
+    font-size: 0.72em;
+    font-weight: 600;
+  }
+
+  &:hover,
+  &[aria-pressed="true"] {
+    color: $color-accent;
+    background-color: $color-accent-soft;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 1px;
+  }
+}
+
+// Sin margen libre, el icono pasa al inicio de la línea.
+@media (max-width: 991.98px) {
+  .relation-marker {
+    position: static;
+    margin-right: 0.3rem;
+    vertical-align: baseline;
   }
 }
 

@@ -30,8 +30,11 @@ import {
 } from './notas-dom.js';
 import {
     parseRelacionesDoc,
-    applyRelationHighlights,
-    collectRelatedObjectIds,
+    resolveRelations,
+    applyRelationMarkers,
+    setActiveMarkers,
+    setRangeHighlight,
+    collectRelationsForElements,
     collectCitedObjectIds,
     renderRelatedObjects
 } from './relaciones.js';
@@ -681,43 +684,41 @@ document.addEventListener("DOMContentLoaded", function() {
         void processRelaciones();
     } // ← Fin de processNotes()
 
-    // Relaciones imagen-texto (relaciones.xml): marcan los pasajes que
-    // representan objetos de la colección, aunque no tengan nota.
-    let relacionesPorPasaje = new Map();
+    // Relaciones imagen-texto (relaciones.xml): un icono al margen del primer
+    // pasaje de cada relación. El texto no se subraya: solo se resalta el rango
+    // mientras se consulta.
+    let relaciones = [];
+    let relacionesActivas = [];
     let relatedRenderToken = 0;
 
     async function processRelaciones() {
         const doc = await (window.relacionesXMLPromise || Promise.resolve(null));
-        relacionesPorPasaje = parseRelacionesDoc(doc);
-        if (relacionesPorPasaje.size === 0) return;
+        relaciones = resolveRelations(teiContainer, parseRelacionesDoc(doc));
+        if (relaciones.length === 0) return;
 
-        applyRelationHighlights(teiContainer, relacionesPorPasaje, {
-            onWrapperClick: ({ wrapper, element, event }) => {
-                // Si el pasaje tiene notas visibles, las muestra su propio
-                // manejador (y con ellas los objetos relacionados).
-                if (readEffectiveNoteGroups(wrapper).length > 0) return;
-                const noteAncestor = wrapper.parentElement?.closest('.note-wrapper');
-                if (noteAncestor && readEffectiveNoteGroups(noteAncestor).length > 0) return;
-
-                event.preventDefault();
-                event.stopPropagation();
-                mostrarRelacionesEnPanel(wrapper, element);
-            }
+        applyRelationMarkers(teiContainer, relaciones, {
+            onActivate: ({ relations, marker }) => mostrarRelacionesEnPanel(relations, marker)
         });
-        applyNoteCategoryFilter();
     }
 
-    function appendRelatedObjects(elements, excludedIds) {
+    // Rango resaltado (filete lateral) y icono pulsado mientras el panel
+    // muestre las imágenes de esas relaciones.
+    function setActiveRelations(relations) {
+        setRangeHighlight(relacionesActivas, 'active', false);
+        relacionesActivas = relations || [];
+        setRangeHighlight(relacionesActivas, 'active', true);
+        setActiveMarkers(teiContainer, relacionesActivas);
+    }
+
+    function appendRelatedObjects(relations, excludedIds) {
         const host = noteContentDiv?.querySelector('.note-display');
-        const objectIds = collectRelatedObjectIds(teiContainer, elements, relacionesPorPasaje)
-            .filter(id => !excludedIds.includes(id));
-        if (!host || objectIds.length === 0) return;
+        if (!host || relations.length === 0) return;
 
         const token = ++relatedRenderToken;
-        void renderRelatedObjects(host, objectIds, () => token === relatedRenderToken && host.isConnected);
+        void renderRelatedObjects(host, relations, () => token === relatedRenderToken && host.isConnected, excludedIds);
     }
 
-    function mostrarRelacionesEnPanel(wrapper, element) {
+    function mostrarRelacionesEnPanel(relations, marker) {
         if (window.lecturaPanel) {
             window.lecturaPanel.abrir('notas');
         }
@@ -726,14 +727,14 @@ document.addEventListener("DOMContentLoaded", function() {
         window.edicionNotas.notaActualId = null;
         window.edicionNotas.notaActualIndex = -1;
         markCurrentNoteInText(teiContainer, null, { clearAllActive: false, autoScroll: false });
-        wrapper.classList.add('note-current', 'note-active');
 
         renderNotePanel(noteContentDiv, {
             dockState: 'idle',
             bodyHTML: '<div class="note-display note-display-relations"></div>',
             dockHTML: ''
         });
-        appendRelatedObjects([element], []);
+        setActiveRelations(relations);
+        appendRelatedObjects(relations, []);
         renderPanelHeaderActions();
     }
 
@@ -769,16 +770,12 @@ document.addEventListener("DOMContentLoaded", function() {
             const mediaGroups = (wrapper.getAttribute('data-note-media-groups') || '').split(' ').filter(Boolean);
             const hasVisibleNote = visibleGroups.length > 0;
             const hasVisibleMedia = mediaGroups.some(noteId => visibleNoteIds.has(noteId));
-            const hasRelations = wrapper.hasAttribute('data-cb-relations');
 
             wrapper.setAttribute('data-visible-note-groups', visibleGroups.join(' '));
-            wrapper.classList.toggle('note-filtered-out', !hasVisibleNote && !hasRelations);
-            wrapper.classList.toggle(
-                'note-target-has-media',
-                (hasVisibleNote && hasVisibleMedia) || wrapper.classList.contains('relation-run-start')
-            );
+            wrapper.classList.toggle('note-filtered-out', !hasVisibleNote);
+            wrapper.classList.toggle('note-target-has-media', hasVisibleNote && hasVisibleMedia);
 
-            if (!hasVisibleNote && !hasRelations) {
+            if (!hasVisibleNote) {
                 wrapper.classList.remove('note-active', 'note-current');
             }
         });
@@ -801,6 +798,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function renderizarPlaceholderNota(noteContentDiv, mensaje) {
+        setActiveRelations(null);
         renderNotePlaceholder(noteContentDiv, {
             bodyMessage: mensaje,
             dockState: 'idle'
@@ -829,6 +827,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Marcar nota activa en el texto (persistente)
         marcarNotaActivaEnTexto(noteXmlId, teiContainer);
+        setActiveRelations(null);
          
         renderNotePanel(noteContentDiv, {
             currentNoteId: noteXmlId,
@@ -854,7 +853,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         void hydrateCbRefsInContainer(noteContentDiv);
         appendRelatedObjects(
-            resolveTargetElements(teiContainer, noteToShow.getAttribute('target') || ''),
+            collectRelationsForElements(
+                teiContainer,
+                resolveTargetElements(teiContainer, noteToShow.getAttribute('target') || ''),
+                relaciones
+            ),
             collectCitedObjectIds(noteToShow)
         );
         void edicionEvaluacion.addEvaluationButtons(noteContentDiv);
