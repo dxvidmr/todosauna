@@ -17,6 +17,10 @@
         <publisher>PROLOPE, Universitat Autònoma de Barcelona</publisher>
         <pubPlace>Bellaterra</pubPlace>
         <date when="2026">2026</date></publicationStmt>
+      <notesStmt>
+        <relatedItem type="notas" target="notas.xml"/>
+        <relatedItem type="relaciones" target="relaciones.xml"/>
+      </notesStmt>
       <sourceDesc>
         <bibl>
           <author>Lope de Vega</author>
@@ -27,7 +31,7 @@
           <date when="2009">2009</date></bibl></sourceDesc></fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>Texto base en TEI de <title>Fuenteovejuna</title> preparado para la edición digital anotada del proyecto. Este archivo se vincula con las anotaciones conservadas en <ref target="notas.xml">notas.xml</ref>.</p>
+        <p>Texto base en TEI de <title>Fuenteovejuna</title> preparado para la edición digital anotada del proyecto. Este archivo se vincula con las anotaciones conservadas en <ref target="notas.xml">notas.xml</ref> y con las relaciones entre sus pasajes y los objetos de la colección digital, declaradas en <ref target="relaciones.xml">relaciones.xml</ref>.</p>
       </projectDesc>
       <editorialDecl>
         <p>La marcación con identificadores <att>xml:id</att> en versos, segmentos, parlamentos y acotaciones permite el enlace desde el archivo externo de notas.</p>

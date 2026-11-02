@@ -26,6 +26,10 @@
           </licence>
         </availability>
       </publicationStmt>
+      <notesStmt>
+        <relatedItem type="texto-base" target="fuenteovejuna.xml"/>
+        <relatedItem type="relaciones" target="relaciones.xml"/>
+      </notesStmt>
       <sourceDesc>
         <bibl xml:id="prolope2009">
           <author>Lope de Vega</author>
