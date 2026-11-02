@@ -11,13 +11,8 @@ vendor/
 # Ignore mac files 
 .DS_Store
 
-# objects/: solo se versionan las miniaturas (small/ y thumbs/) que copia
-# fuenteovejuna-data; el resto de archivos de objetos no se sube.
-objects/*
-!objects/small/
-!objects/thumbs/
-# Copia propia servida a tamaño completo porque su archivo (ELIA) solo responde por http (2-11-2026).
-!objects/fo-0c82dp.jpg
+# objects/ se versiona entero: solo contiene lo que copia fuenteovejuna-data
+# (coleccion csv --objetos): las copias propias que se sirven y sus derivadas.
 
 # Local environment files / secrets
 .env
