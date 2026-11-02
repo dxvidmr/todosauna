@@ -124,7 +124,7 @@
       <change xml:id="chg-2026-03-24-clasificacion-acto1" when="2026-03-24" who="#DMR">Se completa la clasificación del acto primero y se normaliza la redacción de las notas con marcación de términos destacados.</change>
       <change xml:id="chg-2026-01-26-integracion-web" when="2026-01-26" who="#DMR">Se integra el archivo TEI de notas en el sitio web del proyecto.</change>
       <change xml:id="chg-2025-12-21-creacion-inicial" when="2025-12-21" who="#DMR">Creación del archivo de notas con taxonomía de categorías.</change>
-      <change xml:id="chg-notas-correccion-2026-11-02" when="2026-11-02" who="#DMR">Corrección de errores de conversión detectados al cotejar con PROLOPE 2009: números de nota de 2009 al principio del texto, un lema perdido, un ancla con errata y dos divisiones incompletas que duplicaban texto. Se corrigen ocho anclajes con errata en el id, comprobados con el texto base (n-865-1, n-972-1, n-1047-1, n-1450-1, n-1562-1, n-1596-1, n-1784-1 y n-1784-2). Se suprime una glosa sin equivalente en 2009 (n-938-2). Se suprimen las tres notas de colección que solo describían el objeto (n-dp-esteban, n-dp-cuadrado, n-290-1): la relación pasa a declararse en relaciones.xml.</change>
+      <change xml:id="chg-notas-correccion-2026-11-02" when="2026-11-02" who="#DMR">Corrección de errores de conversión detectados al cotejar con PROLOPE 2009: números de nota de 2009 al principio del texto, un lema perdido, un ancla con errata y dos divisiones incompletas que duplicaban texto. Se completa el @ana de dos notas que lo tenían vacío (n-2065-1 y n-2072Acot-1). Se corrigen ocho anclajes con errata en el id, comprobados con el texto base (n-865-1, n-972-1, n-1047-1, n-1450-1, n-1562-1, n-1596-1, n-1784-1 y n-1784-2). Se suprime una glosa sin equivalente en 2009 (n-938-2). Se suprimen las tres notas de colección que solo describían el objeto (n-dp-esteban, n-dp-cuadrado, n-290-1): la relación pasa a declararse en relaciones.xml.</change>
       <change xml:id="chg-notas-coleccion-2026-11-02" when="2026-11-02" who="#DMR">Nota nueva, sin equivalente en PROLOPE 2009, que comenta un objeto de la colección digital: la ballesta (n-815-1) y la identificación de Flores herido (n-1949-1).</change>
       <change xml:id="chg-notas-reanclaje" notAfter="2026-04-27" who="#DMR">Nota de PROLOPE 2009 que se ancla en otro punto del texto (el lema, el comienzo del pasaje o un segmento de la acotación).</change>
       <change xml:id="chg-notas-division" notAfter="2026-04-27" who="#DMR">Parte de una nota de PROLOPE 2009 dividida por lemas, cada una anclada al segmento que glosa.</change>
@@ -5036,8 +5036,8 @@
 <note
   xml:id="n-2065-1"
   target="fo:seg-2065-1"
-  ana="#"
-  change="#chg-notas-prolope-2009"
+  ana="#estilistica #lexica"
+  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
   source="p2009:525">
   <term>rabel</term>: metáfora con la que se designa, una vez más, a las nalgas que, probablemente, se equipararían con el dorso abombado y abultado de algunas variedades de estos instrumentos.
 </note>
@@ -5081,8 +5081,8 @@
 <note
   xml:id="n-2072Acot-1"
   target="fo:seg-2072Acot-1"
-  ana="#"
-  change="#chg-notas-prolope-2009"
+  ana="#historica"
+  change="#chg-notas-prolope-2009 #chg-notas-correccion-2026-11-02"
   source="p2009:530">
   <term>las armas</term>: hay que entender ‘armas reales’. Juan Rojo saca el escudo de los Reyes Católicos para manifestar la decisión del pueblo de dejar de estar sujeto a la encomienda de la Orden de Calatrava y supeditarse estrictamente al poder real.
 </note>
