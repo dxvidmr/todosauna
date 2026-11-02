@@ -2249,7 +2249,7 @@
           <sp who="#barrildo" xml:id="sp-205">
             <speaker>BARRILDO</speaker>
             <milestone unit="stanza"/>
-            <l part="I" n="925" xml:id="l-925-a">No soy de esa opinión.</l></sp>
+            <l part="I" n="925" xml:id="l-925-a">No soy desa opinión.</l></sp>
           <sp who="#leonelo" xml:id="sp-206">
             <speaker>LEONELO</speaker>
             <l part="F" xml:id="l-925-b">El ignorante</l>
@@ -2615,7 +2615,7 @@
             <milestone unit="stanza"/>
             <l n="1069" xml:id="l-1069">Que su <seg xml:id="seg-1069-1">desposado</seg> anda tras ella estos días,</l>
             <l n="1070" xml:id="l-1070">celoso de mis recados</l>
-            <l n="1071" xml:id="l-1071">y de que con tus criados</l>
+            <l n="1071" xml:id="l-1071">y de que con tus crïados</l>
             <l n="1072" xml:id="l-1072">a <seg xml:id="seg-1072-1">visitalla</seg> venías;</l>
             <milestone unit="stanza"/>
             <l n="1073" xml:id="l-1073">pero que, si se descuida,</l>
@@ -2753,7 +2753,7 @@
             <l n="1141" xml:id="l-1141">Mengo, a la villa es mejor</l>
             <l n="1142" xml:id="l-1142">que vamos unas con otras,</l>
             <milestone unit="stanza"/>
-            <l n="1143" xml:id="l-1143">pues no hay hombre ninguno</l>
+            <l n="1143" xml:id="l-1143">pues que no hay hombre ninguno</l>
             <l n="1144" xml:id="l-1144">porque no demos con él.</l></sp>
           <sp who="#mengo" xml:id="sp-298">
             <speaker>MENGO</speaker>
