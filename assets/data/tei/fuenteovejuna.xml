@@ -183,6 +183,14 @@
           <personGrp xml:id="gente">
             <name>Gente de Ciudad Real</name></personGrp></listPerson></particDesc></profileDesc>
     <revisionDesc>
+      <change when="2026-11-03" who="#DMR">Los parlamentos se renumeran de forma correlativa (sp-1 a sp-778).</change>
+      <change when="2026-11-03" who="#DMR">Se atribuyen a los músicos las dos canciones que no tenían hablante (vv. 529-544 y 591-594).</change>
+      <change when="2026-11-03" who="#DMR">Los versos 1335 y 1336 pasan del Alcalde al Regidor, como en PROLOPE 2009, y se quita el parlamento que los tenía aparte.</change>
+      <change when="2026-11-02" who="#DMR">Se separa del parlamento de Mengo el verso 2070 («¡Vivan muchos años!»), que dicen los músicos.</change>
+      <change when="2026-11-02" who="#DMR">Se restituyen tres lecturas de PROLOPE 2009: «desa» (v. 925), «crïados» (v. 1071) y «pues que» (v. 1143).</change>
+      <change when="2026-11-02" who="#DMR">Se renombran los identificadores de nueve segmentos de acotación para derivarlos de la acotación que los contiene (por ejemplo, seg-1472Acot-1 pasa a seg-stg-1473-2-1).</change>
+      <change when="2026-11-02" who="#DMR">Se quitan dos segmentos que ninguna nota usaba (seg1-1.528Acot y seg-938-1).</change>
+      <change when="2026-11-02" who="#DMR">Se enlaza la cabecera con notas.xml y relaciones.xml y se añade la responsabilidad de revisión.</change>
       <change when="2026-03-26" who="#DMR">Se completa el teiHeader con metadatos de proyecto, lengua y responsabilidad editorial.</change>
       <change when="2026-03-24" who="#DMR">Se añade la referencia <gi>xml-model</gi> que faltaba al esquema TEI.</change>
       <change when="2026-03-24" who="#DMR">Se corrigen la numeración de parlamentos y versos en un tramo del texto y se añaden identificadores <att>xml:id</att> a acotaciones antes no identificadas.</change>
