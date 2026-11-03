@@ -179,7 +179,9 @@
           <personGrp xml:id="labradores">
             <name>Labradores</name></personGrp>
           <personGrp xml:id="labradoras">
-            <name>Labradoras</name></personGrp></listPerson></particDesc></profileDesc>
+            <name>Labradoras</name></personGrp>
+          <personGrp xml:id="gente">
+            <name>Gente de Ciudad Real</name></personGrp></listPerson></particDesc></profileDesc>
     <revisionDesc>
       <change when="2026-03-26" who="#DMR">Se completa el teiHeader con metadatos de proyecto, lengua y responsabilidad editorial.</change>
       <change when="2026-03-24" who="#DMR">Se añade la referencia <gi>xml-model</gi> que faltaba al esquema TEI.</change>
@@ -3467,7 +3469,7 @@
             <l n="1459" xml:id="l-1459">¿Qué puedo hacer, si <seg xml:id="seg-1459-1">Fortuna ciega</seg></l>
             <l n="1460" xml:id="l-1460">a quien hoy levantó, mañana humilla?</l></sp>
           <stage xml:id="stg-1460">Dentro:</stage>      
-          <sp xml:id="sp-416">
+          <sp who="#gente" xml:id="sp-416">
             <speaker>[GENTE]</speaker>
               <l n="1461" xml:id="l-1461">¡Vitoria por los Reyes de Castilla!</l>
           </sp>
