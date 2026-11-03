@@ -129,9 +129,11 @@
         </listPerson>
         <listPerson>
           <person xml:id="comendador">
-            <persName>Fernán Gómez de Guzmán</persName></person>
+            <persName>Fernán Gómez de Guzmán</persName>
+            <persName type="etiqueta">Comendador</persName></person>
           <person xml:id="maestre">
-            <persName>Rodrigo Téllez Girón</persName></person>
+            <persName>Rodrigo Téllez Girón</persName>
+            <persName type="etiqueta">Maestre</persName></person>
           <person xml:id="ortuno">
             <persName>Ortuño</persName></person>
           <person xml:id="flores">
@@ -147,11 +149,13 @@
           <person xml:id="barrildo">
             <persName>Barrildo</persName></person>
           <person xml:id="esteban">
-            <persName>Esteban</persName></person>
+            <persName>Esteban</persName>
+            <persName type="etiqueta">Alc. Esteban</persName></person>
           <person xml:id="alonso">
             <persName>Alonso</persName></person>
           <person xml:id="juan_rojo">
-            <persName>Juan Rojo</persName></person>
+            <persName>Juan Rojo</persName>
+            <persName type="etiqueta">Juan</persName></person>
           <person xml:id="cuadrado">
             <persName>Cuadrado</persName></person>
           <person xml:id="regidor_cr_1">
@@ -159,11 +163,14 @@
           <person xml:id="regidor_cr_2">
             <persName>Regidor 2 de Ciudad Real</persName></person>
           <person xml:id="fernando">
-            <persName>Fernando V de Castilla</persName></person>
+            <persName>Fernando V de Castilla</persName>
+            <persName type="etiqueta">Rey</persName></person>
           <person xml:id="isabel">
-            <persName>Isabel I de Castilla</persName></person>
+            <persName>Isabel I de Castilla</persName>
+            <persName type="etiqueta">Isabel</persName></person>
           <person xml:id="manrique">
-            <persName>Don Manrique</persName></person>
+            <persName>Don Manrique</persName>
+            <persName type="etiqueta">Manrique</persName></person>
           <person xml:id="jacinta">
             <persName>Jacinta</persName></person>
           <person xml:id="leonelo">
@@ -171,11 +178,14 @@
           <person xml:id="cimbranos">
             <persName>Cimbranos</persName></person>
           <person xml:id="juez">
-            <persName>Juez pesquisidor</persName></person>
+            <persName>Juez pesquisidor</persName>
+            <persName type="etiqueta">Juez</persName></person>
           <person xml:id="muchacho">
-            <persName>Un muchacho</persName></person>
+            <persName>Un muchacho</persName>
+            <persName type="etiqueta">Niño</persName></person>
           <person xml:id="labrador">
-            <persName>Un labrador</persName></person></listPerson>
+            <persName>Un labrador</persName>
+            <persName type="etiqueta">Labrador</persName></person></listPerson>
         <listPerson type="collective">
           <personGrp xml:id="musicos">
             <name>Músicos</name></personGrp>
