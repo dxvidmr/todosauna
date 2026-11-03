@@ -21,6 +21,8 @@
           <name>Ramón Valdés Gázquez</name>
         </respStmt>
       </titleStmt>
+      <editionStmt>
+        <edition>v2.1</edition></editionStmt>
       <publicationStmt>
         <publisher>PROLOPE, Universitat Autònoma de Barcelona</publisher>
         <pubPlace>Bellaterra</pubPlace>
@@ -124,6 +126,7 @@
       </particDesc>
     </profileDesc>
     <revisionDesc>
+      <change when="2026-11-03" who="#DMR">Versión 2.1.</change>
       <change xml:id="chg-notas-taxonomia-ana-2026-03-31" when="2026-03-31" who="#DMR">La clasificación editorial de las notas se migra de <att>type</att>/<att>subtype</att> a <att>ana</att> para enlazar directamente con la taxonomía declarada en el header.</change>
       <change xml:id="chg-notas-header-enlaces-2026-03-26" when="2026-03-26" who="#DMR">Se completa el header con la declaración de responsabilidad y la documentación del sistema de enlaces entre notas y texto base.</change>
       <change xml:id="chg-notas-taxonomia-refinada-2026-03-24" when="2026-03-24" who="#DMR">Se revisan y refinan las descripciones de la taxonomía de notas; se añade la categoría dramatúrgica y se corrigen etiquetas de tipo.</change>

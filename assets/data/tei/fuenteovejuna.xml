@@ -18,7 +18,7 @@
         </respStmt>
       </titleStmt>
       <editionStmt>
-        <edition>v1.0</edition></editionStmt>
+        <edition>v2.1</edition></editionStmt>
       <publicationStmt>
         <publisher>PROLOPE, Universitat Autònoma de Barcelona</publisher>
         <pubPlace>Bellaterra</pubPlace>
@@ -196,6 +196,8 @@
           <personGrp xml:id="gente">
             <name>Gente de Ciudad Real</name></personGrp></listPerson></particDesc></profileDesc>
     <revisionDesc>
+      <change when="2026-11-03" who="#DMR">Versión 2.1.</change>
+      <change when="2026-11-03" who="#DMR">Versión 2.0, asignada a posteriori al estado del texto base del 6 de mayo de 2026.</change>
       <change when="2026-11-03" who="#DMR">Se atribuyen los parlamentos de los regidores a Juan Rojo o a Cuadrado según la escena, con certeza media o baja en los dudosos; se declaran los dos regidores de Ciudad Real y el «Un regidor» del reparto se asocia a Cuadrado.</change>
       <change when="2026-11-03" who="#DMR">Se añade a diez personas el nombre con que se rotulan sus parlamentos (<gi>persName</gi> con <att>type</att>=«etiqueta»).</change>
       <change when="2026-11-03" who="#DMR">Se atribuye a su hablante cada parlamento que no tenía who: Manrique, el juez, un labrador, el conjunto de las labradoras y los labradores, y la gente de Ciudad Real; se declaran el labrador y los grupos labradoras y gente.</change>
