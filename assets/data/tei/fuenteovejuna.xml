@@ -2172,7 +2172,7 @@
             <l n="863" xml:id="l-863">El año apunta mal, y el tiempo crece,</l>
             <l n="864" xml:id="l-864">y es mejor que el sustento esté en depósito,</l>
             <l n="865" xml:id="l-865">aunque lo contradicen <seg xml:id="seg-865-1">más de trece</seg>.</l></sp>
-          <sp who="#regidor" xml:id="sp-196">
+          <sp who="#cuadrado" cert="medium" xml:id="sp-196">
             <speaker>REGIDOR 1</speaker>
             <l n="866" xml:id="l-866">Yo siempre he sido, al fin, deste propósito,</l>
             <l n="867" xml:id="l-867">en gobernar en paz <seg xml:id="seg-867-1">esta república</seg>.</l></sp>
@@ -2319,7 +2319,7 @@
             <milestone unit="metrical-section" n="941-1104" ana="#redondilla"/>
             <milestone unit="stanza"/>
             <l n="941" xml:id="l-941">Dios guarde la buena gente.</l></sp>
-          <sp who="#regidor" xml:id="sp-217">
+          <sp who="#juan_rojo" cert="low" xml:id="sp-217">
             <speaker>REGIDOR</speaker>
             <l part="I" n="942" xml:id="l-942-a">¡Oh, señor!</l></sp>
           <sp who="#comendador" xml:id="sp-218">
@@ -2435,7 +2435,7 @@
             <l n="984" xml:id="l-984">Pues ¿he dicho cosa alguna</l>
             <milestone unit="stanza"/>
             <l n="985" xml:id="l-985">de que os pese, Regidor?</l></sp>
-          <sp who="#regidor" xml:id="sp-240">
+          <sp who="#cuadrado" xml:id="sp-240">
             <speaker>REGIDOR</speaker>
             <l n="986" xml:id="l-986">Lo que decís es injusto;</l>
             <l n="987" xml:id="l-987">no lo digáis, que no es justo</l>
@@ -2445,7 +2445,7 @@
             <milestone unit="stanza"/>
             <l n="989" xml:id="l-989">¿Vosotros honor tenéis?</l>
             <l n="990" xml:id="l-990">¡Qué freiles de Calatrava!</l></sp>
-          <sp who="#regidor" xml:id="sp-242">
+          <sp who="#cuadrado" xml:id="sp-242">
             <speaker>REGIDOR</speaker>
             <l n="991" xml:id="l-991">Alguno acaso se alaba</l>
             <l n="992" xml:id="l-992">de la cruz que le ponéis,</l>
@@ -2455,7 +2455,7 @@
             <speaker>COMENDADOR</speaker>
             <l n="994" xml:id="l-994">¿Y ensúciola yo juntando</l>
             <l part="I" n="995" xml:id="l-995-a">la mía a la vuestra?</l></sp>
-          <sp who="#regidor" xml:id="sp-244">
+          <sp who="#cuadrado" xml:id="sp-244">
             <speaker>REGIDOR</speaker>
             <l part="F" xml:id="l-995-b">Cuando</l>
             <l n="996" xml:id="l-996">que el mal más <seg xml:id="seg-996-1">tiñe</seg> que alimpia.</l></sp>
@@ -3199,7 +3199,7 @@
             <l n="1324" xml:id="l-1324">sus demasías no den.</l>
             <l n="1325" xml:id="l-1325">La pobre Jacinta es quien</l>
             <l n="1326" xml:id="l-1326">pierde por su <seg xml:id="seg-1326-1">sinrazón</seg>.</l></sp>
-          <sp who="#regidor" xml:id="sp-370">
+          <sp who="#juan_rojo" xml:id="sp-370">
             <speaker>REGIDOR</speaker>
             <milestone unit="stanza"/>
             <l n="1327" xml:id="l-1327">Ya a los Católicos Reyes,</l>
@@ -3217,7 +3217,7 @@
           <sp who="#esteban" xml:id="sp-371">
             <speaker>ALCALDE</speaker>
             <l n="1337" xml:id="l-1337">Luego ¿a Mengo le azotó?</l></sp>
-          <sp who="#regidor" xml:id="sp-372">
+          <sp who="#juan_rojo" xml:id="sp-372">
             <speaker>REGIDOR</speaker>
             <l n="1338" xml:id="l-1338">No hay negra <seg xml:id="seg-1338-1">bayeta</seg> o tinta</l>
             <milestone unit="stanza"/>
@@ -3230,7 +3230,7 @@
             <milestone unit="stanza"/>
             <l n="1343" xml:id="l-1343">Yo ¿para qué traigo aquí</l>
             <l n="1344" xml:id="l-1344"><seg xml:id="seg-1344-1">este palo</seg> sin provecho?</l></sp>
-          <sp who="#regidor" xml:id="sp-374">
+          <sp who="#juan_rojo" xml:id="sp-374">
             <speaker>REGIDOR</speaker>
             <l n="1345" xml:id="l-1345">Si sus crïados lo han hecho,</l>
             <l n="1346" xml:id="l-1346">¿de qué os afligís ansí?</l></sp>
@@ -3248,14 +3248,14 @@
                título: Frondoso pide la mano de Laurencia
                descripción: Frondoso pide formalmente la mano de Laurencia a Esteban.
           -->
-          <sp who="#regidor" xml:id="sp-376">
+          <sp who="#juan_rojo" xml:id="sp-376">
             <speaker>REGIDOR</speaker>
             <l part="I" n="1353" xml:id="l-1353-a">Aquí hay gente. ¿Quién es?</l></sp>
           <sp who="#frondoso" xml:id="sp-377">
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-1353-b">Yo,</l>
             <l n="1354" xml:id="l-1354">que espero vuestras licencias.</l></sp>
-          <sp who="#regidor" xml:id="sp-378">
+          <sp who="#juan_rojo" xml:id="sp-378">
             <speaker>REGIDOR</speaker>
             <milestone unit="stanza"/>
             <l n="1355" xml:id="l-1355">Para mi casa, Frondoso,</l>
@@ -3314,7 +3314,7 @@
             <milestone unit="stanza"/>
             <l n="1387" xml:id="l-1387">que yo dichoso me hallo</l>
             <l n="1388" xml:id="l-1388">en que aqueso llegue a ser.</l></sp>
-          <sp who="#regidor" xml:id="sp-385">
+          <sp who="#juan_rojo" xml:id="sp-385">
             <speaker>REGIDOR</speaker>
             <l n="1389" xml:id="l-1389">De la moza el parecer</l>
             <l n="1390" xml:id="l-1390">tomad, antes de acetallo.</l></sp>
@@ -3335,7 +3335,7 @@
             <milestone unit="stanza"/>
             <l n="1399" xml:id="l-1399">Yo dote no he menester.</l>
             <l n="1400" xml:id="l-1400">De eso no hay que entristeceros.</l></sp>
-          <sp who="#regidor" xml:id="sp-388">
+          <sp who="#juan_rojo" xml:id="sp-388">
             <speaker>REGIDOR</speaker>
             <l n="1401" xml:id="l-1401">¡Pues que no la pide en cueros,</l>
             <l n="1402" xml:id="l-1402">lo podéis agradecer!</l></sp>
@@ -3414,7 +3414,7 @@
             <milestone unit="stanza"/>
             <l n="1431" xml:id="l-1431">hecho está. Ven, buscaremos</l>
             <l n="1432" xml:id="l-1432">a mi <seg xml:id="seg-1432-1">compadre</seg> en la plaza.</l></sp>
-          <sp who="#regidor" xml:id="sp-404">
+          <sp who="#juan_rojo" xml:id="sp-404">
             <speaker>REGIDOR</speaker>
             <l part="I" n="1433" xml:id="l-1433-a">Vamos.</l></sp>
           <sp who="#esteban" xml:id="sp-405">
@@ -3933,7 +3933,7 @@
             <milestone unit="stanza"/>
             <l n="1684" xml:id="l-1684">será mejor, pues no podrá, ocupado,</l>
             <l n="1685" xml:id="l-1685">hacernos bien con tanta guerra en medio.</l></sp>
-          <sp who="#regidor" xml:id="sp-487">
+          <sp who="#cuadrado" cert="medium" xml:id="sp-487">
             <speaker>REGIDOR</speaker>
             <l n="1686" xml:id="l-1686">Si mi voto de vos fuera escuchado,</l>
             <milestone unit="stanza"/>
@@ -3946,7 +3946,7 @@
             <l n="1689" xml:id="l-1689">¡A la fe, que si <seg xml:id="seg-1689-1">entiende</seg> el alboroto,</l>
             <milestone unit="stanza"/>
             <l n="1690" xml:id="l-1690">que ha de costar la junta alguna vida!</l></sp>
-          <sp who="#regidor" xml:id="sp-490">
+          <sp who="#cuadrado" cert="medium" xml:id="sp-490">
             <speaker>REGIDOR</speaker>
             <l n="1691" xml:id="l-1691">Ya todo el <seg xml:id="seg-1691-1">árbol</seg> de paciencia roto,</l>
             <l n="1692" xml:id="l-1692">corre la nave de temor perdida.</l>
@@ -3960,7 +3960,7 @@
           <sp who="#juan_rojo" xml:id="sp-491">
             <speaker>JUAN ROJO</speaker>
             <l n="1698" xml:id="l-1698">¿Qué es lo que quieres tú que el pueblo intente?</l></sp>
-          <sp who="#regidor" xml:id="sp-492">
+          <sp who="#cuadrado" cert="medium" xml:id="sp-492">
             <speaker>REGIDOR</speaker>
             <milestone unit="stanza"/>
             <l n="1699" xml:id="l-1699">Morir o dar la muerte a los tiranos,</l>
@@ -4120,7 +4120,7 @@
             <speaker>JUAN ROJO</speaker>
             <l n="1801" xml:id="l-1801">Y yo, por más que me <seg xml:id="seg-1801-1">asombre</seg></l>
             <l n="1802" xml:id="l-1802">la grandeza del contrario.</l></sp>
-          <sp who="#regidor" xml:id="sp-507">
+          <sp who="#cuadrado" cert="low" xml:id="sp-507">
             <speaker>REGIDOR</speaker>
             <l part="I" n="1803" xml:id="l-1803-a">¡Muramos todos!</l></sp>
           <sp who="#barrildo" xml:id="sp-508">
@@ -4738,7 +4738,7 @@
             <speaker>MENGO</speaker>
             <l n="2072" xml:id="l-2072">Cara tiene de ahorcado.</l></sp>
           <stage xml:id="stg-2072">Saca un escudo Juan Rojo con <seg xml:id="seg-stg-2072-1">las armas</seg></stage>
-          <sp who="#regidor" xml:id="sp-616">
+          <sp who="#cuadrado" cert="medium" xml:id="sp-616">
             <speaker>REGIDOR</speaker>
             <l n="2073" xml:id="l-2073">Ya las armas han llegado.</l></sp>
           <sp who="#esteban" xml:id="sp-617">
@@ -4748,7 +4748,7 @@
             <speaker>JUAN</speaker>
             <milestone unit="stanza"/>
             <l n="2075" xml:id="l-2075">¿Adónde se han de poner?</l></sp>
-          <sp who="#regidor" xml:id="sp-619">
+          <sp who="#cuadrado" cert="medium" xml:id="sp-619">
             <speaker>REGIDOR</speaker>
             <l n="2076" xml:id="l-2076">Aquí, en el Ayuntamiento.</l></sp>
           <sp who="#esteban" xml:id="sp-620">
@@ -4864,20 +4864,20 @@
                descripción: Llega el juez pesquisidor para averiguar quién mató al Comendador. La presencia del enviado real pone a prueba la reciente unidad del pueblo.
           -->
           <stage xml:id="stg-2114">Sale el Regidor</stage>
-          <sp who="#regidor" xml:id="sp-644">
+          <sp who="#cuadrado" xml:id="sp-644">
             <speaker>REGIDOR</speaker>
             <milestone unit="stanza"/>
             <l n="2115" xml:id="l-2115">¿Qué hacéis desta suerte aquí?</l></sp>
           <sp who="#frondoso" xml:id="sp-645">
             <speaker>FRONDOSO</speaker>
             <l n="2116" xml:id="l-2116">¿Qué ha sucedido, Cuadrado?</l></sp>
-          <sp who="#regidor" xml:id="sp-646">
+          <sp who="#cuadrado" xml:id="sp-646">
             <speaker>REGIDOR</speaker>
             <l n="2117" xml:id="l-2117">Pesquisidor ha llegado.</l></sp>
           <sp who="#esteban" xml:id="sp-647">
             <speaker>ESTEBAN</speaker>
             <l n="2118" xml:id="l-2118">Echá todos por ahí.</l></sp>
-          <sp who="#regidor" xml:id="sp-648">
+          <sp who="#cuadrado" xml:id="sp-648">
             <speaker>REGIDOR</speaker>
             <milestone unit="stanza"/>
             <l n="2119" xml:id="l-2119">Con él viene un capitán.</l></sp>
@@ -4885,7 +4885,7 @@
             <speaker>ESTEBAN</speaker>
             <l n="2120" xml:id="l-2120">Venga el diablo. Ya sabéis</l>
             <l n="2121" xml:id="l-2121">lo que responder tenéis.</l></sp>
-          <sp who="#regidor" xml:id="sp-650">
+          <sp who="#cuadrado" xml:id="sp-650">
             <speaker>REGIDOR</speaker>
             <l n="2122" xml:id="l-2122">El pueblo prendiendo van</l>
             <milestone unit="stanza"/>
@@ -5235,7 +5235,7 @@
             <speaker>BARRILDO</speaker>
             <milestone unit="stanza"/>
             <l part="I" n="2261" xml:id="l-2261-a">¡<seg xml:id="seg-2261-1">Vítor</seg>, Mengo!</l></sp>
-          <sp who="#regidor" xml:id="sp-714">
+          <sp who="#cuadrado" cert="low" xml:id="sp-714">
             <speaker>REGIDOR</speaker>
             <l part="F" xml:id="l-2261-b">Y con razón.</l></sp>
           <sp who="#barrildo" xml:id="sp-715">
