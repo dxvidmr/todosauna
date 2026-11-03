@@ -4247,7 +4247,7 @@
             <l part="F" xml:id="l-1859-b">El pueblo junto viene.</l></sp>
           <stage xml:id="stg-1859">Dentro</stage>
           <sp who="#juan_rojo" xml:id="sp-539">
-            <speaker>JUAN ROJO</speaker>
+            <speaker>JUAN</speaker>
             <l n="1860" xml:id="l-1860">¡Rompe, derriba, hunde, quema, abrasa!</l></sp>
           <sp who="#ortuno" xml:id="sp-540">
             <speaker>ORTUÑO</speaker>
@@ -4724,7 +4724,7 @@
             <speaker>ESTEBAN</speaker>
             <l n="2074" xml:id="l-2074">Mostrá las armas acá.</l></sp>
           <sp who="#juan_rojo" xml:id="sp-618">
-            <speaker>JUAN ROJO</speaker>
+            <speaker>JUAN</speaker>
             <milestone unit="stanza"/>
             <l n="2075" xml:id="l-2075">¿Adónde se han de poner?</l></sp>
           <sp who="#regidor" xml:id="sp-619">
