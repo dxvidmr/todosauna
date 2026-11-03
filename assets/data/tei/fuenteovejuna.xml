@@ -152,8 +152,6 @@
             <persName>Alonso</persName></person>
           <person xml:id="juan_rojo">
             <persName>Juan Rojo</persName></person>
-          <person xml:id="regidor">
-            <persName>Regidor</persName></person>
           <person xml:id="cuadrado">
             <persName>Cuadrado</persName></person>
           <person xml:id="regidor_cr_1">
@@ -245,7 +243,7 @@
             <castItem>
             <role corresp="#manrique" xml:id="dp-manrique">Don Manrique</role></castItem>
             <castItem>
-            <role corresp="#regidor" xml:id="dp-regidor">Un regidor</role></castItem>
+            <role corresp="#cuadrado" xml:id="dp-regidor">Un regidor</role></castItem>
             <castItem>
             <role corresp="#cuadrado" xml:id="dp-cuadrado">Regidor 2</role>
             <roleDesc>llamado Cuadrado</roleDesc></castItem>
