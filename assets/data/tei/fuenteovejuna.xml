@@ -1841,7 +1841,7 @@
             <milestone unit="stanza"/>
             <l n="715" xml:id="l-715">que éste es el medio mejor</l>
             <l n="716" xml:id="l-716">que la ocasión nos ofrece.</l></sp>
-          <sp xml:id="sp-160">
+          <sp who="#manrique" xml:id="sp-160">
             <speaker>MANRIQUE</speaker>
             <l n="717" xml:id="l-717">El acuerdo me parece</l>
             <l n="718" xml:id="l-718">como de tan gran valor.</l>
@@ -5031,7 +5031,7 @@
             <l n="2203" xml:id="l-2203">de alguno que dan tormento.</l>
             <l n="2204" xml:id="l-2204">Oye con atento oído.</l></sp>
           <stage xml:id="stg-2204">Dice dentro el Juez y responden</stage>
-          <sp xml:id="sp-669">
+          <sp who="#juez" xml:id="sp-669">
             <speaker>JUEZ</speaker>
             <milestone unit="stanza"/>
             <l n="2205" xml:id="l-2205">¡Decid la verdad, <seg xml:id="seg-2205-1">buen viejo</seg>!</l></sp>
@@ -5045,7 +5045,7 @@
           <sp who="#esteban" xml:id="sp-672">
             <speaker>ESTEBAN</speaker>
             <l part="I" n="2208" xml:id="l-2208-a">¡Déjenme un poco!</l></sp>
-          <sp xml:id="sp-673">
+          <sp who="#juez" xml:id="sp-673">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2208-b">Ya os dejo.</l>
             <milestone unit="stanza"/>
@@ -5061,7 +5061,7 @@
             <speaker>FRONDOSO</speaker>
             <milestone unit="stanza"/>
             <l part="I" n="2213" xml:id="l-2213-a">¡Bravo caso!</l></sp>
-          <sp xml:id="sp-677">
+          <sp who="#juez" xml:id="sp-677">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2213-b">¡Ese muchacho</l>
             <l n="2214" xml:id="l-2214">aprieta! ¡Perro, yo sé</l>
@@ -5071,7 +5071,7 @@
             <speaker>NIÑO</speaker>
             <milestone unit="stanza"/>
             <l n="2217" xml:id="l-2217">Fuenteovejuna, señor.</l></sp>
-          <sp xml:id="sp-679">
+          <sp who="#juez" xml:id="sp-679">
             <speaker>JUEZ</speaker>
             <l n="2218" xml:id="l-2218">¡Por vida del Rey, villanos,</l>
             <l n="2219" xml:id="l-2219">que os ahorque con mis manos!</l>
@@ -5087,7 +5087,7 @@
           <sp who="#frondoso" xml:id="sp-682">
             <speaker>FRONDOSO</speaker>
             <l part="F" xml:id="l-2223-b">Bravo y fuerte.</l></sp>
-          <sp xml:id="sp-683">
+          <sp who="#juez" xml:id="sp-683">
             <speaker>JUEZ</speaker>
             <l n="2224" xml:id="l-2224">Esa mujer al momento</l>
             <milestone unit="stanza"/>
@@ -5096,7 +5096,7 @@
           <sp who="#laurencia" xml:id="sp-684">
             <speaker>LAURENCIA</speaker>
             <l n="2227" xml:id="l-2227">Ya está de cólera ciego.</l></sp>
-          <sp xml:id="sp-685">
+          <sp who="#juez" xml:id="sp-685">
             <speaker>JUEZ</speaker>
             <l n="2228" xml:id="l-2228">¡Que os he de matar, creed,</l>
             <milestone unit="stanza"/>
@@ -5105,7 +5105,7 @@
           <sp who="#pascuala" xml:id="sp-686">
             <speaker>PASCUALA</speaker>
             <l n="2231" xml:id="l-2231">Fuenteovejuna, señor.</l></sp>
-          <sp xml:id="sp-687">
+          <sp who="#juez" xml:id="sp-687">
             <speaker>JUEZ</speaker>
             <l part="I" n="2232" xml:id="l-2232-a">¡Dale!</l></sp>
           <sp who="#frondoso" xml:id="sp-688">
@@ -5118,14 +5118,14 @@
           <sp who="#frondoso" xml:id="sp-690">
             <speaker>FRONDOSO</speaker>
             <l n="2234" xml:id="l-2234">Niegan niños, ¿qué te <seg xml:id="seg-2234-1">espantas</seg>?</l></sp>
-          <sp xml:id="sp-691">
+          <sp who="#juez" xml:id="sp-691">
             <speaker>JUEZ</speaker>
             <l n="2235" xml:id="l-2235">Parece que los <seg xml:id="seg-2235-1">encantas</seg>.</l>
             <l part="I" n="2236" xml:id="l-2236-a">¡Aprieta!</l></sp>
           <sp who="#pascuala" xml:id="sp-692">
             <speaker>PASCUALA</speaker>
             <l part="F" xml:id="l-2236-b">¡Ay cielo piadoso!</l></sp>
-          <sp xml:id="sp-693">
+          <sp who="#juez" xml:id="sp-693">
             <speaker>JUEZ</speaker>
             <milestone unit="stanza"/>
             <l n="2237" xml:id="l-2237">¡Aprieta, infame! ¿Estás sordo?</l></sp>
@@ -5136,7 +5136,7 @@
                título: Mengo resiste el tormento
                descripción: Cuando el juez hace pasar a Mengo, parece que la cadena de resistencia puede romperse. Sin embargo, también el gracioso soporta el castigo y remata la consigna común con su irónico "Fuenteovejunica".
           -->
-          <sp xml:id="sp-695">
+          <sp who="#juez" xml:id="sp-695">
             <speaker>JUEZ</speaker>
             <l n="2239" xml:id="l-2239">¡Traedme aquel más rollizo!</l>
             <l n="2240" xml:id="l-2240">¡Ese <seg xml:id="seg-2240-1">desnudo</seg>, ese gordo!</l></sp>
@@ -5150,34 +5150,34 @@
           <sp who="#mengo" xml:id="sp-698">
             <speaker>MENGO</speaker>
             <l part="I" n="2243" xml:id="l-2243-a">¡Ay, ay!</l></sp>
-          <sp xml:id="sp-699">
+          <sp who="#juez" xml:id="sp-699">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2243-b">¡Comienza a apretar!</l></sp>
           <sp who="#mengo" xml:id="sp-700">
             <speaker>MENGO</speaker>
             <l part="I" n="2244" xml:id="l-2244-a">¡Ay!</l></sp>
-          <sp xml:id="sp-701">
+          <sp who="#juez" xml:id="sp-701">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2244-b">¿Es menester ayuda?</l></sp>
           <sp who="#mengo" xml:id="sp-702">
             <speaker>MENGO</speaker>
             <milestone unit="stanza"/>
             <l part="I" n="2245" xml:id="l-2245-a">¡Ay, ay!</l></sp>
-          <sp xml:id="sp-703">
+          <sp who="#juez" xml:id="sp-703">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2245-b">¿Quién mató, villano,</l>
             <l n="2246" xml:id="l-2246">al señor Comendador?</l></sp>
           <sp who="#mengo" xml:id="sp-704">
             <speaker>MENGO</speaker>
             <l n="2247" xml:id="l-2247">¡Ay! ¡Yo lo diré, señor!</l></sp>
-          <sp xml:id="sp-705">
+          <sp who="#juez" xml:id="sp-705">
             <speaker>JUEZ</speaker>
             <l n="2248" xml:id="l-2248">Afloja un poco la mano.</l></sp>
           <sp who="#frondoso" xml:id="sp-706">
             <speaker>FRONDOSO</speaker>
             <milestone unit="stanza"/>
             <l part="I" n="2249" xml:id="l-2249-a">Él confiesa.</l></sp>
-          <sp xml:id="sp-707">
+          <sp who="#juez" xml:id="sp-707">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2249-b">Al palo aplica</l>
             <l part="I" n="2250" xml:id="l-2250-a">la espalda.</l></sp>
@@ -5185,13 +5185,13 @@
             <speaker>MENGO</speaker>
             <l part="F" xml:id="l-2250-b"><seg xml:id="seg-2250-b">Quedo</seg>, que yo</l>
             <l part="I" n="2251" xml:id="l-2251-a">lo diré.</l></sp>
-          <sp xml:id="sp-709">
+          <sp who="#juez" xml:id="sp-709">
             <speaker>JUEZ</speaker>
             <l part="F" xml:id="l-2251-b">¿Quién le mató?</l></sp>
           <sp who="#mengo" xml:id="sp-710">
             <speaker>MENGO</speaker>
             <l n="2252" xml:id="l-2252">Señor, Fuenteovejunica.</l></sp>
-          <sp xml:id="sp-711">
+          <sp who="#juez" xml:id="sp-711">
             <speaker>JUEZ</speaker>
             <milestone unit="stanza"/>
             <l n="2253" xml:id="l-2253">¿Hay tan gran bellaquería?</l>
@@ -5477,7 +5477,7 @@
             <l n="2359" xml:id="l-2359">el cargo en vuestro poder,</l>
             <l n="2360" xml:id="l-2360">si me lo concede Dios.</l></sp>
           <stage xml:id="stg-2360">Sale el juez</stage>
-          <sp xml:id="sp-767">
+          <sp who="#juez" xml:id="sp-767">
             <speaker>JUEZ</speaker>
             <milestone unit="stanza"/>
             <l n="2361" xml:id="l-2361">A Fuenteovejuna fui</l>
