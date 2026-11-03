@@ -41,6 +41,7 @@
       </projectDesc>
       <editorialDecl>
         <p>La marcación con identificadores <att>xml:id</att> en versos, segmentos, parlamentos y acotaciones permite el enlace desde el archivo externo de notas.</p>
+        <p>Las etiquetas de hablante se respetan tal como las imprime PROLOPE 2009, salvo la errata «ALCADE», que se corrige por «ALCALDE», y la numeración de los regidores, que se unifica en cifras (etiquetas y acotación del v. 860).</p>
       </editorialDecl>
       <classDecl>
         <taxonomy xml:id="metrica">
@@ -183,6 +184,7 @@
           <personGrp xml:id="gente">
             <name>Gente de Ciudad Real</name></personGrp></listPerson></particDesc></profileDesc>
     <revisionDesc>
+      <change when="2026-11-03" who="#DMR">Se unifica en cifras la numeración de los regidores, en las etiquetas de hablante («REGIDOR 1» y «REGIDOR 2») y en la acotación del v. 860, y se respeta la etiqueta «JUAN» donde PROLOPE la imprime.</change>
       <change when="2026-11-03" who="#DMR">Los parlamentos se renumeran de forma correlativa (sp-1 a sp-778).</change>
       <change when="2026-11-03" who="#DMR">Se atribuyen a los músicos las dos canciones que no tenían hablante (vv. 529-544 y 591-594).</change>
       <change when="2026-11-03" who="#DMR">Los versos 1335 y 1336 pasan del Alcalde al Regidor, como en PROLOPE 2009, y se quita el parlamento que los tenía aparte.</change>
