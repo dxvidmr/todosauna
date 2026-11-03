@@ -196,6 +196,8 @@
           <personGrp xml:id="gente">
             <name>Gente de Ciudad Real</name></personGrp></listPerson></particDesc></profileDesc>
     <revisionDesc>
+      <change when="2026-11-03" who="#DMR">Se atribuyen los parlamentos de los regidores a Juan Rojo o a Cuadrado según la escena, con certeza media o baja en los dudosos; se declaran los dos regidores de Ciudad Real y el «Un regidor» del reparto se asocia a Cuadrado.</change>
+      <change when="2026-11-03" who="#DMR">Se añade a diez personas el nombre con que se rotulan sus parlamentos (<gi>persName</gi> con <att>type</att>=«etiqueta»).</change>
       <change when="2026-11-03" who="#DMR">Se atribuye a su hablante cada parlamento que no tenía who: Manrique, el juez, un labrador, el conjunto de las labradoras y los labradores, y la gente de Ciudad Real; se declaran el labrador y los grupos labradoras y gente.</change>
       <change when="2026-11-03" who="#DMR">Se unifica en cifras la numeración de los regidores, en las etiquetas de hablante («REGIDOR 1» y «REGIDOR 2») y en la acotación del v. 860, y se respeta la etiqueta «JUAN» donde PROLOPE la imprime.</change>
       <change when="2026-11-03" who="#DMR">Los parlamentos se renumeran de forma correlativa (sp-1 a sp-778).</change>
@@ -206,6 +208,7 @@
       <change when="2026-11-02" who="#DMR">Se renombran los identificadores de nueve segmentos de acotación para derivarlos de la acotación que los contiene (por ejemplo, seg-1472Acot-1 pasa a seg-stg-1473-2-1).</change>
       <change when="2026-11-02" who="#DMR">Se quitan dos segmentos que ninguna nota usaba (seg1-1.528Acot y seg-938-1).</change>
       <change when="2026-11-02" who="#DMR">Se enlaza la cabecera con notas.xml y relaciones.xml y se añade la responsabilidad de revisión.</change>
+      <change notBefore="2026-03-17" notAfter="2026-05-06" who="#DMR">Se revisa el texto a mano durante el marcado de las notas: se corrigen la numeración de parlamentos, versos y acotaciones, se parten versos, se cambian lecturas (por ejemplo, el v. 1144) y se sacan del verso los nombres de hablante y una acotación.</change>
       <change when="2026-03-26" who="#DMR">Se completa el teiHeader con metadatos de proyecto, lengua y responsabilidad editorial.</change>
       <change when="2026-03-24" who="#DMR">Se añade la referencia <gi>xml-model</gi> que faltaba al esquema TEI.</change>
       <change when="2026-03-24" who="#DMR">Se corrigen la numeración de parlamentos y versos en un tramo del texto y se añaden identificadores <att>xml:id</att> a acotaciones antes no identificadas.</change>
@@ -213,6 +216,8 @@
       <change when="2026-03-17" who="#DMR">Se ajusta el encabezado de la comedia con una presentación tipográfica más próxima al impreso base.</change>
       <change when="2026-01-26" who="#DMR">Se integra el texto base TEI de <title>Fuenteovejuna</title> en el sitio web del proyecto.</change>
       <change when="2025-01-07" who="#DMR">Creación inicial del texto base TEI en un entorno de trabajo anterior a su incorporación al repositorio actual.</change>
+      <change when="2026-01-26" who="#DMR">Se integra la edición en el sitio de Todos a una; se corrige la puntuación de siete versos.</change>
+      <change notAfter="2025-12-21" who="#DMR">El texto base se prepara a partir de PROLOPE 2009 con scripts (versos partidos, numeración, identificadores, hablantes y notas) y se revisa después, palabra a palabra, a mano.</change>
     </revisionDesc></teiHeader>
   <text>
     <body>
