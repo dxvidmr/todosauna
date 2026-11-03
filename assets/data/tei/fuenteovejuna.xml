@@ -210,6 +210,7 @@
       <change when="2026-11-02" who="#DMR">Se renombran los identificadores de nueve segmentos de acotación para derivarlos de la acotación que los contiene (por ejemplo, seg-1472Acot-1 pasa a seg-stg-1473-2-1).</change>
       <change when="2026-11-02" who="#DMR">Se quitan dos segmentos que ninguna nota usaba (seg1-1.528Acot y seg-938-1).</change>
       <change when="2026-11-02" who="#DMR">Se enlaza la cabecera con notas.xml y relaciones.xml y se añade la responsabilidad de revisión.</change>
+      <change when="2026-04-27" who="#DMR">Se marcan con <gi>milestone</gi> las 454 estrofas del texto, con su clasificación métrica en las que la tienen; se declara en la cabecera la taxonomía de métrica y rima y se separan en parlamentos propios las dos canciones de bienvenida al Comendador (vv. 529-544 y 591-594).</change>
       <change notBefore="2026-03-17" notAfter="2026-05-06" who="#DMR">Se revisa el texto a mano durante el marcado de las notas: se corrigen la numeración de parlamentos, versos y acotaciones, se parten versos, se cambian lecturas y se sacan del verso los nombres de hablante y una acotación.</change>
       <change when="2026-03-26" who="#DMR">Se completa el teiHeader con metadatos de proyecto, lengua y responsabilidad editorial.</change>
       <change when="2026-03-24" who="#DMR">Se añade la referencia <gi>xml-model</gi> que faltaba al esquema TEI.</change>
