@@ -210,7 +210,7 @@
       <change when="2026-11-02" who="#DMR">Se renombran los identificadores de nueve segmentos de acotación para derivarlos de la acotación que los contiene (por ejemplo, seg-1472Acot-1 pasa a seg-stg-1473-2-1).</change>
       <change when="2026-11-02" who="#DMR">Se quitan dos segmentos que ninguna nota usaba (seg1-1.528Acot y seg-938-1).</change>
       <change when="2026-11-02" who="#DMR">Se enlaza la cabecera con notas.xml y relaciones.xml y se añade la responsabilidad de revisión.</change>
-      <change notBefore="2026-03-17" notAfter="2026-05-06" who="#DMR">Se revisa el texto a mano durante el marcado de las notas: se corrigen la numeración de parlamentos, versos y acotaciones, se parten versos, se cambian lecturas (por ejemplo, el v. 1144) y se sacan del verso los nombres de hablante y una acotación.</change>
+      <change notBefore="2026-03-17" notAfter="2026-05-06" who="#DMR">Se revisa el texto a mano durante el marcado de las notas: se corrigen la numeración de parlamentos, versos y acotaciones, se parten versos, se cambian lecturas y se sacan del verso los nombres de hablante y una acotación.</change>
       <change when="2026-03-26" who="#DMR">Se completa el teiHeader con metadatos de proyecto, lengua y responsabilidad editorial.</change>
       <change when="2026-03-24" who="#DMR">Se añade la referencia <gi>xml-model</gi> que faltaba al esquema TEI.</change>
       <change when="2026-03-24" who="#DMR">Se corrigen la numeración de parlamentos y versos en un tramo del texto y se añaden identificadores <att>xml:id</att> a acotaciones antes no identificadas.</change>
