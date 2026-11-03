@@ -184,6 +184,7 @@
           <personGrp xml:id="gente">
             <name>Gente de Ciudad Real</name></personGrp></listPerson></particDesc></profileDesc>
     <revisionDesc>
+      <change when="2026-11-03" who="#DMR">Se atribuye a su hablante cada parlamento que no tenía who: Manrique, el juez, un labrador, el conjunto de las labradoras y los labradores, y la gente de Ciudad Real; se declaran el labrador y los grupos labradoras y gente.</change>
       <change when="2026-11-03" who="#DMR">Se unifica en cifras la numeración de los regidores, en las etiquetas de hablante («REGIDOR 1» y «REGIDOR 2») y en la acotación del v. 860, y se respeta la etiqueta «JUAN» donde PROLOPE la imprime.</change>
       <change when="2026-11-03" who="#DMR">Los parlamentos se renumeran de forma correlativa (sp-1 a sp-778).</change>
       <change when="2026-11-03" who="#DMR">Se atribuyen a los músicos las dos canciones que no tenían hablante (vv. 529-544 y 591-594).</change>
