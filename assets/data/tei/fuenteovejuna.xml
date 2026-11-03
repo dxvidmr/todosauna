@@ -2170,7 +2170,7 @@
             <l n="863" xml:id="l-863">El año apunta mal, y el tiempo crece,</l>
             <l n="864" xml:id="l-864">y es mejor que el sustento esté en depósito,</l>
             <l n="865" xml:id="l-865">aunque lo contradicen <seg xml:id="seg-865-1">más de trece</seg>.</l></sp>
-          <sp who="#cuadrado" cert="medium" xml:id="sp-196">
+          <sp who="#cuadrado" xml:id="sp-196">
             <speaker>REGIDOR 1</speaker>
             <l n="866" xml:id="l-866">Yo siempre he sido, al fin, deste propósito,</l>
             <l n="867" xml:id="l-867">en gobernar en paz <seg xml:id="seg-867-1">esta república</seg>.</l></sp>
@@ -2317,7 +2317,7 @@
             <milestone unit="metrical-section" n="941-1104" ana="#redondilla"/>
             <milestone unit="stanza"/>
             <l n="941" xml:id="l-941">Dios guarde la buena gente.</l></sp>
-          <sp who="#juan_rojo" cert="low" xml:id="sp-217">
+          <sp who="#juan_rojo" cert="medium" xml:id="sp-217">
             <speaker>REGIDOR</speaker>
             <l part="I" n="942" xml:id="l-942-a">¡Oh, señor!</l></sp>
           <sp who="#comendador" xml:id="sp-218">
@@ -3931,7 +3931,7 @@
             <milestone unit="stanza"/>
             <l n="1684" xml:id="l-1684">será mejor, pues no podrá, ocupado,</l>
             <l n="1685" xml:id="l-1685">hacernos bien con tanta guerra en medio.</l></sp>
-          <sp who="#cuadrado" cert="medium" xml:id="sp-487">
+          <sp who="#cuadrado" xml:id="sp-487">
             <speaker>REGIDOR</speaker>
             <l n="1686" xml:id="l-1686">Si mi voto de vos fuera escuchado,</l>
             <milestone unit="stanza"/>
@@ -3944,7 +3944,7 @@
             <l n="1689" xml:id="l-1689">¡A la fe, que si <seg xml:id="seg-1689-1">entiende</seg> el alboroto,</l>
             <milestone unit="stanza"/>
             <l n="1690" xml:id="l-1690">que ha de costar la junta alguna vida!</l></sp>
-          <sp who="#cuadrado" cert="medium" xml:id="sp-490">
+          <sp who="#cuadrado" xml:id="sp-490">
             <speaker>REGIDOR</speaker>
             <l n="1691" xml:id="l-1691">Ya todo el <seg xml:id="seg-1691-1">árbol</seg> de paciencia roto,</l>
             <l n="1692" xml:id="l-1692">corre la nave de temor perdida.</l>
@@ -3958,7 +3958,7 @@
           <sp who="#juan_rojo" xml:id="sp-491">
             <speaker>JUAN ROJO</speaker>
             <l n="1698" xml:id="l-1698">¿Qué es lo que quieres tú que el pueblo intente?</l></sp>
-          <sp who="#cuadrado" cert="medium" xml:id="sp-492">
+          <sp who="#cuadrado" xml:id="sp-492">
             <speaker>REGIDOR</speaker>
             <milestone unit="stanza"/>
             <l n="1699" xml:id="l-1699">Morir o dar la muerte a los tiranos,</l>
@@ -4118,7 +4118,7 @@
             <speaker>JUAN ROJO</speaker>
             <l n="1801" xml:id="l-1801">Y yo, por más que me <seg xml:id="seg-1801-1">asombre</seg></l>
             <l n="1802" xml:id="l-1802">la grandeza del contrario.</l></sp>
-          <sp who="#cuadrado" cert="low" xml:id="sp-507">
+          <sp who="#cuadrado" xml:id="sp-507">
             <speaker>REGIDOR</speaker>
             <l part="I" n="1803" xml:id="l-1803-a">¡Muramos todos!</l></sp>
           <sp who="#barrildo" xml:id="sp-508">
@@ -5233,7 +5233,7 @@
             <speaker>BARRILDO</speaker>
             <milestone unit="stanza"/>
             <l part="I" n="2261" xml:id="l-2261-a">¡<seg xml:id="seg-2261-1">Vítor</seg>, Mengo!</l></sp>
-          <sp who="#cuadrado" cert="low" xml:id="sp-714">
+          <sp who="#cuadrado" cert="medium" xml:id="sp-714">
             <speaker>REGIDOR</speaker>
             <l part="F" xml:id="l-2261-b">Y con razón.</l></sp>
           <sp who="#barrildo" xml:id="sp-715">
