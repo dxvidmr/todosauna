@@ -170,12 +170,16 @@
           <person xml:id="juez">
             <persName>Juez pesquisidor</persName></person>
           <person xml:id="muchacho">
-            <persName>Un muchacho</persName></person></listPerson>
+            <persName>Un muchacho</persName></person>
+          <person xml:id="labrador">
+            <persName>Un labrador</persName></person></listPerson>
         <listPerson type="collective">
           <personGrp xml:id="musicos">
             <name>Músicos</name></personGrp>
           <personGrp xml:id="labradores">
-            <name>Labradores</name></personGrp></listPerson></particDesc></profileDesc>
+            <name>Labradores</name></personGrp>
+          <personGrp xml:id="labradoras">
+            <name>Labradoras</name></personGrp></listPerson></particDesc></profileDesc>
     <revisionDesc>
       <change when="2026-03-26" who="#DMR">Se completa el teiHeader con metadatos de proyecto, lengua y responsabilidad editorial.</change>
       <change when="2026-03-24" who="#DMR">Se añade la referencia <gi>xml-model</gi> que faltaba al esquema TEI.</change>
@@ -2278,13 +2282,13 @@
             <l n="934" xml:id="l-934">si es que las vistas han de ser al uso;</l>
             <l n="935" xml:id="l-935">que el hombre que es curioso es bien que note</l>
             <l n="936" xml:id="l-936">que en esto el <seg xml:id="seg-936-1">barrio y vulgo</seg> anda confuso.</l></sp>
-          <sp xml:id="sp-213">
+          <sp who="#labrador" xml:id="sp-213">
             <speaker>LABRADOR</speaker>
             <l n="937" xml:id="l-937">¿Qué hay del Comendador? ¡No os alborote!</l></sp>
           <sp who="#juan_rojo" xml:id="sp-214">
             <speaker>JUAN</speaker>
             <l n="938" xml:id="l-938">¡Cuál a Laurencia en ese campo puso!</l></sp>
-          <sp xml:id="sp-215">
+          <sp who="#labrador" xml:id="sp-215">
             <speaker>LABRADOR</speaker>
             <l n="939" xml:id="l-939">¿Quién fue cual él tan bárbaro y lascivo?</l>
             <l n="940" xml:id="l-940">Colgado le vea yo de aquel olivo.</l></sp>
@@ -4124,13 +4128,13 @@
             <speaker>MENGO</speaker>
             <l n="1813" xml:id="l-1813">¡Los reyes nuestros señores</l>
             <l part="I" n="1814" xml:id="l-1814-a">vivan!</l></sp>
-          <sp xml:id="sp-513">
+          <sp who="#labradores #labradoras" xml:id="sp-513">
             <speaker>TODOS</speaker>
             <l part="F" xml:id="l-1814-b">¡Vivan muchos años!</l></sp>
           <sp who="#mengo" xml:id="sp-514">
             <speaker>MENGO</speaker>
             <l n="1815" xml:id="l-1815">¡Mueran tiranos traidores!</l></sp>
-          <sp xml:id="sp-515">
+          <sp who="#labradores #labradoras" xml:id="sp-515">
             <speaker>TODOS</speaker>
             <l n="1816" xml:id="l-1816">¡Tiranos traidores, mueran!</l></sp>
           <stage xml:id="stg-1816">Vanse todos</stage>
@@ -4316,7 +4320,7 @@
           <sp who="#comendador" xml:id="sp-554">
             <speaker>COMENDADOR</speaker>
             <l part="I" n="1881" xml:id="l-1881-a">Pueblo, esperad.</l></sp>
-          <sp xml:id="sp-555">
+          <sp who="#labradores #labradoras" xml:id="sp-555">
             <speaker>TODOS</speaker>
             <l part="F" xml:id="l-1881-b">¡Agravios nunca esperan!</l></sp>
           <sp who="#comendador" xml:id="sp-556">
@@ -4324,7 +4328,7 @@
             <milestone unit="stanza"/>
             <l n="1882" xml:id="l-1882">Decídmelos a mí, que iré pagando,</l>
             <l n="1883" xml:id="l-1883">a fe de caballero, esos errores.</l></sp>
-          <sp xml:id="sp-557">
+          <sp who="#labradores #labradoras" xml:id="sp-557">
             <speaker>TODOS</speaker>
             <l n="1884" xml:id="l-1884">¡Fuenteovejuna! ¡Viva el Rey Fernando!</l>
             <l n="1885" xml:id="l-1885">¡Mueran malos cristianos y traidores!</l></sp>
@@ -4332,14 +4336,14 @@
             <speaker>COMENDADOR</speaker>
             <l n="1886" xml:id="l-1886">¿No me queréis oír? ¡Yo estoy hablando!</l>
             <l part="I" n="1887" xml:id="l-1887-a">¡Yo soy vuestro señor!</l></sp>
-          <sp xml:id="sp-559">
+          <sp who="#labradores #labradoras" xml:id="sp-559">
             <speaker>TODOS</speaker>
             <l part="F" xml:id="l-1887-b">¡Nuestros señores</l>
             <l part="I" n="1888" xml:id="l-1888-a">son los Reyes Católicos!</l></sp>
           <sp who="#comendador" xml:id="sp-560">
             <speaker>COMENDADOR</speaker>
             <l part="F" xml:id="l-1888-b">Espera.</l></sp>
-          <sp xml:id="sp-561">
+          <sp who="#labradores #labradoras" xml:id="sp-561">
             <speaker>TODOS</speaker>
             <l n="1889" xml:id="l-1889">¡Fuenteovejuna, y Fernán Gómez muera!</l></sp>
           <!-- PASAJE 55
@@ -4475,7 +4479,7 @@
           <sp who="#pascuala" xml:id="sp-592">
             <speaker>PASCUALA</speaker>
             <l part="F" xml:id="l-1920-b">¡Moriré matando!</l></sp>
-          <sp xml:id="sp-593">
+          <sp who="#labradoras" xml:id="sp-593">
             <speaker>TODAS</speaker>
             <l n="1921" xml:id="l-1921">¡Fuenteovejuna, y viva el Rey Fernando!</l></sp>
           <!-- PASAJE 58
@@ -4779,7 +4783,7 @@
           <sp who="#esteban" xml:id="sp-627">
             <speaker>ESTEBAN</speaker>
             <l n="2098" xml:id="l-2098">¿Queréis responder así?</l></sp>
-          <sp xml:id="sp-628">
+          <sp who="#labradores #labradoras" xml:id="sp-628">
             <speaker>TODOS</speaker>
             <milestone unit="stanza"/>
             <l part="I" n="2099" xml:id="l-2099-a">¡Sí!</l></sp>
