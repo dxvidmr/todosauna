@@ -4738,7 +4738,7 @@
             <speaker>MENGO</speaker>
             <l n="2072" xml:id="l-2072">Cara tiene de ahorcado.</l></sp>
           <stage xml:id="stg-2072">Saca un escudo Juan Rojo con <seg xml:id="seg-stg-2072-1">las armas</seg></stage>
-          <sp who="#cuadrado" cert="medium" xml:id="sp-616">
+          <sp who="#cuadrado" xml:id="sp-616">
             <speaker>REGIDOR</speaker>
             <l n="2073" xml:id="l-2073">Ya las armas han llegado.</l></sp>
           <sp who="#esteban" xml:id="sp-617">
@@ -4748,7 +4748,7 @@
             <speaker>JUAN</speaker>
             <milestone unit="stanza"/>
             <l n="2075" xml:id="l-2075">¿Adónde se han de poner?</l></sp>
-          <sp who="#cuadrado" cert="medium" xml:id="sp-619">
+          <sp who="#cuadrado" xml:id="sp-619">
             <speaker>REGIDOR</speaker>
             <l n="2076" xml:id="l-2076">Aquí, en el Ayuntamiento.</l></sp>
           <sp who="#esteban" xml:id="sp-620">
