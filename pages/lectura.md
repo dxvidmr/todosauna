@@ -98,6 +98,13 @@ lectura_dynamic_recenter: true
                     </div>
                     {% include ui/note-category-filter.html %}
                     <div class="option-item">
+                        <label for="toggle-speakers">Identificar hablantes ambiguos</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-speakers" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="option-item">
                         <label for="toggle-stanzas">Mostrar separación de estrofas</label>
                         <label class="toggle-switch">
                             <input type="checkbox" id="toggle-stanzas">

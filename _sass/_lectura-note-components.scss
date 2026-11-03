@@ -354,3 +354,22 @@ tei-seg.note-target {
   margin-top: 1rem;
   padding-top: 1rem;
 }
+
+// ============================================
+// HABLANTES AMBIGUOS
+// La etiqueta impresa no dice quién habla (REGIDOR, ALCALDE, TODOS): se marca
+// con un subrayado punteado y el globo de las insignias muestra el nombre.
+// ============================================
+.speakers-identify tei-speaker.speaker-ambiguous {
+  cursor: help;
+  text-decoration: underline dotted;
+  text-decoration-color: $color-text-quiet;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 2px;
+    border-radius: var(--ui-radius-sm);
+  }
+}

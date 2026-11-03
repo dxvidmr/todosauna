@@ -76,6 +76,8 @@ function initNoteBadgeTooltip() {
   if (window.__noteBadgeTooltipState) return;
 
   var tooltipId = 'note-badge-tooltip';
+  // Insignias de nota y etiquetas de hablante ambiguo comparten el globo.
+  var tooltipTargetSelector = '.note-badge[data-tooltip], .speaker-ambiguous[data-tooltip]';
   var offsetPx = 10;
   var viewportGutter = 12;
   var state = {
@@ -152,7 +154,7 @@ function initNoteBadgeTooltip() {
   }
 
   function showTooltip(badge) {
-    if (!badge || !badge.matches('.note-badge[data-tooltip]')) return;
+    if (!badge || !badge.matches(tooltipTargetSelector)) return;
 
     var description = badge.getAttribute('data-tooltip');
     if (!description) {
@@ -175,7 +177,7 @@ function initNoteBadgeTooltip() {
 
   function resolveBadge(target) {
     if (!(target instanceof Element)) return null;
-    return target.closest('.note-badge[data-tooltip]');
+    return target.closest(tooltipTargetSelector);
   }
 
   function handleMouseOver(event) {

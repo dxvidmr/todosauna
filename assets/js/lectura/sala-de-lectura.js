@@ -13,6 +13,7 @@ import {
     LECTURA_PANEL_DESKTOP_BREAKPOINT
 } from './lectura-panel-layout.js';
 import { createNoteCategoryFilterController } from './note-category-filter.js';
+import { createAmbiguousSpeakersController } from './hablantes.js';
 import { createLecturaSearchController } from './lectura-search.js';
 import {
     applyNoteHighlights,
@@ -527,6 +528,10 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const teiContainer = document.getElementById("TEI");
     const noteContentDiv = document.getElementById("noteContent");
+    const ambiguousSpeakers = createAmbiguousSpeakersController({
+        container: teiContainer,
+        checkbox: document.getElementById('toggle-speakers')
+    });
     const noteCategoryFilterController = createNoteCategoryFilterController({
         root: document.getElementById('note-category-filter'),
         optionsTabButton: tabsBar?.querySelector('[data-tab="opciones"]'),
@@ -584,6 +589,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 teiLoaded = true;
                 console.log('TEI cargado');
                 setStanzaSeparatorsVisible(!!toggleStanzasCheckbox?.checked, teiContainer);
+                ambiguousSpeakers.apply();
                 if (toggleButton) {
                     toggleButton.textContent = toggleStanzasCheckbox?.checked ? 'Ocultar estrofas' : 'Mostrar estrofas';
                 }
