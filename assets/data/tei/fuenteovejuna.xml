@@ -215,9 +215,8 @@
       <change when="2026-03-24" who="#DMR">Se incorporan comentarios descriptivos de pasajes para segmentar el texto para el 'Laboratorio de notas'.</change>
       <change when="2026-03-17" who="#DMR">Se ajusta el encabezado de la comedia con una presentación tipográfica más próxima al impreso base.</change>
       <change when="2026-01-26" who="#DMR">Se integra el texto base TEI de <title>Fuenteovejuna</title> en el sitio web del proyecto.</change>
-      <change when="2025-01-07" who="#DMR">Creación inicial del texto base TEI en un entorno de trabajo anterior a su incorporación al repositorio actual.</change>
-      <change when="2026-01-26" who="#DMR">Se integra la edición en el sitio de Todos a una; se corrige la puntuación de siete versos.</change>
       <change notAfter="2025-12-21" who="#DMR">El texto base se prepara a partir de PROLOPE 2009 con scripts (versos partidos, numeración, identificadores, hablantes y notas) y se revisa después, palabra a palabra, a mano.</change>
+      <change when="2025-01-07" who="#DMR">Creación inicial del texto base TEI en un entorno de trabajo anterior a su incorporación al repositorio actual.</change>
     </revisionDesc></teiHeader>
   <text>
     <body>
