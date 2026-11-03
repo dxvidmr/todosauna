@@ -2155,7 +2155,7 @@
                título: El mal año
                descripción: En la plaza de Fuenteovejuna, Esteban y el regidor hablan del pósito, de la carestía y del mal año. La conversación dibuja un pueblo ocupado por sus necesidades cotidianas mientras el abuso señorial sigue creciendo.
           -->
-          <stage xml:id="stg-860">Salen Esteban y Regidor I</stage>
+          <stage xml:id="stg-860">Salen Esteban y Regidor 1</stage>
           <sp who="#esteban" xml:id="sp-195">
             <speaker>ESTEBAN</speaker>
             <milestone unit="metrical-section" n="861-940" ana="#octava-real"/>
