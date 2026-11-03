@@ -1747,7 +1747,7 @@
           -->
           <stage xml:id="stg-654">Salen dos regidores de Ciudad Real</stage>
           <sp who="#regidor" xml:id="sp-153">
-            <speaker>REGIDOR I</speaker>
+            <speaker>REGIDOR 1</speaker>
             <milestone unit="metrical-section" n="655-698" ana="#romance #rima-eo"/>
             <l n="655" xml:id="l-655">Católico rey Fernando,</l>
             <l n="656" xml:id="l-656">a quien ha envïado el Cielo</l>
@@ -1790,7 +1790,7 @@
             <speaker>REY</speaker>
             <l n="687" xml:id="l-687">¿Dónde queda Fernán Gómez?</l></sp>
           <sp who="#regidor" xml:id="sp-155">
-            <speaker>REGIDOR I</speaker>
+            <speaker>REGIDOR 1</speaker>
             <l n="688" xml:id="l-688">En Fuenteovejuna creo,</l>
             <l n="689" xml:id="l-689">por ser su villa y tener</l>
             <l n="690" xml:id="l-690">en ella casa y asiento.</l>
@@ -2158,7 +2158,7 @@
             <l n="864" xml:id="l-864">y es mejor que el sustento esté en depósito,</l>
             <l n="865" xml:id="l-865">aunque lo contradicen <seg xml:id="seg-865-1">más de trece</seg>.</l></sp>
           <sp who="#regidor" xml:id="sp-196">
-            <speaker>REGIDOR I</speaker>
+            <speaker>REGIDOR 1</speaker>
             <l n="866" xml:id="l-866">Yo siempre he sido, al fin, deste propósito,</l>
             <l n="867" xml:id="l-867">en gobernar en paz <seg xml:id="seg-867-1">esta república</seg>.</l></sp>
           <sp who="#esteban" xml:id="sp-197">
