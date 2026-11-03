@@ -156,6 +156,10 @@
             <persName>Regidor</persName></person>
           <person xml:id="cuadrado">
             <persName>Cuadrado</persName></person>
+          <person xml:id="regidor_cr_1">
+            <persName>Regidor 1 de Ciudad Real</persName></person>
+          <person xml:id="regidor_cr_2">
+            <persName>Regidor 2 de Ciudad Real</persName></person>
           <person xml:id="fernando">
             <persName>Fernando V de Castilla</persName></person>
           <person xml:id="isabel">
@@ -1757,7 +1761,7 @@
                descripción: Dos regidores de Ciudad Real comparecen ante los Reyes para pedir socorro. Relatan el cerco y la ocupación de la ciudad y señalan a Fernán Gómez como responsable decisivo del ataque.
           -->
           <stage xml:id="stg-654">Salen dos regidores de Ciudad Real</stage>
-          <sp who="#regidor" xml:id="sp-153">
+          <sp who="#regidor_cr_1" xml:id="sp-153">
             <speaker>REGIDOR 1</speaker>
             <milestone unit="metrical-section" n="655-698" ana="#romance #rima-eo"/>
             <l n="655" xml:id="l-655">Católico rey Fernando,</l>
@@ -1800,7 +1804,7 @@
           <sp who="#fernando" xml:id="sp-154">
             <speaker>REY</speaker>
             <l n="687" xml:id="l-687">¿Dónde queda Fernán Gómez?</l></sp>
-          <sp who="#regidor" xml:id="sp-155">
+          <sp who="#regidor_cr_1" xml:id="sp-155">
             <speaker>REGIDOR 1</speaker>
             <l n="688" xml:id="l-688">En Fuenteovejuna creo,</l>
             <l n="689" xml:id="l-689">por ser su villa y tener</l>
@@ -1812,7 +1816,7 @@
           <sp who="#fernando" xml:id="sp-156">
             <speaker>REY</speaker>
             <l n="695" xml:id="l-695">¿Tenéis algún capitán?</l></sp>
-          <sp who="#cuadrado" xml:id="sp-157">
+          <sp who="#regidor_cr_2" xml:id="sp-157">
             <speaker>REGIDOR 2</speaker>
             <l n="696" xml:id="l-696">Señor, el no haberle es cierto,</l>
             <l n="697" xml:id="l-697">pues no escapó ningún noble</l>
