@@ -26,7 +26,7 @@ Todo `<sp>` lleva `@who` con la persona o el grupo declarado en `listPerson`. La
 
 ## Comprobar los archivos
 
-El script `scripts/collection/validar_tei.py` (repositorio `fuenteovejuna-data`) valida los tres archivos contra `tei_all` con jing y comprueba lo que el esquema no ve: enlaces de notas y relaciones, identificadores repetidos, `@change`, `@source`, `@who`, personas sin uso, la misma edición en los tres y `@cert` en las relaciones. Se ejecuta antes de cada entrega.
+El script `scripts/collection/validar_tei.py` (repositorio `fuenteovejuna-data`) valida los tres archivos contra `tei_all` con jing y comprueba lo que el esquema no ve: enlaces de notas y relaciones, identificadores repetidos, `@change`, `@source`, `@who`, personas sin uso, la misma edición en los tres y `@cert` en las relaciones. Se ejecuta antes de cerrar cada versión.
 
 ## Licencia
 
