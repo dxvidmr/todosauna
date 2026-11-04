@@ -6,6 +6,8 @@ Esta carpeta contiene los tres archivos TEI de la edición digital de *Fuenteove
 
 `fuenteovejuna.xml` es el texto base, basado en el texto de la edición de PROLOPE de 2009, con sus versos, parlamentos, acotaciones, estrofas y la declaración de personajes. `notas.xml` guarda las notas, que se enlazan con el texto base a través de identificadores. `relaciones.xml` declara qué objeto de la colección digital representa qué pasaje, y se genera automáticamente a partir de la capa de la colección para que se mantenga siempre actualizado.
 
+Los pasajes del laboratorio no forman parte de la edición, no son una división estructural del texto sino funcional al laboratorio, para que más o menos tengan la misma extensión. Por tanto, se guardan solo en `assets/data/pasajes/fuenteovejuna.json`.
+
 ## Identificadores y prefijos
 
 Los versos se identifican como `l-N` (con `-a` y `-b` si el verso se parte), los parlamentos como `sp-N` (correlativos en el orden del documento), los segmentos como `seg-V-k` (el k-ésimo segmento del verso V) y las acotaciones como `stg-V` (la acotación que sigue al verso V, con `-k` si hay varias, para seguir la identificación usada generalmente en las ediciones). Las notas son `n-V-k` (V es el último verso o pasaje al que se refieren, como la llamada de una nota al pie, que va al final del pasaje). Los segmentos de acotación que llevan nota se llaman `seg-stg-…`, y esas notas, `n-stg-…`. Los objetos de la colección son `fo-xxxxxx` (con `-NN` si es una imagen que es parte de un objeto compuesto), y son los únicos `id` opacos.
