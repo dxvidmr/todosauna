@@ -27,11 +27,6 @@
         <publisher>PROLOPE, Universitat Autònoma de Barcelona</publisher>
         <pubPlace>Bellaterra</pubPlace>
         <date when="2026">2026</date>
-        <availability status="free">
-          <licence target="http://creativecommons.org/licenses/by-nc-sa/4.0/">
-            Esta obra está bajo una licencia Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional.
-          </licence>
-        </availability>
       </publicationStmt>
       <notesStmt>
         <relatedItem type="texto-base" target="fuenteovejuna.xml"/>
