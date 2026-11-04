@@ -1,6 +1,6 @@
 // relaciones.js — Relaciones imagen-texto (relaciones.xml) en la sala de lectura.
 // Cada <relation name="representa"> enlaza un objeto de la colección (active,
-// "cb:<objectid>") con los pasajes que representa (passive, "fo:<xml:id>" ya
+// "cb:<objectid>") con los pasajes que representa (passive, "texto:<xml:id>" ya
 // expandidos). El archivo lo genera fuenteovejuna-data y puede no existir.
 // A diferencia de una nota, la imagen no subraya el texto: acompaña la lectura.
 // Cada relación se señala con un icono al margen de su primer pasaje y su rango
@@ -41,7 +41,7 @@ function parseRelacionesDoc(doc) {
     var relation = relations[i];
     if (relation.getAttribute('name') !== RELATION_NAME) continue;
     var objectIds = splitPointers(relation.getAttribute('active'), 'cb');
-    var passageIds = splitPointers(relation.getAttribute('passive'), 'fo');
+    var passageIds = splitPointers(relation.getAttribute('passive'), 'texto');
     if (objectIds.length === 0 || passageIds.length === 0) continue;
     list.push({
       id: 'rel-' + list.length,

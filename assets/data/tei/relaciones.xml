@@ -33,10 +33,10 @@
         <p>Cada relación es una identificación del editor (<att>resp</att>) a partir de la imagen y del texto, salvo aquellos casos que la fuente indique algo que ayude a la identificación. Por tanto, es una hipótesis sobre qué momento de la obra representa y se acompaña de certeza (<att>cert</att>) alta, media o baja.</p>
       </projectDesc>
       <listPrefixDef>
-        <prefixDef ident="fo" matchPattern="(.+)" replacementPattern="fuenteovejuna.xml#$1">
-          <p>El prefijo <mentioned>fo:</mentioned> apunta a elementos identificados en el archivo base <ref target="fuenteovejuna.xml">Fuenteovejuna</ref>.</p>
+        <prefixDef ident="texto" matchPattern="(.+)" replacementPattern="fuenteovejuna.xml#$1">
+          <p>El prefijo <mentioned>texto:</mentioned> apunta a elementos identificados en el archivo base <ref target="fuenteovejuna.xml">Fuenteovejuna</ref>.</p>
         </prefixDef>
-        <prefixDef ident="cb" matchPattern="(fo-[0-9a-z]6)-([0-9]2)" replacementPattern="/items/$1.html#$1-$2">
+        <prefixDef ident="cb" matchPattern="(fo-[0-9a-z]{6})-([0-9]{2})" replacementPattern="/items/$1.html#$1-$2">
           <p>Una imagen hija de un objeto compuesto no tiene página propia, por lo que está en la del objeto, con su identificador como ancla.</p>
         </prefixDef>
         <prefixDef ident="cb" matchPattern="(.+)" replacementPattern="/items/$1.html">
@@ -53,55 +53,55 @@
     <listRelation type="objetos">
         <relation xml:id="rel-fo-0c82dp" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-0c82dp" passive="fo:stg-1473-2"/>
+                  active="cb:fo-0c82dp" passive="texto:stg-1473-2"/>
         <relation xml:id="rel-fo-5b1dcy" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-5b1dcy" passive="fo:l-549-b fo:l-550 fo:l-551 fo:l-552 fo:l-553 fo:l-554 fo:l-555 fo:l-556 fo:l-557 fo:l-558 fo:l-559 fo:l-560 fo:l-561 fo:l-562 fo:l-563 fo:l-564 fo:l-565 fo:l-566 fo:l-567 fo:l-568 fo:l-569 fo:l-570 fo:l-571 fo:l-572 fo:l-573 fo:l-574 fo:l-575 fo:l-576 fo:l-577 fo:l-578"/>
+                  active="cb:fo-5b1dcy" passive="texto:l-549-b texto:l-550 texto:l-551 texto:l-552 texto:l-553 texto:l-554 texto:l-555 texto:l-556 texto:l-557 texto:l-558 texto:l-559 texto:l-560 texto:l-561 texto:l-562 texto:l-563 texto:l-564 texto:l-565 texto:l-566 texto:l-567 texto:l-568 texto:l-569 texto:l-570 texto:l-571 texto:l-572 texto:l-573 texto:l-574 texto:l-575 texto:l-576 texto:l-577 texto:l-578"/>
         <relation xml:id="rel-fo-6jqf08" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-6jqf08" passive="fo:dp-cuadrado"/>
+                  active="cb:fo-6jqf08" passive="texto:dp-cuadrado"/>
         <relation xml:id="rel-fo-9b0p6g-01" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="medium"
-                  active="cb:fo-9b0p6g-01" passive="fo:stg-1949"/>
+                  active="cb:fo-9b0p6g-01" passive="texto:stg-1949"/>
         <relation xml:id="rel-fo-9b0p6g-02" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-9b0p6g-02" passive="fo:stg-2029 fo:l-2030 fo:l-2031 fo:l-2032 fo:l-2033 fo:l-2034 fo:l-2035 fo:l-2036 fo:l-2037 fo:l-2038 fo:l-2039 fo:l-2040 fo:l-2041 fo:l-2042 fo:l-2043 fo:l-2044 fo:l-2045-a fo:l-2045-b fo:l-2046 fo:l-2047 fo:l-2048 fo:l-2049 fo:l-2050 fo:l-2051 fo:l-2052 fo:l-2053 fo:l-2054 fo:l-2055 fo:l-2056 fo:l-2057 fo:l-2058 fo:l-2059-a fo:l-2059-b fo:l-2060 fo:l-2061 fo:l-2062 fo:l-2063 fo:l-2064 fo:l-2065 fo:l-2066 fo:l-2067 fo:l-2068 fo:l-2069 fo:l-2070"/>
+                  active="cb:fo-9b0p6g-02" passive="texto:stg-2029 texto:l-2030 texto:l-2031 texto:l-2032 texto:l-2033 texto:l-2034 texto:l-2035 texto:l-2036 texto:l-2037 texto:l-2038 texto:l-2039 texto:l-2040 texto:l-2041 texto:l-2042 texto:l-2043 texto:l-2044 texto:l-2045-a texto:l-2045-b texto:l-2046 texto:l-2047 texto:l-2048 texto:l-2049 texto:l-2050 texto:l-2051 texto:l-2052 texto:l-2053 texto:l-2054 texto:l-2055 texto:l-2056 texto:l-2057 texto:l-2058 texto:l-2059-a texto:l-2059-b texto:l-2060 texto:l-2061 texto:l-2062 texto:l-2063 texto:l-2064 texto:l-2065 texto:l-2066 texto:l-2067 texto:l-2068 texto:l-2069 texto:l-2070"/>
         <relation xml:id="rel-fo-9b0p6g-03" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-9b0p6g-03" passive="fo:stg-2072 fo:l-2073 fo:l-2074 fo:l-2075 fo:l-2076 fo:l-2077-a fo:l-2077-b fo:l-2078 fo:l-2079"/>
+                  active="cb:fo-9b0p6g-03" passive="texto:stg-2072 texto:l-2073 texto:l-2074 texto:l-2075 texto:l-2076 texto:l-2077-a texto:l-2077-b texto:l-2078 texto:l-2079"/>
         <relation xml:id="rel-fo-9b0p6g-04" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-9b0p6g-04" passive="fo:l-2080"/>
+                  active="cb:fo-9b0p6g-04" passive="texto:l-2080"/>
         <relation xml:id="rel-fo-bsrdhb" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-bsrdhb" passive="fo:stg-1713"/>
+                  active="cb:fo-bsrdhb" passive="texto:stg-1713"/>
         <relation xml:id="rel-fo-fgpsx4-01" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-fgpsx4-01" passive="fo:l-290"/>
+                  active="cb:fo-fgpsx4-01" passive="texto:l-290"/>
         <relation xml:id="rel-fo-fgpsx4-02" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-fgpsx4-02" passive="fo:stg-528-1"/>
+                  active="cb:fo-fgpsx4-02" passive="texto:stg-528-1"/>
         <relation xml:id="rel-fo-fgpsx4-03" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-fgpsx4-03" passive="fo:l-618"/>
+                  active="cb:fo-fgpsx4-03" passive="texto:l-618"/>
         <relation xml:id="rel-fo-fgpsx4-04" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-fgpsx4-04" passive="fo:stg-1653 fo:l-1654-a fo:l-1654-b fo:l-1655 fo:l-1656 fo:l-1657 fo:l-1658 fo:l-1659 fo:stg-1659 fo:l-1660 fo:l-1661 fo:l-1662 fo:stg-1662 fo:l-1663 fo:l-1664 fo:l-1665 fo:l-1666 fo:l-1667 fo:l-1668 fo:l-1669 fo:l-1670 fo:l-1671 fo:l-1672 fo:l-1673 fo:l-1674 fo:l-1675 fo:l-1676 fo:l-1677 fo:l-1678 fo:l-1679 fo:l-1680 fo:l-1681 fo:l-1682 fo:l-1683 fo:l-1684 fo:l-1685 fo:l-1686 fo:l-1687 fo:l-1688 fo:l-1689 fo:l-1690 fo:l-1691 fo:l-1692 fo:l-1693 fo:l-1694 fo:l-1695 fo:l-1696 fo:l-1697 fo:l-1698 fo:l-1699 fo:l-1700 fo:l-1701 fo:l-1702 fo:l-1703 fo:l-1704 fo:l-1705-a fo:l-1705-b fo:l-1706 fo:l-1707 fo:l-1708 fo:l-1709 fo:l-1710 fo:l-1711 fo:l-1712 fo:l-1713"/>
+                  active="cb:fo-fgpsx4-04" passive="texto:stg-1653 texto:l-1654-a texto:l-1654-b texto:l-1655 texto:l-1656 texto:l-1657 texto:l-1658 texto:l-1659 texto:stg-1659 texto:l-1660 texto:l-1661 texto:l-1662 texto:stg-1662 texto:l-1663 texto:l-1664 texto:l-1665 texto:l-1666 texto:l-1667 texto:l-1668 texto:l-1669 texto:l-1670 texto:l-1671 texto:l-1672 texto:l-1673 texto:l-1674 texto:l-1675 texto:l-1676 texto:l-1677 texto:l-1678 texto:l-1679 texto:l-1680 texto:l-1681 texto:l-1682 texto:l-1683 texto:l-1684 texto:l-1685 texto:l-1686 texto:l-1687 texto:l-1688 texto:l-1689 texto:l-1690 texto:l-1691 texto:l-1692 texto:l-1693 texto:l-1694 texto:l-1695 texto:l-1696 texto:l-1697 texto:l-1698 texto:l-1699 texto:l-1700 texto:l-1701 texto:l-1702 texto:l-1703 texto:l-1704 texto:l-1705-a texto:l-1705-b texto:l-1706 texto:l-1707 texto:l-1708 texto:l-1709 texto:l-1710 texto:l-1711 texto:l-1712 texto:l-1713"/>
         <relation xml:id="rel-fo-fgpsx4-05" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-fgpsx4-05" passive="fo:stg-2260"/>
+                  active="cb:fo-fgpsx4-05" passive="texto:stg-2260"/>
         <relation xml:id="rel-fo-gvrhrj" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-gvrhrj" passive="fo:dp-laurencia"/>
+                  active="cb:fo-gvrhrj" passive="texto:dp-laurencia"/>
         <relation xml:id="rel-fo-k1v4xh" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-k1v4xh" passive="fo:dp-maestre"/>
+                  active="cb:fo-k1v4xh" passive="texto:dp-maestre"/>
         <relation xml:id="rel-fo-pwcmm0" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-pwcmm0" passive="fo:dp-esteban"/>
+                  active="cb:fo-pwcmm0" passive="texto:dp-esteban"/>
         <relation xml:id="rel-fo-qm2sxs-01" name="representa" ref="http://www.cidoc-crm.org/cidoc-crm/P138_represents"
                   resp="#DMR" cert="high"
-                  active="cb:fo-qm2sxs-01" passive="fo:stg-778 fo:l-779 fo:l-780 fo:l-781 fo:l-782 fo:l-783 fo:l-784 fo:l-785 fo:l-786 fo:l-787 fo:l-788 fo:l-789 fo:l-790 fo:l-791 fo:l-792 fo:l-793 fo:l-794 fo:l-795 fo:l-796 fo:l-797 fo:l-798 fo:l-799 fo:l-800 fo:l-801 fo:l-802 fo:l-803 fo:l-804 fo:l-805 fo:l-806 fo:l-807 fo:l-808 fo:l-809 fo:l-810 fo:l-811 fo:l-812 fo:l-813 fo:l-814"/>
+                  active="cb:fo-qm2sxs-01" passive="texto:stg-778 texto:l-779 texto:l-780 texto:l-781 texto:l-782 texto:l-783 texto:l-784 texto:l-785 texto:l-786 texto:l-787 texto:l-788 texto:l-789 texto:l-790 texto:l-791 texto:l-792 texto:l-793 texto:l-794 texto:l-795 texto:l-796 texto:l-797 texto:l-798 texto:l-799 texto:l-800 texto:l-801 texto:l-802 texto:l-803 texto:l-804 texto:l-805 texto:l-806 texto:l-807 texto:l-808 texto:l-809 texto:l-810 texto:l-811 texto:l-812 texto:l-813 texto:l-814"/>
     </listRelation>
   </standOff>
 </TEI>

@@ -371,7 +371,7 @@ async function hydrateCbRefsInContainer(container) {
 
 // Parsear target TEI y normalizar punteros:
 // "#seg-1 #l-5" => ['seg-1', 'l-5']
-// "fo:seg-1 fo:l-5" => ['seg-1', 'l-5']
+// "texto:seg-1 texto:l-5" => ['seg-1', 'l-5']
 // "fuenteovejuna.xml#seg-1" => ['seg-1']
 function normalizeTargetToken(token) {
   var value = (token || '').toString().trim();
