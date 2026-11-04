@@ -8,7 +8,7 @@
         <editor xml:id="DMR">David Merino Recalde</editor>
       </titleStmt>
       <editionStmt>
-        <edition>v2.1</edition></editionStmt>
+        <edition>v3.0</edition></editionStmt>
       <publicationStmt>
         <publisher>PROLOPE, Universitat Autònoma de Barcelona</publisher>
         <pubPlace>Bellaterra</pubPlace>
@@ -45,7 +45,7 @@
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change when="2026-11-03" who="#DMR">Versión 2.1.</change>
+      <change when="2026-11-04" who="#DMR">Versión 3.0.</change>
       <change when="2026-11-02">Generado desde la capa de la colección: 17 relaciones.</change>
     </revisionDesc>
   </teiHeader>
