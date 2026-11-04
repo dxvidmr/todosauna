@@ -45,7 +45,7 @@
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change when="2026-11-04" who="#DMR">Versión 3.0.</change>
+      <change when="2026-11-04" who="#DMR">Versión 3.0: se cotejan el texto y las notas con PROLOPE 2009; se renumeran los parlamentos y se renombran los segmentos de acotación y sus notas; se corrige la atribución de hablantes a parlamentos, y se añade relaciones.xml, que vincula el texto con la colección digital.</change>
       <change when="2026-11-02">Generado desde la capa de la colección: 17 relaciones.</change>
     </revisionDesc>
   </teiHeader>
