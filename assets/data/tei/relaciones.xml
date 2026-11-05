@@ -8,7 +8,7 @@
         <editor xml:id="DMR">David Merino Recalde</editor>
       </titleStmt>
       <editionStmt>
-        <edition>v3.0</edition></editionStmt>
+        <edition>v4.0</edition></editionStmt>
       <publicationStmt>
         <publisher>PROLOPE, Universitat Autònoma de Barcelona</publisher>
         <pubPlace>Bellaterra</pubPlace>
@@ -45,6 +45,7 @@
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
+      <change when="2026-11-05" who="#DMR">Versión 4.0: tras cotejar con PROLOPE 2009 el texto y las notas, se corrigen puntuación y división de versos, se marcan los añadidos, se revisan cursivas y term, se dividen notas y se restituye «los» en el v. 542.</change>
       <change when="2026-11-04" who="#DMR">Versión 3.0: se cotejan el texto y las notas con PROLOPE 2009; se renumeran los parlamentos y se renombran los segmentos de acotación y sus notas; se corrige la atribución de hablantes a parlamentos, y se añade relaciones.xml, que vincula el texto con la colección digital.</change>
       <change when="2026-11-02">Generado desde la capa de la colección: 17 relaciones.</change>
     </revisionDesc>

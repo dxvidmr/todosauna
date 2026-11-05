@@ -508,6 +508,17 @@ tei-castitem > tei-roledesc > tei-supplied::after {
   content: "]";
 }
 
+// Añadidos de PROLOPE 2009 en acotaciones y etiquetas de hablante
+tei-stage tei-supplied::before,
+tei-speaker tei-supplied::before {
+  content: "[";
+}
+
+tei-stage tei-supplied::after,
+tei-speaker tei-supplied::after {
+  content: "]";
+}
+
 .lectura-wrapper .text-column tei-castList tei-role {
   color: $color-text;
   font-weight: 300;

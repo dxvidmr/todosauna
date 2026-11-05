@@ -22,7 +22,7 @@
         </respStmt>
       </titleStmt>
       <editionStmt>
-        <edition>v3.0</edition></editionStmt>
+        <edition>v4.0</edition></editionStmt>
       <publicationStmt>
         <publisher>PROLOPE, Universitat Autònoma de Barcelona</publisher>
         <pubPlace>Bellaterra</pubPlace>
@@ -70,7 +70,7 @@
       <classDecl>
         <taxonomy xml:id="tipologiaNotas">
           <category xml:id="lexica">
-            <catDesc>Nota léxica y semántica: glosa de palabras, giros, paremias y sentidos contextuales.</catDesc>
+            <catDesc>Nota léxica y semántica: glosa de palabras, giros, paremias, sentidos contextuales e historia de la lengua.</catDesc>
           </category>
           <category xml:id="parafrasis">
             <catDesc>Nota de paráfrasis o traducción: reformulación del sentido global o aclaración sintáctica.</catDesc>
@@ -121,6 +121,10 @@
       </particDesc>
     </profileDesc>
     <revisionDesc>
+      <change when="2026-11-05" who="#DMR">Versión 4.0: tras cotejar con PROLOPE 2009 el texto y las notas, se corrigen puntuación y división de versos, se marcan los añadidos, se revisan cursivas y term, se dividen notas y se restituye «los» en el v. 542.</change>
+      <change xml:id="chg-notas-anclas-2026-11-05" when="2026-11-05" who="#DMR">Se ajustan las anclas de varias notas y se renombran n-997-1 (n-998-1), n-1333-1 (n-1334-1), n-2216-1 (n-2214-1) y n-2267-2 (n-2271-1).</change>
+      <change xml:id="chg-notas-cotejo-2026-11-05" when="2026-11-05" who="#DMR">Tras cotejar las notas con PROLOPE 2009, se corrigen la errata «en el época» y el punto final en n-931-1; se restituyen ‘Quieto’ en n-2250-1, la glosa sin comillas en n-1326-1 y las comillas tipográficas en n-203-1 y n-480-1, y el marcado de cursivas pasa a seguir a PROLOPE. Se corrige «vendedore» por «vencedore» en n-528-2 y se revisa la clasificación de n-537-1, n-589-1 y n-686-1. Se dividen por lemas n-43-1, n-286-1, n-467-1, n-542-1, n-559-1 y n-584-1, y se amplía el marcado de term a lo que las notas mencionan del pasaje.</change>
+      <change xml:id="chg-notas-division-versos-2026-11-05" when="2026-11-05" who="#DMR">Se renombra n-1069-1 a n-1068-1, porque «desposado» pasa al v. 1068 al corregir la división de los versos.</change>
       <change when="2026-11-04" who="#DMR">Versión 3.0: se cotejan el texto y las notas con PROLOPE 2009; se renumeran los parlamentos y se renombran los segmentos de acotación y sus notas; se corrige la atribución de hablantes a parlamentos, y se añade relaciones.xml, que vincula el texto con la colección digital.</change>
       <change xml:id="chg-notas-prefijo-texto-2026-11-04" when="2026-11-04" who="#DMR">Se cambia el prefijo del texto base de <mentioned>fo:</mentioned> a <mentioned>texto:</mentioned>, para distinguirlo de los identificadores <mentioned>fo-xxxxxx</mentioned> de los objetos.</change>
       <change when="2026-11-03" who="#DMR">Versión 2.0, asignada a posteriori al estado del 6 de mayo de 2026: se reordenan y parten algunos versos, se renumeran los identificadores del texto base y se añaden los de las acotaciones y el reparto; se marcan las estrofas; las notas se anclan a sus pasajes y se clasifican por categorías, y sus identificadores pasan a derivarse del último verso anotado.</change>
@@ -167,7 +171,7 @@
   ana="#geografica"
   change="#chg-notas-prolope-2009"
   source="p2009:2">
-  Debe referirse a la villa de Almagro, donde se situaba el convento y palacio de la Orden de Calatrava y el inicio de la acción.
+  Debe referirse a la <term>villa</term> de Almagro, donde se situaba el convento y palacio de la Orden de Calatrava y el inicio de la acción.
 </note>
 
 <note
@@ -176,7 +180,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:3">
-  <term>grave:</term> ‘circunspecto’.
+  <term>grave</term>: ‘circunspecto’.
 </note>
 
 <note
@@ -185,7 +189,7 @@
   ana="#historica"
   change="#chg-notas-sin-guia"
   source="p2009:4">
-  <term>Fernán Gómez de Guzmán:</term> personaje histórico mencionado en las crónicas históricas en que se basó Lope de Vega para esta obra.
+  <term>Fernán Gómez de Guzmán</term>: personaje histórico mencionado en las crónicas históricas en que se basó Lope de Vega para esta obra.
 </note>
 
 <note
@@ -212,7 +216,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:7">
-  <term>abrir la voluntad:</term> ‘ganarse el afecto’.
+  <term>abrir la voluntad</term>: ‘ganarse el afecto’.
 </note>
 
 <note
@@ -257,16 +261,25 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:12">
-  El ingreso en la orden (al ceñir su espada y lucir su cruz en el pecho) obliga a sus miembros a mantener un comportamiento cortés. Cada orden tenía una cruz distintiva; la de Calatrava era de color rojo (se alude a ello en vv. 131-137).
+  El ingreso en la orden (al ceñir su <term>espada</term> y lucir su <term>cruz</term> en el pecho) obliga a sus miembros a mantener un comportamiento cortés. Cada orden tenía una cruz distintiva; la de <term>Calatrava</term> era de color rojo (se alude a ello en vv. 131-137).
 </note>
 
 <note
   xml:id="n-43-1"
   target="texto:seg-43-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
   source="p2009:13">
-  <term>agora:</term> forma antigua de ‘ahora’; nueva: ‘noticia’.
+  <term>agora</term>: forma antigua de ‘ahora’.
+</note>
+
+<note
+  xml:id="n-43-2"
+  target="texto:seg-43-2"
+  ana="#lexica"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
+  source="p2009:13">
+  <term>nueva</term>: ‘noticia’.
 </note>
 
 <note
@@ -275,7 +288,7 @@
   ana="#lexica #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:14">
-  <term>el amor y la crïanza:</term> ‘el afecto y la cortesía, el respeto’. La diéresis indica que debe separarse el diptongo: cri | an | za (como en los versos 159: «crïados»; 194: «fïadas»; 273: «fïarse», y otros).
+  <term>el amor y la crïanza</term>: ‘el afecto y la cortesía, el respeto’. La diéresis indica que debe separarse el diptongo: cri | an | za (como en los versos 159: «crïados»; 194: «fïadas»; 273: «fïarse», y otros).
 </note>
 
 <note
@@ -284,7 +297,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:15">
-  <term>Seguro:</term> ‘ajeno, desprevenido’.
+  <term>Seguro</term>: ‘ajeno, desprevenido’.
 </note>
 
 <note
@@ -302,7 +315,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:17">
-  <term>claro:</term> ‘ilustre, insigne’.
+  <term>claro</term>: ‘ilustre, insigne’.
 </note>
 
 <note
@@ -311,7 +324,7 @@
   ana="#historica"
   change="#chg-notas-sin-guia"
   source="p2009:18">
-  Rodrigo Téllez Girón recibe siendo niño el maestrazgo al renunciar su padre, Pedro Girón, en 1464. Para ser efectiva la renuncia del padre y el nombramiento del hijo fueron necesarias las aprobaciones (bulas) de los papas Pío II y Paulo II, que nombró a don Juan Pacheco, Duque de Escalona, tutor de su sobrino Rodrigo desde entonces hasta 1474.
+  <term>Rodrigo Téllez Girón</term> recibe siendo niño el <term>maestrazgo</term> al renunciar su padre, Pedro Girón, en 1464. Para ser efectiva la renuncia del padre y el nombramiento del hijo fueron necesarias las aprobaciones (<term>bulas</term>) de los papas Pío II y Paulo II, que nombró a don Juan Pacheco, Duque de Escalona, tutor de su sobrino Rodrigo desde entonces hasta 1474.
 </note>
 
 <note
@@ -338,7 +351,7 @@
   ana="#historica"
   change="#chg-notas-sin-guia"
   source="p2009:20">
-  La sucesión de Enrique IV de Castilla fue conflictiva. Se disputaron el trono el rey don Alonso de Portugal, casado con Juana «la Beltraneja» (hija de Enrique IV) y Fernando de Aragón, casado con Isabel (hermanastra del mismo). En 1475 Alonso invade Castilla, al año siguiente es derrotado en la Batalla de Toro y la guerra termina en 1479.
+  La sucesión de <term>Enrique</term> IV de <term>Castilla</term> fue conflictiva. Se disputaron el trono el rey don <term>Alonso</term> de <term>Portugal</term>, casado con Juana «la Beltraneja» (hija de Enrique IV) y Fernando de Aragón, casado con Isabel (hermanastra del mismo). En 1475 Alonso invade Castilla, al año siguiente es derrotado en la Batalla de Toro y la guerra termina en 1479.
 </note>
 
 <note
@@ -356,7 +369,7 @@
   ana="#historica"
   change="#chg-notas-prolope-2009"
   source="p2009:22">
-  Los partidarios de Isabel y Fernando cuestionaban que Juana fuera efectivamente hija de Enrique IV apodado «el Impotente»; ella era apodada «la Beltraneja» insinuando que en realidad era hija del cortesano Beltrán de la Cueva.
+  Los partidarios de Isabel y Fernando cuestionaban que <term>Juana</term> fuera efectivamente hija de Enrique IV apodado «el Impotente»; ella era apodada «la Beltraneja» insinuando que en realidad era hija del cortesano Beltrán de la Cueva.
 </note>
 
 <note
@@ -383,7 +396,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:25">
-  <term>niño:</term> ‘joven’; uso medieval, sin sentido despectivo.
+  <term>niño</term>: ‘joven’; uso medieval, sin sentido despectivo.
 </note>
 
 <note
@@ -410,7 +423,7 @@
   ana="#historica"
   change="#chg-notas-prolope-2009"
   source="p2009:28">
-  <term>Marqueses de Villena</term>: el tío de don Rodrigo, Juan Pacheco, I Marqués de Villena, y el sucesor de éste arriba aludido (v. 102), don Diego.
+  <term>Marqueses de Villena</term>: el tío de don Rodrigo, Juan Pacheco, I Marqués de <term>Villena</term>, y el sucesor de éste arriba aludido (v. 102), don Diego.
 </note>
 
 <note
@@ -428,7 +441,7 @@
   ana="#estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:30">
-  <term>Girón</term> juega también con jirón, ‘trozo rasgado de tela’ y capa, que asimismo alude a don Rodrigo como protector de la fama de sus antepasados.
+  <term>Girón</term> juega también con <hi rend="italic">jirón</hi>, ‘trozo rasgado de tela’ y <term>capa</term>, que asimismo alude a don Rodrigo como protector de la fama de sus antepasados.
 </note>
 
 <note
@@ -500,7 +513,7 @@
   ana="#parafrasis #realia"
   change="#chg-notas-division"
   source="p2009:38">
-  Es decir, ‘ahí he situado la casa o sede de mi encomienda’. La encomienda era una concesión y dignidad que se otorgaba a algunos caballeros, consistente en determinadas propiedades, territorios y rentas.
+  Es decir, ‘ahí he situado la casa o sede de mi encomienda’. La <term>encomienda</term> era una concesión y dignidad que se otorgaba a algunos caballeros, consistente en determinadas propiedades, territorios y rentas.
 </note>
 
 <note
@@ -528,7 +541,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:40">
-  <term>ristre</term>: pieza metálica donde se apoya la lanza verticalmente.
+  <term>ristre</term>: pieza metálica donde se apoya la <term>lanza</term> verticalmente.
 </note>
 
 <note
@@ -537,7 +550,7 @@
   ana="#escenica"
   change="#chg-notas-prolope-2009 #chg-notas-ids-2026-11-02"
   source="p2009:41">
-  El tablado ha quedado vacío (<term>Vanse y salen…</term>) y debe entenderse que la acción se traslada ahora a Fuenteovejuna.
+  El tablado ha quedado vacío (<term>Vanse y salen</term>…) y debe entenderse que la acción se traslada ahora a Fuenteovejuna.
 </note>
 
 <note
@@ -555,7 +568,7 @@
   ana="#lexica #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:43">
-  <term>a la he</term>: ‘a fe mía’; la sustitución de f- inicial por h- aspirada, es uno de los rasgos de habla rústica con que se caracteriza a los labradores (como en vv. 220: «huego»; 600 y 609: «huera»).
+  <term>a la he</term>: ‘a fe mía’; la sustitución de <hi rend="italic">f-</hi> inicial por <hi rend="italic">h-</hi> aspirada, es uno de los rasgos de habla rústica con que se caracteriza a los labradores (como en vv. 220: «huego»; 600 y 609: «huera»).
 </note>
 
 <note
@@ -573,7 +586,7 @@
   ana="#lexica #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:45">
-  <term>brando</term>: ‘blando’ (la sustitución l > r es también rasgo de habla rústica).
+  <term>brando</term>: ‘blando’ (la sustitución <hi rend="italic">l</hi> > <hi rend="italic">r</hi> es también rasgo de habla rústica).
 </note>
 
 <note
@@ -616,16 +629,16 @@
   xml:id="n-203-1"
   target="texto:seg-203-1"
   ana="#realia"
-  change="#chg-notas-division"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05 #chg-notas-anclas-2026-11-05"
   source="p2009:50">
-  <term>un jubón</term>: ‘un chaleco'.
+  <term>un jubón</term>: ‘un chaleco’.
 </note>
 
 <note
   xml:id="n-204-1"
   target="texto:seg-204-1"
   ana="#realia"
-  change="#chg-notas-division"
+  change="#chg-notas-division #chg-notas-anclas-2026-11-05"
   source="p2009:50">
   <term>una sarta</term>: ‘un collar’.
 </note>
@@ -634,7 +647,7 @@
   xml:id="n-204-2"
   target="texto:seg-204-2"
   ana="#realia"
-  change="#chg-notas-division"
+  change="#chg-notas-division #chg-notas-anclas-2026-11-05"
   source="p2009:50">
   <term>un copete</term>: ‘un adorno de pelo postizo’.
 </note>
@@ -672,7 +685,7 @@
   ana="#lexica #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:54">
-  <term>polla</term> en doble sentido: ‘niña, joven’, pero también ‘carne de pollo’, demasiado dura (por su fuerte carácter) para el Comendador, al que se alude irónicamente con el trato de reverencia.
+  <term>polla</term> en doble sentido: ‘niña, joven’, pero también ‘carne de pollo’, demasiado <term>dura</term> (por su fuerte carácter) para el Comendador, al que se alude irónicamente con el trato de <term>reverencia</term>.
 </note>
 
 <note
@@ -717,7 +730,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:57">
-  Es decir, prefiere comer un espumoso cocido de vaca con verdura.
+  Es decir, prefiere comer un espumoso cocido de <term>vaca</term> con verdura.
 </note>
 
 <note
@@ -726,8 +739,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:58">
-<term>pasatarde... de una cuerda de mi viña</term>:
- ‘merienda de un racimo de uvas’.
+<term>pasatarde... de una cuerda de mi viña</term>: ‘merienda de un racimo de uvas’.
 </note>
 
 <note
@@ -736,7 +748,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:59">
-  El salpicón es un plato de carne desmenuzada y aliñada.
+  El <term>salpicón</term> es un plato de carne desmenuzada y aliñada.
 </note>
 
 <note
@@ -745,7 +757,7 @@
   ana="#lexica"
   change="#chg-notas-division"
   source="p2009:60">
-  <term>Inducas tentación</term>: deformación rústica de <hi rend="italic">Et ne nos inducas in tentationem</hi>, palabras finales del Padre nuestro en latín.
+  <term>Inducas tentación</term>: deformación rústica de <hi rend="italic">Et ne nos inducas in tentationem</hi>, palabras finales del <hi rend="italic">Padre nuestro</hi> en latín.
 </note>
 
 <note
@@ -763,7 +775,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:61">
-  Recuérdese el inicio de este fragmento comparativo (v. 217): Laurencia aprecia más todas las típicas comidas campestres que ha mencionado que las raposerías (‘astucias, engaños’) y porfías (‘insistencias’) amorosas de jóvenes bellacones como el Comendador.
+  Recuérdese el inicio de este fragmento comparativo (v. 217): Laurencia aprecia más todas las típicas comidas campestres que ha mencionado que las <term>raposerías</term> (‘astucias, engaños’) y <term>porfías</term> (‘insistencias’) amorosas de jóvenes <term>bellacones</term> como el Comendador.
 </note>
 
 <note
@@ -781,7 +793,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:63">
-  gusto alude aquí al acto sexual.
+  <term>gusto</term> alude aquí al acto sexual.
 </note>
 
 <note
@@ -795,11 +807,11 @@
 
 <note
   xml:id="n-264-1"
-  target="texto:seg-264-1"
+  target="texto:l-261 texto:l-262 texto:l-263 texto:l-264"
   ana="#parafrasis #estilistica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-anclas-2026-11-05"
   source="p2009:65">
-  Los gorriones, interesados, llaman al villano diciéndole afectuosamente tío, tío (por homofonía con «pío, pío»), pero luego, desagradecidos, lo insultan (judío, judío). La comparación del comportamiento del gorrión con el de los desagradecidos amantes es muy oportuna, pues esta ave es símbolo de lujuria; comer (v. 257) también podría tener sentido erótico.
+  Los gorriones, interesados, llaman al villano diciéndole afectuosamente <term>tío, tío</term> (por homofonía con «pío, pío»), pero luego, desagradecidos, lo insultan (<term>judío, judío</term>). La comparación del comportamiento del gorrión con el de los desagradecidos amantes es muy oportuna, pues esta ave es símbolo de lujuria; <term>comer</term> (v. 257) también podría tener sentido erótico.
 </note>
 
 <note
@@ -860,9 +872,18 @@
   xml:id="n-286-1"
   target="texto:seg-286-1"
   ana="#realia"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
   source="p2009:72">
-  <term>rabel</term>: instrumento musical pastoril de tres cuerdas que se hacen sonar con un arco; boj: un tipo de madera.
+  <term>rabel</term>: instrumento musical pastoril de tres cuerdas que se hacen sonar con un arco.
+</note>
+
+<note
+  xml:id="n-286-2"
+  target="texto:seg-286-2"
+  ana="#realia"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
+  source="p2009:72">
+  <term>boj</term>: un tipo de madera.
 </note>
 
 <note
@@ -880,7 +901,7 @@
   ana="#lexica #intertextual"
   change="#chg-notas-prolope-2009"
   source="p2009:74">
-  <term>al uso</term>: ‘a la moda’. El fragmento que aquí inicia sigue un tópico en que se satiriza la hipocresía, eufemismos, y manipulaciones del lenguaje, así como la inversión y confusión de valores de la corte, frente a los más auténticos de la aldea. Cultivaron este tópico también, por ejemplo, Erasmo y Fray Antonio de Guevara en el siglo XVI (en su tratado Menosprecio de corte y alabanza de aldea) o Quevedo en el siglo XVII.
+  <term>al uso</term>: ‘a la moda’. El fragmento que aquí inicia sigue un tópico en que se satiriza la hipocresía, eufemismos, y manipulaciones del lenguaje, así como la inversión y confusión de valores de la corte, frente a los más auténticos de la aldea. Cultivaron este tópico también, por ejemplo, Erasmo y Fray Antonio de Guevara en el siglo XVI (en su tratado <hi rend="italic">Menosprecio de corte y alabanza de aldea</hi>) o Quevedo en el siglo XVII.
 </note>
 
 <note
@@ -898,7 +919,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:76">
-  El desaliño y la descortesía se disculpan por el presunto ejercicio de las armas (soldadesca).
+  El desaliño y la descortesía se disculpan por el presunto ejercicio de las armas (<term>soldadesca</term>).
 </note>
 
 <note
@@ -934,7 +955,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:80">
-  Las bubas o granos de la sífilis se hacían pasar por síntomas de resfriado.
+  Las bubas o granos de la sífilis se hacían pasar por síntomas de <term>resfriado</term>.
 </note>
 
 <note
@@ -1042,7 +1063,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:92">
-  hay: ‘existe’; así también en los siguientes versos.
+  <term>hay</term>: ‘existe’; así también en los siguientes versos.
 </note>
 
 <note
@@ -1060,7 +1081,7 @@
   ana="#intertextual"
   change="#chg-notas-prolope-2009"
   source="p2009:94">
-  Comienza aquí una discusión sobre el amor, basada principalmente en nociones del pensamiento de Platón, que será mencionado hacia el final. Se trata de una situación típica de la literatura pastoril del siglo XVI, aunque acentuando aquí los rasgos rústicos de los personajes. Barrildo inicia recordando la idea de que el amor es el vínculo del mundo, lo que le da unidad y coherencia al universo.
+  Comienza aquí una discusión sobre el <term>amor</term>, basada principalmente en nociones del pensamiento de Platón, que será mencionado hacia el final. Se trata de una situación típica de la literatura pastoril del siglo XVI, aunque acentuando aquí los rasgos rústicos de los personajes. Barrildo inicia recordando la idea de que el amor es el vínculo del mundo, lo que le da unidad y coherencia al universo.
 </note>
 
 <note
@@ -1069,7 +1090,7 @@
   ana="#intertextual"
   change="#chg-notas-prolope-2009"
   source="p2009:95">
-  Mengo entiende hacia donde dirige Barrildo el debate, y responde con otras ideas muy importantes de la cosmovisión y la medicina antiguas para afirmar su punto (‘claro está lo que he dicho’): que todo el universo creado se rige por principios de oposición, y que esto influye en cada persona a través de los cuatro humores corporales asociados a los elementos (cólera... sangre).
+  Mengo entiende hacia donde dirige Barrildo el debate, y responde con otras ideas muy importantes de la cosmovisión y la medicina antiguas para afirmar su punto (‘claro está lo que he dicho’): que todo el universo creado se rige por principios de oposición, y que esto influye en cada persona a través de los cuatro humores corporales asociados a los <term>elementos</term> (<term>cólera... sangre</term>).
 </note>
 
 <note
@@ -1078,7 +1099,7 @@
   ana="#intertextual"
   change="#chg-notas-prolope-2009"
   source="p2009:96">
-  Una idea también muy difundida en los debates medievales sobre la constitución del mundo: la armonía, el buen orden (concierto) rige ambos mundos, cielo y tierra.
+  Una idea también muy difundida en los debates medievales sobre la constitución del mundo: la <term>armonía</term>, el buen orden (<term>concierto</term>) rige ambos mundos, cielo y tierra.
 </note>
 
 <note
@@ -1087,7 +1108,7 @@
   ana="#intertextual"
   change="#chg-notas-reanclaje"
   source="p2009:97">
-  Mengo acepta la teoría de la armonía universal utilizada por Barrildo (correspondencias), y también la existencia de un tipo de amor, el natural, que a continuación asocia con la teoría de los humores que ya recordó, y que identifica con la necesidad de conservación, el mantenimiento de la propia vida.
+  Mengo acepta la teoría de la armonía universal utilizada por Barrildo (<term>correspondencias</term>), y también la existencia de un tipo de <term>amor</term>, el <term>natural</term>, que a continuación asocia con la teoría de los humores que ya recordó, y que identifica con la necesidad de conservación, el mantenimiento de la propia vida.
 </note>
 
 <note
@@ -1105,7 +1126,7 @@
   ana="#intertextual"
   change="#chg-notas-prolope-2009"
   source="p2009:99">
-  También son de origen clásico las ideas sobre el amor como búsqueda de la belleza, y el placer que ella produce.
+  También son de origen clásico las ideas sobre el <term>amor</term> como búsqueda de la belleza, y el placer que ella produce.
 </note>
 
 <note
@@ -1123,7 +1144,7 @@
   ana="#intertextual"
   change="#chg-notas-prolope-2009"
   source="p2009:101">
-  En esta mención del filósofo, se recuerdan, para terminar el debate, dos conceptos fundamentales de su pensamiento: el alma y la virtud. Es gracioso, por absurdo, suponer que un cura va a citar a Platón en sus sermones.
+  En esta mención del filósofo, se recuerdan, para terminar el debate, dos conceptos fundamentales de su pensamiento: el <term>alma</term> y la <term>virtud</term>. Es gracioso, por absurdo, suponer que un cura va a citar a <term>Platón</term> en sus sermones.
 </note>
 
 <note
@@ -1132,7 +1153,7 @@
   ana="#parafrasis"
   change="#chg-notas-division"
   source="p2009:102">
-  Al decir que esto sucede por ventura, ‘acaso’ ‘casualmente’, Pascuala introduce una ligera burla a las discusiones eruditas.
+  Al decir que esto sucede <term>por ventura</term>, ‘acaso’ ‘casualmente’, Pascuala introduce una ligera burla a las discusiones eruditas.
 </note>
 
 <note
@@ -1141,7 +1162,7 @@
   ana="#lexica #estilistica"
   change="#chg-notas-division"
   source="p2009:102">
-  acrisola los caletres: metáfora burlesca, ‘mejora los entendimientos’.
+  <term>acrisola los caletres</term>: metáfora burlesca, ‘mejora los entendimientos’.
 </note>
 
 <note
@@ -1150,7 +1171,7 @@
   ana="#estilistica #lexica"
   change="#chg-notas-division"
   source="p2009:102">
-  cademias: ‘academias’, forma rústica jocosa.
+  <term>cademias</term>: ‘academias’, forma rústica jocosa.
 </note>
 
 <note
@@ -1168,7 +1189,7 @@
   ana="#estilistica #lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:104">
-  quistión: ‘cuestión’ ‘tema’; en la época es forma regular, sin sentido burlesco.
+  <term>quistión</term>: ‘cuestión’ ‘tema’; en la época es forma regular, sin sentido burlesco.
 </note>
 
 <note
@@ -1177,7 +1198,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:105">
-  Es decir, con ese rechazo (desdén), en realidad Laurencia resuelve que no hay amor.
+  Es decir, con ese rechazo (<term>desdén</term>), en realidad Laurencia resuelve que no hay amor.
 </note>
 
 <note
@@ -1186,7 +1207,7 @@
   ana="#realia #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:106">
-  Con lo de azor, Laurencia alude seguramente a la abundancia de plumas en la vestimenta de Flores, que eran un adorno de los trajes de soldado (como se dice también en v. 494). Como es un ave de caza, también puede tratarse de una alusión metafórica al carácter del Comendador, señor de Flores.
+  Con lo de <term>azor</term>, Laurencia alude seguramente a la abundancia de plumas en la vestimenta de Flores, que eran un adorno de los trajes de soldado (como se dice también en v. 494). Como es un ave de caza, también puede tratarse de una alusión metafórica al carácter del Comendador, señor de Flores.
 </note>
 
 <note
@@ -1195,7 +1216,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:107">
-  puesto que: ‘aunque’.
+  <term>puesto que</term>: ‘aunque’.
 </note>
 
 <note
@@ -1204,7 +1225,7 @@
   ana="#historica"
   change="#chg-notas-sin-guia"
   source="p2009:108">
-  Lope se inspira en la Crónica de Rades y Andrada, incluso en cuestiones de detalle, para describir esta batalla.
+  Lope se inspira en la <hi rend="italic">Crónica</hi> de Rades y Andrada, incluso en cuestiones de detalle, para describir esta batalla.
 </note>
 
 <note
@@ -1213,16 +1234,25 @@
   ana="#lexica #realia"
   change="#chg-notas-prolope-2009"
   source="p2009:109">
-  infantes: ‘soldados de a pie, de infantería’.
+  <term>infantes</term>: ‘soldados de a pie, de infantería’.
 </note>
 
 <note
   xml:id="n-467-1"
   target="texto:seg-467-1"
-  ana="#realia #lexica"
-  change="#chg-notas-prolope-2009"
+  ana="#realia"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
   source="p2009:110">
-  Las órdenes militares, como la de Calatrava, acogían en sus filas tanto a seglares como a religiosos. Estos últimos eran llamados freiles. En la época, orden era sustantivo masculino.
+  Las órdenes militares, como la de Calatrava, acogían en sus filas tanto a seglares como a religiosos. Estos últimos eran llamados <term>freiles</term>.
+</note>
+
+<note
+  xml:id="n-467-2"
+  target="texto:seg-467-1"
+  ana="#lexica"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
+  source="p2009:110">
+  En la época, <term>orden</term> era sustantivo masculino.
 </note>
 
 <note
@@ -1240,7 +1270,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:112">
-  bizarro: ‘espléndido’, pero también ‘joven’.
+  <term>bizarro</term>: ‘espléndido’, pero también ‘joven’.
 </note>
 
 <note
@@ -1249,7 +1279,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:113">
-  casaca: tipo de vestidura masculina abierta por los lados.
+  <term>casaca</term>: tipo de vestidura masculina abierta por los lados.
 </note>
 
 <note
@@ -1267,7 +1297,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:115">
-  brazaletes: armaduras de los brazos.
+  <term>brazaletes</term>: armaduras de los brazos.
 </note>
 
 <note
@@ -1276,7 +1306,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:116">
-  El alamar es una clase de abotonadura hecha a base de trenzas de oro.
+  El <term>alamar</term> es una clase de abotonadura hecha a base de trenzas de oro.
 </note>
 
 <note
@@ -1285,7 +1315,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:117">
-  bridón: caballo con aparejos especiales para entrar en batalla.
+  <term>bridón</term>: caballo con aparejos especiales para entrar en batalla.
 </note>
 
 <note
@@ -1294,7 +1324,7 @@
   ana="#lexica"
   change="#chg-notas-division"
   source="p2009:118">
-  rucio: animal, en este caso un caballo, de color pardo claro, blanquecino o canoso.
+  <term>rucio</term>: animal, en este caso un caballo, de color pardo claro, blanquecino o canoso.
 </note>
 
 <note
@@ -1321,7 +1351,7 @@
   ana="#lexica #realia"
   change="#chg-notas-prolope-2009"
   source="p2009:120">
-  grama: ‘tipo de hierba’. Está describiendo el típico caballo andaluz, reconocido como el superior por antonomasia en cuanto a raza.
+  <term>grama</term>: ‘tipo de hierba’. Está describiendo el típico caballo andaluz, reconocido como el superior por antonomasia en cuanto a raza.
 </note>
 
 <note
@@ -1330,16 +1360,16 @@
   ana="#realia #ecdotica"
   change="#chg-notas-prolope-2009"
   source="p2009:121">
-  codón: especie de bolsa de cuero que sirve para cubrir la cola del caballo. Proviene del italiano codone. La lectura colón de algunas ediciones es un error debido al cruce con la palabra cola.
+  <term>codón</term>: especie de bolsa de cuero que sirve para cubrir la cola del caballo. Proviene del italiano <hi rend="italic">codone</hi>. La lectura <hi rend="italic">colón</hi> de algunas ediciones es un error debido al cruce con la palabra <hi rend="italic">cola</hi>.
 </note>
 
 <note
   xml:id="n-480-1"
   target="texto:seg-480-1"
   ana="#lexica"
-  change="#chg-notas-division"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
   source="p2009:122">
-  rizo: 'rizado'.
+  <term>rizo</term>: ‘rizado’.
 </note>
 
 <note
@@ -1348,7 +1378,7 @@
   ana="#lexica"
   change="#chg-notas-division"
   source="p2009:122">
-  copete: mechón de crin que cae al caballo sobre la frente.
+  <term>copete</term>: mechón de crin que cae al caballo sobre la frente.
 </note>
 
 <note
@@ -1357,7 +1387,7 @@
   ana="#lexica"
   change="#chg-notas-division"
   source="p2009:122">
-  lazadas: ‘cintas’.
+  <term>lazadas</term>: ‘cintas’.
 </note>
 
 <note
@@ -1366,7 +1396,7 @@
   ana="#lexica #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:123">
-  moscas de nieve: literalmente, ‘copos de nieve’; aquí hacen referencia a las manchas de color del caballo. Las cintas del copete que adornan la crin del animal combinan grados de blanco como también sucede en su propia piel.
+  <term>moscas de nieve</term>: literalmente, ‘copos de nieve’; aquí hacen referencia a las manchas de color del caballo. Las cintas del <term>copete</term> que adornan la crin del animal combinan grados de blanco como también sucede en su propia piel.
 </note>
 
 <note
@@ -1375,7 +1405,7 @@
   ana="#lexica"
   change="#chg-notas-division"
   source="p2009:124">
-  melado: ‘de color de miel’.
+  <term>melado</term>: ‘de color de miel’.
 </note>
 
 <note
@@ -1384,7 +1414,7 @@
   ana="#lexica"
   change="#chg-notas-division"
   source="p2009:124">
-  negros cabos: ‘negras patas’.
+  <term>negros cabos</term>: ‘negras patas’.
 </note>
 
 <note
@@ -1393,7 +1423,7 @@
   ana="#lexica #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:125">
-  Es decir, ‘que tiene el labio blanco’. Los caballos con patas negras y labio blanco tenían fama de buenos y leales.
+  Es decir, ‘que tiene el labio blanco’. Los caballos con patas negras y labio <term>blanco</term> tenían fama de buenos y leales.
 </note>
 
 <note
@@ -1402,7 +1432,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:126">
-  jacerina: cota de malla de acero; se trataba de la cota más fina y cara, reservada a los nobles, la cual era de origen árabe.
+  <term>jacerina</term>: cota de malla de acero; se trataba de la cota más fina y cara, reservada a los nobles, la cual era de origen árabe.
 </note>
 
 <note
@@ -1411,7 +1441,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:127">
-  El peto es la armadura del pecho y el espaldar la de la espalda.
+  El <term>peto</term> es la armadura del pecho y el <term>espaldar</term> la de la espalda.
 </note>
 
 <note
@@ -1420,7 +1450,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:128">
-  morrión: armadura en forma de casco que en lo alto suele tener un plumaje o adorno.
+  <term>morrión</term>: armadura en forma de casco que en lo alto suele tener un plumaje o adorno.
 </note>
 
 <note
@@ -1429,7 +1459,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:129">
-  azares: ‘azahares’, Flores del naranjo, de color blanco.
+  <term>azares</term>: ‘azahares’, Flores del naranjo, de color blanco.
 </note>
 
 <note
@@ -1438,7 +1468,7 @@
   ana="#estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:130">
-  Hipérbole que compara la lanza a un grueso árbol (fresno).
+  Hipérbole que compara la <term>lanza</term> a un grueso árbol (<term>fresno</term>).
 </note>
 
 <note
@@ -1482,7 +1512,7 @@
   target="texto:l-518 texto:l-519 texto:l-520"
   ana="#lexica #realia"
   change="#chg-notas-prolope-2009"
-  source="p2009:135"> <!-- //DUDA en la clasificación -->
+  source="p2009:135">
   <term>rayo del África</term>: ‘azote de los musulmanes’, que conseguirá someter las <term>lunas azules</term>, símbolo de los estandartes árabes, a la <term>roja cruz</term> que representa su orden militar.
 </note>
 
@@ -1501,7 +1531,7 @@
   ana="#ecdotica"
   change="#chg-notas-prolope-2009"
   source="p2009:137">
-  <term>recebilde</term>: ‘recibidle’. La metátesis -ld- (o cambio del orden regular) y la vacilación vocálica (i / e) son rasgos comunes en la lengua de la época (como en v. 932: «dejaldo», v. 1633: «quitalde», v. 1864: «desatalde», etc.; v. 556: «polidos», 1308: «recebida», v. 1957: «escurece», etc.).
+  <term>recebilde</term>: ‘recibidle’. La metátesis <hi rend="italic">-ld-</hi> (o cambio del orden regular) y la vacilación vocálica (<hi rend="italic">i</hi> / e) son rasgos comunes en la lengua de la época (como en v. 932: «dejaldo», v. 1633: «quitalde», v. 1864: «desatalde», etc.; v. 556: «polidos», 1308: «recebida», v. 1957: «escurece», etc.).
 </note>
 
 <note
@@ -1517,27 +1547,45 @@
   xml:id="n-528-2"
   target="texto:stg-528-2"
   ana="#estilistica"
-  change="#chg-notas-prolope-2009"
-  source="p2009:139"> <!-- //DUDA -->
-  Se trata de un romancillo, romance compuesto por versos de menos de ocho sílabas, con rima en ó-e, gracias a la -e paragógica (la que se añade al final de la palabra) de Comendadore y vendedore (no de Ciudad Reale, porque no está en rima). El uso de esa -e paragógica, típica de los cantares de gesta, dota al poema de un aire arcaizante y rústico.
+  change="#chg-notas-prolope-2009 #chg-notas-cotejo-2026-11-05"
+  source="p2009:139">
+  Se trata de un romancillo, romance compuesto por versos de menos de ocho sílabas, con rima en <hi rend="italic">ó-e</hi>, gracias a la <hi rend="italic">-e</hi> paragógica (la que se añade al final de la palabra) de <term>Comendadore</term> y <term>vencedore</term> (no de <term>Ciudad Reale</term>, porque no está en rima). El uso de esa <hi rend="italic">-e</hi> paragógica, típica de los cantares de gesta, dota al poema de un aire arcaizante y rústico.
 </note>
 
 <note
   xml:id="n-537-1"
   target="texto:seg-537-1"
-  ana="#parafrasis"
-  change="#chg-notas-prolope-2009"
-  source="p2009:140"> <!--  //DUDA ¿explicativa?-->
-  El diminutivo moricos, típico de la canción tradicional, demuestra la ingenuidad de los aldeanos, una de las razones que influirán más tarde en el juicio de los Reyes. Puede también verse cierto tono irónico, pues en este caso se ha luchado contra otros cristianos.
+  ana="#estilistica"
+  change="#chg-notas-prolope-2009 #chg-notas-cotejo-2026-11-05"
+  source="p2009:140">
+  El diminutivo <term>moricos</term>, típico de la canción tradicional, demuestra la ingenuidad de los aldeanos, una de las razones que influirán más tarde en el juicio de los Reyes. Puede también verse cierto tono irónico, pues en este caso se ha luchado contra otros cristianos.
 </note>
 
 <note
   xml:id="n-542-1"
   target="texto:seg-542-1"
-  ana="#realia #ecdotica"
-  change="#chg-notas-prolope-2009"
-  source="p2009:141"> <!-- //DUDA ¿separar? -->
-  El pendón es la bandera militar que se usaba para distinguir los regimientos, batallones, etc. El uso de la construcción artículo+posesivo, los sus, también da un aire arcaizante al poema. Para que el verso no sea hipermétrico debemos leer la forma verbal trae con sinéresis, es decir, en una sola sílaba.
+  ana="#realia"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
+  source="p2009:141">
+  El <term>pendón</term> es la bandera militar que se usaba para distinguir los regimientos, batallones, etc.
+</note>
+
+<note
+  xml:id="n-542-2"
+  target="texto:seg-542-2"
+  ana="#estilistica"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
+  source="p2009:141">
+  El uso de la construcción artículo+posesivo, <term>los sus</term>, también da un aire arcaizante al poema.
+</note>
+
+<note
+  xml:id="n-542-3"
+  target="texto:seg-542-3"
+  ana="#estilistica"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
+  source="p2009:141">
+  Para que el verso no sea hipermétrico debemos leer la forma verbal <term>trae</term> con sinéresis, es decir, en una sola sílaba.
 </note>
 
 <note
@@ -1546,7 +1594,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:142">
-  Regimiento: conjunto de los regidores, alcaldes; por extensión, ‘ayuntamiento, alcaldía’.
+  <term>Regimiento</term>: conjunto de los regidores, alcaldes; por extensión, ‘ayuntamiento, alcaldía’.
 </note>
 
 <note
@@ -1555,7 +1603,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:143">
-  Los árboles solían engalanarse durante las fiestas. Se insiste en la humildad de los aldeanos, y también en su bondad.
+  Los <term>árboles</term> solían engalanarse durante las fiestas. Se insiste en la humildad de los aldeanos, y también en su bondad.
 </note>
 
 <note
@@ -1564,16 +1612,25 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:144">
-  barros: ‘vasijas de barro’; normalmente se usaban para guardar conservas.
+  <term>barros</term>: ‘vasijas de barro’; normalmente se usaban para guardar conservas.
 </note>
 
 <note
   xml:id="n-559-1"
   target="texto:seg-559-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
   source="p2009:145">
-  vueso: forma arcaica de vuestro. La voz del ganso no parece ser la más adecuada para cantar el valor guerrero, por lo que tal vez estemos, de nuevo, frente a una ironía.
+  <term>vueso</term>: forma arcaica de vuestro.
+</note>
+
+<note
+  xml:id="n-559-2"
+  target="texto:seg-559-2"
+  ana="#estilistica"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
+  source="p2009:145">
+  La voz del ganso no parece ser la más adecuada para cantar el <term>valor guerrero</term>, por lo que tal vez estemos, de nuevo, frente a una ironía.
 </note>
 
 <note
@@ -1582,7 +1639,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:146">
-  El cebón es un ‘animal cebado’, normalmente un cerdo.
+  El <term>cebón</term> es un ‘animal cebado’, normalmente un cerdo.
 </note>
 
 <note
@@ -1591,7 +1648,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:147">
-  Pasaje poco claro, que puede referirse a que los cebones van limpios, sin menudos (vientre, manos y sangre del animal).
+  Pasaje poco claro, que puede referirse a que los <term>cebones</term> van limpios, sin menudos (vientre, manos y sangre del animal).
 </note>
 
 <note
@@ -1600,7 +1657,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:148">
-  La cecina era un tipo de carne salada, secada al aire, al sol o al humo.
+  La <term>cecina</term> era un tipo de carne salada, secada al aire, al sol o al humo.
 </note>
 
 <note
@@ -1609,7 +1666,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:149">
-  Los guantes perfumados con ámbar eran un signo de refinamiento. La comparación parece malintencionada, pues estaban hechos de piel de cerdo, igual que las cortezas. Se insiste en la idea de que aunque no se trate de presentes elegantes ni caros, son buenos y se dan con afecto (véase también vv. 566-568 y 584-585).
+  Los <term>guantes</term> perfumados con <term>ámbar</term> eran un signo de refinamiento. La comparación parece malintencionada, pues estaban hechos de piel de cerdo, igual que las <term>cortezas</term>. Se insiste en la idea de que aunque no se trate de presentes elegantes ni caros, son buenos y se dan con afecto (véase también vv. 566-568 y 584-585).
 </note>
 
 <note
@@ -1618,7 +1675,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:150">
-  El capón es un tipo de pollo que se castra cuando es pequeño para que engorde más fácilmente. Su carne es muy apreciada.
+  El <term>capón</term> es un tipo de pollo que se castra cuando es pequeño para que engorde más fácilmente. Su carne es muy apreciada.
 </note>
 
 <note
@@ -1627,7 +1684,7 @@
   ana="#lexica #realia"
   change="#chg-notas-prolope-2009"
   source="p2009:151">
-  jaeces: adornos de cintas con que se trenzan las crines del caballo.
+  <term>jaeces</term>: adornos de cintas con que se trenzan las crines del caballo.
 </note>
 
 <note
@@ -1636,7 +1693,7 @@
   ana="#parafrasis #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:152">
-  ‘Y aprovechando la ocasión de haber dicho puro’; juego de palabras basado en la homonimia del puro ya aparecido (‘libre de impureza’) y éste que significa ‘vino puro’.
+  ‘Y aprovechando la ocasión de haber dicho puro’; juego de palabras basado en la homonimia del <term>puro</term> ya aparecido (‘libre de impureza’) y éste que significa ‘vino puro’.
 </note>
 
 <note
@@ -1645,7 +1702,7 @@
   ana="#parafrasis #estilistica"
   change="#chg-notas-division"
   source="p2009:153">
-  La palabra cueros se refiere tanto a ‘cueros de vino’ como a la ‘desnudez’. De nuevo, pues, se juega con dos palabras homónimas.
+  La palabra <term>cueros</term> se refiere tanto a ‘cueros de vino’ como a la ‘desnudez’. De nuevo, pues, se juega con dos palabras homónimas.
 </note>
 
 <note
@@ -1654,7 +1711,7 @@
   ana="#parafrasis"
   change="#chg-notas-division"
   source="p2009:153">
-  Esteban asegura que el vino da más ánimos (aceros) y calor (por enero) a los guerreros que las armas del metal del mismo nombre.
+  Esteban asegura que el vino da más ánimos (<term>aceros</term>) y calor (<term>por enero</term>) a los <term>guerreros</term> que las <term>armas</term> del metal del mismo nombre.
 </note>
 
 <note
@@ -1663,7 +1720,7 @@
   ana="#lexica"
   change="#chg-notas-division"
   source="p2009:153">
-  El verbo aforrar significa ‘vestir, abrigar’.
+  El verbo <term>aforrar</term> significa ‘vestir, abrigar’.
 </note>
 
 <note
@@ -1672,24 +1729,33 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:154">
-  pecho: ‘tributo’.
+  <term>pecho</term>: ‘tributo’.
 </note>
 
 <note
   xml:id="n-584-1"
   target="texto:seg-584-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
   source="p2009:155">
-  ‘a vuestros pies’. La espadaña y la juncia son dos tipos de plantas con los que se han adornado las calles para recibir al Comendador.
+  ‘a vuestros pies’.
+</note>
+
+<note
+  xml:id="n-584-2"
+  target="texto:seg-583-1 texto:seg-584-2"
+  ana="#realia"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
+  source="p2009:155">
+  La <term>espadaña</term> y la <term>juncia</term> son dos tipos de plantas con los que se han adornado las calles para recibir al Comendador.
 </note>
 
 <note
   xml:id="n-589-1"
   target="texto:l-589-a"
-  ana="#parafrasis"
-  change="#chg-notas-prolope-2009"
-  source="p2009:156"> <!-- //DUDA ¿explicativa? -->
+  ana="#dramaturgica #estilistica"
+  change="#chg-notas-prolope-2009 #chg-notas-cotejo-2026-11-05"
+  source="p2009:156">
   Nótese la sequedad de las respuestas de Fernán Gómez, quien, tal vez, ha entendido la ironía solapada del discurso del alcalde.
 </note>
 
@@ -1708,7 +1774,7 @@
   ana="#lexica #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:158">
-  huera: ‘fuera’; de nuevo, se representa el habla sayaguesa.
+  <term>huera</term>: ‘fuera’; de nuevo, se representa el habla sayaguesa.
 </note>
 
 <note
@@ -1726,7 +1792,7 @@
   ana="#estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:160">
-  Entrá: ‘¡Entrad!’. Flores usa una forma apocopada, aunque inmediatamente utiliza la forma plena.
+  <term>Entrá</term>: ‘¡Entrad!’. Flores usa una forma apocopada, aunque inmediatamente utiliza la forma plena.
 </note>
 
 <note
@@ -1735,7 +1801,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:161">
-  ¡Harre!: interjección que manifiesta desprecio o enfado, y que se emplea para rechazar a alguien.
+  ¡<term>Harre</term>!: interjección que manifiesta desprecio o enfado, y que se emplea para rechazar a alguien.
 </note>
 
 <note
@@ -1753,7 +1819,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:163">
-  presentadas: ‘incluidas, ofrecidas’.
+  <term>presentadas</term>: ‘incluidas, ofrecidas’.
 </note>
 
 <note
@@ -1762,7 +1828,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:164">
-  estremadas: aquí ‘extremadamente tozudas’.
+  <term>estremadas</term>: aquí ‘extremadamente tozudas’.
 </note>
 
 <note
@@ -1780,7 +1846,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:166">
-  sufrir: ‘soportar’.
+  <term>sufrir</term>: ‘soportar’.
 </note>
 
 <note
@@ -1798,7 +1864,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:168">
-  medrar: mejorar de situación económica o social.
+  <term>medrar</term>: mejorar de situación económica o social.
 </note>
 
 <note
@@ -1807,7 +1873,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:169">
-  presto: ‘rápido’.
+  <term>presto</term>: ‘rápido’.
 </note>
 
 <note
@@ -1816,7 +1882,7 @@
   ana="#escenica"
   change="#chg-notas-prolope-2009 #chg-notas-ids-2026-11-02"
   source="p2009:170">
-  La escena se traslada al palacio de los Reyes Católicos, Fernando e Isabel, a quienes acompaña el Maestre de Santiago, don Rodrigo Manrique, padre del poeta Jorge Manrique.
+  La escena se traslada al palacio de los Reyes Católicos, <term>Fernando</term> e <term>Isabel</term>, a quienes acompaña el Maestre de Santiago, don Rodrigo <term>Manrique</term>, padre del poeta Jorge Manrique.
 </note>
 
 <note
@@ -1825,7 +1891,7 @@
   ana="#historica"
   change="#chg-notas-sin-guia"
   source="p2009:172">
-  Es decir, Alfonso V de Portugal tiene el ejército en la frontera (puesto) y prepara (previene) el ataque a los castellanos.
+  Es decir, <term>Alfonso</term> V de <term>Portugal</term> tiene el ejército en la frontera (<term>puesto</term>) y prepara (<term>previene</term>) el ataque a los castellanos.
 </note>
 
 <note
@@ -1834,7 +1900,7 @@
   ana="#estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:171">
-  Alfonso, entiéndase ‘a Alfonso’: en la sintaxis de la época la preposición se podía embeber en la vocal siguiente si la palabra empezaba por «a-» (como más adelante, v. 776, «tirando viene algún corzo», ‘a algún corzo’).
+  <term>Alfonso</term>, entiéndase ‘a Alfonso’: en la sintaxis de la época la preposición se podía embeber en la vocal siguiente si la palabra empezaba por «a-» (como más adelante, v. 776, «tirando viene algún corzo», ‘a algún corzo’).
 </note>
 
 <note
@@ -1843,7 +1909,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:173">
-  La reina Isabel sostiene que conviene adelantarse (ganar por la mano) y atacar primero , de lo contrario, es obvio (está llano) que se seguirá la derrota (daño).
+  La reina Isabel sostiene que conviene adelantarse (<term>ganar por la mano</term>) y atacar primero , de lo contrario, es obvio (<term>está llano</term>) que se seguirá la derrota (<term>daño</term>).
 </note>
 
 <note
@@ -1852,7 +1918,7 @@
   ana="#historica"
   change="#chg-notas-prolope-2009"
   source="p2009:174">
-  El rey Fernando quiere emprender una reforma política (reformación) para asegurar el triunfo (suceso) de la reina Isabel en la sucesión al trono de Castilla.
+  El rey Fernando quiere emprender una reforma política (<term>reformación</term>) para asegurar el triunfo (<term>suceso</term>) de la reina Isabel en la sucesión al trono de <term>Castilla</term>.
 </note>
 
 <note
@@ -1861,7 +1927,7 @@
   ana="#parafrasis #historica"
   change="#chg-notas-sin-guia"
   source="p2009:175">
-  Es decir, dos representantes del gobierno de Ciudad Real (dos regidores) esperan que se les conceda audiencia. La escena tiene raíces históricas como puede verse en la Crónica de Rades.
+  Es decir, dos representantes del gobierno de <term>Ciudad Real</term> (<term>dos regidores</term>) esperan que se les conceda audiencia. La escena tiene raíces históricas como puede verse en la <hi rend="italic">Crónica</hi> de Rades.
 </note>
 
 <note
@@ -1870,7 +1936,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:176">
-  hado: ‘destino’.
+  <term>hado</term>: ‘destino’.
 </note>
 
 <note
@@ -1879,7 +1945,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:177">
-  estremado: ‘extremado’, es decir ‘admirable’
+  <term>estremado</term>: ‘extremado’, es decir ‘admirable’
 </note>
 
 <note
@@ -1888,16 +1954,16 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:178">
-  Es decir, para aumentar las posesiones y la honra (ensanchar el honor) de la encomienda, sitió (puso apretado cerco) Ciudad Real.
+  Es decir, para aumentar las posesiones y la honra (<term>ensanchar el honor</term>) de la encomienda, sitió (<term>puso apretado cerco</term>) Ciudad Real.
 </note>
 
 <note
   xml:id="n-686-1"
   target="texto:l-683 texto:l-684 texto:l-685 texto:l-686"
-  ana="#historica"
-  change="#chg-notas-prolope-2009"
-  source="p2009:179"> <!-- //DUDA ¿nuevo tipo dramática? -->
-  Esto es, por la victoria de Fernán Gómez, Ciudad Real deja de pertenecer a la Corona de Castilla y pasa a depender de la Orden de Calatrava (sus vasallos seremos). La queja de los regidores pone de manifiesto que el Comendador ha abusado de sus prerrogativas al desafiar el poder de la Reina.
+  ana="#historica #dramaturgica"
+  change="#chg-notas-prolope-2009 #chg-notas-cotejo-2026-11-05"
+  source="p2009:179">
+  Esto es, por la victoria de Fernán Gómez, Ciudad Real deja de pertenecer a la Corona de Castilla y pasa a depender de la Orden de Calatrava (<term>sus vasallos seremos</term>). La queja de los regidores pone de manifiesto que el Comendador ha abusado de sus prerrogativas al desafiar el poder de la Reina.
 </note>
 
 <note
@@ -1906,7 +1972,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:180">
-  de todo contento ajenos: ‘descontentos’.
+  <term>de todo contento ajenos</term>: ‘descontentos’.
 </note>
 
 <note
@@ -1915,7 +1981,7 @@
   ana="#historica"
   change="#chg-notas-prolope-2009"
   source="p2009:181">
-  La victoria de Fernán Gómez sobre Ciudad Real puede facilitar la entrada (puerta segura) a los ejércitos de Alfonso V de Portugal que están preparados en la frontera.
+  La victoria de Fernán Gómez sobre Ciudad Real puede facilitar la entrada (<term>puerta segura</term>) a los ejércitos de <term>Alfonso</term> V de <term>Portugal</term> que están preparados en la frontera.
 </note>
 
 <note
@@ -1924,7 +1990,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:182">
-  luego: ‘enseguida’.
+  <term>luego</term>: ‘enseguida’.
 </note>
 
 <note
@@ -1933,7 +1999,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:183">
-  compañía: soldados que militan bajo las órdenes de un capitán.
+  <term>compañía</term>: soldados que militan bajo las órdenes de un capitán.
 </note>
 
 <note
@@ -1942,7 +2008,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:184">
-  demasías: ‘excesos’.
+  <term>demasías</term>: ‘excesos’.
 </note>
 
 <note
@@ -1951,7 +2017,7 @@
   ana="#historica"
   change="#chg-notas-sin-guia"
   source="p2009:185">
-  Se trata del conde de Cabra, Diego Fernández de Córdoba, mariscal de Baena.
+  Se trata del <term>conde</term> de <term>Cabra</term>, Diego Fernández de <term>Córdoba</term>, mariscal de Baena.
 </note>
 
 <note
@@ -1960,7 +2026,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:186">
-  como de tan gran valor: ‘digna de vuestro valor’.
+  <term>como de tan gran valor</term>: ‘digna de vuestro valor’.
 </note>
 
 <note
@@ -1969,7 +2035,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:187">
-  A medio torcer los paños: ‘Mientras lavaba la ropa’.
+  <term>A medio torcer los paños</term>: ‘Mientras lavaba la ropa’.
 </note>
 
 <note
@@ -1978,7 +2044,7 @@
   ana="#parafrasis #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:188">
-  Para evitar que las muchachas que frecuentan el paraje murmuren (dar que decir), Laurencia se aparta del arroyo y le reprocha a Frondoso que todo el pueblo esté al tanto de sus pretensiones (que me miras y te miro) y los vigile (todos nos traen sobre ojo). Los arroyos, como las fuentes y los ríos, ya en la lírica tradicional eran lugares de encuentro amoroso.
+  Para evitar que las muchachas que frecuentan el paraje murmuren (<term>dar que decir</term>), Laurencia se aparta del <term>arroyo</term> y le reprocha a Frondoso que todo el pueblo esté al tanto de sus pretensiones (<term>que me miras y te miro</term>) y los vigile (<term>todos nos traen sobre ojo</term>). Los arroyos, como las fuentes y los ríos, ya en la lírica tradicional eran lugares de encuentro amoroso.
 </note>
 
 <note
@@ -1987,7 +2053,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:189">
-  brïoso: ‘animoso, airoso’, aquí con valor de adverbio.
+  <term>brïoso</term>: ‘animoso, airoso’, aquí con valor de adverbio.
 </note>
 
 <note
@@ -1996,7 +2062,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:190">
-  vistes bizarro y costoso: ‘vistes de forma vistosa y cara’.
+  <term>vistes bizarro y costoso</term>: ‘vistes de forma vistosa y cara’.
 </note>
 
 <note
@@ -2004,8 +2070,8 @@
   target="texto:l-738"
   ana="#parafrasis #intertextual"
   change="#chg-notas-prolope-2009"
-  source="p2009:191"> <!-- //DUDA ¿también estilística? -->
-  que ya para en uno somos: ‘que ya estamos prometidos’. Que ya para en uno somos es variación de la fórmula legal ‘ser para en uno’, documentada desde antiguo en canciones de boda. Lope la usó, por ejemplo, en la canción de boda de Peribáñez, “pues hoy para en uno son”, vv. 145, 165.
+  source="p2009:191">
+  <term>que ya para en uno somos</term>: ‘que ya estamos prometidos’. <term>Que ya para en uno somos</term> es variación de la fórmula legal ‘ser para en uno’, documentada desde antiguo en canciones de boda. Lope la usó, por ejemplo, en la canción de boda de <hi rend="italic">Peribáñez</hi>, “pues hoy para en uno son”, vv. 145, 165.
 </note>
 
 <note
@@ -2014,7 +2080,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:192">
-  Los versos parecen aludir a las amonestaciones previas al matrimonio que había que anunciar en la iglesia (eche de -o desde- la tribuna). Tal anuncio habría de hacerse después de que dejaran de sonar los piporros, instrumento de viento parecido al órgano.
+  Los versos parecen aludir a las amonestaciones previas al matrimonio que había que anunciar en la iglesia (<term>eche de</term> -o desde- <term>la tribuna</term>). Tal anuncio habría de hacerse después de que dejaran de sonar los <term>piporros</term>, instrumento de viento parecido al órgano.
 </note>
 
 <note
@@ -2023,7 +2089,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:194">
-  Laurencia, que desconfía de las intenciones de su amante, sostiene que prefiere que una buena cosecha llene las despensas de los labradores (atestadas y colmadas) a que se cumpla lo que el pueblo murmura (imaginación) sobre las intenciones amorosas de Frondoso, pues esa cuestión ni le quita el sueño (ni me desvela ni aflige) ni la preocupa (ni en ella el cuidado pongo).
+  Laurencia, que desconfía de las intenciones de su amante, sostiene que prefiere que una buena cosecha llene las despensas de los labradores (<term>atestadas y colmadas</term>) a que se cumpla lo que el pueblo murmura (<term>imaginación</term>) sobre las intenciones amorosas de Frondoso, pues esa cuestión ni le quita el sueño (<term>ni me desvela ni aflige</term>) ni la preocupa (<term>ni en ella el cuidado pongo</term>).
 </note>
 
 <note
@@ -2032,7 +2098,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:193">
-  trojes: ‘graneros’.
+  <term>trojes</term>: ‘graneros’.
 </note>
 
 <note
@@ -2041,7 +2107,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:195">
-  que tomo... la vida: ‘pongo en peligro mi vida’. Frondoso se siente mortalmente herido por los desdenes de Laurencia.
+  <term>que tomo... la vida</term>: ‘pongo en peligro mi vida’. Frondoso se siente mortalmente herido por los desdenes de Laurencia.
 </note>
 
 <note
@@ -2050,7 +2116,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:196">
-  cuidadoso: ‘preocupado, apenado’.
+  <term>cuidadoso</term>: ‘preocupado, apenado’.
 </note>
 
 <note
@@ -2059,7 +2125,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:197">
-  Frondoso se autodiagnostica la enfermedad de amor: dominado por el recuerdo de la amada (imaginando en ti), ni bebe ni duerme ni come.
+  Frondoso se autodiagnostica la enfermedad de amor: dominado por el recuerdo de la amada (<term>imaginando en ti</term>), ni bebe ni duerme ni come.
 </note>
 
 <note
@@ -2068,7 +2134,7 @@
   ana="#intertextual"
   change="#chg-notas-prolope-2009"
   source="p2009:198">
-  La dama de angélico rostro es tópico petrarquista.
+  La dama de <term>angélico rostro</term> es tópico petrarquista.
 </note>
 
 <note
@@ -2077,16 +2143,16 @@
   ana="#lexica #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:199">
-  salúdate: ‘cúrate de la rabia’. Es juego de palabras con el rabio del verso anterior.
+  <term>salúdate</term>: ‘cúrate de la rabia’. Es juego de palabras con el <term>rabio</term> del verso anterior.
 </note>
 
 <note
   xml:id="n-768-1"
   target="texto:seg-768-1"
   ana="#realia"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-anclas-2026-11-05"
   source="p2009:200">
-  Los palomos son símbolo de los bien casados.
+  Los <term>palomos</term> son símbolo de los bien casados.
 </note>
 
 <note
@@ -2095,7 +2161,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:201">
-  Laurencia aconseja a su amante que trate del matrimonio con su tío Juan Rojo, probablemente su padrino. Está claro que las honradas intenciones matrimoniales del enamorado han ablandado a la dama, que admite sentir ya algo de amor (algunos asomos).
+  Laurencia aconseja a su amante que trate del matrimonio con su tío <term>Juan Rojo</term>, probablemente su padrino. Está claro que las honradas intenciones matrimoniales del enamorado han ablandado a la dama, que admite sentir ya algo de amor (<term>algunos asomos</term>).
 </note>
 
 <note
@@ -2104,16 +2170,16 @@
   ana="#dramaturgica #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:202">
-  La escena de caza adquiere carácter simbólico al comparar el Comendador a Laurencia con una gama. La alegoría de la caza de amor es frecuente en el romancero y en la lírica tradicional.
+  La escena de caza adquiere carácter simbólico al comparar el Comendador a Laurencia con una <term>gama</term>. La alegoría de la caza de amor es frecuente en el romancero y en la lírica tradicional.
 </note>
 
 <note
   xml:id="n-790-1"
   target="texto:seg-786-1 texto:seg-788-1 texto:seg-790-1"
   ana="#estilistica #parafrasis"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-anclas-2026-11-05"
   source="p2009:203">
-  <term>monstro</term> o ‘monstruo’ es híbrido de animales de distinta naturaleza. Aquí es metáfora blasfema. El Comendador la usa cínicamente para poner de manifiesto que la resistencia de Laurencia, que él califica de desdenes <term>toscos</term>, no se aviene con su hermosura (<term>gracias</term>), que es don que ha recibido del Cielo, es decir, de Dios.
+  <term>monstro</term> o ‘monstruo’ es híbrido de animales de distinta naturaleza. Aquí es metáfora blasfema. El Comendador la usa cínicamente para poner de manifiesto que la resistencia de Laurencia, que él califica de <term>desdenes toscos</term>, no se aviene con su hermosura (<term>gracias</term>), que es don que ha recibido del <term>Cielo</term>, es decir, de Dios.
 </note>
 
 <note
@@ -2212,7 +2278,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:213">
-  nuez: parte de la ballesta que se usa para armar la cuerda.
+  <term>nuez</term>: parte de la ballesta que se usa para armar la cuerda.
 </note>
 
 <note
@@ -2239,14 +2305,14 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:216">
-  Las <term>leyes de la caballería</term> prohibían que un noble luchara con un plebeyo y por eso el Comendador no puede dirigir (<term>volver</term>) su espada contra él.
+  Las leyes de la caballería prohibían que un noble luchara con un plebeyo y por eso el Comendador no puede dirigir (<term>volver</term>) su <term>espada</term> contra él.
 </note>
 
 <note
   xml:id="n-853-1"
   target="texto:seg-852-853-a texto:seg-852-853-b"
   ana="#parafrasis"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-anclas-2026-11-05"
   source="p2009:217">
   <term>me conformo con mi estado</term>, es decir, Frondoso asume su condición de campesino y renuncia a la rebeldía, entre otros motivos, porque sabe que matar a un noble se castiga con la pena capital.
 </note>
@@ -2266,7 +2332,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:219">
-  <term>corro:</term> ‘avergüenzo’.
+  <term>corro</term>: ‘avergüenzo’.
 </note>
 
 <!--NOTAS ACTO SEGUNDO-->
@@ -2276,7 +2342,7 @@
   ana="#dramaturgica"
   change="#chg-notas-prolope-2009"
   source="p2009:220"> 
-  La acción se desarrolla ahora en la plaza de Fuenteovejuna. El Regidor Iº debe de ser el Cuadrado de los vv. 2114-2116.
+  La acción se desarrolla ahora en la plaza de Fuenteovejuna. El <term>Regidor Iº</term> debe de ser el Cuadrado de los vv. 2114-2116.
 </note>
 
 <note
@@ -2285,7 +2351,7 @@
   ana="#parafrasis #realia"
   change="#chg-notas-prolope-2009"
   source="p2009:221">
-  Esto es, ‘Que yo conserve la salud, como así parece, si atino cuando aconsejo que no se saquee más el granero municipal (pósito)’, donde se almacenaba el grano para hacer frente a los períodos de escasez. La primera parte del enunciado, (Así tenga salud, como parece) es una fórmula enfática.
+  Esto es, ‘Que yo conserve la salud, como así parece, si atino cuando aconsejo que no se saquee más el granero municipal (<term>pósito</term>)’, donde se almacenaba el grano para hacer frente a los períodos de escasez. La primera parte del enunciado, (<term>Así tenga salud, como parece</term>) es una fórmula enfática.
 </note>
 
 <note
@@ -2375,7 +2441,7 @@
   ana="#parafrasis #realia"
   change="#chg-notas-prolope-2009"
   source="p2009:231">
-  Esteban remata su queja denunciando la impostura de los astrólogos. Si fallan, por ejemplo, al pronosticar la muerte de alguien importante (<term>cabeza</term>), se defienden diciendo que esta ha tenido lugar en <term>Transilvania</term>, lugar alejado y entonces muy conflictivo. Si, por el contrario, aciertan, a la postre los pronósticos no son más que lugares comunes, como la abundancia de <term>cerveza</term> en Alemania, los habituales problemas de la cosecha de cerezas en la provincia francesa de <term>Gascuña</term>, o la desde antiguo ponderadísima abundancia de tigres en <term>Hircania</term>, Asia Menor.
+  Esteban remata su queja denunciando la impostura de los astrólogos. Si fallan, por ejemplo, al pronosticar la muerte de alguien importante (<term>cabeza</term>), se defienden diciendo que esta ha tenido lugar en <term>Transilvania</term>, lugar alejado y entonces muy conflictivo. Si, por el contrario, aciertan, a la postre los pronósticos no son más que lugares comunes, como la abundancia de <term>cerveza</term> en <term>Alemania</term>, los habituales problemas de la cosecha de cerezas en la provincia francesa de <term>Gascuña</term>, o la desde antiguo ponderadísima abundancia de <term>tigres</term> en <term>Hircania</term>, Asia Menor.
 </note>
 
 <note
@@ -2384,7 +2450,7 @@
   ana="#parafrasis #realia"
   change="#chg-notas-prolope-2009"
   source="p2009:232">
-  <term>A fe que no ganéis la palmatoria</term>, es decir, no sois el primero en llegar. En las escuelas, ganaba la palmatoria, palma con la que se aplicaban los castigos corporales, el muchacho que llegaba el primero a clase.
+  <term>A fe que no ganéis la palmatoria</term>, es decir, no sois el primero en llegar. En las escuelas, <term>ganaba la palmatoria</term>, palma con la que se aplicaban los castigos corporales, el muchacho que llegaba el primero a clase.
 </note>
 
 <note
@@ -2481,9 +2547,9 @@
   xml:id="n-931-1"
   target="texto:l-928 texto:l-929 texto:l-930 texto:l-931"
   ana="#parafrasis #realia"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-cotejo-2026-11-05"
   source="p2009:243">
-  Leonelo sostiene que no descuella en el época ningún autor de la talla de <term>san Jerónimo</term> ni de <term>san Agustín</term>, los dos Padres de la Iglesia más admirados por los humanistas.
+  Leonelo sostiene que no descuella en la época ningún autor de la talla de <term>san Jerónimo</term> ni de <term>san Agustín</term>, los dos Padres de la Iglesia más admirados por los humanistas.
 </note>
 
 <note
@@ -2501,7 +2567,7 @@
   ana="#ecdotica"
   change="#chg-notas-prolope-2009"
   source="p2009:245">
-  Para el correcto cómputo del verso debe considerarse que la h- de <term>haciendas</term> es aspirada.
+  Para el correcto cómputo del verso debe considerarse que la <hi rend="italic">h-</hi> de <term>haciendas</term> es aspirada.
 </note>
 
 <note
@@ -2618,7 +2684,7 @@
   ana="#realia #intertextual"
   change="#chg-notas-prolope-2009"
   source="p2009:258">
-  La traducción castellana de <term>la Política</term> de Aristóteles circulaba desde 1584. La recomendación del Comendador está cargada de cinismo, pues supone una interpretación abusiva de la defensa del imperio de la ley contenida en el tratado.
+  La traducción castellana de la <hi rend="italic">Política</hi> de <term>Aristóteles</term> circulaba desde 1584. La recomendación del Comendador está cargada de cinismo, pues supone una interpretación abusiva de la defensa del imperio de la ley contenida en el tratado.
 </note>
 
 <note
@@ -2636,7 +2702,7 @@
   ana="#parafrasis #realia"
   change="#chg-notas-prolope-2009"
   source="p2009:260">
-  Entiéndase ‘algunos freiles de Calatrava no son de sangre tan limpia’. Se inicia aquí un debate sobre la limpieza de sangre. Esteban defiende implícitamente la condición de cristiano viejo del hombre del campo frente a la posible ascendencia judía de muchos de los nobles que han ingresado en las órdenes militares.
+  Entiéndase ‘algunos freiles de Calatrava no son de sangre tan limpia’. Se inicia aquí un debate sobre la limpieza de <term>sangre</term>. Esteban defiende implícitamente la condición de cristiano viejo del hombre del campo frente a la posible ascendencia judía de muchos de los nobles que han ingresado en las órdenes militares.
 </note>
 
 <note
@@ -2645,14 +2711,14 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:261">
-  tiñe: ‘mancha’.
+  <term>tiñe</term>: ‘mancha’.
 </note>
 
 <note
-  xml:id="n-997-1"
-  target="texto:l-997"
+  xml:id="n-998-1"
+  target="texto:l-997 texto:l-998"
   ana="#parafrasis"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-anclas-2026-11-05"
   source="p2009:262">
   El Comendador se jacta de otorgar honra a las mujeres al gozar de sus favores.
 </note>
@@ -2821,10 +2887,10 @@
 </note>
 
 <note
-  xml:id="n-1069-1"
-  target="texto:seg-1069-1"
+  xml:id="n-1068-1"
+  target="texto:seg-1068-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-division-versos-2026-11-05"
   source="p2009:280">
   <term>desposado</term>: ‘prometido’.
 </note>
@@ -2835,7 +2901,7 @@
   ana="#lexica #ecdotica"
   change="#chg-notas-prolope-2009"
   source="p2009:281">
-  <term>visitalla</term>: ‘visitarla’. La asimilación rl > ll es arcaísmo propio de la lengua literaria del siglo XVII (más casos en v. 1214: «guardalla»; v. 1390: «acetallo»; v. 1635: «dalle», etc.), aunque alterna con la presencia de formas sin asimilación (vv. 412, 680, 710…).
+  <term>visitalla</term>: ‘visitarla’. La asimilación <hi rend="italic">rl</hi> > <hi rend="italic">ll</hi> es arcaísmo propio de la lengua literaria del siglo XVII (más casos en v. 1214: «guardalla»; v. 1390: «acetallo»; v. 1635: «dalle», etc.), aunque alterna con la presencia de formas sin asimilación (vv. 412, 680, 710…).
 </note>
 
 <note
@@ -2880,7 +2946,7 @@
   ana="#realia #intertextual"
   change="#chg-notas-prolope-2009"
   source="p2009:286">
-  En el libro de la <hi rend="italic">Física</hi>, desarrolla Aristóteles (<term>el Filósofo</term> del v. 1092) la teoría del hilemorfismo, cuya base teórica es el axioma de que todo lo creado está formado por materia (lo imperfecto o contingente) y forma (lo perfecto o necesario): en el reparto entre el género humano, a la mujer le tocó la materia y al hombre, la forma; así, para sentirse completa, la mujer o materia, ha de buscar una forma, el hombre, que la complete o perfeccione. En el pasaje se oyen claros ecos de <hi rend="italic">La Celestina</hi>.
+  En el libro de la <hi rend="italic">Física</hi>, desarrolla Aristóteles (<term>el Filósofo</term> del v. 1092) la teoría del hilemorfismo, cuya base teórica es el axioma de que todo lo creado está formado por <term>materia</term> (lo imperfecto o contingente) y <term>forma</term> (lo perfecto o necesario): en el reparto entre el género humano, a la mujer le tocó la materia y al hombre, la forma; así, para sentirse completa, la mujer o materia, ha de buscar una forma, el hombre, que la complete o perfeccione. En el pasaje se oyen claros ecos de <hi rend="italic">La Celestina</hi>.
 </note>
 
 <note
@@ -2907,7 +2973,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:289">
-  Le exhorta a que cambie (<term>trueca</term>) el sombrero verde de caza (<term>montera</term>) por el blanco de soldado, y su capote (<term>gabán</term>) por la armadura, a fin de que entre en batalla.
+  Le exhorta a que cambie (<term>trueca</term>) el sombrero <term>verde</term> de caza (<term>montera</term>) por el <term>blanco</term> de soldado, y su capote (<term>gabán</term>) por la armadura, a fin de que entre en batalla.
 </note>
 
 <note
@@ -3033,7 +3099,7 @@
   ana="#intertextual #realia"
   change="#chg-notas-prolope-2009"
   source="p2009:303">
-  El motivo de la crianza con leche de tigre parece proceder de la Eneida (IV, 367), de Virgilio, donde Dido atribuye tal crianza a Eneas por la crueldad de haberla dejado abandonada en Cartago. Por otra parte, era una creencia popular que el carácter se transmitía por la leche que mamaba el niño.
+  El motivo de la crianza con leche de <term>tigre</term> parece proceder de la <hi rend="italic">Eneida</hi> (IV, 367), de Virgilio, donde Dido atribuye tal crianza a Eneas por la crueldad de haberla dejado abandonada en Cartago. Por otra parte, era una creencia popular que el carácter se transmitía por la leche que mamaba el niño.
 </note>
 
 <note
@@ -3060,7 +3126,7 @@
   ana="#mitologica"
   change="#chg-notas-prolope-2009"
   source="p2009:306">
-  Se refiere a que, muy probablemente, la honda y las piedras arrojadizas fueron las primeras armas del mundo, pues dice el <hi rend="italic">Génesis</hi> (4, 8) que con ellas Caín mató a Abel.
+  Se refiere a que, muy probablemente, la honda y las <term>piedras</term> arrojadizas fueron las primeras <term>armas</term> del mundo, pues dice el <hi rend="italic">Génesis</hi> (4, 8) que con ellas Caín mató a Abel.
 </note>
 
 <note
@@ -3114,7 +3180,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:312">
-  Jacinta recrimina con ironía al Comendador que sea él quien ataque su honor en vez de protegerlo.
+  Jacinta recrimina con ironía al Comendador que sea él quien ataque su <term>honor</term> en vez de protegerlo.
 </note>
 
 <note
@@ -3141,7 +3207,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:315">
-  ‘Has de formar parte del equipaje (bagaje) de los soldados’, es decir, el Comendador la entrega para servir sexualmente al ejército.
+  ‘Has de formar parte del equipaje (<term>bagaje</term>) de los soldados’, es decir, el Comendador la entrega para servir sexualmente al ejército.
 </note>
 
 <note
@@ -3150,7 +3216,7 @@
   ana="#parafrasis"
   change="#chg-notas-sin-guia"
   source="p2009:316">
-  Véase cómo tanto Mengo como Jacinta hacen hincapié en el castigo que merece la crueldad del Comendador. Estas apelaciones al juicio divino ayudan a justificar los acontecimientos posteriores.
+  Véase cómo tanto Mengo como Jacinta hacen hincapié en el castigo que merece la <term>crueldad</term> del Comendador. Estas apelaciones al juicio divino ayudan a justificar los acontecimientos posteriores.
 </note>
 
 <note
@@ -3195,7 +3261,7 @@
   ana="#parafrasis #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:321">
-  ‘si mi lealtad a ti ha alcanzado el objetivo de merecer tu amor, de ser correspondido’. Se trata de una metáfora náutica: el amante es un barco en una tormenta y el amor de su amada es el puerto al que quiere llegar.
+  ‘si mi lealtad a ti ha alcanzado el objetivo de merecer tu amor, de ser correspondido’. Se trata de una metáfora náutica: el amante es un barco en una tormenta y el amor de su amada es el <term>puerto</term> al que quiere llegar.
 </note>
 
 <note
@@ -3240,7 +3306,7 @@
   ana="#dramaturgica"
   change="#chg-notas-prolope-2009"
   source="p2009:326">
-  Esteban y el Alcalde son la misma persona; el Regidor es Juan Rojo, tío de Laurencia.
+  <term>Esteban</term> y el <term>Alcalde</term> son la misma persona; el <term>Regidor</term> es Juan Rojo, tío de Laurencia.
 </note>
 
 <note
@@ -3256,9 +3322,9 @@
   xml:id="n-1326-1"
   target="texto:seg-1326-1"
   ana="#lexica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-cotejo-2026-11-05"
   source="p2009:328">
-  <term>sinrazón</term>: ‘acción fuera de lo razonable’.
+  <term>sinrazón</term>: acción fuera de lo razonable.
 </note>
 
 <note
@@ -3267,16 +3333,16 @@
   ana="#historica #dramaturgica"
   change="#chg-notas-prolope-2009"
   source="p2009:329">
-  Anacronismo. Los Reyes Católicos no reciben este sobrenombre hasta 1494, y los hechos de Fuenteovejuna sucedieron en 1476. El uso del título durante la obra, sin embargo, los caracteriza como reyes legítimos cuya autoridad está por encima de la del Comendador.
+  Anacronismo. Los <term>Reyes Católicos</term> no reciben este sobrenombre hasta 1494, y los hechos de Fuenteovejuna sucedieron en 1476. El uso del título durante la obra, sin embargo, los caracteriza como reyes legítimos cuya autoridad está por encima de la del Comendador.
 </note>
 
 <note
-  xml:id="n-1333-1"
-  target="texto:l-1333"
+  xml:id="n-1334-1"
+  target="texto:l-1333 texto:l-1334"
   ana="#historica #estilistica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-anclas-2026-11-05"
   source="p2009:330">
-   <term>Santiago</term> alude por metonimia a don Rodrigo Manrique, Maestre de Santiago, al frente de la conquista de Ciudad Real para los Reyes Católicos. También hace referencia a Santiago, patrón de España, que según la leyenda se aparecía en los campos de batalla sobre un caballo blanco para ayudar en la Reconquista.
+   <term>Santiago</term> alude por metonimia a don Rodrigo Manrique, Maestre de Santiago, al frente de la conquista de Ciudad Real para los Reyes Católicos. También hace referencia a Santiago, patrón de España, que según la leyenda se aparecía en los campos de batalla sobre un <term>caballo</term> blanco para ayudar en la Reconquista.
 </note>
 
 <note
@@ -3501,7 +3567,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:355">
-  ‘Nuestro pendón de Calatrava, que bastaría para justificar la acción enemiga y que vale tanto como el resto de pendones juntos, no está entre sus despojos’. El Maestre, aunque ha perdido la batalla, celebra conservar el pendón de Calatrava.
+  ‘Nuestro pendón de Calatrava, que bastaría para justificar la acción enemiga y que vale tanto como el resto de pendones juntos, no está entre sus despojos’. El Maestre, aunque ha perdido la batalla, celebra conservar el <term>pendón</term> de <term>Calatrava</term>.
 </note>
 
 <note
@@ -3519,7 +3585,7 @@
   ana="#mitologica"
   change="#chg-notas-prolope-2009"
   source="p2009:357">
-  La <term>Fortuna</term> solía representarse inconstante y ciega.
+  La <term>Fortuna</term> solía representarse inconstante y <term>ciega</term>.
 </note>
 
 <note
@@ -3573,7 +3639,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:363">
-  El Maestre lamenta su inexperiencia (sus <term>pocos años</term>).
+  El Maestre lamenta su inexperiencia (<term>sus pocos años</term>).
 </note>
 
 <note
@@ -3609,7 +3675,7 @@
   ana="#ecdotica"
   change="#chg-notas-prolope-2009"
   source="p2009:367">
-  No estamos seguros de que éste sea verso de Lope de Vega (pues aparece sólo en la segunda edición, B); es, en cualquier caso, necesario para completar la estrofa.
+  No estamos seguros de que éste sea verso de Lope de Vega (pues aparece sólo en la segunda edición, <hi rend="italic">B</hi>); es, en cualquier caso, necesario para completar la estrofa.
 </note>
 
 <note
@@ -3618,7 +3684,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:368">
-  ‘Que le hayan practicado una lavativa <term>a un hombre</term> (a uno, es decir, a Mengo) en la que pusieron, para mayor escarnio del humillado, piedras pequeñas (<term>chinas</term>) y <term>tinta</term>’.
+  ‘Que le hayan practicado una lavativa <term>a un hombre</term> (<term>a uno</term>, es decir, a Mengo) en la que pusieron, para mayor escarnio del humillado, piedras pequeñas (<term>chinas</term>) y <term>tinta</term>’.
 </note>
 
 <note
@@ -3627,7 +3693,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:369">
-  <term>razonable</term>: ‘aceptable’, refiriéndose a la calidad poética de la copla.
+  <term>razonable</term>: ‘aceptable’, refiriéndose a la calidad poética de la <term>copla</term>.
 </note>
 
 <note
@@ -3789,7 +3855,7 @@
   ana="#parafrasis #realia"
   change="#chg-notas-prolope-2009"
   source="p2009:387">
-  <term>niña en cabellos</term>: doncella o virgen; en cabello o en cabellos: ‘con los cabellos al descubierto’; la mujer solía llevarlos así, sin toca, ni cofia, hasta que se casaba.
+  <term>niña en cabellos</term>: doncella o virgen; <term>en cabello</term> o <term>en cabellos</term>: ‘con los cabellos al descubierto’; la mujer solía llevarlos así, sin toca, ni cofia, hasta que se casaba.
 </note>
 
 <note
@@ -3951,7 +4017,7 @@
   ana="#estilistica #realia"
   change="#chg-notas-prolope-2009"
   source="p2009:405">
-  <term>por traer cruces</term>: por una parte, hace referencia a la cruz de Calatrava (grande en su prestigio) y, por otra, hace alusión a la carga (grande en su peso) que supone el mal uso del cargo de comendador al conjunto de la sociedad.
+  <term>por traer cruces</term>: por una parte, hace referencia a la cruz de Calatrava (<term>grande</term> en su prestigio) y, por otra, hace alusión a la carga (<term>grande</term> en su peso) que supone el mal uso del cargo de comendador al conjunto de la sociedad.
 </note>
 
 <note
@@ -3960,7 +4026,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:406">
-  <term>¡Hola!</term>: exclamación con que se llama a un inferior (para darle una orden).
+  ¡<term>Hola</term>!: exclamación con que se llama a un inferior (para darle una orden).
 </note>
 
 <note
@@ -3978,14 +4044,14 @@
   ana="#lexica #estilistica"
   change="#chg-notas-prolope-2009"
   source="p2009:408">
-  Mengo juega con dos de los sentidos de cardenal: ‘hematoma o morado’ y ‘dignidad eclesiástica’ que se encuentra en Roma.
+  Mengo juega con dos de los sentidos de <term>cardenal</term>: ‘hematoma o morado’ y ‘dignidad eclesiástica’ que se encuentra en Roma.
 </note>
 
 <note
   xml:id="n-1653-1"
-  target="texto:seg-1653-1"
+  target="texto:l-1652 texto:l-1653"
   ana="#lexica #realia #estilistica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-anclas-2026-11-05"
   source="p2009:409">
   ‘Las nalgas (<term>los atabales</term>) coloradas como rodajas (<term>ruedas</term>) de salmón’; el atabal, un tambor militar, es aquí eufemismo de nalgas.
 </note>
@@ -4060,7 +4126,7 @@
   ana="#lexica #historica #dramaturgica"
   change="#chg-notas-prolope-2009"
   source="p2009:417">
-  <term>se apresta</term>: ‘está prevista’. Lope altera ligeramente las fechas históricas para modelar el contexto dramático. Los hechos de Fuenteovejuna tuvieron lugar en 1476, y los Reyes Católicos se desplazaron a Córdoba a finales de 1478 y principios de 1479.
+  <term>se apresta</term>: ‘está prevista’. Lope altera ligeramente las fechas históricas para modelar el contexto dramático. Los hechos de Fuenteovejuna tuvieron lugar en 1476, y los Reyes Católicos se desplazaron a <term>Córdoba</term> a finales de 1478 y principios de 1479.
 </note>
 
 <note
@@ -4078,7 +4144,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:419">
-  Echarse a los pies de alguien era signo de respeto y humildad.
+  Echarse a los <term>pies</term> de alguien era signo de respeto y humildad.
 </note>
 
 <note
@@ -4140,8 +4206,8 @@
   target="texto:seg-1696-1"
   ana="#lexica"
   change="#chg-notas-prolope-2009"
-  source="p2009:426"> <!-- //DUDA: vara ya está anotado la primera vez que aparece, la siguiente no, y ahora otra vez sí -->
-  vara: ‘vara de mando’, símbolo de autoridad.
+  source="p2009:426">
+  <term>vara</term>: ‘vara de mando’, símbolo de autoridad.
 </note>
 
 <note
@@ -4265,7 +4331,7 @@
   xml:id="n-1760-1"
   target="texto:seg-1760-1"
   ana="#estilistica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-anclas-2026-11-05"
   source="p2009:440">
   Aquí, <term>oveja</term> se convierte en símbolo de la cobardía.
 </note>
@@ -4383,7 +4449,7 @@
   target="texto:seg-1789-1"
   ana="#lexica"
   change="#chg-notas-prolope-2009"
-  source="p2009:453"> <!-- //DUDA: las notas de historia de la lengua, ¿son léxicas? -->
+  source="p2009:453">
   <term>del almena</term>: era habitual que se utilizase el artículo masculino ante sustantivos que empezaban con a- átona.
 </note>
 
@@ -4474,7 +4540,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:463">
-  ‘El gran agravio que has sufrido exige que seas tú, Jacinta, el cabo (oficial) de nuestro ejército’.
+  ‘El gran agravio que has sufrido exige que seas tú, Jacinta, el <term>cabo</term> (oficial) de nuestro ejército’.
 </note>
 
 <note
@@ -4510,7 +4576,7 @@
   ana="#dramaturgica"
   change="#chg-notas-prolope-2009"
   source="p2009:467">
-  Laurencia considera que las tocas son suficiente estandarte de su ejército.
+  Laurencia considera que las <term>tocas</term> son suficiente estandarte de su ejército.
 </note>
 
 <note
@@ -4717,7 +4783,7 @@
   ana="#lexica #dramaturgica"
   change="#chg-notas-prolope-2009"
   source="p2009:490">
-  <term>teñid</term>: ‘manchad’. Laurencia da la orden a las mujeres de teñir sus armas con la sangre de los hombres del Comendador.
+  <term>teñid</term>: ‘manchad’. Laurencia da la orden a las mujeres de <term>teñir</term> sus <term>armas</term> con la sangre de los hombres del Comendador.
 </note>
 
 <note
@@ -4839,9 +4905,9 @@
 
 <note
   xml:id="n-1971-1"
-  target="texto:seg-1971-1 texto:l-1971"
+  target="texto:l-1971"
   ana="#lexica #parafrasis"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-anclas-2026-11-05"
   source="p2009:503">
   <term>acumula</term>: ‘atribuye’. ‘Que le atribuye el pueblo’.
 </note>
@@ -4852,7 +4918,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:504">
-  Se refiere a la cruz bordada en el pecho del Comendador.
+  Se refiere a la cruz bordada en el <term>pecho</term> del Comendador.
 </note>
 
 <note
@@ -4879,7 +4945,7 @@
   ana="#lexica #realia #intertextual"
   change="#chg-notas-sin-guia"
   source="p2009:507">
-  <term>mesa</term>: ‘arranca’. Arrancar las barbas era considerado una grave deshonra. Este castigo remite a la Crónica de Rades, donde se menciona que al comendador Fernán Gómez ‘le arrancaron las barbas y cabellos con grande crueldad’.
+  <term>mesa</term>: ‘arranca’. Arrancar las barbas era considerado una grave deshonra. Este castigo remite a la <hi rend="italic">Crónica</hi> de Rades, donde se menciona que al comendador Fernán Gómez ‘le arrancaron las barbas y cabellos con grande crueldad’.
 </note>
 
 <note
@@ -4897,7 +4963,7 @@
   ana="#realia #dramaturgica"
   change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:509">
-  Las armas hacen referencia a los escudos y emblemas. El pueblo busca borrar las armas que pertenecían a Fernán Gómez y representaban su linaje (pues les ofenden, les avergüenzan), y colocar, en su lugar, las reales armas, es decir, las de los Reyes Católicos.
+  Las <term>armas</term> hacen referencia a los escudos y emblemas. El pueblo busca <term>borrar</term> las <term>armas</term> que pertenecían a Fernán Gómez y representaban su linaje (pues <term>les ofenden</term>, les avergüenzan), y colocar, en su lugar, las <term>reales armas</term>, es decir, las de los Reyes Católicos.
 </note>
 
 <note
@@ -4915,7 +4981,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:511">
-  rigor: ‘dureza’.
+  <term>rigor</term>: ‘dureza’.
 </note>
 
 <note
@@ -4924,7 +4990,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009 #chg-notas-conversion-2026-11-02"
   source="p2009:512">
-  luego: ‘inmediatamente’.
+  <term>luego</term>: ‘inmediatamente’.
 </note>
 
 <note
@@ -4933,14 +4999,14 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:513">
-  Se trata de un ‘juez pesquisidor’, el que era enviado a investigar sobre algún delito o reo.
+  Se trata de un ‘<term>juez pesquisidor</term>’, el que era enviado a investigar sobre algún delito o reo.
 </note>
 
 <note
   xml:id="n-2029-1"
   target="texto:seg-2029-1"
   ana="#escenica"
-  change="#chg-notas-reanclaje"
+  change="#chg-notas-reanclaje #chg-notas-anclas-2026-11-05"
   source="p2009:514">
   Normalmente este tipo de cabezas se hacían con cera o cartón.
 </note>
@@ -4969,7 +5035,7 @@
   ana="#ecdotica #estilistica"
   change="#chg-notas-division"
   source="p2009:516">
-  Curiosamente, la copla presenta alguna irregularidad, como la rima imperfecta entre los términos manos, años y tiranos. Además, a la copla de Frondoso no le falta, sino que le sobra un verso en comparación con las que a continuación cantan Barrildo y Mengo.
+  Curiosamente, la copla presenta alguna irregularidad, como la rima imperfecta entre los términos <term>manos</term>, <term>años</term> y <term>tiranos</term>. Además, a la copla de Frondoso no le falta, sino que le sobra un verso en comparación con las que a continuación cantan Barrildo y Mengo.
 </note>
 
 <note
@@ -4978,7 +5044,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:517">
-  <seg>curioso</seg>: ‘esmerado, cuidadoso’.
+  <term>curioso</term>: ‘esmerado, cuidadoso’.
 </note>
 
 <note
@@ -4996,7 +5062,7 @@
   ana="#mitologica"
   change="#chg-notas-prolope-2009"
   source="p2009:519">
-  El arcángel san Miguel es el encargado de decidir qué almas serán llevadas ante Dios.
+  El arcángel san <term>Miguel</term> es el encargado de decidir qué almas serán llevadas ante Dios.
 </note>
 
 <note
@@ -5023,7 +5089,7 @@
   ana="#lexica #realia"
   change="#chg-notas-prolope-2009"
   source="p2009:522">
-  <term>poeta donado</term>: ‘aficionado, no profesional’. En rigor el donado o ‘lego’ entraba en una orden o congregación religiosa, sin opción a las sagradas órdenes, para dedicarse al servicio de la misma.
+  <term>poeta donado</term>: ‘aficionado, no profesional’. En rigor el <term>donado</term> o ‘lego’ entraba en una orden o congregación religiosa, sin opción a las sagradas órdenes, para dedicarse al servicio de la misma.
 </note>
 
 <note
@@ -5068,7 +5134,7 @@
   ana="#estilistica #dramaturgica"
   change="#chg-notas-prolope-2009"
   source="p2009:527">
-  <term>Cristiánigos</term>: tanto esta palabra como el tiránigos del verso siguiente son términos deformados en boca de Mengo que forman dos versos esdrújulos para cerrar la copla de forma cómica.
+  <term>Cristiánigos</term>: tanto esta palabra como el <term>tiránigos</term> del verso siguiente son términos deformados en boca de Mengo que forman dos versos esdrújulos para cerrar la copla de forma cómica.
 </note>
 
 <note
@@ -5077,7 +5143,7 @@
   ana="#escenica"
   change="#chg-notas-prolope-2009"
   source="p2009:528">
-  Una vez más, se hace referencia a la cabeza del Comendador.
+  Una vez más, se hace referencia a la <term>cabeza</term> del Comendador.
 </note>
 
 <note
@@ -5095,7 +5161,7 @@
   ana="#historica"
   change="#chg-notas-prolope-2009 #chg-notas-ana-2026-11-02 #chg-notas-ids-2026-11-02"
   source="p2009:530">
-  <term>las armas</term>: hay que entender ‘armas reales’. Juan Rojo saca el escudo de los Reyes Católicos para manifestar la decisión del pueblo de dejar de estar sujeto a la encomienda de la Orden de Calatrava y supeditarse estrictamente al poder real.
+  <term>las armas</term>: hay que entender ‘armas reales’. Juan Rojo saca el <term>escudo</term> de los Reyes Católicos para manifestar la decisión del pueblo de dejar de estar sujeto a la encomienda de la Orden de Calatrava y supeditarse estrictamente al poder real.
 </note>
 
 <note
@@ -5181,9 +5247,9 @@
 
 <note
   xml:id="n-2105-1"
-  target="texto:l-2104-b texto:l-2105-a"
+  target="texto:seg-2105-1"
   ana="#estilistica #dramaturgica"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-anclas-2026-11-05"
   source="p2009:540">
   Juego con el doble sentido de la palabra <term>flaco</term>. Por una parte, se opone al aspecto físico de Mengo que, como veremos en los vv. 2239-2240, es gordo y, por otra, ha de entenderse en su significado de ‘débil, cobarde’.
 </note>
@@ -5194,7 +5260,7 @@
   ana="#realia"
   change="#chg-notas-prolope-2009"
   source="p2009:541">
-  <term>otra vuelta</term>: la tortura se llevaba a cabo en el denominado potro. En este instrumento formado por un bastidor o una banqueta el preso era atado por todo el cuerpo, incluyendo las extremidades, con fuertes cuerdas que al ser giradas por unos tornos producían opresión en el cuerpo y la dislocación de las extremidades.
+  <term>otra vuelta</term>: la tortura se llevaba a cabo en el denominado <term>potro</term>. En este instrumento formado por un bastidor o una banqueta el preso era atado por todo el cuerpo, incluyendo las extremidades, con fuertes cuerdas que al ser giradas por unos tornos producían opresión en el cuerpo y la dislocación de las extremidades.
 </note>
 
 <note
@@ -5221,7 +5287,7 @@
   ana="#dramaturgica"
   change="#chg-notas-prolope-2009"
   source="p2009:544">
-  El Regidor estaba ya en escena. Quizás saliera tras su intervención del v. 2076 y Lope no lo señalara por descuido.
+  El <term>Regidor</term> estaba ya en escena. Quizás saliera tras su intervención del v. 2076 y Lope no lo señalara por descuido.
 </note>
 
 <note
@@ -5284,7 +5350,7 @@
   ana="#parafrasis"
   change="#chg-notas-prolope-2009"
   source="p2009:551">
-  Versos de interpretación dudosa. Es muy probable que el Maestre se esté preguntando en qué momento se ha hecho pleito sobre lo que el Rey ha puesto en manos de la encomienda.
+  Versos de interpretación dudosa. Es muy probable que el Maestre se esté preguntando en qué momento se ha hecho <term>pleito</term> sobre lo que el Rey ha puesto en manos de la <term>encomienda</term>.
 </note>
 
 <note
@@ -5387,12 +5453,12 @@
 </note>
 
 <note
-  xml:id="n-2216-1"
-  target="texto:seg-2216-1"
+  xml:id="n-2214-1"
+  target="texto:seg-2214-1"
   ana="#parafrasis #realia"
-  change="#chg-notas-prolope-2009"
+  change="#chg-notas-prolope-2009 #chg-notas-anclas-2026-11-05"
   source="p2009:563">
-  El Juez se dirige al verdugo que está encargado de realizar la tortura para que gire el torno del potro. Más adelante le llamará borracho e infame porque, aunque la profesión de verdugo era necesaria, se consideraba despreciable.
+  El Juez se dirige al verdugo que está encargado de realizar la tortura para que gire el torno del potro. Más adelante le llamará <term>borracho</term> e <term>infame</term> porque, aunque la profesión de verdugo era necesaria, se consideraba despreciable.
 </note>
 
 <note
@@ -5461,9 +5527,9 @@
   xml:id="n-2250-1"
   target="texto:seg-2250-b"
   ana="#lexica"
-  change="#chg-notas-division"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
   source="p2009:570">
-  <term>Quedo</term>: ‘quieto’.
+  <term>Quedo</term>: ‘Quieto’.
 </note>
 
 <note
@@ -5512,10 +5578,10 @@
 </note>
 
 <note
-  xml:id="n-2267-2"
-  target="texto:seg-2267-1"
+  xml:id="n-2271-1"
+  target="texto:l-2271"
   ana="#intertextual"
-  change="#chg-notas-reanclaje"
+  change="#chg-notas-reanclaje #chg-notas-anclas-2026-11-05"
   source="p2009:575">
   Refrán inventado sobre el modelo habitual «El que...» o «Quien...».
 </note>
@@ -5607,7 +5673,7 @@
   ana="#lexica"
   change="#chg-notas-prolope-2009"
   source="p2009:585">
-  <term>le tuerza</term>: ‘lo tuerza’, el paso.
+  <term>le tuerza</term>: ‘lo tuerza’, <term>el paso</term>.
 </note>
 
 <note
@@ -5634,7 +5700,7 @@
   ana="#historica #dramaturgica"
   change="#chg-notas-prolope-2009"
   source="p2009:588">
-  Para dar mayor cohesión dramática a la obra, Lope altera la cronología histórica, puesto que realmente don Rodrigo, según la <hi rend="italic">Crónica de Rades</hi>, se reconcilió con los Reyes Católicos varios años después.
+  Para dar mayor cohesión dramática a la obra, Lope altera la cronología histórica, puesto que realmente don <term>Rodrigo</term>, según la <hi rend="italic">Crónica</hi> de Rades, se reconcilió con los Reyes Católicos varios años después.
 </note>
 
 <note
@@ -5679,7 +5745,7 @@
   ana="#parafrasis"
   change="#chg-notas-division"
   source="p2009:594">
-  El Maestre murió en 1482, sirviendo a los Reyes Católicos en la Guerra de Granada.
+  El Maestre murió en 1482, sirviendo a los Reyes Católicos en la Guerra de <term>Granada</term>.
 </note>
 
 <note
@@ -5724,7 +5790,7 @@
   ana="#mitologica"
   change="#chg-notas-prolope-2009"
   source="p2009:596">
-  El Maestre compara a los Reyes Católicos con estos dos personajes bíblicos. Jerjes I fue rey de Persia en el siglo V a. C. y un célebre guerrero, y su esposa Ester salvó al pueblo judío de la persecución del visir Amán.
+  El Maestre compara a los Reyes Católicos con estos dos personajes bíblicos. <term>Jerjes</term> I fue rey de Persia en el siglo V a. C. y un célebre guerrero, y su esposa <term>Ester</term> salvó al pueblo judío de la persecución del visir Amán.
 </note>
 
 <note
@@ -5823,7 +5889,7 @@
   ana="#historica"
   change="#chg-notas-prolope-2009"
   source="p2009:607">
-  El emperador romano Nerón (siglo I d. C.), como paradigma de hombre cruel, lascivo y tirano por antonomasia, es equiparado al Comendador.
+  El emperador romano <term>Nerón</term> (siglo I d. C.), como paradigma de hombre cruel, lascivo y tirano por antonomasia, es equiparado al Comendador.
 </note>
 
 <note
@@ -5913,7 +5979,7 @@
   ana="#historica"
   change="#chg-notas-prolope-2009"
   source="p2009:617">
-  En realidad, según la <hi rend="italic">Crónica de Rades</hi>, la villa pasó a estar bajo la jurisdicción de la ciudad de Córdoba.
+  En realidad, según la <hi rend="italic">Crónica</hi> de Rades, la villa pasó a estar bajo la jurisdicción de la ciudad de Córdoba.
 </note>
 
 <note
