@@ -494,6 +494,15 @@ tei-roledesc {
   display: inline;
 }
 
+// Líneas del reparto que PROLOPE 2009 añade entre corchetes
+tei-castitem > tei-role > tei-supplied::before {
+  content: "[";
+}
+
+tei-castitem > tei-roledesc > tei-supplied::after {
+  content: "]";
+}
+
 .lectura-wrapper .text-column tei-castList tei-role {
   color: $color-text;
   font-weight: 300;

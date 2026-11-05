@@ -196,6 +196,8 @@
           <personGrp xml:id="gente">
             <name>Gente de Ciudad Real</name></personGrp></listPerson></particDesc></profileDesc>
     <revisionDesc>
+      <change when="2026-11-05" who="#DMR">En el reparto se marcan como añadidas las dos líneas que PROLOPE 2009 pone entre corchetes («Regidor 2, llamado Cuadrado» y «Leonelo, licenciado por Salamanca»).</change>
+      <change when="2026-11-05" who="#DMR">El reparto vuelve a dar a Esteban y Alonso en una sola línea, como en PROLOPE 2009, con sus identificadores.</change>
       <change when="2026-11-04" who="#DMR">Se quitan los comentarios con los pasajes del laboratorio, que pasan a estar solo en el JSON de pasajes.</change>
       <change when="2026-11-04" who="#DMR">Versión 3.0: se cotejan el texto y las notas con PROLOPE 2009; se renumeran los parlamentos y se renombran los segmentos de acotación y sus notas; se corrige la atribución de hablantes a parlamentos, y se añade relaciones.xml, que vincula el texto con la colección digital.</change>
       <change when="2026-11-03" who="#DMR">Versión 2.0, asignada a posteriori al estado del 6 de mayo de 2026: se reordenan y parten algunos versos, se renumeran los identificadores del texto base y se añaden los de las acotaciones y el reparto; se marcan las estrofas; las notas se anclan a sus pasajes y se clasifican por categorías, y sus identificadores pasan a derivarse del último verso anotado.</change>
@@ -255,10 +257,8 @@
             <role corresp="#juan_rojo" xml:id="dp-juan_rojo">Juan Rojo</role></castItem>
             <castItem>
             <role corresp="#esteban" xml:id="dp-esteban">Esteban</role>
-            <roleDesc>alcalde</roleDesc></castItem>
-            <castItem>
             <role corresp="#alonso" xml:id="dp-alonso">Alonso</role>
-            <roleDesc>alcalde</roleDesc></castItem>
+            <roleDesc>alcaldes</roleDesc></castItem>
             <castItem>
             <role corresp="#fernando" xml:id="dp-fernando">Rey don Fernando</role></castItem>
             <castItem>
@@ -268,8 +268,8 @@
             <castItem>
             <role corresp="#cuadrado" xml:id="dp-regidor">Un regidor</role></castItem>
             <castItem>
-            <role corresp="#cuadrado" xml:id="dp-cuadrado">Regidor 2</role>
-            <roleDesc>llamado Cuadrado</roleDesc></castItem>
+            <role corresp="#cuadrado" xml:id="dp-cuadrado"><supplied reason="omitted">Regidor 2</supplied></role>
+            <roleDesc><supplied reason="omitted">llamado Cuadrado</supplied></roleDesc></castItem>
             <castItem>
             <role corresp="#cimbranos" xml:id="dp-cimbranos">Cimbranos</role>
             <roleDesc>soldado</roleDesc></castItem>
@@ -285,8 +285,8 @@
             <castItem>
             <role corresp="#musicos" xml:id="dp-musicos">La música</role></castItem>
             <castItem>
-            <role corresp="#leonelo" xml:id="dp-leonelo">Leonelo</role>
-            <roleDesc>licenciado por Salamanca</roleDesc></castItem>
+            <role corresp="#leonelo" xml:id="dp-leonelo"><supplied reason="omitted">Leonelo</supplied></role>
+            <roleDesc><supplied reason="omitted">licenciado por Salamanca</supplied></roleDesc></castItem>
         </castList>
         <div type="act" n="1">
           <head type="act-head">ACTO PRIMERO</head>
