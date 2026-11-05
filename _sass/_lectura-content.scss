@@ -499,6 +499,11 @@ tei-castitem > tei-role > tei-supplied::before {
   content: "[";
 }
 
+// Sin coma entre el rol impreso y el añadido entre corchetes que lo sigue
+tei-castitem > tei-role:has(+ tei-role > tei-supplied)::after {
+  content: none;
+}
+
 tei-castitem > tei-roledesc > tei-supplied::after {
   content: "]";
 }
