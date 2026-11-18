@@ -30,11 +30,11 @@ Todo `<sp>` lleva `@who` con la persona o el grupo declarado en `listPerson`. La
 
 ## Comprobar los archivos
 
-El script `scripts/collection/validar_tei.py` (repositorio `fuenteovejuna-data`) valida los tres archivos contra `tei_all` con jing y comprueba lo que el esquema no ve: enlaces de notas y relaciones, identificadores repetidos, `@change`, `@source`, `@who`, personas sin uso, la misma edición en los tres y `@cert` en las relaciones. Se ejecuta antes de cerrar cada versión.
+El script `scripts/collection/validar_tei.py` (repositorio `fuenteovejuna-data`) valida los tres archivos contra el esquema con jing, aplica sus reglas Schematron y comprueba lo que el esquema no ve: enlaces de notas y relaciones, identificadores repetidos, `@change`, `@source`, `@who`, personas sin uso, la misma edición en los tres y `@cert` en las relaciones. Se ejecuta antes de cerrar cada versión.
 
 ## Esquema
 
-`schema/fuenteovejuna.odd` es la personalización de TEI de la edición, y `schema/fuenteovejuna.rng` y `schema/fuenteovejuna.sch` se generan a partir de él. Los tres archivos los declaran en su `xml-model`, junto con `tei_all`, para que Scholarly XML los valide al editar.
+`schema/fuenteovejuna.odd` es la personalización de TEI de la edición, y `schema/fuenteovejuna.rng` y `schema/fuenteovejuna.sch` se generan a partir de él. Los tres archivos los declaran en su `xml-model` para que Scholarly XML los valide al editar.
 
 El RELAX NG admite solo los elementos que usan los tres archivos, cierra los valores de los atributos con vocabulario propio (`div/@type`, `l/@part`, `milestone/@unit`, `supplied/@reason`, `sp/@cert`, `relation/@cert`…) y hace obligatorios `sp/@who`, `corr/@resp`, `reg/@resp`, `relation/@cert` y los atributos de cada nota. El Schematron comprueba dentro de cada archivo los patrones de los identificadores (`sp-N` correlativos, `l-N` y sus partes, `stg-V`, `seg-V-k`, `dp-…`, `n-V-k`, `rel-…`), que `@n` vaya solo en la parte inicial de un verso partido, que `@who`, `@corresp`, `@resp`, `@ana` y `@change` remitan a algo declarado en el mismo archivo y que cada prefijo esté declarado con `prefixDef` y cumpla su patrón.
 
