@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="schema/fuenteovejuna.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="schema/fuenteovejuna.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="es">
   <teiHeader>
@@ -22,7 +24,7 @@
         </respStmt>
       </titleStmt>
       <editionStmt>
-        <edition>v4.0</edition></editionStmt>
+        <edition>v5.0</edition></editionStmt>
       <publicationStmt>
         <publisher>PROLOPE, Universitat Autònoma de Barcelona</publisher>
         <pubPlace>Bellaterra</pubPlace>
@@ -121,6 +123,8 @@
       </particDesc>
     </profileDesc>
     <revisionDesc>
+      <change when="2026-11-18" who="#DMR">Versión 5.0: los tres archivos se validan con un esquema propio, en schema/, y se corrigen los identificadores y las referencias que no seguían sus patrones.</change>
+      <change xml:id="chg-notas-ids-2026-11-18" when="2026-11-18" who="#DMR">Se declara el esquema propio en el xml-model. Las notas siguen el cambio de nombre de sus anclas: n-2250-1 apunta a seg-2250-1, y n-2029-1 y n-2126-1, que anotan segmentos de acotación, pasan a n-stg-2029-1 y n-stg-2126-1. En n-2104-1 se añade a l-2101 el prefijo texto:, que faltaba.</change>
       <change when="2026-11-05" who="#DMR">Versión 4.0: tras cotejar con PROLOPE 2009 el texto y las notas, se corrigen puntuación y división de versos, se marcan los añadidos, se revisan cursivas y term, se dividen notas y se restituye «los» en el v. 542.</change>
       <change xml:id="chg-notas-anclas-2026-11-05" when="2026-11-05" who="#DMR">Se ajustan las anclas de varias notas y se renombran n-997-1 (n-998-1), n-1333-1 (n-1334-1), n-2216-1 (n-2214-1) y n-2267-2 (n-2271-1).</change>
       <change xml:id="chg-notas-cotejo-2026-11-05" when="2026-11-05" who="#DMR">Tras cotejar las notas con PROLOPE 2009, se corrigen la errata «en el época» y el punto final en n-931-1; se restituyen ‘Quieto’ en n-2250-1, la glosa sin comillas en n-1326-1 y las comillas tipográficas en n-203-1 y n-480-1, y el marcado de cursivas pasa a seguir a PROLOPE. Se corrige «vendedore» por «vencedore» en n-528-2 y se revisa la clasificación de n-537-1, n-589-1 y n-686-1. Se dividen por lemas n-43-1, n-286-1, n-467-1, n-542-1, n-559-1 y n-584-1, y se amplía el marcado de term a lo que las notas mencionan del pasaje.</change>
@@ -5003,10 +5007,10 @@
 </note>
 
 <note
-  xml:id="n-2029-1"
-  target="texto:seg-2029-1"
+  xml:id="n-stg-2029-1"
+  target="texto:seg-stg-2029-1"
   ana="#escenica"
-  change="#chg-notas-reanclaje #chg-notas-anclas-2026-11-05"
+  change="#chg-notas-reanclaje #chg-notas-anclas-2026-11-05 #chg-notas-ids-2026-11-18"
   source="p2009:514">
   Normalmente este tipo de cabezas se hacían con cera o cartón.
 </note>
@@ -5238,7 +5242,7 @@
 
 <note
   xml:id="n-2104-1"
-  target="texto:l-2099-b texto:l-2100 l-2101 texto:l-2102 texto:l-2103 texto:l-2104-a"
+  target="texto:l-2099-b texto:l-2100 texto:l-2101 texto:l-2102 texto:l-2103 texto:l-2104-a"
   ana="#parafrasis #realia"
   change="#chg-notas-prolope-2009"
   source="p2009:539">
@@ -5300,10 +5304,10 @@
 </note>
 
 <note
-  xml:id="n-2126-1"
-  target="texto:seg-2126-1"
+  xml:id="n-stg-2126-1"
+  target="texto:seg-stg-2126-1"
   ana="#dramaturgica"
-  change="#chg-notas-reanclaje"
+  change="#chg-notas-reanclaje #chg-notas-ids-2026-11-18"
   source="p2009:546">
   La acción ahora transcurre en una sala del castillo de la Orden de Calatrava.
 </note>
@@ -5525,9 +5529,9 @@
 </note>
 <note
   xml:id="n-2250-1"
-  target="texto:seg-2250-b"
+  target="texto:seg-2250-1"
   ana="#lexica"
-  change="#chg-notas-division #chg-notas-cotejo-2026-11-05"
+  change="#chg-notas-division #chg-notas-cotejo-2026-11-05 #chg-notas-ids-2026-11-18"
   source="p2009:570">
   <term>Quedo</term>: ‘Quieto’.
 </note>

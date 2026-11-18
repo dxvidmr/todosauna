@@ -18,7 +18,7 @@ En los enlaces, `texto:` apunta a un elemento del texto base, `cb:` a un objeto 
 
 ## Versiones, `change` y procedencia
 
-Se numera una versión cuando se cierra un conjunto de cambios que conviene poder citar. Sube el mayor si una referencia a la versión anterior (un número de verso, un identificador) deja de apuntar a lo mismo, y sube el menor si cambia el contenido (lecturas, notas, hablantes, relaciones) y las referencias siguen valiendo. Los cambios se acumulan hasta la versión siguiente. Cada versión lleva un `change` «Versión X.Y: explicación breve de qué cambia.» y una etiqueta de Git `vX.Y`.
+Se numera una versión cuando se cierra un conjunto de cambios que conviene poder citar. Sube el mayor si una referencia a la versión anterior (un número de verso, un identificador) deja de apuntar a lo mismo, y sube el menor si cambia el contenido (lecturas, notas, hablantes, relaciones) y las referencias siguen valiendo. Los cambios se acumulan hasta la versión siguiente. Cada versión lleva un `change` «Versión X.Y: explicación breve de qué cambia.» y una etiqueta de Git `edicion-vX.Y`. Cuando se deposite la tesis, ese estado llevará la etiqueta `tesis-deposito` en este repositorio y en `fuenteovejuna-data` y se publicará, para que quede registro de cómo estaban los dos en el momento del depósito. Las versiones del portal, si se numeran, llevarán `portal-vX.Y`.
 
 El `revisionDesc` de cada archivo recoge lo que se hizo, con la fecha real, firmado por `#DMR` o quien sea autor del cambio y con lo más reciente arriba. Un `change` con fecha cuenta una intervención de ese día. Un identificador de `change` usado no se reutiliza. El historial del texto base anterior al 26 de enero de 2026 es aproximado, pues se reconstruyó de las copias de trabajo y de Git.
 
@@ -31,6 +31,23 @@ Todo `<sp>` lleva `@who` con la persona o el grupo declarado en `listPerson`. La
 ## Comprobar los archivos
 
 El script `scripts/collection/validar_tei.py` (repositorio `fuenteovejuna-data`) valida los tres archivos contra `tei_all` con jing y comprueba lo que el esquema no ve: enlaces de notas y relaciones, identificadores repetidos, `@change`, `@source`, `@who`, personas sin uso, la misma edición en los tres y `@cert` en las relaciones. Se ejecuta antes de cerrar cada versión.
+
+## Esquema
+
+`schema/fuenteovejuna.odd` es la personalización de TEI de la edición, y `schema/fuenteovejuna.rng` y `schema/fuenteovejuna.sch` se generan a partir de él. Los tres archivos los declaran en su `xml-model`, junto con `tei_all`, para que Scholarly XML los valide al editar (el Schematron requiere activar `sxml.schematronSupport`).
+
+El RELAX NG admite solo los elementos que usan los tres archivos, cierra los valores de los atributos con vocabulario propio (`div/@type`, `l/@part`, `milestone/@unit`, `supplied/@reason`, `sp/@cert`, `relation/@cert`…) y hace obligatorios `sp/@who`, `corr/@resp`, `reg/@resp`, `relation/@cert` y los atributos de cada nota. El Schematron comprueba dentro de cada archivo los patrones de los identificadores (`sp-N` correlativos, `l-N` y sus partes, `stg-V`, `seg-V-k`, `dp-…`, `n-V-k`, `rel-…`), que `@n` vaya solo en la parte inicial de un verso partido, que `@who`, `@corresp`, `@resp`, `@ana` y `@change` remitan a algo declarado en el mismo archivo y que cada prefijo esté declarado con `prefixDef` y cumpla su patrón.
+
+`validar_tei.py` comprueba los enlaces entre archivos (de las notas y las relaciones al texto base), que los tres tengan la misma edición, los pasajes del laboratorio, los rangos de las secciones métricas y la extensión de las estrofas.
+
+Para recompilar hacen falta Java, Saxon-HE 12 con xmlresolver, las TEI Stylesheets y el `p5subset.xml` de TEI P5, en `C:\Users\david\tools\tei\`. Desde `schema/`, en PowerShell:
+
+```powershell
+$T = "C:\Users\david\tools\tei"; $X = "$T\stylesheets\xml\tei\stylesheet\odds"; $CP = "$T\saxon-he-12.7.jar;$T\xmlresolver-5.3.3.jar"
+java -cp $CP net.sf.saxon.Transform -s:fuenteovejuna.odd -xsl:$X\odd2odd.xsl -o:$env:TEMP\fuenteovejuna.compiled.odd defaultSource=file:///C:/Users/david/tools/tei/p5subset-4.12.0.xml
+java -cp $CP net.sf.saxon.Transform -s:$env:TEMP\fuenteovejuna.compiled.odd -xsl:$X\odd2relax.xsl -o:fuenteovejuna.rng
+java -cp $CP net.sf.saxon.Transform -s:$env:TEMP\fuenteovejuna.compiled.odd -xsl:$X\extract-isosch.xsl -o:fuenteovejuna.sch "?langs=('es','en','und','mul','zxx')"
+```
 
 ## Licencia
 

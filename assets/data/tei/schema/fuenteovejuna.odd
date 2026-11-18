@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://vault.tei-c.org/P5/current/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:rng="http://relaxng.org/ns/structure/1.0" xml:lang="es">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Esquema de la edición digital de Fuenteovejuna</title>
+      </titleStmt>
+      <publicationStmt>
+        <p>Personalización de TEI para los archivos fuenteovejuna.xml, notas.xml y relaciones.xml del portal Todos a una.</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Se deduce de los propios archivos y del script validar_tei.py del repositorio fuenteovejuna-data.</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <p>El esquema admite solo los elementos que usan los tres archivos, cierra los valores de los atributos con
+        vocabulario propio y comprueba con Schematron los identificadores y las referencias internas de cada
+        archivo. Las referencias entre archivos las comprueba validar_tei.py.</p>
+
+      <schemaSpec ident="fuenteovejuna" start="TEI" prefix="tei_" targetLang="es" docLang="es">
+
+        <!-- 1. Elementos: solo los que aparecen en los tres archivos -->
+        <moduleRef key="tei"/>
+        <moduleRef key="core"
+          include="author bibl corr date editor head hi l label mentioned milestone name note p pubPlace publisher ref reg relatedItem resp respStmt sp speaker stage term title"/>
+        <moduleRef key="header"
+          include="appInfo application catDesc category change classDecl creation edition editionStmt editorialDecl encodingDesc fileDesc langUsage language listPrefixDef notesStmt prefixDef profileDesc projectDesc publicationStmt revisionDesc sourceDesc taxonomy teiHeader titleStmt"/>
+        <moduleRef key="textstructure" include="TEI body div text"/>
+        <moduleRef key="corpus" include="particDesc"/>
+        <moduleRef key="drama" include="castItem castList role roleDesc"/>
+        <moduleRef key="linking" include="seg standOff"/>
+        <moduleRef key="namesdates" include="listPerson listRelation persName person personGrp relation"/>
+        <moduleRef key="tagdocs" include="att gi val"/>
+        <moduleRef key="transcr" include="supplied"/>
+        <!-- analysis: ningún elemento; solo aporta el atributo global ana -->
+        <moduleRef key="analysis" except="s cl phr w m c pc span spanGrp interp interpGrp"/>
+
+        <!-- 2. Atributos globales que no se usan -->
+        <classSpec ident="att.global" type="atts" mode="change">
+          <attList>
+            <attDef ident="xml:base" mode="delete"/>
+            <attDef ident="xml:space" mode="delete"/>
+          </attList>
+        </classSpec>
+        <classSpec ident="att.global.rendition" type="atts" mode="change">
+          <attList>
+            <attDef ident="rendition" mode="delete"/>
+            <attDef ident="style" mode="delete"/>
+          </attList>
+        </classSpec>
+        <classSpec ident="att.global.linking" type="atts" mode="change">
+          <attList>
+            <attDef ident="synch" mode="delete"/>
+            <attDef ident="sameAs" mode="delete"/>
+            <attDef ident="copyOf" mode="delete"/>
+            <attDef ident="next" mode="delete"/>
+            <attDef ident="prev" mode="delete"/>
+            <attDef ident="exclude" mode="delete"/>
+            <attDef ident="select" mode="delete"/>
+          </attList>
+        </classSpec>
+        <classSpec ident="att.global.facs" type="atts" mode="change">
+          <attList>
+            <attDef ident="facs" mode="delete"/>
+          </attList>
+        </classSpec>
+
+        <!-- 3. Valores cerrados y atributos obligatorios -->
+        <elementSpec ident="div" mode="change">
+          <attList>
+            <attDef ident="type" mode="change" usage="req">
+              <valList type="closed" mode="replace">
+                <valItem ident="comedia"/>
+                <valItem ident="act"/>
+                <valItem ident="notas"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="head" mode="change">
+          <attList>
+            <attDef ident="type" mode="change">
+              <valList type="closed" mode="replace">
+                <valItem ident="comedia-head"/>
+                <valItem ident="castList-head"/>
+                <valItem ident="act-head"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="hi" mode="change">
+          <attList>
+            <attDef ident="rend" mode="change">
+              <valList type="closed" mode="replace">
+                <valItem ident="italic"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="sp" mode="change">
+          <attList>
+            <attDef ident="xml:id" mode="change" usage="req"/>
+            <attDef ident="who" mode="change" usage="req"/>
+            <attDef ident="cert" mode="change">
+              <valList type="closed" mode="replace">
+                <valItem ident="medium"/>
+                <valItem ident="low"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="l" mode="change">
+          <attList>
+            <attDef ident="xml:id" mode="change" usage="req"/>
+            <attDef ident="part" mode="change">
+              <valList type="closed" mode="replace">
+                <valItem ident="I"/>
+                <valItem ident="M"/>
+                <valItem ident="F"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="stage" mode="change">
+          <attList>
+            <attDef ident="xml:id" mode="change" usage="req"/>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="seg" mode="change">
+          <attList>
+            <attDef ident="xml:id" mode="change" usage="req"/>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="milestone" mode="change">
+          <attList>
+            <attDef ident="unit" mode="change">
+              <valList type="closed" mode="replace">
+                <valItem ident="metrical-section"/>
+                <valItem ident="metrical-subsection"/>
+                <valItem ident="stanza"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="role" mode="change">
+          <attList>
+            <attDef ident="xml:id" mode="change" usage="req"/>
+            <attDef ident="corresp" mode="change" usage="req"/>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="supplied" mode="change">
+          <attList>
+            <attDef ident="reason" mode="change" usage="req">
+              <valList type="closed" mode="replace">
+                <valItem ident="omitted"/>
+                <valItem ident="explanation"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="corr" mode="change">
+          <attList>
+            <attDef ident="resp" mode="change" usage="req"/>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="reg" mode="change">
+          <attList>
+            <attDef ident="resp" mode="change" usage="req"/>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="listPerson" mode="change">
+          <attList>
+            <attDef ident="type" mode="change">
+              <valList type="closed" mode="replace">
+                <valItem ident="responsibility"/>
+                <valItem ident="collective"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="persName" mode="change">
+          <attList>
+            <attDef ident="type" mode="change">
+              <valList type="closed" mode="replace">
+                <valItem ident="etiqueta"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="relatedItem" mode="change">
+          <attList>
+            <attDef ident="type" mode="change">
+              <valList type="closed" mode="replace">
+                <valItem ident="texto-base"/>
+                <valItem ident="notas"/>
+                <valItem ident="relaciones"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="note" mode="change">
+          <attList>
+            <attDef ident="xml:id" mode="change" usage="req"/>
+            <attDef ident="target" mode="change" usage="req"/>
+            <attDef ident="ana" mode="change" usage="req"/>
+            <attDef ident="change" mode="change" usage="req"/>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="listRelation" mode="change">
+          <attList>
+            <attDef ident="type" mode="change">
+              <valList type="closed" mode="replace">
+                <valItem ident="objetos"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <elementSpec ident="relation" mode="change">
+          <attList>
+            <attDef ident="xml:id" mode="change" usage="req"/>
+            <attDef ident="active" mode="change" usage="req"/>
+            <attDef ident="passive" mode="change" usage="req"/>
+            <attDef ident="cert" mode="change" usage="req">
+              <valList type="closed" mode="replace">
+                <valItem ident="high"/>
+                <valItem ident="medium"/>
+                <valItem ident="low"/>
+              </valList>
+            </attDef>
+            <attDef ident="name" mode="change" usage="req">
+              <valList type="closed" mode="replace">
+                <valItem ident="representa"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+
+        <!-- 4. Reglas Schematron: identificadores y referencias dentro de cada archivo -->
+        <!-- 4.1 fuenteovejuna.xml -->
+        <constraintSpec ident="fo-act" scheme="schematron">
+          <constraint>
+            <sch:rule context="tei:div[@type = 'act']">
+              <sch:assert test="matches(@n, '^[1-9]$')">Cada acto lleva n con su número (1, 2, 3).</sch:assert>
+            </sch:rule>
+          </constraint>
+        </constraintSpec>
+
+        <constraintSpec ident="fo-sp" scheme="schematron">
+          <constraint>
+            <sch:rule context="tei:sp">
+              <sch:assert test="@xml:id = concat('sp-', count(preceding::tei:sp) + 1)">El parlamento <sch:value-of select="@xml:id"/> debería ser sp-<sch:value-of select="count(preceding::tei:sp) + 1"/>: los parlamentos se numeran en el orden del documento.</sch:assert>
+              <sch:assert test="every $w in tokenize(normalize-space(@who), ' ') satisfies (starts-with($w, '#') and exists(id(substring($w, 2))[self::tei:person or self::tei:personGrp]))">who="<sch:value-of select="@who"/>" debe remitir (#id) a un person o personGrp declarado.</sch:assert>
+            </sch:rule>
+          </constraint>
+        </constraintSpec>
+
+        <constraintSpec ident="fo-l" scheme="schematron">
+          <constraint>
+            <sch:rule context="tei:l[not(@part)]">
+              <sch:assert test="matches(@n, '^[1-9][0-9]*$')">Un verso entero lleva n con su número.</sch:assert>
+              <sch:assert test="@xml:id = concat('l-', @n)">El verso <sch:value-of select="@n"/> debe tener xml:id="l-<sch:value-of select="@n"/>".</sch:assert>
+            </sch:rule>
+            <sch:rule context="tei:l[@part = 'I']">
+              <sch:assert test="matches(@n, '^[1-9][0-9]*$')">La parte inicial de un verso partido lleva n con su número.</sch:assert>
+              <sch:assert test="@xml:id = concat('l-', @n, '-a')">La parte inicial del verso <sch:value-of select="@n"/> debe tener xml:id="l-<sch:value-of select="@n"/>-a".</sch:assert>
+            </sch:rule>
+            <sch:rule context="tei:l[@part = ('M', 'F')]">
+              <sch:let name="inicio" value="preceding::tei:l[@part = 'I'][1]"/>
+              <sch:assert test="not(@n)">Solo la parte inicial de un verso partido lleva n.</sch:assert>
+              <sch:assert test="matches(@xml:id, concat('^l-', $inicio/@n, '-[b-z]$'))">La parte <sch:value-of select="@part"/> de un verso partido debe tener xml:id="l-<sch:value-of select="$inicio/@n"/>-b" (o -c...), con el número de su parte inicial.</sch:assert>
+            </sch:rule>
+          </constraint>
+        </constraintSpec>
+
+        <constraintSpec ident="fo-stage" scheme="schematron">
+          <constraint>
+            <sch:rule context="tei:stage">
+              <sch:let name="v" value="(preceding::tei:l[@n][1]/@n, '1')[1]"/>
+              <sch:assert test="matches(@xml:id, concat('^stg-', $v, '(-[1-9][0-9]*)?$'))">La acotación <sch:value-of select="@xml:id"/> sigue al verso <sch:value-of select="$v"/>: debe ser stg-<sch:value-of select="$v"/> o stg-<sch:value-of select="$v"/>-k.</sch:assert>
+            </sch:rule>
+          </constraint>
+        </constraintSpec>
+
+        <constraintSpec ident="fo-seg" scheme="schematron">
+          <constraint>
+            <sch:rule context="tei:seg[ancestor::tei:l]">
+              <sch:let name="id-verso" value="string(ancestor::tei:l[1]/@xml:id)"/>
+              <sch:let name="v" value="if (matches($id-verso, '^l-[0-9]+')) then xs:integer(replace($id-verso, '^l-([0-9]+).*$', '$1')) else -1"/>
+              <sch:assert test="matches(@xml:id, concat('^seg-', $v, '-[1-9][0-9]*$')) or @xml:id = concat('seg-', $v, '-', $v + 1, '-a') or @xml:id = concat('seg-', $v - 1, '-', $v, '-b')">El segmento <sch:value-of select="@xml:id"/> está en el verso <sch:value-of select="$v"/>: debe ser seg-<sch:value-of select="$v"/>-k (o seg-V-V+1-a / -b si cruza dos versos).</sch:assert>
+            </sch:rule>
+            <sch:rule context="tei:seg[ancestor::tei:stage]">
+              <sch:assert test="matches(@xml:id, concat('^seg-', ancestor::tei:stage[1]/@xml:id, '-[1-9][0-9]*$'))">El segmento <sch:value-of select="@xml:id"/> está en la acotación <sch:value-of select="ancestor::tei:stage[1]/@xml:id"/>: debe ser seg-<sch:value-of select="ancestor::tei:stage[1]/@xml:id"/>-k.</sch:assert>
+            </sch:rule>
+          </constraint>
+        </constraintSpec>
+
+        <constraintSpec ident="fo-role" scheme="schematron">
+          <constraint>
+            <sch:rule context="tei:role">
+              <sch:assert test="matches(@xml:id, '^dp-[a-z0-9_]+$')">El xml:id de un role empieza por dp-.</sch:assert>
+              <sch:assert test="starts-with(@corresp, '#') and exists(id(substring(@corresp, 2))[self::tei:person or self::tei:personGrp])">corresp="<sch:value-of select="@corresp"/>" debe remitir (#id) a un person o personGrp de este archivo.</sch:assert>
+            </sch:rule>
+          </constraint>
+        </constraintSpec>
+
+        <constraintSpec ident="fo-milestone" scheme="schematron">
+          <constraint>
+            <sch:rule context="tei:milestone">
+              <sch:report test="@unit = 'metrical-section' and not(matches(@n, '^[0-9]+-[0-9]+$'))">Una sección métrica lleva n con su rango de versos (por ejemplo, n="1-68").</sch:report>
+              <sch:assert test="every $a in tokenize(normalize-space(@ana), ' ') satisfies (starts-with($a, '#') and exists(id(substring($a, 2))[self::tei:category][ancestor::tei:taxonomy[@xml:id = ('metrica', 'rima', 'irregularidades')]]))">ana="<sch:value-of select="@ana"/>": cada valor debe remitir (#id) a una categoría de las taxonomías metrica, rima o irregularidades.</sch:assert>
+            </sch:rule>
+          </constraint>
+        </constraintSpec>
+
+        <!-- 4.2 Responsables: @resp y change/@who remiten a alguien declarado en el mismo archivo -->
+        <constraintSpec ident="fo-resp" scheme="schematron">
+          <constraint>
+            <sch:rule context="tei:*[@resp] | tei:change[@who]">
+              <sch:assert test="every $r in tokenize(normalize-space(string-join((@resp, self::tei:change/@who), ' ')), ' ') satisfies (starts-with($r, '#') and exists(id(substring($r, 2))))">"<sch:value-of select="string-join((@resp, self::tei:change/@who), ' ')"/>" debe remitir (#id) a una persona declarada en este archivo.</sch:assert>
+            </sch:rule>
+          </constraint>
+        </constraintSpec>
+
+        <!-- 4.3 Prefijos: todo valor con prefijo (texto:, cb:, p2009:...) se declara con prefixDef y cumple su patrón -->
+        <constraintSpec ident="fo-prefijos" scheme="schematron">
+          <constraint>
+            <sch:rule context="tei:*[@target or @source or @active or @passive]">
+              <sch:let name="valores" value="for $t in (@target, @source, @active, @passive) return tokenize(normalize-space($t), ' ')"/>
+              <sch:let name="defs" value="//tei:prefixDef"/>
+              <sch:let name="malos" value="for $t in $valores[matches(., '^[a-z][a-z0-9]*:')][not(matches(., '^https?:'))] return (if (some $d in $defs[@ident = substring-before($t, ':')] satisfies matches(substring-after($t, ':'), concat('^(', $d/@matchPattern, ')$'))) then () else $t)"/>
+              <sch:assert test="empty($malos)">Valor con prefijo que ningún prefixDef de este archivo declara o cuyo patrón no cumple: <sch:value-of select="string-join($malos, ' ')"/></sch:assert>
+            </sch:rule>
+          </constraint>
+        </constraintSpec>
+
+        <!-- 4.4 notas.xml -->
+        <constraintSpec ident="fo-note" scheme="schematron">
+          <constraint>
+            <sch:rule context="tei:note">
+              <sch:assert test="matches(@xml:id, '^n-([0-9]+|stg-[0-9]+(-[0-9]+)?)-[1-9][0-9]*$')">El xml:id de una nota sigue el patrón n-V-k o n-stg-...-k.</sch:assert>
+              <sch:assert test="every $t in tokenize(normalize-space(@target), ' ') satisfies starts-with($t, 'texto:')">Cada valor de target lleva el prefijo texto: (<sch:value-of select="@target"/>).</sch:assert>
+              <sch:assert test="every $a in tokenize(normalize-space(@ana), ' ') satisfies (starts-with($a, '#') and exists(id(substring($a, 2))[self::tei:category]))">ana="<sch:value-of select="@ana"/>" debe remitir (#id) a una categoría de la taxonomía de notas.</sch:assert>
+              <sch:assert test="every $c in tokenize(normalize-space(@change), ' ') satisfies (starts-with($c, '#') and exists(id(substring($c, 2))[self::tei:change]))">change="<sch:value-of select="@change"/>": cada valor debe remitir (#id) a un change del revisionDesc.</sch:assert>
+            </sch:rule>
+          </constraint>
+        </constraintSpec>
+
+        <!-- 4.5 relaciones.xml -->
+        <constraintSpec ident="fo-relation" scheme="schematron">
+          <constraint>
+            <sch:rule context="tei:relation">
+              <sch:assert test="every $a in tokenize(normalize-space(@active), ' ') satisfies starts-with($a, 'cb:')">active lleva el prefijo cb: (objeto de la colección).</sch:assert>
+              <sch:assert test="every $p in tokenize(normalize-space(@passive), ' ') satisfies starts-with($p, 'texto:')">Cada valor de passive lleva el prefijo texto: (pasaje del texto base).</sch:assert>
+              <sch:assert test="@xml:id = concat('rel-', substring-after(@active, 'cb:'))">El xml:id de la relación debe ser rel- seguido del objeto de active (rel-<sch:value-of select="substring-after(@active, 'cb:')"/>).</sch:assert>
+            </sch:rule>
+          </constraint>
+        </constraintSpec>
+
+      </schemaSpec>
+    </body>
+  </text>
+</TEI>
