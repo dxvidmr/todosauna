@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "jekyll",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-Command", "$env:Path = 'C:\\Ruby34-x64\\bin;' + $env:Path; bundle exec jekyll serve --host 127.0.0.1 --port 4000"],
+      "port": 4000
+    }
+  ]
+}

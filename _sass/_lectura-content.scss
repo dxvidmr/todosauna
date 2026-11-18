@@ -499,12 +499,25 @@ tei-castitem > tei-role > tei-supplied::before {
   content: "[";
 }
 
-// Sin coma entre el rol impreso y el añadido entre corchetes que lo sigue
-tei-castitem > tei-role:has(+ tei-role > tei-supplied)::after {
+tei-castitem > tei-roledesc > tei-supplied::after {
+  content: "]";
+}
+
+// La aclaración de PROLOPE 2009 al rol impreso: roleDesc y nombre van en dos
+// supplied dentro de un solo corchete, sin coma tras el rol impreso.
+tei-castitem > tei-role:has(+ tei-roledesc + tei-supplied)::after {
   content: none;
 }
 
-tei-castitem > tei-roledesc > tei-supplied::after {
+tei-castitem > tei-roledesc:has(+ tei-supplied) > tei-supplied::before {
+  content: "[";
+}
+
+tei-castitem > tei-roledesc:has(+ tei-supplied) > tei-supplied::after {
+  content: ",";
+}
+
+tei-castitem > tei-supplied::after {
   content: "]";
 }
 
@@ -524,7 +537,8 @@ tei-speaker tei-supplied::after {
   font-weight: 300;
 }
 
-.lectura-wrapper .text-column tei-castList tei-roledesc {
+.lectura-wrapper .text-column tei-castList tei-roledesc,
+.lectura-wrapper .text-column tei-castList tei-castitem > tei-supplied {
   color: $color-text-quiet;
   font-weight: 300;
 }

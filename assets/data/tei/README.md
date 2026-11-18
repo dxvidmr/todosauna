@@ -14,7 +14,7 @@ Los versos se identifican como `l-N` (con `-a` y `-b` si el verso se parte), los
 
 En los enlaces, `texto:` apunta a un elemento del texto base, `cb:` a un objeto de la colección digital y `p2009:` a la nota con ese número en la edición de PROLOPE. Cada prefijo se declara con `prefixDef` en la cabecera del archivo donde se usa.
 
-`supplied` marca lo que PROLOPE 2009 añade entre corchetes (en el reparto, en las acotaciones y en la etiqueta GENTE); `corr`, lo que corregimos del texto de PROLOPE 2009 (la errata ALCADE y el v. 542), y `reg`, la numeración de los regidores, que unificamos en cifras.
+`supplied` marca lo que PROLOPE 2009 añade entre corchetes (en el reparto, en las acotaciones y en la etiqueta GENTE). Su `reason` distingue dos casos: `omitted`, cuando el impreso de 1619 no trae ese texto, y `explanation`, cuando el impreso sí trae al personaje y PROLOPE 2009 aclara quién es, como en «Un regidor [Regidor 2, llamado Cuadrado]». `corr` marca lo que corregimos del texto de PROLOPE 2009 (la errata ALCADE y el v. 542), y `reg`, la numeración de los regidores, que unificamos en cifras.
 
 ## Versiones, `change` y procedencia
 
